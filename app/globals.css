@@ -114,3 +114,9 @@
     border-color: #e5e5e5 !important;
   }
 }
+
+/* Modo Blanco y Negro Fine Art (Emulación de Película de Grano de Plata / Ilford HP5) */
+html.fine-art-bw img:not([src*="svg"]) {
+  filter: grayscale(100%) contrast(116%) brightness(96%) !important;
+  transition: filter 0.4s ease;
+}

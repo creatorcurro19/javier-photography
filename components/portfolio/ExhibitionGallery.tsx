@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Photo } from "@/types/photo";
 import LightboxModal from "@/components/ui/LightboxModal";
+import ZenGalleryModal from "@/components/portfolio/ZenGalleryModal";
 
 type ExhibitionGalleryProps = {
   photos: Photo[];
@@ -13,6 +14,15 @@ type ExhibitionGalleryProps = {
 
 type ViewMode = "masonry" | "immersive" | "grid" | "archive";
 type FilterMode = "all" | "vertical" | "horizontal" | "telephoto" | "prints";
+type PaletteMode = "all" | "ochre" | "green" | "dark" | "earth";
+
+const PALETTES = [
+  { id: "all", label: "Toda la Paleta", color: null },
+  { id: "ochre", label: "Ocres & Calima", color: "bg-[#D4A373]" },
+  { id: "green", label: "Verde Profundo", color: "bg-[#4F772D]" },
+  { id: "dark", label: "Carbón & Asfalto", color: "bg-[#2B2D42]" },
+  { id: "earth", label: "Tierra & Granito", color: "bg-[#8D6E63]" },
+] as const;
 
 const INITIAL_BATCH = 24;
 
@@ -21,19 +31,66 @@ export default function ExhibitionGallery({
   showMeta = true,
 }: ExhibitionGalleryProps) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [zenOpen, setZenOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [viewMode, setViewMode] = useState<ViewMode>("masonry");
   const [filterMode, setFilterMode] = useState<FilterMode>("all");
+  const [paletteMode, setPaletteMode] = useState<PaletteMode>("all");
   const [visibleCount, setVisibleCount] = useState(INITIAL_BATCH);
 
   const filteredPhotos = photos.filter((photo) => {
-    if (filterMode === "vertical") return photo.height > photo.width;
-    if (filterMode === "horizontal") return photo.width > photo.height;
+    if (filterMode === "vertical" && photo.height <= photo.width) return false;
+    if (filterMode === "horizontal" && photo.width <= photo.height) return false;
     if (filterMode === "telephoto") {
       const mm = parseInt(photo.focalLength, 10);
-      return !Number.isNaN(mm) && mm >= 150;
+      if (Number.isNaN(mm) || mm < 150) return false;
     }
-    if (filterMode === "prints") return Boolean(photo.prints);
+    if (filterMode === "prints" && !photo.prints) return false;
+
+    if (paletteMode !== "all") {
+      const text = `${photo.category} ${photo.title} ${photo.location ?? ""} ${photo.keywords.join(" ")}`.toLowerCase();
+      if (paletteMode === "ochre") {
+        return (
+          text.includes("paisajes") ||
+          text.includes("sahara") ||
+          text.includes("duna") ||
+          text.includes("marruecos") ||
+          text.includes("teide") ||
+          text.includes("dorad")
+        );
+      }
+      if (paletteMode === "green") {
+        return (
+          text.includes("fauna") ||
+          text.includes("lince") ||
+          text.includes("bosque") ||
+          text.includes("ave") ||
+          text.includes("verde") ||
+          text.includes("gomera")
+        );
+      }
+      if (paletteMode === "dark") {
+        return (
+          text.includes("rally") ||
+          text.includes("coche") ||
+          text.includes("asfalto") ||
+          text.includes("nocturn") ||
+          text.includes("velocidad")
+        );
+      }
+      if (paletteMode === "earth") {
+        return (
+          text.includes("vera") ||
+          text.includes("caceres") ||
+          text.includes("arquitectura") ||
+          text.includes("pueblo") ||
+          text.includes("oficio") ||
+          text.includes("tradicion") ||
+          text.includes("piedra")
+        );
+      }
+    }
+
     return true;
   });
 
@@ -147,8 +204,65 @@ export default function ExhibitionGallery({
           >
             Archivo
           </button>
+          <span className="text-neutral-700">|</span>
+          <button
+            type="button"
+            onClick={() => setZenOpen(true)}
+            className="flex items-center gap-1.5 rounded border border-[#95836B]/60 bg-[#95836B]/15 px-2.5 py-1 text-[#D8D5CD] transition hover:border-[#95836B] hover:bg-[#95836B]/30"
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-[#95836B]" />
+            <span>Pase Zen</span>
+          </button>
         </div>
       </div>
+
+      {/* Selector de Armonía Cromática para Interiorismo */}
+      {photos.length > 6 && (
+        <div className="mb-8 flex flex-wrap items-center justify-between gap-3 border border-[#1D2021] bg-[#141617]/50 px-4 py-2.5">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
+              Armonía Cromática:
+            </span>
+            {PALETTES.map((pal) => {
+              const active = paletteMode === pal.id;
+              return (
+                <button
+                  key={pal.id}
+                  type="button"
+                  onClick={() => {
+                    setPaletteMode(pal.id);
+                    setSelectedIndex(0);
+                    setVisibleCount(INITIAL_BATCH);
+                  }}
+                  className={`flex items-center gap-1.5 border px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider transition ${
+                    active
+                      ? "border-[#95836B] bg-[#95836B]/20 text-[#D8D5CD]"
+                      : "border-transparent text-neutral-400 hover:border-[#1D2021] hover:text-[#D8D5CD]"
+                  }`}
+                >
+                  {pal.color && (
+                    <span
+                      aria-hidden="true"
+                      className={`h-2 w-2 rounded-full ${pal.color}`}
+                    />
+                  )}
+                  <span>{pal.label}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {paletteMode !== "all" && (
+            <button
+              type="button"
+              onClick={() => setPaletteMode("all")}
+              className="font-mono text-[10px] text-[#95836B] hover:text-white"
+            >
+              Restablecer paleta ×
+            </button>
+          )}
+        </div>
+      )}
 
       {viewMode === "archive" ? (
         /* Vista de Tabla Técnica de Archivo Museístico */
@@ -345,6 +459,13 @@ export default function ExhibitionGallery({
         isOpen={lightboxOpen}
         onClose={() => setLightboxOpen(false)}
         onNavigate={(newIndex) => setSelectedIndex(newIndex)}
+      />
+
+      <ZenGalleryModal
+        photos={filteredPhotos}
+        initialIndex={selectedIndex}
+        open={zenOpen}
+        onClose={() => setZenOpen(false)}
       />
     </>
   );

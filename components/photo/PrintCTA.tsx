@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CertificateOfAuthenticityModal from "@/components/prints/CertificateOfAuthenticityModal";
 import type { Photo } from "@/types/photo";
 
 type PrintCTAProps = {
@@ -80,6 +81,7 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
         >
           Ver Formatos
         </Link>
+        <CertificateOfAuthenticityModal photo={photo} />
       </div>
     </section>
   );

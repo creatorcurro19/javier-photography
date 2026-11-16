@@ -3,6 +3,7 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 import PrintScaleVisualizer from "@/components/prints/PrintScaleVisualizer";
 import OpticalLoupeInspector from "@/components/prints/OpticalLoupeInspector";
+import CertificateOfAuthenticityModal from "@/components/prints/CertificateOfAuthenticityModal";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getPrintablePhotos } from "@/lib/photos";
@@ -122,6 +123,12 @@ export default function PrintsPage() {
             >
               Encargo Directo al Autor
             </Link>
+            {printable.length > 0 && (
+              <CertificateOfAuthenticityModal
+                photo={printable[0]}
+                buttonLabel="Inspeccionar Certificado de Autenticidad (ISO 9706)"
+              />
+            )}
           </div>
         </div>
 
