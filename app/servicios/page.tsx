@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import SectionHeader from "@/components/ui/SectionHeader";
+import CommissionConfigurator from "@/components/servicios/CommissionConfigurator";
 import { buildPageMetadata } from "@/lib/metadata";
 
 export const metadata = buildPageMetadata({
@@ -86,6 +87,9 @@ export default function ServiciosPage() {
             que demanden una mirada personal, libre de artificios publicitarios genéricos.
           </p>
         </header>
+
+        {/* Interactive Commission Brief Builder */}
+        <CommissionConfigurator />
 
         {/* Services Grid */}
         <div className="mt-20 space-y-16">

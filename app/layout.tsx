@@ -3,6 +3,7 @@ import "./globals.css";
 
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import SavedCollectionDrawer from "@/components/photo/SavedCollectionDrawer";
 import JsonLd from "@/components/seo/JsonLd";
 import { generatePersonSchema } from "@/lib/schema";
 
@@ -69,6 +70,7 @@ export default function RootLayout({
         <JsonLd data={generatePersonSchema()} />
         <Navbar />
         <main id="main-content">{children}</main>
+        <SavedCollectionDrawer />
         <Footer />
       </body>
     </html>

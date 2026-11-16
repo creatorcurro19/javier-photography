@@ -27,6 +27,7 @@ export default function FavoriteButton({ title }: { title: string }) {
       : [...current, title];
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
     setSavedList(updated);
+    window.dispatchEvent(new Event("javier-selection-updated"));
   };
 
   return (
