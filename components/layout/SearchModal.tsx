@@ -37,7 +37,8 @@ export default function SearchModal() {
   const normalized = query.trim().toLowerCase();
 
   const matchedProjects = useMemo(() => {
-    if (!normalized) return allProjects.slice(0, 3);
+    if (!open) return [];
+    if (!normalized) return allProjects.slice(0, 4);
     return allProjects.filter(
       (p) =>
         p.title.toLowerCase().includes(normalized) ||
@@ -45,9 +46,10 @@ export default function SearchModal() {
         (p.location && p.location.toLowerCase().includes(normalized)) ||
         p.discipline.toLowerCase().includes(normalized)
     );
-  }, [allProjects, normalized]);
+  }, [allProjects, normalized, open]);
 
   const matchedPhotos = useMemo(() => {
+    if (!open) return [];
     if (!normalized) return allPhotos.slice(0, 6);
     return allPhotos
       .filter((p) => {
@@ -64,7 +66,7 @@ export default function SearchModal() {
         );
       })
       .slice(0, 12);
-  }, [allPhotos, normalized]);
+  }, [allPhotos, normalized, open]);
 
   const navigateTo = (href: string) => {
     setOpen(false);

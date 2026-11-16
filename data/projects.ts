@@ -155,4 +155,32 @@ export const PROJECTS: Project[] = [
       "pd-12",
     ],
   },
+  {
+    id: "biodiversidad-canaria",
+    slug: "biodiversidad-canaria",
+    title: "Macaronesia: Fauna y Costa Volcánica",
+    subtitle: "Aves de cumbre, fauna intermareal en el basalto y vida entre los alisios",
+    discipline: "WILDLIFE",
+    category: "fauna-naturaleza",
+    year: "2025 — 2026",
+    location: "Tenerife & Archipiélago Canario",
+    coverImage: "/images/portfolio/fauna-naturaleza/B51A8313.jpg",
+    description:
+      "Exploración de la biodiversidad insular: desde el cuervo canario en las crestas brumosas de Anaga hasta el cangrejo moro, el vuelvepiedras y la carabela portuguesa en los charcos de lava del Atlántico.",
+    statement: [
+      "El aislamiento oceánico y el relieve volcánico han moldeado en Canarias ecosistemas donde la vida se adapta al viento y a la roca negra. En las cumbres húmedas de Anaga, el cuervo canario domina los barrancos envueltos en niebla.",
+      "Al descender hacia la costa de basalto batida por el Atlántico, los charcos intermareales revelan un universo de color: el caparazón púrpura y escarlata del cangrejo moro, la vela translúcida de la carabela portuguesa y las aves limícolas que recorren la lava húmeda.",
+    ],
+    photoIds: [
+      "fn-15",
+      "fn-16",
+      "fn-18",
+      "fn-17",
+      "fn-21",
+      "fn-20",
+      "fn-19",
+      "fn-01",
+      "fn-02",
+    ],
+  },
 ];

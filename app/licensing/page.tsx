@@ -70,7 +70,8 @@ const TECHNICAL_SPECS = [
 ];
 
 export default function LicensingPage() {
-  const licensed = getLicensedPhotos();
+  const allLicensed = getLicensedPhotos();
+  const licensed = allLicensed.filter((p) => p.prints || p.featured).slice(0, 18);
 
   return (
     <div className="min-h-screen bg-[#101112] pt-36 pb-28 text-[#D8D5CD]">
@@ -168,7 +169,7 @@ export default function LicensingPage() {
                 Obras Destacadas para Licencia
               </p>
               <h2 className="mt-2 font-serif text-3xl font-light text-[#D8D5CD]">
-                Catálogo de imágenes disponibles ({licensed.length} fotografías)
+                Selección destacada del banco de imágenes ({allLicensed.length} obras en archivo)
               </h2>
             </div>
             <p className="text-xs text-[#95836B] font-mono">

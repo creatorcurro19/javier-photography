@@ -18,6 +18,46 @@ export default function ExifPanel({ photo }: ExifPanelProps) {
     ((Math.log(mmValue) - Math.log(10)) / (Math.log(600) - Math.log(10))) * 100
   );
 
+  const PALETTES: Record<string, { hex: string; name: string }[]> = {
+    "fauna-naturaleza": [
+      { hex: "#161B15", name: "Bosque Profundo" },
+      { hex: "#3A4B34", name: "Musgo" },
+      { hex: "#7C6D52", name: "Liquen" },
+      { hex: "#B5996D", name: "Ocre Cálido" },
+      { hex: "#DFD7C8", name: "Luz Matinal" },
+    ],
+    "paisajes-documental": [
+      { hex: "#141619", name: "Basalto" },
+      { hex: "#3D2B22", name: "Tierra Umbra" },
+      { hex: "#8B5A33", name: "Arena Sahariana" },
+      { hex: "#C88A4B", name: "Ámbar Solar" },
+      { hex: "#E6C79C", name: "Horizonte" },
+    ],
+    "coches-rally": [
+      { hex: "#121417", name: "Neumático" },
+      { hex: "#2B3036", name: "Asfalto Húmedo" },
+      { hex: "#6B727A", name: "Acero" },
+      { hex: "#A84232", name: "Rojo Competición" },
+      { hex: "#DCD9D0", name: "Humo y Cal" },
+    ],
+    "arquitectura-urbana": [
+      { hex: "#111214", name: "Penumbra" },
+      { hex: "#332920", name: "Madera Verata" },
+      { hex: "#6E5A46", name: "Granito y Adobe" },
+      { hex: "#B58E58", name: "Luz de Farola" },
+      { hex: "#E4DFD5", name: "Cal Blanca" },
+    ],
+    "viajes-cultura": [
+      { hex: "#141210", name: "Fragua" },
+      { hex: "#4A2E1B", name: "Cedro y Especia" },
+      { hex: "#8C4A27", name: "Terracota" },
+      { hex: "#C48B45", name: "Chispa Dorada" },
+      { hex: "#E5DEC9", name: "Piedra" },
+    ],
+  };
+
+  const swatches = PALETTES[photo.category] ?? PALETTES["paisajes-documental"];
+
   return (
     <section
       aria-labelledby="exif-heading"
@@ -58,6 +98,27 @@ export default function ExifPanel({ photo }: ExifPanelProps) {
             style={{ left: `${focalPct}%` }}
             className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 h-3 w-3 rounded-full border-2 border-[#101112] bg-[#D8D5CD] shadow"
           />
+        </div>
+      </div>
+
+      {/* Paleta Cromática Armónica para Interiorismo y Dirección de Arte */}
+      <div className="mt-6 border-t border-[#1D2021] pt-5">
+        <span className="block text-[10px] uppercase tracking-[0.2em] text-[#95836B]">
+          Gama Tonal Dominante (Referencia de Interiorismo)
+        </span>
+        <div className="mt-3 grid grid-cols-5 gap-2">
+          {swatches.map((s) => (
+            <div key={s.hex} className="group flex flex-col items-center gap-1.5">
+              <div
+                style={{ backgroundColor: s.hex }}
+                className="h-6 w-full rounded border border-white/10 shadow-inner"
+                title={`${s.name} (${s.hex})`}
+              />
+              <span className="truncate max-w-full text-[9px] text-neutral-400">
+                {s.hex}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </section>

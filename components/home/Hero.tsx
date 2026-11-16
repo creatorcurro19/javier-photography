@@ -59,9 +59,12 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-svh w-full bg-[#101112] overflow-hidden flex items-center justify-center">
-      {/* Slideshow de obras maestras horizontales (Escritorio) y verticales (Móvil) */}
+      {/* Slideshow optimizado: solo monta la diapositiva activa y la siguiente para carga instantánea */}
       {HERO_SLIDES.map((slide, idx) => {
         const isCurrent = idx === activeSlide;
+        const isNext = idx === (activeSlide + 1) % HERO_SLIDES.length;
+        if (!isCurrent && !isNext) return null;
+
         return (
           <div
             key={slide.id}
@@ -75,6 +78,7 @@ export default function Hero() {
               alt={`${slide.title} — Fotografía de autor por Javier Espinosa Martínez`}
               fill
               priority={idx === 0}
+              loading={idx === 0 ? "eager" : "lazy"}
               sizes="100vw"
               className={`hidden sm:block object-cover ${slide.position} brightness-[0.92] contrast-[1.04]`}
             />
@@ -83,6 +87,7 @@ export default function Hero() {
               alt={`${slide.title} — Fotografía de autor por Javier Espinosa Martínez`}
               fill
               priority={idx === 0}
+              loading={idx === 0 ? "eager" : "lazy"}
               sizes="100vw"
               className="block sm:hidden object-cover object-center brightness-[0.92] contrast-[1.04]"
             />

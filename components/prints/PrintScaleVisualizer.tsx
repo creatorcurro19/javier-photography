@@ -82,6 +82,7 @@ const FINISHES = [
 export default function PrintScaleVisualizer() {
   const [selectedFormat, setSelectedFormat] = useState<(typeof FORMATS)[number]>(FORMATS[1]);
   const [frameType, setFrameType] = useState<(typeof FINISHES)[number]["id"]>("black");
+  const [wallColor, setWallColor] = useState<"dark" | "ivory" | "sand">("dark");
   const [layoutMode, setLayoutMode] = useState<"single" | "diptych">("single");
   const [sampleIdxA, setSampleIdxA] = useState(0);
   const [sampleIdxB, setSampleIdxB] = useState(1);
@@ -195,26 +196,61 @@ export default function PrintScaleVisualizer() {
         )}
       </div>
 
-      <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
-        <span className="text-[11px] uppercase tracking-wider text-[#95836B]">Acabado:</span>
-        {FINISHES.map((f) => (
-          <button
-            key={f.id}
-            type="button"
-            onClick={() => setFrameType(f.id)}
-            className={`rounded px-2.5 py-1 text-[11px] transition ${
-              frameType === f.id
-                ? "bg-[#1D2021] text-[#D8D5CD] font-medium border border-[#95836B]/50"
-                : "text-neutral-400 hover:text-[#D8D5CD]"
-            }`}
-          >
-            {f.label}
-          </button>
-        ))}
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-4 text-xs">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-[11px] uppercase tracking-wider text-[#95836B]">Acabado:</span>
+          {FINISHES.map((f) => (
+            <button
+              key={f.id}
+              type="button"
+              onClick={() => setFrameType(f.id)}
+              className={`rounded px-2.5 py-1 text-[11px] transition ${
+                frameType === f.id
+                  ? "bg-[#1D2021] text-[#D8D5CD] font-medium border border-[#95836B]/50"
+                  : "text-neutral-400 hover:text-[#D8D5CD]"
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-[11px] uppercase tracking-wider text-[#95836B]">Ambiente de Pared:</span>
+          {(
+            [
+              { id: "dark", label: "Galería Oscura", dot: "bg-[#1C1E20]" },
+              { id: "ivory", label: "Blanco Museo", dot: "bg-[#F2EFE9]" },
+              { id: "sand", label: "Piedra Cálida", dot: "bg-[#D2C9BC]" },
+            ] as const
+          ).map((w) => (
+            <button
+              key={w.id}
+              type="button"
+              onClick={() => setWallColor(w.id)}
+              className={`inline-flex items-center gap-1.5 rounded px-2.5 py-1 text-[11px] transition ${
+                wallColor === w.id
+                  ? "bg-[#1D2021] text-[#D8D5CD] font-medium border border-[#95836B]/50"
+                  : "text-neutral-400 hover:text-[#D8D5CD]"
+              }`}
+            >
+              <span className={`h-2.5 w-2.5 rounded-full border border-white/20 ${w.dot}`} />
+              <span>{w.label}</span>
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Escenario de Pared de Galería */}
-      <div className="relative mt-8 flex min-h-[390px] sm:min-h-[460px] flex-col items-center justify-between overflow-hidden rounded-lg border border-[#1D2021] bg-gradient-to-b from-[#232629] via-[#1C1E20] to-[#141617] px-6 pt-12 pb-6">
+      <div
+        className={`relative mt-8 flex min-h-[390px] sm:min-h-[460px] flex-col items-center justify-between overflow-hidden rounded-lg border border-[#1D2021] px-6 pt-12 pb-6 transition-colors duration-500 ${
+          wallColor === "dark"
+            ? "bg-gradient-to-b from-[#232629] via-[#1C1E20] to-[#141617]"
+            : wallColor === "ivory"
+            ? "bg-gradient-to-b from-[#F4F2ED] via-[#EAE6DF] to-[#DCD7CE]"
+            : "bg-gradient-to-b from-[#D8D0C4] via-[#CBBFB0] to-[#B8AA99]"
+        }`}
+      >
         <div className="flex flex-1 items-center justify-center gap-6 sm:gap-10 w-full">
           {[workA, ...(layoutMode === "diptych" ? [workB] : [])].map((work, i) => {
             const effectiveWidth =

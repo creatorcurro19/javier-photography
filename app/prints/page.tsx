@@ -249,6 +249,52 @@ export default function PrintsPage() {
             </div>
           </div>
         </div>
+
+        {/* FAQ de Coleccionistas */}
+        <section aria-labelledby="prints-faq" className="mt-24 border-t border-[#1D2021] pt-16">
+          <div className="max-w-2xl">
+            <p className="text-xs uppercase tracking-[0.35em] text-[#95836B]">
+              Preguntas Frecuentes de Coleccionistas
+            </p>
+            <h2 id="prints-faq" className="mt-2 font-serif text-3xl font-light text-[#D8D5CD]">
+              Conservación, tiradas, plazos y envíos asegurados
+            </h2>
+          </div>
+
+          <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-2">
+            {[
+              {
+                q: "¿Cómo se entrega y protege cada copia Fine Art?",
+                a: "Las copias sin enmarcar se envían envueltas en papel seda libre de ácido dentro de un tubo rígido de alta densidad (o carpeta plana rígida para formato Estudio). Las obras enmarcadas viajan en cajón protegido a medida con seguro a todo riesgo.",
+              },
+              {
+                q: "¿Qué incluye el Certificado de Autenticidad?",
+                a: "Cada obra va acompañada de un documento firmado de puño y letra por Javier Espinosa Martínez indicando título, fecha, soporte Hahnemühle Photo Rag® 308g, número de ejemplar dentro de la edición limitada y holograma numerado.",
+              },
+              {
+                q: "¿Cuál es el plazo habitual de producción y entrega?",
+                a: "Dado que cada copia se imprime bajo demanda con supervisión directa de prueba de color en laboratorio profesional, el plazo de entrega es de 5 a 8 días laborables para láminas sueltas y de 10 a 14 días laborables para obras enmarcadas a medida.",
+              },
+              {
+                q: "¿Puedo solicitar una fotografía del archivo que no aparezca en esta selección?",
+                a: "Sí. Aunque esta página reúne las 20 obras principales de edición limitada, cualquiera de las 100 obras del archivo puede producirse bajo pedido en papel Hahnemühle o en formato díptico indicando su título en el formulario de contacto.",
+              },
+            ].map((item) => (
+              <details
+                key={item.q}
+                className="group rounded-lg border border-[#1D2021] bg-[#1D2021]/30 p-6 transition hover:border-[#95836B]/50"
+              >
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-serif text-lg text-[#D8D5CD]">
+                  <span>{item.q}</span>
+                  <span className="text-xs text-[#95836B] transition group-open:rotate-45">+</span>
+                </summary>
+                <p className="mt-4 text-xs leading-relaxed text-[#D8D5CD]/80 font-light">
+                  {item.a}
+                </p>
+              </details>
+            ))}
+          </div>
+        </section>
       </Container>
     </div>
   );

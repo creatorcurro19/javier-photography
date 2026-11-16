@@ -199,6 +199,52 @@ export default function ServiciosPage() {
             </Link>
           </div>
         </section>
+
+        {/* FAQ de Clientes y Encargos */}
+        <section aria-labelledby="servicios-faq" className="mt-24 border-t border-[#1D2021] pt-16">
+          <div className="max-w-2xl">
+            <p className="text-xs uppercase tracking-[0.35em] text-[#95836B]">
+              Preguntas Frecuentes sobre Coberturas y Encargos
+            </p>
+            <h2 id="servicios-faq" className="mt-2 font-serif text-3xl font-light text-[#D8D5CD]">
+              Metodología de trabajo, entregas y licencias
+            </h2>
+          </div>
+
+          <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-2">
+            {[
+              {
+                q: "¿Cómo se planifica la cobertura de un rally o evento de motor?",
+                a: "Antes de la prueba se estudian el rutómetro, los horarios de corte y la orientación solar de cada tramo. Se combinan tomas en el parque de asistencia (ambiente, detalles mecánicos y pilotos) con disparos en curva y horquilla hasta 600mm.",
+              },
+              {
+                q: "¿En qué formato y plazo se entregan los reportajes?",
+                a: "Se entrega una galería privada en alta resolución (archivos máster de 32,5 MP revelados individualmente y versiones optimizadas para prensa/web) en un plazo de 48 a 72 horas tras el evento, con opción de adelanto en el mismo día para notas de prensa.",
+              },
+              {
+                q: "¿Realizas desplazamientos fuera de tu provincia o a las islas?",
+                a: "Sí. Trabajo habitualmente tanto en la Península Ibérica (Extremadura, Salamanca, Madrid, Gredos) como en las Islas Canarias y proyectos internacionales.",
+              },
+              {
+                q: "¿Los encargos de arquitectura y turismo incluyen licencia de uso comercial?",
+                a: "Sí, cada presupuesto incluye por escrito la cesión de derechos adaptada a las necesidades del cliente (web corporativa, catálogos impresos, campañas editoriales o promoción institucional).",
+              },
+            ].map((item) => (
+              <details
+                key={item.q}
+                className="group rounded-lg border border-[#1D2021] bg-[#1D2021]/30 p-6 transition hover:border-[#95836B]/50"
+              >
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-serif text-lg text-[#D8D5CD]">
+                  <span>{item.q}</span>
+                  <span className="text-xs text-[#95836B] transition group-open:rotate-45">+</span>
+                </summary>
+                <p className="mt-4 text-xs leading-relaxed text-[#D8D5CD]/80 font-light">
+                  {item.a}
+                </p>
+              </details>
+            ))}
+          </div>
+        </section>
       </Container>
     </div>
   );

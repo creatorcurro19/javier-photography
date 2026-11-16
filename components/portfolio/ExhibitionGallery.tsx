@@ -11,8 +11,10 @@ type ExhibitionGalleryProps = {
   showMeta?: boolean;
 };
 
-type ViewMode = "masonry" | "immersive" | "grid";
+type ViewMode = "masonry" | "immersive" | "grid" | "archive";
 type FilterMode = "all" | "vertical" | "horizontal" | "telephoto" | "prints";
+
+const INITIAL_BATCH = 24;
 
 export default function ExhibitionGallery({
   photos,
@@ -22,6 +24,7 @@ export default function ExhibitionGallery({
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [viewMode, setViewMode] = useState<ViewMode>("masonry");
   const [filterMode, setFilterMode] = useState<FilterMode>("all");
+  const [visibleCount, setVisibleCount] = useState(INITIAL_BATCH);
 
   const filteredPhotos = photos.filter((photo) => {
     if (filterMode === "vertical") return photo.height > photo.width;
@@ -33,6 +36,11 @@ export default function ExhibitionGallery({
     if (filterMode === "prints") return Boolean(photo.prints);
     return true;
   });
+
+  const visiblePhotos =
+    viewMode === "archive"
+      ? filteredPhotos
+      : filteredPhotos.slice(0, visibleCount);
 
   if (photos.length === 0) {
     return (
@@ -75,6 +83,7 @@ export default function ExhibitionGallery({
                   onClick={() => {
                     setFilterMode(item.id);
                     setSelectedIndex(0);
+                    setVisibleCount(INITIAL_BATCH);
                   }}
                   className={`rounded-full px-3 py-1 transition ${
                     filterMode === item.id
@@ -126,24 +135,96 @@ export default function ExhibitionGallery({
           >
             Índice
           </button>
+          <span className="text-neutral-700">·</span>
+          <button
+            type="button"
+            onClick={() => setViewMode("archive")}
+            className={`rounded px-2.5 py-1 transition ${
+              viewMode === "archive"
+                ? "bg-[#1D2021] text-[#D8D5CD] font-medium"
+                : "hover:text-[#D8D5CD]"
+            }`}
+          >
+            Archivo
+          </button>
         </div>
       </div>
 
-      {/* Grid Rendering by ViewMode.
-          Todas las vistas respetan la proporción original de cada fotografía:
-          las verticales se muestran completas y las horizontales sin franjas vacías. */}
-      <div
-        className={
-          viewMode === "masonry"
-            ? "columns-1 gap-8 sm:columns-2 lg:columns-3"
-            : viewMode === "immersive"
-            ? "mx-auto flex max-w-5xl flex-col items-center gap-24"
-            : "columns-2 gap-4 sm:columns-3 md:columns-4 lg:columns-5"
-        }
-      >
-        {filteredPhotos.map((photo, index) => {
-          return (
-            <figure
+      {viewMode === "archive" ? (
+        /* Vista de Tabla Técnica de Archivo Museístico */
+        <div className="overflow-x-auto rounded-lg border border-[#1D2021] bg-[#1D2021]/20">
+          <table className="w-full text-left text-xs">
+            <thead className="border-b border-[#1D2021] bg-[#101112]/80 text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
+              <tr>
+                <th className="py-3.5 px-4">Obra</th>
+                <th className="py-3.5 px-4">Título</th>
+                <th className="hidden md:table-cell py-3.5 px-4">Localización</th>
+                <th className="hidden sm:table-cell py-3.5 px-4">Óptica & EXIF</th>
+                <th className="py-3.5 px-4 text-right">Ficha</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#1D2021]/60">
+              {filteredPhotos.map((photo, index) => (
+                <tr
+                  key={photo.id}
+                  onClick={() => openLightbox(index)}
+                  className="cursor-pointer transition hover:bg-[#1D2021]/60"
+                >
+                  <td className="py-2.5 px-4 w-16">
+                    <div className="relative h-10 w-14 overflow-hidden rounded bg-[#1D2021]">
+                      <Image
+                        src={photo.image}
+                        alt={photo.alt}
+                        fill
+                        sizes="56px"
+                        className="object-cover"
+                      />
+                    </div>
+                  </td>
+                  <td className="py-2.5 px-4 font-serif text-base text-[#D8D5CD]">
+                    {photo.title}
+                    {photo.prints && (
+                      <span className="ml-2 rounded border border-[#95836B]/40 px-1.5 py-0.5 font-sans text-[9px] uppercase tracking-wider text-[#95836B]">
+                        Fine Art
+                      </span>
+                    )}
+                  </td>
+                  <td className="hidden md:table-cell py-2.5 px-4 text-neutral-400">
+                    {photo.location ?? "España / Archivo"}
+                  </td>
+                  <td className="hidden sm:table-cell py-2.5 px-4 text-[#95836B]">
+                    {photo.focalLength} · {photo.aperture} · {photo.shutter} · ISO {photo.iso}
+                  </td>
+                  <td className="py-2.5 px-4 text-right">
+                    <Link
+                      href={`/portfolio/${photo.slug}`}
+                      onClick={(e) => e.stopPropagation()}
+                      className="text-[11px] uppercase tracking-wider text-[#D8D5CD] underline underline-offset-4 hover:text-white"
+                    >
+                      Abrir →
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        /* Grid Rendering by ViewMode.
+           Todas las vistas respetan la proporción original de cada fotografía:
+           las verticales se muestran completas y las horizontales sin franjas vacías. */
+        <div
+          className={
+            viewMode === "masonry"
+              ? "columns-1 gap-8 sm:columns-2 lg:columns-3"
+              : viewMode === "immersive"
+              ? "mx-auto flex max-w-5xl flex-col items-center gap-24"
+              : "columns-2 gap-4 sm:columns-3 md:columns-4 lg:columns-5"
+          }
+        >
+          {visiblePhotos.map((photo, index) => {
+            return (
+              <figure
               key={photo.id}
               className={`group overflow-hidden rounded-lg border border-[#1D2021] bg-[#1D2021]/40 transition duration-500 hover:border-[#95836B]/60 hover:bg-[#1D2021]/70 ${
                 viewMode === "masonry"
@@ -230,7 +311,33 @@ export default function ExhibitionGallery({
             </figure>
           );
         })}
-      </div>
+        </div>
+      )}
+
+      {/* Paginación progresiva para carga instantánea en colecciones grandes */}
+      {viewMode !== "archive" && filteredPhotos.length > visibleCount && (
+        <div className="mt-14 flex flex-col items-center justify-center gap-3">
+          <p className="text-xs text-[#95836B]">
+            Mostrando {visiblePhotos.length} de {filteredPhotos.length} fotografías
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <button
+              type="button"
+              onClick={() => setVisibleCount((prev) => prev + INITIAL_BATCH)}
+              className="border border-[#D8D5CD] bg-[#D8D5CD] px-8 py-3 text-xs uppercase tracking-[0.28em] text-[#101112] font-medium transition hover:bg-transparent hover:text-white"
+            >
+              Cargar 24 obras más
+            </button>
+            <button
+              type="button"
+              onClick={() => setVisibleCount(filteredPhotos.length)}
+              className="border border-[#1D2021] bg-[#1D2021]/60 px-6 py-3 text-xs uppercase tracking-[0.25em] text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
+            >
+              Ver las {filteredPhotos.length} obras
+            </button>
+          </div>
+        </div>
+      )}
 
       <LightboxModal
         photos={filteredPhotos}
