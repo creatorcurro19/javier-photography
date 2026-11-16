@@ -4,8 +4,10 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 import ExhibitionGallery from "@/components/portfolio/ExhibitionGallery";
 import ProjectEssayContainer from "@/components/portfolio/ProjectEssayContainer";
+import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getAllProjects, getProjectBySlug, getProjectPhotos } from "@/lib/photos";
+import { generateBreadcrumbSchema, generateProjectSchema } from "@/lib/schema";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -48,6 +50,14 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
   return (
     <ProjectEssayContainer>
+      <JsonLd data={generateProjectSchema(project, projectPhotos)} />
+      <JsonLd
+        data={generateBreadcrumbSchema([
+          { name: "Inicio", path: "/" },
+          { name: "Proyectos", path: "/projects" },
+          { name: project.title, path: `/projects/${project.slug}` },
+        ])}
+      />
       {/* Breadcrumb Bar */}
       <div className="border-b border-[#1D2021] bg-[#101112]/60">
         <Container className="py-4">

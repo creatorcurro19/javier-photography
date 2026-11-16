@@ -1,41 +1,48 @@
 import type { MetadataRoute } from "next";
-import { getAllPhotoSlugs, getAllProjects, PHOTO_CATEGORIES } from "@/lib/photos";
+import { getAllPhotos, getAllProjects, PHOTO_CATEGORIES } from "@/lib/photos";
+import { CATEGORY_METADATA } from "@/types/photo";
 
 const BASE = "https://www.javierespinosa.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = [
-    "",
-    "/portfolio",
-    "/projects",
-    "/servicios",
-    "/prints",
-    "/stories",
-    "/about",
-    "/contact",
-    "/licensing",
-    "/legal",
-  ];
-
-  const categoryRoutes = PHOTO_CATEGORIES.map((category) => `/portfolio/${category}`);
-  const photoRoutes = getAllPhotoSlugs().map((slug) => `/portfolio/${slug}`);
-  const projectRoutes = getAllProjects().map((project) => `/projects/${project.slug}`);
   const lastModified = new Date();
 
-  return [...staticRoutes, ...categoryRoutes, ...photoRoutes, ...projectRoutes].map((path) => ({
-    url: `${BASE}${path}`,
+  const staticRoutes: MetadataRoute.Sitemap = [
+    { url: `${BASE}`, lastModified, changeFrequency: "weekly", priority: 1.0 },
+    { url: `${BASE}/portfolio`, lastModified, changeFrequency: "weekly", priority: 0.95 },
+    { url: `${BASE}/projects`, lastModified, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${BASE}/prints`, lastModified, changeFrequency: "monthly", priority: 0.85 },
+    { url: `${BASE}/servicios`, lastModified, changeFrequency: "monthly", priority: 0.85 },
+    { url: `${BASE}/licensing`, lastModified, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/stories`, lastModified, changeFrequency: "monthly", priority: 0.75 },
+    { url: `${BASE}/about`, lastModified, changeFrequency: "monthly", priority: 0.75 },
+    { url: `${BASE}/contact`, lastModified, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE}/legal`, lastModified, changeFrequency: "yearly", priority: 0.3 },
+  ];
+
+  const categoryRoutes: MetadataRoute.Sitemap = PHOTO_CATEGORIES.map((category) => ({
+    url: `${BASE}/portfolio/${category}`,
     lastModified,
-    changeFrequency:
-      path === "" ? ("weekly" as const) : path.startsWith("/portfolio/") ? ("monthly" as const) : ("monthly" as const),
-    priority:
-      path === ""
-        ? 1.0
-        : path === "/portfolio"
-        ? 0.9
-        : path === "/servicios" || path === "/prints"
-        ? 0.8
-        : path.split("/").length === 3 && PHOTO_CATEGORIES.includes(path.split("/")[2] as (typeof PHOTO_CATEGORIES)[number])
-        ? 0.8
-        : 0.6,
+    changeFrequency: "weekly",
+    priority: 0.85,
+    images: [`${BASE}${CATEGORY_METADATA[category].coverImage}`],
   }));
+
+  const projectRoutes: MetadataRoute.Sitemap = getAllProjects().map((project) => ({
+    url: `${BASE}/projects/${project.slug}`,
+    lastModified,
+    changeFrequency: "monthly",
+    priority: 0.8,
+    images: [`${BASE}${project.coverImage}`],
+  }));
+
+  const photoRoutes: MetadataRoute.Sitemap = getAllPhotos().map((photo) => ({
+    url: `${BASE}/portfolio/${photo.slug}`,
+    lastModified,
+    changeFrequency: "monthly",
+    priority: photo.featured || photo.prints ? 0.75 : 0.65,
+    images: [`${BASE}${photo.image}`],
+  }));
+
+  return [...staticRoutes, ...categoryRoutes, ...projectRoutes, ...photoRoutes];
 }

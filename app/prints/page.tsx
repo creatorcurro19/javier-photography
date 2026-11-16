@@ -3,8 +3,10 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 import PrintScaleVisualizer from "@/components/prints/PrintScaleVisualizer";
 import OpticalLoupeInspector from "@/components/prints/OpticalLoupeInspector";
+import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getPrintablePhotos } from "@/lib/photos";
+import { generateFAQSchema } from "@/lib/schema";
 
 export const metadata = buildPageMetadata({
   title: "Copias Fine Art | Javier Espinosa",
@@ -67,9 +69,28 @@ const SPECS = [
 
 export default function PrintsPage() {
   const printable = getPrintablePhotos();
+  const printFaqs = [
+    {
+      q: "¿Cómo se entrega y protege cada copia Fine Art?",
+      a: "Las copias sin enmarcar se envían envueltas en papel seda libre de ácido dentro de un tubo rígido de alta densidad (o carpeta plana rígida para formato Estudio). Las obras enmarcadas viajan en cajón protegido a medida con seguro a todo riesgo.",
+    },
+    {
+      q: "¿Qué incluye el Certificado de Autenticidad?",
+      a: "Cada obra va acompañada de un documento firmado de puño y letra por Javier Espinosa Martínez indicando título, fecha, soporte Hahnemühle Photo Rag® 308g, número de ejemplar dentro de la edición limitada y holograma numerado.",
+    },
+    {
+      q: "¿Cuál es el plazo habitual de producción y entrega?",
+      a: "Dado que cada copia se imprime bajo demanda con supervisión directa de prueba de color en laboratorio profesional, el plazo de entrega es de 5 a 8 días laborables para láminas sueltas y de 10 a 14 días laborables para obras enmarcadas a medida.",
+    },
+    {
+      q: "¿Puedo solicitar una fotografía del archivo que no aparezca en esta selección?",
+      a: "Sí. Aunque esta página reúne las 20 obras principales de edición limitada, cualquiera de las 100 obras del archivo puede producirse bajo pedido en papel Hahnemühle o en formato díptico indicando su título en el formulario de contacto.",
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-[#101112] pt-36 pb-28 text-[#D8D5CD]">
+      <JsonLd data={generateFAQSchema(printFaqs)} />
       <Container>
         {/* Header Section */}
         <div className="max-w-3xl">

@@ -2,7 +2,9 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 import SectionHeader from "@/components/ui/SectionHeader";
 import CommissionConfigurator from "@/components/servicios/CommissionConfigurator";
+import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/metadata";
+import { generateFAQSchema, generateServiceSchema } from "@/lib/schema";
 
 export const metadata = buildPageMetadata({
   title: "Servicios y Encargos Fotográficos",
@@ -71,8 +73,29 @@ const servicios = [
 ];
 
 export default function ServiciosPage() {
+  const faqItems = [
+    {
+      q: "¿Cómo se planifica la cobertura de un rally o evento de motor?",
+      a: "Antes de la prueba se estudian el rutómetro, los horarios de corte y la orientación solar de cada tramo. Se combinan tomas en el parque de asistencia (ambiente, detalles mecánicos y pilotos) con disparos en curva y horquilla hasta 600mm.",
+    },
+    {
+      q: "¿En qué formato y plazo se entregan los reportajes?",
+      a: "Se entrega una galería privada en alta resolución (archivos máster de 32,5 MP revelados individualmente y versiones optimizadas para prensa/web) en un plazo de 48 a 72 horas tras el evento, con opción de adelanto en el mismo día para notas de prensa.",
+    },
+    {
+      q: "¿Realizas desplazamientos fuera de tu provincia o a las islas?",
+      a: "Sí. Trabajo habitualmente tanto en la Península Ibérica (Extremadura, Salamanca, Madrid, Gredos) como en las Islas Canarias y proyectos internacionales.",
+    },
+    {
+      q: "¿Los encargos de arquitectura y turismo incluyen licencia de uso comercial?",
+      a: "Sí, cada presupuesto incluye por escrito la cesión de derechos adaptada a las necesidades del cliente (web corporativa, catálogos impresos, campañas editoriales o promoción institucional).",
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-[#101112] pt-36 pb-28 text-[#D8D5CD]">
+      <JsonLd data={generateServiceSchema()} />
+      <JsonLd data={generateFAQSchema(faqItems)} />
       <Container>
         {/* Header */}
         <header className="max-w-3xl">
