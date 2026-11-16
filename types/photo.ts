@@ -65,7 +65,7 @@ export const CATEGORY_METADATA: Record<
     subtitle: "Fauna salvaje, biodiversidad y comportamiento animal en libertad",
     description:
       "Aproximación respetuosa a la fauna silvestre y la biodiversidad en su hábitat natural. Instantes capturados con paciencia, luz natural y teleobjetivo en condiciones de campo.",
-    coverImage: "/images/portfolio/fauna-naturaleza/B51A8662.jpg",
+    coverImage: "/images/portfolio/fauna-naturaleza/B51A4853.jpg",
   },
   "paisajes-documental": {
     code: "LANDSCAPES",
@@ -89,7 +89,7 @@ export const CATEGORY_METADATA: Record<
     subtitle: "Arquitectura contemporánea, geometrías, luces nocturnas y escala cotidiana",
     description:
       "Exploración de la geometría urbana, la fotografía nocturna bajo la luz disponible y la relación entre la arquitectura construida y el paso del tiempo.",
-    coverImage: "/images/portfolio/arquitectura-urbana/B51A2679.jpg",
+    coverImage: "/images/portfolio/arquitectura-urbana/B51A4877.jpg",
   },
   "viajes-cultura": {
     code: "DOCUMENTARY",

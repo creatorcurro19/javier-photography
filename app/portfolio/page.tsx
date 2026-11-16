@@ -21,7 +21,7 @@ export default function PortfolioPage() {
           <p className="text-xs font-mono uppercase tracking-[0.4em] text-[#95836B]">
             Archivo de Autor
           </p>
-          <h1 className="mt-4 font-serif text-5xl font-light tracking-tight md:text-6xl text-[#D8D5CD]">
+          <h1 className="mt-4 font-serif text-5xl font-light tracking-wide leading-[1.15] md:text-6xl text-[#D8D5CD]">
             Colecciones Fotográficas
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-[#D8D5CD]/80 font-light">

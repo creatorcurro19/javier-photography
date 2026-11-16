@@ -79,7 +79,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             )}
           </div>
 
-          <h1 className="mt-6 font-serif text-4xl font-light text-[#D8D5CD] sm:text-5xl md:text-6xl tracking-tight">
+          <h1 className="mt-6 font-serif text-4xl font-light text-[#D8D5CD] sm:text-5xl md:text-6xl tracking-wide leading-[1.15]">
             {project.title}
           </h1>
 

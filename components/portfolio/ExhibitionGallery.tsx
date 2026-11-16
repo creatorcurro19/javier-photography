@@ -85,18 +85,19 @@ export default function ExhibitionGallery({
         </div>
       </div>
 
-      {/* Grid Rendering by ViewMode */}
+      {/* Grid Rendering by ViewMode.
+          Todas las vistas respetan la proporción original de cada fotografía:
+          las verticales se muestran completas y las horizontales sin franjas vacías. */}
       <div
         className={
           viewMode === "masonry"
-            ? "columns-1 gap-8 sm:columns-2 lg:columns-3 2xl:columns-4"
+            ? "columns-1 gap-8 sm:columns-2 lg:columns-3"
             : viewMode === "immersive"
-            ? "mx-auto max-w-4xl space-y-24"
-            : "grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+            ? "mx-auto flex max-w-5xl flex-col items-center gap-24"
+            : "columns-2 gap-4 sm:columns-3 md:columns-4 lg:columns-5"
         }
       >
         {photos.map((photo, index) => {
-          const isVertical = photo.height > photo.width;
           const categoryTitle =
             CATEGORY_METADATA[photo.category]?.title ?? photo.category;
 
@@ -104,7 +105,11 @@ export default function ExhibitionGallery({
             <figure
               key={photo.id}
               className={`group overflow-hidden rounded-lg border border-[#1D2021] bg-[#1D2021]/40 transition duration-500 hover:border-[#95836B]/60 hover:bg-[#1D2021]/70 ${
-                viewMode === "masonry" ? "mb-10 break-inside-avoid" : ""
+                viewMode === "masonry"
+                  ? "mb-10 break-inside-avoid"
+                  : viewMode === "grid"
+                  ? "mb-4 break-inside-avoid"
+                  : "w-fit max-w-full"
               }`}
             >
               <div
@@ -118,9 +123,7 @@ export default function ExhibitionGallery({
                     openLightbox(index);
                   }
                 }}
-                className={`relative cursor-pointer overflow-hidden bg-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white ${
-                  viewMode === "grid" ? "aspect-square" : ""
-                }`}
+                className="relative cursor-pointer overflow-hidden bg-[#1D2021] focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
               >
                 <Image
                   src={photo.image}
@@ -129,13 +132,15 @@ export default function ExhibitionGallery({
                   height={photo.height}
                   sizes={
                     viewMode === "immersive"
-                      ? "(max-width: 1024px) 100vw, 85vw"
+                      ? "(max-width: 1024px) 100vw, 1024px"
                       : viewMode === "grid"
                       ? "(max-width: 640px) 50vw, 20vw"
-                      : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1536px) 33vw, 25vw"
+                      : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   }
-                  className={`w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] ${
-                    viewMode === "grid" ? "h-full" : "h-auto"
+                  className={`transition-transform duration-700 ease-out group-hover:scale-[1.02] ${
+                    viewMode === "immersive"
+                      ? "h-auto max-h-[85vh] w-auto max-w-full"
+                      : "h-auto w-full"
                   }`}
                 />
 
@@ -158,12 +163,6 @@ export default function ExhibitionGallery({
                     Ampliar
                   </span>
                 </div>
-
-                {isVertical && viewMode !== "grid" && (
-                  <span className="absolute top-3 left-3 rounded bg-black/70 px-2.5 py-0.5 text-[9px] font-mono uppercase tracking-wider text-[#D8D5CD] backdrop-blur-sm opacity-0 transition group-hover:opacity-100">
-                    Vertical
-                  </span>
-                )}
               </div>
 
               {showMeta && viewMode !== "grid" && (

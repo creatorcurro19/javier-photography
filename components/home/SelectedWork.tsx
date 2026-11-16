@@ -27,35 +27,29 @@ export default function SelectedWork() {
           </Link>
         </div>
 
-        {/* Editorial Asymmetric Grid */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Editorial Masonry: cada obra conserva su proporción original */}
+        <div className="mt-16 columns-1 gap-8 md:columns-2 lg:columns-3">
           {featuredPhotos.map((photo) => {
-            const isVertical = photo.height > photo.width;
             const categoryInfo = CATEGORY_METADATA[photo.category];
 
             return (
               <article
                 key={photo.id}
-                className="group flex flex-col justify-between rounded-lg border border-[#1D2021] bg-[#1D2021]/40 p-6 sm:p-7 transition-all duration-300 hover:border-[#95836B]/60 hover:bg-[#1D2021]/70"
+                className="group mb-8 flex break-inside-avoid flex-col justify-between rounded-lg border border-[#1D2021] bg-[#1D2021]/40 p-6 sm:p-7 transition-all duration-300 hover:border-[#95836B]/60 hover:bg-[#1D2021]/70"
               >
                 <Link
                   href={`/portfolio/${photo.slug}`}
-                  className="block overflow-hidden rounded-md bg-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+                  className="relative block overflow-hidden rounded-md bg-[#1D2021] focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
                 >
-                  <div
-                    className={`relative w-full overflow-hidden ${
-                      isVertical ? "aspect-[3/4]" : "aspect-[3/2]"
-                    }`}
-                  >
-                    <Image
-                      src={photo.image}
-                      alt={photo.alt}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                  </div>
+                  <Image
+                    src={photo.image}
+                    alt={photo.alt}
+                    width={photo.width}
+                    height={photo.height}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="h-auto w-full transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 </Link>
 
                 <div className="mt-5 border-t border-[#1D2021] pt-4">

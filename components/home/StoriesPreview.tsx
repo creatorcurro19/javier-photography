@@ -30,26 +30,27 @@ export default function StoriesPreview() {
           </Link>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="mt-16 columns-1 gap-8 md:columns-3">
           {stories.map((photo) => {
             const categoryInfo = CATEGORY_METADATA[photo.category];
 
             return (
               <article
                 key={photo.id}
-                className="group flex flex-col justify-between rounded-lg border border-[#1D2021] bg-[#1D2021]/40 p-6 sm:p-7 transition duration-300 hover:border-[#95836B]/60 hover:bg-[#1D2021]/70"
+                className="group mb-8 flex break-inside-avoid flex-col justify-between rounded-lg border border-[#1D2021] bg-[#1D2021]/40 p-6 sm:p-7 transition duration-300 hover:border-[#95836B]/60 hover:bg-[#1D2021]/70"
               >
                 <div>
                   <Link
                     href={`/portfolio/${photo.slug}`}
-                    className="block relative aspect-[16/10] overflow-hidden rounded-md bg-neutral-900"
+                    className="block relative overflow-hidden rounded-md bg-[#1D2021]"
                   >
                     <Image
                       src={photo.image}
                       alt={photo.alt}
-                      fill
+                      width={photo.width}
+                      height={photo.height}
                       sizes="(max-width: 768px) 100vw, 33vw"
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      className="h-auto w-full transition-transform duration-700 ease-out group-hover:scale-105"
                     />
                   </Link>
 

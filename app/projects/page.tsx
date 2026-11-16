@@ -22,7 +22,7 @@ export default function ProjectsPage() {
           <p className="text-xs font-mono uppercase tracking-[0.4em] text-[#95836B]">
             Narrativa Visual & Ensayos
           </p>
-          <h1 className="mt-4 font-serif text-5xl font-light tracking-tight md:text-6xl text-[#D8D5CD]">
+          <h1 className="mt-4 font-serif text-5xl font-light tracking-wide leading-[1.15] md:text-6xl text-[#D8D5CD]">
             Proyectos Seleccionados
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-[#D8D5CD]/80 font-light">
@@ -47,7 +47,7 @@ export default function ProjectsPage() {
               >
                 <Link
                   href={`/projects/${project.slug}`}
-                  className="group relative block aspect-[16/10] w-full overflow-hidden rounded-xl border border-[#1D2021] bg-neutral-900"
+                  className="group relative block aspect-[3/2] w-full overflow-hidden rounded-xl border border-[#1D2021] bg-[#1D2021]"
                 >
                   <Image
                     src={project.coverImage}

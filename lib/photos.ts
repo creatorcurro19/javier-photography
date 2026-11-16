@@ -21,6 +21,11 @@ export function getPhotoBySlug(slug: string): Photo | undefined {
   return photos.find((photo) => photo.slug === slug);
 }
 
+/** Localiza la ficha de una fotografía a partir de su ruta pública (útil para portadas). */
+export function getPhotoByImage(image: string): Photo | undefined {
+  return photos.find((photo) => photo.image === image);
+}
+
 export function getFeaturedPhotos(): Photo[] {
   return photos
     .filter((photo) => photo.featured)

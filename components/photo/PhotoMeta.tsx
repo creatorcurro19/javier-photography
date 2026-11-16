@@ -24,7 +24,7 @@ export default function PhotoMeta({ photo }: PhotoMetaProps) {
         </span>
       </div>
 
-      <h1 className="mt-4 font-serif text-4xl font-light text-[#D8D5CD] md:text-5xl lg:text-6xl tracking-tight">
+      <h1 className="mt-4 font-serif text-4xl font-light text-[#D8D5CD] md:text-5xl lg:text-6xl tracking-wide leading-[1.15]">
         {photo.title}
       </h1>
 

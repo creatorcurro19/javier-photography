@@ -64,7 +64,7 @@ export const PROJECTS: Project[] = [
     category: "viajes-cultura",
     year: "2024 — 2025",
     location: "Erg Chebbi & Desierto del Sahara",
-    coverImage: "/images/portfolio/viajes-cultura/B51A6734-2.jpg",
+    coverImage: "/images/portfolio/viajes-cultura/B51A7335.jpg",
     description:
       "Surcos de viento sobre las crestas doradas y figuras recortadas contra la última luz del horizonte en un espacio donde el tiempo parece detenerse.",
     statement: [
@@ -81,7 +81,7 @@ export const PROJECTS: Project[] = [
     category: "fauna-naturaleza",
     year: "2025 — 2026",
     location: "Ecosistemas Ibéricos",
-    coverImage: "/images/portfolio/fauna-naturaleza/B51A8662.jpg",
+    coverImage: "/images/portfolio/fauna-naturaleza/B51A4628.jpg",
     description:
       "Aproximaciones respetuosas a la fauna salvaje con teleobjetivo Sigma 150-600mm, capturando actitudes espontáneas sin alterar el equilibrio del hábitat.",
     statement: [

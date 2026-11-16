@@ -50,14 +50,15 @@ export default function StoriesPage() {
               >
                 <Link
                   href={`/portfolio/${photo.slug}`}
-                  className="group relative block aspect-[16/10] w-full overflow-hidden rounded-lg border border-[#1D2021] bg-[#1D2021]/50"
+                  className="group relative mx-auto block w-fit max-w-full overflow-hidden rounded-lg border border-[#1D2021] bg-[#1D2021]/50"
                 >
                   <Image
                     src={photo.image}
                     alt={photo.alt}
-                    fill
+                    width={photo.width}
+                    height={photo.height}
                     sizes="(max-width: 1024px) 100vw, 60vw"
-                    className="object-cover transition duration-700 group-hover:scale-105"
+                    className="h-auto max-h-[78vh] w-auto max-w-full transition duration-700 group-hover:scale-[1.02]"
                   />
                   <div className="absolute inset-0 bg-black/10 transition group-hover:bg-transparent" />
                   <div className="absolute bottom-4 left-4">

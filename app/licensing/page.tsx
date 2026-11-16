@@ -176,20 +176,21 @@ export default function LicensingPage() {
             </p>
           </div>
 
-          <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 columns-1 gap-8 sm:columns-2 lg:columns-3">
             {licensed.map((photo) => (
               <div
                 key={photo.id}
-                className="group flex flex-col justify-between rounded-lg border border-[#1D2021] bg-[#1D2021]/40 transition hover:border-[#95836B]/60 overflow-hidden"
+                className="group mb-8 flex break-inside-avoid flex-col justify-between rounded-lg border border-[#1D2021] bg-[#1D2021]/40 transition hover:border-[#95836B]/60 overflow-hidden"
               >
                 <div>
-                  <div className="relative aspect-[3/2] w-full overflow-hidden rounded-t-lg bg-neutral-900">
+                  <div className="relative w-full overflow-hidden rounded-t-lg bg-[#1D2021]">
                     <Image
                       src={photo.image}
                       alt={photo.alt}
-                      fill
+                      width={photo.width}
+                      height={photo.height}
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover transition duration-500 group-hover:scale-105"
+                      className="h-auto w-full transition duration-500 group-hover:scale-[1.02]"
                     />
                     <div className="absolute left-3 top-3">
                       <span className="bg-[#101112]/90 border border-[#1D2021] px-2.5 py-1 text-[9px] uppercase tracking-[0.25em] text-[#D8D5CD] backdrop-blur-sm font-mono">

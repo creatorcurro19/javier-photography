@@ -26,7 +26,7 @@ export default function CollectionsOverview() {
                 href={`/portfolio/${category}`}
                 className="group relative flex flex-col overflow-hidden rounded-lg border border-[#1D2021] bg-[#1D2021]/50 transition duration-500 hover:border-[#95836B]/60 hover:bg-[#1D2021]/80 hover:shadow-2xl"
               >
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-900">
+                <div className="relative aspect-[3/2] w-full overflow-hidden bg-[#1D2021]">
                   <Image
                     src={info.coverImage}
                     alt={info.title}

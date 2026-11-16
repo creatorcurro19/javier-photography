@@ -34,7 +34,7 @@ export default function SelectedProjects() {
               <div>
                 <Link
                   href={`/projects/${project.slug}`}
-                  className="block relative aspect-[16/10] w-full overflow-hidden bg-neutral-900"
+                  className="block relative aspect-[3/2] w-full overflow-hidden bg-[#1D2021]"
                 >
                   <Image
                     src={project.coverImage}
