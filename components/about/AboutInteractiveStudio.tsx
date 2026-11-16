@@ -324,7 +324,7 @@ export default function AboutInteractiveStudio() {
             </div>
 
             {/* Primary Actions */}
-            <div className="mt-9 flex flex-wrap items-center gap-4">
+            <div className="mt-9 flex flex-wrap items-center gap-4 print:hidden">
               <Link
                 href="/portfolio"
                 className="inline-flex items-center gap-3 border border-[#D8D5CD] bg-[#D8D5CD] px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.28em] text-[#101112] transition hover:bg-transparent hover:text-white"
@@ -338,6 +338,14 @@ export default function AboutInteractiveStudio() {
               >
                 <span>8 Series Documentales</span>
               </Link>
+              <button
+                type="button"
+                onClick={() => window.print()}
+                className="inline-flex items-center gap-2 border border-[#95836B]/60 bg-[#101112] px-5 py-3.5 font-mono text-[10px] uppercase tracking-[0.24em] text-[#D8D5CD] transition hover:border-[#D8D5CD] hover:text-white"
+              >
+                <span>Dossier Curatorial (PDF)</span>
+                <span>↓</span>
+              </button>
             </div>
           </div>
 

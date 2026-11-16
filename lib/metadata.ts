@@ -51,30 +51,37 @@ export function buildPageMetadata({
 }
 
 export function buildPhotoMetadata(photo: Photo): Metadata {
-  const title = photo.title;
-  const description = photo.description;
+  const title = `${photo.title}${photo.location ? ` (${photo.location})` : ""}`;
+  const richDescription = `${photo.description} [${photo.camera} · ${photo.focalLength} · ${photo.aperture} · ${photo.shutter} · ISO ${photo.iso}]`;
   const path = `/portfolio/${photo.slug}`;
 
   return {
     title,
-    description,
+    description: richDescription,
     keywords: photo.keywords,
     alternates: {
       canonical: absoluteUrl(path),
     },
     openGraph: {
-      title,
-      description,
+      title: `${title} | Javier Espinosa Fotografía`,
+      description: richDescription,
       url: absoluteUrl(path),
       siteName: SITE_NAME,
       type: "article",
       locale: "es_ES",
-      images: [{ url: absoluteUrl(photo.image), alt: photo.alt }],
+      images: [
+        {
+          url: absoluteUrl(photo.image),
+          width: photo.width,
+          height: photo.height,
+          alt: photo.alt,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
-      title,
-      description,
+      title: `${title} | Javier Espinosa Fotografía`,
+      description: richDescription,
       images: [absoluteUrl(photo.image)],
     },
   };

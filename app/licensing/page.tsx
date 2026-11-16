@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
+import LicenseConfigurator from "@/components/licensing/LicenseConfigurator";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getLicensedPhotos } from "@/lib/photos";
 
@@ -108,6 +109,9 @@ export default function LicensingPage() {
             </Link>
           </div>
         </div>
+
+        {/* Interactive Commercial Licensing Configurator */}
+        <LicenseConfigurator />
 
         {/* Technical Specs Banner */}
         <div className="mt-16 rounded-xl border border-[#1D2021] bg-[#1D2021]/40 p-8 sm:p-10">
