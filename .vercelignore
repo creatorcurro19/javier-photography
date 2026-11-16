@@ -1,0 +1,6 @@
+node_modules
+.next
+.git
+Referencias estilo
+*.log
+.DS_Store
