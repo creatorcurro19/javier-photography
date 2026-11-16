@@ -15,17 +15,17 @@ export default function StoriesPage() {
   const stories = getPhotosWithStory();
 
   return (
-    <div className="min-h-screen bg-black pt-36 pb-28 text-neutral-300">
+    <div className="min-h-screen bg-[#101112] pt-36 pb-28 text-[#D8D5CD]">
       <Container>
         {/* Header */}
         <div className="max-w-3xl">
-          <p className="text-xs uppercase tracking-[0.4em] text-neutral-400">
+          <p className="text-xs uppercase tracking-[0.4em] text-[#95836B] font-mono">
             Diario Visual & Notas de Campo
           </p>
-          <h1 className="mt-4 font-serif text-4xl font-light tracking-wide text-neutral-100 sm:text-5xl lg:text-6xl">
+          <h1 className="mt-4 font-serif text-4xl font-light tracking-wide text-[#D8D5CD] sm:text-5xl lg:text-6xl">
             Historias detrás del visor
           </h1>
-          <p className="mt-6 text-base leading-relaxed text-neutral-300 sm:text-lg">
+          <p className="mt-6 text-base leading-relaxed text-[#D8D5CD]/80 sm:text-lg font-light">
             Una fotografía es el punto culminante de un proceso previo: horas de exploración, 
             estudio de las condiciones meteorológicas, posicionamiento estratégico y comprensión del 
             comportamiento de la luz y el sujeto. Este cuaderno recoge las anotaciones y vivencias 

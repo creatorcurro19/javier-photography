@@ -12,12 +12,15 @@ type ExhibitionGalleryProps = {
   showMeta?: boolean;
 };
 
+type ViewMode = "masonry" | "immersive" | "grid";
+
 export default function ExhibitionGallery({
   photos,
   showMeta = true,
 }: ExhibitionGalleryProps) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [viewMode, setViewMode] = useState<ViewMode>("masonry");
 
   if (photos.length === 0) {
     return (
@@ -36,7 +39,62 @@ export default function ExhibitionGallery({
 
   return (
     <>
-      <div className="columns-1 gap-8 sm:columns-2 lg:columns-3 2xl:columns-4">
+      {/* Gallery View Controls */}
+      <div className="mb-10 flex items-center justify-between border-b border-[#1D2021] pb-4">
+        <span className="font-mono text-xs text-[#95836B]">
+          {photos.length} {photos.length === 1 ? "fotografía" : "fotografías"}
+        </span>
+
+        <div className="flex items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-neutral-400">
+          <span className="hidden sm:inline mr-2 text-neutral-500">Presentación:</span>
+          <button
+            type="button"
+            onClick={() => setViewMode("masonry")}
+            className={`rounded px-2.5 py-1 transition ${
+              viewMode === "masonry"
+                ? "bg-[#1D2021] text-[#D8D5CD] font-medium"
+                : "hover:text-[#D8D5CD]"
+            }`}
+          >
+            Editorial
+          </button>
+          <span className="text-neutral-700">·</span>
+          <button
+            type="button"
+            onClick={() => setViewMode("immersive")}
+            className={`rounded px-2.5 py-1 transition ${
+              viewMode === "immersive"
+                ? "bg-[#1D2021] text-[#D8D5CD] font-medium"
+                : "hover:text-[#D8D5CD]"
+            }`}
+          >
+            Inmersiva
+          </button>
+          <span className="text-neutral-700">·</span>
+          <button
+            type="button"
+            onClick={() => setViewMode("grid")}
+            className={`rounded px-2.5 py-1 transition ${
+              viewMode === "grid"
+                ? "bg-[#1D2021] text-[#D8D5CD] font-medium"
+                : "hover:text-[#D8D5CD]"
+            }`}
+          >
+            Índice
+          </button>
+        </div>
+      </div>
+
+      {/* Grid Rendering by ViewMode */}
+      <div
+        className={
+          viewMode === "masonry"
+            ? "columns-1 gap-8 sm:columns-2 lg:columns-3 2xl:columns-4"
+            : viewMode === "immersive"
+            ? "mx-auto max-w-4xl space-y-24"
+            : "grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+        }
+      >
         {photos.map((photo, index) => {
           const isVertical = photo.height > photo.width;
           const categoryTitle =
@@ -45,7 +103,9 @@ export default function ExhibitionGallery({
           return (
             <figure
               key={photo.id}
-              className="group mb-10 break-inside-avoid overflow-hidden rounded-sm bg-neutral-950 border border-neutral-900/60 transition duration-300 hover:border-neutral-700"
+              className={`group overflow-hidden rounded-lg border border-[#1D2021] bg-[#1D2021]/40 transition duration-500 hover:border-[#95836B]/60 hover:bg-[#1D2021]/70 ${
+                viewMode === "masonry" ? "mb-10 break-inside-avoid" : ""
+              }`}
             >
               <div
                 role="button"
@@ -58,20 +118,30 @@ export default function ExhibitionGallery({
                     openLightbox(index);
                   }
                 }}
-                className="relative cursor-pointer overflow-hidden bg-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+                className={`relative cursor-pointer overflow-hidden bg-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white ${
+                  viewMode === "grid" ? "aspect-square" : ""
+                }`}
               >
                 <Image
                   src={photo.image}
                   alt={photo.alt}
                   width={photo.width}
                   height={photo.height}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1536px) 33vw, 25vw"
-                  className="h-auto w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                  sizes={
+                    viewMode === "immersive"
+                      ? "(max-width: 1024px) 100vw, 85vw"
+                      : viewMode === "grid"
+                      ? "(max-width: 640px) 50vw, 20vw"
+                      : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1536px) 33vw, 25vw"
+                  }
+                  className={`w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] ${
+                    viewMode === "grid" ? "h-full" : "h-auto"
+                  }`}
                 />
 
                 {/* Subtle Hover Overlay with Action Pill */}
                 <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 backdrop-blur-[2px] transition-opacity duration-300 group-hover:opacity-100">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-black/60 px-4 py-2 text-xs uppercase tracking-[0.2em] text-neutral-100 shadow-lg backdrop-blur-md">
+                  <span className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-black/70 px-4 py-2 text-xs uppercase tracking-[0.2em] text-[#D8D5CD] shadow-lg backdrop-blur-md font-mono">
                     <svg
                       className="h-3.5 w-3.5"
                       fill="none"
@@ -89,22 +159,22 @@ export default function ExhibitionGallery({
                   </span>
                 </div>
 
-                {isVertical && (
-                  <span className="absolute top-3 left-3 rounded bg-black/60 px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider text-neutral-300 backdrop-blur-sm opacity-0 transition group-hover:opacity-100">
+                {isVertical && viewMode !== "grid" && (
+                  <span className="absolute top-3 left-3 rounded bg-black/70 px-2.5 py-0.5 text-[9px] font-mono uppercase tracking-wider text-[#D8D5CD] backdrop-blur-sm opacity-0 transition group-hover:opacity-100">
                     Vertical
                   </span>
                 )}
               </div>
 
-              {showMeta && (
-                <figcaption className="px-5 pt-4 pb-5 bg-neutral-950">
-                  <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-[0.2em] text-neutral-500">
+              {showMeta && viewMode !== "grid" && (
+                <figcaption className="px-6 pt-5 pb-6 bg-[#1D2021]/30">
+                  <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-[0.2em] text-[#95836B]">
                     <span>{categoryTitle}</span>
                     <span>{photo.year}</span>
                   </div>
 
-                  <div className="mt-2 flex items-baseline justify-between gap-2">
-                    <h3 className="font-serif text-lg font-normal text-neutral-100 group-hover:text-white transition-colors">
+                  <div className="mt-2.5 flex items-baseline justify-between gap-2">
+                    <h3 className="font-serif text-xl font-light text-[#D8D5CD] group-hover:text-white transition-colors">
                       <Link
                         href={`/portfolio/${photo.slug}`}
                         className="hover:underline underline-offset-4"
@@ -115,13 +185,13 @@ export default function ExhibitionGallery({
                     </h3>
                   </div>
 
-                  <div className="mt-2 flex items-center justify-between text-xs text-neutral-400">
+                  <div className="mt-3 flex items-center justify-between text-xs text-neutral-400">
                     <p className="truncate max-w-[75%] font-mono text-[11px] text-neutral-400">
                       {photo.location ? photo.location : `${photo.focalLength} · ${photo.aperture}`}
                     </p>
                     <Link
                       href={`/portfolio/${photo.slug}`}
-                      className="text-[11px] uppercase tracking-wider text-neutral-500 hover:text-neutral-200 transition-colors underline underline-offset-4"
+                      className="text-[11px] uppercase tracking-wider text-[#95836B] hover:text-[#D8D5CD] transition-colors underline underline-offset-4 font-mono"
                       onClick={(e) => e.stopPropagation()}
                     >
                       Ficha

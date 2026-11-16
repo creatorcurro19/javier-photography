@@ -36,17 +36,17 @@ const CONTACT_INFO = [
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-black pt-36 pb-28 text-neutral-300">
+    <div className="min-h-screen bg-[#101112] pt-36 pb-28 text-[#D8D5CD]">
       <Container>
         {/* Header */}
         <div className="max-w-3xl">
-          <p className="text-xs uppercase tracking-[0.4em] text-neutral-500">
+          <p className="text-xs uppercase tracking-[0.4em] text-[#95836B] font-mono">
             Contacto & Solicitudes
           </p>
-          <h1 className="mt-4 font-serif text-4xl font-light tracking-wide text-neutral-100 sm:text-5xl lg:text-6xl">
+          <h1 className="mt-4 font-serif text-4xl font-light tracking-wide text-[#D8D5CD] sm:text-5xl lg:text-6xl">
             Iniciar una conversación
           </h1>
-          <p className="mt-6 text-base leading-relaxed text-neutral-400 sm:text-lg">
+          <p className="mt-6 text-base leading-relaxed text-[#D8D5CD]/80 sm:text-lg font-light">
             Ya sea para la cobertura técnica de una prueba de automoción, un proyecto arquitectónico, 
             la adquisición de una obra en soporte de algodón o la cesión de derechos para una publicación, 
             describa sus requerimientos y recibirá una propuesta detallada.
@@ -56,11 +56,11 @@ export default function ContactPage() {
         {/* Content Layout */}
         <div className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-12">
           {/* Main Form (8 cols) */}
-          <div className="border border-neutral-800 bg-neutral-950/60 p-8 sm:p-12 lg:col-span-8 rounded-lg">
-            <h2 className="text-xs uppercase tracking-[0.3em] text-neutral-500">
+          <div className="border border-[#1D2021] bg-[#1D2021]/30 p-8 sm:p-12 lg:col-span-8 rounded-xl">
+            <h2 className="text-xs uppercase tracking-[0.3em] text-[#95836B] font-mono">
               Formulario de Consulta
             </h2>
-            <p className="mt-1 font-serif text-2xl text-neutral-100">
+            <p className="mt-1 font-serif text-2xl text-[#D8D5CD]">
               Especifique los detalles de su proyecto
             </p>
 
@@ -79,37 +79,37 @@ export default function ContactPage() {
 
           {/* Sidebar Info (4 cols) */}
           <div className="flex flex-col gap-8 lg:col-span-4">
-            <div className="border border-neutral-800 bg-neutral-950/40 p-8 sm:p-10 rounded-lg">
-              <h2 className="text-xs uppercase tracking-[0.3em] text-neutral-500">
+            <div className="border border-[#1D2021] bg-[#1D2021]/40 p-8 sm:p-10 rounded-xl">
+              <h2 className="text-xs uppercase tracking-[0.3em] text-[#95836B] font-mono">
                 Información Directa
               </h2>
               <div className="mt-6 space-y-6">
                 {CONTACT_INFO.map((item) => (
-                  <div key={item.label} className="border-b border-neutral-900 pb-5">
-                    <p className="text-[10px] uppercase tracking-[0.25em] text-neutral-500">
+                  <div key={item.label} className="border-b border-[#1D2021] pb-5">
+                    <p className="text-[10px] uppercase tracking-[0.25em] text-[#95836B] font-mono">
                       {item.label}
                     </p>
                     {item.href ? (
                       <a
                         href={item.href}
-                        className="mt-1.5 block font-mono text-sm text-neutral-200 transition hover:text-white"
+                        className="mt-1.5 block font-mono text-sm text-[#D8D5CD] transition hover:text-white"
                       >
                         {item.value}
                       </a>
                     ) : (
-                      <p className="mt-1.5 text-sm text-neutral-200">{item.value}</p>
+                      <p className="mt-1.5 text-sm text-[#D8D5CD]">{item.value}</p>
                     )}
-                    <p className="mt-1 text-xs text-neutral-500">{item.note}</p>
+                    <p className="mt-1 text-xs text-neutral-400 font-light">{item.note}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="border border-neutral-800 bg-neutral-950/20 p-8 sm:p-10 rounded-lg">
-              <h3 className="text-xs uppercase tracking-[0.3em] text-neutral-500">
+            <div className="border border-[#1D2021] bg-[#1D2021]/20 p-8 sm:p-10 rounded-xl">
+              <h3 className="text-xs uppercase tracking-[0.3em] text-[#95836B] font-mono">
                 Compromiso de Trabajo
               </h3>
-              <p className="mt-3 text-xs leading-relaxed text-neutral-400">
+              <p className="mt-3 text-xs leading-relaxed text-[#D8D5CD]/70 font-light">
                 Cada encargo se aborda con preparación topográfica previa, estudio de iluminación 
                 y entrega ágil de archivos revelados en perfiles estándar para reproducción litográfica o digital.
               </p>

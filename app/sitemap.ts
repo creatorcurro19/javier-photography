@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getAllPhotoSlugs, PHOTO_CATEGORIES } from "@/lib/photos";
+import { getAllPhotoSlugs, getAllProjects, PHOTO_CATEGORIES } from "@/lib/photos";
 
 const BASE = "https://www.javierespinosa.com";
 
@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/portfolio",
+    "/projects",
     "/servicios",
     "/prints",
     "/stories",
@@ -17,9 +18,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const categoryRoutes = PHOTO_CATEGORIES.map((category) => `/portfolio/${category}`);
   const photoRoutes = getAllPhotoSlugs().map((slug) => `/portfolio/${slug}`);
+  const projectRoutes = getAllProjects().map((project) => `/projects/${project.slug}`);
   const lastModified = new Date();
 
-  return [...staticRoutes, ...categoryRoutes, ...photoRoutes].map((path) => ({
+  return [...staticRoutes, ...categoryRoutes, ...photoRoutes, ...projectRoutes].map((path) => ({
     url: `${BASE}${path}`,
     lastModified,
     changeFrequency:

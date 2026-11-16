@@ -1,8 +1,10 @@
 import { photos } from "@/data/photos";
+import { PROJECTS } from "@/data/projects";
 import {
   PHOTO_CATEGORIES,
   type Photo,
   type PhotoCategory,
+  type Project,
 } from "@/types/photo";
 
 export { PHOTO_CATEGORIES };
@@ -78,4 +80,18 @@ export function getAdjacentPhotos(photo: Photo): { prev?: Photo; next?: Photo } 
   const prev = index > 0 ? categoryPhotos[index - 1] : undefined;
   const next = index < categoryPhotos.length - 1 ? categoryPhotos[index + 1] : undefined;
   return { prev, next };
+}
+
+export function getAllProjects(): Project[] {
+  return PROJECTS;
+}
+
+export function getProjectBySlug(slug: string): Project | undefined {
+  return PROJECTS.find((project) => project.slug === slug);
+}
+
+export function getProjectPhotos(project: Project): Photo[] {
+  return project.photoIds
+    .map((id) => photos.find((p) => p.id === id))
+    .filter((p): p is Photo => Boolean(p));
 }

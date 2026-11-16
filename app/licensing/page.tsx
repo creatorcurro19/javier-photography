@@ -73,17 +73,17 @@ export default function LicensingPage() {
   const licensed = getLicensedPhotos();
 
   return (
-    <div className="min-h-screen bg-black pt-36 pb-28 text-neutral-300">
+    <div className="min-h-screen bg-[#101112] pt-36 pb-28 text-[#D8D5CD]">
       <Container>
         {/* Header */}
         <div className="max-w-3xl">
-          <p className="text-xs uppercase tracking-[0.4em] text-neutral-400">
+          <p className="text-xs uppercase tracking-[0.4em] text-[#95836B] font-mono">
             Cesión de Derechos & Uso Profesional
           </p>
-          <h1 className="mt-4 font-serif text-4xl font-light tracking-wide text-neutral-100 sm:text-5xl lg:text-6xl">
+          <h1 className="mt-4 font-serif text-4xl font-light tracking-wide text-[#D8D5CD] sm:text-5xl lg:text-6xl">
             Licencias de Imagen
           </h1>
-          <p className="mt-6 text-base leading-relaxed text-neutral-300 sm:text-lg">
+          <p className="mt-6 text-base leading-relaxed text-[#D8D5CD]/80 sm:text-lg font-light">
             Las fotografías del archivo de Javier Espinosa están disponibles para licenciamiento 
             editorial, publicitario y corporativo. Cada imagen cuenta con archivo master de 32,5 MP 
             de resolución nativa, revelado profesional riguroso y metadatos de catalogación completos.
@@ -91,22 +91,22 @@ export default function LicensingPage() {
         </div>
 
         {/* Technical Specs Banner */}
-        <div className="mt-16 rounded-xl border border-neutral-800 bg-neutral-950/60 p-8 sm:p-10">
-          <div className="border-b border-neutral-800 pb-4">
-            <h2 className="text-xs uppercase tracking-[0.35em] text-neutral-400">
+        <div className="mt-16 rounded-xl border border-[#1D2021] bg-[#1D2021]/40 p-8 sm:p-10">
+          <div className="border-b border-[#1D2021] pb-4">
+            <h2 className="text-xs uppercase tracking-[0.35em] text-[#95836B] font-mono">
               Estándar de Calidad de los Archivos Master
             </h2>
-            <p className="mt-1 font-serif text-xl text-neutral-100">
+            <p className="mt-1 font-serif text-xl text-[#D8D5CD]">
               Especificaciones técnicas de entrega directa
             </p>
           </div>
           <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {TECHNICAL_SPECS.map((spec) => (
-              <div key={spec.label} className="border-l border-neutral-800 pl-4">
-                <p className="text-[10px] uppercase tracking-[0.25em] text-neutral-400">
+              <div key={spec.label} className="border-l border-[#1D2021] pl-4">
+                <p className="text-[10px] uppercase tracking-[0.25em] text-[#95836B] font-mono">
                   {spec.label}
                 </p>
-                <p className="mt-1 font-mono text-xs text-neutral-200">
+                <p className="mt-1 font-mono text-xs text-[#D8D5CD]">
                   {spec.value}
                 </p>
               </div>
@@ -116,11 +116,11 @@ export default function LicensingPage() {
 
         {/* Licensing Tiers */}
         <div className="mt-20">
-          <div className="border-b border-neutral-800 pb-4">
-            <h2 className="text-xs uppercase tracking-[0.35em] text-neutral-400">
+          <div className="border-b border-[#1D2021] pb-4">
+            <h2 className="text-xs uppercase tracking-[0.35em] text-[#95836B] font-mono">
               Modalidades de Licenciamiento
             </h2>
-            <p className="mt-1 font-serif text-2xl text-neutral-100">
+            <p className="mt-1 font-serif text-2xl text-[#D8D5CD]">
               Términos adaptados al tipo de difusión y alcance
             </p>
           </div>
@@ -129,28 +129,28 @@ export default function LicensingPage() {
             {TIERS.map((tier) => (
               <div
                 key={tier.name}
-                className="flex flex-col justify-between rounded-lg border border-neutral-800 bg-neutral-950/60 p-8 sm:p-10 transition hover:border-neutral-700"
+                className="flex flex-col justify-between rounded-lg border border-[#1D2021] bg-[#1D2021]/40 p-8 sm:p-10 transition hover:border-[#95836B]/60"
               >
                 <div>
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-neutral-400">
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-[#95836B] font-mono">
                     {tier.scope}
                   </span>
-                  <h3 className="mt-2 font-serif text-2xl text-neutral-100">{tier.name}</h3>
-                  <p className="mt-4 text-xs leading-relaxed text-neutral-300">
-                    <strong className="text-neutral-200">Aplicaciones:</strong> {tier.uses}
+                  <h3 className="mt-2 font-serif text-2xl text-[#D8D5CD]">{tier.name}</h3>
+                  <p className="mt-4 text-xs leading-relaxed text-[#D8D5CD]/80 font-light">
+                    <strong className="text-[#D8D5CD]">Aplicaciones:</strong> {tier.uses}
                   </p>
-                  <p className="mt-3 text-xs leading-relaxed text-neutral-400">
-                    <strong className="text-neutral-300">Formato:</strong> {tier.specs}
+                  <p className="mt-3 text-xs leading-relaxed text-neutral-400 font-light">
+                    <strong className="text-[#D8D5CD]">Formato:</strong> {tier.specs}
                   </p>
                 </div>
 
-                <div className="mt-8 border-t border-neutral-900 pt-6">
+                <div className="mt-8 border-t border-[#1D2021] pt-6">
                   <p className="text-[11px] text-neutral-400">
-                    <strong className="text-neutral-300">Tarificación:</strong> {tier.pricing}
+                    <strong className="text-[#D8D5CD]">Tarificación:</strong> {tier.pricing}
                   </p>
                   <Link
                     href={`/contact?motivo=licencia&tipo=${encodeURIComponent(tier.name)}`}
-                    className="mt-5 inline-flex w-full items-center justify-center border border-neutral-700 bg-neutral-900/60 py-3 text-xs uppercase tracking-[0.3em] text-neutral-200 transition hover:border-neutral-400 hover:text-white"
+                    className="mt-5 inline-flex w-full items-center justify-center border border-[#1D2021] bg-[#1D2021]/60 py-3 text-xs uppercase tracking-[0.3em] text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
                   >
                     Solicitar cotización
                   </Link>
@@ -239,28 +239,28 @@ export default function LicensingPage() {
         </div>
 
         {/* Agency Note & Direct CTA */}
-        <div className="mt-24 rounded-xl border border-neutral-800 bg-neutral-950/60 p-8 sm:p-14">
+        <div className="mt-24 rounded-xl border border-[#1D2021] bg-[#1D2021]/30 p-8 sm:p-14">
           <div className="max-w-2xl">
-            <span className="text-xs uppercase tracking-[0.35em] text-neutral-400">
+            <span className="text-xs uppercase tracking-[0.35em] text-[#95836B] font-mono">
               Agencias & Gestores de Derechos
             </span>
-            <h2 className="mt-3 font-serif text-2xl text-neutral-100 sm:text-3xl">
+            <h2 className="mt-3 font-serif text-2xl text-[#D8D5CD] sm:text-3xl">
               ¿Representa a una agencia editorial o gabinete de prensa?
             </h2>
-            <p className="mt-4 text-sm leading-relaxed text-neutral-300">
+            <p className="mt-4 text-sm leading-relaxed text-[#D8D5CD]/80 font-light">
               Facilitamos acuerdos marco anuales para grupos editoriales y departamentos de comunicación, 
               así como paquetes de imágenes con derechos mundiales para campañas globales.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 href="/contact?motivo=licencia"
-                className="inline-flex border border-neutral-200 bg-neutral-100 px-8 py-3.5 text-xs uppercase tracking-[0.3em] text-neutral-950 font-medium transition hover:bg-white hover:text-black hover:border-white"
+                className="inline-flex border border-[#D8D5CD] bg-[#D8D5CD] px-8 py-3.5 text-xs uppercase tracking-[0.3em] text-[#101112] font-semibold transition hover:bg-transparent hover:text-white"
               >
                 Iniciar solicitud de derechos
               </Link>
               <a
                 href="mailto:hello@javierespinosa.com?subject=Solicitud%20de%20Licencia%20de%20Imagen"
-                className="inline-flex border border-neutral-700 bg-neutral-900/60 px-8 py-3.5 text-xs uppercase tracking-[0.3em] text-neutral-200 transition hover:border-neutral-400 hover:text-white"
+                className="inline-flex border border-[#1D2021] bg-[#1D2021]/60 px-8 py-3.5 text-xs uppercase tracking-[0.3em] text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
               >
                 Enviar briefing por email
               </a>

@@ -50,13 +50,13 @@ const PILLARS = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-black pt-36 pb-28 text-neutral-300">
+    <div className="min-h-screen bg-[#101112] pt-36 pb-28 text-[#D8D5CD]">
       <Container>
         {/* Hero Artist Profile */}
         <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
           {/* Portrait / Editorial Image */}
           <div className="lg:col-span-5">
-            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900">
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl border border-[#1D2021] bg-[#1D2021]/50">
               <Image
                 src="/images/portfolio/hero/hero.jpg"
                 alt="Javier Espinosa Martínez - Fotografía de autor"
@@ -65,41 +65,41 @@ export default function AboutPage() {
                 sizes="(max-width: 1024px) 100vw, 40vw"
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#101112]/90 via-transparent to-transparent" />
               <div className="absolute bottom-6 left-6 right-6">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-neutral-400">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-[#95836B] font-mono">
                   Fotografía de Autor
                 </span>
-                <p className="mt-1 font-serif text-xl text-neutral-100">
+                <p className="mt-1 font-serif text-2xl text-[#D8D5CD]">
                   Javier Espinosa Martínez
                 </p>
-                <p className="text-xs text-neutral-400">España · Proyectos Internacionales</p>
+                <p className="text-xs text-neutral-400 font-mono">España · Proyectos Internacionales</p>
               </div>
             </div>
 
-            <div className="mt-6 rounded-lg border border-neutral-800 bg-neutral-950/60 p-6 sm:p-7">
-              <h2 className="text-xs uppercase tracking-[0.25em] text-neutral-400">
+            <div className="mt-6 rounded-xl border border-[#1D2021] bg-[#1D2021]/40 p-6 sm:p-7">
+              <h2 className="text-xs uppercase tracking-[0.25em] text-[#95836B] font-mono">
                 Ámbitos de Práctica
               </h2>
-              <div className="mt-3 flex flex-wrap gap-2 text-xs text-neutral-300">
-                <span className="rounded border border-neutral-800 px-3 py-1 bg-neutral-900/50">Fauna y Naturaleza</span>
-                <span className="rounded border border-neutral-800 px-3 py-1 bg-neutral-900/50">Coches y Rally</span>
-                <span className="rounded border border-neutral-800 px-3 py-1 bg-neutral-900/50">Arquitectura Urbana</span>
-                <span className="rounded border border-neutral-800 px-3 py-1 bg-neutral-900/50">Fotografía Documental</span>
+              <div className="mt-3 flex flex-wrap gap-2 text-xs text-[#D8D5CD]">
+                <span className="rounded border border-[#1D2021] px-3 py-1 bg-[#101112]">Fauna y Naturaleza</span>
+                <span className="rounded border border-[#1D2021] px-3 py-1 bg-[#101112]">Coches y Rally</span>
+                <span className="rounded border border-[#1D2021] px-3 py-1 bg-[#101112]">Arquitectura Urbana</span>
+                <span className="rounded border border-[#1D2021] px-3 py-1 bg-[#101112]">Fotografía Documental</span>
               </div>
             </div>
           </div>
 
           {/* Bio text */}
           <div className="lg:col-span-7 lg:pl-6">
-            <p className="text-xs uppercase tracking-[0.4em] text-neutral-400">
+            <p className="text-xs uppercase tracking-[0.4em] text-[#95836B] font-mono">
               Biografía & Trayectoria
             </p>
-            <h1 className="mt-4 font-serif text-4xl font-light tracking-wide text-neutral-100 sm:text-5xl lg:text-6xl">
+            <h1 className="mt-4 font-serif text-4xl font-light tracking-wide text-[#D8D5CD] sm:text-5xl lg:text-6xl">
               La mirada que detiene el tiempo
             </h1>
 
-            <div className="mt-8 space-y-6 text-base leading-relaxed text-neutral-300 sm:text-lg sm:leading-8">
+            <div className="mt-8 space-y-6 text-base leading-relaxed text-[#D8D5CD]/80 sm:text-lg sm:leading-8 font-light">
               <p>
                 Soy Javier Espinosa Martínez, fotógrafo español dedicado a la fotografía de autor, 
                 documental y deportiva. Concibo la disciplina fotográfica como un ejercicio de atención 
@@ -122,15 +122,15 @@ export default function AboutPage() {
             <div className="mt-10 flex flex-wrap gap-4">
               <Link
                 href="/portfolio"
-                className="inline-flex border border-neutral-200 bg-neutral-100 px-8 py-3.5 text-xs uppercase tracking-[0.3em] text-neutral-950 font-medium transition hover:bg-white hover:text-black hover:border-white"
+                className="inline-flex border border-[#D8D5CD] bg-[#D8D5CD] px-8 py-3.5 text-xs uppercase tracking-[0.3em] text-[#101112] font-semibold transition hover:bg-transparent hover:text-white"
               >
                 Explorar el portfolio
               </Link>
               <Link
-                href="/servicios"
-                className="inline-flex border border-neutral-700 bg-neutral-900/60 px-8 py-3.5 text-xs uppercase tracking-[0.3em] text-neutral-200 transition hover:border-neutral-400 hover:text-white"
+                href="/projects"
+                className="inline-flex border border-[#1D2021] bg-[#1D2021]/60 px-8 py-3.5 text-xs uppercase tracking-[0.3em] text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
               >
-                Servicios y encargos
+                Proyectos Narrativos
               </Link>
             </div>
           </div>

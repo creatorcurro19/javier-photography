@@ -15,18 +15,18 @@ export default function PortfolioPage() {
   const photos = getAllPhotos();
 
   return (
-    <div className="min-h-screen bg-black pt-36 pb-28 text-neutral-300">
+    <div className="min-h-screen bg-[#101112] pt-36 pb-28 text-[#D8D5CD]">
       <Container>
         <header className="max-w-3xl">
-          <p className="text-xs font-mono uppercase tracking-[0.4em] text-neutral-500">
+          <p className="text-xs font-mono uppercase tracking-[0.4em] text-[#95836B]">
             Archivo de Autor
           </p>
-          <h1 className="mt-4 font-serif text-5xl font-light tracking-tight md:text-6xl text-neutral-100">
+          <h1 className="mt-4 font-serif text-5xl font-light tracking-tight md:text-6xl text-[#D8D5CD]">
             Colecciones Fotográficas
           </h1>
-          <p className="mt-6 text-lg leading-relaxed text-neutral-300 font-light">
+          <p className="mt-6 text-lg leading-relaxed text-[#D8D5CD]/80 font-light">
             Una mirada pausada sobre el territorio, la memoria, la velocidad y la naturaleza.
-            Explora las cinco grandes series fotográficas o navega por el archivo completo.
+            Explora las cinco grandes disciplinas fotográficas o navega por el archivo completo.
           </p>
         </header>
 

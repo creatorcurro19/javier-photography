@@ -3,57 +3,49 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[92vh] sm:min-h-screen bg-black overflow-hidden flex items-center justify-center">
+    <section className="relative min-h-[95vh] sm:min-h-screen bg-[#101112] overflow-hidden flex items-center justify-center">
       <Image
         src="/images/portfolio/viajes-cultura/hero.jpg"
-        alt="Siluetas en la cresta al atardecer — Fotografía de Javier Espinosa Martínez"
+        alt="Siluetas en la cresta al atardecer — Fotografía de autor por Javier Espinosa Martínez"
         fill
         priority
         sizes="100vw"
-        className="object-cover object-center brightness-90 contrast-105"
+        className="object-cover object-center brightness-[0.88] contrast-[1.04]"
       />
       <div
-        className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/60"
+        className="absolute inset-0 bg-gradient-to-t from-[#101112] via-[#101112]/45 to-black/60"
         aria-hidden="true"
       />
 
-      <div className="relative z-10 flex min-h-[92vh] sm:min-h-screen w-full max-w-7xl mx-auto flex-col items-center justify-center px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24 text-center text-neutral-300">
-        <p className="mb-6 text-[11px] font-mono uppercase tracking-[0.5em] text-neutral-400">
+      <div className="relative z-10 flex min-h-[95vh] sm:min-h-screen w-full max-w-7xl mx-auto flex-col items-center justify-center px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24 text-center text-[#D8D5CD]">
+        <p className="mb-4 text-[10px] sm:text-xs font-mono uppercase tracking-[0.45em] text-[#95836B]">
           Fotografía de Autor · España
         </p>
 
-        <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extralight tracking-tight text-neutral-100">
+        <h1 className="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.04em] text-[#D8D5CD]">
           Javier Espinosa
         </h1>
 
-        <nav aria-label="Acceso directo a colecciones" className="mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs font-mono uppercase tracking-[0.25em] text-neutral-400 max-w-2xl">
-          <Link href="/portfolio/fauna-naturaleza" className="hover:text-neutral-100 transition">Fauna y Naturaleza</Link>
-          <span className="text-neutral-600" aria-hidden="true">·</span>
-          <Link href="/portfolio/paisajes-documental" className="hover:text-neutral-100 transition">Paisajes y Documental</Link>
-          <span className="text-neutral-600" aria-hidden="true">·</span>
-          <Link href="/portfolio/coches-rally" className="hover:text-neutral-100 transition">Coches y Rally</Link>
-          <span className="text-neutral-600" aria-hidden="true">·</span>
-          <Link href="/portfolio/arquitectura-urbana" className="hover:text-neutral-100 transition">Arquitectura Urbana</Link>
-          <span className="text-neutral-600" aria-hidden="true">·</span>
-          <Link href="/portfolio/viajes-cultura" className="hover:text-neutral-100 transition">Viajes y Cultura</Link>
-        </nav>
+        <p className="mt-4 font-mono text-xs uppercase tracking-[0.3em] text-neutral-400">
+          Landscapes · Wildlife · Architecture · Motorsport · Documentary
+        </p>
 
-        <p className="mt-6 max-w-xl text-base font-light text-neutral-300 leading-relaxed hidden sm:block">
-          La belleza de lo cotidiano, la tensión del instante decisivo y la paciente observación documental.
+        <p className="mt-6 max-w-xl text-base sm:text-lg font-light text-[#D8D5CD]/80 leading-relaxed hidden sm:block">
+          La luz natural como guía, el rigor geométrico del espacio y la paciente observación documental del instante decisivo.
         </p>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <Link
             href="/portfolio"
-            className="inline-flex items-center justify-center border border-neutral-200 bg-neutral-100 px-8 py-4 text-xs font-mono uppercase tracking-[0.3em] text-neutral-950 font-medium transition duration-300 hover:bg-transparent hover:text-white hover:border-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            className="inline-flex items-center justify-center border border-[#D8D5CD] bg-[#D8D5CD] px-8 py-3.5 text-xs font-mono uppercase tracking-[0.3em] text-[#101112] font-semibold transition duration-300 hover:bg-transparent hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
           >
             Ver Colecciones
           </Link>
           <Link
-            href="/servicios"
-            className="inline-flex items-center justify-center border border-neutral-700 bg-black/60 px-8 py-4 text-xs font-mono uppercase tracking-[0.3em] text-neutral-200 backdrop-blur-sm transition duration-300 hover:border-neutral-400 hover:bg-black/90 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            href="/projects"
+            className="inline-flex items-center justify-center border border-neutral-700 bg-[#101112]/70 px-8 py-3.5 text-xs font-mono uppercase tracking-[0.3em] text-[#D8D5CD] backdrop-blur-sm transition duration-300 hover:border-[#D8D5CD] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
           >
-            Encargos y Proyectos
+            Proyectos Narrativos
           </Link>
         </div>
 
@@ -63,10 +55,10 @@ export default function Hero() {
           aria-label="Desplazarse a colecciones"
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-70 hover:opacity-100 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
         >
-          <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-neutral-400">
+          <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-[#95836B]">
             Explorar
           </span>
-          <div className="h-8 w-px bg-gradient-to-b from-neutral-400 to-transparent" />
+          <div className="h-8 w-px bg-gradient-to-b from-[#95836B] to-transparent" />
         </a>
       </div>
     </section>

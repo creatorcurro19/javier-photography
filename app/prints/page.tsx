@@ -61,17 +61,17 @@ export default function PrintsPage() {
   const printable = getPrintablePhotos();
 
   return (
-    <div className="min-h-screen bg-black pt-36 pb-28 text-neutral-300">
+    <div className="min-h-screen bg-[#101112] pt-36 pb-28 text-[#D8D5CD]">
       <Container>
         {/* Header Section */}
         <div className="max-w-3xl">
-          <p className="text-xs uppercase tracking-[0.4em] text-neutral-500">
+          <p className="text-xs uppercase tracking-[0.4em] text-[#95836B] font-mono">
             Ediciones de Colección & Obra Gráfica
           </p>
-          <h1 className="mt-4 font-serif text-4xl font-light tracking-wide text-neutral-100 sm:text-5xl lg:text-6xl">
+          <h1 className="mt-4 font-serif text-4xl font-light tracking-wide text-[#D8D5CD] sm:text-5xl lg:text-6xl">
             Copias Fine Art de Autor
           </h1>
-          <p className="mt-6 text-base leading-relaxed text-neutral-400 sm:text-lg">
+          <p className="mt-6 text-base leading-relaxed text-[#D8D5CD]/80 sm:text-lg font-light">
             Cada copia es producida bajo demanda individual con supervisión directa de calibración 
             y perfilado cromático. Una traslación física precisa de la luz natural sobre soportes de fibra 
             de algodón de la máxima calidad museística europea.
@@ -83,10 +83,10 @@ export default function PrintsPage() {
           {SPECS.map((spec) => (
             <div
               key={spec.title}
-              className="rounded-lg border border-neutral-800 bg-neutral-950/60 p-7 sm:p-8 transition hover:border-neutral-700"
+              className="rounded-lg border border-[#1D2021] bg-[#1D2021]/40 p-7 sm:p-8 transition hover:border-[#95836B]/60"
             >
-              <h2 className="font-serif text-lg text-neutral-100">{spec.title}</h2>
-              <p className="mt-3 text-xs leading-relaxed text-neutral-400">
+              <h2 className="font-serif text-lg text-[#D8D5CD]">{spec.title}</h2>
+              <p className="mt-3 text-xs leading-relaxed text-neutral-400 font-light">
                 {spec.desc}
               </p>
             </div>
@@ -95,11 +95,11 @@ export default function PrintsPage() {
 
         {/* Formats Table */}
         <div className="mt-24">
-          <div className="border-b border-neutral-800 pb-5">
-            <h2 className="text-xs uppercase tracking-[0.35em] text-neutral-500">
+          <div className="border-b border-[#1D2021] pb-5">
+            <h2 className="text-xs uppercase tracking-[0.35em] text-[#95836B] font-mono">
               Formatos de Tirada Disponibles
             </h2>
-            <p className="mt-1 font-serif text-2xl text-neutral-100">
+            <p className="mt-1 font-serif text-2xl text-[#D8D5CD]">
               Dimensiones y especificaciones de edición
             </p>
           </div>
@@ -108,28 +108,28 @@ export default function PrintsPage() {
             {SIZES.map((item) => (
               <div
                 key={item.name}
-                className="flex flex-col justify-between rounded-lg border border-neutral-800 bg-neutral-950/40 p-8 sm:p-10"
+                className="flex flex-col justify-between rounded-lg border border-[#1D2021] bg-[#1D2021]/30 p-8 sm:p-10"
               >
                 <div>
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-neutral-500">
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-[#95836B] font-mono">
                     {item.edition}
                   </span>
-                  <h3 className="mt-2 font-serif text-2xl text-neutral-100">{item.name}</h3>
-                  <p className="mt-1 font-mono text-sm text-neutral-300">
+                  <h3 className="mt-2 font-serif text-2xl text-[#D8D5CD]">{item.name}</h3>
+                  <p className="mt-1 font-mono text-sm text-[#95836B]">
                     {item.dims} <span className="text-neutral-500">({item.imageSize})</span>
                   </p>
-                  <p className="mt-5 text-xs leading-relaxed text-neutral-400">
+                  <p className="mt-5 text-xs leading-relaxed text-neutral-400 font-light">
                     {item.idealFor}
                   </p>
                 </div>
 
-                <div className="mt-8 border-t border-neutral-900 pt-6">
+                <div className="mt-8 border-t border-[#1D2021] pt-6">
                   <p className="text-[11px] text-neutral-400">
-                    <strong className="text-neutral-300">Embalaje:</strong> {item.packaging}
+                    <strong className="text-[#D8D5CD]">Embalaje:</strong> {item.packaging}
                   </p>
                   <Link
                     href={`/contact?motivo=print&formato=${encodeURIComponent(item.name)}`}
-                    className="mt-6 inline-flex w-full items-center justify-center border border-neutral-700 bg-neutral-900/60 py-3 text-xs uppercase tracking-[0.3em] text-neutral-200 transition hover:border-white hover:text-white"
+                    className="mt-6 inline-flex w-full items-center justify-center border border-[#1D2021] bg-[#1D2021]/60 py-3 text-xs uppercase tracking-[0.3em] text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
                   >
                     Consultar disponibilidad
                   </Link>
@@ -217,15 +217,15 @@ export default function PrintsPage() {
         </div>
 
         {/* Framing & Shipping Guarantee */}
-        <div className="mt-28 rounded-lg border border-neutral-800 bg-neutral-950/40 p-8 sm:p-12 lg:p-14">
+        <div className="mt-28 rounded-xl border border-[#1D2021] bg-[#1D2021]/30 p-8 sm:p-12 lg:p-14">
           <div className="max-w-2xl">
-            <span className="text-xs uppercase tracking-[0.35em] text-neutral-500">
+            <span className="text-xs uppercase tracking-[0.35em] text-[#95836B] font-mono">
               Garantía y Logística
             </span>
-            <h2 className="mt-3 font-serif text-2xl text-neutral-100 sm:text-3xl">
+            <h2 className="mt-3 font-serif text-2xl text-[#D8D5CD] sm:text-3xl">
               Asesoramiento en enmarcado y envíos internacionales
             </h2>
-            <p className="mt-4 text-sm leading-relaxed text-neutral-400">
+            <p className="mt-4 text-sm leading-relaxed text-[#D8D5CD]/80 font-light">
               Cada fotografía se entrega con instrucciones detalladas de conservación preventiva. 
               Si desea recibir la obra ya montada en marco de madera maciza (roble, fresno o negro mate) 
               con cristal museo antirreflejos de protección UV al 99%, indíquelo al realizar su consulta.
@@ -233,7 +233,7 @@ export default function PrintsPage() {
             <div className="mt-8">
               <Link
                 href="/contact?motivo=print"
-                className="inline-flex border border-neutral-200 bg-neutral-100 px-8 py-3.5 text-xs uppercase tracking-[0.3em] text-neutral-950 font-medium transition hover:bg-white hover:text-black hover:border-white"
+                className="inline-flex border border-[#D8D5CD] bg-[#D8D5CD] px-8 py-3.5 text-xs uppercase tracking-[0.3em] text-[#101112] font-semibold transition hover:bg-transparent hover:text-white"
               >
                 Solicitar presupuesto personalizado
               </Link>

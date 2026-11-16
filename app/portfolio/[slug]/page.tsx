@@ -65,19 +65,19 @@ function CategoryGallery({ category }: { category: PhotoCategory }) {
   const info = CATEGORY_METADATA[category];
 
   return (
-    <div className="min-h-screen bg-black pt-36 pb-28 text-neutral-300">
+    <div className="min-h-screen bg-[#101112] pt-36 pb-28 text-[#D8D5CD]">
       <Container>
         <header className="max-w-3xl">
-          <p className="text-xs font-mono uppercase tracking-[0.4em] text-neutral-500">
-            Colección
+          <p className="text-xs font-mono uppercase tracking-[0.4em] text-[#95836B]">
+            {info.code} · Disciplina
           </p>
-          <h1 className="mt-4 font-serif text-5xl font-light md:text-6xl text-neutral-100">
+          <h1 className="mt-4 font-serif text-5xl font-light md:text-6xl text-[#D8D5CD]">
             {info.title}
           </h1>
-          <p className="mt-4 text-xs font-mono uppercase tracking-[0.2em] text-neutral-400">
+          <p className="mt-3 text-xs font-mono uppercase tracking-[0.2em] text-[#95836B]">
             {info.subtitle}
           </p>
-          <p className="mt-6 text-lg leading-relaxed text-neutral-300 font-light">
+          <p className="mt-6 text-lg leading-relaxed text-[#D8D5CD]/80 font-light">
             {info.description}
           </p>
         </header>
@@ -115,22 +115,22 @@ function PhotoDetail({ slug }: { slug: string }) {
   ]);
 
   return (
-    <article className="min-h-screen bg-black pb-28 text-neutral-300">
+    <article className="min-h-screen bg-[#101112] pb-28 text-[#D8D5CD]">
       <JsonLd data={[generatePhotoSchema(photo), breadcrumb]} />
       
       {/* Breadcrumb Bar */}
-      <div className="pt-24 border-b border-neutral-900 bg-neutral-950/40">
+      <div className="pt-24 border-b border-[#1D2021] bg-[#101112]/60">
         <Container className="py-4">
-          <nav aria-label="Miga de pan" className="flex items-center gap-2 text-xs text-neutral-400">
-            <Link href="/" className="hover:text-neutral-200 transition">Inicio</Link>
-            <span className="text-neutral-600">/</span>
-            <Link href="/portfolio" className="hover:text-neutral-200 transition">Portfolio</Link>
-            <span className="text-neutral-600">/</span>
-            <Link href={`/portfolio/${photo.category}`} className="hover:text-neutral-200 transition">
+          <nav aria-label="Miga de pan" className="flex items-center gap-2 text-xs font-mono text-neutral-400">
+            <Link href="/" className="hover:text-[#D8D5CD] transition">Inicio</Link>
+            <span className="text-[#95836B]">/</span>
+            <Link href="/portfolio" className="hover:text-[#D8D5CD] transition">Portfolio</Link>
+            <span className="text-[#95836B]">/</span>
+            <Link href={`/portfolio/${photo.category}`} className="hover:text-[#D8D5CD] transition">
               {categoryInfo?.title ?? photo.category}
             </Link>
-            <span className="text-neutral-600">/</span>
-            <span className="text-neutral-300 truncate">{photo.title}</span>
+            <span className="text-[#95836B]">/</span>
+            <span className="text-[#D8D5CD] truncate">{photo.title}</span>
           </nav>
         </Container>
       </div>
@@ -154,21 +154,21 @@ function PhotoDetail({ slug }: { slug: string }) {
         </div>
 
         {/* Adjacent Photo Navigation */}
-        <nav aria-label="Navegación entre obras de la misma colección" className="border-t border-neutral-900 pt-10">
+        <nav aria-label="Navegación entre obras de la misma colección" className="border-t border-[#1D2021] pt-10">
           <div className="flex items-center justify-between gap-4 text-xs font-mono uppercase tracking-[0.2em]">
             {prev ? (
               <Link
                 href={`/portfolio/${prev.slug}`}
-                className="group flex flex-col items-start gap-1 text-neutral-400 hover:text-neutral-100 transition"
+                className="group flex flex-col items-start gap-1 text-neutral-400 hover:text-[#D8D5CD] transition"
               >
-                <span className="text-[10px] text-neutral-600 group-hover:text-neutral-400">← Anterior</span>
-                <span className="font-serif text-sm normal-case tracking-normal text-neutral-300 group-hover:text-white truncate max-w-[180px] sm:max-w-xs">{prev.title}</span>
+                <span className="text-[10px] text-[#95836B] group-hover:text-[#D8D5CD]">← Anterior</span>
+                <span className="font-serif text-base normal-case tracking-normal text-[#D8D5CD] group-hover:text-white truncate max-w-[180px] sm:max-w-xs">{prev.title}</span>
               </Link>
             ) : <div />}
 
             <Link
               href={`/portfolio/${photo.category}`}
-              className="hidden sm:inline-flex items-center gap-1.5 text-neutral-500 hover:text-neutral-200 transition text-[11px]"
+              className="hidden sm:inline-flex items-center gap-1.5 text-neutral-400 hover:text-[#D8D5CD] transition text-xs font-mono"
             >
               <span>Colección {categoryInfo?.title} ({totalInCat})</span>
             </Link>
@@ -176,10 +176,10 @@ function PhotoDetail({ slug }: { slug: string }) {
             {next ? (
               <Link
                 href={`/portfolio/${next.slug}`}
-                className="group flex flex-col items-end gap-1 text-neutral-400 hover:text-neutral-100 transition text-right"
+                className="group flex flex-col items-end gap-1 text-neutral-400 hover:text-[#D8D5CD] transition text-right"
               >
-                <span className="text-[10px] text-neutral-600 group-hover:text-neutral-400">Siguiente →</span>
-                <span className="font-serif text-sm normal-case tracking-normal text-neutral-300 group-hover:text-white truncate max-w-[180px] sm:max-w-xs">{next.title}</span>
+                <span className="text-[10px] text-[#95836B] group-hover:text-[#D8D5CD]">Siguiente →</span>
+                <span className="font-serif text-base normal-case tracking-normal text-[#D8D5CD] group-hover:text-white truncate max-w-[180px] sm:max-w-xs">{next.title}</span>
               </Link>
             ) : <div />}
           </div>
