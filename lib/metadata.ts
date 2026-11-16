@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import type { Photo } from "@/types/photo";
 
-const SITE_URL = "https://www.javierespinosa.com";
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "https://javierespinosa.vercel.app");
 const SITE_NAME = "Javier Espinosa Fotografía";
 const DEFAULT_OG = "/images/portfolio/hero/hero.jpg";
 

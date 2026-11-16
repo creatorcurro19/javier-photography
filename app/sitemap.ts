@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/metadata";
 import { getAllPhotos, getAllProjects, PHOTO_CATEGORIES } from "@/lib/photos";
 import { CATEGORY_METADATA } from "@/types/photo";
 
-const BASE = "https://www.javierespinosa.com";
+const BASE = SITE_URL;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();

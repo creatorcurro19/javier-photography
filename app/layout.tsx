@@ -5,10 +5,11 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import SavedCollectionDrawer from "@/components/photo/SavedCollectionDrawer";
 import JsonLd from "@/components/seo/JsonLd";
+import { SITE_URL } from "@/lib/metadata";
 import { generatePersonSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.javierespinosa.com"),
+  metadataBase: new URL(SITE_URL),
 
   title: {
     default: "Javier Espinosa | Fotografía de Autor & Fine Art",
