@@ -22,6 +22,7 @@ export default function LightboxModal({
   onNavigate,
 }: LightboxModalProps) {
   const [showExif, setShowExif] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const touchStartX = useRef<number | null>(null);
 
   const photo = photos[currentIndex];
@@ -39,17 +40,31 @@ export default function LightboxModal({
   }, [currentIndex, photos.length, onNavigate]);
 
   useEffect(() => {
+    if (!isOpen || !isPlaying || photos.length <= 1) return;
+    const timer = window.setInterval(() => {
+      handleNext();
+    }, 3800);
+    return () => window.clearInterval(timer);
+  }, [isOpen, isPlaying, photos.length, handleNext]);
+
+  useEffect(() => {
     if (!isOpen) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
+        setIsPlaying(false);
         onClose();
       } else if (e.key === "ArrowLeft") {
+        setIsPlaying(false);
         handlePrev();
       } else if (e.key === "ArrowRight") {
+        setIsPlaying(false);
         handleNext();
       } else if (e.key.toLowerCase() === "i") {
         setShowExif((prev) => !prev);
+      } else if (e.key.toLowerCase() === "p" || e.key === " ") {
+        e.preventDefault();
+        setIsPlaying((prev) => !prev);
       }
     };
 
@@ -107,6 +122,21 @@ export default function LightboxModal({
         </h2>
 
         <div className="flex items-center gap-2">
+          {photos.length > 1 && (
+            <button
+              type="button"
+              onClick={() => setIsPlaying((prev) => !prev)}
+              className={`rounded-full px-3.5 py-1.5 text-xs font-mono tracking-wider transition ${
+                isPlaying
+                  ? "bg-[#95836B] text-[#101112] font-semibold"
+                  : "border border-[#1D2021] bg-[#1D2021]/60 text-neutral-300 hover:border-[#95836B] hover:text-white"
+              }`}
+              title="Presentación automática (Tecla P o Espacio)"
+            >
+              {isPlaying ? "❚❚ Pausar" : "▶ Presentación"}
+            </button>
+          )}
+
           <button
             type="button"
             onClick={() => setShowExif(!showExif)}

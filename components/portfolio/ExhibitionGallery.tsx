@@ -12,6 +12,7 @@ type ExhibitionGalleryProps = {
 };
 
 type ViewMode = "masonry" | "immersive" | "grid";
+type FilterMode = "all" | "vertical" | "horizontal" | "telephoto" | "prints";
 
 export default function ExhibitionGallery({
   photos,
@@ -20,6 +21,18 @@ export default function ExhibitionGallery({
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [viewMode, setViewMode] = useState<ViewMode>("masonry");
+  const [filterMode, setFilterMode] = useState<FilterMode>("all");
+
+  const filteredPhotos = photos.filter((photo) => {
+    if (filterMode === "vertical") return photo.height > photo.width;
+    if (filterMode === "horizontal") return photo.width > photo.height;
+    if (filterMode === "telephoto") {
+      const mm = parseInt(photo.focalLength, 10);
+      return !Number.isNaN(mm) && mm >= 150;
+    }
+    if (filterMode === "prints") return Boolean(photo.prints);
+    return true;
+  });
 
   if (photos.length === 0) {
     return (
@@ -38,13 +51,45 @@ export default function ExhibitionGallery({
 
   return (
     <>
-      {/* Gallery View Controls */}
-      <div className="mb-10 flex items-center justify-between border-b border-[#1D2021] pb-4">
-        <span className="font-mono text-xs text-[#95836B]">
-          {photos.length} {photos.length === 1 ? "fotografía" : "fotografías"}
-        </span>
+      {/* Gallery Filter & View Controls */}
+      <div className="mb-10 flex flex-col gap-4 border-b border-[#1D2021] pb-5 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-wider">
+          <span className="mr-2 font-mono text-xs text-[#95836B]">
+            {filteredPhotos.length} {filteredPhotos.length === 1 ? "fotografía" : "fotografías"}
+          </span>
+          {photos.length > 4 && (
+            <>
+              <span className="text-neutral-700">|</span>
+              {(
+                [
+                  { id: "all", label: "Todas" },
+                  { id: "vertical", label: "Vertical" },
+                  { id: "horizontal", label: "Horizontal" },
+                  { id: "telephoto", label: "Teleobjetivo ≥150mm" },
+                  { id: "prints", label: "Edición Fine Art" },
+                ] as const
+              ).map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => {
+                    setFilterMode(item.id);
+                    setSelectedIndex(0);
+                  }}
+                  className={`rounded-full px-3 py-1 transition ${
+                    filterMode === item.id
+                      ? "bg-[#D8D5CD] text-[#101112] font-medium"
+                      : "border border-[#1D2021] bg-[#1D2021]/40 text-neutral-400 hover:border-[#95836B]/60 hover:text-[#D8D5CD]"
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </>
+          )}
+        </div>
 
-        <div className="flex items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-neutral-400">
+        <div className="flex items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-neutral-400 shrink-0">
           <span className="hidden sm:inline mr-2 text-neutral-500">Presentación:</span>
           <button
             type="button"
@@ -96,7 +141,7 @@ export default function ExhibitionGallery({
             : "columns-2 gap-4 sm:columns-3 md:columns-4 lg:columns-5"
         }
       >
-        {photos.map((photo, index) => {
+        {filteredPhotos.map((photo, index) => {
           return (
             <figure
               key={photo.id}
@@ -188,7 +233,7 @@ export default function ExhibitionGallery({
       </div>
 
       <LightboxModal
-        photos={photos}
+        photos={filteredPhotos}
         currentIndex={selectedIndex}
         isOpen={lightboxOpen}
         onClose={() => setLightboxOpen(false)}

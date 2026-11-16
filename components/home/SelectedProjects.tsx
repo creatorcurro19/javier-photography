@@ -5,7 +5,7 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import { getAllProjects } from "@/lib/photos";
 
 export default function SelectedProjects() {
-  const projects = getAllProjects().slice(0, 4);
+  const projects = getAllProjects();
 
   return (
     <section id="proyectos" className="bg-[#101112] py-28 md:py-36 border-t border-[#1D2021] scroll-mt-20">
@@ -14,18 +14,18 @@ export default function SelectedProjects() {
           <SectionHeader
             label="Ensayos & Narrativa Visual"
             title="Proyectos Seleccionados"
-            description="Series monográficas articuladas con una intención conceptual y documental: la dignidad de los oficios, la orografía del territorio y la tensión del instante."
+            description="Series monográficas articuladas con una intención conceptual y documental: la dignidad de los oficios, la arquitectura popular, la orografía del territorio y la tensión del instante."
           />
           <Link
             href="/projects"
             className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.25em] text-[#95836B] hover:text-[#D8D5CD] transition group shrink-0"
           >
-            <span>Índice de Proyectos</span>
+            <span>Índice de Proyectos ({projects.length})</span>
             <span className="transition-transform group-hover:translate-x-1">→</span>
           </Link>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, idx) => (
             <article
               key={project.id}

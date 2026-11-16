@@ -9,11 +9,12 @@ const collections = [
 ];
 
 const projectLinks = [
+  { href: "/projects/villanueva-de-la-vera", label: "Villanueva de la Vera" },
   { href: "/projects/custodios", label: "Custodios: Memoria y Oficios" },
-  { href: "/projects/la-gomera", label: "La Gomera: Territorio y Tradición" },
+  { href: "/projects/la-gomera", label: "Entre la Bruma y el Volcán" },
   { href: "/projects/trazadas-rally", label: "Trazadas: Rally Histórico" },
   { href: "/projects/silencio-del-desierto", label: "El Silencio del Desierto" },
-  { href: "/projects", label: "Ver Todos los Proyectos →" },
+  { href: "/projects/miradas-en-libertad", label: "Miradas en Libertad: Fauna" },
 ];
 
 const commercialLinks = [
