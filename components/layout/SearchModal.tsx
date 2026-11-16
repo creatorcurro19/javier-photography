@@ -47,8 +47,17 @@ export default function SearchModal() {
         setOpen(false);
       }
     };
+    const onOpenCustom = () => {
+      setSelectedIndex(0);
+      setOpen(true);
+    };
+
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    window.addEventListener("open-visual-search", onOpenCustom);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("open-visual-search", onOpenCustom);
+    };
   }, [open]);
 
   useEffect(() => {
@@ -258,9 +267,9 @@ export default function SearchModal() {
               </div>
 
               {/* Interactive Discipline Tabs + Optical Suggestion Chips */}
-              <div className="flex flex-col justify-between gap-3 border-b border-[#1D2021] bg-[#141617]/60 px-6 py-3.5 sm:px-8 lg:flex-row lg:items-center">
-                {/* Category Filter Pills */}
-                <div className="flex flex-wrap items-center gap-1.5">
+              <div className="flex flex-col justify-between gap-3 border-b border-[#1D2021] bg-[#141617]/60 px-4 py-3 sm:px-8 sm:py-3.5 lg:flex-row lg:items-center">
+                {/* Category Filter Pills - Horizontally swipeable on mobile */}
+                <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar scroll-smooth py-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:py-0">
                   {CATEGORIES.map((cat) => {
                     const active = activeCategory === cat.id;
                     return (
@@ -271,7 +280,7 @@ export default function SearchModal() {
                           setActiveCategory(cat.id);
                           setSelectedIndex(0);
                         }}
-                        className={`px-3 py-1 text-[10px] uppercase tracking-[0.22em] transition-all ${
+                        className={`shrink-0 px-3 py-1 text-[10px] uppercase tracking-[0.22em] transition-all ${
                           active
                             ? "border border-[#95836B] bg-[#95836B]/20 text-[#D8D5CD]"
                             : "border border-transparent text-neutral-400 hover:border-[#1D2021] hover:text-[#D8D5CD]"
@@ -283,9 +292,9 @@ export default function SearchModal() {
                   })}
                 </div>
 
-                {/* Quick Atmospheric Tags */}
-                <div className="flex flex-wrap items-center gap-1.5">
-                  <span className="mr-1 font-mono text-[9px] uppercase tracking-[0.25em] text-[#95836B]">
+                {/* Quick Atmospheric Tags - Horizontally swipeable on mobile */}
+                <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar scroll-smooth py-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:py-0">
+                  <span className="shrink-0 mr-1 font-mono text-[9px] uppercase tracking-[0.25em] text-[#95836B]">
                     Atajos:
                   </span>
                   {QUICK_TAGS.map((tag) => {
@@ -299,7 +308,7 @@ export default function SearchModal() {
                           setQuery(isSelected ? "" : tag.value);
                           setSelectedIndex(0);
                         }}
-                        className={`border px-2.5 py-0.5 text-[10px] tracking-wider transition ${
+                        className={`shrink-0 border px-2.5 py-0.5 text-[10px] tracking-wider transition ${
                           isSelected
                             ? "border-[#D8D5CD] bg-[#D8D5CD] text-[#101112] font-medium"
                             : "border-[#1D2021] bg-[#101112] text-[#D8D5CD]/75 hover:border-[#95836B]/60 hover:text-white"

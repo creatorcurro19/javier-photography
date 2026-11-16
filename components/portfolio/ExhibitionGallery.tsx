@@ -118,20 +118,20 @@ export default function ExhibitionGallery({
     <>
       {/* Gallery Filter & View Controls */}
       <div className="mb-10 flex flex-col gap-4 border-b border-[#1D2021] pb-5 lg:flex-row lg:items-center lg:justify-between">
-        <div className="flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-wider">
-          <span className="mr-2 font-mono text-xs text-[#95836B]">
-            {filteredPhotos.length} {filteredPhotos.length === 1 ? "fotografía" : "fotografías"}
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap text-[11px] uppercase tracking-wider">
+          <span className="shrink-0 mr-1 font-mono text-xs text-[#95836B]">
+            {filteredPhotos.length} {filteredPhotos.length === 1 ? "foto" : "fotos"}
           </span>
           {photos.length > 4 && (
             <>
-              <span className="text-neutral-700">|</span>
+              <span className="hidden sm:inline text-neutral-700">|</span>
               {(
                 [
                   { id: "all", label: "Todas" },
                   { id: "vertical", label: "Vertical" },
                   { id: "horizontal", label: "Horizontal" },
-                  { id: "telephoto", label: "Teleobjetivo ≥150mm" },
-                  { id: "prints", label: "Edición Fine Art" },
+                  { id: "telephoto", label: "Tele ≥150mm" },
+                  { id: "prints", label: "Fine Art" },
                 ] as const
               ).map((item) => (
                 <button
@@ -142,7 +142,7 @@ export default function ExhibitionGallery({
                     setSelectedIndex(0);
                     setVisibleCount(INITIAL_BATCH);
                   }}
-                  className={`rounded-full px-3 py-1 transition ${
+                  className={`shrink-0 rounded-full px-3 py-1 transition ${
                     filterMode === item.id
                       ? "bg-[#D8D5CD] text-[#101112] font-medium"
                       : "border border-[#1D2021] bg-[#1D2021]/40 text-neutral-400 hover:border-[#95836B]/60 hover:text-[#D8D5CD]"
@@ -155,7 +155,7 @@ export default function ExhibitionGallery({
           )}
         </div>
 
-        <div className="flex items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-neutral-400 shrink-0">
+        <div className="flex items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-neutral-400 overflow-x-auto no-scrollbar scroll-smooth py-1 -mx-4 px-4 sm:mx-0 sm:px-0 shrink-0">
           <span className="hidden sm:inline mr-2 text-neutral-500">Presentación:</span>
           <button
             type="button"
@@ -218,9 +218,9 @@ export default function ExhibitionGallery({
 
       {/* Selector de Armonía Cromática para Interiorismo */}
       {photos.length > 6 && (
-        <div className="mb-8 flex flex-wrap items-center justify-between gap-3 border border-[#1D2021] bg-[#141617]/50 px-4 py-2.5">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
+        <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border border-[#1D2021] bg-[#141617]/50 px-4 py-2.5">
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1 -mx-2 px-2 sm:mx-0 sm:px-0 sm:flex-wrap">
+            <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
               Armonía Cromática:
             </span>
             {PALETTES.map((pal) => {
@@ -234,7 +234,7 @@ export default function ExhibitionGallery({
                     setSelectedIndex(0);
                     setVisibleCount(INITIAL_BATCH);
                   }}
-                  className={`flex items-center gap-1.5 border px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider transition ${
+                  className={`shrink-0 flex items-center gap-1.5 border px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider transition ${
                     active
                       ? "border-[#95836B] bg-[#95836B]/20 text-[#D8D5CD]"
                       : "border-transparent text-neutral-400 hover:border-[#1D2021] hover:text-[#D8D5CD]"
@@ -256,7 +256,7 @@ export default function ExhibitionGallery({
             <button
               type="button"
               onClick={() => setPaletteMode("all")}
-              className="font-mono text-[10px] text-[#95836B] hover:text-white"
+              className="shrink-0 font-mono text-[10px] text-[#95836B] hover:text-white"
             >
               Restablecer paleta ×
             </button>

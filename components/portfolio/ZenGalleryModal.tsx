@@ -29,6 +29,7 @@ export default function ZenGalleryModal({
   const hideUiTimer = useRef<NodeJS.Timeout | null>(null);
   const autoPlayTimer = useRef<NodeJS.Timeout | null>(null);
   const progressInterval = useRef<NodeJS.Timeout | null>(null);
+  const touchStartX = useRef<number | null>(null);
 
   const total = photos.length;
   const currentPhoto = photos[currentIndex % total] ?? photos[0];
@@ -42,6 +43,21 @@ export default function ZenGalleryModal({
     setCurrentIndex((prev) => (prev - 1 + total) % total);
     setProgress(0);
   }, [total]);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = e.changedTouches[0].clientX - touchStartX.current;
+    if (diff > 45) {
+      prevSlide();
+    } else if (diff < -45) {
+      nextSlide();
+    }
+    touchStartX.current = null;
+  };
 
   // Autoplay progression
   useEffect(() => {
@@ -112,6 +128,8 @@ export default function ZenGalleryModal({
           aria-modal="true"
           aria-label="Modo Galería Zen y pase de diapositivas a pantalla completa"
           onMouseMove={handleMouseMove}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
           className="fixed inset-0 z-[130] flex flex-col justify-between overflow-hidden bg-black select-none"
         >
           {/* Top Bar (Auto-hiding) */}

@@ -13,7 +13,7 @@ export default function CategoryNav({ activeCategory }: CategoryNavProps) {
   return (
     <nav
       aria-label="Colecciones de fotografía"
-      className="flex items-center gap-x-6 gap-y-3 overflow-x-auto whitespace-nowrap border-b border-[#1D2021] pb-4 md:flex-wrap md:overflow-visible md:pb-6"
+      className="flex items-center gap-x-6 gap-y-3 overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap border-b border-[#1D2021] pb-4 -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap md:overflow-visible md:pb-6"
     >
       <Link
         href="/portfolio"

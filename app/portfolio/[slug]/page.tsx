@@ -13,6 +13,7 @@ import LocationMap from "@/components/photo/LocationMap";
 import PhotoHero from "@/components/photo/PhotoHero";
 import PhotoKeyboardNav from "@/components/photo/PhotoKeyboardNav";
 import PhotoMeta from "@/components/photo/PhotoMeta";
+import MobilePhotoActionBar from "@/components/photo/MobilePhotoActionBar";
 import PrintCTA from "@/components/photo/PrintCTA";
 import RelatedPhotos from "@/components/photo/RelatedPhotos";
 import StorySection from "@/components/photo/StorySection";
@@ -116,9 +117,10 @@ function PhotoDetail({ slug }: { slug: string }) {
   ]);
 
   return (
-    <article className="min-h-screen bg-[#101112] pb-28 text-[#D8D5CD]">
+    <article className="min-h-screen bg-[#101112] pb-36 lg:pb-28 text-[#D8D5CD]">
       <JsonLd data={[generatePhotoSchema(photo), breadcrumb]} />
       <PhotoKeyboardNav prevSlug={prev?.slug} nextSlug={next?.slug} />
+      <MobilePhotoActionBar photo={photo} />
       
       {/* Breadcrumb Bar */}
       <div className="pt-24 border-b border-[#1D2021] bg-[#101112]/60">

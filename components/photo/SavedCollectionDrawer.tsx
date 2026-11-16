@@ -48,9 +48,9 @@ export default function SavedCollectionDrawer() {
 
   return (
     <>
-      <div className="fixed right-5 bottom-5 z-40 print:hidden">
+      <div className="fixed right-4 sm:right-5 bottom-20 md:bottom-5 z-40 print:hidden">
         {open ? (
-          <div className="w-80 border border-[#95836B]/70 bg-[#101112]/95 p-5 shadow-[0_25px_70px_rgba(0,0,0,0.85)] backdrop-blur-xl sm:w-96">
+          <div className="w-[calc(100vw-2rem)] max-w-sm border border-[#95836B]/70 bg-[#101112]/95 p-5 shadow-[0_25px_70px_rgba(0,0,0,0.85)] backdrop-blur-xl">
             <div className="flex items-center justify-between border-b border-[#1D2021] pb-3">
               <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
                 Mi Selección ({savedTitles.length})
@@ -152,7 +152,7 @@ export default function SavedCollectionDrawer() {
             onClick={() => setCompareOpen(false)}
           >
             <div
-              className="w-full max-w-6xl border border-[#1D2021] bg-[#101112] p-6 sm:p-10 shadow-2xl"
+              className="w-full max-w-6xl max-h-[92vh] overflow-y-auto no-scrollbar border border-[#1D2021] bg-[#101112] p-5 sm:p-10 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#1D2021] pb-4">

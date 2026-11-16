@@ -92,12 +92,12 @@ export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
         </div>
 
         {/* Selector interactivo de visualización y enmarcado */}
-        <div className="mx-auto mt-6 flex flex-wrap items-center justify-center gap-2 px-4 text-[11px] uppercase tracking-[0.2em]">
-          <span className="mr-2 text-[#95836B]">Simulador de Obra:</span>
+        <div className="mx-auto mt-6 flex items-center justify-start sm:justify-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1 px-4 text-[11px] uppercase tracking-[0.2em] sm:flex-wrap">
+          <span className="shrink-0 mr-1 text-[#95836B]">Simulador:</span>
           <button
             type="button"
             onClick={() => setFrameStyle("clean")}
-            className={`rounded-full px-3.5 py-1.5 transition ${
+            className={`shrink-0 rounded-full px-3.5 py-1.5 transition ${
               frameStyle === "clean"
                 ? "bg-[#D8D5CD] text-[#101112] font-medium"
                 : "border border-[#1D2021] bg-[#1D2021]/50 text-[#D8D5CD]/80 hover:border-[#95836B]"
@@ -108,10 +108,10 @@ export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
           <button
             type="button"
             onClick={() => setFrameStyle("black")}
-            className={`rounded-full px-3.5 py-1.5 transition ${
+            className={`shrink-0 rounded-full px-3.5 py-1.5 transition ${
               frameStyle === "black"
                 ? "bg-[#D8D5CD] text-[#101112] font-medium"
-                : "border border-[#1D2021] bg-[#1D2021]/50 text-[#D8D5CD]/80 hover:border-[#95836B]"
+                : "border border-[#1D2021] bg-[#101112] text-[#D8D5CD]/80 hover:border-[#95836B]"
             }`}
           >
             Marco Negro + Paspartú
@@ -119,10 +119,10 @@ export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
           <button
             type="button"
             onClick={() => setFrameStyle("oak")}
-            className={`rounded-full px-3.5 py-1.5 transition ${
+            className={`shrink-0 rounded-full px-3.5 py-1.5 transition ${
               frameStyle === "oak"
                 ? "bg-[#D8D5CD] text-[#101112] font-medium"
-                : "border border-[#1D2021] bg-[#1D2021]/50 text-[#D8D5CD]/80 hover:border-[#95836B]"
+                : "border border-[#1D2021] bg-[#101112] text-[#D8D5CD]/80 hover:border-[#95836B]"
             }`}
           >
             Marco Roble + Paspartú

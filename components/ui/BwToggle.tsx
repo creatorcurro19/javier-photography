@@ -36,7 +36,7 @@ export default function BwToggle() {
       onClick={toggle}
       title={isBw ? "Volver a color natural" : "Ver archivo en Blanco y Negro Fine Art (grano de plata)"}
       aria-label={isBw ? "Activar modo color" : "Activar modo monocromo Fine Art"}
-      className={`group relative flex items-center gap-2 border px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.24em] transition-all duration-300 ${
+      className={`group relative flex items-center gap-1.5 border px-2.5 py-1.5 font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.24em] transition-all duration-300 ${
         isBw
           ? "border-[#D8D5CD] bg-[#D8D5CD] text-[#101112] font-semibold"
           : "border-[#1D2021] bg-[#141617]/70 text-neutral-400 hover:border-[#95836B]/70 hover:text-white"
@@ -45,13 +45,14 @@ export default function BwToggle() {
       {/* Dual Yin-Yang Circle Indicator */}
       <span
         aria-hidden="true"
-        className={`relative inline-block h-3.5 w-3.5 rounded-full border transition-transform duration-300 ${
+        className={`relative inline-block h-3 w-3 sm:h-3.5 sm:w-3.5 rounded-full border transition-transform duration-300 ${
           isBw
             ? "border-[#101112] bg-gradient-to-r from-black to-white"
             : "border-[#95836B]/60 bg-gradient-to-r from-[#95836B] to-[#D8D5CD]"
         }`}
       />
-      <span>{isBw ? "B&W" : "Color"}</span>
+      <span className="hidden sm:inline">{isBw ? "B&W" : "Color"}</span>
+      <span className="sm:hidden">{isBw ? "B/W" : "CLR"}</span>
     </button>
   );
 }

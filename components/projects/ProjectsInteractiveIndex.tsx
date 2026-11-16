@@ -37,8 +37,8 @@ export default function ProjectsInteractiveIndex({
   return (
     <div className="mt-14">
       {/* Interactive Filter Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-y border-[#1D2021] bg-[#141617]/50 px-5 py-4">
-        <div className="flex flex-wrap items-center gap-1.5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-y border-[#1D2021] bg-[#141617]/50 px-5 py-4">
+        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar scroll-smooth py-1 -mx-5 px-5 sm:mx-0 sm:px-0 sm:flex-wrap">
           {DISCIPLINE_FILTERS.map((f) => {
             const active = activeCategory === f.id;
             return (
@@ -46,7 +46,7 @@ export default function ProjectsInteractiveIndex({
                 key={f.id}
                 type="button"
                 onClick={() => setActiveCategory(f.id)}
-                className={`px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.22em] transition ${
+                className={`shrink-0 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.22em] transition ${
                   active
                     ? "border border-[#95836B] bg-[#95836B]/20 text-[#D8D5CD]"
                     : "border border-transparent text-neutral-400 hover:border-[#1D2021] hover:text-[#D8D5CD]"
@@ -58,7 +58,7 @@ export default function ProjectsInteractiveIndex({
           })}
         </div>
 
-        <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
+        <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
           {filtered.length} ensayos monográficos
         </span>
       </div>
@@ -123,7 +123,7 @@ export default function ProjectsInteractiveIndex({
                   <div className="mt-3">
                     <div className="mb-1.5 flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.22em] text-neutral-500">
                       <span>
-                        Secuencia del Ensayo (pasa el cursor para previsualizar)
+                        Secuencia del Ensayo (toca o pasa el cursor para previsualizar)
                       </span>
                       {previewIndex >= 0 && (
                         <button

@@ -47,6 +47,15 @@ export default function OpticalLoupeInspector() {
     setZoomPos({ x, y });
   };
 
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (e.touches.length === 0) return;
+    const touch = e.touches[0];
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = Math.min(90, Math.max(10, ((touch.clientX - rect.left) / rect.width) * 100));
+    const y = Math.min(90, Math.max(10, ((touch.clientY - rect.top) / rect.height) * 100));
+    setZoomPos({ x, y });
+  };
+
   return (
     <section
       aria-labelledby="loupe-heading"
@@ -62,7 +71,7 @@ export default function OpticalLoupeInspector() {
           </h2>
         </div>
 
-        <div className="flex flex-wrap gap-2">
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1 -mx-2 px-2 sm:mx-0 sm:px-0 sm:flex-wrap">
           {SAMPLES.map((item) => (
             <button
               key={item.id}
@@ -71,7 +80,7 @@ export default function OpticalLoupeInspector() {
                 setSelected(item);
                 setZoomPos({ x: item.focusX, y: item.focusY });
               }}
-              className={`rounded-full px-3.5 py-1.5 text-[11px] uppercase tracking-wider transition ${
+              className={`shrink-0 rounded-full px-3.5 py-1.5 text-[11px] uppercase tracking-wider transition ${
                 selected.id === item.id
                   ? "bg-[#D8D5CD] text-[#101112] font-medium"
                   : "border border-[#1D2021] bg-[#101112] text-[#D8D5CD]/80 hover:border-[#95836B]"
@@ -84,14 +93,16 @@ export default function OpticalLoupeInspector() {
       </div>
 
       <p className="mt-4 text-xs text-neutral-400">
-        Desplace el cursor sobre la fotografía izquierda para examinar a la derecha la definición real de impresión sobre fibra de algodón:
+        Desplace el cursor o deslice el dedo sobre la fotografía para examinar a la derecha la definición real de impresión sobre fibra de algodón:
       </p>
 
       <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12 items-center">
         {/* Vista Completa Interactiva (7 cols) */}
         <div
           onMouseMove={handleMouseMove}
-          className="relative aspect-[3/2] w-full cursor-crosshair overflow-hidden rounded-lg border border-[#1D2021] bg-[#101112] lg:col-span-7"
+          onTouchStart={handleTouchMove}
+          onTouchMove={handleTouchMove}
+          className="relative aspect-[3/2] w-full cursor-crosshair overflow-hidden rounded-lg border border-[#1D2021] bg-[#101112] select-none touch-none lg:col-span-7"
         >
           <Image
             src={selected.image}
@@ -109,7 +120,7 @@ export default function OpticalLoupeInspector() {
             className="pointer-events-none absolute h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#D8D5CD] bg-white/10 shadow-[0_0_30px_rgba(0,0,0,0.8)] backdrop-blur-[1px]"
           />
           <span className="absolute bottom-3 left-3 rounded bg-[#101112]/85 px-3 py-1 text-[10px] uppercase tracking-widest text-[#D8D5CD] border border-[#1D2021]">
-            Encuadre Completo · Mueva el cursor para inspeccionar
+            Encuadre Completo · Deslice para inspeccionar
           </span>
         </div>
 
