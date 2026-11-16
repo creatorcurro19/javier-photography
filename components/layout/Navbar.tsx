@@ -19,8 +19,12 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="fixed left-0 top-0 z-50 w-full border-b border-[#1D2021] bg-[#101112]/90 backdrop-blur-md transition-colors">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24">
+    <header className="fixed left-0 top-0 z-50 w-full border-b border-[#1D2021] transition-colors">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[#101112]/90 backdrop-blur-md"
+      />
+      <div className="relative mx-auto flex h-20 max-w-7xl items-center justify-between px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24">
         <Link
           href="/"
           className="group flex flex-col focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
