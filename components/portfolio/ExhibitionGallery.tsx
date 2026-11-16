@@ -4,7 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Photo } from "@/types/photo";
-import { CATEGORY_METADATA } from "@/types/photo";
 import LightboxModal from "@/components/ui/LightboxModal";
 
 type ExhibitionGalleryProps = {
@@ -98,9 +97,6 @@ export default function ExhibitionGallery({
         }
       >
         {photos.map((photo, index) => {
-          const categoryTitle =
-            CATEGORY_METADATA[photo.category]?.title ?? photo.category;
-
           return (
             <figure
               key={photo.id}
@@ -166,8 +162,8 @@ export default function ExhibitionGallery({
               </div>
 
               {showMeta && viewMode !== "grid" && (
-                <figcaption className="flex items-baseline justify-between gap-4 border-t border-[#1D2021]/60 bg-[#101112]/70 px-5 py-4">
-                  <h3 className="font-serif text-lg font-light text-[#D8D5CD] group-hover:text-white transition-colors truncate">
+                <figcaption className="flex items-baseline justify-between gap-3 border-t border-[#1D2021]/60 bg-[#101112]/70 px-5 py-3.5">
+                  <h3 className="font-serif text-lg font-light text-[#D8D5CD] group-hover:text-white transition-colors">
                     <Link
                       href={`/portfolio/${photo.slug}`}
                       className="hover:underline underline-offset-4"
@@ -179,10 +175,10 @@ export default function ExhibitionGallery({
 
                   <Link
                     href={`/portfolio/${photo.slug}`}
-                    className="shrink-0 text-[10px] uppercase tracking-[0.22em] text-[#95836B] group-hover:text-[#D8D5CD] transition-colors"
+                    className="shrink-0 text-[10px] uppercase tracking-[0.2em] text-[#95836B] group-hover:text-[#D8D5CD] transition-colors"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    {categoryTitle} →
+                    {photo.focalLength} →
                   </Link>
                 </figcaption>
               )}
