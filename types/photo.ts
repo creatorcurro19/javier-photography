@@ -86,10 +86,10 @@ export const CATEGORY_METADATA: Record<
   "arquitectura-urbana": {
     code: "URBAN & ARCHITECTURE",
     title: "Arquitectura y Espacio Urbano",
-    subtitle: "Arquitectura contemporánea, geometrías, luces nocturnas y escala cotidiana",
+    subtitle: "Arquitectura tradicional y contemporánea, geometrías y luces nocturnas",
     description:
-      "Exploración de la geometría urbana, la fotografía nocturna bajo la luz disponible y la relación entre la arquitectura construida y el paso del tiempo.",
-    coverImage: "/images/portfolio/arquitectura-urbana/B51A4877.jpg",
+      "Exploración de la geometría urbana, la arquitectura popular de piedra y entramado de madera, la fotografía nocturna y el diálogo entre el espacio construido y el paso del tiempo.",
+    coverImage: "/images/portfolio/arquitectura-urbana/B51A4685.jpg",
   },
   "viajes-cultura": {
     code: "DOCUMENTARY",
