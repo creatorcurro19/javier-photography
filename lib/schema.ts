@@ -8,7 +8,11 @@ export function generatePersonSchema() {
     name: "Javier Espinosa Martínez",
     url: absoluteUrl("/"),
     jobTitle: "Fotógrafo de Autor & Documental",
-    sameAs: [],
+    sameAs: [
+      "https://www.instagram.com/Javier.espinosa19/",
+      "https://www.saatchiart.com/javier-espinosa-photography",
+      "https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image",
+    ],
   };
 }
 

@@ -52,6 +52,34 @@ export default function Footer() {
               <span className="border border-[#1D2021] px-3 py-1 bg-[#1D2021]/60 text-neutral-300">Hahnemühle 308g</span>
               <span className="border border-[#1D2021] px-3 py-1 bg-[#1D2021]/60 text-neutral-300">España</span>
             </div>
+
+            {/* Perfiles Oficiales Verificados */}
+            <div className="mt-6 flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.2em]">
+              <a
+                href="https://www.instagram.com/Javier.espinosa19/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-[#1D2021] bg-[#1D2021]/40 px-3.5 py-1.5 text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
+              >
+                Instagram ↗
+              </a>
+              <a
+                href="https://www.saatchiart.com/javier-espinosa-photography"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-[#1D2021] bg-[#1D2021]/40 px-3.5 py-1.5 text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
+              >
+                Saatchi Art ↗
+              </a>
+              <a
+                href="https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-[#1D2021] bg-[#1D2021]/40 px-3.5 py-1.5 text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
+              >
+                Getty Images / iStock ↗
+              </a>
+            </div>
           </div>
 
           {/* Colecciones */}

@@ -29,8 +29,21 @@ const CONTACT_INFO = [
   },
   {
     label: "Tiradas Fine Art",
-    value: "Hahnemühle Photo Rag 308g",
+    value: "Saatchi Art & Edición Directa Hahnemühle 308g",
+    href: "https://www.saatchiart.com/javier-espinosa-photography",
     note: "Certificado de autenticidad y numeración de autor",
+  },
+  {
+    label: "Banco de Licencias",
+    value: "Getty Images / iStock Portfolio",
+    href: "https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image",
+    note: "Descarga inmediata para agencias y editoriales",
+  },
+  {
+    label: "Instagram Oficial",
+    value: "@Javier.espinosa19",
+    href: "https://www.instagram.com/Javier.espinosa19/",
+    note: "Publicaciones recientes y cuaderno de viaje",
   },
 ];
 

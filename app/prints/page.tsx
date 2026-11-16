@@ -78,6 +78,24 @@ export default function PrintsPage() {
             y perfilado cromático. Una traslación física precisa de la luz natural sobre soportes de fibra 
             de algodón de la máxima calidad museística europea.
           </p>
+
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <a
+              href="https://www.saatchiart.com/javier-espinosa-photography"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 border border-[#D8D5CD] bg-[#D8D5CD] px-6 py-3 text-xs uppercase tracking-[0.25em] text-[#101112] font-semibold transition hover:bg-transparent hover:text-white"
+            >
+              <span>Galería Oficial en Saatchi Art</span>
+              <span>↗</span>
+            </a>
+            <Link
+              href="/contact?motivo=print"
+              className="inline-flex items-center gap-2 border border-[#1D2021] bg-[#1D2021]/60 px-6 py-3 text-xs uppercase tracking-[0.25em] text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
+            >
+              Encargo Directo al Autor
+            </Link>
+          </div>
         </div>
 
         {/* Quality Specs Grid */}

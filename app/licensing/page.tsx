@@ -89,6 +89,24 @@ export default function LicensingPage() {
             editorial, publicitario y corporativo. Cada imagen cuenta con archivo master de 32,5 MP 
             de resolución nativa, revelado profesional riguroso y metadatos de catalogación completos.
           </p>
+
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <a
+              href="https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 border border-[#D8D5CD] bg-[#D8D5CD] px-6 py-3 text-xs uppercase tracking-[0.25em] text-[#101112] font-semibold transition hover:bg-transparent hover:text-white"
+            >
+              <span>Portfolio Oficial en Getty Images / iStock</span>
+              <span>↗</span>
+            </a>
+            <Link
+              href="/contact?motivo=licencia"
+              className="inline-flex items-center gap-2 border border-[#1D2021] bg-[#1D2021]/60 px-6 py-3 text-xs uppercase tracking-[0.25em] text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
+            >
+              Licencia Directa o Exclusividad
+            </Link>
+          </div>
         </div>
 
         {/* Technical Specs Banner */}

@@ -87,29 +87,41 @@ export default function ContactForm() {
           </svg>
         </div>
         <h3 className="mt-5 font-serif text-2xl text-[#D8D5CD]">
-          Mensaje transmitido correctamente
+          Mensaje preparado correctamente
         </h3>
         <p className="mt-3 text-sm leading-relaxed text-[#D8D5CD]/80 font-light">
           Gracias por contactar, {formData.nombre}. Javier Espinosa revisará su solicitud 
           y le responderá por correo electrónico ({formData.email}) en un plazo máximo de 24 a 48 horas laborables.
         </p>
-        <button
-          type="button"
-          onClick={() => {
-            setSubmitted(false);
-            setFormData({
-              nombre: "",
-              email: "",
-              telefono: "",
-              motivo: "encargo",
-              referencia: "",
-              mensaje: "",
-            });
-          }}
-          className="mt-8 inline-flex border border-[#1D2021] bg-[#1D2021]/60 px-6 py-2.5 text-xs uppercase tracking-[0.25em] text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
-        >
-          Enviar otra consulta
-        </button>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <a
+            href={`mailto:hello@javierespinosa.com?subject=${encodeURIComponent(
+              `[${formData.motivo.toUpperCase()}] Consulta de ${formData.nombre}`
+            )}&body=${encodeURIComponent(
+              `Nombre: ${formData.nombre}\nEmail: ${formData.email}\nTeléfono: ${formData.telefono || "No indicado"}\nObra(s) de referencia: ${formData.referencia || "General"}\n\nMensaje:\n${formData.mensaje}`
+            )}`}
+            className="inline-flex border border-[#95836B]/50 bg-[#95836B]/15 px-6 py-2.5 text-xs uppercase tracking-[0.22em] text-[#D8D5CD] transition hover:border-[#95836B] hover:bg-[#95836B]/25"
+          >
+            Abrir copia en cliente de correo →
+          </a>
+          <button
+            type="button"
+            onClick={() => {
+              setSubmitted(false);
+              setFormData({
+                nombre: "",
+                email: "",
+                telefono: "",
+                motivo: "encargo",
+                referencia: "",
+                mensaje: "",
+              });
+            }}
+            className="inline-flex border border-[#1D2021] bg-[#1D2021]/60 px-6 py-2.5 text-xs uppercase tracking-[0.25em] text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
+          >
+            Enviar otra consulta
+          </button>
+        </div>
       </div>
     );
   }

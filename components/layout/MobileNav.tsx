@@ -77,9 +77,39 @@ export default function MobileNav() {
             })}
           </ul>
 
-          <div className="border-t border-[#1D2021] pt-8 text-xs text-neutral-500">
-            <p className="font-serif text-[#D8D5CD]">Javier Espinosa Martínez</p>
-            <p className="mt-1 font-mono text-[11px] text-[#95836B]">hello@javierespinosa.com</p>
+          <div className="border-t border-[#1D2021] pt-8 text-xs text-neutral-500 space-y-3">
+            <div>
+              <p className="font-serif text-[#D8D5CD]">Javier Espinosa Martínez</p>
+              <p className="mt-1 font-mono text-[11px] text-[#95836B]">hello@javierespinosa.com</p>
+            </div>
+            <div className="flex flex-wrap gap-3 pt-2 text-[11px] uppercase tracking-wider text-[#D8D5CD]">
+              <a
+                href="https://www.instagram.com/Javier.espinosa19/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#95836B]"
+              >
+                Instagram ↗
+              </a>
+              <span>·</span>
+              <a
+                href="https://www.saatchiart.com/javier-espinosa-photography"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#95836B]"
+              >
+                Saatchi Art ↗
+              </a>
+              <span>·</span>
+              <a
+                href="https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#95836B]"
+              >
+                Getty / iStock ↗
+              </a>
+            </div>
           </div>
         </nav>
       ) : null}

@@ -87,6 +87,41 @@ export default function AboutPage() {
                 <span className="rounded border border-[#1D2021] px-3 py-1 bg-[#101112]">Arquitectura Urbana</span>
                 <span className="rounded border border-[#1D2021] px-3 py-1 bg-[#101112]">Fotografía Documental</span>
               </div>
+
+              <div className="mt-6 border-t border-[#1D2021] pt-5">
+                <h3 className="text-xs uppercase tracking-[0.25em] text-[#95836B] font-mono">
+                  Plataformas Oficiales & Representación
+                </h3>
+                <div className="mt-3 flex flex-col gap-2 text-xs">
+                  <a
+                    href="https://www.saatchiart.com/javier-espinosa-photography"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between rounded border border-[#1D2021] bg-[#101112] px-3.5 py-2 text-[#D8D5CD] transition hover:border-[#95836B]"
+                  >
+                    <span>Saatchi Art · Obra Gráfica y Prints</span>
+                    <span className="text-[#95836B]">↗</span>
+                  </a>
+                  <a
+                    href="https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between rounded border border-[#1D2021] bg-[#101112] px-3.5 py-2 text-[#D8D5CD] transition hover:border-[#95836B]"
+                  >
+                    <span>Getty Images / iStock · Licencias</span>
+                    <span className="text-[#95836B]">↗</span>
+                  </a>
+                  <a
+                    href="https://www.instagram.com/Javier.espinosa19/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between rounded border border-[#1D2021] bg-[#101112] px-3.5 py-2 text-[#D8D5CD] transition hover:border-[#95836B]"
+                  >
+                    <span>Instagram · @Javier.espinosa19</span>
+                    <span className="text-[#95836B]">↗</span>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 
