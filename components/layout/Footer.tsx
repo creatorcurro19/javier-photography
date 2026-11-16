@@ -139,10 +139,10 @@ export default function Footer() {
             </ul>
             <div className="mt-6 border-t border-[#1D2021] pt-4 text-xs text-neutral-400">
               <a
-                href="mailto:hello@javierespinosa.com"
-                className="transition hover:text-[#D8D5CD] font-mono"
+                href="mailto:javierespinosa1995@hotmail.com"
+                className="transition hover:text-[#D8D5CD] font-mono break-all"
               >
-                hello@javierespinosa.com
+                javierespinosa1995@hotmail.com
               </a>
             </div>
           </div>
@@ -151,10 +151,12 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-[#1D2021] pt-8 text-[11px] tracking-wider text-neutral-500 sm:flex-row">
           <p>© {new Date().getFullYear()} Javier Espinosa Martínez. Obra fotográfica original protegida por derechos de autor.</p>
-          <div className="flex gap-4">
+          <div className="flex flex-wrap items-center gap-4">
             <Link href="/about" className="hover:text-neutral-300 transition">Biografía</Link>
             <span>·</span>
             <Link href="/contact" className="hover:text-neutral-300 transition">Contacto</Link>
+            <span>·</span>
+            <Link href="/legal" className="hover:text-neutral-300 transition">Aviso Legal, Privacidad & Copyright</Link>
           </div>
         </div>
       </div>

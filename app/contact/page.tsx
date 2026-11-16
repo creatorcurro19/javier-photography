@@ -13,8 +13,8 @@ export const metadata = buildPageMetadata({
 const CONTACT_INFO = [
   {
     label: "Correo Electrónico",
-    value: "hello@javierespinosa.com",
-    href: "mailto:hello@javierespinosa.com",
+    value: "javierespinosa1995@hotmail.com",
+    href: "mailto:javierespinosa1995@hotmail.com",
     note: "Respuesta habitual en menos de 24 horas",
   },
   {

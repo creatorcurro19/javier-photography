@@ -52,6 +52,10 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
             <span className="block text-[10px] uppercase tracking-wider text-[#95836B]">Autenticidad:</span>
             Firma manuscrita y holograma
           </div>
+          <div className="col-span-2 border-t border-[#1D2021] pt-2.5 flex items-center justify-between">
+            <span className="text-[10px] uppercase tracking-wider text-[#95836B]">Tarifa Orientativa:</span>
+            <span className="font-serif text-sm text-[#D8D5CD]">Ediciones firmadas desde 240 € (30×45 cm) a 890 € (70×100 cm)</span>
+          </div>
         </div>
       </div>
 

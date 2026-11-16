@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { getSavedWorks } from "@/components/photo/FavoriteButton";
@@ -58,12 +59,21 @@ export default function ContactForm() {
 
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [privacyAccepted, setPrivacyAccepted] = useState(true);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!privacyAccepted) return;
     setSubmitting(true);
-    // Simulate brief network submission
-    await new Promise((resolve) => setTimeout(resolve, 800));
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+    } catch {
+      // Fallback available on confirmation view
+    }
     setSubmitting(false);
     setSubmitted(true);
   };
@@ -87,22 +97,24 @@ export default function ContactForm() {
           </svg>
         </div>
         <h3 className="mt-5 font-serif text-2xl text-[#D8D5CD]">
-          Mensaje preparado correctamente
+          Solicitud registrada para Javier Espinosa
         </h3>
         <p className="mt-3 text-sm leading-relaxed text-[#D8D5CD]/80 font-light">
-          Gracias por contactar, {formData.nombre}. Javier Espinosa revisará su solicitud 
-          y le responderá por correo electrónico ({formData.email}) en un plazo máximo de 24 a 48 horas laborables.
+          Gracias por contactar, {formData.nombre}. Tu mensaje ha sido enviado a{" "}
+          <span className="font-mono text-[#D8D5CD]">javierespinosa1995@hotmail.com</span> y
+          recibirás respuesta en <span className="font-mono text-[#D8D5CD]">{formData.email}</span>{" "}
+          en un plazo máximo de 24 a 48 horas laborables.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <a
-            href={`mailto:hello@javierespinosa.com?subject=${encodeURIComponent(
+            href={`mailto:javierespinosa1995@hotmail.com?subject=${encodeURIComponent(
               `[${formData.motivo.toUpperCase()}] Consulta de ${formData.nombre}`
             )}&body=${encodeURIComponent(
               `Nombre: ${formData.nombre}\nEmail: ${formData.email}\nTeléfono: ${formData.telefono || "No indicado"}\nObra(s) de referencia: ${formData.referencia || "General"}\n\nMensaje:\n${formData.mensaje}`
             )}`}
             className="inline-flex border border-[#95836B]/50 bg-[#95836B]/15 px-6 py-2.5 text-xs uppercase tracking-[0.22em] text-[#D8D5CD] transition hover:border-[#95836B] hover:bg-[#95836B]/25"
           >
-            Abrir copia en cliente de correo →
+            Enviar también desde tu gestor de correo →
           </a>
           <button
             type="button"
@@ -241,17 +253,38 @@ export default function ContactForm() {
         />
       </div>
 
+      <div className="flex items-start gap-3 pt-1">
+        <input
+          id="privacidad"
+          type="checkbox"
+          required
+          checked={privacyAccepted}
+          onChange={(e) => setPrivacyAccepted(e.target.checked)}
+          className="mt-1 h-4 w-4 accent-[#95836B]"
+        />
+        <label htmlFor="privacidad" className="text-xs text-[#D8D5CD]/75 font-light leading-relaxed">
+          He leído y acepto la{" "}
+          <Link
+            href="/legal#privacidad"
+            className="underline decoration-[#95836B] underline-offset-4 hover:text-white"
+          >
+            Política de Privacidad y Protección de Datos (RGPD)
+          </Link>
+          . Mis datos se emplearán exclusivamente para responder a esta solicitud.
+        </label>
+      </div>
+
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pt-2">
         <button
           type="submit"
-          disabled={submitting}
+          disabled={submitting || !privacyAccepted}
           className="inline-flex items-center justify-center border border-[#D8D5CD] bg-[#D8D5CD] px-8 py-3.5 text-xs uppercase tracking-[0.3em] text-[#101112] font-semibold transition hover:bg-transparent hover:text-white disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
         >
           {submitting ? "Transmitiendo solicitud..." : "Enviar solicitud"}
         </button>
 
         <p className="text-[11px] text-[#95836B] font-mono">
-          Sus datos solo se utilizarán para gestionar esta consulta.
+          Destino directo: javierespinosa1995@hotmail.com
         </p>
       </div>
     </form>

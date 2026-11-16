@@ -18,6 +18,8 @@ const SIZES = [
     name: "Formato Estudio (A3+)",
     dims: "33 × 48 cm",
     imageSize: "aprox. 30 × 45 cm",
+    price: "Desde 240 €",
+    framedNote: "Enmarcado museo opcional (+110 €)",
     idealFor: "Estudios, despachos, librerías y composiciones murales combinadas.",
     edition: "Serie numerada de 50 ejemplares",
     packaging: "Embalaje plano rígido reforzado con paspartú de conservación.",
@@ -26,6 +28,8 @@ const SIZES = [
     name: "Formato Galería",
     dims: "50 × 70 cm",
     imageSize: "aprox. 40 × 60 cm",
+    price: "Desde 480 €",
+    framedNote: "Enmarcado museo opcional (+190 €)",
     idealFor: "Salones, recepciones y espacios expositivos principales.",
     edition: "Serie numerada de 25 ejemplares",
     packaging: "Tubo rígido protector de alta densidad libre de ácido.",
@@ -34,6 +38,8 @@ const SIZES = [
     name: "Gran Colección",
     dims: "70 × 100 cm",
     imageSize: "aprox. 60 × 90 cm",
+    price: "Desde 890 €",
+    framedNote: "Acabado expositivo a medida bajo consulta",
     idealFor: "Piezas centrales de interiorismo y coleccionismo institucional.",
     edition: "Serie exclusiva de 10 ejemplares",
     packaging: "Caja de madera o tubo técnico de máxima resistencia.",
@@ -134,9 +140,15 @@ export default function PrintsPage() {
                   <span className="text-[10px] uppercase tracking-[0.3em] text-[#95836B] font-mono">
                     {item.edition}
                   </span>
-                  <h3 className="mt-2 font-serif text-2xl text-[#D8D5CD]">{item.name}</h3>
+                  <div className="mt-2 flex items-baseline justify-between gap-2">
+                    <h3 className="font-serif text-2xl text-[#D8D5CD]">{item.name}</h3>
+                    <span className="font-serif text-xl text-[#D8D5CD]">{item.price}</span>
+                  </div>
                   <p className="mt-1 font-mono text-sm text-[#95836B]">
                     {item.dims} <span className="text-neutral-500">({item.imageSize})</span>
+                  </p>
+                  <p className="mt-1 font-mono text-[10px] text-neutral-400">
+                    {item.framedNote}
                   </p>
                   <p className="mt-5 text-xs leading-relaxed text-neutral-400 font-light">
                     {item.idealFor}

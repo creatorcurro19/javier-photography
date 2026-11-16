@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/about",
     "/contact",
     "/licensing",
+    "/legal",
   ];
 
   const categoryRoutes = PHOTO_CATEGORIES.map((category) => `/portfolio/${category}`);

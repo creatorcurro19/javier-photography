@@ -279,7 +279,7 @@ export default function LicensingPage() {
                 Iniciar solicitud de derechos
               </Link>
               <a
-                href="mailto:hello@javierespinosa.com?subject=Solicitud%20de%20Licencia%20de%20Imagen"
+                href="mailto:javierespinosa1995@hotmail.com?subject=Solicitud%20de%20Licencia%20de%20Imagen"
                 className="inline-flex border border-[#1D2021] bg-[#1D2021]/60 px-8 py-3.5 text-xs uppercase tracking-[0.3em] text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
               >
                 Enviar briefing por email

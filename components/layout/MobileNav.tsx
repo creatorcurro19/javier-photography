@@ -80,7 +80,12 @@ export default function MobileNav() {
           <div className="border-t border-[#1D2021] pt-8 text-xs text-neutral-500 space-y-3">
             <div>
               <p className="font-serif text-[#D8D5CD]">Javier Espinosa Martínez</p>
-              <p className="mt-1 font-mono text-[11px] text-[#95836B]">hello@javierespinosa.com</p>
+              <a
+                href="mailto:javierespinosa1995@hotmail.com"
+                className="mt-1 block font-mono text-[11px] text-[#95836B] hover:text-[#D8D5CD]"
+              >
+                javierespinosa1995@hotmail.com
+              </a>
             </div>
             <div className="flex flex-wrap gap-3 pt-2 text-[11px] uppercase tracking-wider text-[#D8D5CD]">
               <a

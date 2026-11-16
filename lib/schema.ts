@@ -7,6 +7,7 @@ export function generatePersonSchema() {
     "@type": "Person",
     name: "Javier Espinosa Martínez",
     url: absoluteUrl("/"),
+    email: "mailto:javierespinosa1995@hotmail.com",
     jobTitle: "Fotógrafo de Autor & Documental",
     sameAs: [
       "https://www.instagram.com/Javier.espinosa19/",
