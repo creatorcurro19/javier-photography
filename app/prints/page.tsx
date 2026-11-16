@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
+import PrintScaleVisualizer from "@/components/prints/PrintScaleVisualizer";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getPrintablePhotos } from "@/lib/photos";
 
@@ -138,6 +139,9 @@ export default function PrintsPage() {
             ))}
           </div>
         </div>
+
+        {/* Interactive Wall Scale Comparator */}
+        <PrintScaleVisualizer />
 
         {/* Visual Catalog */}
         <div className="mt-28">

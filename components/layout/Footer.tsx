@@ -10,6 +10,7 @@ const collections = [
 
 const projectLinks = [
   { href: "/projects/villanueva-de-la-vera", label: "Villanueva de la Vera" },
+  { href: "/projects/medina-y-kasbah", label: "Medina, Atlas y Kasbah" },
   { href: "/projects/custodios", label: "Custodios: Memoria y Oficios" },
   { href: "/projects/la-gomera", label: "Entre la Bruma y el Volcán" },
   { href: "/projects/trazadas-rally", label: "Trazadas: Rally Histórico" },

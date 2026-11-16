@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { getSavedWorks } from "@/components/photo/FavoriteButton";
 
 export default function ContactForm() {
   const searchParams = useSearchParams();
@@ -37,13 +38,22 @@ export default function ContactForm() {
   if (formatoParam) initialRef += (initialRef ? " | " : "") + `Formato: ${formatoParam}`;
   if (tipoParam) initialRef += (initialRef ? " | " : "") + `Tipo: ${tipoParam}`;
 
-  const [formData, setFormData] = useState({
-    nombre: "",
-    email: "",
-    telefono: "",
-    motivo: initialMotivo,
-    referencia: initialRef,
-    mensaje: "",
+  const [formData, setFormData] = useState(() => {
+    let ref = initialRef;
+    if (!ref) {
+      const saved = getSavedWorks();
+      if (saved.length > 0) {
+        ref = `Selección guardada (${saved.length}): ${saved.join(", ")}`;
+      }
+    }
+    return {
+      nombre: "",
+      email: "",
+      telefono: "",
+      motivo: initialMotivo,
+      referencia: ref,
+      mensaje: "",
+    };
   });
 
   const [submitted, setSubmitted] = useState(false);

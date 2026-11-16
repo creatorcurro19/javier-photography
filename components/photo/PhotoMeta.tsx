@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Photo } from "@/types/photo";
 import { CATEGORY_METADATA } from "@/types/photo";
+import FavoriteButton from "@/components/photo/FavoriteButton";
 
 type PhotoMetaProps = {
   photo: Photo;
@@ -11,17 +12,21 @@ export default function PhotoMeta({ photo }: PhotoMetaProps) {
 
   return (
     <header className="border-b border-[#1D2021] pb-10">
-      <div className="flex flex-wrap items-center gap-3">
-        <Link
-          href={`/portfolio/${photo.category}`}
-          className="rounded-full border border-[#1D2021] bg-[#1D2021]/50 px-3.5 py-1 text-xs font-mono uppercase tracking-[0.2em] text-[#95836B] hover:border-[#95836B]/60 hover:text-[#D8D5CD] transition"
-        >
-          {categoryInfo?.title ?? photo.category}
-        </Link>
-        <span className="text-xs font-mono text-neutral-600">·</span>
-        <span className="text-xs font-mono uppercase tracking-wider text-[#95836B]">
-          {photo.year}
-        </span>
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex flex-wrap items-center gap-3">
+          <Link
+            href={`/portfolio/${photo.category}`}
+            className="rounded-full border border-[#1D2021] bg-[#1D2021]/50 px-3.5 py-1 text-xs font-mono uppercase tracking-[0.2em] text-[#95836B] hover:border-[#95836B]/60 hover:text-[#D8D5CD] transition"
+          >
+            {categoryInfo?.title ?? photo.category}
+          </Link>
+          <span className="text-xs font-mono text-neutral-600">·</span>
+          <span className="text-xs font-mono uppercase tracking-wider text-[#95836B]">
+            {photo.year}
+          </span>
+        </div>
+
+        <FavoriteButton title={photo.title} />
       </div>
 
       <h1 className="mt-4 font-serif text-4xl font-light text-[#D8D5CD] md:text-5xl lg:text-6xl tracking-wide leading-[1.15]">

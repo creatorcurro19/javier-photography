@@ -23,6 +23,7 @@ export default function LightboxModal({
 }: LightboxModalProps) {
   const [showExif, setShowExif] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [showFilmstrip, setShowFilmstrip] = useState(true);
   const touchStartX = useRef<number | null>(null);
 
   const photo = photos[currentIndex];
@@ -123,18 +124,32 @@ export default function LightboxModal({
 
         <div className="flex items-center gap-2">
           {photos.length > 1 && (
-            <button
-              type="button"
-              onClick={() => setIsPlaying((prev) => !prev)}
-              className={`rounded-full px-3.5 py-1.5 text-xs font-mono tracking-wider transition ${
-                isPlaying
-                  ? "bg-[#95836B] text-[#101112] font-semibold"
-                  : "border border-[#1D2021] bg-[#1D2021]/60 text-neutral-300 hover:border-[#95836B] hover:text-white"
-              }`}
-              title="Presentación automática (Tecla P o Espacio)"
-            >
-              {isPlaying ? "❚❚ Pausar" : "▶ Presentación"}
-            </button>
+            <>
+              <button
+                type="button"
+                onClick={() => setIsPlaying((prev) => !prev)}
+                className={`rounded-full px-3.5 py-1.5 text-xs font-mono tracking-wider transition ${
+                  isPlaying
+                    ? "bg-[#95836B] text-[#101112] font-semibold"
+                    : "border border-[#1D2021] bg-[#1D2021]/60 text-neutral-300 hover:border-[#95836B] hover:text-white"
+                }`}
+                title="Presentación automática (Tecla P o Espacio)"
+              >
+                {isPlaying ? "❚❚ Pausar" : "▶ Presentación"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowFilmstrip((prev) => !prev)}
+                className={`hidden sm:inline-flex rounded-full px-3 py-1.5 text-xs font-mono tracking-wider transition ${
+                  showFilmstrip
+                    ? "border border-[#95836B]/60 bg-[#1D2021] text-[#D8D5CD]"
+                    : "border border-[#1D2021] bg-[#1D2021]/60 text-neutral-400 hover:text-white"
+                }`}
+                title="Mostrar u ocultar tira de miniaturas"
+              >
+                 Tira ({photos.length})
+              </button>
+            </>
           )}
 
           <button
@@ -305,6 +320,36 @@ export default function LightboxModal({
           </aside>
         )}
       </div>
+
+      {/* Tira de Miniaturas (Filmstrip) */}
+      {showFilmstrip && photos.length > 1 && (
+        <div className="flex h-20 shrink-0 items-center gap-2 overflow-x-auto border-t border-[#1D2021] bg-[#101112]/95 px-4 md:px-8">
+          {photos.map((item, idx) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => {
+                setIsPlaying(false);
+                onNavigate(idx);
+              }}
+              aria-label={`Ir a ${item.title}`}
+              className={`relative h-14 w-20 shrink-0 overflow-hidden rounded transition ${
+                idx === currentIndex
+                  ? "ring-2 ring-[#D8D5CD] opacity-100 scale-105"
+                  : "opacity-45 hover:opacity-85"
+              }`}
+            >
+              <Image
+                src={item.image}
+                alt={item.alt}
+                fill
+                sizes="80px"
+                className="object-cover"
+              />
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Bottom Bar */}
       <footer className="flex h-14 shrink-0 items-center justify-between border-t border-[#1D2021] px-4 md:px-8 text-xs text-[#95836B] font-mono">

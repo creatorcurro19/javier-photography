@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import ExhibitionGallery from "@/components/portfolio/ExhibitionGallery";
+import ProjectEssayContainer from "@/components/portfolio/ProjectEssayContainer";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getAllProjects, getProjectBySlug, getProjectPhotos } from "@/lib/photos";
 
@@ -46,7 +47,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     currentIndex < allProjects.length - 1 ? allProjects[currentIndex + 1] : undefined;
 
   return (
-    <article className="min-h-screen bg-[#101112] pt-32 pb-28 text-[#D8D5CD]">
+    <ProjectEssayContainer>
       {/* Breadcrumb Bar */}
       <div className="border-b border-[#1D2021] bg-[#101112]/60">
         <Container className="py-4">
@@ -159,6 +160,6 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           </div>
         </nav>
       </Container>
-    </article>
+    </ProjectEssayContainer>
   );
 }

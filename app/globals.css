@@ -90,3 +90,27 @@
   clip: auto;
   white-space: normal;
 }
+
+/* Maquetación de Dossier / Catálogo de Exposición al imprimir o guardar como PDF (⌘P) */
+@media print {
+  header,
+  footer,
+  nav,
+  button {
+    display: none !important;
+  }
+
+  body,
+  main,
+  article,
+  section {
+    background: #ffffff !important;
+    color: #101112 !important;
+  }
+
+  figure {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    border-color: #e5e5e5 !important;
+  }
+}
