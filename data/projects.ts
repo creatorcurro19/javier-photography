@@ -17,7 +17,7 @@ export const PROJECTS: Project[] = [
       "En un mundo gobernado por la inmediatez, existen espacios y personas cuyos gestos conservan el pulso de generaciones. Este proyecto reúne escenas donde el trabajo manual, el comercio de proximidad y la tradición rural mantienen viva la identidad de cada lugar.",
       "Cada fotografía fue tomada con luz disponible y sin alterar la escena, buscando que la atmósfera real del taller, la plaza o el mercado hable por sí misma.",
     ],
-    photoIds: ["vc-44", "vc-25", "vc-05", "vc-01", "vc-15", "vc-31", "vc-22", "vc-04"],
+    photoIds: ["vc-44", "vc-09", "vc-25", "vc-11", "vc-05", "vc-01", "vc-15", "vc-31"],
   },
   {
     id: "la-gomera",
@@ -35,7 +35,7 @@ export const PROJECTS: Project[] = [
       "El territorio insular concentra en pocos kilómetros una diversidad paisajística extraordinaria. En las cumbres domina el silencio mineral del volcán bajo las primeras luces del alba; en las crestas medias, el alisio envuelve los bosques de laurisilva en una penumbra húmeda y ancestral.",
       "La serie sigue esa transición lumínica desde la alta montaña hasta la costa, donde el sol se funde con el océano entre siluetas de palmeras y acantilados.",
     ],
-    photoIds: ["pd-02", "au-04", "au-05", "pd-04", "pd-01", "pd-06"],
+    photoIds: ["pd-02", "au-04", "au-05", "pd-04", "pd-01", "pd-06", "vc-26"],
   },
   {
     id: "trazadas-rally",
@@ -48,12 +48,12 @@ export const PROJECTS: Project[] = [
     location: "Tramos de Montaña & Parque de Asistencia",
     coverImage: "/images/portfolio/coches-rally/B51A9718.jpg",
     description:
-      "Doble mirada al automovilismo histórico: la adrenalina del derrapaje y los apoyos al límite en pleno tramo frente a la concentración previa, los detalles mecánicos y el ambiente humano del parque de asistencia.",
+      "Doble mirada al automovilismo histórico: la adrenalina del derrapaje y los apoyos a tres ruedas en pleno tramo frente a la concentración previa, los detalles mecánicos y el ambiente humano del parque de asistencia.",
     statement: [
       "Un rally se vive tanto en la calma tensa de las carpas de asistencia —donde pilotos y mecánicos revisan notas, neumáticos y carrocerías clásicas— como en la fracción de segundo en que el vehículo se rebela contra la adherencia del asfalto.",
       "Combinando aproximaciones de detalle en el paddock con disparos a 600mm en curva, la serie retrata la pasión técnica y estética por los automóviles de competición clásicos.",
     ],
-    photoIds: ["cr-13", "cr-14", "cr-12", "cr-11", "cr-02", "cr-09", "cr-10", "cr-06"],
+    photoIds: ["cr-13", "cr-14", "cr-04", "vc-32", "cr-07", "cr-08", "cr-11", "cr-02"],
   },
   {
     id: "silencio-del-desierto",
@@ -76,17 +76,17 @@ export const PROJECTS: Project[] = [
     id: "miradas-en-libertad",
     slug: "miradas-en-libertad",
     title: "Miradas en Libertad: Fauna Silvestre",
-    subtitle: "Paciencia en el aguardo y observación de aves, mamíferos de montaña y microfauna",
+    subtitle: "Paciencia en el aguardo y observación de grandes mamíferos, aves y microfauna",
     discipline: "WILDLIFE",
     category: "fauna-naturaleza",
     year: "2025 — 2026",
-    location: "Península Ibérica",
-    coverImage: "/images/portfolio/fauna-naturaleza/B51A4628.jpg",
+    location: "Europa & Península Ibérica",
+    coverImage: "/images/portfolio/fauna-naturaleza/B51A1823-Mejorado-NR.jpg",
     description:
-      "Aproximaciones a la biodiversidad ibérica con teleobjetivo de 600mm y óptica macro: desde el equilibrio de la cabra montés y la vigilia del buitre leonado hasta la delicadeza del plumaje y la microfauna.",
+      "Aproximaciones a la fauna salvaje con teleobjetivo de 600mm: la mirada hipnótica del lince boreal, el trote silencioso del lobo europeo, el porte del ciervo ibérico y la delicadeza de las aves.",
     statement: [
-      "La fotografía de naturaleza exige adaptarse al ritmo del entorno. Ya sea aguardando con el 600mm el salto de una cabra montés entre bloques de granito o acercándose a ras de suelo a un anfibio en el arroyo, el objetivo es siempre retratar al animal con respeto y luz natural.",
+      "La fotografía de fauna exige adaptarse al ritmo del entorno. Ya sea aguardando con el 600mm el paso silencioso de un lobo entre la hojarasca, sosteniendo la mirada de un lince boreal sobre la roca musgosa o aislando el plumaje de una garza al amanecer, el objetivo es siempre retratar al animal con respeto y luz natural.",
     ],
-    photoIds: ["fn-01", "fn-02", "fn-05", "fn-06", "fn-07", "vc-10", "vc-17"],
+    photoIds: ["fn-04", "fn-08", "fn-03", "vc-12", "vc-13", "fn-06", "fn-05", "vc-07"],
   },
 ];

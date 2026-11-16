@@ -64,8 +64,8 @@ export const CATEGORY_METADATA: Record<
     title: "Fauna y Naturaleza",
     subtitle: "Fauna salvaje, biodiversidad y comportamiento animal en libertad",
     description:
-      "Aproximación respetuosa a la fauna silvestre y la biodiversidad en su hábitat natural. Instantes capturados con paciencia, luz natural y teleobjetivo en condiciones de campo.",
-    coverImage: "/images/portfolio/fauna-naturaleza/B51A4853.jpg",
+      "Aproximación respetuosa a la fauna silvestre y la biodiversidad en su hábitat natural. Instantes capturados con paciencia, luz natural y teleobjetivo de 600mm en condiciones de campo.",
+    coverImage: "/images/portfolio/fauna-naturaleza/B51A1823-Mejorado-NR.jpg",
   },
   "paisajes-documental": {
     code: "LANDSCAPES",

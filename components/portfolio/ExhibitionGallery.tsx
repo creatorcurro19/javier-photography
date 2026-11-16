@@ -166,36 +166,24 @@ export default function ExhibitionGallery({
               </div>
 
               {showMeta && viewMode !== "grid" && (
-                <figcaption className="px-6 pt-5 pb-6 bg-[#1D2021]/30">
-                  <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-[0.2em] text-[#95836B]">
-                    <span>{categoryTitle}</span>
-                    <span>{photo.year}</span>
-                  </div>
-
-                  <div className="mt-2.5 flex items-baseline justify-between gap-2">
-                    <h3 className="font-serif text-xl font-light text-[#D8D5CD] group-hover:text-white transition-colors">
-                      <Link
-                        href={`/portfolio/${photo.slug}`}
-                        className="hover:underline underline-offset-4"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        {photo.title}
-                      </Link>
-                    </h3>
-                  </div>
-
-                  <div className="mt-3 flex items-center justify-between text-xs text-neutral-400">
-                    <p className="truncate max-w-[75%] font-mono text-[11px] text-neutral-400">
-                      {photo.location ? photo.location : `${photo.focalLength} · ${photo.aperture}`}
-                    </p>
+                <figcaption className="flex items-baseline justify-between gap-4 border-t border-[#1D2021]/60 bg-[#101112]/70 px-5 py-4">
+                  <h3 className="font-serif text-lg font-light text-[#D8D5CD] group-hover:text-white transition-colors truncate">
                     <Link
                       href={`/portfolio/${photo.slug}`}
-                      className="text-[11px] uppercase tracking-wider text-[#95836B] hover:text-[#D8D5CD] transition-colors underline underline-offset-4 font-mono"
+                      className="hover:underline underline-offset-4"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      Ficha
+                      {photo.title}
                     </Link>
-                  </div>
+                  </h3>
+
+                  <Link
+                    href={`/portfolio/${photo.slug}`}
+                    className="shrink-0 text-[10px] uppercase tracking-[0.22em] text-[#95836B] group-hover:text-[#D8D5CD] transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {categoryTitle} →
+                  </Link>
                 </figcaption>
               )}
             </figure>

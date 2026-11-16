@@ -1,9 +1,7 @@
 import Hero from "@/components/home/Hero";
 import CollectionsOverview from "@/components/home/CollectionsOverview";
 import SelectedProjects from "@/components/home/SelectedProjects";
-import SelectedWork from "@/components/home/SelectedWork";
 import AboutPreview from "@/components/home/AboutPreview";
-import StoriesPreview from "@/components/home/StoriesPreview";
 import Container from "@/components/ui/Container";
 import Link from "next/link";
 import { buildPageMetadata } from "@/lib/metadata";
@@ -21,8 +19,6 @@ export default function Home() {
       <Hero />
       <CollectionsOverview />
       <SelectedProjects />
-      <SelectedWork />
-      <StoriesPreview />
       <AboutPreview />
 
       {/* Commercial Section CTA */}
