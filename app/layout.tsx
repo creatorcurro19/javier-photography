@@ -11,6 +11,10 @@ import { generatePersonSchema } from "@/lib/schema";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
 
+  verification: {
+    google: "mlxi0qgenlmxxcnvumclzhd9jt85pqqvvk9tfikedgo",
+  },
+
   title: {
     default: "Javier Espinosa | Fotografía de Autor & Fine Art",
     template: "%s | Javier Espinosa Fotografía",
