@@ -277,9 +277,9 @@ export default function LightboxModal({
       </div>
 
       {/* Bottom Bar */}
-      <footer className="flex h-14 shrink-0 items-center justify-between border-t border-neutral-800/80 px-4 md:px-8 text-xs text-neutral-400">
+      <footer className="flex h-14 shrink-0 items-center justify-between border-t border-[#1D2021] px-4 md:px-8 text-xs text-[#95836B] font-mono">
         <div className="truncate">
-          <span className="font-light text-neutral-200">{photo.title}</span>
+          <span className="font-light text-[#D8D5CD] font-serif text-sm">{photo.title}</span>
           <span className="mx-2 text-neutral-600">·</span>
           <span>{photo.location ? photo.location : `${photo.focalLength} · ${photo.camera}`}</span>
         </div>
@@ -288,7 +288,7 @@ export default function LightboxModal({
           <Link
             href={`/portfolio/${photo.slug}`}
             onClick={onClose}
-            className="underline underline-offset-4 hover:text-white"
+            className="underline underline-offset-4 text-[#95836B] hover:text-[#D8D5CD] transition"
           >
             Detalles de proyecto
           </Link>

@@ -141,7 +141,7 @@ function PhotoDetail({ slug }: { slug: string }) {
 
       <Container className="mt-16 space-y-16">
         <PhotoMeta photo={photo} />
-        <div className="grid gap-12 border-t border-neutral-800 pt-12 lg:grid-cols-2">
+        <div className="grid gap-12 border-t border-[#1D2021] pt-12 lg:grid-cols-2">
           <ExifPanel photo={photo} />
           <EquipmentPanel photo={photo} />
         </div>

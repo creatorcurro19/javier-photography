@@ -15,21 +15,21 @@ export default function ExifPanel({ photo }: ExifPanelProps) {
   return (
     <section
       aria-labelledby="exif-heading"
-      className="rounded-lg border border-neutral-900 bg-neutral-950/60 p-7 sm:p-8"
+      className="rounded-lg border border-[#1D2021] bg-[#1D2021]/30 p-7 sm:p-8"
     >
       <h2
         id="exif-heading"
-        className="text-[11px] font-mono uppercase tracking-[0.3em] text-neutral-500"
+        className="text-[11px] font-mono uppercase tracking-[0.3em] text-[#95836B]"
       >
         Parámetros de Disparo (EXIF)
       </h2>
       <dl className="mt-6 grid grid-cols-2 gap-x-8 gap-y-6">
         {items.map((item) => (
-          <div key={item.label} className="border-l border-neutral-800/80 pl-4">
-            <dt className="text-[11px] font-mono uppercase tracking-[0.15em] text-neutral-500">
+          <div key={item.label} className="border-l border-[#1D2021] pl-4">
+            <dt className="text-[11px] font-mono uppercase tracking-[0.15em] text-[#95836B]">
               {item.label}
             </dt>
-            <dd className="mt-1.5 font-mono text-base font-light text-neutral-200">
+            <dd className="mt-1.5 font-mono text-base font-light text-[#D8D5CD]">
               {item.value}
             </dd>
           </div>

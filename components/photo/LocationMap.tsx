@@ -18,20 +18,20 @@ export default function LocationMap({ photo }: LocationMapProps) {
   const embedUrl = `https://www.google.com/maps?q=${lat},${lng}&z=10&output=embed`;
 
   return (
-    <section aria-labelledby="map-heading" className="border-t border-neutral-900 pt-12">
-      <span className="text-xs font-mono uppercase tracking-[0.35em] text-neutral-500">
+    <section aria-labelledby="map-heading" className="border-t border-[#1D2021] pt-12">
+      <span className="text-xs font-mono uppercase tracking-[0.35em] text-[#95836B]">
         Territorio
       </span>
       <h2
         id="map-heading"
-        className="mt-2 font-serif text-3xl font-light text-neutral-100"
+        className="mt-2 font-serif text-3xl font-light text-[#D8D5CD]"
       >
         Localización
       </h2>
-      <p className="mt-4 text-sm text-neutral-400">
+      <p className="mt-4 text-sm text-[#D8D5CD]/70 font-light">
         {placeName}
       </p>
-      <div className="mt-6 aspect-[21/9] w-full overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900">
+      <div className="mt-6 aspect-[21/9] w-full overflow-hidden rounded-lg border border-[#1D2021] bg-[#1D2021]">
         <iframe
           title={`Mapa de localización de ${photo.title} en ${query}`}
           src={embedUrl}

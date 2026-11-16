@@ -64,7 +64,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         {/* Project Header */}
         <header className="max-w-4xl border-b border-[#1D2021] pb-12">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="rounded-full border border-neutral-800 bg-[#1D2021] px-3.5 py-1 text-xs font-mono uppercase tracking-[0.2em] text-[#95836B]">
+            <span className="rounded-full border border-[#1D2021] bg-[#1D2021] px-3.5 py-1 text-xs font-mono uppercase tracking-[0.2em] text-[#95836B]">
               {project.discipline}
             </span>
             <span className="text-xs font-mono text-neutral-600">·</span>

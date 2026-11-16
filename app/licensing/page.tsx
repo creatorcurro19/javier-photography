@@ -162,16 +162,16 @@ export default function LicensingPage() {
 
         {/* Licensed Works Catalog */}
         <div className="mt-24">
-          <div className="flex flex-col justify-between gap-4 border-b border-neutral-800 pb-6 sm:flex-row sm:items-end">
+          <div className="flex flex-col justify-between gap-4 border-b border-[#1D2021] pb-6 sm:flex-row sm:items-end">
             <div>
-              <p className="text-xs uppercase tracking-[0.35em] text-neutral-400">
+              <p className="text-xs uppercase tracking-[0.35em] text-[#95836B] font-mono">
                 Obras Destacadas para Licencia
               </p>
-              <h2 className="mt-2 font-serif text-3xl font-light text-neutral-100">
+              <h2 className="mt-2 font-serif text-3xl font-light text-[#D8D5CD]">
                 Catálogo de imágenes disponibles ({licensed.length} fotografías)
               </h2>
             </div>
-            <p className="text-xs text-neutral-400">
+            <p className="text-xs text-[#95836B] font-mono">
               Cesión gestionada directamente o mediante agencia asociada.
             </p>
           </div>
@@ -180,7 +180,7 @@ export default function LicensingPage() {
             {licensed.map((photo) => (
               <div
                 key={photo.id}
-                className="group flex flex-col justify-between rounded-lg border border-neutral-900 bg-neutral-950/80 transition hover:border-neutral-700 overflow-hidden"
+                className="group flex flex-col justify-between rounded-lg border border-[#1D2021] bg-[#1D2021]/40 transition hover:border-[#95836B]/60 overflow-hidden"
               >
                 <div>
                   <div className="relative aspect-[3/2] w-full overflow-hidden rounded-t-lg bg-neutral-900">
@@ -192,43 +192,43 @@ export default function LicensingPage() {
                       className="object-cover transition duration-500 group-hover:scale-105"
                     />
                     <div className="absolute left-3 top-3">
-                      <span className="bg-black/80 px-2.5 py-1 text-[9px] uppercase tracking-[0.25em] text-neutral-300 backdrop-blur-sm">
+                      <span className="bg-[#101112]/90 border border-[#1D2021] px-2.5 py-1 text-[9px] uppercase tracking-[0.25em] text-[#D8D5CD] backdrop-blur-sm font-mono">
                         {photo.category.replace("-", " ")}
                       </span>
                     </div>
                   </div>
 
                   <div className="p-6 sm:p-7">
-                    <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-400">
+                    <p className="text-[10px] uppercase tracking-[0.3em] text-[#95836B] font-mono">
                       {photo.location ? `${photo.location} · ` : ""}{photo.year} · Archivo Master 32,5 MP
                     </p>
-                    <h3 className="mt-2 font-serif text-xl font-light text-neutral-100">
+                    <h3 className="mt-2 font-serif text-xl font-light text-[#D8D5CD]">
                       {photo.title}
                     </h3>
-                    <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-neutral-400">
+                    <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-[#D8D5CD]/80 font-light">
                       {photo.description}
                     </p>
-                    <div className="mt-4 flex flex-wrap gap-2 text-[10px] text-neutral-400">
-                      <span className="border border-neutral-800 px-2 py-0.5 font-mono">
+                    <div className="mt-4 flex flex-wrap gap-2 text-[10px] text-[#95836B]">
+                      <span className="border border-[#1D2021] bg-[#101112] px-2 py-0.5 font-mono">
                         {photo.camera}
                       </span>
-                      <span className="border border-neutral-800 px-2 py-0.5 font-mono">
+                      <span className="border border-[#1D2021] bg-[#101112] px-2 py-0.5 font-mono">
                         {photo.lens}
                       </span>
                     </div>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between border-t border-neutral-900 p-6 pt-4">
+                <div className="flex items-center justify-between border-t border-[#1D2021] p-6 pt-4 bg-[#1D2021]/20">
                   <Link
                     href={`/portfolio/${photo.slug}`}
-                    className="text-xs uppercase tracking-[0.25em] text-neutral-400 transition hover:text-neutral-200"
+                    className="text-xs uppercase tracking-[0.25em] text-[#95836B] hover:text-[#D8D5CD] transition"
                   >
                     Ver ficha
                   </Link>
                   <Link
                     href={`/contact?motivo=licencia&obra=${encodeURIComponent(photo.title)}`}
-                    className="border border-neutral-700 bg-neutral-900/60 px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-neutral-200 transition hover:border-neutral-400 hover:text-white"
+                    className="border border-[#1D2021] bg-[#1D2021]/60 px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
                   >
                     Solicitar licencia
                   </Link>

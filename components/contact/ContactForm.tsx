@@ -60,8 +60,8 @@ export default function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="border border-neutral-800 bg-neutral-950/80 p-8 text-center sm:p-12">
-        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-neutral-700 bg-neutral-900 text-neutral-200">
+      <div className="border border-[#1D2021] bg-[#101112]/90 p-8 text-center sm:p-12 rounded-lg">
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-[#1D2021] bg-[#1D2021] text-[#95836B]">
           <svg
             className="h-6 w-6"
             fill="none"
@@ -76,10 +76,10 @@ export default function ContactForm() {
             />
           </svg>
         </div>
-        <h3 className="mt-5 font-serif text-2xl text-neutral-100">
+        <h3 className="mt-5 font-serif text-2xl text-[#D8D5CD]">
           Mensaje transmitido correctamente
         </h3>
-        <p className="mt-3 text-sm leading-relaxed text-neutral-300">
+        <p className="mt-3 text-sm leading-relaxed text-[#D8D5CD]/80 font-light">
           Gracias por contactar, {formData.nombre}. Javier Espinosa revisará su solicitud 
           y le responderá por correo electrónico ({formData.email}) en un plazo máximo de 24 a 48 horas laborables.
         </p>
@@ -96,7 +96,7 @@ export default function ContactForm() {
               mensaje: "",
             });
           }}
-          className="mt-8 inline-flex border border-neutral-700 bg-neutral-900 px-6 py-2.5 text-xs uppercase tracking-[0.25em] text-neutral-200 transition hover:border-white hover:text-white"
+          className="mt-8 inline-flex border border-[#1D2021] bg-[#1D2021]/60 px-6 py-2.5 text-xs uppercase tracking-[0.25em] text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
         >
           Enviar otra consulta
         </button>
@@ -110,9 +110,9 @@ export default function ContactForm() {
         <div>
           <label
             htmlFor="nombre"
-            className="block text-xs uppercase tracking-[0.2em] text-neutral-400"
+            className="block text-xs uppercase tracking-[0.2em] text-[#95836B] font-mono"
           >
-            Nombre completo <span className="text-neutral-500">*</span>
+            Nombre completo <span className="text-[#95836B]">*</span>
           </label>
           <input
             id="nombre"
@@ -121,16 +121,16 @@ export default function ContactForm() {
             value={formData.nombre}
             onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
             placeholder="Ej. Carmen Ortiz"
-            className="mt-2 w-full border border-neutral-800 bg-neutral-950 px-4 py-3 text-sm text-neutral-100 placeholder-neutral-600 transition focus:border-neutral-400 focus:outline-none"
+            className="mt-2 w-full border border-[#1D2021] bg-[#101112] px-4 py-3 text-sm text-[#D8D5CD] placeholder-[#D8D5CD]/30 transition focus:border-[#95836B] focus:outline-none rounded-sm"
           />
         </div>
 
         <div>
           <label
             htmlFor="email"
-            className="block text-xs uppercase tracking-[0.2em] text-neutral-400"
+            className="block text-xs uppercase tracking-[0.2em] text-[#95836B] font-mono"
           >
-            Correo electrónico <span className="text-neutral-500">*</span>
+            Correo electrónico <span className="text-[#95836B]">*</span>
           </label>
           <input
             id="email"
@@ -139,7 +139,7 @@ export default function ContactForm() {
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             placeholder="ejemplo@dominio.com"
-            className="mt-2 w-full border border-neutral-800 bg-neutral-950 px-4 py-3 text-sm text-neutral-100 placeholder-neutral-600 transition focus:border-neutral-400 focus:outline-none"
+            className="mt-2 w-full border border-[#1D2021] bg-[#101112] px-4 py-3 text-sm text-[#D8D5CD] placeholder-[#D8D5CD]/30 transition focus:border-[#95836B] focus:outline-none rounded-sm"
           />
         </div>
       </div>
@@ -148,9 +148,9 @@ export default function ContactForm() {
         <div>
           <label
             htmlFor="telefono"
-            className="block text-xs uppercase tracking-[0.2em] text-neutral-400"
+            className="block text-xs uppercase tracking-[0.2em] text-[#95836B] font-mono"
           >
-            Teléfono de contacto <span className="text-neutral-600">(opcional)</span>
+            Teléfono de contacto <span className="text-[#95836B]/60">(opcional)</span>
           </label>
           <input
             id="telefono"
@@ -158,28 +158,28 @@ export default function ContactForm() {
             value={formData.telefono}
             onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
             placeholder="+34 600 000 000"
-            className="mt-2 w-full border border-neutral-800 bg-neutral-950 px-4 py-3 text-sm text-neutral-100 placeholder-neutral-600 transition focus:border-neutral-400 focus:outline-none"
+            className="mt-2 w-full border border-[#1D2021] bg-[#101112] px-4 py-3 text-sm text-[#D8D5CD] placeholder-[#D8D5CD]/30 transition focus:border-[#95836B] focus:outline-none rounded-sm"
           />
         </div>
 
         <div>
           <label
             htmlFor="motivo"
-            className="block text-xs uppercase tracking-[0.2em] text-neutral-400"
+            className="block text-xs uppercase tracking-[0.2em] text-[#95836B] font-mono"
           >
-            Tipo de solicitud <span className="text-neutral-500">*</span>
+            Tipo de solicitud <span className="text-[#95836B]">*</span>
           </label>
           <select
             id="motivo"
             value={formData.motivo}
             onChange={(e) => setFormData({ ...formData, motivo: e.target.value })}
-            className="mt-2 w-full border border-neutral-800 bg-neutral-950 px-4 py-3 text-sm text-neutral-100 transition focus:border-neutral-400 focus:outline-none"
+            className="mt-2 w-full border border-[#1D2021] bg-[#101112] px-4 py-3 text-sm text-[#D8D5CD] transition focus:border-[#95836B] focus:outline-none rounded-sm"
           >
-            <option value="encargo" className="bg-neutral-900 text-neutral-200">Encargo Profesional (Rally / Arquitectura / Documental)</option>
-            <option value="print" className="bg-neutral-900 text-neutral-200">Adquisición de Copia Fine Art (Hahnemühle)</option>
-            <option value="licencia" className="bg-neutral-900 text-neutral-200">Licencia de Derechos de Imagen (Editorial / Publicidad)</option>
-            <option value="exposicion" className="bg-neutral-900 text-neutral-200">Exposición, Galería o Prensa</option>
-            <option value="general" className="bg-neutral-900 text-neutral-200">Consulta General</option>
+            <option value="encargo" className="bg-[#101112] text-[#D8D5CD]">Encargo Profesional (Rally / Arquitectura / Documental)</option>
+            <option value="print" className="bg-[#101112] text-[#D8D5CD]">Adquisición de Copia Fine Art (Hahnemühle)</option>
+            <option value="licencia" className="bg-[#101112] text-[#D8D5CD]">Licencia de Derechos de Imagen (Editorial / Publicidad)</option>
+            <option value="exposicion" className="bg-[#101112] text-[#D8D5CD]">Exposición, Galería o Prensa</option>
+            <option value="general" className="bg-[#101112] text-[#D8D5CD]">Consulta General</option>
           </select>
         </div>
       </div>
@@ -187,9 +187,9 @@ export default function ContactForm() {
       <div>
         <label
           htmlFor="referencia"
-          className="block text-xs uppercase tracking-[0.2em] text-neutral-400"
+          className="block text-xs uppercase tracking-[0.2em] text-[#95836B] font-mono"
         >
-          Obra o Formato de Referencia <span className="text-neutral-600">(si aplica)</span>
+          Obra o Formato de Referencia <span className="text-[#95836B]/60">(si aplica)</span>
         </label>
         <input
           id="referencia"
@@ -197,16 +197,16 @@ export default function ContactForm() {
           value={formData.referencia}
           onChange={(e) => setFormData({ ...formData, referencia: e.target.value })}
           placeholder="Ej. Salto en tramo húmedo / Formato 50x70 cm"
-          className="mt-2 w-full border border-neutral-800 bg-neutral-950 px-4 py-3 text-sm text-neutral-100 placeholder-neutral-600 transition focus:border-neutral-400 focus:outline-none"
+          className="mt-2 w-full border border-[#1D2021] bg-[#101112] px-4 py-3 text-sm text-[#D8D5CD] placeholder-[#D8D5CD]/30 transition focus:border-[#95836B] focus:outline-none rounded-sm"
         />
       </div>
 
       <div>
         <label
           htmlFor="mensaje"
-          className="block text-xs uppercase tracking-[0.2em] text-neutral-400"
+          className="block text-xs uppercase tracking-[0.2em] text-[#95836B] font-mono"
         >
-          Detalle del proyecto o consulta <span className="text-neutral-500">*</span>
+          Detalle del proyecto o consulta <span className="text-[#95836B]">*</span>
         </label>
         <textarea
           id="mensaje"
@@ -215,7 +215,7 @@ export default function ContactForm() {
           value={formData.mensaje}
           onChange={(e) => setFormData({ ...formData, mensaje: e.target.value })}
           placeholder="Describa el alcance de la cobertura, fechas tentativas, dimensiones deseadas o especificaciones de su encargo..."
-          className="mt-2 w-full border border-neutral-800 bg-neutral-950 px-4 py-3 text-sm text-neutral-100 placeholder-neutral-600 transition focus:border-neutral-400 focus:outline-none"
+          className="mt-2 w-full border border-[#1D2021] bg-[#101112] px-4 py-3 text-sm text-[#D8D5CD] placeholder-[#D8D5CD]/30 transition focus:border-[#95836B] focus:outline-none rounded-sm"
         />
       </div>
 
@@ -223,12 +223,12 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={submitting}
-          className="inline-flex items-center justify-center border border-neutral-200 bg-neutral-100 px-8 py-3.5 text-xs uppercase tracking-[0.3em] text-neutral-950 font-medium transition hover:bg-white hover:text-black hover:border-white disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+          className="inline-flex items-center justify-center border border-[#D8D5CD] bg-[#D8D5CD] px-8 py-3.5 text-xs uppercase tracking-[0.3em] text-[#101112] font-semibold transition hover:bg-transparent hover:text-white disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
         >
           {submitting ? "Transmitiendo solicitud..." : "Enviar solicitud"}
         </button>
 
-        <p className="text-[11px] text-neutral-500">
+        <p className="text-[11px] text-[#95836B] font-mono">
           Sus datos solo se utilizarán para gestionar esta consulta.
         </p>
       </div>

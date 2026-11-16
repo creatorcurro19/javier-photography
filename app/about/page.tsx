@@ -137,12 +137,12 @@ export default function AboutPage() {
         </div>
 
         {/* Artistic Pillars */}
-        <div className="mt-24 border-t border-neutral-900 pt-16">
+        <div className="mt-24 border-t border-[#1D2021] pt-16">
           <div className="max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.35em] text-neutral-400">
+            <p className="text-xs uppercase tracking-[0.35em] text-[#95836B] font-mono">
               Principios de Creación
             </p>
-            <h2 className="mt-2 font-serif text-3xl font-light text-neutral-100 sm:text-4xl">
+            <h2 className="mt-2 font-serif text-3xl font-light text-[#D8D5CD] sm:text-4xl">
               Filosofía visual y ética de trabajo
             </h2>
           </div>
@@ -151,10 +151,10 @@ export default function AboutPage() {
             {PILLARS.map((pillar) => (
               <div
                 key={pillar.title}
-                className="rounded-lg border border-neutral-800 bg-neutral-950/60 p-8 sm:p-10 transition hover:border-neutral-700"
+                className="rounded-lg border border-[#1D2021] bg-[#1D2021]/30 p-8 sm:p-10 transition hover:border-[#95836B]/60"
               >
-                <h3 className="font-serif text-xl text-neutral-100">{pillar.title}</h3>
-                <p className="mt-4 text-xs leading-relaxed text-neutral-400">
+                <h3 className="font-serif text-xl text-[#D8D5CD]">{pillar.title}</h3>
+                <p className="mt-4 text-xs leading-relaxed text-[#D8D5CD]/80 font-light">
                   {pillar.desc}
                 </p>
               </div>
@@ -163,17 +163,17 @@ export default function AboutPage() {
         </div>
 
         {/* Equipment & Technical System */}
-        <div className="mt-24 border-t border-neutral-900 pt-16">
-          <div className="flex flex-col justify-between gap-4 border-b border-neutral-800 pb-6 sm:flex-row sm:items-end">
+        <div className="mt-24 border-t border-[#1D2021] pt-16">
+          <div className="flex flex-col justify-between gap-4 border-b border-[#1D2021] pb-6 sm:flex-row sm:items-end">
             <div>
-              <p className="text-xs uppercase tracking-[0.35em] text-neutral-400">
+              <p className="text-xs uppercase tracking-[0.35em] text-[#95836B] font-mono">
                 Equipo Técnico
               </p>
-              <h2 className="mt-2 font-serif text-3xl font-light text-neutral-100">
+              <h2 className="mt-2 font-serif text-3xl font-light text-[#D8D5CD]">
                 Sistema óptico y herramientas de campo
               </h2>
             </div>
-            <p className="text-xs text-neutral-400">
+            <p className="text-xs text-[#95836B] font-mono">
               Transparencia técnica en cada toma registrada en los metadatos EXIF.
             </p>
           </div>
@@ -182,13 +182,13 @@ export default function AboutPage() {
             {GEAR.map((item) => (
               <div
                 key={item.item}
-                className="rounded-lg border border-neutral-800 bg-neutral-950/60 p-8 sm:p-10"
+                className="rounded-lg border border-[#1D2021] bg-[#1D2021]/30 p-8 sm:p-10"
               >
-                <span className="text-[10px] uppercase tracking-[0.3em] text-neutral-400">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-[#95836B] font-mono">
                   {item.category}
                 </span>
-                <h3 className="mt-2 font-serif text-2xl text-neutral-100">{item.item}</h3>
-                <p className="mt-4 text-xs leading-relaxed text-neutral-300">
+                <h3 className="mt-2 font-serif text-2xl text-[#D8D5CD]">{item.item}</h3>
+                <p className="mt-4 text-xs leading-relaxed text-[#D8D5CD]/80 font-light">
                   {item.desc}
                 </p>
               </div>
@@ -197,18 +197,18 @@ export default function AboutPage() {
         </div>
 
         {/* Closing Contact Banner */}
-        <div className="mt-24 rounded-xl border border-neutral-800 bg-neutral-950/60 p-8 sm:p-14 text-center">
-          <h2 className="font-serif text-3xl text-neutral-100 sm:text-4xl">
+        <div className="mt-24 rounded-xl border border-[#1D2021] bg-[#1D2021]/30 p-8 sm:p-14 text-center">
+          <h2 className="font-serif text-3xl text-[#D8D5CD] sm:text-4xl">
             ¿Desea colaborar en un proyecto o adquirir obra original?
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-neutral-300">
+          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-[#D8D5CD]/80 font-light">
             Disponible para encargos editoriales, pruebas de automoción, fotografía de arquitectura 
             y proyectos expositivos en cualquier localización.
           </p>
           <div className="mt-8 flex justify-center gap-4">
             <Link
               href="/contact"
-              className="inline-flex border border-neutral-200 bg-neutral-100 px-8 py-3.5 text-xs uppercase tracking-[0.3em] text-neutral-950 font-medium transition hover:bg-white hover:text-black hover:border-white"
+              className="inline-flex border border-[#D8D5CD] bg-[#D8D5CD] px-8 py-3.5 text-xs uppercase tracking-[0.3em] text-[#101112] font-semibold transition hover:bg-transparent hover:text-white"
             >
               Contactar con Javier
             </Link>

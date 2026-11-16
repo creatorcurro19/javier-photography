@@ -141,16 +141,16 @@ export default function PrintsPage() {
 
         {/* Visual Catalog */}
         <div className="mt-28">
-          <div className="flex flex-col justify-between gap-4 border-b border-neutral-800 pb-6 sm:flex-row sm:items-end">
+          <div className="flex flex-col justify-between gap-4 border-b border-[#1D2021] pb-6 sm:flex-row sm:items-end">
             <div>
-              <p className="text-xs uppercase tracking-[0.35em] text-neutral-500">
+              <p className="text-xs uppercase tracking-[0.35em] text-[#95836B] font-mono">
                 Catálogo de Obras Disponibles
               </p>
-              <h2 className="mt-2 font-serif text-3xl font-light text-neutral-100">
+              <h2 className="mt-2 font-serif text-3xl font-light text-[#D8D5CD]">
                 Obras seleccionadas para impresión ({printable.length} fotografías)
               </h2>
             </div>
-            <p className="text-xs text-neutral-500">
+            <p className="text-xs text-[#95836B] font-mono">
               Todas las copias incluyen margen blanco de seguridad y firma manuscrita.
             </p>
           </div>
@@ -159,7 +159,7 @@ export default function PrintsPage() {
             {printable.map((photo) => (
               <div
                 key={photo.id}
-                className="group flex flex-col justify-between rounded-lg border border-neutral-900 bg-neutral-950/80 transition hover:border-neutral-700 overflow-hidden"
+                className="group flex flex-col justify-between rounded-lg border border-[#1D2021] bg-[#1D2021]/40 transition hover:border-[#95836B]/60 overflow-hidden"
               >
                 <div>
                   <div className="relative aspect-[3/2] w-full overflow-hidden bg-neutral-900">
@@ -171,23 +171,23 @@ export default function PrintsPage() {
                       className="object-cover transition duration-500 group-hover:scale-105"
                     />
                     <div className="absolute left-3 top-3">
-                      <span className="bg-black/80 px-2.5 py-1 text-[9px] uppercase tracking-[0.25em] text-neutral-300 backdrop-blur-sm">
+                      <span className="bg-[#101112]/90 border border-[#1D2021] px-2.5 py-1 text-[9px] uppercase tracking-[0.25em] text-[#D8D5CD] backdrop-blur-sm font-mono">
                         {photo.category.replace("-", " ")}
                       </span>
                     </div>
                   </div>
 
                   <div className="p-6 sm:p-7">
-                    <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-500 font-mono">
+                    <p className="text-[10px] uppercase tracking-[0.3em] text-[#95836B] font-mono">
                       {photo.location ? `${photo.location} · ` : ""}{photo.year} · Edición Fine Art
                     </p>
-                    <h3 className="mt-2 font-serif text-xl font-light text-neutral-100 transition group-hover:text-white">
+                    <h3 className="mt-2 font-serif text-xl font-light text-[#D8D5CD] transition group-hover:text-white">
                       {photo.title}
                     </h3>
-                    <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-neutral-400">
+                    <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-[#D8D5CD]/80 font-light">
                       {photo.description}
                     </p>
-                    <div className="mt-4 flex items-center gap-3 font-mono text-[11px] text-neutral-500">
+                    <div className="mt-4 flex items-center gap-3 font-mono text-[11px] text-[#95836B]">
                       <span>{photo.camera}</span>
                       <span>·</span>
                       <span>{photo.focalLength}</span>
@@ -197,16 +197,16 @@ export default function PrintsPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between border-t border-neutral-900 p-6 pt-4">
+                <div className="flex items-center justify-between border-t border-[#1D2021] p-6 pt-4 bg-[#1D2021]/20">
                   <Link
                     href={`/portfolio/${photo.slug}`}
-                    className="text-xs uppercase tracking-[0.25em] text-neutral-400 transition hover:text-white"
+                    className="text-xs uppercase tracking-[0.25em] text-[#95836B] hover:text-[#D8D5CD] transition"
                   >
                     Ver detalles
                   </Link>
                   <Link
                     href={`/contact?motivo=print&obra=${encodeURIComponent(photo.title)}`}
-                    className="border border-neutral-700 bg-neutral-900/60 px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-neutral-200 transition hover:border-white hover:text-white"
+                    className="border border-[#1D2021] bg-[#1D2021]/60 px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
                   >
                     Encargar copia
                   </Link>

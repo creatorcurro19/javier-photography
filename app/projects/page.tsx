@@ -58,7 +58,7 @@ export default function ProjectsPage() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#101112] via-transparent to-transparent" />
                   <div className="absolute bottom-4 left-4">
-                    <span className="rounded-full border border-neutral-800 bg-[#101112]/90 px-3.5 py-1 text-[10px] uppercase tracking-[0.25em] text-[#95836B] backdrop-blur-md">
+                    <span className="rounded-full border border-[#1D2021] bg-[#101112]/90 px-3.5 py-1 text-[10px] uppercase tracking-[0.25em] text-[#95836B] backdrop-blur-md">
                       {project.discipline}
                     </span>
                   </div>

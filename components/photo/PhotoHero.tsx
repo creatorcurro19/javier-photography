@@ -18,7 +18,7 @@ export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
 
   return (
     <>
-      <figure className="relative w-full bg-neutral-950 py-4 sm:py-8">
+      <figure className="relative w-full bg-[#101112] py-4 sm:py-8">
         <div
           role="button"
           tabIndex={0}
@@ -50,7 +50,7 @@ export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
             />
           </div>
 
-          <div className="absolute bottom-6 right-6 hidden rounded-full border border-neutral-700 bg-black/70 px-4 py-2 text-xs font-mono tracking-wider text-neutral-300 backdrop-blur-md transition group-hover:border-neutral-500 group-hover:text-neutral-100 sm:block">
+          <div className="absolute bottom-6 right-6 hidden rounded-full border border-[#1D2021] bg-[#101112]/80 px-4 py-2 text-xs font-mono tracking-wider text-[#D8D5CD] backdrop-blur-md transition group-hover:border-[#95836B]/60 group-hover:text-white sm:block">
             Ver a pantalla completa
           </div>
         </div>

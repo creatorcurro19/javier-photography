@@ -48,12 +48,12 @@ export default function Navbar() {
                 className={`relative py-1 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${
                   isActive
                     ? "text-[#D8D5CD] font-medium"
-                    : "text-neutral-400 hover:text-[#D8D5CD]"
+                    : "text-[#D8D5CD]/70 hover:text-[#D8D5CD]"
                 }`}
               >
                 {link.label}
                 {isActive && (
-                  <span className="absolute bottom-0 left-0 right-0 h-px bg-[#D8D5CD]" />
+                  <span className="absolute bottom-0 left-0 right-0 h-px bg-[#95836B]" />
                 )}
               </Link>
             );

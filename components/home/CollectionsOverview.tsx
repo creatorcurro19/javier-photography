@@ -37,12 +37,12 @@ export default function CollectionsOverview() {
                   <div className="absolute inset-0 bg-gradient-to-t from-[#101112] via-[#101112]/30 to-transparent" />
                   
                   <div className="absolute top-4 left-4">
-                    <span className="rounded-full border border-neutral-800 bg-[#101112]/85 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B] backdrop-blur-md">
+                    <span className="rounded-full border border-[#1D2021] bg-[#101112]/90 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B] backdrop-blur-md">
                       {info.code}
                     </span>
                   </div>
 
-                  <span className="absolute top-4 right-4 rounded-full border border-neutral-800 bg-black/80 px-3 py-1 font-mono text-[11px] text-[#D8D5CD] backdrop-blur-md">
+                  <span className="absolute top-4 right-4 rounded-full border border-[#1D2021] bg-[#101112]/90 px-3 py-1 font-mono text-[11px] text-[#D8D5CD] backdrop-blur-md">
                     {count} {count === 1 ? "obra" : "obras"}
                   </span>
                 </div>

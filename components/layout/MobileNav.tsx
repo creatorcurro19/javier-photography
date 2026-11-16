@@ -36,14 +36,14 @@ export default function MobileNav() {
   }, [open]);
 
   return (
-    <div className="md:hidden">
+    <div className="lg:hidden">
       <button
         type="button"
         aria-expanded={open}
         aria-controls="mobile-menu"
         aria-label={open ? "Cerrar menú" : "Abrir menú de navegación"}
         onClick={() => setOpen((value) => !value)}
-        className="flex items-center gap-2 border border-neutral-700 bg-neutral-900/60 px-3.5 py-1.5 text-[11px] uppercase tracking-[0.3em] text-neutral-300 transition hover:border-neutral-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+        className="flex items-center gap-2 border border-[#1D2021] bg-[#1D2021]/60 px-3.5 py-1.5 text-[11px] uppercase tracking-[0.3em] text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white font-mono"
       >
         <span>{open ? "Cerrar" : "Menú"}</span>
       </button>
