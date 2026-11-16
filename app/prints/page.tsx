@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import PrintScaleVisualizer from "@/components/prints/PrintScaleVisualizer";
+import OpticalLoupeInspector from "@/components/prints/OpticalLoupeInspector";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getPrintablePhotos } from "@/lib/photos";
 
@@ -142,6 +143,9 @@ export default function PrintsPage() {
 
         {/* Interactive Wall Scale Comparator */}
         <PrintScaleVisualizer />
+
+        {/* 32.5 MP Optical Loupe Inspector */}
+        <OpticalLoupeInspector />
 
         {/* Visual Catalog */}
         <div className="mt-28">

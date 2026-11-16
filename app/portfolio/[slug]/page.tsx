@@ -11,6 +11,7 @@ import ExifPanel from "@/components/photo/ExifPanel";
 import LicensingLinks from "@/components/photo/LicensingLinks";
 import LocationMap from "@/components/photo/LocationMap";
 import PhotoHero from "@/components/photo/PhotoHero";
+import PhotoKeyboardNav from "@/components/photo/PhotoKeyboardNav";
 import PhotoMeta from "@/components/photo/PhotoMeta";
 import PrintCTA from "@/components/photo/PrintCTA";
 import RelatedPhotos from "@/components/photo/RelatedPhotos";
@@ -117,6 +118,7 @@ function PhotoDetail({ slug }: { slug: string }) {
   return (
     <article className="min-h-screen bg-[#101112] pb-28 text-[#D8D5CD]">
       <JsonLd data={[generatePhotoSchema(photo), breadcrumb]} />
+      <PhotoKeyboardNav prevSlug={prev?.slug} nextSlug={next?.slug} />
       
       {/* Breadcrumb Bar */}
       <div className="pt-24 border-b border-[#1D2021] bg-[#101112]/60">

@@ -25,9 +25,36 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
         Copia Fine Art en Papel de Museo
       </h2>
       <p className="mt-4 text-sm leading-relaxed text-[#D8D5CD]/80 font-light">
-        Disponible en impresión giclée de conservación sobre papel 100% algodón (Hahnemühle Photo Rag).
+        Disponible en impresión giclée de conservación sobre papel 100% algodón (Hahnemühle Photo Rag® 308 g/m²).
         Cada tirada se inspecciona individualmente y se acompaña de certificado de autenticidad firmado.
       </p>
+
+      {/* Sello de Certificación Museística */}
+      <div className="mt-6 rounded-md border border-[#1D2021] bg-[#101112]/80 p-4 text-xs">
+        <div className="flex items-center justify-between border-b border-[#1D2021] pb-2.5 text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
+          <span>Certificación de Obra Gráfica</span>
+          <span>Norma ISO 9706</span>
+        </div>
+        <div className="mt-3 grid grid-cols-2 gap-3 text-[11px] text-[#D8D5CD]/85">
+          <div>
+            <span className="block text-[10px] uppercase tracking-wider text-[#95836B]">Soporte:</span>
+            Hahnemühle Photo Rag® 308g
+          </div>
+          <div>
+            <span className="block text-[10px] uppercase tracking-wider text-[#95836B]">Tintas:</span>
+            Pigmento Mineral 12 Tintas
+          </div>
+          <div>
+            <span className="block text-[10px] uppercase tracking-wider text-[#95836B]">Margen:</span>
+            5 cm blanco de conservación
+          </div>
+          <div>
+            <span className="block text-[10px] uppercase tracking-wider text-[#95836B]">Autenticidad:</span>
+            Firma manuscrita y holograma
+          </div>
+        </div>
+      </div>
+
       <div className="mt-8 flex flex-wrap gap-4">
         <Link
           href={`/contact?motivo=print&obra=${encodeURIComponent(photo.title)}`}

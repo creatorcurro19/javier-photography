@@ -1,6 +1,7 @@
 import Container from "@/components/ui/Container";
 import CategoryNav from "@/components/portfolio/CategoryNav";
 import ExhibitionGallery from "@/components/portfolio/ExhibitionGallery";
+import ExpeditionMap from "@/components/portfolio/ExpeditionMap";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getAllPhotos } from "@/lib/photos";
 
@@ -37,6 +38,8 @@ export default function PortfolioPage() {
         <div className="mt-16">
           <ExhibitionGallery photos={photos} />
         </div>
+
+        <ExpeditionMap />
       </Container>
     </div>
   );
