@@ -4,6 +4,7 @@ import Container from "@/components/ui/Container";
 import PrintScaleVisualizer from "@/components/prints/PrintScaleVisualizer";
 import OpticalLoupeInspector from "@/components/prints/OpticalLoupeInspector";
 import CertificateOfAuthenticityModal from "@/components/prints/CertificateOfAuthenticityModal";
+import PrintCardAction from "@/components/cart/PrintCardAction";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getPrintablePhotos } from "@/lib/photos";
@@ -356,14 +357,9 @@ export default function PrintsPage() {
                     href={`/portfolio/${photo.slug}`}
                     className="font-mono text-xs uppercase tracking-[0.25em] text-[#8E8A80] hover:text-[#EBE7DF] transition"
                   >
-                    Ver detalles
+                    Ficha de Obra →
                   </Link>
-                  <Link
-                    href={`/contact?motivo=print&obra=${encodeURIComponent(photo.title)}`}
-                    className="border border-white/[0.08] bg-[#151618] px-4 py-2 font-mono text-[11px] uppercase tracking-[0.25em] text-[#EBE7DF] transition hover:border-white/30 hover:text-white"
-                  >
-                    Encargar copia
-                  </Link>
+                  <PrintCardAction photo={photo} />
                 </div>
               </div>
             ))}

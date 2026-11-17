@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Photo } from "@/types/photo";
 import { CATEGORY_METADATA } from "@/types/photo";
+import AddToCartModal from "@/components/cart/AddToCartModal";
 
 interface LightboxModalProps {
   photos: Photo[];
@@ -26,6 +27,7 @@ export default function LightboxModal({
   const [showFilmstrip, setShowFilmstrip] = useState(true);
   const [isZoomed, setIsZoomed] = useState(false);
   const [zoomOrigin, setZoomOrigin] = useState({ x: 50, y: 50 });
+  const [addCartOpen, setAddCartOpen] = useState(false);
   const touchStartX = useRef<number | null>(null);
 
   const photo = photos[currentIndex];
@@ -197,6 +199,20 @@ export default function LightboxModal({
             EXIF
           </button>
 
+          {photo.prints && (
+            <button
+              type="button"
+              onClick={() => setAddCartOpen(true)}
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-[#EBE7DF] bg-[#EBE7DF] px-3.5 py-1.5 text-xs font-mono tracking-wider text-[#0B0C0E] font-medium transition hover:bg-transparent hover:text-white"
+              title="Adquirir copia Fine Art certificada"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
+              + Cesta
+            </button>
+          )}
+
           <button
             type="button"
             onClick={onClose}
@@ -357,13 +373,13 @@ export default function LightboxModal({
                 Ver Obra Completa
               </Link>
               {photo.prints && (
-                <Link
-                  href={`/contact?motivo=print&obra=${encodeURIComponent(photo.title)}`}
-                  onClick={onClose}
-                  className="border border-white/[0.08] bg-[#151618] px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-[#EBE7DF] transition hover:border-white/30 hover:text-white"
+                <button
+                  type="button"
+                  onClick={() => setAddCartOpen(true)}
+                  className="border border-[#EBE7DF] bg-[#EBE7DF] px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-[#0B0C0E] font-medium transition hover:bg-transparent hover:text-white"
                 >
-                  Adquirir Print
-                </Link>
+                  + Cesta Fine Art
+                </button>
               )}
               <Link
                 href={`/contact?motivo=licencia&obra=${encodeURIComponent(photo.title)}`}
@@ -426,6 +442,13 @@ export default function LightboxModal({
           </Link>
         </div>
       </footer>
+
+      {/* Modal para configurar y añadir obra a la cesta */}
+      <AddToCartModal
+        photo={photo}
+        isOpen={addCartOpen}
+        onClose={() => setAddCartOpen(false)}
+      />
     </div>
   );
 }

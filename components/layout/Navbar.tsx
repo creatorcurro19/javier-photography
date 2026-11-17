@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MobileNav from "@/components/layout/MobileNav";
 import SearchModal from "@/components/layout/SearchModal";
+import CartButton from "@/components/cart/CartButton";
 import BwToggle from "@/components/ui/BwToggle";
 
 const links = [
@@ -70,6 +71,7 @@ export default function Navbar() {
         <div className="flex items-center gap-3">
           <BwToggle />
           <SearchModal />
+          <CartButton />
           <MobileNav />
         </div>
       </div>

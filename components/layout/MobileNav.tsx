@@ -62,6 +62,30 @@ export default function MobileNav() {
           className="fixed inset-x-0 top-20 bottom-0 z-50 flex flex-col justify-between border-b border-white/[0.08] bg-[#0B0C0E]/98 px-6 py-6 shadow-2xl backdrop-blur-2xl overflow-y-auto no-scrollbar sm:px-8 sm:py-8"
         >
           <div>
+            {/* Quick Mobile Cart Trigger */}
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                setTimeout(() => {
+                  window.dispatchEvent(new Event("open-cart-drawer"));
+                }, 120);
+              }}
+              className="mb-3 flex w-full items-center justify-between border border-white/[0.08] bg-[#151618] px-4 py-2.5 text-left transition hover:border-white/30"
+            >
+              <div className="flex items-center gap-3">
+                <svg className="h-4 w-4 text-[#EBE7DF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+                <span className="font-mono text-xs text-[#EBE7DF]">
+                  Cesta de la Compra
+                </span>
+              </div>
+              <span className="font-mono text-[9px] uppercase tracking-widest text-[#8E8A80] border border-white/[0.08] px-2 py-0.5">
+                Fine Art
+              </span>
+            </button>
+
             {/* Quick Mobile Search Trigger */}
             <button
               type="button"
