@@ -5,7 +5,10 @@ import { getAllProjects } from "@/lib/photos";
 
 export default function SelectedProjects() {
   const allProjects = getAllProjects();
-  const featured = allProjects.slice(0, 3);
+  const featuredIds = ["villanueva-de-la-vera", "silencio-del-desierto", "trazadas-rally"];
+  const featured = featuredIds
+    .map((id) => allProjects.find((p) => p.id === id))
+    .filter((p): p is (typeof allProjects)[number] => Boolean(p));
 
   return (
     <section id="proyectos" className="bg-[#101112] py-24 sm:py-32 border-t border-[#1D2021] scroll-mt-20">

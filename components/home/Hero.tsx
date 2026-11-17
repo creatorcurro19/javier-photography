@@ -10,40 +10,35 @@ const HERO_SLIDES = [
     code: "LANDSCAPES",
     title: "Ocaso sobre el Erg",
     image: "/images/portfolio/viajes-cultura/B51A7341.jpg",
-    mobileImage: "/images/portfolio/viajes-cultura/B51A7340.jpg",
-    position: "object-[center_38%]",
+    position: "object-[center_42%]",
   },
   {
     id: "wildlife",
     code: "WILDLIFE",
     title: "Mirada del Lince Boreal",
     image: "/images/portfolio/fauna-naturaleza/B51A1823-Mejorado-NR.jpg",
-    mobileImage: "/images/portfolio/fauna-naturaleza/B51A8662.jpg",
-    position: "object-center",
+    position: "object-[center_35%]",
   },
   {
     id: "peaks",
     code: "TERRITORY",
     title: "Cumbre Nevada al Alba",
     image: "/images/portfolio/paisajes-documental/B51A0149.jpg",
-    mobileImage: "/images/portfolio/paisajes-documental/B51A4880.jpg",
-    position: "object-center",
+    position: "object-[center_32%]",
   },
   {
     id: "motorsport",
     code: "MOTORSPORT",
     title: "Cruzada sobre el Asfalto",
     image: "/images/portfolio/coches-rally/B51A9718.jpg",
-    mobileImage: "/images/portfolio/coches-rally/B51A9118.jpg",
-    position: "object-center",
+    position: "object-[center_45%]",
   },
   {
     id: "documentary",
     code: "DOCUMENTARY",
     title: "El Oficio y la Chispa",
     image: "/images/portfolio/viajes-cultura/soldador.jpg",
-    mobileImage: "/images/portfolio/viajes-cultura/B51A6388.jpg",
-    position: "object-center",
+    position: "object-[center_40%]",
   },
 ] as const;
 
@@ -59,7 +54,7 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-svh w-full bg-[#101112] overflow-hidden flex items-center justify-center">
-      {/* Slideshow optimizado: solo monta la diapositiva activa y la siguiente para carga instantánea */}
+      {/* Slideshow: renderiza la imagen canónica con encuadre óptico responsivo */}
       {HERO_SLIDES.map((slide, idx) => {
         const isCurrent = idx === activeSlide;
         const isNext = idx === (activeSlide + 1) % HERO_SLIDES.length;
@@ -80,16 +75,7 @@ export default function Hero() {
               priority={idx === 0}
               loading={idx === 0 ? "eager" : "lazy"}
               sizes="100vw"
-              className={`hidden sm:block object-cover ${slide.position} brightness-[0.92] contrast-[1.04]`}
-            />
-            <Image
-              src={slide.mobileImage}
-              alt={`${slide.title} — Fotografía de autor por Javier Espinosa Martínez`}
-              fill
-              priority={idx === 0}
-              loading={idx === 0 ? "eager" : "lazy"}
-              sizes="100vw"
-              className="block sm:hidden object-cover object-center brightness-[0.92] contrast-[1.04]"
+              className={`object-cover ${slide.position} brightness-[0.92] contrast-[1.04]`}
             />
           </div>
         );

@@ -12,15 +12,15 @@ export default function AboutPreview() {
             <div className="relative aspect-[4/5] w-full overflow-hidden border border-[#1D2021] bg-[#141617]">
               <Image
                 src="/images/portfolio/fauna-naturaleza/B51A8662.jpg"
-                alt="Fotografía de naturaleza por Javier Espinosa Martínez"
+                alt="Descenso en la Roca — Fotografía de fauna salvaje por Javier Espinosa Martínez"
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#101112]/70 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#101112]/75 via-transparent to-transparent" />
               <div className="absolute bottom-4 left-5 right-5 flex items-center justify-between font-mono text-[9px] uppercase tracking-widest text-[#95836B]">
-                <span>Luz Natural</span>
-                <span>Canon EOS R7</span>
+                <span>Descenso en la Roca</span>
+                <span>Canon EOS R7 · 600mm</span>
               </div>
             </div>
           </div>
