@@ -1,12 +1,12 @@
 import Hero from "@/components/home/Hero";
 import SelectedWork from "@/components/home/SelectedWork";
 import CollectionsOverview from "@/components/home/CollectionsOverview";
-import SelectedProjects from "@/components/home/SelectedProjects";
-import AboutPreview from "@/components/home/AboutPreview";
 import Container from "@/components/ui/Container";
+import { AndalusianDivider } from "@/components/ui/AndalusianMotif";
 import Link from "next/link";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getFeaturedPhotos } from "@/lib/photos";
+import type { Photo } from "@/types/photo";
 
 export const metadata = buildPageMetadata({
   title: "Javier Espinosa | The Art of Seeing — Fotografía de Autor",
@@ -15,76 +15,109 @@ export const metadata = buildPageMetadata({
   path: "/",
 });
 
+/** Selecciona 6 piezas equilibradas entre todas las disciplinas para una portada concisa */
+function pickHomePreview(featured: Photo[]): Photo[] {
+  const seenCategories = new Set<string>();
+  const picked: Photo[] = [];
+
+  for (const photo of featured) {
+    if (!seenCategories.has(photo.category)) {
+      seenCategories.add(photo.category);
+      picked.push(photo);
+    }
+    if (picked.length === 5) break;
+  }
+
+  for (const photo of featured) {
+    if (picked.length >= 6) break;
+    if (!picked.some((p) => p.id === photo.id)) {
+      picked.push(photo);
+    }
+  }
+
+  return picked;
+}
+
 export default function Home() {
   const featuredPhotos = getFeaturedPhotos();
+  const homePreview = pickHomePreview(featuredPhotos);
 
   return (
     <>
       <Hero />
-      <SelectedWork photos={featuredPhotos} />
+      <SelectedWork photos={homePreview} totalCount={featuredPhotos.length} />
       <CollectionsOverview />
-      <SelectedProjects />
-      <AboutPreview />
 
-      {/* Collector's Acquisitions & Editorial Inquiries Alcove */}
+      {/* Cierre Editorial Conciso: El Autor, Series & Obra Fine Art */}
       <section
-        className="bg-[#0B0C0E] py-28 sm:py-36 border-t border-white/[0.08]"
-        aria-label="Adquisición de Obra & Encargos"
+        className="bg-[#0B0C0E] py-20 sm:py-24"
+        aria-label="Autor, Series y Obra Fine Art"
       >
         <Container>
-          <div className="max-w-4xl mx-auto text-center border border-white/[0.08] bg-[#151618] p-10 sm:p-16 lg:p-20 shadow-[0_20px_60px_rgba(0,0,0,0.7)]">
-            <div className="flex items-center justify-center gap-3">
-              <span className="h-px w-6 bg-white/30" />
-              <p className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.4em] text-[#8E8A80]">
-                Coleccionismo & Encargos
-              </p>
-              <span className="h-px w-6 bg-white/30" />
-            </div>
-
-            <h2 className="mt-4 font-serif text-3xl sm:text-4xl md:text-5xl font-light text-[#EBE7DF] tracking-tight">
-              Obra de Autor & Tiradas Certificadas
-            </h2>
-
-            <p className="mt-6 max-w-2xl mx-auto text-sm sm:text-base font-light text-[#8E8A80] leading-relaxed">
-              Ediciones limitadas impresas sobre papel de algodón 100% Hahnemühle Photo Rag® 308g con tintas de pigmento mineral UltraChrome PRO, bajo estricto cumplimiento de la norma ISO 9706 de conservación museística.
-            </p>
-
-            {/* Museum Quality Key Highlights */}
-            <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4 border-y border-white/[0.08] py-6 font-mono text-[10px] uppercase tracking-wider text-[#8E8A80]">
-              <div className="p-2">
-                <span className="block text-white font-medium">Hahnemühle 308g</span>
-                <span className="text-[9px] text-[#8E8A80]/70">100% Algodón Mate</span>
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12 border border-white/[0.08] bg-[#151618] p-8 sm:p-12">
+            {/* Columna Izquierda: Autor y Series */}
+            <div className="flex flex-col justify-between lg:pr-8 lg:border-r lg:border-white/[0.08]">
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-[#8E8A80]">
+                  Javier Espinosa Martínez
+                </p>
+                <h2 className="mt-3 font-serif text-2xl sm:text-3xl font-light text-[#EBE7DF] tracking-tight">
+                  La mirada antes que el artificio
+                </h2>
+                <p className="mt-4 text-sm font-light leading-relaxed text-[#8E8A80]">
+                  Fotografía independiente realizada exclusivamente con luz natural. Explora las series monográficas y la trayectoria de autor.
+                </p>
               </div>
-              <div className="p-2 border-l border-white/[0.06]">
-                <span className="block text-white font-medium">ISO 9706</span>
-                <span className="text-[9px] text-[#8E8A80]/70">Longevidad 100+ Años</span>
-              </div>
-              <div className="p-2 border-l border-white/[0.06]">
-                <span className="block text-white font-medium">Firma & Holograma</span>
-                <span className="text-[9px] text-[#8E8A80]/70">Certificado Oficial</span>
-              </div>
-              <div className="p-2 border-l border-white/[0.06]">
-                <span className="block text-white font-medium">Tiradas Limitadas</span>
-                <span className="text-[9px] text-[#8E8A80]/70">Series de 10 a 50</span>
+
+              <div className="mt-7 flex flex-wrap items-center gap-6 font-mono text-[11px] uppercase tracking-[0.24em]">
+                <Link
+                  href="/projects"
+                  className="text-[#EBE7DF] transition hover:text-white underline underline-offset-4 decoration-white/30"
+                >
+                  Series Monográficas →
+                </Link>
+                <Link
+                  href="/about"
+                  className="text-[#8E8A80] transition hover:text-[#EBE7DF]"
+                >
+                  Sobre el Autor →
+                </Link>
               </div>
             </div>
 
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-              <Link
-                href="/prints"
-                className="group inline-flex items-center gap-2 border border-[#EBE7DF] bg-[#EBE7DF] px-8 py-3.5 text-[11px] uppercase tracking-[0.26em] text-[#0B0C0E] font-medium transition-all duration-300 hover:bg-transparent hover:text-white"
-              >
-                <span>Catálogo de Copias Fine Art</span>
-                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 border border-white/20 bg-transparent px-8 py-3.5 text-[11px] uppercase tracking-[0.26em] text-[#EBE7DF] transition-all duration-300 hover:border-white/50 hover:text-white"
-              >
-                Iniciar Consulta Privada
-              </Link>
+            {/* Columna Derecha: Copias Fine Art y Contacto */}
+            <div className="flex flex-col justify-between pt-8 border-t border-white/[0.08] lg:pt-0 lg:border-t-0">
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-[#8E8A80]">
+                  Ediciones Limitadas · ISO 9706
+                </p>
+                <h2 className="mt-3 font-serif text-2xl sm:text-3xl font-light text-[#EBE7DF] tracking-tight">
+                  Copias Fine Art & Encargos
+                </h2>
+                <p className="mt-4 text-sm font-light leading-relaxed text-[#8E8A80]">
+                  Tiradas numeradas y firmadas sobre algodón Hahnemühle Photo Rag® 308 g/m², listas para colección privada o licencia editorial.
+                </p>
+              </div>
+
+              <div className="mt-7 flex flex-wrap items-center gap-3">
+                <Link
+                  href="/prints"
+                  className="inline-flex items-center gap-2 border border-[#EBE7DF] bg-[#EBE7DF] px-6 py-2.5 font-mono text-[10px] uppercase tracking-[0.25em] font-medium text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
+                >
+                  <span>Catálogo Fine Art</span>
+                  <span>→</span>
+                </Link>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 border border-white/20 px-6 py-2.5 font-mono text-[10px] uppercase tracking-[0.25em] text-[#EBE7DF] transition hover:border-white/50 hover:text-white"
+                >
+                  Contacto
+                </Link>
+              </div>
             </div>
           </div>
+
+          <AndalusianDivider className="mt-12" />
         </Container>
       </section>
     </>
