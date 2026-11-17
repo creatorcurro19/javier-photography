@@ -1,6 +1,5 @@
 import Hero from "@/components/home/Hero";
 import SelectedWork from "@/components/home/SelectedWork";
-import CollectionsOverview from "@/components/home/CollectionsOverview";
 import Container from "@/components/ui/Container";
 import {
   AndalusianCornerOrnaments,
@@ -51,14 +50,13 @@ export default function Home() {
     <>
       <Hero />
       <SelectedWork photos={homePreview} totalCount={featuredPhotos.length} />
-      <CollectionsOverview />
 
       {/* Cierre Editorial Conciso: El Autor, Series & Obra Fine Art */}
       <section
         className="relative overflow-hidden bg-[#0B0C0E] py-20 sm:py-24"
         aria-label="Autor, Series y Obra Fine Art"
       >
-        <AndalusianPageBackdrop variant="sebka" />
+        <AndalusianPageBackdrop variant="laceria" />
 
         <Container className="relative z-10">
           <div className="relative grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12 border border-[#C5A880]/25 bg-[#151618]/95 p-8 sm:p-12 shadow-[0_24px_70px_rgba(0,0,0,0.65)]">

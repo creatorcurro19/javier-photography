@@ -6,6 +6,7 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 import LightboxModal from "@/components/ui/LightboxModal";
 import {
+  AndalusianCenefa,
   AndalusianPageBackdrop,
   AndalusianStarMark,
 } from "@/components/ui/AndalusianMotif";
@@ -139,6 +140,10 @@ export default function SelectedWork({ photos, totalCount }: SelectedWorkProps) 
           onNavigate={setSelectedIndex}
         />
       </Container>
+
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10">
+        <AndalusianCenefa variant="estrella" className="text-[#C5A880]/40" />
+      </div>
     </section>
   );
 }
