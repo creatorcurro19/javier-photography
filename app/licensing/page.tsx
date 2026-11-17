@@ -2,6 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import LicenseConfigurator from "@/components/licensing/LicenseConfigurator";
+import {
+  AndalusianCenefa,
+  AndalusianPageBackdrop,
+} from "@/components/ui/AndalusianMotif";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getLicensedPhotos } from "@/lib/photos";
 
@@ -75,11 +79,12 @@ export default function LicensingPage() {
   const licensed = allLicensed.filter((p) => p.prints || p.featured).slice(0, 18);
 
   return (
-    <div className="min-h-screen bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
-      <Container>
+    <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
+      <AndalusianPageBackdrop variant="laceria" />
+      <Container className="relative z-10">
         {/* Header */}
         <div className="max-w-3xl">
-          <p className="text-xs uppercase tracking-[0.4em] text-[#8E8A80] font-mono">
+          <p className="text-xs uppercase tracking-[0.4em] text-[#C5A880]/85 font-mono">
             Cesión de Derechos & Uso Profesional
           </p>
           <h1 className="mt-4 font-serif text-4xl font-light tracking-wide text-[#EBE7DF] sm:text-5xl lg:text-6xl">
@@ -109,6 +114,11 @@ export default function LicensingPage() {
             </Link>
           </div>
         </div>
+
+        <AndalusianCenefa
+          variant="estrella"
+          className="mt-12 text-[#C5A880]/38"
+        />
 
         {/* Interactive Commercial Licensing Configurator */}
         <LicenseConfigurator />

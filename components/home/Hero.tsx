@@ -3,6 +3,10 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  AndalusianCenefa,
+  AndalusianStarMark,
+} from "@/components/ui/AndalusianMotif";
 
 interface HeroSlide {
   id: string;
@@ -162,11 +166,13 @@ export default function Hero() {
           </h1>
 
           <div className="mt-4 flex items-center gap-3">
-            <span className="h-px w-8 bg-[#8E8A80]/40 sm:w-12" />
-            <h2 className="font-serif italic text-base sm:text-xl md:text-2xl font-normal tracking-wide text-[#EBE7DF]/90">
+            <span className="h-px w-8 bg-[#C5A880]/45 sm:w-12" />
+            <AndalusianStarMark className="h-3.5 w-3.5 text-[#C5A880]/80" />
+            <h2 className="font-serif italic text-base sm:text-xl md:text-2xl font-normal tracking-wide text-[#EBE7DF]/95">
               The Art of Seeing
             </h2>
-            <span className="h-px w-8 bg-[#8E8A80]/40 sm:w-12" />
+            <AndalusianStarMark className="h-3.5 w-3.5 text-[#C5A880]/80" />
+            <span className="h-px w-8 bg-[#C5A880]/45 sm:w-12" />
           </div>
 
           <p className="mt-5 max-w-xl text-xs sm:text-sm font-light tracking-wide text-[#8E8A80] leading-relaxed">
@@ -244,6 +250,11 @@ export default function Hero() {
             <span className="text-white/30">↓</span>
           </div>
         </div>
+      </div>
+
+      {/* Cenefa andalusí marcando la entrada a las salas */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20">
+        <AndalusianCenefa variant="estrella" className="text-[#C5A880]/38" />
       </div>
     </section>
   );

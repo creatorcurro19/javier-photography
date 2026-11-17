@@ -1,4 +1,9 @@
 import Link from "next/link";
+import {
+  AndalusianBackgroundPattern,
+  AndalusianCenefa,
+  AndalusianStarMark,
+} from "@/components/ui/AndalusianMotif";
 
 const collections = [
   { href: "/portfolio/fauna-naturaleza", label: "Fauna y Biodiversidad (Wildlife)" },
@@ -27,21 +32,38 @@ const commercialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/[0.08] bg-[#0B0C0E] text-[#8E8A80]">
-      <div className="mx-auto max-w-7xl px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24 py-16 lg:py-24">
+    <footer className="relative overflow-hidden border-t border-[#C5A880]/20 bg-[#0B0C0E] text-[#8E8A80]">
+      {/* Filigrana geométrica andalusí de fondo */}
+      <AndalusianBackgroundPattern
+        variant="laceria"
+        mask="radial"
+        className="text-[#C5A880]/[0.075]"
+      />
+
+      {/* Cenefa coronando el pie de página */}
+      <AndalusianCenefa
+        variant="estrella"
+        fadeEdges={false}
+        className="relative z-10 text-[#C5A880]/38"
+      />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24 py-16 lg:py-24">
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-5">
           {/* Brand Col */}
           <div className="lg:col-span-2">
             <Link
               href="/"
-              className="inline-flex flex-col focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              className="group inline-flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
             >
-              <span className="font-sans font-medium text-lg tracking-[0.28em] text-[#EBE7DF]">
-                JAVIER ESPINOSA
-              </span>
-              <span className="text-[9px] tracking-[0.42em] text-[#8E8A80] uppercase mt-0.5">
-                The Art of Seeing · Fotografía de Autor
-              </span>
+              <AndalusianStarMark className="h-6 w-6 text-[#C5A880]/80 transition-transform duration-500 group-hover:rotate-45" />
+              <div className="flex flex-col">
+                <span className="font-sans font-medium text-lg tracking-[0.28em] text-[#EBE7DF]">
+                  JAVIER ESPINOSA
+                </span>
+                <span className="text-[9px] tracking-[0.42em] text-[#C5A880]/80 uppercase mt-0.5">
+                  The Art of Seeing · Fotografía de Autor
+                </span>
+              </div>
             </Link>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-[#8E8A80] font-light">
               Práctica visual basada en la luz natural, la geometría espacial y la observación paciente. 

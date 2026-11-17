@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import CertificateOfAuthenticityModal from "@/components/prints/CertificateOfAuthenticityModal";
+import { AndalusianCornerOrnaments } from "@/components/ui/AndalusianMotif";
 import type { Photo } from "@/types/photo";
 import { PRINT_FORMATS, addToCart } from "@/lib/cart";
 import type { PrintFormat } from "@/types/cart";
@@ -43,8 +44,9 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
   return (
     <section
       aria-labelledby="print-heading"
-      className="border border-white/[0.08] bg-[#151618] p-8 sm:p-10 transition-colors"
+      className="relative border border-[#C5A880]/25 bg-[#151618]/95 p-8 sm:p-10 transition-colors"
     >
+      <AndalusianCornerOrnaments className="text-[#C5A880]/50" />
       <div className="flex items-center justify-between">
         <span className="text-[10px] font-mono uppercase tracking-[0.35em] text-[#8E8A80]">
           Edición de Autor · Obra Gráfica

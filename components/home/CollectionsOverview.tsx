@@ -4,6 +4,7 @@ import Container from "@/components/ui/Container";
 import {
   AndalusianBackgroundPattern,
   AndalusianCenefa,
+  AndalusianStarMark,
   AndalusianVerticalCenefa,
 } from "@/components/ui/AndalusianMotif";
 import { PHOTO_CATEGORIES, CATEGORY_METADATA } from "@/types/photo";
@@ -65,30 +66,35 @@ export default function CollectionsOverview() {
       {/* Fondo discreto de lacería andalusí */}
       <AndalusianBackgroundPattern
         variant="laceria"
+        mask="none"
+        className="text-[#C5A880]/[0.055]"
+      />
+      <AndalusianBackgroundPattern
+        variant="laceria"
         mask="radial"
-        className="text-[#C5A880]/[0.08]"
+        className="text-[#C5A880]/[0.09]"
       />
 
-      {/* Cenefa superior discreta */}
+      {/* Cenefa superior */}
       <div className="absolute inset-x-0 top-0">
-        <AndalusianCenefa variant="estrella" className="text-[#C5A880]/30" />
+        <AndalusianCenefa variant="estrella" className="text-[#C5A880]/40" />
       </div>
 
       {/* Cenefas verticales laterales (alfiz) */}
-      <div className="pointer-events-none absolute inset-y-8 left-3 hidden xl:block">
-        <AndalusianVerticalCenefa className="text-[#C5A880]/20" />
+      <div className="pointer-events-none absolute inset-y-8 left-2.5 hidden lg:block">
+        <AndalusianVerticalCenefa className="text-[#C5A880]/28" />
       </div>
-      <div className="pointer-events-none absolute inset-y-8 right-3 hidden xl:block">
-        <AndalusianVerticalCenefa className="text-[#C5A880]/20" />
+      <div className="pointer-events-none absolute inset-y-8 right-2.5 hidden lg:block">
+        <AndalusianVerticalCenefa className="text-[#C5A880]/28" />
       </div>
 
       <Container className="relative z-10">
         {/* Curatorial Header */}
-        <div className="flex flex-col justify-between gap-4 pb-8 border-b border-white/[0.08] md:flex-row md:items-end">
+        <div className="flex flex-col justify-between gap-4 pb-8 border-b border-[#C5A880]/20 md:flex-row md:items-end">
           <div className="max-w-xl">
-            <div className="flex items-center gap-3">
-              <span className="h-px w-6 bg-white/30" />
-              <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-[#8E8A80]">
+            <div className="flex items-center gap-2.5">
+              <AndalusianStarMark className="h-3.5 w-3.5 text-[#C5A880]/75" />
+              <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-[#C5A880]/85">
                 Colección Permanente
               </p>
             </div>
@@ -118,7 +124,7 @@ export default function CollectionsOverview() {
               <Link
                 key={wing.category}
                 href={`/portfolio/${wing.category}`}
-                className={`group relative block overflow-hidden border border-white/[0.08] bg-[#151618] transition-all duration-500 hover:border-white/30 ${wing.colSpanClass}`}
+                className={`group relative block overflow-hidden border border-[#C5A880]/18 bg-[#151618] transition-all duration-500 hover:border-[#C5A880]/55 ${wing.colSpanClass}`}
                 aria-label={`${wing.roomRoman}: ${info.title} (${count} obras)`}
               >
                 <div className={`relative w-full overflow-hidden ${wing.aspectClass}`}>

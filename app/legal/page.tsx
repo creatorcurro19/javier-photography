@@ -1,5 +1,9 @@
 import Link from "next/link";
 import Container from "@/components/ui/Container";
+import {
+  AndalusianCenefa,
+  AndalusianPageBackdrop,
+} from "@/components/ui/AndalusianMotif";
 import { buildPageMetadata } from "@/lib/metadata";
 
 export const metadata = buildPageMetadata({
@@ -11,11 +15,12 @@ export const metadata = buildPageMetadata({
 
 export default function LegalPage() {
   return (
-    <div className="min-h-screen bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
-      <Container>
+    <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
+      <AndalusianPageBackdrop variant="laceria" />
+      <Container className="relative z-10">
         <div className="mx-auto max-w-4xl">
-          <div className="border-b border-[#202226] pb-8">
-            <p className="font-mono text-xs uppercase tracking-[0.38em] text-[#8E8A80]">
+          <div className="pb-8">
+            <p className="font-mono text-xs uppercase tracking-[0.38em] text-[#C5A880]/85">
               Marco Normativo & Derechos de Autor
             </p>
             <h1 className="mt-3 font-serif text-4xl font-light text-[#EBE7DF] sm:text-5xl">
@@ -25,12 +30,17 @@ export default function LegalPage() {
               Titular: Javier Espinosa Martínez · Contacto oficial:{" "}
               <a
                 href="mailto:javierespinosa1995@hotmail.com"
-                className="text-[#EBE7DF] underline decoration-[#8E8A80] underline-offset-4"
+                className="text-[#EBE7DF] underline decoration-[#C5A880]/50 underline-offset-4"
               >
                 javierespinosa1995@hotmail.com
               </a>
             </p>
           </div>
+
+          <AndalusianCenefa
+            variant="estrella"
+            className="text-[#C5A880]/36"
+          />
 
           <div className="mt-12 space-y-14 text-sm font-light leading-relaxed text-[#EBE7DF]/80">
             {/* 1. Titularidad */}

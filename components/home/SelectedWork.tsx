@@ -5,6 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import LightboxModal from "@/components/ui/LightboxModal";
+import {
+  AndalusianPageBackdrop,
+  AndalusianStarMark,
+} from "@/components/ui/AndalusianMotif";
 import type { Photo } from "@/types/photo";
 import { CATEGORY_METADATA } from "@/types/photo";
 
@@ -25,16 +29,18 @@ export default function SelectedWork({ photos, totalCount }: SelectedWorkProps) 
   return (
     <section
       id="selected-work"
-      className="bg-[#0B0C0E] py-20 sm:py-24 border-t border-white/[0.08] scroll-mt-20"
+      className="relative overflow-hidden bg-[#0B0C0E] py-20 sm:py-24 scroll-mt-20"
       aria-label="Selected Works — Exposición Permanente"
     >
-      <Container>
+      <AndalusianPageBackdrop variant="sebka" />
+
+      <Container className="relative z-10">
         {/* Curatorial Header */}
-        <div className="flex flex-col justify-between gap-4 pb-8 border-b border-white/[0.08] md:flex-row md:items-end">
+        <div className="flex flex-col justify-between gap-4 pb-8 border-b border-[#C5A880]/20 md:flex-row md:items-end">
           <div className="max-w-xl">
-            <div className="flex items-center gap-3">
-              <span className="h-px w-6 bg-white/30" />
-              <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-[#8E8A80]">
+            <div className="flex items-center gap-2.5">
+              <AndalusianStarMark className="h-3.5 w-3.5 text-[#C5A880]/75" />
+              <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-[#C5A880]/85">
                 Exposición Permanente
               </p>
             </div>
@@ -64,7 +70,7 @@ export default function SelectedWork({ photos, totalCount }: SelectedWorkProps) 
             return (
               <figure
                 key={photo.id}
-                className="group overflow-hidden border border-white/[0.08] bg-[#151618] transition-all duration-500 hover:border-white/30"
+                className="group overflow-hidden border border-[#C5A880]/15 bg-[#151618]/95 transition-all duration-500 hover:border-[#C5A880]/50"
               >
                 <div
                   role="button"

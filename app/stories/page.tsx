@@ -1,6 +1,12 @@
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import FieldJournalExplorer from "@/components/stories/FieldJournalExplorer";
+import {
+  AndalusianCenefa,
+  AndalusianCornerOrnaments,
+  AndalusianPageBackdrop,
+  AndalusianStarMark,
+} from "@/components/ui/AndalusianMotif";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getPhotosWithStory } from "@/lib/photos";
 
@@ -15,13 +21,14 @@ export default function StoriesPage() {
   const stories = getPhotosWithStory();
 
   return (
-    <div className="min-h-screen bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
-      <Container>
+    <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
+      <AndalusianPageBackdrop variant="sebka" />
+      <Container className="relative z-10">
         {/* Header */}
         <div className="max-w-3xl">
-          <div className="flex items-center gap-3">
-            <span className="h-px w-6 bg-white/30" />
-            <p className="font-mono text-xs uppercase tracking-[0.4em] text-[#8E8A80]">
+          <div className="flex items-center gap-2.5">
+            <AndalusianStarMark className="h-3.5 w-3.5 text-[#C5A880]/75" />
+            <p className="font-mono text-xs uppercase tracking-[0.4em] text-[#C5A880]/85">
               The Art of Seeing · Notas de Campo
             </p>
           </div>
@@ -36,13 +43,19 @@ export default function StoriesPage() {
           </p>
         </div>
 
+        <AndalusianCenefa
+          variant="sebka"
+          className="mt-10 text-[#C5A880]/38"
+        />
+
         {/* Interactive Explorer */}
-        <div className="mt-12">
+        <div className="mt-10">
           <FieldJournalExplorer stories={stories} />
         </div>
 
         {/* Archive CTA */}
-        <div className="mt-20 border border-white/[0.08] bg-[#151618] p-8 text-center sm:p-14">
+        <div className="relative mt-20 border border-[#C5A880]/25 bg-[#151618]/95 p-8 text-center sm:p-14">
+          <AndalusianCornerOrnaments className="text-[#C5A880]/50" />
           <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
             Archivo Completo
           </p>

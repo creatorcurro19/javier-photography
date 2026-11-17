@@ -1,5 +1,11 @@
 import Container from "@/components/ui/Container";
 import ContactForm from "@/components/contact/ContactForm";
+import {
+  AndalusianCenefa,
+  AndalusianCornerOrnaments,
+  AndalusianPageBackdrop,
+  AndalusianStarMark,
+} from "@/components/ui/AndalusianMotif";
 import { buildPageMetadata } from "@/lib/metadata";
 
 export const metadata = buildPageMetadata({
@@ -48,13 +54,15 @@ const CONTACT_INFO = [
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
-      <Container>
+    <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
+      <AndalusianPageBackdrop variant="laceria" />
+
+      <Container className="relative z-10">
         {/* Header */}
         <div className="max-w-3xl">
-          <div className="flex items-center gap-3">
-            <span className="h-px w-6 bg-white/30" />
-            <p className="font-mono text-xs uppercase tracking-[0.4em] text-[#8E8A80]">
+          <div className="flex items-center gap-2.5">
+            <AndalusianStarMark className="h-3.5 w-3.5 text-[#C5A880]/75" />
+            <p className="font-mono text-xs uppercase tracking-[0.4em] text-[#C5A880]/85">
               The Art of Seeing · Contacto Directo
             </p>
           </div>
@@ -68,10 +76,16 @@ export default function ContactPage() {
           </p>
         </div>
 
+        <AndalusianCenefa
+          variant="estrella"
+          className="mt-10 text-[#C5A880]/38"
+        />
+
         {/* Content Layout */}
-        <div className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-12">
+        <div className="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-12">
           {/* Main Form (8 cols) */}
-          <div className="border border-white/[0.08] bg-[#151618] p-8 sm:p-12 lg:col-span-8">
+          <div className="relative border border-[#C5A880]/25 bg-[#151618]/95 p-8 sm:p-12 lg:col-span-8">
+            <AndalusianCornerOrnaments className="text-[#C5A880]/50" />
             <h2 className="font-mono text-xs uppercase tracking-[0.3em] text-[#8E8A80]">
               Formulario de Consulta
             </h2>

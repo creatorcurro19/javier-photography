@@ -6,6 +6,7 @@ import Container from "@/components/ui/Container";
 import {
   AndalusianCollectionBackdrop,
   AndalusianCenefa,
+  AndalusianDivider,
 } from "@/components/ui/AndalusianMotif";
 import CategoryNav from "@/components/portfolio/CategoryNav";
 import ExhibitionGallery from "@/components/portfolio/ExhibitionGallery";
@@ -138,14 +139,18 @@ function PhotoDetail({ slug }: { slug: string }) {
     { name: photo.title, path: `/portfolio/${photo.slug}` },
   ]);
 
+  const isSebka =
+    photo.category === "arquitectura-urbana" || photo.category === "viajes-cultura";
+
   return (
-    <article className="min-h-screen bg-[#0B0C0E] pb-36 lg:pb-28 text-[#EBE7DF]">
+    <article className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pb-36 lg:pb-28 text-[#EBE7DF]">
+      <AndalusianCollectionBackdrop variant={isSebka ? "sebka" : "laceria"} />
       <JsonLd data={[generatePhotoSchema(photo), breadcrumb]} />
       <PhotoKeyboardNav prevSlug={prev?.slug} nextSlug={next?.slug} />
       <MobilePhotoActionBar photo={photo} />
       
       {/* Breadcrumb Bar */}
-      <div className="pt-24 border-b border-white/[0.08] bg-[#0B0C0E]/80 backdrop-blur-md">
+      <div className="relative z-10 pt-24 border-b border-[#C5A880]/15 bg-[#0B0C0E]/80 backdrop-blur-md">
         <Container className="py-4">
           <nav aria-label="Miga de pan" className="flex items-center gap-2 text-xs font-mono text-[#8E8A80]">
             <Link href="/" className="hover:text-[#EBE7DF] transition">Inicio</Link>
@@ -161,13 +166,17 @@ function PhotoDetail({ slug }: { slug: string }) {
         </Container>
       </div>
 
-      <div className="pt-6">
+      <div className="relative z-10 pt-6">
         <PhotoHero photo={photo} categoryPhotos={getPhotosByCategory(photo.category)} />
       </div>
 
-      <Container className="mt-16 space-y-16">
+      <Container className="relative z-10 mt-14 space-y-16">
+        <AndalusianCenefa
+          variant={isSebka ? "sebka" : "estrella"}
+          className="text-[#C5A880]/36"
+        />
         <PhotoMeta photo={photo} />
-        <div className="grid gap-12 border-t border-white/[0.08] pt-12 lg:grid-cols-2">
+        <div className="grid gap-12 border-t border-[#C5A880]/15 pt-12 lg:grid-cols-2">
           <ExifPanel photo={photo} />
           <EquipmentPanel photo={photo} />
         </div>
@@ -179,8 +188,10 @@ function PhotoDetail({ slug }: { slug: string }) {
           <PrintCTA photo={photo} />
         </div>
 
+        <AndalusianDivider />
+
         {/* Adjacent Photo Navigation */}
-        <nav aria-label="Navegación entre obras de la misma colección" className="border-t border-white/[0.08] pt-10">
+        <nav aria-label="Navegación entre obras de la misma colección" className="pt-2">
           <div className="flex items-center justify-between gap-4 text-xs font-mono uppercase tracking-[0.2em]">
             {prev ? (
               <Link

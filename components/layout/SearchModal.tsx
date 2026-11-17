@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { getAllPhotos, getAllProjects } from "@/lib/photos";
 import { CATEGORY_METADATA, PhotoCategory } from "@/types/photo";
+import { AndalusianMicroCenefa } from "@/components/ui/AndalusianMotif";
 
 const COLLECTIONS: { id: PhotoCategory; label: string; subtitle: string }[] = [
   { id: "paisajes-documental", label: "Paisajes", subtitle: "Territorio y naturaleza" },
@@ -136,11 +137,11 @@ export default function SearchModal() {
             onClick={() => setOpen(false)}
           >
             <div
-              className="w-full max-w-xl overflow-hidden border border-white/[0.1] bg-[#0B0C0E] shadow-[0_30px_80px_rgba(0,0,0,0.85)]"
+              className="w-full max-w-xl overflow-hidden border border-[#C5A880]/25 bg-[#0B0C0E] shadow-[0_30px_80px_rgba(0,0,0,0.85)]"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Campo de búsqueda único y sereno */}
-              <div className="flex items-center gap-3.5 border-b border-white/[0.08] px-5 py-4 sm:px-6 sm:py-5">
+              <div className="flex items-center gap-3.5 px-5 py-4 sm:px-6 sm:py-5">
                 <svg
                   className="h-5 w-5 shrink-0 text-[#8E8A80]"
                   fill="none"
@@ -195,6 +196,8 @@ export default function SearchModal() {
                   </svg>
                 </button>
               </div>
+
+              <AndalusianMicroCenefa className="text-[#C5A880]/35" />
 
               {/* Contenido: Colecciones directas o Resultados limpios */}
               <div className="max-h-[65vh] overflow-y-auto p-4 sm:p-6">

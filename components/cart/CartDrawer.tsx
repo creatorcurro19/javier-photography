@@ -13,6 +13,10 @@ import {
   getCartServerSnapshot,
 } from "@/lib/cart";
 import CheckoutModal from "@/components/cart/CheckoutModal";
+import {
+  AndalusianMicroCenefa,
+  AndalusianStarMark,
+} from "@/components/ui/AndalusianMotif";
 
 export default function CartDrawer() {
   const items = useSyncExternalStore(subscribeCart, getCartSnapshot, getCartServerSnapshot);
@@ -63,12 +67,13 @@ export default function CartDrawer() {
         }`}
       >
         {/* Drawer Header */}
-        <header className="flex h-20 items-center justify-between border-b border-white/[0.08] px-6 sm:px-8">
+        <header className="flex h-20 items-center justify-between px-6 sm:px-8">
           <div className="flex items-center gap-3">
+            <AndalusianStarMark className="h-4 w-4 text-[#C5A880]/75" />
             <span className="font-serif text-lg font-light text-[#EBE7DF]">
               Cesta de Colección
             </span>
-            <span className="rounded-full border border-white/20 bg-[#151618] px-2.5 py-0.5 font-mono text-[10px] text-[#8E8A80]">
+            <span className="rounded-full border border-[#C5A880]/30 bg-[#151618] px-2.5 py-0.5 font-mono text-[10px] text-[#C5A880]">
               {totalItems} {totalItems === 1 ? "obra" : "obras"}
             </span>
           </div>
@@ -84,6 +89,7 @@ export default function CartDrawer() {
             </svg>
           </button>
         </header>
+        <AndalusianMicroCenefa className="text-[#C5A880]/35" />
 
         {/* Confirmation Screen */}
         {confirmedOrderId ? (

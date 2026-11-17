@@ -2,7 +2,12 @@ import Hero from "@/components/home/Hero";
 import SelectedWork from "@/components/home/SelectedWork";
 import CollectionsOverview from "@/components/home/CollectionsOverview";
 import Container from "@/components/ui/Container";
-import { AndalusianDivider } from "@/components/ui/AndalusianMotif";
+import {
+  AndalusianCornerOrnaments,
+  AndalusianDivider,
+  AndalusianPageBackdrop,
+  AndalusianStarMark,
+} from "@/components/ui/AndalusianMotif";
 import Link from "next/link";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getFeaturedPhotos } from "@/lib/photos";
@@ -50,17 +55,24 @@ export default function Home() {
 
       {/* Cierre Editorial Conciso: El Autor, Series & Obra Fine Art */}
       <section
-        className="bg-[#0B0C0E] py-20 sm:py-24"
+        className="relative overflow-hidden bg-[#0B0C0E] py-20 sm:py-24"
         aria-label="Autor, Series y Obra Fine Art"
       >
-        <Container>
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12 border border-white/[0.08] bg-[#151618] p-8 sm:p-12">
+        <AndalusianPageBackdrop variant="sebka" />
+
+        <Container className="relative z-10">
+          <div className="relative grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12 border border-[#C5A880]/25 bg-[#151618]/95 p-8 sm:p-12 shadow-[0_24px_70px_rgba(0,0,0,0.65)]">
+            <AndalusianCornerOrnaments className="text-[#C5A880]/55" />
+
             {/* Columna Izquierda: Autor y Series */}
-            <div className="flex flex-col justify-between lg:pr-8 lg:border-r lg:border-white/[0.08]">
+            <div className="flex flex-col justify-between lg:pr-8 lg:border-r lg:border-[#C5A880]/15">
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-[#8E8A80]">
-                  Javier Espinosa Martínez
-                </p>
+                <div className="flex items-center gap-2">
+                  <AndalusianStarMark className="h-3 w-3 text-[#C5A880]/80" />
+                  <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-[#C5A880]/85">
+                    Javier Espinosa Martínez
+                  </p>
+                </div>
                 <h2 className="mt-3 font-serif text-2xl sm:text-3xl font-light text-[#EBE7DF] tracking-tight">
                   La mirada antes que el artificio
                 </h2>
@@ -72,7 +84,7 @@ export default function Home() {
               <div className="mt-7 flex flex-wrap items-center gap-6 font-mono text-[11px] uppercase tracking-[0.24em]">
                 <Link
                   href="/projects"
-                  className="text-[#EBE7DF] transition hover:text-white underline underline-offset-4 decoration-white/30"
+                  className="text-[#EBE7DF] transition hover:text-white underline underline-offset-4 decoration-[#C5A880]/50"
                 >
                   Series Monográficas →
                 </Link>
@@ -86,11 +98,14 @@ export default function Home() {
             </div>
 
             {/* Columna Derecha: Copias Fine Art y Contacto */}
-            <div className="flex flex-col justify-between pt-8 border-t border-white/[0.08] lg:pt-0 lg:border-t-0">
+            <div className="flex flex-col justify-between pt-8 border-t border-[#C5A880]/15 lg:pt-0 lg:border-t-0">
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-[#8E8A80]">
-                  Ediciones Limitadas · ISO 9706
-                </p>
+                <div className="flex items-center gap-2">
+                  <AndalusianStarMark className="h-3 w-3 text-[#C5A880]/80" />
+                  <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-[#C5A880]/85">
+                    Ediciones Limitadas · ISO 9706
+                  </p>
+                </div>
                 <h2 className="mt-3 font-serif text-2xl sm:text-3xl font-light text-[#EBE7DF] tracking-tight">
                   Copias Fine Art & Encargos
                 </h2>
@@ -109,7 +124,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 border border-white/20 px-6 py-2.5 font-mono text-[10px] uppercase tracking-[0.25em] text-[#EBE7DF] transition hover:border-white/50 hover:text-white"
+                  className="inline-flex items-center gap-2 border border-[#C5A880]/35 px-6 py-2.5 font-mono text-[10px] uppercase tracking-[0.25em] text-[#EBE7DF] transition hover:border-[#C5A880] hover:text-white"
                 >
                   Contacto
                 </Link>

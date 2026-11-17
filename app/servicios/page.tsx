@@ -2,6 +2,11 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 import SectionHeader from "@/components/ui/SectionHeader";
 import CommissionConfigurator from "@/components/servicios/CommissionConfigurator";
+import {
+  AndalusianCenefa,
+  AndalusianPageBackdrop,
+  AndalusianStarMark,
+} from "@/components/ui/AndalusianMotif";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/metadata";
 import { generateFAQSchema, generateServiceSchema } from "@/lib/schema";
@@ -93,15 +98,19 @@ export default function ServiciosPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
+    <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
+      <AndalusianPageBackdrop variant="sebka" />
       <JsonLd data={generateServiceSchema()} />
       <JsonLd data={generateFAQSchema(faqItems)} />
-      <Container>
+      <Container className="relative z-10">
         {/* Header */}
         <header className="max-w-3xl">
-          <p className="text-xs font-mono uppercase tracking-[0.4em] text-[#8E8A80]">
-            Comercialización y Encargos
-          </p>
+          <div className="flex items-center gap-2.5">
+            <AndalusianStarMark className="h-3.5 w-3.5 text-[#C5A880]/75" />
+            <p className="text-xs font-mono uppercase tracking-[0.4em] text-[#C5A880]/85">
+              Comercialización y Encargos
+            </p>
+          </div>
           <h1 className="mt-4 text-4xl sm:text-5xl md:text-6xl font-light tracking-tight text-[#EBE7DF]">
             Servicios Fotográficos de Autor
           </h1>
@@ -110,6 +119,11 @@ export default function ServiciosPage() {
             que demanden una mirada personal, libre de artificios publicitarios genéricos.
           </p>
         </header>
+
+        <AndalusianCenefa
+          variant="sebka"
+          className="mt-10 text-[#C5A880]/38"
+        />
 
         {/* Interactive Commission Brief Builder */}
         <CommissionConfigurator />
