@@ -10,9 +10,9 @@ import { getPrintablePhotos } from "@/lib/photos";
 import { generateFAQSchema } from "@/lib/schema";
 
 export const metadata = buildPageMetadata({
-  title: "Copias Fine Art | Javier Espinosa",
+  title: "Copias Fine Art & Ediciones de Autor | Javier Espinosa",
   description:
-    "Ediciones limitadas de autor sobre papel de algodón Hahnemühle Photo Rag 308g. Impresión con tintas de pigmento mineral de conservación museística.",
+    "Ediciones limitadas de autor sobre papel de algodón Hahnemühle Photo Rag 308g. Impresión con tintas de pigmento mineral de conservación museística bajo norma ISO 9706.",
   path: "/prints",
 });
 
@@ -90,18 +90,21 @@ export default function PrintsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#101112] pt-36 pb-28 text-[#D8D5CD]">
+    <div className="min-h-screen bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
       <JsonLd data={generateFAQSchema(printFaqs)} />
       <Container>
         {/* Header Section */}
         <div className="max-w-3xl">
-          <p className="text-xs uppercase tracking-[0.4em] text-[#95836B] font-mono">
-            Ediciones de Colección & Obra Gráfica
-          </p>
-          <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight text-[#D8D5CD]">
+          <div className="flex items-center gap-3">
+            <span className="h-px w-6 bg-white/30" />
+            <p className="font-mono text-xs uppercase tracking-[0.4em] text-[#8E8A80]">
+              The Art of Seeing · Ediciones de Autor
+            </p>
+          </div>
+          <h1 className="mt-4 font-serif text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight text-[#EBE7DF]">
             Copias Fine Art de Autor
           </h1>
-          <p className="mt-6 text-base leading-relaxed text-[#D8D5CD]/80 sm:text-lg font-light">
+          <p className="mt-6 text-base leading-relaxed text-[#8E8A80] sm:text-lg font-light">
             Cada copia es producida bajo demanda individual con supervisión directa de calibración 
             y perfilado cromático. Una traslación física precisa de la luz natural sobre soportes de fibra 
             de algodón de la máxima calidad museística europea.
@@ -112,14 +115,14 @@ export default function PrintsPage() {
               href="https://www.saatchiart.com/javier-espinosa-photography"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border border-[#D8D5CD] bg-[#D8D5CD] px-6 py-3 text-xs uppercase tracking-[0.25em] text-[#101112] font-semibold transition hover:bg-transparent hover:text-white"
+              className="inline-flex items-center gap-2 border border-[#EBE7DF] bg-[#EBE7DF] px-6 py-3 font-mono text-xs uppercase tracking-[0.25em] text-[#0B0C0E] font-medium transition-all duration-300 hover:bg-transparent hover:text-white"
             >
               <span>Galería Oficial en Saatchi Art</span>
               <span>↗</span>
             </a>
             <Link
               href="/contact?motivo=print"
-              className="inline-flex items-center gap-2 border border-[#1D2021] bg-[#1D2021]/60 px-6 py-3 text-xs uppercase tracking-[0.25em] text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
+              className="inline-flex items-center gap-2 border border-white/20 bg-[#151618] px-6 py-3 font-mono text-xs uppercase tracking-[0.25em] text-[#EBE7DF] transition hover:border-white/40 hover:text-white"
             >
               Encargo Directo al Autor
             </Link>
@@ -137,10 +140,10 @@ export default function PrintsPage() {
           {SPECS.map((spec) => (
             <div
               key={spec.title}
-              className="rounded-lg border border-[#1D2021] bg-[#1D2021]/40 p-7 sm:p-8 transition hover:border-[#95836B]/60"
+              className="border border-white/[0.08] bg-[#151618] p-7 sm:p-8 transition hover:border-white/30"
             >
-              <h2 className="font-serif text-lg text-[#D8D5CD]">{spec.title}</h2>
-              <p className="mt-3 text-xs leading-relaxed text-neutral-400 font-light">
+              <h2 className="font-serif text-lg font-light text-[#EBE7DF]">{spec.title}</h2>
+              <p className="mt-3 text-xs leading-relaxed text-[#8E8A80] font-light">
                 {spec.desc}
               </p>
             </div>
@@ -149,11 +152,11 @@ export default function PrintsPage() {
 
         {/* Formats Table */}
         <div className="mt-24">
-          <div className="border-b border-[#1D2021] pb-5">
-            <h2 className="text-xs uppercase tracking-[0.35em] text-[#95836B] font-mono">
+          <div className="border-b border-white/[0.08] pb-5">
+            <h2 className="font-mono text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
               Formatos de Tirada Disponibles
             </h2>
-            <p className="mt-1 font-serif text-2xl text-[#D8D5CD]">
+            <p className="mt-1 font-serif text-2xl font-light text-[#EBE7DF]">
               Dimensiones y especificaciones de edición
             </p>
           </div>
@@ -162,34 +165,34 @@ export default function PrintsPage() {
             {SIZES.map((item) => (
               <div
                 key={item.name}
-                className="flex flex-col justify-between rounded-lg border border-[#1D2021] bg-[#1D2021]/30 p-8 sm:p-10"
+                className="flex flex-col justify-between border border-white/[0.08] bg-[#151618] p-8 sm:p-10"
               >
                 <div>
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-[#95836B] font-mono">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#8E8A80]">
                     {item.edition}
                   </span>
                   <div className="mt-2 flex items-baseline justify-between gap-2">
-                    <h3 className="font-serif text-2xl text-[#D8D5CD]">{item.name}</h3>
-                    <span className="font-serif text-xl text-[#D8D5CD]">{item.price}</span>
+                    <h3 className="font-serif text-2xl font-light text-[#EBE7DF]">{item.name}</h3>
+                    <span className="font-serif text-xl text-[#EBE7DF]">{item.price}</span>
                   </div>
-                  <p className="mt-1 font-mono text-sm text-[#95836B]">
-                    {item.dims} <span className="text-neutral-500">({item.imageSize})</span>
+                  <p className="mt-1 font-mono text-sm text-[#8E8A80]">
+                    {item.dims} <span className="text-[#8E8A80]/70">({item.imageSize})</span>
                   </p>
-                  <p className="mt-1 font-mono text-[10px] text-neutral-400">
+                  <p className="mt-1 font-mono text-[10px] text-[#8E8A80]/70">
                     {item.framedNote}
                   </p>
-                  <p className="mt-5 text-xs leading-relaxed text-neutral-400 font-light">
+                  <p className="mt-5 text-xs leading-relaxed text-[#8E8A80] font-light">
                     {item.idealFor}
                   </p>
                 </div>
 
-                <div className="mt-8 border-t border-[#1D2021] pt-6">
-                  <p className="text-[11px] text-neutral-400">
-                    <strong className="text-[#D8D5CD]">Embalaje:</strong> {item.packaging}
+                <div className="mt-8 border-t border-white/[0.08] pt-6">
+                  <p className="text-[11px] text-[#8E8A80]">
+                    <strong className="text-[#EBE7DF]">Embalaje:</strong> {item.packaging}
                   </p>
                   <Link
                     href={`/contact?motivo=print&formato=${encodeURIComponent(item.name)}`}
-                    className="mt-6 inline-flex w-full items-center justify-center border border-[#1D2021] bg-[#1D2021]/60 py-3 text-xs uppercase tracking-[0.3em] text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
+                    className="mt-6 inline-flex w-full items-center justify-center border border-white/[0.08] bg-[#0B0C0E] py-3 font-mono text-xs uppercase tracking-[0.3em] text-[#EBE7DF] transition hover:border-white/30 hover:text-white"
                   >
                     Consultar disponibilidad
                   </Link>
@@ -207,16 +210,16 @@ export default function PrintsPage() {
 
         {/* Visual Catalog */}
         <div className="mt-28">
-          <div className="flex flex-col justify-between gap-4 border-b border-[#1D2021] pb-6 sm:flex-row sm:items-end">
+          <div className="flex flex-col justify-between gap-4 border-b border-white/[0.08] pb-6 sm:flex-row sm:items-end">
             <div>
-              <p className="text-xs uppercase tracking-[0.35em] text-[#95836B] font-mono">
+              <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
                 Catálogo de Obras Disponibles
               </p>
-              <h2 className="mt-2 font-serif text-3xl font-light text-[#D8D5CD]">
+              <h2 className="mt-2 font-serif text-3xl font-light text-[#EBE7DF]">
                 Obras seleccionadas para impresión ({printable.length} fotografías)
               </h2>
             </div>
-            <p className="text-xs text-[#95836B] font-mono">
+            <p className="font-mono text-xs text-[#8E8A80]">
               Todas las copias incluyen margen blanco de seguridad y firma manuscrita.
             </p>
           </div>
@@ -225,36 +228,36 @@ export default function PrintsPage() {
             {printable.map((photo) => (
               <div
                 key={photo.id}
-                className="group mb-8 flex break-inside-avoid flex-col justify-between rounded-lg border border-[#1D2021] bg-[#1D2021]/40 transition hover:border-[#95836B]/60 overflow-hidden"
+                className="group mb-8 flex break-inside-avoid flex-col justify-between border border-white/[0.08] bg-[#151618] transition hover:border-white/30 overflow-hidden"
               >
                 <div>
-                  <div className="relative w-full overflow-hidden bg-[#1D2021]">
+                  <div className="relative w-full overflow-hidden bg-[#0B0C0E]">
                     <Image
                       src={photo.image}
                       alt={photo.alt}
                       width={photo.width}
                       height={photo.height}
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="h-auto w-full transition duration-500 group-hover:scale-[1.02]"
+                      className="h-auto w-full transition duration-500 group-hover:scale-[1.02] brightness-[0.92] group-hover:brightness-100"
                     />
                     <div className="absolute left-3 top-3">
-                      <span className="bg-[#101112]/90 border border-[#1D2021] px-2.5 py-1 text-[9px] uppercase tracking-[0.25em] text-[#D8D5CD] backdrop-blur-sm font-mono">
+                      <span className="bg-[#0B0C0E]/90 border border-white/[0.08] px-2.5 py-1 text-[9px] uppercase tracking-[0.25em] text-[#EBE7DF] backdrop-blur-sm font-mono">
                         {photo.category.replace("-", " ")}
                       </span>
                     </div>
                   </div>
 
                   <div className="p-6 sm:p-7">
-                    <p className="text-[10px] uppercase tracking-[0.3em] text-[#95836B] font-mono">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#8E8A80]">
                       {photo.location ? `${photo.location} · ` : ""}{photo.year} · Edición Fine Art
                     </p>
-                    <h3 className="mt-2 font-serif text-xl font-light text-[#D8D5CD] transition group-hover:text-white">
+                    <h3 className="mt-2 font-serif text-xl font-light text-[#EBE7DF] transition group-hover:text-white">
                       {photo.title}
                     </h3>
-                    <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-[#D8D5CD]/80 font-light">
+                    <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-[#8E8A80] font-light">
                       {photo.description}
                     </p>
-                    <div className="mt-4 flex items-center gap-3 font-mono text-[11px] text-[#95836B]">
+                    <div className="mt-4 flex items-center gap-3 font-mono text-[11px] text-[#8E8A80]">
                       <span>{photo.camera}</span>
                       <span>·</span>
                       <span>{photo.focalLength}</span>
@@ -264,16 +267,16 @@ export default function PrintsPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between border-t border-[#1D2021] p-6 pt-4 bg-[#1D2021]/20">
+                <div className="flex items-center justify-between border-t border-white/[0.08] p-6 pt-4 bg-[#0B0C0E]/40">
                   <Link
                     href={`/portfolio/${photo.slug}`}
-                    className="text-xs uppercase tracking-[0.25em] text-[#95836B] hover:text-[#D8D5CD] transition"
+                    className="font-mono text-xs uppercase tracking-[0.25em] text-[#8E8A80] hover:text-[#EBE7DF] transition"
                   >
                     Ver detalles
                   </Link>
                   <Link
                     href={`/contact?motivo=print&obra=${encodeURIComponent(photo.title)}`}
-                    className="border border-[#1D2021] bg-[#1D2021]/60 px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
+                    className="border border-white/[0.08] bg-[#151618] px-4 py-2 font-mono text-[11px] uppercase tracking-[0.25em] text-[#EBE7DF] transition hover:border-white/30 hover:text-white"
                   >
                     Encargar copia
                   </Link>
@@ -284,15 +287,15 @@ export default function PrintsPage() {
         </div>
 
         {/* Framing & Shipping Guarantee */}
-        <div className="mt-28 rounded-xl border border-[#1D2021] bg-[#1D2021]/30 p-8 sm:p-12 lg:p-14">
+        <div className="mt-28 border border-white/[0.08] bg-[#151618] p-8 sm:p-12 lg:p-14">
           <div className="max-w-2xl">
-            <span className="text-xs uppercase tracking-[0.35em] text-[#95836B] font-mono">
+            <span className="font-mono text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
               Garantía y Logística
             </span>
-            <h2 className="mt-3 font-serif text-2xl text-[#D8D5CD] sm:text-3xl">
+            <h2 className="mt-3 font-serif text-2xl font-light text-[#EBE7DF] sm:text-3xl">
               Asesoramiento en enmarcado y envíos internacionales
             </h2>
-            <p className="mt-4 text-sm leading-relaxed text-[#D8D5CD]/80 font-light">
+            <p className="mt-4 text-sm leading-relaxed text-[#8E8A80] font-light">
               Cada fotografía se entrega con instrucciones detalladas de conservación preventiva. 
               Si desea recibir la obra ya montada en marco de madera maciza (roble, fresno o negro mate) 
               con cristal museo antirreflejos de protección UV al 99%, indíquelo al realizar su consulta.
@@ -300,7 +303,7 @@ export default function PrintsPage() {
             <div className="mt-8">
               <Link
                 href="/contact?motivo=print"
-                className="inline-flex border border-[#D8D5CD] bg-[#D8D5CD] px-8 py-3.5 text-xs uppercase tracking-[0.3em] text-[#101112] font-semibold transition hover:bg-transparent hover:text-white"
+                className="inline-flex border border-[#EBE7DF] bg-[#EBE7DF] px-8 py-3.5 font-mono text-xs uppercase tracking-[0.3em] text-[#0B0C0E] font-medium transition-all duration-300 hover:bg-transparent hover:text-white"
               >
                 Solicitar presupuesto personalizado
               </Link>
@@ -309,12 +312,12 @@ export default function PrintsPage() {
         </div>
 
         {/* FAQ de Coleccionistas */}
-        <section aria-labelledby="prints-faq" className="mt-24 border-t border-[#1D2021] pt-16">
+        <section aria-labelledby="prints-faq" className="mt-24 border-t border-white/[0.08] pt-16">
           <div className="max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.35em] text-[#95836B]">
+            <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
               Preguntas Frecuentes de Coleccionistas
             </p>
-            <h2 id="prints-faq" className="mt-2 font-serif text-3xl font-light text-[#D8D5CD]">
+            <h2 id="prints-faq" className="mt-2 font-serif text-3xl font-light text-[#EBE7DF]">
               Conservación, tiradas, plazos y envíos asegurados
             </h2>
           </div>
@@ -340,13 +343,13 @@ export default function PrintsPage() {
             ].map((item) => (
               <details
                 key={item.q}
-                className="group rounded-lg border border-[#1D2021] bg-[#1D2021]/30 p-6 transition hover:border-[#95836B]/50"
+                className="group border border-white/[0.08] bg-[#151618] p-6 transition hover:border-white/30"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-serif text-lg text-[#D8D5CD]">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-serif text-lg font-light text-[#EBE7DF]">
                   <span>{item.q}</span>
-                  <span className="text-xs text-[#95836B] transition group-open:rotate-45">+</span>
+                  <span className="text-xs text-[#8E8A80] transition group-open:rotate-45">+</span>
                 </summary>
-                <p className="mt-4 text-xs leading-relaxed text-[#D8D5CD]/80 font-light">
+                <p className="mt-4 text-xs leading-relaxed text-[#8E8A80] font-light">
                   {item.a}
                 </p>
               </details>

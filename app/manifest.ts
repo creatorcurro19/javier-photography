@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Archivo fotográfico de autor, naturaleza salvaje a 600mm, rally histórico, arquitectura vernácula y obra gráfica Fine Art.",
     start_url: "/",
     display: "standalone",
-    background_color: "#101112",
-    theme_color: "#101112",
+    background_color: "#0B0C0E",
+    theme_color: "#0B0C0E",
     lang: "es",
     icons: [
       {

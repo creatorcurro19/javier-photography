@@ -15,7 +15,7 @@ export default function RelatedPhotos({ photo }: RelatedPhotosProps) {
   }
 
   return (
-    <section aria-labelledby="related-heading" className="border-t border-[#1D2021] pt-16">
+    <section aria-labelledby="related-heading" className="border-t border-[#202226] pt-16">
       <SectionHeader label="Colección" title="Obras Relacionadas" />
       <div className="mt-12">
         <ExhibitionGallery photos={related} showMeta />

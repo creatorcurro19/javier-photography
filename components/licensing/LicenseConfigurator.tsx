@@ -50,13 +50,13 @@ export default function LicenseConfigurator() {
   };
 
   return (
-    <section className="mt-16 border border-[#1D2021] bg-[#141617]/50 p-6 sm:p-10">
-      <div className="flex flex-col justify-between gap-4 border-b border-[#1D2021] pb-5 sm:flex-row sm:items-end">
+    <section className="mt-16 border border-[#202226] bg-[#151618]/50 p-6 sm:p-10">
+      <div className="flex flex-col justify-between gap-4 border-b border-[#202226] pb-5 sm:flex-row sm:items-end">
         <div>
-          <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#95836B]">
+          <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
             Calculadora de Derechos de Reproducción
           </p>
-          <h2 className="mt-2 font-serif text-3xl font-light text-[#D8D5CD]">
+          <h2 className="mt-2 font-serif text-3xl font-light text-[#EBE7DF]">
             Configurador de Licencia Comercial y Editorial
           </h2>
         </div>
@@ -64,7 +64,7 @@ export default function LicenseConfigurator() {
           href="https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image"
           target="_blank"
           rel="noopener noreferrer"
-          className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#95836B] underline decoration-[#95836B]/50 underline-offset-4 hover:text-white"
+          className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#8E8A80] underline decoration-[#8E8A80]/50 underline-offset-4 hover:text-white"
         >
           ¿Licencia estándar inmediata? Ir a Getty Images / iStock ↗
         </a>
@@ -74,7 +74,7 @@ export default function LicenseConfigurator() {
         {/* Controls (7 cols) */}
         <div className="space-y-6 lg:col-span-7">
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
+            <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
               01 · Modalidad de Uso
             </p>
             <div className="mt-2.5 grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -87,11 +87,11 @@ export default function LicenseConfigurator() {
                     onClick={() => setUsage(u.id)}
                     className={`border p-3.5 text-left transition ${
                       active
-                        ? "border-[#95836B] bg-[#1D2021]/90 text-white"
-                        : "border-[#1D2021] bg-[#101112]/70 text-[#D8D5CD]/75 hover:border-[#95836B]/50"
+                        ? "border-[#8E8A80] bg-[#202226]/90 text-white"
+                        : "border-[#202226] bg-[#0B0C0E]/70 text-[#EBE7DF]/75 hover:border-[#8E8A80]/50"
                     }`}
                   >
-                    <p className="font-serif text-lg text-[#D8D5CD]">
+                    <p className="font-serif text-lg text-[#EBE7DF]">
                       {u.label}
                     </p>
                   </button>
@@ -102,7 +102,7 @@ export default function LicenseConfigurator() {
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
+              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
                 02 · Alcance Geográfico
               </p>
               <div className="mt-2.5 flex flex-col gap-2">
@@ -113,8 +113,8 @@ export default function LicenseConfigurator() {
                     onClick={() => setTerritory(t)}
                     className={`border px-3.5 py-2 text-left font-mono text-xs transition ${
                       territory === t
-                        ? "border-[#95836B] bg-[#1D2021]/80 text-[#D8D5CD]"
-                        : "border-[#1D2021] bg-[#101112]/60 text-neutral-400 hover:text-white"
+                        ? "border-[#8E8A80] bg-[#202226]/80 text-[#EBE7DF]"
+                        : "border-[#202226] bg-[#0B0C0E]/60 text-neutral-400 hover:text-white"
                     }`}
                   >
                     {t}
@@ -124,7 +124,7 @@ export default function LicenseConfigurator() {
             </div>
 
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
+              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
                 03 · Duración de la Cesión
               </p>
               <div className="mt-2.5 flex flex-col gap-2">
@@ -135,8 +135,8 @@ export default function LicenseConfigurator() {
                     onClick={() => setDuration(d)}
                     className={`border px-3.5 py-2 text-left font-mono text-xs transition ${
                       duration === d
-                        ? "border-[#95836B] bg-[#1D2021]/80 text-[#D8D5CD]"
-                        : "border-[#1D2021] bg-[#101112]/60 text-neutral-400 hover:text-white"
+                        ? "border-[#8E8A80] bg-[#202226]/80 text-[#EBE7DF]"
+                        : "border-[#202226] bg-[#0B0C0E]/60 text-neutral-400 hover:text-white"
                     }`}
                   >
                     {d}
@@ -148,49 +148,49 @@ export default function LicenseConfigurator() {
         </div>
 
         {/* Summary Output (5 cols) */}
-        <div className="flex flex-col justify-between border border-[#1D2021] bg-[#101112] p-6 sm:p-8 lg:col-span-5">
+        <div className="flex flex-col justify-between border border-[#202226] bg-[#0B0C0E] p-6 sm:p-8 lg:col-span-5">
           <div>
-            <div className="flex items-center justify-between border-b border-[#1D2021] pb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
+            <div className="flex items-center justify-between border-b border-[#202226] pb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
               <span>Certificado de Entrega</span>
               <span>32.5 MP MASTER</span>
             </div>
 
-            <h3 className="mt-4 font-serif text-2xl text-[#D8D5CD]">
+            <h3 className="mt-4 font-serif text-2xl text-[#EBE7DF]">
               {currentUsage.label}
             </h3>
-            <p className="mt-2 text-xs font-light leading-relaxed text-[#D8D5CD]/80">
+            <p className="mt-2 text-xs font-light leading-relaxed text-[#EBE7DF]/80">
               {currentUsage.rights}
             </p>
 
-            <div className="mt-5 space-y-2.5 border-t border-[#1D2021] pt-4 font-mono text-xs">
+            <div className="mt-5 space-y-2.5 border-t border-[#202226] pt-4 font-mono text-xs">
               <div>
-                <span className="block text-[9px] uppercase tracking-wider text-[#95836B]">
+                <span className="block text-[9px] uppercase tracking-wider text-[#8E8A80]">
                   Archivo Entregado
                 </span>
-                <span className="text-[#D8D5CD]">{currentUsage.format}</span>
+                <span className="text-[#EBE7DF]">{currentUsage.format}</span>
               </div>
               <div className="flex justify-between">
                 <div>
-                  <span className="block text-[9px] uppercase tracking-wider text-[#95836B]">
+                  <span className="block text-[9px] uppercase tracking-wider text-[#8E8A80]">
                     Territorio
                   </span>
-                  <span className="text-[#D8D5CD]">{territory}</span>
+                  <span className="text-[#EBE7DF]">{territory}</span>
                 </div>
                 <div>
-                  <span className="block text-[9px] uppercase tracking-wider text-[#95836B]">
+                  <span className="block text-[9px] uppercase tracking-wider text-[#8E8A80]">
                     Vigencia
                   </span>
-                  <span className="text-[#D8D5CD]">{duration}</span>
+                  <span className="text-[#EBE7DF]">{duration}</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="mt-6 flex flex-col gap-2.5 border-t border-[#1D2021] pt-5">
+          <div className="mt-6 flex flex-col gap-2.5 border-t border-[#202226] pt-5">
             <button
               type="button"
               onClick={handleRequestLicense}
-              className="w-full border border-[#D8D5CD] bg-[#D8D5CD] px-5 py-3 font-mono text-xs font-semibold uppercase tracking-[0.22em] text-[#101112] transition hover:bg-transparent hover:text-white"
+              className="w-full border border-[#EBE7DF] bg-[#EBE7DF] px-5 py-3 font-mono text-xs font-semibold uppercase tracking-[0.22em] text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
             >
               Solicitar Cotización Directa →
             </button>
@@ -198,7 +198,7 @@ export default function LicenseConfigurator() {
               href="https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full border border-[#1D2021] bg-[#141617] px-5 py-2.5 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-[#D8D5CD] transition hover:border-[#95836B]"
+              className="w-full border border-[#202226] bg-[#151618] px-5 py-2.5 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-[#EBE7DF] transition hover:border-[#8E8A80]"
             >
               Licenciar en Getty Images / iStock ↗
             </a>

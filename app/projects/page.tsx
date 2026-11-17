@@ -5,7 +5,7 @@ import { buildPageMetadata } from "@/lib/metadata";
 import { getAllProjects, getProjectPhotos } from "@/lib/photos";
 
 export const metadata = buildPageMetadata({
-  title: "Proyectos Seleccionados | Javier Espinosa",
+  title: "Series Monográficas & Ensayos | Javier Espinosa",
   description:
     "Series fotográficas y ensayos documentales por Javier Espinosa Martínez. Narrativas visuales sobre memoria, oficios tradicionales, orografía del territorio y automovilismo.",
   path: "/projects",
@@ -18,17 +18,20 @@ export default function ProjectsPage() {
   }));
 
   return (
-    <div className="min-h-screen bg-[#101112] pt-36 pb-28 text-[#D8D5CD]">
+    <div className="min-h-screen bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
       <Container>
         {/* Header */}
         <header className="max-w-3xl">
-          <p className="text-xs font-mono uppercase tracking-[0.4em] text-[#95836B]">
-            Narrativa Visual & Ensayos
-          </p>
-          <h1 className="mt-4 text-4xl sm:text-5xl md:text-6xl font-light tracking-tight leading-[1.12] text-[#D8D5CD]">
-            Proyectos Seleccionados
+          <div className="flex items-center gap-3">
+            <span className="h-px w-6 bg-white/30" />
+            <p className="font-mono text-xs uppercase tracking-[0.4em] text-[#8E8A80]">
+              The Art of Seeing · Ensayos de Autor
+            </p>
+          </div>
+          <h1 className="mt-4 font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-tight leading-[1.12] text-[#EBE7DF]">
+            Series Monográficas
           </h1>
-          <p className="mt-6 text-lg leading-relaxed text-[#D8D5CD]/80 font-light">
+          <p className="mt-6 text-base sm:text-lg leading-relaxed text-[#8E8A80] font-light">
             Cuerpos de obra articulados con una intención documental y estética específica.
             Cada proyecto constituye una secuencia visual meditada donde el contexto humano, el territorio
             y la técnica dialogan con el espectador.
@@ -36,7 +39,9 @@ export default function ProjectsPage() {
         </header>
 
         {/* Interactive Series Index with Sequence Filmstrip */}
-        <ProjectsInteractiveIndex projects={projects} />
+        <div className="mt-12">
+          <ProjectsInteractiveIndex projects={projects} />
+        </div>
 
         {/* Interactive Expedition Map */}
         <div className="mt-24">

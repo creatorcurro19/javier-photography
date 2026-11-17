@@ -24,8 +24,8 @@ export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
       <figure
         className={`relative w-full transition-colors duration-500 py-6 sm:py-10 ${
           frameStyle === "clean"
-            ? "bg-[#101112]"
-            : "bg-gradient-to-b from-[#1A1C1E] via-[#222528] to-[#161819]"
+            ? "bg-[#0B0C0E]"
+            : "bg-gradient-to-b from-[#151618] via-[#1A1C1E] to-[#0B0C0E]"
         }`}
       >
         <div
@@ -86,21 +86,21 @@ export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
             </div>
           )}
 
-          <div className="absolute bottom-6 right-6 hidden rounded-full border border-[#1D2021] bg-[#101112]/80 px-4 py-2 text-xs font-mono tracking-wider text-[#D8D5CD] backdrop-blur-md transition group-hover:border-[#95836B]/60 group-hover:text-white sm:block">
+          <div className="absolute bottom-6 right-6 hidden rounded-full border border-white/[0.08] bg-[#0B0C0E]/80 px-4 py-2 text-xs font-mono tracking-wider text-[#EBE7DF] backdrop-blur-md transition group-hover:border-white/30 group-hover:text-white sm:block">
             Ver a pantalla completa
           </div>
         </div>
 
         {/* Selector interactivo de visualización y enmarcado */}
-        <div className="mx-auto mt-6 flex items-center justify-start sm:justify-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1 px-4 text-[11px] uppercase tracking-[0.2em] sm:flex-wrap">
-          <span className="shrink-0 mr-1 text-[#95836B]">Simulador:</span>
+        <div className="mx-auto mt-6 flex items-center justify-start sm:justify-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1 px-4 text-[11px] font-mono uppercase tracking-[0.2em] sm:flex-wrap">
+          <span className="shrink-0 mr-1 text-[#8E8A80]">Simulador:</span>
           <button
             type="button"
             onClick={() => setFrameStyle("clean")}
             className={`shrink-0 rounded-full px-3.5 py-1.5 transition ${
               frameStyle === "clean"
-                ? "bg-[#D8D5CD] text-[#101112] font-medium"
-                : "border border-[#1D2021] bg-[#1D2021]/50 text-[#D8D5CD]/80 hover:border-[#95836B]"
+                ? "bg-[#EBE7DF] text-[#0B0C0E] font-medium"
+                : "border border-white/[0.08] bg-[#151618] text-[#8E8A80] hover:border-white/30 hover:text-[#EBE7DF]"
             }`}
           >
             Vista Limpia
@@ -110,8 +110,8 @@ export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
             onClick={() => setFrameStyle("black")}
             className={`shrink-0 rounded-full px-3.5 py-1.5 transition ${
               frameStyle === "black"
-                ? "bg-[#D8D5CD] text-[#101112] font-medium"
-                : "border border-[#1D2021] bg-[#101112] text-[#D8D5CD]/80 hover:border-[#95836B]"
+                ? "bg-[#EBE7DF] text-[#0B0C0E] font-medium"
+                : "border border-white/[0.08] bg-[#151618] text-[#8E8A80] hover:border-white/30 hover:text-[#EBE7DF]"
             }`}
           >
             Marco Negro + Paspartú
@@ -121,8 +121,8 @@ export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
             onClick={() => setFrameStyle("oak")}
             className={`shrink-0 rounded-full px-3.5 py-1.5 transition ${
               frameStyle === "oak"
-                ? "bg-[#D8D5CD] text-[#101112] font-medium"
-                : "border border-[#1D2021] bg-[#101112] text-[#D8D5CD]/80 hover:border-[#95836B]"
+                ? "bg-[#EBE7DF] text-[#0B0C0E] font-medium"
+                : "border border-white/[0.08] bg-[#151618] text-[#8E8A80] hover:border-white/30 hover:text-[#EBE7DF]"
             }`}
           >
             Marco Roble + Paspartú

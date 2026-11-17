@@ -50,9 +50,9 @@ export default function SavedCollectionDrawer() {
     <>
       <div className="fixed right-4 sm:right-5 bottom-20 md:bottom-5 z-40 print:hidden">
         {open ? (
-          <div className="w-[calc(100vw-2rem)] max-w-sm border border-[#95836B]/70 bg-[#101112]/95 p-5 shadow-[0_25px_70px_rgba(0,0,0,0.85)] backdrop-blur-xl">
-            <div className="flex items-center justify-between border-b border-[#1D2021] pb-3">
-              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
+          <div className="w-[calc(100vw-2rem)] max-w-sm border border-[#8E8A80]/70 bg-[#0B0C0E]/95 p-5 shadow-[0_25px_70px_rgba(0,0,0,0.85)] backdrop-blur-xl">
+            <div className="flex items-center justify-between border-b border-[#202226] pb-3">
+              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
                 Mi Selección ({savedTitles.length})
               </span>
               <button
@@ -64,7 +64,7 @@ export default function SavedCollectionDrawer() {
               </button>
             </div>
 
-            <div className="mt-3 max-h-60 divide-y divide-[#1D2021] overflow-y-auto">
+            <div className="mt-3 max-h-60 divide-y divide-[#202226] overflow-y-auto">
               {savedPhotos.map((photo) => (
                 <div
                   key={photo.id}
@@ -75,7 +75,7 @@ export default function SavedCollectionDrawer() {
                     onClick={() => setOpen(false)}
                     className="flex min-w-0 items-center gap-3"
                   >
-                    <div className="relative h-10 w-14 shrink-0 overflow-hidden bg-[#1D2021]">
+                    <div className="relative h-10 w-14 shrink-0 overflow-hidden bg-[#202226]">
                       <Image
                         src={photo.image}
                         alt={photo.alt}
@@ -85,10 +85,10 @@ export default function SavedCollectionDrawer() {
                       />
                     </div>
                     <div className="min-w-0">
-                      <p className="truncate font-serif text-sm text-[#D8D5CD] hover:text-white">
+                      <p className="truncate font-serif text-sm text-[#EBE7DF] hover:text-white">
                         {photo.title}
                       </p>
-                      <p className="font-mono text-[9px] text-[#95836B]">
+                      <p className="font-mono text-[9px] text-[#8E8A80]">
                         {photo.focalLength}
                       </p>
                     </div>
@@ -105,7 +105,7 @@ export default function SavedCollectionDrawer() {
               ))}
             </div>
 
-            <div className="mt-4 flex flex-col gap-2 border-t border-[#1D2021] pt-3">
+            <div className="mt-4 flex flex-col gap-2 border-t border-[#202226] pt-3">
               <button
                 type="button"
                 onClick={() => {
@@ -113,7 +113,7 @@ export default function SavedCollectionDrawer() {
                   setRightIdx(1);
                   setCompareOpen(true);
                 }}
-                className="w-full border border-[#95836B]/70 bg-[#141617] px-4 py-2 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-[#D8D5CD] transition hover:border-[#D8D5CD] hover:text-white"
+                className="w-full border border-[#8E8A80]/70 bg-[#151618] px-4 py-2 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-[#EBE7DF] transition hover:border-[#EBE7DF] hover:text-white"
               >
                 Comparar en Díptico (Mesa de Luz)
               </button>
@@ -122,7 +122,7 @@ export default function SavedCollectionDrawer() {
                   savedTitles.join(", ")
                 )}`}
                 onClick={() => setOpen(false)}
-                className="w-full border border-[#D8D5CD] bg-[#D8D5CD] px-4 py-2.5 text-center font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-[#101112] transition hover:bg-transparent hover:text-white"
+                className="w-full border border-[#EBE7DF] bg-[#EBE7DF] px-4 py-2.5 text-center font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
               >
                 Consultar Prints / Licencias →
               </Link>
@@ -132,9 +132,9 @@ export default function SavedCollectionDrawer() {
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className="flex items-center gap-2.5 border border-[#95836B]/80 bg-[#101112]/95 px-4 py-2.5 font-mono text-[10px] uppercase tracking-[0.25em] text-[#D8D5CD] shadow-2xl backdrop-blur-md transition hover:border-[#D8D5CD] hover:text-white"
+            className="flex items-center gap-2.5 border border-[#8E8A80]/80 bg-[#0B0C0E]/95 px-4 py-2.5 font-mono text-[10px] uppercase tracking-[0.25em] text-[#EBE7DF] shadow-2xl backdrop-blur-md transition hover:border-[#EBE7DF] hover:text-white"
           >
-            <span className="text-[#95836B]">♥</span>
+            <span className="text-[#8E8A80]">♥</span>
             <span>Selección ({savedTitles.length})</span>
           </button>
         )}
@@ -152,22 +152,22 @@ export default function SavedCollectionDrawer() {
             onClick={() => setCompareOpen(false)}
           >
             <div
-              className="w-full max-w-6xl max-h-[92vh] overflow-y-auto no-scrollbar border border-[#1D2021] bg-[#101112] p-5 sm:p-10 shadow-2xl"
+              className="w-full max-w-6xl max-h-[92vh] overflow-y-auto no-scrollbar border border-[#202226] bg-[#0B0C0E] p-5 sm:p-10 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#1D2021] pb-4">
+              <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#202226] pb-4">
                 <div>
-                  <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#95836B]">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#8E8A80]">
                     Simulador de Díptico · Mesa de Coleccionista
                   </span>
-                  <h3 className="mt-1 font-serif text-2xl text-[#D8D5CD]">
+                  <h3 className="mt-1 font-serif text-2xl text-[#EBE7DF]">
                     Diálogo Visual entre Dos Obras
                   </h3>
                 </div>
                 <button
                   type="button"
                   onClick={() => setCompareOpen(false)}
-                  className="border border-[#1D2021] px-4 py-1.5 font-mono text-[10px] uppercase tracking-widest text-neutral-400 hover:border-[#D8D5CD] hover:text-white"
+                  className="border border-[#202226] px-4 py-1.5 font-mono text-[10px] uppercase tracking-widest text-neutral-400 hover:border-[#EBE7DF] hover:text-white"
                 >
                   Cerrar [ESC]
                 </button>
@@ -190,16 +190,16 @@ export default function SavedCollectionDrawer() {
                 ].map(({ slot, photo, idx, setIdx }) => (
                   <div
                     key={slot}
-                    className="flex flex-col justify-between border border-[#1D2021] bg-[#141617]/60 p-5"
+                    className="flex flex-col justify-between border border-[#202226] bg-[#151618]/60 p-5"
                   >
                     <div className="flex items-center justify-between gap-2 pb-4">
-                      <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
                         {slot}
                       </span>
                       <select
                         value={idx % pool.length}
                         onChange={(e) => setIdx(Number(e.target.value))}
-                        className="border border-[#1D2021] bg-[#101112] px-3 py-1 font-mono text-xs text-[#D8D5CD] focus:border-[#95836B] focus:outline-none"
+                        className="border border-[#202226] bg-[#0B0C0E] px-3 py-1 font-mono text-xs text-[#EBE7DF] focus:border-[#8E8A80] focus:outline-none"
                       >
                         {pool.map((p, i) => (
                           <option key={p.id} value={i}>
@@ -222,12 +222,12 @@ export default function SavedCollectionDrawer() {
                       </div>
                     </div>
 
-                    <div className="mt-4 flex items-baseline justify-between border-t border-[#1D2021] pt-3">
+                    <div className="mt-4 flex items-baseline justify-between border-t border-[#202226] pt-3">
                       <div>
-                        <p className="font-serif text-xl text-[#D8D5CD]">
+                        <p className="font-serif text-xl text-[#EBE7DF]">
                           {photo.title}
                         </p>
-                        <p className="font-mono text-[10px] text-[#95836B]">
+                        <p className="font-mono text-[10px] text-[#8E8A80]">
                           {photo.camera} · {photo.focalLength} · {photo.aperture} ·{" "}
                           {photo.shutter}
                         </p>
@@ -240,11 +240,11 @@ export default function SavedCollectionDrawer() {
                 ))}
               </div>
 
-              <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-[#1D2021] pt-5">
+              <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-[#202226] pt-5">
                 <p className="font-mono text-xs text-neutral-400">
                   Díptico seleccionado:{" "}
-                  <strong className="text-[#D8D5CD]">{leftPhoto.title}</strong> +{" "}
-                  <strong className="text-[#D8D5CD]">{rightPhoto.title}</strong>
+                  <strong className="text-[#EBE7DF]">{leftPhoto.title}</strong> +{" "}
+                  <strong className="text-[#EBE7DF]">{rightPhoto.title}</strong>
                 </p>
                 <Link
                   href={`/contact?motivo=print&obra=${encodeURIComponent(
@@ -254,7 +254,7 @@ export default function SavedCollectionDrawer() {
                     setCompareOpen(false);
                     setOpen(false);
                   }}
-                  className="border border-[#D8D5CD] bg-[#D8D5CD] px-6 py-3 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-[#101112] transition hover:bg-transparent hover:text-white"
+                  className="border border-[#EBE7DF] bg-[#EBE7DF] px-6 py-3 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
                 >
                   Solicitar Presupuesto de este Díptico →
                 </Link>

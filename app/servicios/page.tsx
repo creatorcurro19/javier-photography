@@ -93,19 +93,19 @@ export default function ServiciosPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#101112] pt-36 pb-28 text-[#D8D5CD]">
+    <div className="min-h-screen bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
       <JsonLd data={generateServiceSchema()} />
       <JsonLd data={generateFAQSchema(faqItems)} />
       <Container>
         {/* Header */}
         <header className="max-w-3xl">
-          <p className="text-xs font-mono uppercase tracking-[0.4em] text-[#95836B]">
+          <p className="text-xs font-mono uppercase tracking-[0.4em] text-[#8E8A80]">
             Comercialización y Encargos
           </p>
-          <h1 className="mt-4 text-4xl sm:text-5xl md:text-6xl font-light tracking-tight text-[#D8D5CD]">
+          <h1 className="mt-4 text-4xl sm:text-5xl md:text-6xl font-light tracking-tight text-[#EBE7DF]">
             Servicios Fotográficos de Autor
           </h1>
-          <p className="mt-6 text-lg font-light leading-relaxed text-[#D8D5CD]/80">
+          <p className="mt-6 text-lg font-light leading-relaxed text-[#EBE7DF]/80">
             Aporto mi identidad visual y experiencia técnica para proyectos comerciales, editoriales y documentales
             que demanden una mirada personal, libre de artificios publicitarios genéricos.
           </p>
@@ -119,34 +119,34 @@ export default function ServiciosPage() {
           {servicios.map((s, idx) => (
             <section
               key={s.id}
-              className="rounded-xl border border-[#1D2021] bg-[#1D2021]/40 p-8 sm:p-10 md:p-12 transition hover:border-[#95836B]/60"
+              className="rounded-xl border border-[#202226] bg-[#202226]/40 p-8 sm:p-10 md:p-12 transition hover:border-[#8E8A80]/60"
             >
               <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
                 <div className="lg:max-w-xl">
-                  <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-[#95836B]">
+                  <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-[#8E8A80]">
                     0{idx + 1} · {s.kicker}
                   </span>
-                  <h2 className="mt-2 font-serif text-3xl font-light text-[#D8D5CD] md:text-4xl">
+                  <h2 className="mt-2 font-serif text-3xl font-light text-[#EBE7DF] md:text-4xl">
                     {s.title}
                   </h2>
-                  <p className="mt-4 text-base font-light leading-relaxed text-[#D8D5CD]/80">
+                  <p className="mt-4 text-base font-light leading-relaxed text-[#EBE7DF]/80">
                     {s.description}
                   </p>
 
-                  <div className="mt-6 rounded-md border border-[#1D2021] bg-[#101112]/60 p-4 text-xs text-neutral-400">
-                    <span className="font-mono uppercase tracking-wider text-[#95836B]">Dirigido a:</span>{" "}
+                  <div className="mt-6 rounded-md border border-[#202226] bg-[#0B0C0E]/60 p-4 text-xs text-neutral-400">
+                    <span className="font-mono uppercase tracking-wider text-[#8E8A80]">Dirigido a:</span>{" "}
                     {s.ideal}
                   </div>
                 </div>
 
-                <div className="lg:max-w-md w-full border-t border-[#1D2021] pt-6 lg:border-t-0 lg:border-l lg:pl-8 lg:pt-0">
-                  <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-[#95836B]">
+                <div className="lg:max-w-md w-full border-t border-[#202226] pt-6 lg:border-t-0 lg:border-l lg:pl-8 lg:pt-0">
+                  <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-[#8E8A80]">
                     Qué incluye la propuesta:
                   </h3>
-                  <ul className="mt-4 space-y-3 text-sm text-[#D8D5CD]/80">
+                  <ul className="mt-4 space-y-3 text-sm text-[#EBE7DF]/80">
                     {s.features.map((f, i) => (
                       <li key={i} className="flex items-start gap-2.5">
-                        <span className="text-[#95836B] mt-0.5">—</span>
+                        <span className="text-[#8E8A80] mt-0.5">—</span>
                         <span className="font-light">{f}</span>
                       </li>
                     ))}
@@ -155,7 +155,7 @@ export default function ServiciosPage() {
                   <div className="mt-8">
                     <Link
                       href={`/contact?servicio=${s.id}`}
-                      className="inline-flex w-full items-center justify-center border border-[#D8D5CD] bg-[#D8D5CD] px-6 py-3 text-xs font-mono uppercase tracking-[0.25em] text-[#101112] font-semibold transition hover:bg-transparent hover:text-white"
+                      className="inline-flex w-full items-center justify-center border border-[#EBE7DF] bg-[#EBE7DF] px-6 py-3 text-xs font-mono uppercase tracking-[0.25em] text-[#0B0C0E] font-semibold transition hover:bg-transparent hover:text-white"
                     >
                       Solicitar Propuesta
                     </Link>
@@ -167,7 +167,7 @@ export default function ServiciosPage() {
         </div>
 
         {/* Methodology */}
-        <section className="mt-28 border-t border-[#1D2021] pt-20">
+        <section className="mt-28 border-t border-[#202226] pt-20">
           <SectionHeader
             label="Metodología de Trabajo"
             title="Cómo Desarrollamos Cada Encargo"
@@ -175,33 +175,33 @@ export default function ServiciosPage() {
           />
 
           <div className="mt-12 grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="rounded-lg border border-[#1D2021] bg-[#1D2021]/30 p-6">
-              <span className="font-mono text-2xl font-light text-[#95836B]">01</span>
-              <h4 className="mt-3 font-serif text-lg text-[#D8D5CD]">Briefing y Planificación</h4>
+            <div className="rounded-lg border border-[#202226] bg-[#202226]/30 p-6">
+              <span className="font-mono text-2xl font-light text-[#8E8A80]">01</span>
+              <h4 className="mt-3 font-serif text-lg text-[#EBE7DF]">Briefing y Planificación</h4>
               <p className="mt-2 text-xs font-light leading-relaxed text-neutral-400">
                 Definición de objetivos, horarios de luz, localizaciones y estilo visual requerido antes de salir al campo.
               </p>
             </div>
 
-            <div className="rounded-lg border border-[#1D2021] bg-[#1D2021]/30 p-6">
-              <span className="font-mono text-2xl font-light text-[#95836B]">02</span>
-              <h4 className="mt-3 font-serif text-lg text-[#D8D5CD]">Producción en Campo</h4>
+            <div className="rounded-lg border border-[#202226] bg-[#202226]/30 p-6">
+              <span className="font-mono text-2xl font-light text-[#8E8A80]">02</span>
+              <h4 className="mt-3 font-serif text-lg text-[#EBE7DF]">Producción en Campo</h4>
               <p className="mt-2 text-xs font-light leading-relaxed text-neutral-400">
                 Jornada de disparo con equipo Canon EOS R7, ópticas profesionales y adaptación constante a la luz natural.
               </p>
             </div>
 
-            <div className="rounded-lg border border-[#1D2021] bg-[#1D2021]/30 p-6">
-              <span className="font-mono text-2xl font-light text-[#95836B]">03</span>
-              <h4 className="mt-3 font-serif text-lg text-[#D8D5CD]">Revelado de Autor</h4>
+            <div className="rounded-lg border border-[#202226] bg-[#202226]/30 p-6">
+              <span className="font-mono text-2xl font-light text-[#8E8A80]">03</span>
+              <h4 className="mt-3 font-serif text-lg text-[#EBE7DF]">Revelado de Autor</h4>
               <p className="mt-2 text-xs font-light leading-relaxed text-neutral-400">
                 Edición digital en Lightroom Classic, calibración de color precisa y corrección óptica individualizada.
               </p>
             </div>
 
-            <div className="rounded-lg border border-[#1D2021] bg-[#1D2021]/30 p-6">
-              <span className="font-mono text-2xl font-light text-[#95836B]">04</span>
-              <h4 className="mt-3 font-serif text-lg text-[#D8D5CD]">Entrega y Licencia</h4>
+            <div className="rounded-lg border border-[#202226] bg-[#202226]/30 p-6">
+              <span className="font-mono text-2xl font-light text-[#8E8A80]">04</span>
+              <h4 className="mt-3 font-serif text-lg text-[#EBE7DF]">Entrega y Licencia</h4>
               <p className="mt-2 text-xs font-light leading-relaxed text-neutral-400">
                 Galería privada para descarga de archivos maestros en alta resolución y formatos web optimizados con contrato de cesión.
               </p>
@@ -210,17 +210,17 @@ export default function ServiciosPage() {
         </section>
 
         {/* CTA Banner */}
-        <section className="mt-24 rounded-2xl border border-[#1D2021] bg-[#1D2021]/40 p-10 md:p-14 text-center">
-          <h2 className="font-serif text-3xl font-light text-[#D8D5CD] md:text-4xl">
+        <section className="mt-24 rounded-2xl border border-[#202226] bg-[#202226]/40 p-10 md:p-14 text-center">
+          <h2 className="font-serif text-3xl font-light text-[#EBE7DF] md:text-4xl">
             Conversemos sobre tu proyecto
           </h2>
-          <p className="mt-4 max-w-xl mx-auto text-sm font-light text-[#D8D5CD]/80">
+          <p className="mt-4 max-w-xl mx-auto text-sm font-light text-[#EBE7DF]/80">
             Cuéntame las fechas, la localización y el objetivo de tu encargo. Te enviaré una propuesta detallada en menos de 24 horas.
           </p>
           <div className="mt-8 flex justify-center gap-4">
             <Link
               href="/contact"
-              className="border border-[#D8D5CD] bg-[#D8D5CD] px-8 py-3.5 text-xs font-mono uppercase tracking-[0.25em] text-[#101112] font-semibold transition hover:bg-transparent hover:text-white"
+              className="border border-[#EBE7DF] bg-[#EBE7DF] px-8 py-3.5 text-xs font-mono uppercase tracking-[0.25em] text-[#0B0C0E] font-semibold transition hover:bg-transparent hover:text-white"
             >
               Iniciar Conversación
             </Link>
@@ -228,12 +228,12 @@ export default function ServiciosPage() {
         </section>
 
         {/* FAQ de Clientes y Encargos */}
-        <section aria-labelledby="servicios-faq" className="mt-24 border-t border-[#1D2021] pt-16">
+        <section aria-labelledby="servicios-faq" className="mt-24 border-t border-[#202226] pt-16">
           <div className="max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.35em] text-[#95836B]">
+            <p className="text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
               Preguntas Frecuentes sobre Coberturas y Encargos
             </p>
-            <h2 id="servicios-faq" className="mt-2 font-serif text-3xl font-light text-[#D8D5CD]">
+            <h2 id="servicios-faq" className="mt-2 font-serif text-3xl font-light text-[#EBE7DF]">
               Metodología de trabajo, entregas y licencias
             </h2>
           </div>
@@ -259,13 +259,13 @@ export default function ServiciosPage() {
             ].map((item) => (
               <details
                 key={item.q}
-                className="group rounded-lg border border-[#1D2021] bg-[#1D2021]/30 p-6 transition hover:border-[#95836B]/50"
+                className="group rounded-lg border border-[#202226] bg-[#202226]/30 p-6 transition hover:border-[#8E8A80]/50"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-serif text-lg text-[#D8D5CD]">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-serif text-lg text-[#EBE7DF]">
                   <span>{item.q}</span>
-                  <span className="text-xs text-[#95836B] transition group-open:rotate-45">+</span>
+                  <span className="text-xs text-[#8E8A80] transition group-open:rotate-45">+</span>
                 </summary>
-                <p className="mt-4 text-xs leading-relaxed text-[#D8D5CD]/80 font-light">
+                <p className="mt-4 text-xs leading-relaxed text-[#EBE7DF]/80 font-light">
                   {item.a}
                 </p>
               </details>

@@ -59,62 +59,62 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         ])}
       />
       {/* Breadcrumb Bar */}
-      <div className="border-b border-[#1D2021] bg-[#101112]/60">
+      <div className="border-b border-white/[0.08] bg-[#0B0C0E]/80 backdrop-blur-md">
         <Container className="py-4">
-          <nav aria-label="Miga de pan" className="flex items-center gap-2 text-xs font-mono text-neutral-400">
-            <Link href="/" className="hover:text-[#D8D5CD] transition">Inicio</Link>
-            <span className="text-[#95836B]">/</span>
-            <Link href="/projects" className="hover:text-[#D8D5CD] transition">Proyectos</Link>
-            <span className="text-[#95836B]">/</span>
-            <span className="text-[#D8D5CD] truncate">{project.title}</span>
+          <nav aria-label="Miga de pan" className="flex items-center gap-2 text-xs font-mono text-[#8E8A80]">
+            <Link href="/" className="hover:text-[#EBE7DF] transition">Inicio</Link>
+            <span className="text-white/20">/</span>
+            <Link href="/projects" className="hover:text-[#EBE7DF] transition">Series Monográficas</Link>
+            <span className="text-white/20">/</span>
+            <span className="text-[#EBE7DF] truncate">{project.title}</span>
           </nav>
         </Container>
       </div>
 
       <Container className="mt-12">
         {/* Project Header */}
-        <header className="max-w-4xl border-b border-[#1D2021] pb-12">
+        <header className="max-w-4xl border-b border-white/[0.08] pb-12">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="rounded-full border border-[#1D2021] bg-[#1D2021] px-3.5 py-1 text-xs font-mono uppercase tracking-[0.2em] text-[#95836B]">
+            <span className="rounded-full border border-white/[0.1] bg-[#151618] px-3.5 py-1 text-xs font-mono uppercase tracking-[0.2em] text-[#8E8A80]">
               {project.discipline}
             </span>
-            <span className="text-xs font-mono text-neutral-600">·</span>
-            <span className="text-xs font-mono uppercase tracking-wider text-neutral-400">
+            <span className="text-xs font-mono text-white/20">·</span>
+            <span className="text-xs font-mono uppercase tracking-wider text-[#8E8A80]">
               {project.year}
             </span>
             {project.location && (
               <>
-                <span className="text-xs font-mono text-neutral-600">·</span>
-                <span className="text-xs font-mono text-neutral-400">{project.location}</span>
+                <span className="text-xs font-mono text-white/20">·</span>
+                <span className="text-xs font-mono text-[#8E8A80]">{project.location}</span>
               </>
             )}
           </div>
 
-          <h1 className="mt-6 font-serif text-4xl font-light text-[#D8D5CD] sm:text-5xl md:text-6xl tracking-wide leading-[1.15]">
+          <h1 className="mt-6 font-serif text-4xl font-light text-[#EBE7DF] sm:text-5xl md:text-6xl tracking-wide leading-[1.15]">
             {project.title}
           </h1>
 
-          <p className="mt-3 font-mono text-sm uppercase tracking-[0.15em] text-[#95836B]">
+          <p className="mt-3 font-mono text-sm uppercase tracking-[0.15em] text-[#8E8A80]">
             {project.subtitle}
           </p>
 
-          <p className="mt-6 text-lg sm:text-xl font-light leading-relaxed text-[#D8D5CD]/90">
+          <p className="mt-6 text-lg sm:text-xl font-light leading-relaxed text-[#EBE7DF]/90">
             {project.description}
           </p>
 
           {/* Curatorial Statement */}
-          <div className="mt-8 space-y-4 rounded-xl border border-[#1D2021] bg-[#1D2021]/30 p-8 sm:p-10">
-            <h2 className="text-xs font-mono uppercase tracking-[0.3em] text-[#95836B]">
+          <div className="mt-8 space-y-4 border border-white/[0.08] bg-[#151618] p-8 sm:p-10">
+            <h2 className="text-xs font-mono uppercase tracking-[0.3em] text-[#8E8A80]">
               Declaración del Proyecto
             </h2>
             {project.statement.map((paragraph, i) => (
-              <p key={i} className="text-sm sm:text-base font-light leading-relaxed text-neutral-300">
+              <p key={i} className="text-sm sm:text-base font-light leading-relaxed text-[#8E8A80]">
                 {paragraph}
               </p>
             ))}
           </div>
 
-          <div className="mt-6 flex items-center justify-between text-xs font-mono text-neutral-400">
+          <div className="mt-6 flex items-center justify-between text-xs font-mono text-[#8E8A80]">
             <span>Secuencia narrativa: {projectPhotos.length} obras</span>
             <span>Canon EOS R7 · Luz Natural</span>
           </div>
@@ -123,10 +123,10 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         {/* Exhibition Sequence */}
         <section className="mt-16" aria-label={`Secuencia fotográfica del proyecto ${project.title}`}>
           <div className="mb-8 flex items-center justify-between">
-            <span className="text-xs font-mono uppercase tracking-[0.3em] text-[#95836B]">
+            <span className="text-xs font-mono uppercase tracking-[0.3em] text-[#8E8A80]">
               Obras del Proyecto ({projectPhotos.length})
             </span>
-            <span className="text-xs font-mono text-neutral-500">
+            <span className="text-xs font-mono text-[#8E8A80]/70 hidden sm:inline">
               Haga clic sobre cualquier imagen para ver a pantalla completa
             </span>
           </div>
@@ -135,15 +135,15 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         </section>
 
         {/* Adjacent Project Navigation */}
-        <nav aria-label="Navegación entre proyectos" className="mt-24 border-t border-[#1D2021] pt-12">
+        <nav aria-label="Navegación entre proyectos" className="mt-24 border-t border-white/[0.08] pt-12">
           <div className="flex items-center justify-between gap-4 text-xs font-mono uppercase tracking-[0.2em]">
             {prevProject ? (
               <Link
                 href={`/projects/${prevProject.slug}`}
-                className="group flex flex-col items-start gap-1 text-neutral-400 hover:text-[#D8D5CD] transition"
+                className="group flex flex-col items-start gap-1 text-[#8E8A80] hover:text-[#EBE7DF] transition"
               >
-                <span className="text-[10px] text-[#95836B]">← Proyecto Anterior</span>
-                <span className="font-serif text-base normal-case tracking-normal text-[#D8D5CD] group-hover:text-white truncate max-w-[200px] sm:max-w-xs">
+                <span className="text-[10px] text-[#8E8A80]">← Proyecto Anterior</span>
+                <span className="font-serif text-base normal-case tracking-normal text-[#EBE7DF] group-hover:text-white truncate max-w-[200px] sm:max-w-xs">
                   {prevProject.title}
                 </span>
               </Link>
@@ -151,7 +151,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
             <Link
               href="/projects"
-              className="hidden sm:inline-flex items-center gap-1.5 text-neutral-400 hover:text-[#D8D5CD] transition text-xs"
+              className="hidden sm:inline-flex items-center gap-1.5 text-[#8E8A80] hover:text-[#EBE7DF] transition text-xs font-mono"
             >
               <span>Ver Todos los Proyectos ({allProjects.length})</span>
             </Link>
@@ -159,10 +159,10 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             {nextProject ? (
               <Link
                 href={`/projects/${nextProject.slug}`}
-                className="group flex flex-col items-end gap-1 text-neutral-400 hover:text-[#D8D5CD] transition text-right"
+                className="group flex flex-col items-end gap-1 text-[#8E8A80] hover:text-[#EBE7DF] transition text-right"
               >
-                <span className="text-[10px] text-[#95836B]">Siguiente Proyecto →</span>
-                <span className="font-serif text-base normal-case tracking-normal text-[#D8D5CD] group-hover:text-white truncate max-w-[200px] sm:max-w-xs">
+                <span className="text-[10px] text-[#8E8A80]">Siguiente Proyecto →</span>
+                <span className="font-serif text-base normal-case tracking-normal text-[#EBE7DF] group-hover:text-white truncate max-w-[200px] sm:max-w-xs">
                   {nextProject.title}
                 </span>
               </Link>

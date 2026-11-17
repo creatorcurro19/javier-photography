@@ -1,15 +1,15 @@
 import Link from "next/link";
 
 const collections = [
-  { href: "/portfolio/fauna-naturaleza", label: "Fauna y Naturaleza (Wildlife)" },
+  { href: "/portfolio/fauna-naturaleza", label: "Fauna y Biodiversidad (Wildlife)" },
   { href: "/portfolio/paisajes-documental", label: "Paisajes y Territorio (Landscapes)" },
   { href: "/portfolio/coches-rally", label: "Coches y Rally (Motorsport)" },
-  { href: "/portfolio/arquitectura-urbana", label: "Arquitectura Urbana" },
-  { href: "/portfolio/viajes-cultura", label: "Documental y Tradición" },
+  { href: "/portfolio/arquitectura-urbana", label: "Arquitectura Vernácula & Urbana" },
+  { href: "/portfolio/viajes-cultura", label: "Crónica Documental & Oficios" },
 ];
 
 const projectLinks = [
-  { href: "/projects/villanueva-de-la-vera", label: "Villanueva de la Vera" },
+  { href: "/projects/villanueva-de-la-vera", label: "Villanueva de la Vera: Tiempo y Raíz" },
   { href: "/projects/medina-y-kasbah", label: "Medina, Atlas y Kasbah" },
   { href: "/projects/custodios", label: "Custodios: Memoria y Oficios" },
   { href: "/projects/la-gomera", label: "Entre la Bruma y el Volcán" },
@@ -19,15 +19,15 @@ const projectLinks = [
 ];
 
 const commercialLinks = [
-  { href: "/servicios", label: "Encargos y Coberturas" },
-  { href: "/prints", label: "Copias Fine Art" },
-  { href: "/licensing", label: "Licencias de Uso" },
-  { href: "/stories", label: "Cuaderno de Campo" },
+  { href: "/prints", label: "Catálogo Fine Art (Hahnemühle 308g)" },
+  { href: "/servicios", label: "Encargos & Coberturas Especiales" },
+  { href: "/licensing", label: "Licencias de Uso Editorial & Comercial" },
+  { href: "/stories", label: "Cuaderno de Campo & Diario Óptico" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="border-t border-[#1D2021] bg-[#101112] text-neutral-400">
+    <footer className="border-t border-white/[0.08] bg-[#0B0C0E] text-[#8E8A80]">
       <div className="mx-auto max-w-7xl px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24 py-16 lg:py-24">
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-5">
           {/* Brand Col */}
@@ -36,30 +36,31 @@ export default function Footer() {
               href="/"
               className="inline-flex flex-col focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
             >
-              <span className="font-sans font-medium text-lg tracking-[0.26em] text-[#D8D5CD]">
+              <span className="font-sans font-medium text-lg tracking-[0.28em] text-[#EBE7DF]">
                 JAVIER ESPINOSA
               </span>
-              <span className="text-[9px] tracking-[0.38em] text-[#95836B] uppercase">
-                Fotografía de autor & documental
+              <span className="text-[9px] tracking-[0.42em] text-[#8E8A80] uppercase mt-0.5">
+                The Art of Seeing · Fotografía de Autor
               </span>
             </Link>
-            <p className="mt-5 max-w-sm text-sm leading-relaxed text-neutral-400 font-light">
-              Práctica visual basada en la luz natural, la geometría cotidiana y la observación paciente. 
+            <p className="mt-5 max-w-sm text-sm leading-relaxed text-[#8E8A80] font-light">
+              Práctica visual basada en la luz natural, la geometría espacial y la observación paciente. 
               Capturas con sistema Canon EOS R7 y ópticas de alta fidelidad.
             </p>
-            <div className="mt-6 flex flex-wrap gap-2 text-[10px] tracking-wider uppercase text-neutral-400">
-              <span className="border border-[#1D2021] px-3 py-1 bg-[#1D2021]/60 text-neutral-300">Canon EOS R7</span>
-              <span className="border border-[#1D2021] px-3 py-1 bg-[#1D2021]/60 text-neutral-300">Hahnemühle 308g</span>
-              <span className="border border-[#1D2021] px-3 py-1 bg-[#1D2021]/60 text-neutral-300">España</span>
+
+            <div className="mt-6 flex flex-wrap gap-2 text-[10px] font-mono tracking-wider uppercase text-[#8E8A80]">
+              <span className="border border-white/[0.08] px-3 py-1 bg-[#151618] text-[#EBE7DF]">Canon EOS R7</span>
+              <span className="border border-white/[0.08] px-3 py-1 bg-[#151618] text-[#EBE7DF]">Hahnemühle 308g</span>
+              <span className="border border-white/[0.08] px-3 py-1 bg-[#151618] text-[#EBE7DF]">ISO 9706</span>
             </div>
 
             {/* Perfiles Oficiales Verificados */}
-            <div className="mt-6 flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.2em]">
+            <div className="mt-6 flex flex-wrap items-center gap-3 text-[10px] uppercase font-mono tracking-[0.22em]">
               <a
                 href="https://www.instagram.com/Javier.espinosa19/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full border border-[#1D2021] bg-[#1D2021]/40 px-3.5 py-1.5 text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
+                className="border border-white/[0.08] bg-[#151618] px-3.5 py-1.5 text-[#EBE7DF] transition hover:border-white/30 hover:text-white"
               >
                 Instagram ↗
               </a>
@@ -67,7 +68,7 @@ export default function Footer() {
                 href="https://www.saatchiart.com/javier-espinosa-photography"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full border border-[#1D2021] bg-[#1D2021]/40 px-3.5 py-1.5 text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
+                className="border border-white/[0.08] bg-[#151618] px-3.5 py-1.5 text-[#EBE7DF] transition hover:border-white/30 hover:text-white"
               >
                 Saatchi Art ↗
               </a>
@@ -75,16 +76,16 @@ export default function Footer() {
                 href="https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full border border-[#1D2021] bg-[#1D2021]/40 px-3.5 py-1.5 text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
+                className="border border-white/[0.08] bg-[#151618] px-3.5 py-1.5 text-[#EBE7DF] transition hover:border-white/30 hover:text-white"
               >
-                Getty Images / iStock ↗
+                Getty / iStock ↗
               </a>
             </div>
           </div>
 
           {/* Colecciones */}
           <div>
-            <h3 className="text-xs font-medium uppercase tracking-[0.3em] text-[#D8D5CD]">
+            <h3 className="text-xs font-mono font-medium uppercase tracking-[0.3em] text-[#EBE7DF]">
               Disciplinas
             </h3>
             <ul className="mt-5 space-y-3 text-xs tracking-wider">
@@ -92,7 +93,7 @@ export default function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-neutral-400 transition hover:text-[#D8D5CD] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                    className="text-[#8E8A80] transition hover:text-[#EBE7DF] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                   >
                     {item.label}
                   </Link>
@@ -103,15 +104,15 @@ export default function Footer() {
 
           {/* Proyectos Narrativos */}
           <div>
-            <h3 className="text-xs font-medium uppercase tracking-[0.3em] text-[#D8D5CD]">
-              Proyectos
+            <h3 className="text-xs font-mono font-medium uppercase tracking-[0.3em] text-[#EBE7DF]">
+              Series Monográficas
             </h3>
             <ul className="mt-5 space-y-3 text-xs tracking-wider">
               {projectLinks.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-neutral-400 transition hover:text-[#D8D5CD] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                    className="text-[#8E8A80] transition hover:text-[#EBE7DF] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                   >
                     {item.label}
                   </Link>
@@ -120,27 +121,27 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Profesional & Contacto */}
+          {/* Adquisiciones & Contacto */}
           <div>
-            <h3 className="text-xs font-medium uppercase tracking-[0.3em] text-[#D8D5CD]">
-              Servicios & Obra
+            <h3 className="text-xs font-mono font-medium uppercase tracking-[0.3em] text-[#EBE7DF]">
+              Adquisiciones & Obra
             </h3>
             <ul className="mt-5 space-y-3 text-xs tracking-wider">
               {commercialLinks.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-neutral-400 transition hover:text-[#D8D5CD] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                    className="text-[#8E8A80] transition hover:text-[#EBE7DF] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                   >
                     {item.label}
                   </Link>
                 </li>
               ))}
             </ul>
-            <div className="mt-6 border-t border-[#1D2021] pt-4 text-xs text-neutral-400">
+            <div className="mt-6 border-t border-white/[0.08] pt-4 text-xs">
               <a
                 href="mailto:javierespinosa1995@hotmail.com"
-                className="transition hover:text-[#D8D5CD] font-mono break-all"
+                className="text-[#8E8A80] transition hover:text-[#EBE7DF] font-mono break-all"
               >
                 javierespinosa1995@hotmail.com
               </a>
@@ -149,14 +150,14 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-[#1D2021] pt-8 text-[11px] tracking-wider text-neutral-500 sm:flex-row">
-          <p>© {new Date().getFullYear()} Javier Espinosa Martínez. Obra fotográfica original protegida por derechos de autor.</p>
+        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-white/[0.08] pt-8 text-[11px] font-mono tracking-wider text-[#8E8A80]/70 sm:flex-row">
+          <p>© {new Date().getFullYear()} Javier Espinosa Martínez. Archivo fotográfico original protegido por derechos de autor.</p>
           <div className="flex flex-wrap items-center gap-4">
-            <Link href="/about" className="hover:text-neutral-300 transition">Biografía</Link>
+            <Link href="/about" className="hover:text-[#EBE7DF] transition">Biografía</Link>
             <span>·</span>
-            <Link href="/contact" className="hover:text-neutral-300 transition">Contacto</Link>
+            <Link href="/contact" className="hover:text-[#EBE7DF] transition">Contacto Privado</Link>
             <span>·</span>
-            <Link href="/legal" className="hover:text-neutral-300 transition">Aviso Legal, Privacidad & Copyright</Link>
+            <Link href="/legal" className="hover:text-[#EBE7DF] transition">Aviso Legal, Privacidad & Copyright</Link>
           </div>
         </div>
       </div>

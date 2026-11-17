@@ -13,13 +13,13 @@ export default function AwardsList({ photo }: AwardsListProps) {
     <section aria-labelledby="awards-heading">
       <h2
         id="awards-heading"
-        className="text-xs uppercase tracking-[0.4em] text-[#95836B]"
+        className="text-xs uppercase tracking-[0.4em] text-[#8E8A80]"
       >
         Reconocimientos & Publicaciones
       </h2>
-      <ul className="mt-6 space-y-3 text-[#D8D5CD]/80">
+      <ul className="mt-6 space-y-3 text-[#EBE7DF]/80">
         {photo.awards.map((award) => (
-          <li key={award} className="border-l border-[#95836B]/60 pl-4 font-light text-sm">
+          <li key={award} className="border-l border-[#8E8A80]/60 pl-4 font-light text-sm">
             {award}
           </li>
         ))}

@@ -11,31 +11,31 @@ export const metadata = buildPageMetadata({
 
 export default function LegalPage() {
   return (
-    <div className="min-h-screen bg-[#101112] pt-36 pb-28 text-[#D8D5CD]">
+    <div className="min-h-screen bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
       <Container>
         <div className="mx-auto max-w-4xl">
-          <div className="border-b border-[#1D2021] pb-8">
-            <p className="font-mono text-xs uppercase tracking-[0.38em] text-[#95836B]">
+          <div className="border-b border-[#202226] pb-8">
+            <p className="font-mono text-xs uppercase tracking-[0.38em] text-[#8E8A80]">
               Marco Normativo & Derechos de Autor
             </p>
-            <h1 className="mt-3 font-serif text-4xl font-light text-[#D8D5CD] sm:text-5xl">
+            <h1 className="mt-3 font-serif text-4xl font-light text-[#EBE7DF] sm:text-5xl">
               Aviso Legal, Privacidad y Copyright
             </h1>
             <p className="mt-4 font-mono text-xs text-neutral-400">
               Titular: Javier Espinosa Martínez · Contacto oficial:{" "}
               <a
                 href="mailto:javierespinosa1995@hotmail.com"
-                className="text-[#D8D5CD] underline decoration-[#95836B] underline-offset-4"
+                className="text-[#EBE7DF] underline decoration-[#8E8A80] underline-offset-4"
               >
                 javierespinosa1995@hotmail.com
               </a>
             </p>
           </div>
 
-          <div className="mt-12 space-y-14 text-sm font-light leading-relaxed text-[#D8D5CD]/80">
+          <div className="mt-12 space-y-14 text-sm font-light leading-relaxed text-[#EBE7DF]/80">
             {/* 1. Titularidad */}
             <section id="aviso-legal" className="space-y-4">
-              <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.28em] text-[#95836B]">
+              <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.28em] text-[#8E8A80]">
                 <span>01</span>
                 <span>/</span>
                 <h2>Identificación del Titular (LSSI-CE)</h2>
@@ -45,7 +45,7 @@ export default function LegalPage() {
                 de la Sociedad de la Información y de Comercio Electrónico
                 (LSSI-CE), se informa que este sitio web y el archivo
                 fotográfico que alberga son titularidad de{" "}
-                <strong className="font-medium text-[#D8D5CD]">
+                <strong className="font-medium text-[#EBE7DF]">
                   Javier Espinosa Martínez
                 </strong>
                 , fotógrafo de autor y documental con residencia en España.
@@ -56,7 +56,7 @@ export default function LegalPage() {
                 legales, puede dirigirse por escrito a la dirección electrónica{" "}
                 <a
                   href="mailto:javierespinosa1995@hotmail.com"
-                  className="font-mono text-[#D8D5CD] underline decoration-[#95836B] underline-offset-4"
+                  className="font-mono text-[#EBE7DF] underline decoration-[#8E8A80] underline-offset-4"
                 >
                   javierespinosa1995@hotmail.com
                 </a>
@@ -67,9 +67,9 @@ export default function LegalPage() {
             {/* 2. Propiedad Intelectual y ReservaTDM / IA */}
             <section
               id="copyright"
-              className="space-y-4 border-t border-[#1D2021] pt-12"
+              className="space-y-4 border-t border-[#202226] pt-12"
             >
-              <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.28em] text-[#95836B]">
+              <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.28em] text-[#8E8A80]">
                 <span>02</span>
                 <span>/</span>
                 <h2>
@@ -83,7 +83,7 @@ export default function LegalPage() {
                 Intelectual (Real Decreto Legislativo 1/1996) y los tratados
                 internacionales de derechos de autor (Convenio de Berna).
               </p>
-              <ul className="list-disc space-y-2 pl-5 text-[#D8D5CD]/85">
+              <ul className="list-disc space-y-2 pl-5 text-[#EBE7DF]/85">
                 <li>
                   Queda estrictamente prohibida la reproducción, distribución,
                   comunicación pública, transformación o descarga comercial de
@@ -93,14 +93,14 @@ export default function LegalPage() {
                     href="https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline decoration-[#95836B] underline-offset-4"
+                    className="underline decoration-[#8E8A80] underline-offset-4"
                   >
                     Getty Images / iStock
                   </a>{" "}
                   o licencia directa).
                 </li>
                 <li>
-                  <strong className="font-medium text-[#D8D5CD]">
+                  <strong className="font-medium text-[#EBE7DF]">
                     Reserva expresa de derechos frente a minería de datos e
                     Inteligencia Artificial (Art. 4 Directiva UE 2019/790 DSM):
                   </strong>{" "}
@@ -115,9 +115,9 @@ export default function LegalPage() {
             {/* 3. Privacidad y RGPD */}
             <section
               id="privacidad"
-              className="space-y-4 border-t border-[#1D2021] pt-12"
+              className="space-y-4 border-t border-[#202226] pt-12"
             >
-              <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.28em] text-[#95836B]">
+              <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.28em] text-[#8E8A80]">
                 <span>03</span>
                 <span>/</span>
                 <h2>
@@ -131,38 +131,38 @@ export default function LegalPage() {
                 correo electrónico, teléfono y detalles de consulta) serán
                 tratados bajo las siguientes garantías:
               </p>
-              <div className="grid grid-cols-1 gap-4 border border-[#1D2021] bg-[#141617]/50 p-6 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-4 border border-[#202226] bg-[#151618]/50 p-6 sm:grid-cols-2">
                 <div>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
                     Responsable del Tratamiento
                   </p>
-                  <p className="mt-1 text-xs text-[#D8D5CD]">
+                  <p className="mt-1 text-xs text-[#EBE7DF]">
                     Javier Espinosa Martínez (javierespinosa1995@hotmail.com)
                   </p>
                 </div>
                 <div>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
                     Finalidad Exclusiva
                   </p>
-                  <p className="mt-1 text-xs text-[#D8D5CD]">
+                  <p className="mt-1 text-xs text-[#EBE7DF]">
                     Responder a solicitudes de presupuesto, encargos, licencias
                     de imagen o adquisición de obra Fine Art.
                   </p>
                 </div>
                 <div>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
                     Legitimación y Conservación
                   </p>
-                  <p className="mt-1 text-xs text-[#D8D5CD]">
+                  <p className="mt-1 text-xs text-[#EBE7DF]">
                     Consentimiento expreso del interesado. Conservación limitada
                     a la duración de la relación comercial o consulta.
                   </p>
                 </div>
                 <div>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
                     Derechos del Usuario
                   </p>
-                  <p className="mt-1 text-xs text-[#D8D5CD]">
+                  <p className="mt-1 text-xs text-[#EBE7DF]">
                     Acceso, rectificación, supresión, oposición y portabilidad
                     escribiendo a javierespinosa1995@hotmail.com.
                   </p>
@@ -179,9 +179,9 @@ export default function LegalPage() {
             {/* 4. Condiciones de Obra Gráfica */}
             <section
               id="condiciones-prints"
-              className="space-y-4 border-t border-[#1D2021] pt-12"
+              className="space-y-4 border-t border-[#202226] pt-12"
             >
-              <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.28em] text-[#95836B]">
+              <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.28em] text-[#8E8A80]">
                 <span>04</span>
                 <span>/</span>
                 <h2>Condiciones de Obra Gráfica Fine Art</h2>
@@ -198,7 +198,7 @@ export default function LegalPage() {
                   href="https://www.saatchiart.com/javier-espinosa-photography"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="underline decoration-[#95836B] underline-offset-4"
+                  className="underline decoration-[#8E8A80] underline-offset-4"
                 >
                   Saatchi Art
                 </a>
@@ -207,16 +207,16 @@ export default function LegalPage() {
             </section>
           </div>
 
-          <div className="mt-16 flex flex-wrap gap-4 border-t border-[#1D2021] pt-8">
+          <div className="mt-16 flex flex-wrap gap-4 border-t border-[#202226] pt-8">
             <Link
               href="/contact"
-              className="inline-flex border border-[#D8D5CD] bg-[#D8D5CD] px-6 py-3 text-xs font-semibold uppercase tracking-[0.25em] text-[#101112] transition hover:bg-transparent hover:text-white"
+              className="inline-flex border border-[#EBE7DF] bg-[#EBE7DF] px-6 py-3 text-xs font-semibold uppercase tracking-[0.25em] text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
             >
               Formulario de Contacto
             </Link>
             <Link
               href="/portfolio"
-              className="inline-flex border border-[#1D2021] px-6 py-3 text-xs uppercase tracking-[0.25em] text-[#D8D5CD] transition hover:border-[#95836B]"
+              className="inline-flex border border-[#202226] px-6 py-3 text-xs uppercase tracking-[0.25em] text-[#EBE7DF] transition hover:border-[#8E8A80]"
             >
               Volver al Archivo
             </Link>

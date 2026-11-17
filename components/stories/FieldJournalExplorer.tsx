@@ -27,7 +27,7 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
   return (
     <div className="mt-14">
       {/* Interactive Filter & View Mode Toolbar */}
-      <div className="flex flex-col justify-between gap-4 border-y border-[#1D2021] bg-[#141617]/50 px-5 py-4 sm:flex-row sm:items-center">
+      <div className="flex flex-col justify-between gap-4 border-y border-[#202226] bg-[#151618]/50 px-5 py-4 sm:flex-row sm:items-center">
         <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar scroll-smooth py-1 -mx-5 px-5 sm:mx-0 sm:px-0 sm:flex-wrap">
           {FILTER_TABS.map((tab) => {
             const active = activeCategory === tab.id;
@@ -38,8 +38,8 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
                 onClick={() => setActiveCategory(tab.id)}
                 className={`shrink-0 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.22em] transition ${
                   active
-                    ? "border border-[#95836B] bg-[#95836B]/20 text-[#D8D5CD]"
-                    : "border border-transparent text-neutral-400 hover:border-[#1D2021] hover:text-[#D8D5CD]"
+                    ? "border border-[#8E8A80] bg-[#8E8A80]/20 text-[#EBE7DF]"
+                    : "border border-transparent text-neutral-400 hover:border-[#202226] hover:text-[#EBE7DF]"
                 }`}
               >
                 {tab.label}
@@ -52,13 +52,13 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
           <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">
             {filtered.length} anotaciones
           </span>
-          <div className="flex border border-[#1D2021] bg-[#101112]">
+          <div className="flex border border-[#202226] bg-[#0B0C0E]">
             <button
               type="button"
               onClick={() => setViewMode("editorial")}
               className={`px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] transition ${
                 viewMode === "editorial"
-                  ? "bg-[#D8D5CD] text-[#101112] font-semibold"
+                  ? "bg-[#EBE7DF] text-[#0B0C0E] font-semibold"
                   : "text-neutral-400 hover:text-white"
               }`}
             >
@@ -69,7 +69,7 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
               onClick={() => setViewMode("lighttable")}
               className={`px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] transition ${
                 viewMode === "lighttable"
-                  ? "bg-[#D8D5CD] text-[#101112] font-semibold"
+                  ? "bg-[#EBE7DF] text-[#0B0C0E] font-semibold"
                   : "text-neutral-400 hover:text-white"
               }`}
             >
@@ -85,7 +85,7 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
           {filtered.map((photo, index) => (
             <article
               key={photo.id}
-              className="grid grid-cols-1 items-center gap-12 border-b border-[#1D2021] pb-20 lg:grid-cols-12 lg:gap-16"
+              className="grid grid-cols-1 items-center gap-12 border-b border-[#202226] pb-20 lg:grid-cols-12 lg:gap-16"
             >
               {/* Image side (7 cols) */}
               <div
@@ -95,7 +95,7 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
               >
                 <Link
                   href={`/portfolio/${photo.slug}`}
-                  className="group relative mx-auto block w-fit max-w-full overflow-hidden border border-[#1D2021] bg-[#141617]"
+                  className="group relative mx-auto block w-fit max-w-full overflow-hidden border border-[#202226] bg-[#151618]"
                 >
                   <Image
                     src={photo.image}
@@ -106,7 +106,7 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
                     className="h-auto max-h-[76vh] w-auto max-w-full transition duration-700 group-hover:scale-[1.02]"
                   />
                   <div className="absolute top-4 left-4">
-                    <span className="border border-[#1D2021] bg-[#101112]/90 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B] backdrop-blur-sm">
+                    <span className="border border-[#202226] bg-[#0B0C0E]/90 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80] backdrop-blur-sm">
                       NOTA #{String(index + 1).padStart(2, "0")} ·{" "}
                       {CATEGORY_METADATA[photo.category]?.title}
                     </span>
@@ -120,7 +120,7 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
                   index % 2 === 1 ? "lg:order-1" : "lg:order-2"
                 }`}
               >
-                <div className="flex flex-wrap items-center gap-2 font-mono text-xs uppercase tracking-[0.28em] text-[#95836B]">
+                <div className="flex flex-wrap items-center gap-2 font-mono text-xs uppercase tracking-[0.28em] text-[#8E8A80]">
                   {photo.location ? (
                     <>
                       <span>{photo.location}</span>
@@ -130,7 +130,7 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
                   <span>{photo.year}</span>
                 </div>
 
-                <h2 className="mt-3 font-serif text-3xl font-light text-[#D8D5CD] sm:text-4xl">
+                <h2 className="mt-3 font-serif text-3xl font-light text-[#EBE7DF] sm:text-4xl">
                   <Link
                     href={`/portfolio/${photo.slug}`}
                     className="transition hover:text-white"
@@ -139,49 +139,49 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
                   </Link>
                 </h2>
 
-                <blockquote className="mt-6 border-l border-[#95836B]/60 pl-5 text-sm font-light leading-relaxed text-[#D8D5CD]/85 sm:text-base sm:leading-7">
+                <blockquote className="mt-6 border-l border-[#8E8A80]/60 pl-5 text-sm font-light leading-relaxed text-[#EBE7DF]/85 sm:text-base sm:leading-7">
                   {photo.story}
                 </blockquote>
 
                 {/* Technical EXIF Telemetry Grid */}
-                <div className="mt-7 grid grid-cols-4 gap-2 border border-[#1D2021] bg-[#141617]/50 p-4 font-mono text-xs">
+                <div className="mt-7 grid grid-cols-4 gap-2 border border-[#202226] bg-[#151618]/50 p-4 font-mono text-xs">
                   <div>
-                    <span className="block text-[9px] uppercase tracking-wider text-[#95836B]">
+                    <span className="block text-[9px] uppercase tracking-wider text-[#8E8A80]">
                       Focal
                     </span>
-                    <span className="text-[#D8D5CD]">{photo.focalLength}</span>
+                    <span className="text-[#EBE7DF]">{photo.focalLength}</span>
                   </div>
                   <div>
-                    <span className="block text-[9px] uppercase tracking-wider text-[#95836B]">
+                    <span className="block text-[9px] uppercase tracking-wider text-[#8E8A80]">
                       Apertura
                     </span>
-                    <span className="text-[#D8D5CD]">{photo.aperture}</span>
+                    <span className="text-[#EBE7DF]">{photo.aperture}</span>
                   </div>
                   <div>
-                    <span className="block text-[9px] uppercase tracking-wider text-[#95836B]">
+                    <span className="block text-[9px] uppercase tracking-wider text-[#8E8A80]">
                       Velocidad
                     </span>
-                    <span className="text-[#D8D5CD]">{photo.shutter}</span>
+                    <span className="text-[#EBE7DF]">{photo.shutter}</span>
                   </div>
                   <div>
-                    <span className="block text-[9px] uppercase tracking-wider text-[#95836B]">
+                    <span className="block text-[9px] uppercase tracking-wider text-[#8E8A80]">
                       Sensibilidad
                     </span>
-                    <span className="text-[#D8D5CD]">ISO {photo.iso}</span>
+                    <span className="text-[#EBE7DF]">ISO {photo.iso}</span>
                   </div>
                 </div>
 
                 <div className="mt-8 flex flex-wrap items-center gap-5">
                   <Link
                     href={`/portfolio/${photo.slug}`}
-                    className="inline-flex border border-[#D8D5CD] bg-[#D8D5CD] px-6 py-3 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-[#101112] transition hover:bg-transparent hover:text-white"
+                    className="inline-flex border border-[#EBE7DF] bg-[#EBE7DF] px-6 py-3 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
                   >
                     Inspeccionar Obra
                   </Link>
                   {photo.prints && (
                     <Link
                       href={`/prints?obra=${encodeURIComponent(photo.title)}`}
-                      className="font-mono text-xs uppercase tracking-[0.22em] text-[#95836B] transition hover:text-[#D8D5CD]"
+                      className="font-mono text-xs uppercase tracking-[0.22em] text-[#8E8A80] transition hover:text-[#EBE7DF]"
                     >
                       Adquirir Copia Fine Art →
                     </Link>
@@ -198,17 +198,17 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
             <Link
               key={photo.id}
               href={`/portfolio/${photo.slug}`}
-              className="group flex flex-col justify-between border border-[#1D2021] bg-[#141617]/40 p-5 transition hover:border-[#95836B]/70 hover:bg-[#1D2021]/50"
+              className="group flex flex-col justify-between border border-[#202226] bg-[#151618]/40 p-5 transition hover:border-[#8E8A80]/70 hover:bg-[#202226]/50"
             >
               <div>
-                <div className="mb-3 flex items-center justify-between font-mono text-[10px] text-[#95836B]">
+                <div className="mb-3 flex items-center justify-between font-mono text-[10px] text-[#8E8A80]">
                   <span>NOTA #{String(index + 1).padStart(2, "0")}</span>
                   <span>
                     {photo.focalLength} · {photo.shutter}
                   </span>
                 </div>
 
-                <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden bg-[#101112] p-2">
+                <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden bg-[#0B0C0E] p-2">
                   <div className="relative h-full w-full">
                     <Image
                       src={photo.image}
@@ -220,20 +220,20 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
                   </div>
                 </div>
 
-                <h3 className="mt-4 font-serif text-xl text-[#D8D5CD] group-hover:text-white">
+                <h3 className="mt-4 font-serif text-xl text-[#EBE7DF] group-hover:text-white">
                   {photo.title}
                 </h3>
                 {photo.location && (
-                  <p className="mt-0.5 font-mono text-[10px] uppercase tracking-wider text-[#95836B]">
+                  <p className="mt-0.5 font-mono text-[10px] uppercase tracking-wider text-[#8E8A80]">
                     {photo.location}
                   </p>
                 )}
-                <p className="mt-3 line-clamp-3 text-xs font-light leading-relaxed text-[#D8D5CD]/75">
+                <p className="mt-3 line-clamp-3 text-xs font-light leading-relaxed text-[#EBE7DF]/75">
                   {photo.story}
                 </p>
               </div>
 
-              <div className="mt-5 flex items-center justify-between border-t border-[#1D2021] pt-3 font-mono text-[10px] uppercase tracking-wider text-neutral-400 group-hover:text-[#D8D5CD]">
+              <div className="mt-5 flex items-center justify-between border-t border-[#202226] pt-3 font-mono text-[10px] uppercase tracking-wider text-neutral-400 group-hover:text-[#EBE7DF]">
                 <span>Abrir Ficha y EXIF</span>
                 <span>→</span>
               </div>

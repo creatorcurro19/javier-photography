@@ -47,7 +47,7 @@ export default function MobilePhotoActionBar({ photo }: { photo: Photo }) {
   return (
     <aside
       aria-label="Acciones móviles para esta obra"
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-[#1D2021] bg-[#101112]/95 px-4 pt-3 pb-[max(1.5rem,env(safe-area-inset-bottom))] shadow-[0_-15px_40px_rgba(0,0,0,0.8)] backdrop-blur-2xl lg:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-[#202226] bg-[#0B0C0E]/95 px-4 pt-3 pb-[max(1.5rem,env(safe-area-inset-bottom))] shadow-[0_-15px_40px_rgba(0,0,0,0.8)] backdrop-blur-2xl lg:hidden"
     >
       <div className="mx-auto flex max-w-md items-center justify-between gap-3">
         {/* Favorite Button */}
@@ -57,8 +57,8 @@ export default function MobilePhotoActionBar({ photo }: { photo: Photo }) {
           aria-label={saved ? "Quitar de favoritos" : "Guardar en favoritos"}
           className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border transition ${
             saved
-              ? "border-[#95836B] bg-[#95836B] text-[#101112]"
-              : "border-[#1D2021] bg-[#141617] text-[#D8D5CD] hover:border-[#95836B]"
+              ? "border-[#8E8A80] bg-[#8E8A80] text-[#0B0C0E]"
+              : "border-[#202226] bg-[#151618] text-[#EBE7DF] hover:border-[#8E8A80]"
           }`}
         >
           <span className="text-base">{saved ? "♥" : "♡"}</span>
@@ -69,7 +69,7 @@ export default function MobilePhotoActionBar({ photo }: { photo: Photo }) {
           type="button"
           onClick={handleShare}
           aria-label="Compartir fotografía"
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-[#1D2021] bg-[#141617] text-[#D8D5CD] transition hover:border-[#95836B]"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-[#202226] bg-[#151618] text-[#EBE7DF] transition hover:border-[#8E8A80]"
         >
           {copied ? (
             <span className="font-mono text-[9px] uppercase tracking-wider text-emerald-400">
@@ -77,7 +77,7 @@ export default function MobilePhotoActionBar({ photo }: { photo: Photo }) {
             </span>
           ) : (
             <svg
-              className="h-4 w-4 text-[#95836B]"
+              className="h-4 w-4 text-[#8E8A80]"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -99,7 +99,7 @@ export default function MobilePhotoActionBar({ photo }: { photo: Photo }) {
               ? `/prints?obra=${encodeURIComponent(photo.title)}`
               : `/contact?motivo=licencia&obra=${encodeURIComponent(photo.title)}`
           }
-          className="flex h-11 flex-1 items-center justify-center rounded-lg border border-[#D8D5CD] bg-[#D8D5CD] px-4 font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-[#101112] transition hover:bg-transparent hover:text-white"
+          className="flex h-11 flex-1 items-center justify-center rounded-lg border border-[#EBE7DF] bg-[#EBE7DF] px-4 font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
         >
           <span>{photo.prints ? "Adquirir Print Fine Art" : "Solicitar Licencia"}</span>
         </Link>

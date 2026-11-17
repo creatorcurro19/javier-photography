@@ -37,8 +37,8 @@ export default function FavoriteButton({ title }: { title: string }) {
         onClick={toggleSave}
         className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs uppercase tracking-[0.2em] transition ${
           isSaved
-            ? "border-[#95836B] bg-[#95836B] text-[#101112] font-medium"
-            : "border-[#1D2021] bg-[#1D2021]/50 text-[#D8D5CD] hover:border-[#95836B]"
+            ? "border-[#8E8A80] bg-[#8E8A80] text-[#0B0C0E] font-medium"
+            : "border-[#202226] bg-[#202226]/50 text-[#EBE7DF] hover:border-[#8E8A80]"
         }`}
       >
         <span>{isSaved ? "♥ En tu selección" : "♡ Guardar en selección"}</span>
@@ -47,7 +47,7 @@ export default function FavoriteButton({ title }: { title: string }) {
       {savedList.length > 0 && (
         <Link
           href={`/contact?motivo=print&obra=${encodeURIComponent(savedList.join(", "))}`}
-          className="text-xs uppercase tracking-[0.2em] text-[#95836B] underline underline-offset-4 hover:text-[#D8D5CD] transition"
+          className="text-xs uppercase tracking-[0.2em] text-[#8E8A80] underline underline-offset-4 hover:text-[#EBE7DF] transition"
         >
           Consultar por tu selección ({savedList.length}) →
         </Link>

@@ -102,23 +102,23 @@ export default function LightboxModal({
       role="dialog"
       aria-modal="true"
       aria-label={`Visor de fotografía: ${photo.title}`}
-      className="fixed inset-0 z-50 flex flex-col bg-[#101112]/96 backdrop-blur-2xl select-none"
+      className="fixed inset-0 z-50 flex flex-col bg-[#0B0C0E]/96 backdrop-blur-2xl select-none"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
       {/* Top Bar */}
-      <header className="flex h-16 shrink-0 items-center justify-between border-b border-[#1D2021] px-4 md:px-8">
+      <header className="flex h-16 shrink-0 items-center justify-between border-b border-[#202226] px-4 md:px-8">
         <div className="flex items-center gap-4 text-xs">
-          <span className="font-mono text-[#D8D5CD]">
+          <span className="font-mono text-[#EBE7DF]">
             {currentIndex + 1} <span className="text-neutral-600">/</span> {photos.length}
           </span>
-          <span className="hidden h-3 w-px bg-[#1D2021] sm:block" />
-          <span className="hidden uppercase tracking-[0.25em] text-[#95836B] sm:inline font-mono">
+          <span className="hidden h-3 w-px bg-[#202226] sm:block" />
+          <span className="hidden uppercase tracking-[0.25em] text-[#8E8A80] sm:inline font-mono">
             {categoryInfo?.title ?? photo.category}
           </span>
         </div>
 
-        <h2 className="hidden truncate text-sm font-light tracking-wide text-[#D8D5CD] md:block max-w-md font-serif">
+        <h2 className="hidden truncate text-sm font-light tracking-wide text-[#EBE7DF] md:block max-w-md font-serif">
           {photo.title}
         </h2>
 
@@ -130,8 +130,8 @@ export default function LightboxModal({
                 onClick={() => setIsPlaying((prev) => !prev)}
                 className={`rounded-full px-3.5 py-1.5 text-xs font-mono tracking-wider transition ${
                   isPlaying
-                    ? "bg-[#95836B] text-[#101112] font-semibold"
-                    : "border border-[#1D2021] bg-[#1D2021]/60 text-neutral-300 hover:border-[#95836B] hover:text-white"
+                    ? "bg-[#8E8A80] text-[#0B0C0E] font-semibold"
+                    : "border border-[#202226] bg-[#202226]/60 text-neutral-300 hover:border-[#8E8A80] hover:text-white"
                 }`}
                 title="Presentación automática (Tecla P o Espacio)"
               >
@@ -142,8 +142,8 @@ export default function LightboxModal({
                 onClick={() => setShowFilmstrip((prev) => !prev)}
                 className={`hidden sm:inline-flex rounded-full px-3 py-1.5 text-xs font-mono tracking-wider transition ${
                   showFilmstrip
-                    ? "border border-[#95836B]/60 bg-[#1D2021] text-[#D8D5CD]"
-                    : "border border-[#1D2021] bg-[#1D2021]/60 text-neutral-400 hover:text-white"
+                    ? "border border-[#8E8A80]/60 bg-[#202226] text-[#EBE7DF]"
+                    : "border border-[#202226] bg-[#202226]/60 text-neutral-400 hover:text-white"
                 }`}
                 title="Mostrar u ocultar tira de miniaturas"
               >
@@ -157,8 +157,8 @@ export default function LightboxModal({
             onClick={() => setShowExif(!showExif)}
             className={`rounded-full px-3 py-1.5 text-xs font-mono tracking-wider transition ${
               showExif
-                ? "bg-[#D8D5CD] text-[#101112] font-semibold"
-                : "border border-[#1D2021] bg-[#1D2021]/60 text-neutral-300 hover:border-[#95836B] hover:text-white"
+                ? "bg-[#EBE7DF] text-[#0B0C0E] font-semibold"
+                : "border border-[#202226] bg-[#202226]/60 text-neutral-300 hover:border-[#8E8A80] hover:text-white"
             }`}
             title="Información de disparo (Tecla I)"
           >
@@ -168,7 +168,7 @@ export default function LightboxModal({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full p-2 text-neutral-400 transition hover:bg-[#1D2021] hover:text-white"
+            className="rounded-full p-2 text-neutral-400 transition hover:bg-[#202226] hover:text-white"
             aria-label="Cerrar visor (Esc)"
           >
             <svg
@@ -247,13 +247,13 @@ export default function LightboxModal({
 
         {/* Floating EXIF / Details Panel */}
         {showExif && (
-          <aside className="absolute bottom-4 left-4 right-4 z-30 mx-auto max-h-[70vh] max-w-xl overflow-y-auto rounded-xl border border-[#1D2021] bg-[#101112]/95 p-5 text-[#D8D5CD] shadow-2xl backdrop-blur-md sm:bottom-8 sm:left-auto sm:right-8 sm:w-96">
+          <aside className="absolute bottom-4 left-4 right-4 z-30 mx-auto max-h-[70vh] max-w-xl overflow-y-auto rounded-xl border border-[#202226] bg-[#0B0C0E]/95 p-5 text-[#EBE7DF] shadow-2xl backdrop-blur-md sm:bottom-8 sm:left-auto sm:right-8 sm:w-96">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#95836B]">
+                <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#8E8A80]">
                   Ficha Técnica
                 </p>
-                <h3 className="mt-1 font-serif text-lg text-[#D8D5CD]">{photo.title}</h3>
+                <h3 className="mt-1 font-serif text-lg text-[#EBE7DF]">{photo.title}</h3>
                 <p className="text-xs text-neutral-400">
                   {photo.location
                     ? `${photo.location}${photo.country ? `, ${photo.country}` : ""} (${photo.year})`
@@ -269,28 +269,28 @@ export default function LightboxModal({
               </button>
             </div>
 
-            <div className="mt-4 grid grid-cols-2 gap-2 border-y border-[#1D2021] py-3 font-mono text-xs text-neutral-400">
+            <div className="mt-4 grid grid-cols-2 gap-2 border-y border-[#202226] py-3 font-mono text-xs text-neutral-400">
               <div>
-                <span className="text-[#95836B]">CÁMARA:</span> {photo.camera}
+                <span className="text-[#8E8A80]">CÁMARA:</span> {photo.camera}
               </div>
               <div>
-                <span className="text-[#95836B]">FOCAL:</span> {photo.focalLength}
+                <span className="text-[#8E8A80]">FOCAL:</span> {photo.focalLength}
               </div>
               <div>
-                <span className="text-[#95836B]">APERTURA:</span> {photo.aperture}
+                <span className="text-[#8E8A80]">APERTURA:</span> {photo.aperture}
               </div>
               <div>
-                <span className="text-[#95836B]">OBTURACIÓN:</span> {photo.shutter}
+                <span className="text-[#8E8A80]">OBTURACIÓN:</span> {photo.shutter}
               </div>
               <div>
-                <span className="text-[#95836B]">ISO:</span> {photo.iso}
+                <span className="text-[#8E8A80]">ISO:</span> {photo.iso}
               </div>
               <div className="truncate">
-                <span className="text-[#95836B]">ÓPTICA:</span> {photo.lens.replace("Canon ", "").replace(" F3.5-6.3 IS STM", "")}
+                <span className="text-[#8E8A80]">ÓPTICA:</span> {photo.lens.replace("Canon ", "").replace(" F3.5-6.3 IS STM", "")}
               </div>
             </div>
 
-            <p className="mt-3 text-xs leading-relaxed text-[#D8D5CD]/80 font-light">
+            <p className="mt-3 text-xs leading-relaxed text-[#EBE7DF]/80 font-light">
               {photo.description}
             </p>
 
@@ -298,21 +298,21 @@ export default function LightboxModal({
               <Link
                 href={`/portfolio/${photo.slug}`}
                 onClick={onClose}
-                className="rounded border border-[#D8D5CD] bg-[#D8D5CD] px-3.5 py-1 text-[11px] uppercase tracking-wider text-[#101112] font-semibold transition hover:bg-transparent hover:text-white"
+                className="rounded border border-[#EBE7DF] bg-[#EBE7DF] px-3.5 py-1 text-[11px] uppercase tracking-wider text-[#0B0C0E] font-semibold transition hover:bg-transparent hover:text-white"
               >
                 Ver Obra Completa
               </Link>
               <Link
                 href={`/contact?motivo=print&obra=${encodeURIComponent(photo.title)}`}
                 onClick={onClose}
-                className="rounded border border-[#1D2021] bg-[#1D2021]/60 px-3 py-1 text-[11px] uppercase tracking-wider text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
+                className="rounded border border-[#202226] bg-[#202226]/60 px-3 py-1 text-[11px] uppercase tracking-wider text-[#EBE7DF] transition hover:border-[#8E8A80] hover:text-white"
               >
                 Adquirir Print
               </Link>
               <Link
                 href={`/contact?motivo=licencia&obra=${encodeURIComponent(photo.title)}`}
                 onClick={onClose}
-                className="rounded border border-[#1D2021] bg-[#1D2021]/60 px-3 py-1 text-[11px] uppercase tracking-wider text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
+                className="rounded border border-[#202226] bg-[#202226]/60 px-3 py-1 text-[11px] uppercase tracking-wider text-[#EBE7DF] transition hover:border-[#8E8A80] hover:text-white"
               >
                 Licenciar
               </Link>
@@ -323,7 +323,7 @@ export default function LightboxModal({
 
       {/* Tira de Miniaturas (Filmstrip) */}
       {showFilmstrip && photos.length > 1 && (
-        <div className="flex h-20 shrink-0 items-center gap-2 overflow-x-auto border-t border-[#1D2021] bg-[#101112]/95 px-4 md:px-8">
+        <div className="flex h-20 shrink-0 items-center gap-2 overflow-x-auto border-t border-[#202226] bg-[#0B0C0E]/95 px-4 md:px-8">
           {photos.map((item, idx) => (
             <button
               key={item.id}
@@ -335,7 +335,7 @@ export default function LightboxModal({
               aria-label={`Ir a ${item.title}`}
               className={`relative h-14 w-20 shrink-0 overflow-hidden rounded transition ${
                 idx === currentIndex
-                  ? "ring-2 ring-[#D8D5CD] opacity-100 scale-105"
+                  ? "ring-2 ring-[#EBE7DF] opacity-100 scale-105"
                   : "opacity-45 hover:opacity-85"
               }`}
             >
@@ -352,9 +352,9 @@ export default function LightboxModal({
       )}
 
       {/* Bottom Bar */}
-      <footer className="flex h-14 shrink-0 items-center justify-between border-t border-[#1D2021] px-4 md:px-8 text-xs text-[#95836B] font-mono">
+      <footer className="flex h-14 shrink-0 items-center justify-between border-t border-[#202226] px-4 md:px-8 text-xs text-[#8E8A80] font-mono">
         <div className="truncate">
-          <span className="font-light text-[#D8D5CD] font-serif text-sm">{photo.title}</span>
+          <span className="font-light text-[#EBE7DF] font-serif text-sm">{photo.title}</span>
           <span className="mx-2 text-neutral-600">·</span>
           <span>{photo.location ? photo.location : `${photo.focalLength} · ${photo.camera}`}</span>
         </div>
@@ -363,7 +363,7 @@ export default function LightboxModal({
           <Link
             href={`/portfolio/${photo.slug}`}
             onClick={onClose}
-            className="underline underline-offset-4 text-[#95836B] hover:text-[#D8D5CD] transition"
+            className="underline underline-offset-4 text-[#8E8A80] hover:text-[#EBE7DF] transition"
           >
             Detalles de proyecto
           </Link>

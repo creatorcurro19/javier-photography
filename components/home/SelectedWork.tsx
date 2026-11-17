@@ -10,7 +10,7 @@ export default function SelectedWork() {
   const totalPhotos = getAllPhotos().length;
 
   return (
-    <section className="bg-[#101112] py-28 md:py-36 border-t border-[#1D2021]">
+    <section className="bg-[#0B0C0E] py-28 md:py-36 border-t border-[#202226]">
       <Container>
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <SectionHeader
@@ -20,7 +20,7 @@ export default function SelectedWork() {
           />
           <Link
             href="/portfolio"
-            className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.25em] text-[#95836B] hover:text-[#D8D5CD] transition group shrink-0"
+            className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.25em] text-[#8E8A80] hover:text-[#EBE7DF] transition group shrink-0"
           >
             <span>Ver Archivo Completo ({totalPhotos} obras)</span>
             <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -35,11 +35,11 @@ export default function SelectedWork() {
             return (
               <article
                 key={photo.id}
-                className="group mb-8 flex break-inside-avoid flex-col justify-between rounded-lg border border-[#1D2021] bg-[#1D2021]/40 p-6 sm:p-7 transition-all duration-300 hover:border-[#95836B]/60 hover:bg-[#1D2021]/70"
+                className="group mb-8 flex break-inside-avoid flex-col justify-between rounded-lg border border-[#202226] bg-[#202226]/40 p-6 sm:p-7 transition-all duration-300 hover:border-[#8E8A80]/60 hover:bg-[#202226]/70"
               >
                 <Link
                   href={`/portfolio/${photo.slug}`}
-                  className="relative block overflow-hidden rounded-md bg-[#1D2021] focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+                  className="relative block overflow-hidden rounded-md bg-[#202226] focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
                 >
                   <Image
                     src={photo.image}
@@ -52,13 +52,13 @@ export default function SelectedWork() {
                   <div className="absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 </Link>
 
-                <div className="mt-5 border-t border-[#1D2021] pt-4">
-                  <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-[0.2em] text-[#95836B]">
+                <div className="mt-5 border-t border-[#202226] pt-4">
+                  <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-[0.2em] text-[#8E8A80]">
                     <span>{categoryInfo?.title ?? photo.category}</span>
                     <span>{photo.year}</span>
                   </div>
 
-                  <h3 className="mt-2 font-serif text-2xl font-light text-[#D8D5CD] group-hover:text-white transition-colors">
+                  <h3 className="mt-2 font-serif text-2xl font-light text-[#EBE7DF] group-hover:text-white transition-colors">
                     <Link href={`/portfolio/${photo.slug}`}>{photo.title}</Link>
                   </h3>
 
@@ -70,7 +70,7 @@ export default function SelectedWork() {
                     {photo.description}
                   </p>
 
-                  <div className="mt-5 border-t border-[#1D2021] pt-3 text-xs font-mono uppercase tracking-wider text-[#95836B] group-hover:text-[#D8D5CD] transition-colors flex items-center justify-between">
+                  <div className="mt-5 border-t border-[#202226] pt-3 text-xs font-mono uppercase tracking-wider text-[#8E8A80] group-hover:text-[#EBE7DF] transition-colors flex items-center justify-between">
                     <span>Ver obra</span>
                     <span className="transition-transform group-hover:translate-x-1">→</span>
                   </div>

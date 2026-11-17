@@ -13,7 +13,7 @@ export default function StoriesPreview() {
   }
 
   return (
-    <section className="border-t border-[#1D2021] bg-[#101112] py-28 md:py-36">
+    <section className="border-t border-[#202226] bg-[#0B0C0E] py-28 md:py-36">
       <Container>
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <SectionHeader
@@ -23,7 +23,7 @@ export default function StoriesPreview() {
           />
           <Link
             href="/stories"
-            className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.25em] text-[#95836B] hover:text-[#D8D5CD] transition group shrink-0"
+            className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.25em] text-[#8E8A80] hover:text-[#EBE7DF] transition group shrink-0"
           >
             <span>Ver Todas las Historias</span>
             <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -37,12 +37,12 @@ export default function StoriesPreview() {
             return (
               <article
                 key={photo.id}
-                className="group mb-8 flex break-inside-avoid flex-col justify-between rounded-lg border border-[#1D2021] bg-[#1D2021]/40 p-6 sm:p-7 transition duration-300 hover:border-[#95836B]/60 hover:bg-[#1D2021]/70"
+                className="group mb-8 flex break-inside-avoid flex-col justify-between rounded-lg border border-[#202226] bg-[#202226]/40 p-6 sm:p-7 transition duration-300 hover:border-[#8E8A80]/60 hover:bg-[#202226]/70"
               >
                 <div>
                   <Link
                     href={`/portfolio/${photo.slug}`}
-                    className="block relative overflow-hidden rounded-md bg-[#1D2021]"
+                    className="block relative overflow-hidden rounded-md bg-[#202226]"
                   >
                     <Image
                       src={photo.image}
@@ -54,12 +54,12 @@ export default function StoriesPreview() {
                     />
                   </Link>
 
-                  <div className="mt-6 flex items-center justify-between text-[11px] font-mono uppercase tracking-[0.2em] text-[#95836B]">
+                  <div className="mt-6 flex items-center justify-between text-[11px] font-mono uppercase tracking-[0.2em] text-[#8E8A80]">
                     <span>{categoryInfo?.title ?? photo.category}</span>
                     <span>{photo.year}</span>
                   </div>
 
-                  <h3 className="mt-2 font-serif text-2xl font-light text-[#D8D5CD] group-hover:text-white transition-colors">
+                  <h3 className="mt-2 font-serif text-2xl font-light text-[#EBE7DF] group-hover:text-white transition-colors">
                     <Link href={`/portfolio/${photo.slug}`}>{photo.title}</Link>
                   </h3>
 
@@ -67,15 +67,15 @@ export default function StoriesPreview() {
                     {photo.location ? photo.location : `${photo.focalLength} · ${photo.aperture} · ISO ${photo.iso}`}
                   </p>
 
-                  <p className="mt-4 text-sm font-light leading-relaxed text-[#D8D5CD]/80 line-clamp-4">
+                  <p className="mt-4 text-sm font-light leading-relaxed text-[#EBE7DF]/80 line-clamp-4">
                     {photo.story}
                   </p>
                 </div>
 
-                <div className="mt-6 border-t border-[#1D2021] pt-4">
+                <div className="mt-6 border-t border-[#202226] pt-4">
                   <Link
                     href={`/portfolio/${photo.slug}#story`}
-                    className="inline-flex text-xs font-mono uppercase tracking-wider text-[#95836B] group-hover:text-[#D8D5CD] transition"
+                    className="inline-flex text-xs font-mono uppercase tracking-wider text-[#8E8A80] group-hover:text-[#EBE7DF] transition"
                   >
                     Leer Historia Completa →
                   </Link>

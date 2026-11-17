@@ -6,9 +6,9 @@ import { buildPageMetadata } from "@/lib/metadata";
 import { getAllPhotos } from "@/lib/photos";
 
 export const metadata = buildPageMetadata({
-  title: "Portfolio | Colecciones Fotográficas",
+  title: "Colecciones Fotográficas | Javier Espinosa",
   description:
-    "Archivo fotográfico de autor por Javier Espinosa Martínez — Fauna y Naturaleza, Paisajes Documentales, Coches y Rally Histórico, Arquitectura Urbana y Viajes.",
+    "Archivo fotográfico de autor por Javier Espinosa Martínez — Fauna y Naturaleza, Paisajes Documentales, Coches y Rally Histórico, Arquitectura Vernácula y Etnografía.",
   path: "/portfolio",
 });
 
@@ -16,18 +16,21 @@ export default function PortfolioPage() {
   const photos = getAllPhotos();
 
   return (
-    <div className="min-h-screen bg-[#101112] pt-36 pb-28 text-[#D8D5CD]">
+    <div className="min-h-screen bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
       <Container>
         <header className="max-w-3xl">
-          <p className="text-xs font-mono uppercase tracking-[0.4em] text-[#95836B]">
-            Archivo de Autor
-          </p>
-          <h1 className="mt-4 text-4xl sm:text-5xl md:text-6xl font-light tracking-tight leading-[1.12] text-[#D8D5CD]">
+          <div className="flex items-center gap-3">
+            <span className="h-px w-6 bg-white/30" />
+            <p className="font-mono text-xs uppercase tracking-[0.4em] text-[#8E8A80]">
+              The Art of Seeing · Archivo Permanente
+            </p>
+          </div>
+          <h1 className="mt-4 font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-tight leading-[1.12] text-[#EBE7DF]">
             Colecciones Fotográficas
           </h1>
-          <p className="mt-6 text-lg leading-relaxed text-[#D8D5CD]/80 font-light">
-            Una mirada pausada sobre el territorio, la memoria, la velocidad y la naturaleza.
-            Explora las cinco grandes disciplinas fotográficas o navega por el archivo completo.
+          <p className="mt-6 text-base sm:text-lg leading-relaxed text-[#8E8A80] font-light">
+            Una mirada pausada sobre el territorio, la memoria, la velocidad y la naturaleza salvaje.
+            Explora las cinco grandes disciplinas fotográficas o recorre las 100 obras archivadas en alta resolución.
           </p>
         </header>
 

@@ -174,16 +174,16 @@ export default function ExpeditionMap() {
   return (
     <section
       aria-labelledby="map-expedition-heading"
-      className="mt-20 rounded-xl border border-[#1D2021] bg-[#1D2021]/25 p-6 sm:p-10"
+      className="mt-20 border border-white/[0.08] bg-[#151618] p-6 sm:p-10"
     >
-      <div className="flex flex-col justify-between gap-4 border-b border-[#1D2021] pb-6 md:flex-row md:items-end">
+      <div className="flex flex-col justify-between gap-4 border-b border-white/[0.08] pb-6 md:flex-row md:items-end">
         <div>
-          <p className="text-xs uppercase tracking-[0.35em] text-[#95836B]">
+          <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
             Cartografía de Campo & Expediciones
           </p>
           <h2
             id="map-expedition-heading"
-            className="mt-2 font-serif text-3xl font-light text-[#D8D5CD]"
+            className="mt-2 font-serif text-3xl font-light text-[#EBE7DF]"
           >
             Territorios Fotografiados
           </h2>
@@ -195,10 +195,10 @@ export default function ExpeditionMap() {
               key={t.id}
               type="button"
               onClick={() => setActiveId(t.id)}
-              className={`rounded-full px-3.5 py-1.5 text-[11px] uppercase tracking-wider transition ${
+              className={`rounded-full px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-wider transition ${
                 activeId === t.id
-                  ? "bg-[#D8D5CD] text-[#101112] font-medium"
-                  : "border border-[#1D2021] bg-[#101112] text-[#D8D5CD]/80 hover:border-[#95836B]"
+                  ? "bg-[#EBE7DF] text-[#0B0C0E] font-medium"
+                  : "border border-white/[0.08] bg-[#0B0C0E] text-[#8E8A80] hover:border-white/30 hover:text-[#EBE7DF]"
               }`}
             >
               {t.name.split(":")[0].split(",")[0]}
@@ -209,7 +209,7 @@ export default function ExpeditionMap() {
 
       <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-12 items-center">
         {/* Mapa Cartográfico Estilizado con Pines Interactivos (5 cols) */}
-        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg border border-[#1D2021] bg-[#101112] p-4 lg:col-span-5">
+        <div className="relative aspect-[4/3] w-full overflow-hidden border border-white/[0.08] bg-[#0B0C0E] p-4 lg:col-span-5">
           {/* Retícula de latitud/longitud */}
           <svg
             viewBox="0 0 100 100"
@@ -221,7 +221,7 @@ export default function ExpeditionMap() {
                 <path
                   d="M 20 0 L 0 0 0 20"
                   fill="none"
-                  stroke="#1D2021"
+                  stroke="rgba(255,255,255,0.06)"
                   strokeWidth="0.4"
                 />
               </pattern>
@@ -231,32 +231,32 @@ export default function ExpeditionMap() {
             {/* Trazos esquemáticos de costas (Península Ibérica, Centroeuropa, Norte de África y Canarias) */}
             <path
               d="M 30 34 L 47 35 L 49 48 L 36 55 L 29 48 Z"
-              fill="#1D2021"
-              stroke="#95836B"
+              fill="#151618"
+              stroke="#8E8A80"
               strokeWidth="0.5"
               strokeOpacity="0.5"
             />
             <path
               d="M 47 16 L 78 14 L 82 36 L 52 38 Z"
-              fill="#1D2021"
-              stroke="#95836B"
+              fill="#151618"
+              stroke="#8E8A80"
               strokeWidth="0.5"
               strokeOpacity="0.4"
             />
             <path
               d="M 24 62 L 62 59 L 68 92 L 20 92 Z"
-              fill="#1D2021"
-              stroke="#95836B"
+              fill="#151618"
+              stroke="#8E8A80"
               strokeWidth="0.5"
               strokeOpacity="0.5"
             />
-            <circle cx="16" cy="74" r="3.2" fill="#1D2021" stroke="#95836B" strokeWidth="0.5" />
+            <circle cx="16" cy="74" r="3.2" fill="#151618" stroke="#8E8A80" strokeWidth="0.5" />
 
             {/* Líneas de ruta entre expediciones */}
             <polyline
               points="64,24 37,44 33,69 42,78"
               fill="none"
-              stroke="#95836B"
+              stroke="#8E8A80"
               strokeWidth="0.4"
               strokeDasharray="1.5 1.5"
               strokeOpacity="0.6"
@@ -266,7 +266,7 @@ export default function ExpeditionMap() {
               y1="44"
               x2="16"
               y2="74"
-              stroke="#95836B"
+              stroke="#8E8A80"
               strokeWidth="0.4"
               strokeDasharray="1.5 1.5"
               strokeOpacity="0.6"
@@ -287,7 +287,7 @@ export default function ExpeditionMap() {
                       cy={t.svgY}
                       r="5.5"
                       fill="none"
-                      stroke="#D8D5CD"
+                      stroke="#EBE7DF"
                       strokeWidth="0.6"
                       opacity="0.7"
                     />
@@ -296,14 +296,14 @@ export default function ExpeditionMap() {
                     cx={t.svgX}
                     cy={t.svgY}
                     r={isSelected ? "2.6" : "1.8"}
-                    fill={isSelected ? "#D8D5CD" : "#95836B"}
+                    fill={isSelected ? "#EBE7DF" : "#8E8A80"}
                   />
                 </g>
               );
             })}
           </svg>
 
-          <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-[10px] tracking-[0.2em] text-[#95836B]">
+          <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between font-mono text-[10px] tracking-[0.2em] text-[#8E8A80]">
             <span>{current.coords}</span>
             <span>{current.region}</span>
           </div>
@@ -312,15 +312,15 @@ export default function ExpeditionMap() {
         {/* Detalle del Territorio Seleccionado y Obras (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
           <div>
-            <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.25em] text-[#95836B]">
+            <div className="flex flex-wrap items-center gap-3 font-mono text-xs uppercase tracking-[0.25em] text-[#8E8A80]">
               <span>{current.discipline}</span>
               <span>·</span>
               <span>{current.coords}</span>
             </div>
-            <h3 className="mt-2 font-serif text-2xl sm:text-3xl font-light text-[#D8D5CD]">
+            <h3 className="mt-2 font-serif text-2xl sm:text-3xl font-light text-[#EBE7DF]">
               {current.name}
             </h3>
-            <p className="mt-3 text-sm leading-relaxed text-[#D8D5CD]/80 font-light">
+            <p className="mt-3 text-sm leading-relaxed text-[#8E8A80] font-light">
               {current.summary}
             </p>
           </div>
@@ -330,17 +330,17 @@ export default function ExpeditionMap() {
               <Link
                 key={s.image}
                 href={s.href}
-                className="group relative aspect-[3/2] overflow-hidden rounded-md border border-[#1D2021] bg-[#1D2021]"
+                className="group relative aspect-[3/2] overflow-hidden border border-white/[0.08] bg-[#0B0C0E]"
               >
                 <Image
                   src={s.image}
                   alt={s.title}
                   fill
                   sizes="220px"
-                  className="object-cover transition duration-500 group-hover:scale-105"
+                  className="object-cover transition duration-500 group-hover:scale-105 brightness-[0.92] group-hover:brightness-100"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#101112]/90 via-transparent to-transparent" />
-                <span className="absolute bottom-2 left-2 right-2 truncate font-serif text-xs text-[#D8D5CD]">
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E]/90 via-transparent to-transparent" />
+                <span className="absolute bottom-2 left-2 right-2 truncate font-serif text-xs text-[#EBE7DF]">
                   {s.title}
                 </span>
               </Link>
@@ -350,7 +350,7 @@ export default function ExpeditionMap() {
           <div className="pt-2">
             <Link
               href={`/projects/${current.projectSlug}`}
-              className="inline-flex items-center gap-2 border border-[#1D2021] bg-[#101112] px-5 py-2.5 text-xs uppercase tracking-[0.25em] text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
+              className="inline-flex items-center gap-2 border border-white/[0.08] bg-[#0B0C0E] px-5 py-2.5 font-mono text-xs uppercase tracking-[0.25em] text-[#EBE7DF] transition hover:border-white/30 hover:text-white"
             >
               <span>Ver Proyecto de este Territorio</span>
               <span>→</span>

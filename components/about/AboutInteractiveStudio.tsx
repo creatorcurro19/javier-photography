@@ -214,9 +214,9 @@ export default function AboutInteractiveStudio() {
       ===================================================================== */}
       <section className="relative">
         {/* Top Monograph Header Bar */}
-        <div className="mb-10 flex flex-wrap items-center justify-between gap-4 border-b border-[#1D2021] pb-4 font-mono text-[10px] uppercase tracking-[0.32em] text-[#95836B]">
+        <div className="mb-10 flex flex-wrap items-center justify-between gap-4 border-b border-[#202226] pb-4 font-mono text-[10px] uppercase tracking-[0.32em] text-[#8E8A80]">
           <div className="flex items-center gap-3">
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#95836B]" />
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#8E8A80]" />
             <span>Monografía de Autor · N.º 01</span>
           </div>
           <span className="text-neutral-500">
@@ -227,24 +227,24 @@ export default function AboutInteractiveStudio() {
         <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-14">
           {/* Left Column: Editorial Statement & Interactive Perspective Selector */}
           <div className="lg:col-span-7 lg:pr-4">
-            <p className="font-mono text-xs uppercase tracking-[0.38em] text-[#95836B]">
+            <p className="font-mono text-xs uppercase tracking-[0.38em] text-[#8E8A80]">
               Biografía & Declaración Visual
             </p>
-            <h1 className="mt-4 font-serif text-4xl font-light leading-[1.08] tracking-wide text-[#D8D5CD] sm:text-6xl lg:text-[4.25rem]">
+            <h1 className="mt-4 font-serif text-4xl font-light leading-[1.08] tracking-wide text-[#EBE7DF] sm:text-6xl lg:text-[4.25rem]">
               La mirada que detiene{" "}
-              <span className="italic text-[#95836B]">el instante</span>
+              <span className="italic text-[#8E8A80]">el instante</span>
             </h1>
 
             {/* Editorial Pull Quote */}
-            <blockquote className="mt-8 border-l-2 border-[#95836B] pl-6 font-serif text-xl italic leading-relaxed text-[#D8D5CD]/90 sm:text-2xl">
+            <blockquote className="mt-8 border-l-2 border-[#8E8A80] pl-6 font-serif text-xl italic leading-relaxed text-[#EBE7DF]/90 sm:text-2xl">
               «No busco el artificio ni la escena fabricada; busco el segundo
               exacto en que la luz natural, la geometría y el instinto se
               alinean en silencio.»
             </blockquote>
 
-            <div className="mt-8 space-y-5 text-base font-light leading-relaxed text-[#D8D5CD]/80 sm:text-[17px] sm:leading-8">
+            <div className="mt-8 space-y-5 text-base font-light leading-relaxed text-[#EBE7DF]/80 sm:text-[17px] sm:leading-8">
               <p>
-                Soy <strong className="font-medium text-[#D8D5CD]">Javier Espinosa Martínez</strong>,
+                Soy <strong className="font-medium text-[#EBE7DF]">Javier Espinosa Martínez</strong>,
                 fotógrafo español especializado en fotografía de naturaleza salvaje,
                 automovilismo de competición, arquitectura vernácula y narrativa
                 documental. Concibo la cámara como un instrumento de observación
@@ -258,14 +258,14 @@ export default function AboutInteractiveStudio() {
                 recorrido pausado por la piedra centenaria de{" "}
                 <Link
                   href="/projects/villanueva-de-la-vera"
-                  className="underline decoration-[#95836B]/60 underline-offset-4 transition hover:text-white"
+                  className="underline decoration-[#8E8A80]/60 underline-offset-4 transition hover:text-white"
                 >
                   Villanueva de la Vera
                 </Link>{" "}
                 y las dunas del{" "}
                 <Link
                   href="/projects/ecos-del-sahara"
-                  className="underline decoration-[#95836B]/60 underline-offset-4 transition hover:text-white"
+                  className="underline decoration-[#8E8A80]/60 underline-offset-4 transition hover:text-white"
                 >
                   Sahara
                 </Link>
@@ -274,9 +274,9 @@ export default function AboutInteractiveStudio() {
             </div>
 
             {/* Interactive Viewfinder Perspective Switcher */}
-            <div className="mt-10 border border-[#1D2021] bg-[#141617]/50 p-5 sm:p-6">
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1D2021] pb-3.5">
-                <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#95836B]">
+            <div className="mt-10 border border-[#202226] bg-[#151618]/50 p-5 sm:p-6">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#202226] pb-3.5">
+                <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#8E8A80]">
                   Explorar Facetas en el Visor →
                 </span>
                 <button
@@ -284,8 +284,8 @@ export default function AboutInteractiveStudio() {
                   onClick={() => setHudEnabled((v) => !v)}
                   className={`border px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.2em] transition ${
                     hudEnabled
-                      ? "border-[#95836B] bg-[#95836B]/15 text-[#D8D5CD]"
-                      : "border-[#1D2021] text-neutral-500 hover:text-[#D8D5CD]"
+                      ? "border-[#8E8A80] bg-[#8E8A80]/15 text-[#EBE7DF]"
+                      : "border-[#202226] text-neutral-500 hover:text-[#EBE7DF]"
                   }`}
                 >
                   HUD Óptico: {hudEnabled ? "Activo" : "Oculto"}
@@ -303,11 +303,11 @@ export default function AboutInteractiveStudio() {
                       onClick={() => setActiveSlideIndex(idx)}
                       className={`group flex flex-col justify-between border p-3 text-left transition-all duration-300 ${
                         active
-                          ? "border-[#95836B] bg-[#1D2021]/90 text-white"
-                          : "border-[#1D2021] bg-[#101112]/70 text-[#D8D5CD]/70 hover:border-[#95836B]/50 hover:text-[#D8D5CD]"
+                          ? "border-[#8E8A80] bg-[#202226]/90 text-white"
+                          : "border-[#202226] bg-[#0B0C0E]/70 text-[#EBE7DF]/70 hover:border-[#8E8A80]/50 hover:text-[#EBE7DF]"
                       }`}
                     >
-                      <span className="font-mono text-[9px] tracking-[0.2em] text-[#95836B]">
+                      <span className="font-mono text-[9px] tracking-[0.2em] text-[#8E8A80]">
                         {slide.code}
                       </span>
                       <span className="mt-2 font-serif text-sm leading-snug">
@@ -318,7 +318,7 @@ export default function AboutInteractiveStudio() {
                 })}
               </div>
 
-              <p className="mt-4 text-xs font-light italic leading-relaxed text-[#D8D5CD]/75">
+              <p className="mt-4 text-xs font-light italic leading-relaxed text-[#EBE7DF]/75">
                 {currentSlide.note}
               </p>
             </div>
@@ -327,21 +327,21 @@ export default function AboutInteractiveStudio() {
             <div className="mt-9 flex flex-wrap items-center gap-4 print:hidden">
               <Link
                 href="/portfolio"
-                className="inline-flex items-center gap-3 border border-[#D8D5CD] bg-[#D8D5CD] px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.28em] text-[#101112] transition hover:bg-transparent hover:text-white"
+                className="inline-flex items-center gap-3 border border-[#EBE7DF] bg-[#EBE7DF] px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.28em] text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
               >
                 <span>Explorar Archivo (100 Obras)</span>
                 <span>→</span>
               </Link>
               <Link
                 href="/projects"
-                className="inline-flex items-center gap-2 border border-[#1D2021] bg-[#1D2021]/60 px-7 py-3.5 text-xs uppercase tracking-[0.28em] text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
+                className="inline-flex items-center gap-2 border border-[#202226] bg-[#202226]/60 px-7 py-3.5 text-xs uppercase tracking-[0.28em] text-[#EBE7DF] transition hover:border-[#8E8A80] hover:text-white"
               >
                 <span>8 Series Documentales</span>
               </Link>
               <button
                 type="button"
                 onClick={() => window.print()}
-                className="inline-flex items-center gap-2 border border-[#95836B]/60 bg-[#101112] px-5 py-3.5 font-mono text-[10px] uppercase tracking-[0.24em] text-[#D8D5CD] transition hover:border-[#D8D5CD] hover:text-white"
+                className="inline-flex items-center gap-2 border border-[#8E8A80]/60 bg-[#0B0C0E] px-5 py-3.5 font-mono text-[10px] uppercase tracking-[0.24em] text-[#EBE7DF] transition hover:border-[#EBE7DF] hover:text-white"
               >
                 <span>Dossier Curatorial (PDF)</span>
                 <span>↓</span>
@@ -360,7 +360,7 @@ export default function AboutInteractiveStudio() {
               className="relative transition-transform duration-200 ease-out"
             >
               {/* Main Optical Frame */}
-              <div className="relative aspect-[4/5] w-full overflow-hidden border border-[#1D2021] bg-[#141617] shadow-[0_25px_70px_rgba(0,0,0,0.75)]">
+              <div className="relative aspect-[4/5] w-full overflow-hidden border border-[#202226] bg-[#151618] shadow-[0_25px_70px_rgba(0,0,0,0.75)]">
                 <Image
                   key={currentSlide.image}
                   src={currentSlide.image}
@@ -370,41 +370,41 @@ export default function AboutInteractiveStudio() {
                   sizes="(max-width: 1024px) 100vw, 42vw"
                   className="object-cover transition-all duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#101112] via-[#101112]/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/20 to-transparent" />
 
                 {/* Optional Canon EOS R7 Optical Viewfinder HUD Overlay */}
                 {hudEnabled && (
                   <div
                     aria-hidden="true"
-                    className="pointer-events-none absolute inset-5 flex flex-col justify-between border border-[#D8D5CD]/15 p-4 transition-opacity duration-500"
+                    className="pointer-events-none absolute inset-5 flex flex-col justify-between border border-[#EBE7DF]/15 p-4 transition-opacity duration-500"
                   >
                     {/* Top Viewfinder Telemetry */}
-                    <div className="flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.25em] text-[#D8D5CD]/80">
-                      <span className="flex items-center gap-1.5 bg-[#101112]/70 px-2 py-0.5 backdrop-blur-sm">
+                    <div className="flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.25em] text-[#EBE7DF]/80">
+                      <span className="flex items-center gap-1.5 bg-[#0B0C0E]/70 px-2 py-0.5 backdrop-blur-sm">
                         <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
                         AF-SERVO · RAW
                       </span>
-                      <span className="bg-[#101112]/70 px-2 py-0.5 text-[#95836B] backdrop-blur-sm">
+                      <span className="bg-[#0B0C0E]/70 px-2 py-0.5 text-[#8E8A80] backdrop-blur-sm">
                         {currentSlide.code}
                       </span>
                     </div>
 
                     {/* Center AF Reticle Brackets */}
                     <div className="relative mx-auto flex h-20 w-20 items-center justify-center">
-                      <span className="absolute top-0 left-0 h-3 w-3 border-t border-l border-[#95836B]" />
-                      <span className="absolute top-0 right-0 h-3 w-3 border-t border-r border-[#95836B]" />
-                      <span className="absolute bottom-0 left-0 h-3 w-3 border-b border-l border-[#95836B]" />
-                      <span className="absolute right-0 bottom-0 h-3 w-3 border-r border-b border-[#95836B]" />
-                      <span className="h-1 w-1 rounded-full bg-[#95836B]/80" />
+                      <span className="absolute top-0 left-0 h-3 w-3 border-t border-l border-[#8E8A80]" />
+                      <span className="absolute top-0 right-0 h-3 w-3 border-t border-r border-[#8E8A80]" />
+                      <span className="absolute bottom-0 left-0 h-3 w-3 border-b border-l border-[#8E8A80]" />
+                      <span className="absolute right-0 bottom-0 h-3 w-3 border-r border-b border-[#8E8A80]" />
+                      <span className="h-1 w-1 rounded-full bg-[#8E8A80]/80" />
                     </div>
 
                     {/* Bottom Viewfinder Caption & EXIF */}
-                    <div className="space-y-1 bg-[#101112]/80 p-3.5 backdrop-blur-md border border-[#1D2021]">
-                      <div className="flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.22em] text-[#95836B]">
+                    <div className="space-y-1 bg-[#0B0C0E]/80 p-3.5 backdrop-blur-md border border-[#202226]">
+                      <div className="flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.22em] text-[#8E8A80]">
                         <span>{currentSlide.location}</span>
                         <span>[32.5 MP]</span>
                       </div>
-                      <p className="font-serif text-xl text-[#D8D5CD]">
+                      <p className="font-serif text-xl text-[#EBE7DF]">
                         {currentSlide.title}
                       </p>
                       <p className="font-mono text-[10px] tracking-wider text-neutral-400">
@@ -416,9 +416,9 @@ export default function AboutInteractiveStudio() {
               </div>
 
               {/* Floating Secondary Diptych Detail Card */}
-              <div className="mt-4 flex items-center justify-between gap-4 border border-[#1D2021] bg-[#141617]/90 p-3.5 backdrop-blur-md">
+              <div className="mt-4 flex items-center justify-between gap-4 border border-[#202226] bg-[#151618]/90 p-3.5 backdrop-blur-md">
                 <div className="flex items-center gap-3.5">
-                  <div className="relative h-14 w-20 shrink-0 overflow-hidden border border-[#1D2021] bg-[#101112]">
+                  <div className="relative h-14 w-20 shrink-0 overflow-hidden border border-[#202226] bg-[#0B0C0E]">
                     <Image
                       key={currentSlide.secondaryImage}
                       src={currentSlide.secondaryImage}
@@ -429,10 +429,10 @@ export default function AboutInteractiveStudio() {
                     />
                   </div>
                   <div>
-                    <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#95836B]">
+                    <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#8E8A80]">
                       Plano Complementario
                     </span>
-                    <p className="font-serif text-base text-[#D8D5CD]">
+                    <p className="font-serif text-base text-[#EBE7DF]">
                       {currentSlide.secondaryCaption}
                     </p>
                   </div>
@@ -449,7 +449,7 @@ export default function AboutInteractiveStudio() {
       {/* =====================================================================
           2. ARCHITECTURAL ARCHIVE METRICS STRIP
       ===================================================================== */}
-      <section className="grid grid-cols-2 border-y border-[#1D2021] bg-[#0D0E0F]/80 sm:grid-cols-5">
+      <section className="grid grid-cols-2 border-y border-[#202226] bg-[#0D0E0F]/80 sm:grid-cols-5">
         {[
           { value: "100", label: "Obras Catalogadas", sub: "Edición Verificada" },
           { value: "08", label: "Series Narrativas", sub: "Ensayos de Campo" },
@@ -460,13 +460,13 @@ export default function AboutInteractiveStudio() {
           <div
             key={stat.label}
             className={`p-6 sm:p-8 ${
-              i !== 0 ? "border-l border-[#1D2021]" : ""
-            } ${i >= 2 ? "border-t border-[#1D2021] sm:border-t-0" : ""}`}
+              i !== 0 ? "border-l border-[#202226]" : ""
+            } ${i >= 2 ? "border-t border-[#202226] sm:border-t-0" : ""}`}
           >
-            <p className="font-serif text-3xl font-light text-[#D8D5CD] sm:text-4xl">
+            <p className="font-serif text-3xl font-light text-[#EBE7DF] sm:text-4xl">
               {stat.value}
             </p>
-            <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.24em] text-[#95836B]">
+            <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.24em] text-[#8E8A80]">
               {stat.label}
             </p>
             <p className="mt-1 text-[11px] text-neutral-500">{stat.sub}</p>
@@ -478,16 +478,16 @@ export default function AboutInteractiveStudio() {
           3. INTERACTIVE EXPANDING GALLERY CURTAIN: LAS CUATRO MIRADAS
       ===================================================================== */}
       <section>
-        <div className="flex flex-col justify-between gap-4 border-b border-[#1D2021] pb-6 sm:flex-row sm:items-end">
+        <div className="flex flex-col justify-between gap-4 border-b border-[#202226] pb-6 sm:flex-row sm:items-end">
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#95836B]">
+            <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
               Territorios de Práctica
             </p>
-            <h2 className="mt-2 font-serif text-3xl font-light text-[#D8D5CD] sm:text-5xl">
+            <h2 className="mt-2 font-serif text-3xl font-light text-[#EBE7DF] sm:text-5xl">
               Las cuatro miradas del archivo
             </h2>
           </div>
-          <p className="font-mono text-[11px] text-[#95836B]">
+          <p className="font-mono text-[11px] text-[#8E8A80]">
             Pasa el cursor o selecciona cada disciplina para desplegar su enfoque →
           </p>
         </div>
@@ -503,8 +503,8 @@ export default function AboutInteractiveStudio() {
                 onClick={() => setActiveDiscipline(idx)}
                 className={`group relative cursor-pointer overflow-hidden border transition-all duration-500 ease-out ${
                   isExpanded
-                    ? "min-h-[380px] border-[#95836B]/80 lg:flex-[2.7]"
-                    : "min-h-[130px] border-[#1D2021] opacity-80 hover:opacity-100 lg:flex-1"
+                    ? "min-h-[380px] border-[#8E8A80]/80 lg:flex-[2.7]"
+                    : "min-h-[130px] border-[#202226] opacity-80 hover:opacity-100 lg:flex-1"
                 }`}
               >
                 <Image
@@ -527,36 +527,36 @@ export default function AboutInteractiveStudio() {
                 <div className="relative flex h-full flex-col justify-between p-6 sm:p-8">
                   {/* Top Bar */}
                   <div className="flex items-center justify-between">
-                    <span className="font-serif text-2xl italic text-[#95836B] sm:text-3xl">
+                    <span className="font-serif text-2xl italic text-[#8E8A80] sm:text-3xl">
                       {item.roman}.
                     </span>
-                    <span className="border border-[#1D2021] bg-[#101112]/80 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.22em] text-[#D8D5CD]">
+                    <span className="border border-[#202226] bg-[#0B0C0E]/80 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.22em] text-[#EBE7DF]">
                       {item.code}
                     </span>
                   </div>
 
                   {/* Bottom Content */}
                   <div className="mt-8">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
                       {item.subtitle}
                     </p>
-                    <h3 className="mt-1 font-serif text-2xl text-[#D8D5CD] sm:text-3xl">
+                    <h3 className="mt-1 font-serif text-2xl text-[#EBE7DF] sm:text-3xl">
                       {item.title}
                     </h3>
 
                     {isExpanded && (
                       <div className="mt-4 space-y-4">
-                        <p className="max-w-xl text-sm font-light leading-relaxed text-[#D8D5CD]/85">
+                        <p className="max-w-xl text-sm font-light leading-relaxed text-[#EBE7DF]/85">
                           {item.description}
                         </p>
-                        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[#D8D5CD]/15 pt-4">
-                          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#95836B]">
+                        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[#EBE7DF]/15 pt-4">
+                          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#8E8A80]">
                             {item.telemetry}
                           </span>
                           <Link
                             href={item.href}
                             onClick={(e) => e.stopPropagation()}
-                            className="inline-flex items-center gap-2 border border-[#D8D5CD] bg-[#D8D5CD] px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#101112] transition hover:bg-transparent hover:text-white"
+                            className="inline-flex items-center gap-2 border border-[#EBE7DF] bg-[#EBE7DF] px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
                           >
                             <span>Ver Obras</span>
                             <span>→</span>
@@ -575,13 +575,13 @@ export default function AboutInteractiveStudio() {
       {/* =====================================================================
           4. INTERACTIVE OPTICAL BENCH (SISTEMA CANON EOS R7 & ÓPTICAS)
       ===================================================================== */}
-      <section className="border-t border-[#1D2021] pt-20">
-        <div className="flex flex-col justify-between gap-4 border-b border-[#1D2021] pb-6 sm:flex-row sm:items-end">
+      <section className="border-t border-[#202226] pt-20">
+        <div className="flex flex-col justify-between gap-4 border-b border-[#202226] pb-6 sm:flex-row sm:items-end">
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#95836B]">
+            <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
               Ingeniería & Transparencia EXIF
             </p>
-            <h2 className="mt-2 font-serif text-3xl font-light text-[#D8D5CD] sm:text-5xl">
+            <h2 className="mt-2 font-serif text-3xl font-light text-[#EBE7DF] sm:text-5xl">
               Laboratorio óptico de campo
             </h2>
           </div>
@@ -602,15 +602,15 @@ export default function AboutInteractiveStudio() {
                   onClick={() => setActiveGearId(gear.id)}
                   className={`group relative border p-5 text-left transition-all duration-300 ${
                     active
-                      ? "border-[#95836B] bg-[#1D2021]/70 text-white"
-                      : "border-[#1D2021] bg-[#141617]/40 text-[#D8D5CD]/75 hover:border-[#95836B]/50 hover:bg-[#1D2021]/30"
+                      ? "border-[#8E8A80] bg-[#202226]/70 text-white"
+                      : "border-[#202226] bg-[#151618]/40 text-[#EBE7DF]/75 hover:border-[#8E8A80]/50 hover:bg-[#202226]/30"
                   }`}
                 >
-                  <div className="flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.26em] text-[#95836B]">
+                  <div className="flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.26em] text-[#8E8A80]">
                     <span>{gear.tag}</span>
                     <span>{gear.focalRange}</span>
                   </div>
-                  <h3 className="mt-2 font-serif text-xl text-[#D8D5CD] group-hover:text-white">
+                  <h3 className="mt-2 font-serif text-xl text-[#EBE7DF] group-hover:text-white">
                     {gear.name}
                   </h3>
                   <p className="mt-1 font-mono text-[10px] text-neutral-400">
@@ -622,23 +622,23 @@ export default function AboutInteractiveStudio() {
           </div>
 
           {/* Right Live Optical Inspector Panel */}
-          <div className="flex flex-col justify-between border border-[#1D2021] bg-[#141617]/40 p-6 sm:p-9 lg:col-span-7">
+          <div className="flex flex-col justify-between border border-[#202226] bg-[#151618]/40 p-6 sm:p-9 lg:col-span-7">
             <div>
-              <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#1D2021] pb-5">
+              <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#202226] pb-5">
                 <div>
-                  <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#95836B]">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#8E8A80]">
                     {currentGear.tag}
                   </span>
-                  <h3 className="mt-1 font-serif text-2xl text-[#D8D5CD] sm:text-3xl">
+                  <h3 className="mt-1 font-serif text-2xl text-[#EBE7DF] sm:text-3xl">
                     {currentGear.name}
                   </h3>
                 </div>
 
                 {/* Live Optical Cone SVG Diagram */}
-                <div className="flex items-center gap-3 border border-[#1D2021] bg-[#101112] px-4 py-2">
+                <div className="flex items-center gap-3 border border-[#202226] bg-[#0B0C0E] px-4 py-2">
                   <svg
                     viewBox="0 0 80 44"
-                    className="h-9 w-16 text-[#95836B]"
+                    className="h-9 w-16 text-[#8E8A80]"
                     aria-hidden="true"
                   >
                     {/* Sensor origin */}
@@ -649,7 +649,7 @@ export default function AboutInteractiveStudio() {
                       y1="22"
                       x2="74"
                       y2="4"
-                      stroke="#1D2021"
+                      stroke="#202226"
                       strokeWidth="1"
                       strokeDasharray="2 2"
                     />
@@ -658,7 +658,7 @@ export default function AboutInteractiveStudio() {
                       y1="22"
                       x2="74"
                       y2="40"
-                      stroke="#1D2021"
+                      stroke="#202226"
                       strokeWidth="1"
                       strokeDasharray="2 2"
                     />
@@ -699,18 +699,18 @@ export default function AboutInteractiveStudio() {
                   </svg>
                   <div className="font-mono text-[9px] uppercase tracking-wider">
                     <span className="block text-neutral-500">Cono Óptico</span>
-                    <span className="text-[#D8D5CD]">
+                    <span className="text-[#EBE7DF]">
                       ~{currentGear.angleDeg}° FOV
                     </span>
                   </div>
                 </div>
               </div>
 
-              <p className="mt-5 text-sm font-light leading-relaxed text-[#D8D5CD]/85 sm:text-base">
+              <p className="mt-5 text-sm font-light leading-relaxed text-[#EBE7DF]/85 sm:text-base">
                 {currentGear.role}
               </p>
 
-              <ul className="mt-5 space-y-2.5 border-l border-[#95836B]/50 pl-4 text-xs font-light text-[#D8D5CD]/80">
+              <ul className="mt-5 space-y-2.5 border-l border-[#8E8A80]/50 pl-4 text-xs font-light text-[#EBE7DF]/80">
                 {currentGear.highlights.map((h) => (
                   <li key={h} className="leading-relaxed">
                     {h}
@@ -720,8 +720,8 @@ export default function AboutInteractiveStudio() {
             </div>
 
             {/* 3 Real Works Captured With This Gear */}
-            <div className="mt-8 border-t border-[#1D2021] pt-6">
-              <div className="mb-3 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
+            <div className="mt-8 border-t border-[#202226] pt-6">
+              <div className="mb-3 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
                 <span>Obras Reales Capturadas con este Sistema</span>
                 <Link
                   href="/portfolio"
@@ -735,7 +735,7 @@ export default function AboutInteractiveStudio() {
                   <Link
                     key={photo.id}
                     href={`/portfolio/${photo.slug}`}
-                    className="group relative block overflow-hidden border border-[#1D2021] bg-[#101112]"
+                    className="group relative block overflow-hidden border border-[#202226] bg-[#0B0C0E]"
                   >
                     <div className="relative aspect-[4/3] w-full">
                       <Image
@@ -747,10 +747,10 @@ export default function AboutInteractiveStudio() {
                       />
                     </div>
                     <div className="p-2.5">
-                      <p className="truncate font-serif text-sm text-[#D8D5CD] group-hover:text-white">
+                      <p className="truncate font-serif text-sm text-[#EBE7DF] group-hover:text-white">
                         {photo.title}
                       </p>
-                      <p className="font-mono text-[9px] text-[#95836B]">
+                      <p className="font-mono text-[9px] text-[#8E8A80]">
                         {photo.focalLength} · {photo.aperture} · {photo.shutter}
                       </p>
                     </div>
@@ -765,17 +765,17 @@ export default function AboutInteractiveStudio() {
       {/* =====================================================================
           5. OFFICIAL INTERNATIONAL PLATFORMS & ETHICAL PILLARS
       ===================================================================== */}
-      <section className="grid grid-cols-1 gap-12 border-t border-[#1D2021] pt-20 lg:grid-cols-12">
+      <section className="grid grid-cols-1 gap-12 border-t border-[#202226] pt-20 lg:grid-cols-12">
         {/* Left: Ethical Manifesto in Numbered Editorial Format */}
         <div className="lg:col-span-6">
-          <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#95836B]">
+          <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
             Código Deontológico
           </p>
-          <h2 className="mt-2 font-serif text-3xl font-light text-[#D8D5CD] sm:text-4xl">
+          <h2 className="mt-2 font-serif text-3xl font-light text-[#EBE7DF] sm:text-4xl">
             Tres principios innegociables
           </h2>
 
-          <div className="mt-8 divide-y divide-[#1D2021] border-y border-[#1D2021]">
+          <div className="mt-8 divide-y divide-[#202226] border-y border-[#202226]">
             {[
               {
                 num: "01",
@@ -794,14 +794,14 @@ export default function AboutInteractiveStudio() {
               },
             ].map((pillar) => (
               <div key={pillar.num} className="flex gap-5 py-6">
-                <span className="font-mono text-xs text-[#95836B]">
+                <span className="font-mono text-xs text-[#8E8A80]">
                   /{pillar.num}
                 </span>
                 <div>
-                  <h3 className="font-serif text-xl text-[#D8D5CD]">
+                  <h3 className="font-serif text-xl text-[#EBE7DF]">
                     {pillar.title}
                   </h3>
-                  <p className="mt-2 text-xs font-light leading-relaxed text-[#D8D5CD]/75 sm:text-sm">
+                  <p className="mt-2 text-xs font-light leading-relaxed text-[#EBE7DF]/75 sm:text-sm">
                     {pillar.desc}
                   </p>
                 </div>
@@ -812,10 +812,10 @@ export default function AboutInteractiveStudio() {
 
         {/* Right: Official International Representation Cards */}
         <div className="lg:col-span-6">
-          <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#95836B]">
+          <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
             Presencia & Adquisición Global
           </p>
-          <h2 className="mt-2 font-serif text-3xl font-light text-[#D8D5CD] sm:text-4xl">
+          <h2 className="mt-2 font-serif text-3xl font-light text-[#EBE7DF] sm:text-4xl">
             Plataformas oficiales verificadas
           </h2>
 
@@ -851,26 +851,26 @@ export default function AboutInteractiveStudio() {
                 href={plat.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative block overflow-hidden border border-[#1D2021] bg-[#141617]/50 p-6 transition-all duration-300 hover:border-[#95836B] hover:bg-[#1D2021]/60"
+                className="group relative block overflow-hidden border border-[#202226] bg-[#151618]/50 p-6 transition-all duration-300 hover:border-[#8E8A80] hover:bg-[#202226]/60"
               >
-                <div className="flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.26em] text-[#95836B]">
+                <div className="flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.26em] text-[#8E8A80]">
                   <span>{plat.badge}</span>
                   <span className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5">
                     ↗
                   </span>
                 </div>
                 <div className="mt-2 flex flex-wrap items-baseline justify-between gap-2">
-                  <h3 className="font-serif text-2xl text-[#D8D5CD] group-hover:text-white">
+                  <h3 className="font-serif text-2xl text-[#EBE7DF] group-hover:text-white">
                     {plat.title}
                   </h3>
                   <span className="font-mono text-[10px] text-neutral-500">
                     {plat.subtitle}
                   </span>
                 </div>
-                <p className="mt-2.5 text-xs font-light leading-relaxed text-[#D8D5CD]/75">
+                <p className="mt-2.5 text-xs font-light leading-relaxed text-[#EBE7DF]/75">
                   {plat.desc}
                 </p>
-                <span className="mt-4 inline-block font-mono text-[10px] uppercase tracking-[0.22em] text-[#D8D5CD] underline decoration-[#95836B]/60 underline-offset-4 group-hover:text-white">
+                <span className="mt-4 inline-block font-mono text-[10px] uppercase tracking-[0.22em] text-[#EBE7DF] underline decoration-[#8E8A80]/60 underline-offset-4 group-hover:text-white">
                   {plat.cta}
                 </span>
               </a>
@@ -882,16 +882,16 @@ export default function AboutInteractiveStudio() {
       {/* =====================================================================
           6. CLOSING COMMISSION & COLLECTOR BANNER
       ===================================================================== */}
-      <section className="relative overflow-hidden border border-[#1D2021] bg-[#141617]/40 p-8 sm:p-14">
+      <section className="relative overflow-hidden border border-[#202226] bg-[#151618]/40 p-8 sm:p-14">
         <div className="relative z-10 flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
           <div className="max-w-2xl">
-            <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#95836B]">
+            <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#8E8A80]">
               Contacto Directo & Comisiones
             </p>
-            <h2 className="mt-2 font-serif text-3xl font-light text-[#D8D5CD] sm:text-4xl">
+            <h2 className="mt-2 font-serif text-3xl font-light text-[#EBE7DF] sm:text-4xl">
               ¿Deseas encargar un reportaje, licenciar una imagen o adquirir obra firmada?
             </h2>
-            <p className="mt-3 text-sm font-light leading-relaxed text-[#D8D5CD]/80">
+            <p className="mt-3 text-sm font-light leading-relaxed text-[#EBE7DF]/80">
               Disponible para proyectos editoriales, cobertura de eventos de automoción,
               arquitectura e impresiones Fine Art a medida en España e internacionalmente.
             </p>
@@ -900,13 +900,13 @@ export default function AboutInteractiveStudio() {
           <div className="flex flex-wrap gap-4">
             <Link
               href="/contact"
-              className="inline-flex border border-[#D8D5CD] bg-[#D8D5CD] px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.28em] text-[#101112] transition hover:bg-transparent hover:text-white"
+              className="inline-flex border border-[#EBE7DF] bg-[#EBE7DF] px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.28em] text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
             >
               Iniciar Conversación
             </Link>
             <Link
               href="/prints"
-              className="inline-flex border border-[#1D2021] bg-[#101112] px-7 py-3.5 text-xs uppercase tracking-[0.25em] text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
+              className="inline-flex border border-[#202226] bg-[#0B0C0E] px-7 py-3.5 text-xs uppercase tracking-[0.25em] text-[#EBE7DF] transition hover:border-[#8E8A80] hover:text-white"
             >
               Simulador Fine Art
             </Link>

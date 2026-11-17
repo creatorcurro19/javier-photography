@@ -38,8 +38,8 @@ export default function BwToggle() {
       aria-label={isBw ? "Activar modo color" : "Activar modo monocromo Fine Art"}
       className={`group relative flex items-center gap-1.5 border px-2.5 py-1.5 font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.24em] transition-all duration-300 ${
         isBw
-          ? "border-[#D8D5CD] bg-[#D8D5CD] text-[#101112] font-semibold"
-          : "border-[#1D2021] bg-[#141617]/70 text-neutral-400 hover:border-[#95836B]/70 hover:text-white"
+          ? "border-[#EBE7DF] bg-[#EBE7DF] text-[#0B0C0E] font-semibold"
+          : "border-[#202226] bg-[#151618]/70 text-neutral-400 hover:border-[#8E8A80]/70 hover:text-white"
       }`}
     >
       {/* Dual Yin-Yang Circle Indicator */}
@@ -47,8 +47,8 @@ export default function BwToggle() {
         aria-hidden="true"
         className={`relative inline-block h-3 w-3 sm:h-3.5 sm:w-3.5 rounded-full border transition-transform duration-300 ${
           isBw
-            ? "border-[#101112] bg-gradient-to-r from-black to-white"
-            : "border-[#95836B]/60 bg-gradient-to-r from-[#95836B] to-[#D8D5CD]"
+            ? "border-[#0B0C0E] bg-gradient-to-r from-black to-white"
+            : "border-[#8E8A80]/60 bg-gradient-to-r from-[#8E8A80] to-[#EBE7DF]"
         }`}
       />
       <span className="hidden sm:inline">{isBw ? "B&W" : "Color"}</span>

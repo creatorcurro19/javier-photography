@@ -81,13 +81,13 @@ export default function CommissionConfigurator() {
   };
 
   return (
-    <section className="mt-20 border border-[#1D2021] bg-[#141617]/50 p-6 sm:p-10 lg:p-12">
-      <div className="flex flex-col justify-between gap-4 border-b border-[#1D2021] pb-6 sm:flex-row sm:items-end">
+    <section className="mt-20 border border-[#202226] bg-[#151618]/50 p-6 sm:p-10 lg:p-12">
+      <div className="flex flex-col justify-between gap-4 border-b border-[#202226] pb-6 sm:flex-row sm:items-end">
         <div>
-          <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#95836B]">
+          <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
             Planificador Interactivo de Proyecto
           </p>
-          <h2 className="mt-2 font-serif text-3xl font-light text-[#D8D5CD] sm:text-4xl">
+          <h2 className="mt-2 font-serif text-3xl font-light text-[#EBE7DF] sm:text-4xl">
             Configura el alcance de tu encargo
           </h2>
         </div>
@@ -101,7 +101,7 @@ export default function CommissionConfigurator() {
         <div className="space-y-8 lg:col-span-7">
           {/* Step 1 */}
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#95836B]">
+            <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#8E8A80]">
               01 · Selecciona la Disciplina del Encargo
             </p>
             <div className="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
@@ -114,11 +114,11 @@ export default function CommissionConfigurator() {
                     onClick={() => setSelectedScope(scope.id)}
                     className={`border p-4 text-left transition-all ${
                       active
-                        ? "border-[#95836B] bg-[#1D2021]/90 text-white"
-                        : "border-[#1D2021] bg-[#101112]/70 text-[#D8D5CD]/75 hover:border-[#95836B]/50"
+                        ? "border-[#8E8A80] bg-[#202226]/90 text-white"
+                        : "border-[#202226] bg-[#0B0C0E]/70 text-[#EBE7DF]/75 hover:border-[#8E8A80]/50"
                     }`}
                   >
-                    <p className="font-serif text-lg text-[#D8D5CD]">
+                    <p className="font-serif text-lg text-[#EBE7DF]">
                       {scope.label}
                     </p>
                     <p className="mt-1 line-clamp-1 font-mono text-[10px] text-neutral-400">
@@ -132,7 +132,7 @@ export default function CommissionConfigurator() {
 
           {/* Step 2 */}
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#95836B]">
+            <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#8E8A80]">
               02 · Duración o Escala de Producción
             </p>
             <div className="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-3">
@@ -145,11 +145,11 @@ export default function CommissionConfigurator() {
                     onClick={() => setSelectedDuration(dur.id)}
                     className={`border p-3.5 text-left transition-all ${
                       active
-                        ? "border-[#95836B] bg-[#1D2021]/90 text-white"
-                        : "border-[#1D2021] bg-[#101112]/70 text-[#D8D5CD]/75 hover:border-[#95836B]/50"
+                        ? "border-[#8E8A80] bg-[#202226]/90 text-white"
+                        : "border-[#202226] bg-[#0B0C0E]/70 text-[#EBE7DF]/75 hover:border-[#8E8A80]/50"
                     }`}
                   >
-                    <p className="font-serif text-base text-[#D8D5CD]">
+                    <p className="font-serif text-base text-[#EBE7DF]">
                       {dur.label}
                     </p>
                     <p className="mt-0.5 font-mono text-[10px] text-neutral-400">
@@ -163,7 +163,7 @@ export default function CommissionConfigurator() {
 
           {/* Step 3 */}
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#95836B]">
+            <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#8E8A80]">
               03 · Entregables y Licencias Requeridas
             </p>
             <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -176,15 +176,15 @@ export default function CommissionConfigurator() {
                     onClick={() => toggleDeliverable(item)}
                     className={`flex items-center gap-3 border px-3.5 py-2.5 text-left text-xs transition ${
                       checked
-                        ? "border-[#95836B]/80 bg-[#95836B]/15 text-[#D8D5CD]"
-                        : "border-[#1D2021] bg-[#101112]/60 text-neutral-400 hover:border-[#95836B]/40"
+                        ? "border-[#8E8A80]/80 bg-[#8E8A80]/15 text-[#EBE7DF]"
+                        : "border-[#202226] bg-[#0B0C0E]/60 text-neutral-400 hover:border-[#8E8A80]/40"
                     }`}
                   >
                     <span
                       className={`flex h-4 w-4 shrink-0 items-center justify-center border text-[10px] ${
                         checked
-                          ? "border-[#95836B] bg-[#95836B] text-[#101112]"
-                          : "border-[#1D2021]"
+                          ? "border-[#8E8A80] bg-[#8E8A80] text-[#0B0C0E]"
+                          : "border-[#202226]"
                       }`}
                     >
                       {checked ? "✓" : ""}
@@ -198,41 +198,41 @@ export default function CommissionConfigurator() {
         </div>
 
         {/* Right: Live Technical Specification Sheet (5 cols) */}
-        <div className="flex flex-col justify-between border border-[#1D2021] bg-[#101112] p-6 sm:p-8 lg:col-span-5">
+        <div className="flex flex-col justify-between border border-[#202226] bg-[#0B0C0E] p-6 sm:p-8 lg:col-span-5">
           <div>
-            <div className="flex items-center justify-between border-b border-[#1D2021] pb-3 font-mono text-[10px] uppercase tracking-[0.26em] text-[#95836B]">
+            <div className="flex items-center justify-between border-b border-[#202226] pb-3 font-mono text-[10px] uppercase tracking-[0.26em] text-[#8E8A80]">
               <span>Ficha de Producción</span>
               <span>EOS R7 SYSTEM</span>
             </div>
 
-            <h3 className="mt-5 font-serif text-2xl text-[#D8D5CD]">
+            <h3 className="mt-5 font-serif text-2xl text-[#EBE7DF]">
               {currentScope.label}
             </h3>
-            <p className="mt-2 text-xs font-light leading-relaxed text-[#D8D5CD]/75">
+            <p className="mt-2 text-xs font-light leading-relaxed text-[#EBE7DF]/75">
               {currentScope.summary}
             </p>
 
-            <div className="mt-6 space-y-3 border-t border-[#1D2021] pt-5 font-mono text-xs">
+            <div className="mt-6 space-y-3 border-t border-[#202226] pt-5 font-mono text-xs">
               <div>
-                <span className="block text-[9px] uppercase tracking-[0.22em] text-[#95836B]">
+                <span className="block text-[9px] uppercase tracking-[0.22em] text-[#8E8A80]">
                   Despliegue Óptico Previsto
                 </span>
-                <span className="text-[#D8D5CD]">{currentScope.opticalKit}</span>
+                <span className="text-[#EBE7DF]">{currentScope.opticalKit}</span>
               </div>
               <div>
-                <span className="block text-[9px] uppercase tracking-[0.22em] text-[#95836B]">
+                <span className="block text-[9px] uppercase tracking-[0.22em] text-[#8E8A80]">
                   Escala Temporal
                 </span>
-                <span className="text-[#D8D5CD]">{selectedDuration}</span>
+                <span className="text-[#EBE7DF]">{selectedDuration}</span>
               </div>
               <div>
-                <span className="block text-[9px] uppercase tracking-[0.22em] text-[#95836B]">
+                <span className="block text-[9px] uppercase tracking-[0.22em] text-[#8E8A80]">
                   Plazo de Entrega Estimado
                 </span>
-                <span className="text-[#D8D5CD]">{currentScope.turnaround}</span>
+                <span className="text-[#EBE7DF]">{currentScope.turnaround}</span>
               </div>
               <div>
-                <span className="block text-[9px] uppercase tracking-[0.22em] text-[#95836B]">
+                <span className="block text-[9px] uppercase tracking-[0.22em] text-[#8E8A80]">
                   Entregables Seleccionados ({selectedDeliverables.length})
                 </span>
                 <span className="text-[11px] text-neutral-300">
@@ -242,11 +242,11 @@ export default function CommissionConfigurator() {
             </div>
           </div>
 
-          <div className="mt-8 border-t border-[#1D2021] pt-5">
+          <div className="mt-8 border-t border-[#202226] pt-5">
             <button
               type="button"
               onClick={handleLaunchBrief}
-              className="w-full border border-[#D8D5CD] bg-[#D8D5CD] px-6 py-3.5 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-[#101112] transition hover:bg-transparent hover:text-white"
+              className="w-full border border-[#EBE7DF] bg-[#EBE7DF] px-6 py-3.5 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
             >
               Solicitar Presupuesto con esta Ficha →
             </button>

@@ -59,14 +59,14 @@ export default function OpticalLoupeInspector() {
   return (
     <section
       aria-labelledby="loupe-heading"
-      className="mt-24 rounded-xl border border-[#1D2021] bg-[#1D2021]/25 p-6 sm:p-10 lg:p-12"
+      className="mt-24 rounded-xl border border-[#202226] bg-[#202226]/25 p-6 sm:p-10 lg:p-12"
     >
-      <div className="flex flex-col justify-between gap-4 border-b border-[#1D2021] pb-6 lg:flex-row lg:items-end">
+      <div className="flex flex-col justify-between gap-4 border-b border-[#202226] pb-6 lg:flex-row lg:items-end">
         <div>
-          <p className="text-xs uppercase tracking-[0.35em] text-[#95836B]">
+          <p className="text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
             Control de Calidad Museística · 32,5 Megapíxeles
           </p>
-          <h2 id="loupe-heading" className="mt-2 font-serif text-3xl font-light text-[#D8D5CD]">
+          <h2 id="loupe-heading" className="mt-2 font-serif text-3xl font-light text-[#EBE7DF]">
             Inspector de Detalle Óptico (Lupa 300% para Gran Formato)
           </h2>
         </div>
@@ -82,8 +82,8 @@ export default function OpticalLoupeInspector() {
               }}
               className={`shrink-0 rounded-full px-3.5 py-1.5 text-[11px] uppercase tracking-wider transition ${
                 selected.id === item.id
-                  ? "bg-[#D8D5CD] text-[#101112] font-medium"
-                  : "border border-[#1D2021] bg-[#101112] text-[#D8D5CD]/80 hover:border-[#95836B]"
+                  ? "bg-[#EBE7DF] text-[#0B0C0E] font-medium"
+                  : "border border-[#202226] bg-[#0B0C0E] text-[#EBE7DF]/80 hover:border-[#8E8A80]"
               }`}
             >
               {item.title}
@@ -102,7 +102,7 @@ export default function OpticalLoupeInspector() {
           onMouseMove={handleMouseMove}
           onTouchStart={handleTouchMove}
           onTouchMove={handleTouchMove}
-          className="relative aspect-[3/2] w-full cursor-crosshair overflow-hidden rounded-lg border border-[#1D2021] bg-[#101112] select-none touch-none lg:col-span-7"
+          className="relative aspect-[3/2] w-full cursor-crosshair overflow-hidden rounded-lg border border-[#202226] bg-[#0B0C0E] select-none touch-none lg:col-span-7"
         >
           <Image
             src={selected.image}
@@ -117,16 +117,16 @@ export default function OpticalLoupeInspector() {
               left: `${zoomPos.x}%`,
               top: `${zoomPos.y}%`,
             }}
-            className="pointer-events-none absolute h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#D8D5CD] bg-white/10 shadow-[0_0_30px_rgba(0,0,0,0.8)] backdrop-blur-[1px]"
+            className="pointer-events-none absolute h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#EBE7DF] bg-white/10 shadow-[0_0_30px_rgba(0,0,0,0.8)] backdrop-blur-[1px]"
           />
-          <span className="absolute bottom-3 left-3 rounded bg-[#101112]/85 px-3 py-1 text-[10px] uppercase tracking-widest text-[#D8D5CD] border border-[#1D2021]">
+          <span className="absolute bottom-3 left-3 rounded bg-[#0B0C0E]/85 px-3 py-1 text-[10px] uppercase tracking-widest text-[#EBE7DF] border border-[#202226]">
             Encuadre Completo · Deslice para inspeccionar
           </span>
         </div>
 
         {/* Vista Ampliada 300% (5 cols) */}
         <div className="flex flex-col justify-between lg:col-span-5 space-y-4">
-          <div className="relative aspect-square w-full overflow-hidden rounded-lg border border-[#95836B]/50 bg-[#101112] shadow-2xl">
+          <div className="relative aspect-square w-full overflow-hidden rounded-lg border border-[#8E8A80]/50 bg-[#0B0C0E] shadow-2xl">
             <div
               style={{
                 backgroundImage: `url(${selected.image})`,
@@ -135,16 +135,16 @@ export default function OpticalLoupeInspector() {
               }}
               className="h-full w-full bg-no-repeat transition-[background-position] duration-75"
             />
-            <div className="absolute top-3 left-3 rounded bg-[#101112]/90 px-3 py-1 text-[10px] uppercase tracking-widest text-[#95836B] border border-[#1D2021]">
+            <div className="absolute top-3 left-3 rounded bg-[#0B0C0E]/90 px-3 py-1 text-[10px] uppercase tracking-widest text-[#8E8A80] border border-[#202226]">
               Ampliación Óptica 3.2× (Detalle en 70×100 cm)
             </div>
           </div>
 
-          <div className="rounded-lg border border-[#1D2021] bg-[#101112] p-4">
-            <p className="text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
+          <div className="rounded-lg border border-[#202226] bg-[#0B0C0E] p-4">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
               {selected.specs}
             </p>
-            <p className="mt-1.5 text-xs leading-relaxed text-[#D8D5CD]/85 font-light">
+            <p className="mt-1.5 text-xs leading-relaxed text-[#EBE7DF]/85 font-light">
               {selected.note}
             </p>
           </div>

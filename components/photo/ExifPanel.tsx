@@ -61,21 +61,21 @@ export default function ExifPanel({ photo }: ExifPanelProps) {
   return (
     <section
       aria-labelledby="exif-heading"
-      className="rounded-lg border border-[#1D2021] bg-[#1D2021]/30 p-7 sm:p-8"
+      className="rounded-lg border border-[#202226] bg-[#202226]/30 p-7 sm:p-8"
     >
       <h2
         id="exif-heading"
-        className="text-[11px] font-mono uppercase tracking-[0.3em] text-[#95836B]"
+        className="text-[11px] font-mono uppercase tracking-[0.3em] text-[#8E8A80]"
       >
         Parámetros de Disparo (EXIF)
       </h2>
       <dl className="mt-6 grid grid-cols-2 gap-x-8 gap-y-6">
         {items.map((item) => (
-          <div key={item.label} className="border-l border-[#1D2021] pl-4">
-            <dt className="text-[11px] font-mono uppercase tracking-[0.15em] text-[#95836B]">
+          <div key={item.label} className="border-l border-[#202226] pl-4">
+            <dt className="text-[11px] font-mono uppercase tracking-[0.15em] text-[#8E8A80]">
               {item.label}
             </dt>
-            <dd className="mt-1.5 font-mono text-base font-light text-[#D8D5CD]">
+            <dd className="mt-1.5 font-mono text-base font-light text-[#EBE7DF]">
               {item.value}
             </dd>
           </div>
@@ -83,27 +83,27 @@ export default function ExifPanel({ photo }: ExifPanelProps) {
       </dl>
 
       {/* Esquema visual del espectro óptico (10mm Ultra Angular a 600mm Superteleobjetivo) */}
-      <div className="mt-7 border-t border-[#1D2021] pt-5">
-        <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-[#95836B]">
+      <div className="mt-7 border-t border-[#202226] pt-5">
+        <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-[#8E8A80]">
           <span>10mm · Gran Angular</span>
-          <span className="text-[#D8D5CD] font-medium">Óptica: {photo.focalLength}</span>
+          <span className="text-[#EBE7DF] font-medium">Óptica: {photo.focalLength}</span>
           <span>600mm · Superteleobjetivo</span>
         </div>
-        <div className="relative mt-2.5 h-1.5 w-full rounded-full bg-[#101112] border border-[#1D2021]">
+        <div className="relative mt-2.5 h-1.5 w-full rounded-full bg-[#0B0C0E] border border-[#202226]">
           <div
             style={{ width: `${focalPct}%` }}
-            className="h-full rounded-full bg-gradient-to-r from-[#95836B]/40 to-[#D8D5CD]"
+            className="h-full rounded-full bg-gradient-to-r from-[#8E8A80]/40 to-[#EBE7DF]"
           />
           <span
             style={{ left: `${focalPct}%` }}
-            className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 h-3 w-3 rounded-full border-2 border-[#101112] bg-[#D8D5CD] shadow"
+            className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 h-3 w-3 rounded-full border-2 border-[#0B0C0E] bg-[#EBE7DF] shadow"
           />
         </div>
       </div>
 
       {/* Paleta Cromática Armónica para Interiorismo y Dirección de Arte */}
-      <div className="mt-6 border-t border-[#1D2021] pt-5">
-        <span className="block text-[10px] uppercase tracking-[0.2em] text-[#95836B]">
+      <div className="mt-6 border-t border-[#202226] pt-5">
+        <span className="block text-[10px] uppercase tracking-[0.2em] text-[#8E8A80]">
           Gama Tonal Dominante (Referencia de Interiorismo)
         </span>
         <div className="mt-3 grid grid-cols-5 gap-2">

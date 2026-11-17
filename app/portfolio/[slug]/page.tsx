@@ -67,19 +67,22 @@ function CategoryGallery({ category }: { category: PhotoCategory }) {
   const info = CATEGORY_METADATA[category];
 
   return (
-    <div className="min-h-screen bg-[#101112] pt-36 pb-28 text-[#D8D5CD]">
+    <div className="min-h-screen bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
       <Container>
         <header className="max-w-3xl">
-          <p className="text-xs font-mono uppercase tracking-[0.4em] text-[#95836B]">
-            {info.code} · Disciplina
-          </p>
-          <h1 className="mt-4 font-serif text-5xl font-light md:text-6xl text-[#D8D5CD]">
+          <div className="flex items-center gap-3">
+            <span className="h-px w-6 bg-white/30" />
+            <p className="font-mono text-xs uppercase tracking-[0.4em] text-[#8E8A80]">
+              {info.code} · Disciplina de Autor
+            </p>
+          </div>
+          <h1 className="mt-4 font-serif text-5xl font-light md:text-6xl text-[#EBE7DF]">
             {info.title}
           </h1>
-          <p className="mt-3 text-xs font-mono uppercase tracking-[0.2em] text-[#95836B]">
+          <p className="mt-3 font-mono text-xs uppercase tracking-[0.2em] text-[#8E8A80]">
             {info.subtitle}
           </p>
-          <p className="mt-6 text-lg leading-relaxed text-[#D8D5CD]/80 font-light">
+          <p className="mt-6 text-base sm:text-lg leading-relaxed text-[#8E8A80] font-light">
             {info.description}
           </p>
         </header>
@@ -117,24 +120,24 @@ function PhotoDetail({ slug }: { slug: string }) {
   ]);
 
   return (
-    <article className="min-h-screen bg-[#101112] pb-36 lg:pb-28 text-[#D8D5CD]">
+    <article className="min-h-screen bg-[#0B0C0E] pb-36 lg:pb-28 text-[#EBE7DF]">
       <JsonLd data={[generatePhotoSchema(photo), breadcrumb]} />
       <PhotoKeyboardNav prevSlug={prev?.slug} nextSlug={next?.slug} />
       <MobilePhotoActionBar photo={photo} />
       
       {/* Breadcrumb Bar */}
-      <div className="pt-24 border-b border-[#1D2021] bg-[#101112]/60">
+      <div className="pt-24 border-b border-white/[0.08] bg-[#0B0C0E]/80 backdrop-blur-md">
         <Container className="py-4">
-          <nav aria-label="Miga de pan" className="flex items-center gap-2 text-xs font-mono text-neutral-400">
-            <Link href="/" className="hover:text-[#D8D5CD] transition">Inicio</Link>
-            <span className="text-[#95836B]">/</span>
-            <Link href="/portfolio" className="hover:text-[#D8D5CD] transition">Portfolio</Link>
-            <span className="text-[#95836B]">/</span>
-            <Link href={`/portfolio/${photo.category}`} className="hover:text-[#D8D5CD] transition">
+          <nav aria-label="Miga de pan" className="flex items-center gap-2 text-xs font-mono text-[#8E8A80]">
+            <Link href="/" className="hover:text-[#EBE7DF] transition">Inicio</Link>
+            <span className="text-white/20">/</span>
+            <Link href="/portfolio" className="hover:text-[#EBE7DF] transition">Colecciones</Link>
+            <span className="text-white/20">/</span>
+            <Link href={`/portfolio/${photo.category}`} className="hover:text-[#EBE7DF] transition">
               {categoryInfo?.title ?? photo.category}
             </Link>
-            <span className="text-[#95836B]">/</span>
-            <span className="text-[#D8D5CD] truncate">{photo.title}</span>
+            <span className="text-white/20">/</span>
+            <span className="text-[#EBE7DF] truncate">{photo.title}</span>
           </nav>
         </Container>
       </div>
@@ -145,7 +148,7 @@ function PhotoDetail({ slug }: { slug: string }) {
 
       <Container className="mt-16 space-y-16">
         <PhotoMeta photo={photo} />
-        <div className="grid gap-12 border-t border-[#1D2021] pt-12 lg:grid-cols-2">
+        <div className="grid gap-12 border-t border-white/[0.08] pt-12 lg:grid-cols-2">
           <ExifPanel photo={photo} />
           <EquipmentPanel photo={photo} />
         </div>
@@ -158,21 +161,21 @@ function PhotoDetail({ slug }: { slug: string }) {
         </div>
 
         {/* Adjacent Photo Navigation */}
-        <nav aria-label="Navegación entre obras de la misma colección" className="border-t border-[#1D2021] pt-10">
+        <nav aria-label="Navegación entre obras de la misma colección" className="border-t border-white/[0.08] pt-10">
           <div className="flex items-center justify-between gap-4 text-xs font-mono uppercase tracking-[0.2em]">
             {prev ? (
               <Link
                 href={`/portfolio/${prev.slug}`}
-                className="group flex flex-col items-start gap-1 text-neutral-400 hover:text-[#D8D5CD] transition"
+                className="group flex flex-col items-start gap-1 text-[#8E8A80] hover:text-[#EBE7DF] transition"
               >
-                <span className="text-[10px] text-[#95836B] group-hover:text-[#D8D5CD]">← Anterior</span>
-                <span className="font-serif text-base normal-case tracking-normal text-[#D8D5CD] group-hover:text-white truncate max-w-[180px] sm:max-w-xs">{prev.title}</span>
+                <span className="text-[10px] text-[#8E8A80] group-hover:text-[#EBE7DF]">← Anterior</span>
+                <span className="font-serif text-base normal-case tracking-normal text-[#EBE7DF] group-hover:text-white truncate max-w-[180px] sm:max-w-xs">{prev.title}</span>
               </Link>
             ) : <div />}
 
             <Link
               href={`/portfolio/${photo.category}`}
-              className="hidden sm:inline-flex items-center gap-1.5 text-neutral-400 hover:text-[#D8D5CD] transition text-xs font-mono"
+              className="hidden sm:inline-flex items-center gap-1.5 text-[#8E8A80] hover:text-[#EBE7DF] transition text-xs font-mono"
             >
               <span>Colección {categoryInfo?.title} ({totalInCat})</span>
             </Link>
@@ -180,10 +183,10 @@ function PhotoDetail({ slug }: { slug: string }) {
             {next ? (
               <Link
                 href={`/portfolio/${next.slug}`}
-                className="group flex flex-col items-end gap-1 text-neutral-400 hover:text-[#D8D5CD] transition text-right"
+                className="group flex flex-col items-end gap-1 text-[#8E8A80] hover:text-[#EBE7DF] transition text-right"
               >
-                <span className="text-[10px] text-[#95836B] group-hover:text-[#D8D5CD]">Siguiente →</span>
-                <span className="font-serif text-base normal-case tracking-normal text-[#D8D5CD] group-hover:text-white truncate max-w-[180px] sm:max-w-xs">{next.title}</span>
+                <span className="text-[10px] text-[#8E8A80] group-hover:text-[#EBE7DF]">Siguiente →</span>
+                <span className="font-serif text-base normal-case tracking-normal text-[#EBE7DF] group-hover:text-white truncate max-w-[180px] sm:max-w-xs">{next.title}</span>
               </Link>
             ) : <div />}
           </div>

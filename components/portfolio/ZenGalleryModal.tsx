@@ -139,17 +139,17 @@ export default function ZenGalleryModal({
             }`}
           >
             <div className="flex items-center gap-4">
-              <span className="font-serif text-lg tracking-[0.25em] text-[#D8D5CD]">
+              <span className="font-serif text-lg tracking-[0.25em] text-[#EBE7DF]">
                 JAVIER ESPINOSA
               </span>
-              <span className="hidden font-mono text-[9px] uppercase tracking-[0.3em] text-[#95836B] sm:inline">
+              <span className="hidden font-mono text-[9px] uppercase tracking-[0.3em] text-[#8E8A80] sm:inline">
                 · MODO ZEN EXPOSICIÓN
               </span>
             </div>
 
             <div className="flex items-center gap-3">
               {/* Speed Switcher */}
-              <div className="hidden border border-[#222] bg-[#111]/70 px-2 py-1 font-mono text-[9px] text-[#95836B] sm:flex sm:items-center sm:gap-2">
+              <div className="hidden border border-[#222] bg-[#111]/70 px-2 py-1 font-mono text-[9px] text-[#8E8A80] sm:flex sm:items-center sm:gap-2">
                 <span>Velocidad:</span>
                 {[4, 6, 8].map((s) => (
                   <button
@@ -160,7 +160,7 @@ export default function ZenGalleryModal({
                       setProgress(0);
                     }}
                     className={`px-1.5 transition ${
-                      speedSec === s ? "text-white font-bold" : "hover:text-[#D8D5CD]"
+                      speedSec === s ? "text-white font-bold" : "hover:text-[#EBE7DF]"
                     }`}
                   >
                     {s}s
@@ -174,7 +174,7 @@ export default function ZenGalleryModal({
                 onClick={() => setShowCaptions((c) => !c)}
                 className={`border px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider transition ${
                   showCaptions
-                    ? "border-[#95836B] bg-[#95836B]/20 text-[#D8D5CD]"
+                    ? "border-[#8E8A80] bg-[#8E8A80]/20 text-[#EBE7DF]"
                     : "border-[#222] text-neutral-500 hover:text-white"
                 }`}
               >
@@ -185,7 +185,7 @@ export default function ZenGalleryModal({
               <button
                 type="button"
                 onClick={onClose}
-                className="border border-[#333] bg-[#111] px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-widest text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
+                className="border border-[#333] bg-[#111] px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-widest text-[#EBE7DF] transition hover:border-[#8E8A80] hover:text-white"
               >
                 Salir [ESC]
               </button>
@@ -229,7 +229,7 @@ export default function ZenGalleryModal({
               {/* Photo Caption */}
               {showCaptions ? (
                 <div className="max-w-xl">
-                  <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
+                  <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
                     <span>{currentPhoto.category.replace("-", " ")}</span>
                     {currentPhoto.location && (
                       <>
@@ -238,7 +238,7 @@ export default function ZenGalleryModal({
                       </>
                     )}
                   </div>
-                  <h3 className="mt-1 font-serif text-2xl font-light text-[#D8D5CD] sm:text-3xl">
+                  <h3 className="mt-1 font-serif text-2xl font-light text-[#EBE7DF] sm:text-3xl">
                     {currentPhoto.title}
                   </h3>
                   <p className="mt-1 font-mono text-[10px] text-neutral-400">
@@ -255,7 +255,7 @@ export default function ZenGalleryModal({
                   type="button"
                   onClick={prevSlide}
                   aria-label="Obra anterior"
-                  className="border border-[#222] bg-[#111] p-2 text-neutral-400 transition hover:border-[#95836B] hover:text-white"
+                  className="border border-[#222] bg-[#111] p-2 text-neutral-400 transition hover:border-[#8E8A80] hover:text-white"
                 >
                   <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
@@ -266,7 +266,7 @@ export default function ZenGalleryModal({
                   type="button"
                   onClick={() => setIsPlaying((p) => !p)}
                   aria-label={isPlaying ? "Pausar pase de diapositivas" : "Reanudar pase"}
-                  className="border border-[#95836B] bg-[#95836B]/20 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-[#D8D5CD] transition hover:bg-[#95836B] hover:text-[#101112]"
+                  className="border border-[#8E8A80] bg-[#8E8A80]/20 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-[#EBE7DF] transition hover:bg-[#8E8A80] hover:text-[#0B0C0E]"
                 >
                   {isPlaying ? "Pausar [Espacio]" : "Reproducir [Espacio]"}
                 </button>
@@ -275,7 +275,7 @@ export default function ZenGalleryModal({
                   type="button"
                   onClick={nextSlide}
                   aria-label="Siguiente obra"
-                  className="border border-[#222] bg-[#111] p-2 text-neutral-400 transition hover:border-[#95836B] hover:text-white"
+                  className="border border-[#222] bg-[#111] p-2 text-neutral-400 transition hover:border-[#8E8A80] hover:text-white"
                 >
                   <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
@@ -289,7 +289,7 @@ export default function ZenGalleryModal({
                 <Link
                   href={`/portfolio/${currentPhoto.slug}`}
                   onClick={onClose}
-                  className="border border-[#222] bg-[#111] px-3 py-2 font-mono text-[9px] uppercase tracking-wider text-[#D8D5CD] transition hover:border-[#D8D5CD]"
+                  className="border border-[#222] bg-[#111] px-3 py-2 font-mono text-[9px] uppercase tracking-wider text-[#EBE7DF] transition hover:border-[#EBE7DF]"
                 >
                   Abrir Ficha →
                 </Link>
@@ -299,7 +299,7 @@ export default function ZenGalleryModal({
             {/* Subtle Progress Bar */}
             <div className="h-0.5 w-full bg-[#1A1A1A] overflow-hidden">
               <div
-                className="h-full bg-[#95836B] transition-all duration-75 ease-linear"
+                className="h-full bg-[#8E8A80] transition-all duration-75 ease-linear"
                 style={{ width: `${progress}%` }}
               />
             </div>

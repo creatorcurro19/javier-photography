@@ -37,7 +37,7 @@ export default function ProjectsInteractiveIndex({
   return (
     <div className="mt-14">
       {/* Interactive Filter Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-y border-[#1D2021] bg-[#141617]/50 px-5 py-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-y border-[#202226] bg-[#151618]/50 px-5 py-4">
         <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar scroll-smooth py-1 -mx-5 px-5 sm:mx-0 sm:px-0 sm:flex-wrap">
           {DISCIPLINE_FILTERS.map((f) => {
             const active = activeCategory === f.id;
@@ -48,8 +48,8 @@ export default function ProjectsInteractiveIndex({
                 onClick={() => setActiveCategory(f.id)}
                 className={`shrink-0 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.22em] transition ${
                   active
-                    ? "border border-[#95836B] bg-[#95836B]/20 text-[#D8D5CD]"
-                    : "border border-transparent text-neutral-400 hover:border-[#1D2021] hover:text-[#D8D5CD]"
+                    ? "border border-[#8E8A80] bg-[#8E8A80]/20 text-[#EBE7DF]"
+                    : "border border-transparent text-neutral-400 hover:border-[#202226] hover:text-[#EBE7DF]"
                 }`}
               >
                 {f.label}
@@ -58,7 +58,7 @@ export default function ProjectsInteractiveIndex({
           })}
         </div>
 
-        <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
+        <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
           {filtered.length} ensayos monográficos
         </span>
       </div>
@@ -78,7 +78,7 @@ export default function ProjectsInteractiveIndex({
           return (
             <article
               key={project.id}
-              className="grid grid-cols-1 items-center gap-10 border border-[#1D2021] bg-[#141617]/40 p-6 transition duration-500 hover:border-[#95836B]/60 sm:p-10 lg:grid-cols-12 lg:gap-14"
+              className="grid grid-cols-1 items-center gap-10 border border-[#202226] bg-[#151618]/40 p-6 transition duration-500 hover:border-[#8E8A80]/60 sm:p-10 lg:grid-cols-12 lg:gap-14"
             >
               {/* Cover + Interactive Filmstrip side (7 cols) */}
               <div
@@ -88,7 +88,7 @@ export default function ProjectsInteractiveIndex({
               >
                 <Link
                   href={`/projects/${project.slug}`}
-                  className="group relative block aspect-[3/2] w-full overflow-hidden border border-[#1D2021] bg-[#101112]"
+                  className="group relative block aspect-[3/2] w-full overflow-hidden border border-[#202226] bg-[#0B0C0E]"
                 >
                   <Image
                     key={stageImage}
@@ -98,20 +98,20 @@ export default function ProjectsInteractiveIndex({
                     sizes="(max-width: 1024px) 100vw, 60vw"
                     className="object-cover transition duration-700 group-hover:scale-[1.03]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#101112] via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-transparent to-transparent" />
 
                   <div className="absolute top-4 left-4 flex items-center gap-2">
-                    <span className="border border-[#1D2021] bg-[#101112]/90 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B] backdrop-blur-md">
+                    <span className="border border-[#202226] bg-[#0B0C0E]/90 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80] backdrop-blur-md">
                       ENSAYO 0{index + 1} · {project.discipline}
                     </span>
                   </div>
 
                   <div className="absolute right-4 bottom-4 left-4 flex items-end justify-between">
-                    <div className="border border-[#1D2021] bg-[#101112]/85 px-3.5 py-2 backdrop-blur-md">
-                      <p className="font-serif text-base text-[#D8D5CD]">
+                    <div className="border border-[#202226] bg-[#0B0C0E]/85 px-3.5 py-2 backdrop-blur-md">
+                      <p className="font-serif text-base text-[#EBE7DF]">
                         {stageTitle}
                       </p>
-                      <p className="font-mono text-[9px] uppercase tracking-wider text-[#95836B]">
+                      <p className="font-mono text-[9px] uppercase tracking-wider text-[#8E8A80]">
                         {stageSub}
                       </p>
                     </div>
@@ -134,7 +134,7 @@ export default function ProjectsInteractiveIndex({
                               [project.id]: -1,
                             }))
                           }
-                          className="text-[#95836B] hover:text-white"
+                          className="text-[#8E8A80] hover:text-white"
                         >
                           Restaurar portada
                         </button>
@@ -161,8 +161,8 @@ export default function ProjectsInteractiveIndex({
                             }
                             className={`relative aspect-[3/2] overflow-hidden border transition ${
                               isCurrent
-                                ? "border-[#95836B] ring-1 ring-[#95836B]"
-                                : "border-[#1D2021] opacity-75 hover:opacity-100"
+                                ? "border-[#8E8A80] ring-1 ring-[#8E8A80]"
+                                : "border-[#202226] opacity-75 hover:opacity-100"
                             }`}
                           >
                             <Image
@@ -186,14 +186,14 @@ export default function ProjectsInteractiveIndex({
                   index % 2 === 1 ? "lg:order-1" : "lg:order-2"
                 }`}
               >
-                <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.25em] text-[#95836B]">
+                <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.25em] text-[#8E8A80]">
                   <span>
                     {project.location ? `${project.location} · ` : ""}
                     {project.year}
                   </span>
                 </div>
 
-                <h2 className="mt-3 font-serif text-3xl font-light text-[#D8D5CD] sm:text-4xl">
+                <h2 className="mt-3 font-serif text-3xl font-light text-[#EBE7DF] sm:text-4xl">
                   <Link
                     href={`/projects/${project.slug}`}
                     className="transition hover:text-white"
@@ -206,15 +206,15 @@ export default function ProjectsInteractiveIndex({
                   {project.subtitle}
                 </p>
 
-                <p className="mt-6 text-sm font-light leading-relaxed text-[#D8D5CD]/80 sm:text-base sm:leading-7">
+                <p className="mt-6 text-sm font-light leading-relaxed text-[#EBE7DF]/80 sm:text-base sm:leading-7">
                   {project.description}
                 </p>
 
                 <div className="mt-6 flex flex-wrap items-center gap-3 font-mono text-xs text-neutral-400">
-                  <span className="border border-[#1D2021] bg-[#101112] px-3 py-1">
+                  <span className="border border-[#202226] bg-[#0B0C0E] px-3 py-1">
                     {project.photoIds.length} Fotografías en serie
                   </span>
-                  <span className="border border-[#1D2021] bg-[#101112] px-3 py-1 text-[#95836B]">
+                  <span className="border border-[#202226] bg-[#0B0C0E] px-3 py-1 text-[#8E8A80]">
                     Modo Papel Museo Disponible
                   </span>
                 </div>
@@ -222,7 +222,7 @@ export default function ProjectsInteractiveIndex({
                 <div className="mt-8 flex items-center gap-6">
                   <Link
                     href={`/projects/${project.slug}`}
-                    className="inline-flex border border-[#D8D5CD] bg-[#D8D5CD] px-7 py-3 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-[#101112] transition hover:bg-transparent hover:text-white"
+                    className="inline-flex border border-[#EBE7DF] bg-[#EBE7DF] px-7 py-3 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
                   >
                     Abrir Ensayo Completo →
                   </Link>

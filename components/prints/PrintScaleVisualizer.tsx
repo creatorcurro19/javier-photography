@@ -98,13 +98,13 @@ export default function PrintScaleVisualizer() {
   const orderFormat = `${selectedFormat.label} (${selectedFormat.dims}) · ${currentFinish.label}`;
 
   return (
-    <section className="mt-24 rounded-xl border border-[#1D2021] bg-[#1D2021]/25 p-6 sm:p-10 lg:p-12">
-      <div className="flex flex-col justify-between gap-6 border-b border-[#1D2021] pb-6 lg:flex-row lg:items-end">
+    <section className="mt-24 rounded-xl border border-[#202226] bg-[#202226]/25 p-6 sm:p-10 lg:p-12">
+      <div className="flex flex-col justify-between gap-6 border-b border-[#202226] pb-6 lg:flex-row lg:items-end">
         <div>
-          <p className="text-xs uppercase tracking-[0.35em] text-[#95836B]">
+          <p className="text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
             Configurador de Escala & Composición en Pared
           </p>
-          <h2 className="mt-2 font-serif text-3xl font-light text-[#D8D5CD]">
+          <h2 className="mt-2 font-serif text-3xl font-light text-[#EBE7DF]">
             Simulador de Obra Individual y Díptico (Referencia: Sofá de 200 cm)
           </h2>
         </div>
@@ -116,8 +116,8 @@ export default function PrintScaleVisualizer() {
             onClick={() => setLayoutMode("single")}
             className={`rounded-full px-3.5 py-1.5 transition ${
               layoutMode === "single"
-                ? "bg-[#95836B] text-[#101112] font-medium"
-                : "border border-[#1D2021] bg-[#101112] text-[#D8D5CD]/80 hover:border-[#95836B]"
+                ? "bg-[#8E8A80] text-[#0B0C0E] font-medium"
+                : "border border-[#202226] bg-[#0B0C0E] text-[#EBE7DF]/80 hover:border-[#8E8A80]"
             }`}
           >
             Obra Individual
@@ -127,8 +127,8 @@ export default function PrintScaleVisualizer() {
             onClick={() => setLayoutMode("diptych")}
             className={`rounded-full px-3.5 py-1.5 transition ${
               layoutMode === "diptych"
-                ? "bg-[#95836B] text-[#101112] font-medium"
-                : "border border-[#1D2021] bg-[#101112] text-[#D8D5CD]/80 hover:border-[#95836B]"
+                ? "bg-[#8E8A80] text-[#0B0C0E] font-medium"
+                : "border border-[#202226] bg-[#0B0C0E] text-[#EBE7DF]/80 hover:border-[#8E8A80]"
             }`}
           >
             Díptico (2 Obras)
@@ -141,8 +141,8 @@ export default function PrintScaleVisualizer() {
               onClick={() => setSelectedFormat(fmt)}
               className={`rounded-full px-3.5 py-1.5 transition ${
                 selectedFormat.id === fmt.id
-                  ? "bg-[#D8D5CD] text-[#101112] font-medium"
-                  : "border border-[#1D2021] bg-[#101112] text-[#D8D5CD]/80 hover:border-[#95836B]"
+                  ? "bg-[#EBE7DF] text-[#0B0C0E] font-medium"
+                  : "border border-[#202226] bg-[#0B0C0E] text-[#EBE7DF]/80 hover:border-[#8E8A80]"
               }`}
             >
               {fmt.dims}
@@ -154,7 +154,7 @@ export default function PrintScaleVisualizer() {
       {/* Controles de Obras y Acabado */}
       <div className="mt-5 flex flex-col gap-4 text-xs lg:flex-row lg:items-center lg:justify-between">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-[11px] uppercase tracking-wider text-[#95836B]">
+          <span className="text-[11px] uppercase tracking-wider text-[#8E8A80]">
             {layoutMode === "diptych" ? "Obra Izquierda:" : "Obra:"}
           </span>
           {SAMPLE_WORKS.map((w, idx) => (
@@ -164,8 +164,8 @@ export default function PrintScaleVisualizer() {
               onClick={() => setSampleIdxA(idx)}
               className={`rounded px-2.5 py-1 text-[11px] transition ${
                 sampleIdxA === idx
-                  ? "bg-[#1D2021] text-[#D8D5CD] font-medium border border-[#95836B]/50"
-                  : "text-neutral-400 hover:text-[#D8D5CD]"
+                  ? "bg-[#202226] text-[#EBE7DF] font-medium border border-[#8E8A80]/50"
+                  : "text-neutral-400 hover:text-[#EBE7DF]"
               }`}
             >
               {w.title}
@@ -175,7 +175,7 @@ export default function PrintScaleVisualizer() {
 
         {layoutMode === "diptych" && (
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[11px] uppercase tracking-wider text-[#95836B]">
+            <span className="text-[11px] uppercase tracking-wider text-[#8E8A80]">
               Obra Derecha:
             </span>
             {SAMPLE_WORKS.map((w, idx) => (
@@ -185,8 +185,8 @@ export default function PrintScaleVisualizer() {
                 onClick={() => setSampleIdxB(idx)}
                 className={`rounded px-2.5 py-1 text-[11px] transition ${
                   sampleIdxB === idx
-                    ? "bg-[#1D2021] text-[#D8D5CD] font-medium border border-[#95836B]/50"
-                    : "text-neutral-400 hover:text-[#D8D5CD]"
+                    ? "bg-[#202226] text-[#EBE7DF] font-medium border border-[#8E8A80]/50"
+                    : "text-neutral-400 hover:text-[#EBE7DF]"
                 }`}
               >
                 {w.title}
@@ -198,7 +198,7 @@ export default function PrintScaleVisualizer() {
 
       <div className="mt-4 flex flex-wrap items-center justify-between gap-4 text-xs">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-[11px] uppercase tracking-wider text-[#95836B]">Acabado:</span>
+          <span className="text-[11px] uppercase tracking-wider text-[#8E8A80]">Acabado:</span>
           {FINISHES.map((f) => (
             <button
               key={f.id}
@@ -206,8 +206,8 @@ export default function PrintScaleVisualizer() {
               onClick={() => setFrameType(f.id)}
               className={`rounded px-2.5 py-1 text-[11px] transition ${
                 frameType === f.id
-                  ? "bg-[#1D2021] text-[#D8D5CD] font-medium border border-[#95836B]/50"
-                  : "text-neutral-400 hover:text-[#D8D5CD]"
+                  ? "bg-[#202226] text-[#EBE7DF] font-medium border border-[#8E8A80]/50"
+                  : "text-neutral-400 hover:text-[#EBE7DF]"
               }`}
             >
               {f.label}
@@ -216,7 +216,7 @@ export default function PrintScaleVisualizer() {
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-[11px] uppercase tracking-wider text-[#95836B]">Ambiente de Pared:</span>
+          <span className="text-[11px] uppercase tracking-wider text-[#8E8A80]">Ambiente de Pared:</span>
           {(
             [
               { id: "dark", label: "Galería Oscura", dot: "bg-[#1C1E20]" },
@@ -230,8 +230,8 @@ export default function PrintScaleVisualizer() {
               onClick={() => setWallColor(w.id)}
               className={`inline-flex items-center gap-1.5 rounded px-2.5 py-1 text-[11px] transition ${
                 wallColor === w.id
-                  ? "bg-[#1D2021] text-[#D8D5CD] font-medium border border-[#95836B]/50"
-                  : "text-neutral-400 hover:text-[#D8D5CD]"
+                  ? "bg-[#202226] text-[#EBE7DF] font-medium border border-[#8E8A80]/50"
+                  : "text-neutral-400 hover:text-[#EBE7DF]"
               }`}
             >
               <span className={`h-2.5 w-2.5 rounded-full border border-white/20 ${w.dot}`} />
@@ -243,9 +243,9 @@ export default function PrintScaleVisualizer() {
 
       {/* Escenario de Pared de Galería */}
       <div
-        className={`relative mt-8 flex min-h-[390px] sm:min-h-[460px] flex-col items-center justify-between overflow-hidden rounded-lg border border-[#1D2021] px-6 pt-12 pb-6 transition-colors duration-500 ${
+        className={`relative mt-8 flex min-h-[390px] sm:min-h-[460px] flex-col items-center justify-between overflow-hidden rounded-lg border border-[#202226] px-6 pt-12 pb-6 transition-colors duration-500 ${
           wallColor === "dark"
-            ? "bg-gradient-to-b from-[#232629] via-[#1C1E20] to-[#141617]"
+            ? "bg-gradient-to-b from-[#232629] via-[#1C1E20] to-[#151618]"
             : wallColor === "ivory"
             ? "bg-gradient-to-b from-[#F4F2ED] via-[#EAE6DF] to-[#DCD7CE]"
             : "bg-gradient-to-b from-[#D8D0C4] via-[#CBBFB0] to-[#B8AA99]"
@@ -292,7 +292,7 @@ export default function PrintScaleVisualizer() {
               <div className="h-2 w-full mx-2 border-t border-white/5" />
               <div className="h-full w-4 rounded-sm bg-[#151719]" />
             </div>
-            <div className="mt-2 flex items-center justify-between text-[10px] tracking-[0.25em] text-[#95836B]">
+            <div className="mt-2 flex items-center justify-between text-[10px] tracking-[0.25em] text-[#8E8A80]">
               <span>├──────────</span>
               <span>REFERENCIA DE ESCALA: 200 CM</span>
               <span>──────────┤</span>
@@ -302,9 +302,9 @@ export default function PrintScaleVisualizer() {
       </div>
 
       {/* Resumen de Configuración & Botón Directo de Encargo */}
-      <div className="mt-6 flex flex-col justify-between gap-4 rounded-lg border border-[#1D2021] bg-[#101112] p-5 sm:flex-row sm:items-center">
+      <div className="mt-6 flex flex-col justify-between gap-4 rounded-lg border border-[#202226] bg-[#0B0C0E] p-5 sm:flex-row sm:items-center">
         <div className="space-y-1 text-xs">
-          <p className="text-[#D8D5CD] font-medium">
+          <p className="text-[#EBE7DF] font-medium">
             {layoutMode === "diptych" ? "Composición en Díptico (2 Obras)" : "Obra Individual"} ·{" "}
             {selectedFormat.label} ({selectedFormat.dims})
           </p>
@@ -315,7 +315,7 @@ export default function PrintScaleVisualizer() {
 
         <Link
           href={`/contact?motivo=print&obra=${encodeURIComponent(orderReference)}&formato=${encodeURIComponent(orderFormat)}`}
-          className="inline-flex shrink-0 items-center justify-center border border-[#D8D5CD] bg-[#D8D5CD] px-6 py-3 text-xs uppercase tracking-[0.25em] text-[#101112] font-semibold transition hover:bg-transparent hover:text-white"
+          className="inline-flex shrink-0 items-center justify-center border border-[#EBE7DF] bg-[#EBE7DF] px-6 py-3 text-xs uppercase tracking-[0.25em] text-[#0B0C0E] font-semibold transition hover:bg-transparent hover:text-white"
         >
           Encargar Esta Configuración →
         </Link>

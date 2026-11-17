@@ -50,11 +50,11 @@ export default function CertificateOfAuthenticityModal({
         onClick={() => setOpen(true)}
         className={
           className ??
-          "inline-flex items-center gap-2 border border-[#95836B]/60 bg-[#141617] px-4 py-2 font-mono text-[10px] uppercase tracking-[0.22em] text-[#D8D5CD] transition hover:border-[#D8D5CD] hover:text-white"
+          "inline-flex items-center gap-2 border border-[#8E8A80]/60 bg-[#151618] px-4 py-2 font-mono text-[10px] uppercase tracking-[0.22em] text-[#EBE7DF] transition hover:border-[#EBE7DF] hover:text-white"
         }
       >
         <svg
-          className="h-3.5 w-3.5 text-[#95836B]"
+          className="h-3.5 w-3.5 text-[#8E8A80]"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -168,7 +168,7 @@ export default function CertificateOfAuthenticityModal({
               <div className="relative mt-8 flex flex-col items-center justify-between gap-6 border-b border-[#D5CFC5] pb-8 sm:flex-row sm:items-end">
                 {/* Security Hologram Simulation */}
                 <div className="flex items-center gap-4">
-                  <div className="relative flex h-16 w-16 items-center justify-center rounded-full border-2 border-[#8C765C] bg-gradient-to-tr from-[#C5A880] via-[#EADBCE] to-[#95836B] shadow-md">
+                  <div className="relative flex h-16 w-16 items-center justify-center rounded-full border-2 border-[#8C765C] bg-gradient-to-tr from-[#C5A880] via-[#EADBCE] to-[#8E8A80] shadow-md">
                     <div className="text-center font-serif text-[10px] font-bold text-[#3B2E1E]">
                       <span>ISO</span>
                       <span className="block text-[11px]">9706</span>
