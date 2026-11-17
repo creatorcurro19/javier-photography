@@ -7,6 +7,7 @@ import SearchModal from "@/components/layout/SearchModal";
 import BwToggle from "@/components/ui/BwToggle";
 
 const links = [
+  { href: "/selected-work", label: "Selected Works" },
   { href: "/portfolio", label: "Colecciones" },
   { href: "/projects", label: "Series" },
   { href: "/prints", label: "Fine Art" },
@@ -40,7 +41,7 @@ export default function Navbar() {
 
         <nav
           aria-label="Navegación principal"
-          className="hidden items-center gap-8 text-[11px] uppercase tracking-[0.26em] lg:flex"
+          className="hidden items-center gap-7 text-[10px] xl:text-[11px] uppercase tracking-[0.24em] xl:tracking-[0.26em] lg:flex"
         >
           {links.map((link) => {
             const isActive =

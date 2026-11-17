@@ -5,7 +5,7 @@ import { getAllProjects } from "@/lib/photos";
 
 export default function SelectedProjects() {
   const allProjects = getAllProjects();
-  const featuredIds = ["villanueva-de-la-vera", "silencio-del-desierto", "trazadas-rally"];
+  const featuredIds = ["custodios", "la-gomera", "trazadas-rally"];
   const featured = featuredIds
     .map((id) => allProjects.find((p) => p.id === id))
     .filter((p): p is (typeof allProjects)[number] => Boolean(p));
@@ -114,9 +114,9 @@ export default function SelectedProjects() {
                       <div className="mt-6 border-l-2 border-white/20 pl-4">
                         <p className="font-serif italic text-xs sm:text-sm text-[#EBE7DF]/85 font-light leading-relaxed">
                           {idx === 0 &&
-                            "«La madera de castaño y el granito guardan la respiración de siglos de arquitectura vernácula que dialoga con la sierra.»"}
+                            "«En un mundo gobernado por la inmediatez, los oficios manuales y los ritos populares conservan el pulso y la dignidad de generaciones enteras.»"}
                           {idx === 1 &&
-                            "«En el desierto, la luz no ilumina objetos: modela el vacío mineral y redefine la percepción de la distancia.»"}
+                            "«De las cumbres del Teide al alba a la penumbra de la laurisilva: la orografía volcánica modelada por el océano y la luz atlántica.»"}
                           {idx === 2 &&
                             "«La milésima de segundo donde convergen la masa en inercia, la gravilla despedida y la concentración absoluta del piloto.»"}
                         </p>

@@ -16,6 +16,8 @@ export function generatePersonSchema() {
       "Fotógrafo español especializado en fauna salvaje a 600mm, rally histórico, arquitectura vernácula y narrativa documental con sistema Canon EOS R7. Obra gráfica Fine Art en Hahnemühle 308g.",
     address: {
       "@type": "PostalAddress",
+      addressLocality: "Tenerife",
+      addressRegion: "Canarias",
       addressCountry: "ES",
     },
     knowsAbout: [

@@ -11,7 +11,7 @@ const VIEWFINDER_SLIDES = [
     code: "01 / AUTOR",
     label: "El Autor en Campo",
     title: "Silencio, espera y horizonte",
-    location: "Costa Atlántica & Península Ibérica",
+    location: "Tenerife, Canarias, España",
     image: "/images/portfolio/hero/hero.jpg",
     secondaryImage: "/images/portfolio/paisajes-documental/B51A0149.jpg",
     secondaryCaption: "Cumbre del Teide · 24mm · Luz cenital",
@@ -170,8 +170,7 @@ const OPTICAL_BENCH = [
       "Control riguroso de líneas de fuga y profundidad de campo extendida de primer plano a infinito.",
       "Recubrimiento Super Spectra para evitar destellos parasitarios en tomas nocturnas.",
     ],
-    filterMatch: (lens: string) =>
-      lens.includes("10-18") || lens.includes("18-55"),
+    filterMatch: (lens: string) => lens.includes("10-18"),
   },
 ];
 
@@ -220,7 +219,7 @@ export default function AboutInteractiveStudio() {
             <span>Monografía de Autor · N.º 01</span>
           </div>
           <span className="text-neutral-500">
-            Javier Espinosa Martínez · España
+            Javier Espinosa Martínez · Tenerife, Canarias, España
           </span>
         </div>
 
@@ -245,7 +244,7 @@ export default function AboutInteractiveStudio() {
             <div className="mt-8 space-y-5 text-base font-light leading-relaxed text-[#EBE7DF]/80 sm:text-[17px] sm:leading-8">
               <p>
                 Soy <strong className="font-medium text-[#EBE7DF]">Javier Espinosa Martínez</strong>,
-                fotógrafo español especializado en fotografía de naturaleza salvaje,
+                fotógrafo español afincado en Tenerife (Islas Canarias) y especializado en fotografía de naturaleza salvaje,
                 automovilismo de competición, arquitectura vernácula y narrativa
                 documental. Concibo la cámara como un instrumento de observación
                 paciente donde el respeto por la realidad prima sobre cualquier
@@ -784,8 +783,8 @@ export default function AboutInteractiveStudio() {
               },
               {
                 num: "02",
-                title: "Integridad Documental (Cero IA)",
-                desc: "El archivo está libre de elementos generados o alterados mediante inteligencia artificial. Cada textura procede directamente del sensor RAW y del instante vivido.",
+                title: "Verdad Óptica & Cero Generación Artificial",
+                desc: "Cada obra procede de la luz real que impactó en el sensor fotográfico, sin píxeles inventados ni elementos generativos. En el revelado digital se aplican estrictamente ajustes de tono, geometría óptica y herramientas de reducción de ruido asistidas (denoise) para preservar el microdetalle a sensibilidades elevadas sin alterar jamás la verdad de la escena.",
               },
               {
                 num: "03",
@@ -892,8 +891,8 @@ export default function AboutInteractiveStudio() {
               ¿Deseas encargar un reportaje, licenciar una imagen o adquirir obra firmada?
             </h2>
             <p className="mt-3 text-sm font-light leading-relaxed text-[#EBE7DF]/80">
-              Disponible para proyectos editoriales, cobertura de eventos de automoción,
-              arquitectura e impresiones Fine Art a medida en España e internacionalmente.
+              Disponible para proyectos editoriales, cobertura de automovilismo,
+              arquitectura vernácula y copias Fine Art de autor desde Tenerife (Islas Canarias), con disponibilidad de desplazamiento a Península y proyectos internacionales.
             </p>
           </div>
 

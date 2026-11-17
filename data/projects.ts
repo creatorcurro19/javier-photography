@@ -16,6 +16,7 @@ export const PROJECTS: Project[] = [
     statement: [
       "En un mundo gobernado por la inmediatez, existen espacios y personas cuyos gestos conservan el pulso de generaciones. Este proyecto reúne escenas donde el trabajo manual, el comercio de proximidad y la tradición rural mantienen viva la identidad de cada lugar.",
       "Cada fotografía fue tomada con luz disponible y sin alterar la escena, buscando que la atmósfera real del taller, la plaza o el mercado hable por sí misma.",
+      "Notas de campo: Los disparos en talleres de forja y secaderos tradicionales se realizaron a sensibilidades de ISO 1600 a 6400 con óptica de 18-150mm y 50mm, aprovechando la luz rasante del fuego y las claraboyas naturales para esculpir el volumen de los materiales sin interrumpir el oficio.",
     ],
     photoIds: ["vc-44", "vc-09", "vc-25", "vc-11", "vc-05", "vc-01", "vc-15", "vc-31"],
   },
@@ -27,13 +28,14 @@ export const PROJECTS: Project[] = [
     discipline: "LANDSCAPES",
     category: "paisajes-documental",
     year: "2025 — 2026",
-    location: "Islas Canarias",
+    location: "Tenerife & Islas Canarias",
     coverImage: "/images/portfolio/paisajes-documental/B51A0149.jpg",
     description:
       "Recorrido visual por los contrastes geológicos y climáticos del archipiélago: desde el cono nevado del Teide al amanecer y los senderos de laurisilva envueltos en niebla en Anaga hasta los acantilados bañados por el ocaso atlántico.",
     statement: [
       "El territorio insular concentra en pocos kilómetros una diversidad paisajística extraordinaria. En las cumbres domina el silencio mineral del volcán bajo las primeras luces del alba; en las crestas medias, el alisio envuelve los bosques de laurisilva en una penumbra húmeda y ancestral.",
       "La serie sigue esa transición lumínica desde la alta montaña hasta la costa, donde el sol se funde con el océano entre siluetas de palmeras y acantilados.",
+      "Notas de campo: Las tomas en la cumbre del Teide capturan la penumbra previa al alba con ópticas ultraanchas a f/8 para maximizar la nitidez de la roca volcánica; en Anaga, la niebla cerrada del alisio dispersa la luz y demanda medición puntual para no empastar las texturas del musgo.",
     ],
     photoIds: ["pd-02", "au-04", "au-05", "pd-04", "pd-01", "pd-06", "vc-26"],
   },
@@ -52,6 +54,7 @@ export const PROJECTS: Project[] = [
     statement: [
       "Un rally se vive tanto en la calma tensa de las carpas de asistencia —donde pilotos y mecánicos revisan notas, neumáticos y carrocerías clásicas— como en la fracción de segundo en que el vehículo se rebela contra la adherencia del asfalto.",
       "Combinando aproximaciones de detalle en el paddock con disparos a 600mm en curva, la serie retrata la pasión técnica y estética por los automóviles de competición clásicos.",
+      "Notas de campo: En tramos cronometrados, la lectura previa de la trazada permite situarse con seguridad y controlar los barridos a 1/60s para transmitir dinamismo o congelar a 1/1000s con el superteleobjetivo Sigma 150-600mm el polvo despedido y la suspensión en compresión máxima.",
     ],
     photoIds: ["cr-13", "cr-14", "cr-04", "vc-32", "cr-07", "cr-08", "cr-11", "cr-02"],
   },

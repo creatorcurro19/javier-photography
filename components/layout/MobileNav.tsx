@@ -5,13 +5,14 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
 const links = [
+  { href: "/selected-work", label: "Selected Works", note: "15 obras maestras" },
   { href: "/portfolio", label: "Colecciones", note: "100 obras archivadas" },
   { href: "/projects", label: "Series", note: "8 ensayos monográficos" },
   { href: "/prints", label: "Copias Fine Art", note: "Hahnemühle Photo Rag 308g" },
   { href: "/stories", label: "Cuaderno", note: "Notas de campo & óptica" },
   { href: "/servicios", label: "Encargos", note: "Proyectos & licencias" },
   { href: "/about", label: "El Autor", note: "The Art of Seeing" },
-  { href: "/contact", label: "Contacto", note: "Consultas privadas" },
+  { href: "/contact", label: "Contacto", note: "Tenerife & Internacional" },
 ];
 
 export default function MobileNav() {

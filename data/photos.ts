@@ -19,6 +19,7 @@ export const photos: Photo[] = [
     "description": "Aproximación a 600mm de una cotorra de Kramer posada sobre una rama, aislada sobre un fondo cálido desenfocado al atardecer.",
     "year": 2026,
     "featured": true,
+    "featuredOrder": 15,
     "prints": false,
     "licensing": true,
     "keywords": [
@@ -29,7 +30,6 @@ export const photos: Photo[] = [
       "600mm"
     ],
     "story": "Capturada a última hora de la tarde con el teleobjetivo a 600mm, aprovechando el fondo iluminado por el sol rasante para aislar la silueta y el plumaje del ave en completo silencio.",
-    "featuredOrder": 1
   },
   {
     "id": "fn-02",
@@ -49,6 +49,7 @@ export const photos: Photo[] = [
     "description": "Retrato de perfil en primer plano a 600mm destacando la textura del plumaje verde y el contraste del pico rojizo sobre el follaje en penumbra.",
     "year": 2026,
     "featured": true,
+    "featuredOrder": 14,
     "prints": false,
     "licensing": true,
     "keywords": [
@@ -59,7 +60,6 @@ export const photos: Photo[] = [
       "naturaleza"
     ],
     "story": "Con el sujeto en reposo absoluto entre las ramas bajas, la focal de 600mm permitió comprimir el fondo vegetal oscuro y revelar cada detalle de las plumas y el ojo.",
-    "featuredOrder": 7
   },
   {
     "id": "fn-03",
@@ -79,6 +79,7 @@ export const photos: Photo[] = [
     "description": "Primer plano de una garza blanca acicalando su plumaje bajo la luz dorada de la mañana sobre un fondo azul profundo.",
     "year": 2026,
     "featured": true,
+    "featuredOrder": 10,
     "prints": true,
     "licensing": true,
     "keywords": [
@@ -88,7 +89,6 @@ export const photos: Photo[] = [
       "naturaleza"
     ],
     "story": "Con las primeras luces del día incidiendo lateralmente sobre el cuello curvado de la garza, el teleobjetivo a 600mm permitió aislar la textura sedosa de las plumas sobre el agua en sombra.",
-    "featuredOrder": 3
   },
   {
     "id": "fn-04",
@@ -108,6 +108,7 @@ export const photos: Photo[] = [
     "description": "Encuentro visual con un lince boreal en reposo sobre una roca musgosa en el bosque alpino.",
     "year": 2026,
     "featured": true,
+    "featuredOrder": 2,
     "prints": true,
     "licensing": true,
     "keywords": [
@@ -117,7 +118,6 @@ export const photos: Photo[] = [
       "plumaje"
     ],
     "story": "El camuflaje moteado del lince se funde con la roca y el musgo húmedo; solo el destello ámbar de su mirada directa hacia el objetivo delata su presencia.",
-    "featuredOrder": 2
   },
   {
     "id": "fn-05",
@@ -163,6 +163,7 @@ export const photos: Photo[] = [
     "description": "Ejemplar de cabra montés sorteando con agilidad un desnivel vertical entre grandes bloques de granito en alta montaña.",
     "year": 2026,
     "featured": true,
+    "featuredOrder": 7,
     "prints": true,
     "licensing": true,
     "keywords": [
@@ -172,7 +173,6 @@ export const photos: Photo[] = [
       "naturaleza"
     ],
     "story": "En las paredes rocosas de la sierra, la cabra montés se desplaza con un equilibrio asombroso sobre apoyos mínimos. Esperé a que asomara en el filo entre dos bloques antes de saltar.",
-    "featuredOrder": 9
   },
   {
     "id": "fn-07",
@@ -273,6 +273,7 @@ export const photos: Photo[] = [
     "description": "La silueta nevada del pico volcánico emergiendo sobre el manto oscuro del pinar bajo las primeras luces rosadas del amanecer.",
     "year": 2026,
     "featured": true,
+    "featuredOrder": 1,
     "prints": true,
     "licensing": true,
     "keywords": [
@@ -283,7 +284,6 @@ export const photos: Photo[] = [
       "documental"
     ],
     "story": "Antes de que el sol superara la línea de cumbres, las nubes altas se tiñeron de tonos violáceos y rosados sobre el cono nevado del volcán, contrastando con la penumbra cerrada del bosque inferior.",
-    "featuredOrder": 4
   },
   {
     "id": "pd-03",
@@ -438,6 +438,7 @@ export const photos: Photo[] = [
     "description": "Relieve escarpado de paredes rocosas y vegetación de montaña bajo un cielo encapotado.",
     "year": 2026,
     "featured": true,
+    "featuredOrder": 12,
     "prints": false,
     "licensing": true,
     "keywords": [
@@ -447,7 +448,6 @@ export const photos: Photo[] = [
       "profundidad"
     ],
     "story": "La nubosidad densa actúa como un difusor gigante que elimina las sombras duras y permite apreciar toda la riqueza de pliegues y fracturas geológicas de la pared caliza.",
-    "featuredOrder": 12
   },
   {
     "id": "cr-01",
@@ -494,6 +494,7 @@ export const photos: Photo[] = [
     "description": "Detalle frontal del faro cromado y la aleta de un Porsche 911 histórico (#52) bajo la carpa de asistencia antes de salir a tramo.",
     "year": 2026,
     "featured": true,
+    "featuredOrder": 13,
     "prints": false,
     "licensing": true,
     "keywords": [
@@ -504,7 +505,6 @@ export const photos: Photo[] = [
       "velocidad"
     ],
     "story": "En la calma tensa del parque de asistencia, los reflejos sobre la carrocería y el faro redondo clásico resumen décadas de historia del automovilismo deportivo.",
-    "featuredOrder": 2
   },
   {
     "id": "cr-03",
@@ -794,6 +794,7 @@ export const photos: Photo[] = [
     "description": "Espectacular derrapaje controlado del dorsal #50 a la salida de una curva lenta levantando humo de neumático.",
     "year": 2026,
     "featured": true,
+    "featuredOrder": 3,
     "prints": false,
     "licensing": true,
     "keywords": [
@@ -803,7 +804,6 @@ export const photos: Photo[] = [
       "trazada"
     ],
     "story": "Apostado a la salida de la horquilla con el teleobjetivo en ráfaga, el piloto provocó la trasera sobre la pintura del asfalto dejando una estela de goma quemada.",
-    "featuredOrder": 8
   },
   {
     "id": "cr-14",
@@ -823,6 +823,7 @@ export const photos: Photo[] = [
     "description": "Compresión a 600mm captando el instante exacto en que el chasis levanta la rueda delantera interior en pleno apoyo.",
     "year": 2026,
     "featured": true,
+    "featuredOrder": 8,
     "prints": false,
     "licensing": true,
     "keywords": [
@@ -833,7 +834,6 @@ export const photos: Photo[] = [
       "velocidad"
     ],
     "story": "Utilizando la máxima focal de 600mm desde una rasante lejana, la transferencia de pesos en el cambio de apoyo dejó el neumático delantero interior suspendido a varios centímetros del asfalto.",
-    "featuredOrder": 10
   },
   {
     "id": "au-01",
@@ -880,6 +880,7 @@ export const photos: Photo[] = [
     "description": "Siluetas de dos caminantes con una bicicleta recorriendo una calle histórica iluminada cálidamente.",
     "year": 2026,
     "featured": true,
+    "featuredOrder": 5,
     "prints": false,
     "licensing": true,
     "keywords": [
@@ -890,7 +891,6 @@ export const photos: Photo[] = [
       "contemporaneo"
     ],
     "story": "La iluminación de vapor de sodio transforma la piedra antigua en un escenario cinematográfico donde las siluetas humanas cobran protagonismo a contraluz.",
-    "featuredOrder": 5
   },
   {
     "id": "au-03",
@@ -910,6 +910,7 @@ export const photos: Photo[] = [
     "description": "Contraste entre la penumbra interior de una ruina de piedra y la vegetación exuberante que invade los vanos abiertos.",
     "year": 2026,
     "featured": true,
+    "featuredOrder": 9,
     "prints": false,
     "licensing": true,
     "keywords": [
@@ -919,7 +920,6 @@ export const photos: Photo[] = [
       "abstraccion"
     ],
     "story": "En el interior en sombra del edificio abandonado, los dos ventanales funcionan como lienzos vivos por donde irrumpe el verde iluminado del bosque.",
-    "featuredOrder": 13
   },
   {
     "id": "au-04",
@@ -1400,6 +1400,7 @@ export const photos: Photo[] = [
     "description": "Silueta solitaria con sombrero y abrigo avanzando sobre el pavimento adoquinado bajo el destello directo del sol poniente.",
     "year": 2025,
     "featured": true,
+    "featuredOrder": 11,
     "prints": false,
     "licensing": true,
     "keywords": [
@@ -1410,7 +1411,6 @@ export const photos: Photo[] = [
       "dunas"
     ],
     "story": "El sol bajo al final de la tarde transformó los adoquines en una superficie dorada, proyectando una sombra alargada mientras el caminante avanzaba exactamente hacia el eje de luz.",
-    "featuredOrder": 3
   },
   {
     "id": "vc-15",
@@ -2187,6 +2187,7 @@ export const photos: Photo[] = [
     "description": "Abstracción minimalista de planos sucesivos de dunas y montañas lejanas bajo la atmósfera ambarina del atardecer.",
     "year": 2025,
     "featured": true,
+    "featuredOrder": 6,
     "prints": true,
     "licensing": true,
     "keywords": [
@@ -2197,7 +2198,6 @@ export const photos: Photo[] = [
       "crepusculo"
     ],
     "story": "A medida que el sol descendía sobre el Sahara, la bruma en suspensión tiñó el cielo de un dorado uniforme, convirtiendo las crestas de arena en planos casi pictóricos.",
-    "featuredOrder": 11
   },
   {
     "id": "vc-41",
@@ -2271,6 +2271,7 @@ export const photos: Photo[] = [
     "description": "Claroscuro documental en el interior de una herrería tradicional donde las chispas del metal iluminan al artesano.",
     "year": 2025,
     "featured": true,
+    "featuredOrder": 4,
     "prints": true,
     "licensing": true,
     "keywords": [
@@ -2281,7 +2282,6 @@ export const photos: Photo[] = [
       "retrato"
     ],
     "story": "En la penumbra densa del taller, la única iluminación provenía del propio trabajo sobre el metal y de un haz lateral que recortaba el humo y las herramientas acumuladas durante décadas.",
-    "featuredOrder": 6
   },
   {
     "id": "au-08",

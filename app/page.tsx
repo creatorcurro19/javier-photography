@@ -1,22 +1,27 @@
 import Hero from "@/components/home/Hero";
+import SelectedWork from "@/components/home/SelectedWork";
 import CollectionsOverview from "@/components/home/CollectionsOverview";
 import SelectedProjects from "@/components/home/SelectedProjects";
 import AboutPreview from "@/components/home/AboutPreview";
 import Container from "@/components/ui/Container";
 import Link from "next/link";
 import { buildPageMetadata } from "@/lib/metadata";
+import { getFeaturedPhotos } from "@/lib/photos";
 
 export const metadata = buildPageMetadata({
   title: "Javier Espinosa | The Art of Seeing — Fotografía de Autor",
   description:
-    "Museo digital y archivo fotográfico de autor por Javier Espinosa Martínez. Fauna salvaje, paisaje documental, automovilismo clásico y rally histórico, arquitectura vernácula y etnografía.",
+    "Galería y museo digital de fotografía de autor por Javier Espinosa Martínez. Fauna salvaje, paisaje documental, automovilismo clásico y rally histórico, arquitectura vernácula y etnografía.",
   path: "/",
 });
 
 export default function Home() {
+  const featuredPhotos = getFeaturedPhotos();
+
   return (
     <>
       <Hero />
+      <SelectedWork photos={featuredPhotos} />
       <CollectionsOverview />
       <SelectedProjects />
       <AboutPreview />

@@ -84,7 +84,7 @@ export default function ServiciosPage() {
     },
     {
       q: "¿Realizas desplazamientos fuera de tu provincia o a las islas?",
-      a: "Sí. Trabajo habitualmente tanto en la Península Ibérica (Extremadura, Salamanca, Madrid, Gredos) como en las Islas Canarias y proyectos internacionales.",
+      a: "Sí. Con base en Tenerife (Islas Canarias), trabajo habitualmente tanto en el archipiélago como en la Península Ibérica (Extremadura, Salamanca, Madrid, Gredos) y proyectos internacionales.",
     },
     {
       q: "¿Los encargos de arquitectura y turismo incluyen licencia de uso comercial?",
@@ -250,7 +250,7 @@ export default function ServiciosPage() {
               },
               {
                 q: "¿Realizas desplazamientos fuera de tu provincia o a las islas?",
-                a: "Sí. Trabajo habitualmente tanto en la Península Ibérica (Extremadura, Salamanca, Madrid, Gredos) como en las Islas Canarias y proyectos internacionales.",
+                a: "Sí. Con base en Tenerife (Islas Canarias), trabajo habitualmente tanto en el archipiélago como en la Península Ibérica (Extremadura, Salamanca, Madrid, Gredos) y proyectos internacionales.",
               },
               {
                 q: "¿Los encargos de arquitectura y turismo incluyen licencia de uso comercial?",

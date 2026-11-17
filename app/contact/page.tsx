@@ -19,8 +19,8 @@ const CONTACT_INFO = [
   },
   {
     label: "Base de Operaciones",
-    value: "España (Península Ibérica)",
-    note: "Disponibilidad para desplazamientos nacionales e internacionales",
+    value: "Tenerife, Canarias, España",
+    note: "Base insular con disponibilidad para desplazamientos a Península e internacionales",
   },
   {
     label: "Especialidades",

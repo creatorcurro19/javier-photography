@@ -52,6 +52,7 @@ export default function Footer() {
               <span className="border border-white/[0.08] px-3 py-1 bg-[#151618] text-[#EBE7DF]">Canon EOS R7</span>
               <span className="border border-white/[0.08] px-3 py-1 bg-[#151618] text-[#EBE7DF]">Hahnemühle 308g</span>
               <span className="border border-white/[0.08] px-3 py-1 bg-[#151618] text-[#EBE7DF]">ISO 9706</span>
+              <span className="border border-white/[0.08] px-3 py-1 bg-[#151618] text-[#EBE7DF]">Tenerife · Canarias</span>
             </div>
 
             {/* Perfiles Oficiales Verificados */}
