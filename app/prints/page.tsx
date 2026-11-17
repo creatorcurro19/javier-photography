@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import {
-  AndalusianBackgroundPattern,
+  AndalusianCollectionBackdrop,
   AndalusianCenefa,
 } from "@/components/ui/AndalusianMotif";
 import PrintScaleVisualizer from "@/components/prints/PrintScaleVisualizer";
@@ -96,14 +96,8 @@ export default function PrintsPage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
-      {/* Filigrana andalusí discreta en el fondo de la colección Fine Art */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[500px]">
-        <AndalusianBackgroundPattern
-          variant="sebka"
-          mask="top"
-          className="text-[#C5A880]/[0.055]"
-        />
-      </div>
+      {/* Filigrana andalusí y cenefas laterales discretas en el fondo de la colección Fine Art */}
+      <AndalusianCollectionBackdrop variant="sebka" />
 
       <JsonLd data={generateFAQSchema(printFaqs)} />
       <Container className="relative z-10">
@@ -308,7 +302,7 @@ export default function PrintsPage() {
 
         <AndalusianCenefa
           variant="estrella"
-          className="mt-24 text-[#C5A880]/22"
+          className="mt-24 text-[#C5A880]/32"
         />
 
         {/* Visual Catalog */}

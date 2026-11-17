@@ -4,6 +4,7 @@ import Container from "@/components/ui/Container";
 import {
   AndalusianBackgroundPattern,
   AndalusianCenefa,
+  AndalusianVerticalCenefa,
 } from "@/components/ui/AndalusianMotif";
 import { PHOTO_CATEGORIES, CATEGORY_METADATA } from "@/types/photo";
 import { getPhotosByCategory } from "@/lib/photos";
@@ -65,12 +66,20 @@ export default function CollectionsOverview() {
       <AndalusianBackgroundPattern
         variant="laceria"
         mask="radial"
-        className="text-[#C5A880]/[0.045]"
+        className="text-[#C5A880]/[0.08]"
       />
 
       {/* Cenefa superior discreta */}
       <div className="absolute inset-x-0 top-0">
-        <AndalusianCenefa variant="estrella" className="text-[#C5A880]/20" />
+        <AndalusianCenefa variant="estrella" className="text-[#C5A880]/30" />
+      </div>
+
+      {/* Cenefas verticales laterales (alfiz) */}
+      <div className="pointer-events-none absolute inset-y-8 left-3 hidden xl:block">
+        <AndalusianVerticalCenefa className="text-[#C5A880]/20" />
+      </div>
+      <div className="pointer-events-none absolute inset-y-8 right-3 hidden xl:block">
+        <AndalusianVerticalCenefa className="text-[#C5A880]/20" />
       </div>
 
       <Container className="relative z-10">
@@ -149,7 +158,7 @@ export default function CollectionsOverview() {
 
       {/* Cenefa inferior discreta */}
       <div className="absolute inset-x-0 bottom-0">
-        <AndalusianCenefa variant="estrella" className="text-[#C5A880]/20" />
+        <AndalusianCenefa variant="estrella" className="text-[#C5A880]/30" />
       </div>
     </section>
   );

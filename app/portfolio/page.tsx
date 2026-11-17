@@ -3,7 +3,7 @@ import CategoryNav from "@/components/portfolio/CategoryNav";
 import ExhibitionGallery from "@/components/portfolio/ExhibitionGallery";
 import ExpeditionMap from "@/components/portfolio/ExpeditionMap";
 import {
-  AndalusianBackgroundPattern,
+  AndalusianCollectionBackdrop,
   AndalusianCenefa,
 } from "@/components/ui/AndalusianMotif";
 import { buildPageMetadata } from "@/lib/metadata";
@@ -21,14 +21,8 @@ export default function PortfolioPage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
-      {/* Filigrana andalusí discreta en el fondo de cabecera */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[460px]">
-        <AndalusianBackgroundPattern
-          variant="laceria"
-          mask="top"
-          className="text-[#C5A880]/[0.055]"
-        />
-      </div>
+      {/* Filigrana andalusí y cenefas laterales discretas en el fondo */}
+      <AndalusianCollectionBackdrop variant="laceria" />
 
       <Container className="relative z-10">
         <header className="max-w-3xl">
@@ -49,7 +43,7 @@ export default function PortfolioPage() {
 
         <AndalusianCenefa
           variant="estrella"
-          className="mt-10 text-[#C5A880]/22"
+          className="mt-10 text-[#C5A880]/32"
         />
 
         <div className="mt-8">
@@ -62,7 +56,7 @@ export default function PortfolioPage() {
 
         <AndalusianCenefa
           variant="sebka"
-          className="mt-20 text-[#C5A880]/18"
+          className="mt-20 text-[#C5A880]/28"
         />
 
         <ExpeditionMap />

@@ -13,7 +13,7 @@ interface AndalusianCenefaProps {
  * Pensada como firma arquitectónica sutil para los encabezados y fondos de las colecciones.
  */
 export function AndalusianCenefa({
-  className = "text-[#C5A880]/25",
+  className = "text-[#C5A880]/35",
   fadeEdges = true,
   variant = "estrella",
 }: AndalusianCenefaProps) {
@@ -28,16 +28,16 @@ export function AndalusianCenefa({
         fadeEdges
           ? {
               maskImage:
-                "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
+                "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
               WebkitMaskImage:
-                "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
+                "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
             }
           : undefined
       }
     >
       {variant === "estrella" ? (
         <svg
-          className="h-5 w-full sm:h-6"
+          className="h-6 w-full"
           xmlns="http://www.w3.org/2000/svg"
           preserveAspectRatio="none"
         >
@@ -55,8 +55,8 @@ export function AndalusianCenefa({
                 x2="56"
                 y2="1.5"
                 stroke="currentColor"
-                strokeWidth="0.7"
-                strokeOpacity="0.85"
+                strokeWidth="0.75"
+                strokeOpacity="0.9"
               />
               <line
                 x1="0"
@@ -64,9 +64,9 @@ export function AndalusianCenefa({
                 x2="56"
                 y2="4"
                 stroke="currentColor"
-                strokeWidth="0.4"
+                strokeWidth="0.45"
                 strokeDasharray="1.5 2.5"
-                strokeOpacity="0.6"
+                strokeOpacity="0.65"
               />
               <line
                 x1="0"
@@ -74,9 +74,9 @@ export function AndalusianCenefa({
                 x2="56"
                 y2="20"
                 stroke="currentColor"
-                strokeWidth="0.4"
+                strokeWidth="0.45"
                 strokeDasharray="1.5 2.5"
-                strokeOpacity="0.6"
+                strokeOpacity="0.65"
               />
               <line
                 x1="0"
@@ -84,8 +84,8 @@ export function AndalusianCenefa({
                 x2="56"
                 y2="22.5"
                 stroke="currentColor"
-                strokeWidth="0.7"
-                strokeOpacity="0.85"
+                strokeWidth="0.75"
+                strokeOpacity="0.9"
               />
 
               {/* Lacería diagonal continua */}
@@ -93,26 +93,26 @@ export function AndalusianCenefa({
                 d="M 0,12 L 14,4 L 28,12 L 14,20 Z"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="0.65"
-                strokeOpacity="0.7"
+                strokeWidth="0.7"
+                strokeOpacity="0.75"
               />
               <path
                 d="M 28,12 L 42,4 L 56,12 L 42,20 Z"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="0.65"
-                strokeOpacity="0.7"
+                strokeWidth="0.7"
+                strokeOpacity="0.75"
               />
               <path
                 d="M 0,4 L 14,12 L 0,20 M 56,4 L 42,12 L 56,20"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="0.55"
-                strokeOpacity="0.5"
+                strokeOpacity="0.55"
               />
 
               {/* Estrella andalusí de 8 puntas central */}
-              <g stroke="currentColor" fill="none" strokeWidth="0.65">
+              <g stroke="currentColor" fill="none" strokeWidth="0.7">
                 <rect x="24.5" y="8.5" width="7" height="7" />
                 <rect
                   x="24.5"
@@ -141,16 +141,16 @@ export function AndalusianCenefa({
               </g>
 
               {/* Micro-puntos centrales */}
-              <circle cx="28" cy="12" r="0.9" fill="currentColor" fillOpacity="0.85" />
-              <circle cx="14" cy="12" r="0.7" fill="currentColor" fillOpacity="0.5" />
-              <circle cx="42" cy="12" r="0.7" fill="currentColor" fillOpacity="0.5" />
+              <circle cx="28" cy="12" r="0.95" fill="currentColor" fillOpacity="0.9" />
+              <circle cx="14" cy="12" r="0.75" fill="currentColor" fillOpacity="0.55" />
+              <circle cx="42" cy="12" r="0.75" fill="currentColor" fillOpacity="0.55" />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill={`url(#${patId})`} />
         </svg>
       ) : (
         <svg
-          className="h-5 w-full sm:h-6"
+          className="h-6 w-full"
           xmlns="http://www.w3.org/2000/svg"
           preserveAspectRatio="none"
         >
@@ -168,8 +168,8 @@ export function AndalusianCenefa({
                 x2="44"
                 y2="1.5"
                 stroke="currentColor"
-                strokeWidth="0.65"
-                strokeOpacity="0.8"
+                strokeWidth="0.7"
+                strokeOpacity="0.85"
               />
               <line
                 x1="0"
@@ -177,38 +177,120 @@ export function AndalusianCenefa({
                 x2="44"
                 y2="22.5"
                 stroke="currentColor"
-                strokeWidth="0.65"
-                strokeOpacity="0.8"
+                strokeWidth="0.7"
+                strokeOpacity="0.85"
               />
               {/* Arcos entrelazados (arquería / sebka horizontal) */}
               <path
                 d="M 0,20 Q 11,4 22,20 Q 33,4 44,20"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="0.7"
-                strokeOpacity="0.75"
+                strokeWidth="0.75"
+                strokeOpacity="0.8"
               />
               <path
                 d="M -11,20 Q 0,4 11,20 Q 22,4 33,20 Q 44,4 55,20"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="0.55"
-                strokeOpacity="0.45"
+                strokeOpacity="0.5"
               />
               <path
                 d="M 0,4 Q 11,20 22,4 Q 33,20 44,4"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="0.55"
-                strokeOpacity="0.4"
+                strokeOpacity="0.45"
               />
-              <circle cx="11" cy="12" r="0.9" fill="currentColor" fillOpacity="0.75" />
-              <circle cx="33" cy="12" r="0.9" fill="currentColor" fillOpacity="0.75" />
+              <circle cx="11" cy="12" r="0.95" fill="currentColor" fillOpacity="0.8" />
+              <circle cx="33" cy="12" r="0.95" fill="currentColor" fillOpacity="0.8" />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill={`url(#${patId})`} />
         </svg>
       )}
+    </div>
+  );
+}
+
+/**
+ * Cenefa vertical discreta (inspirada en el alfiz nazarí y mudéjar)
+ * para enmarcar sutilmente los márgenes laterales del fondo de cada colección.
+ */
+export function AndalusianVerticalCenefa({
+  className = "text-[#C5A880]/18",
+}: {
+  className?: string;
+}) {
+  const rawId = useId();
+  const patId = `andalusian-vcenefa-${rawId.replace(/[^a-zA-Z0-9_-]/g, "")}`;
+
+  return (
+    <div
+      aria-hidden="true"
+      className={`pointer-events-none h-full w-6 select-none overflow-hidden ${className}`}
+      style={{
+        maskImage:
+          "linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%)",
+        WebkitMaskImage:
+          "linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%)",
+      }}
+    >
+      <svg className="h-full w-6" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern
+            id={patId}
+            width="24"
+            height="56"
+            patternUnits="userSpaceOnUse"
+          >
+            <line
+              x1="1.5"
+              y1="0"
+              x2="1.5"
+              y2="56"
+              stroke="currentColor"
+              strokeWidth="0.7"
+              strokeOpacity="0.8"
+            />
+            <line
+              x1="22.5"
+              y1="0"
+              x2="22.5"
+              y2="56"
+              stroke="currentColor"
+              strokeWidth="0.7"
+              strokeOpacity="0.8"
+            />
+            <path
+              d="M 12,0 L 20,14 L 12,28 L 4,14 Z"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="0.65"
+              strokeOpacity="0.7"
+            />
+            <path
+              d="M 12,28 L 20,42 L 12,56 L 4,42 Z"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="0.65"
+              strokeOpacity="0.7"
+            />
+            <g stroke="currentColor" fill="none" strokeWidth="0.65">
+              <rect x="8.5" y="24.5" width="7" height="7" />
+              <rect
+                x="8.5"
+                y="24.5"
+                width="7"
+                height="7"
+                transform="rotate(45 12 28)"
+              />
+            </g>
+            <circle cx="12" cy="28" r="0.9" fill="currentColor" fillOpacity="0.85" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill={`url(#${patId})`} />
+      </svg>
     </div>
   );
 }
@@ -228,7 +310,7 @@ interface AndalusianBackgroundPatternProps {
 export function AndalusianBackgroundPattern({
   variant = "laceria",
   mask = "top",
-  className = "text-[#C5A880]/[0.06]",
+  className = "text-[#C5A880]/[0.09]",
 }: AndalusianBackgroundPatternProps) {
   const rawId = useId();
   const patId = `andalusian-bg-${variant}-${rawId.replace(/[^a-zA-Z0-9_-]/g, "")}`;
@@ -237,16 +319,16 @@ export function AndalusianBackgroundPattern({
     mask === "top"
       ? {
           maskImage:
-            "linear-gradient(to bottom, black 0%, rgba(0,0,0,0.65) 45%, transparent 100%)",
+            "linear-gradient(to bottom, black 0%, rgba(0,0,0,0.65) 50%, transparent 100%)",
           WebkitMaskImage:
-            "linear-gradient(to bottom, black 0%, rgba(0,0,0,0.65) 45%, transparent 100%)",
+            "linear-gradient(to bottom, black 0%, rgba(0,0,0,0.65) 50%, transparent 100%)",
         }
       : mask === "radial"
       ? {
           maskImage:
-            "radial-gradient(ellipse 80% 75% at 50% 25%, black 15%, transparent 85%)",
+            "radial-gradient(ellipse 85% 75% at 50% 30%, black 20%, transparent 88%)",
           WebkitMaskImage:
-            "radial-gradient(ellipse 80% 75% at 50% 25%, black 15%, transparent 85%)",
+            "radial-gradient(ellipse 85% 75% at 50% 30%, black 20%, transparent 88%)",
         }
       : mask === "edges"
       ? {
@@ -369,6 +451,36 @@ export function AndalusianBackgroundPattern({
   );
 }
 
+/**
+ * Composición arquitectónica completa para el fondo de una colección:
+ * filigrana sutil en cabecera + cenefas verticales discretas en los laterales (alfiz).
+ */
+export function AndalusianCollectionBackdrop({
+  variant = "laceria",
+}: {
+  variant?: "laceria" | "sebka";
+}) {
+  return (
+    <>
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[540px]">
+        <AndalusianBackgroundPattern
+          variant={variant}
+          mask="top"
+          className="text-[#C5A880]/[0.09]"
+        />
+      </div>
+
+      {/* Cenefas laterales discretas en márgenes amplios (efecto alfiz de museo) */}
+      <div className="pointer-events-none absolute inset-y-24 left-3 hidden xl:block">
+        <AndalusianVerticalCenefa className="text-[#C5A880]/20" />
+      </div>
+      <div className="pointer-events-none absolute inset-y-24 right-3 hidden xl:block">
+        <AndalusianVerticalCenefa className="text-[#C5A880]/20" />
+      </div>
+    </>
+  );
+}
+
 interface AndalusianDividerProps {
   className?: string;
 }
@@ -382,9 +494,9 @@ export function AndalusianDivider({ className = "" }: AndalusianDividerProps) {
       aria-hidden="true"
       className={`flex items-center justify-center gap-4 select-none ${className}`}
     >
-      <span className="h-px flex-1 bg-gradient-to-r from-transparent via-[#C5A880]/20 to-[#C5A880]/30" />
+      <span className="h-px flex-1 bg-gradient-to-r from-transparent via-[#C5A880]/25 to-[#C5A880]/40" />
       <svg
-        className="h-4 w-4 text-[#C5A880]/45"
+        className="h-4 w-4 text-[#C5A880]/55"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -400,7 +512,7 @@ export function AndalusianDivider({ className = "" }: AndalusianDividerProps) {
         />
         <circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none" />
       </svg>
-      <span className="h-px flex-1 bg-gradient-to-l from-transparent via-[#C5A880]/20 to-[#C5A880]/30" />
+      <span className="h-px flex-1 bg-gradient-to-l from-transparent via-[#C5A880]/25 to-[#C5A880]/40" />
     </div>
   );
 }

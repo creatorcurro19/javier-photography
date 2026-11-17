@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import {
-  AndalusianBackgroundPattern,
+  AndalusianCollectionBackdrop,
   AndalusianCenefa,
 } from "@/components/ui/AndalusianMotif";
 import ExhibitionGallery from "@/components/portfolio/ExhibitionGallery";
@@ -76,14 +76,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       </div>
 
       <div className="relative overflow-hidden">
-        {/* Filigrana andalusí discreta en el fondo de la serie */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-[480px]">
-          <AndalusianBackgroundPattern
-            variant="laceria"
-            mask="top"
-            className="text-[#C5A880]/[0.055]"
-          />
-        </div>
+        {/* Filigrana andalusí y cenefas laterales discretas en el fondo de la serie */}
+        <AndalusianCollectionBackdrop variant="laceria" />
 
         <Container className="relative z-10 mt-12">
           {/* Project Header */}
@@ -136,7 +130,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
         <AndalusianCenefa
           variant="estrella"
-          className="text-[#C5A880]/22"
+          className="text-[#C5A880]/32"
         />
 
         {/* Exhibition Sequence */}

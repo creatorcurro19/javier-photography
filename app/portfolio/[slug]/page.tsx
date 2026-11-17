@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import Container from "@/components/ui/Container";
 import {
-  AndalusianBackgroundPattern,
+  AndalusianCollectionBackdrop,
   AndalusianCenefa,
 } from "@/components/ui/AndalusianMotif";
 import CategoryNav from "@/components/portfolio/CategoryNav";
@@ -74,14 +74,8 @@ function CategoryGallery({ category }: { category: PhotoCategory }) {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
-      {/* Filigrana andalusí sutil en el fondo de la colección */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[500px]">
-        <AndalusianBackgroundPattern
-          variant={isSebka ? "sebka" : "laceria"}
-          mask="top"
-          className="text-[#C5A880]/[0.06]"
-        />
-      </div>
+      {/* Filigrana andalusí y cenefas laterales discretas en el fondo de la colección */}
+      <AndalusianCollectionBackdrop variant={isSebka ? "sebka" : "laceria"} />
 
       <Container className="relative z-10">
         <header className="max-w-3xl">
@@ -104,7 +98,7 @@ function CategoryGallery({ category }: { category: PhotoCategory }) {
 
         <AndalusianCenefa
           variant={isSebka ? "sebka" : "estrella"}
-          className="mt-10 text-[#C5A880]/22"
+          className="mt-10 text-[#C5A880]/32"
         />
 
         <div className="mt-8">
@@ -117,7 +111,7 @@ function CategoryGallery({ category }: { category: PhotoCategory }) {
 
         <AndalusianCenefa
           variant={isSebka ? "sebka" : "estrella"}
-          className="mt-20 text-[#C5A880]/18"
+          className="mt-20 text-[#C5A880]/28"
         />
       </Container>
     </div>

@@ -1,6 +1,6 @@
 import Container from "@/components/ui/Container";
 import {
-  AndalusianBackgroundPattern,
+  AndalusianCollectionBackdrop,
   AndalusianCenefa,
 } from "@/components/ui/AndalusianMotif";
 import ExhibitionGallery from "@/components/portfolio/ExhibitionGallery";
@@ -20,14 +20,8 @@ export default function SelectedWorkPage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
-      {/* Filigrana andalusí discreta en el fondo */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[480px]">
-        <AndalusianBackgroundPattern
-          variant="laceria"
-          mask="top"
-          className="text-[#C5A880]/[0.055]"
-        />
-      </div>
+      {/* Filigrana andalusí y cenefas laterales discretas en el fondo */}
+      <AndalusianCollectionBackdrop variant="laceria" />
 
       <Container className="relative z-10">
         {/* Curatorial Header */}
@@ -65,7 +59,7 @@ export default function SelectedWorkPage() {
 
         <AndalusianCenefa
           variant="estrella"
-          className="mt-12 text-[#C5A880]/22"
+          className="mt-12 text-[#C5A880]/32"
         />
 
         {/* The 15 Artworks Gallery */}

@@ -1,6 +1,6 @@
 import Container from "@/components/ui/Container";
 import {
-  AndalusianBackgroundPattern,
+  AndalusianCollectionBackdrop,
   AndalusianCenefa,
 } from "@/components/ui/AndalusianMotif";
 import ProjectsInteractiveIndex from "@/components/projects/ProjectsInteractiveIndex";
@@ -23,14 +23,8 @@ export default function ProjectsPage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
-      {/* Fondo discreto de sebka andalusí */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[480px]">
-        <AndalusianBackgroundPattern
-          variant="sebka"
-          mask="top"
-          className="text-[#C5A880]/[0.055]"
-        />
-      </div>
+      {/* Fondo discreto de sebka y cenefas laterales andalusíes */}
+      <AndalusianCollectionBackdrop variant="sebka" />
 
       <Container className="relative z-10">
         {/* Header */}
@@ -53,7 +47,7 @@ export default function ProjectsPage() {
 
         <AndalusianCenefa
           variant="sebka"
-          className="mt-10 text-[#C5A880]/22"
+          className="mt-10 text-[#C5A880]/32"
         />
 
         {/* Interactive Series Index with Sequence Filmstrip */}
@@ -63,7 +57,7 @@ export default function ProjectsPage() {
 
         <AndalusianCenefa
           variant="estrella"
-          className="mt-20 text-[#C5A880]/18"
+          className="mt-20 text-[#C5A880]/28"
         />
 
         {/* Interactive Expedition Map */}
