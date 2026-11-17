@@ -102,7 +102,7 @@ export default function ServiciosPage() {
           <p className="text-xs font-mono uppercase tracking-[0.4em] text-[#95836B]">
             Comercialización y Encargos
           </p>
-          <h1 className="mt-4 font-serif text-5xl font-light tracking-wide leading-[1.15] md:text-6xl text-[#D8D5CD]">
+          <h1 className="mt-4 text-4xl sm:text-5xl md:text-6xl font-light tracking-tight text-[#D8D5CD]">
             Servicios Fotográficos de Autor
           </h1>
           <p className="mt-6 text-lg font-light leading-relaxed text-[#D8D5CD]/80">

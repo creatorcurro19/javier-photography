@@ -1,91 +1,79 @@
 import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
-import SectionHeader from "@/components/ui/SectionHeader";
 import { getAllProjects } from "@/lib/photos";
 
 export default function SelectedProjects() {
-  const projects = getAllProjects();
+  const allProjects = getAllProjects();
+  const featured = allProjects.slice(0, 3);
 
   return (
-    <section id="proyectos" className="bg-[#101112] py-28 md:py-36 border-t border-[#1D2021] scroll-mt-20">
+    <section id="proyectos" className="bg-[#101112] py-24 sm:py-32 border-t border-[#1D2021] scroll-mt-20">
       <Container>
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-          <SectionHeader
-            label="Ensayos & Narrativa Visual"
-            title="Proyectos Seleccionados"
-            description="Series monográficas articuladas con una intención conceptual y documental: la dignidad de los oficios, la arquitectura popular, la orografía del territorio y la tensión del instante."
-          />
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.35em] text-[#95836B]">
+              Ensayos Documentales
+            </p>
+            <h2 className="mt-2 text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-[#D8D5CD]">
+              Series Monográficas
+            </h2>
+          </div>
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.25em] text-[#95836B] hover:text-[#D8D5CD] transition group shrink-0"
+            className="group inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-[#95836B] hover:text-[#D8D5CD] transition"
           >
-            <span>Índice de Proyectos ({projects.length})</span>
-            <span className="transition-transform group-hover:translate-x-1">→</span>
+            <span>Ver las {allProjects.length} series →</span>
           </Link>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, idx) => (
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          {featured.map((project) => (
             <article
               key={project.id}
-              className="group flex flex-col justify-between overflow-hidden rounded-xl border border-[#1D2021] bg-[#1D2021]/40 transition duration-500 hover:border-[#95836B]/60 hover:bg-[#1D2021]/70"
+              className="group flex flex-col justify-between overflow-hidden border border-[#1D2021] bg-[#141617]/50 transition duration-500 hover:border-[#95836B]/60"
             >
               <div>
                 <Link
                   href={`/projects/${project.slug}`}
-                  className="block relative aspect-[3/2] w-full overflow-hidden bg-[#1D2021]"
+                  className="block relative aspect-[3/2] w-full overflow-hidden bg-[#101112]"
                 >
                   <Image
                     src={project.coverImage}
                     alt={project.title}
                     fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                    sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#101112] via-[#101112]/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#101112] via-transparent to-transparent" />
                   
-                  <div className="absolute top-4 left-4 flex items-center gap-2">
-                    <span className="rounded-full border border-[#1D2021] bg-[#101112]/90 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B] backdrop-blur-md">
-                      0{idx + 1} · {project.discipline}
-                    </span>
+                  <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between font-mono text-[9px] uppercase tracking-widest text-[#95836B]">
+                    <span>{project.discipline}</span>
+                    <span>{project.year}</span>
                   </div>
-
-                  <span className="absolute top-4 right-4 rounded-full border border-[#1D2021] bg-[#101112]/90 px-3 py-1 font-mono text-[11px] text-[#D8D5CD] backdrop-blur-md">
-                    {project.photoIds.length} fotografías
-                  </span>
                 </Link>
 
-                <div className="p-8 sm:p-10">
-                  <div className="flex items-center gap-2 text-xs font-mono text-[#95836B]">
-                    <span>{project.location ? `${project.location} · ` : ""}{project.year}</span>
-                  </div>
-
-                  <h3 className="mt-3 font-serif text-3xl font-light text-[#D8D5CD] group-hover:text-white transition-colors">
+                <div className="p-6">
+                  <h3 className="text-xl font-light text-[#D8D5CD] group-hover:text-white transition-colors">
                     <Link href={`/projects/${project.slug}`}>
                       {project.title}
                     </Link>
                   </h3>
-
-                  <p className="mt-2 text-xs font-mono text-neutral-400">
-                    {project.subtitle}
-                  </p>
-
-                  <p className="mt-4 text-sm font-light leading-relaxed text-[#D8D5CD]/80 line-clamp-3">
+                  <p className="mt-2 text-xs text-neutral-400 font-light line-clamp-2">
                     {project.description}
                   </p>
                 </div>
               </div>
 
-              <div className="px-8 pb-8 sm:px-10 sm:pb-10 pt-2 border-t border-[#1D2021]/80 flex items-center justify-between">
+              <div className="px-6 pb-6 pt-2 border-t border-[#1D2021]/60 flex items-center justify-between">
                 <Link
                   href={`/projects/${project.slug}`}
-                  className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.25em] text-[#95836B] group-hover:text-[#D8D5CD] transition-colors"
+                  className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.22em] text-[#95836B] group-hover:text-[#D8D5CD] transition-colors"
                 >
-                  <span>Explorar Ensayo Completo</span>
+                  <span>Explorar Ensayo</span>
                   <span className="transition-transform group-hover:translate-x-1">→</span>
                 </Link>
-                <span className="font-mono text-xs text-neutral-500">
+                <span className="font-mono text-[10px] text-neutral-500">
                   {project.photoIds.length} obras
                 </span>
               </div>

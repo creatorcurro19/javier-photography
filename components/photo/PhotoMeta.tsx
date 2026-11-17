@@ -29,7 +29,7 @@ export default function PhotoMeta({ photo }: PhotoMetaProps) {
         <FavoriteButton title={photo.title} />
       </div>
 
-      <h1 className="mt-4 font-serif text-4xl font-light text-[#D8D5CD] md:text-5xl lg:text-6xl tracking-wide leading-[1.15]">
+      <h1 className="mt-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-[#D8D5CD] leading-[1.12]">
         {photo.title}
       </h1>
 

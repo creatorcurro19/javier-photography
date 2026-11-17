@@ -98,7 +98,7 @@ export default function PrintsPage() {
           <p className="text-xs uppercase tracking-[0.4em] text-[#95836B] font-mono">
             Ediciones de Colección & Obra Gráfica
           </p>
-          <h1 className="mt-4 font-serif text-4xl font-light tracking-wide text-[#D8D5CD] sm:text-5xl lg:text-6xl">
+          <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight text-[#D8D5CD]">
             Copias Fine Art de Autor
           </h1>
           <p className="mt-6 text-base leading-relaxed text-[#D8D5CD]/80 sm:text-lg font-light">

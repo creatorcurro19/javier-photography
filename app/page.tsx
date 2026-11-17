@@ -21,38 +21,32 @@ export default function Home() {
       <SelectedProjects />
       <AboutPreview />
 
-      {/* Commercial Section CTA */}
-      <section className="bg-[#101112] py-28 border-t border-[#1D2021]">
+      {/* Fine Art & Commissions Inquiries */}
+      <section className="bg-[#101112] py-24 sm:py-32 border-t border-[#1D2021]">
         <Container>
-          <div className="rounded-2xl border border-[#1D2021] bg-gradient-to-b from-[#1D2021]/80 to-[#101112] p-10 md:p-16 text-center max-w-4xl mx-auto">
-            <span className="text-xs font-mono uppercase tracking-[0.4em] text-[#95836B]">
-              Servicios y Encargos Fotográficos
-            </span>
-            <h2 className="mt-4 font-serif text-3xl md:text-5xl font-light text-[#D8D5CD]">
-              ¿Tienes un proyecto en mente?
-            </h2>
-            <p className="mt-6 text-base font-light text-[#D8D5CD]/80 leading-relaxed max-w-2xl mx-auto">
-              Realizo encargos de cobertura de automovilismo y rally histórico, proyectos documentales de territorio,
-              fotografía de arquitectura y venta de copias de autor Fine Art de alta conservación.
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-[10px] uppercase tracking-[0.35em] text-[#95836B]">
+              Copias Fine Art & Encargos
             </p>
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-              <Link
-                href="/servicios"
-                className="border border-[#D8D5CD] bg-[#D8D5CD] px-8 py-3.5 text-xs font-mono uppercase tracking-[0.25em] text-[#101112] font-semibold transition hover:bg-transparent hover:text-white"
-              >
-                Ver Servicios y Encargos
-              </Link>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-[#D8D5CD]">
+              Obra de Autor para Coleccionismo
+            </h2>
+            <p className="mt-5 text-sm sm:text-base font-light text-[#D8D5CD]/75 leading-relaxed">
+              Tiradas limitadas certificadas bajo norma ISO 9706 sobre papel de algodón 100% Hahnemühle Photo Rag 308g,
+              y encargos de cobertura documental, automovilismo y territorio.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/prints"
-                className="border border-[#1D2021] bg-[#1D2021]/60 px-8 py-3.5 text-xs font-mono uppercase tracking-[0.25em] text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
+                className="border border-[#D8D5CD] bg-[#D8D5CD] px-7 py-3 text-[11px] uppercase tracking-[0.24em] text-[#101112] font-medium transition hover:bg-transparent hover:text-white"
               >
                 Catálogo de Prints
               </Link>
               <Link
                 href="/contact"
-                className="border border-transparent px-6 py-3.5 text-xs font-mono uppercase tracking-[0.25em] text-[#95836B] hover:text-[#D8D5CD]"
+                className="border border-[#1D2021] bg-[#141617] px-7 py-3 text-[11px] uppercase tracking-[0.24em] text-[#D8D5CD] transition hover:border-[#95836B] hover:text-white"
               >
-                Contactar Directamente
+                Iniciar Consulta
               </Link>
             </div>
           </div>

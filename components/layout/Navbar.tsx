@@ -30,10 +30,10 @@ export default function Navbar() {
           href="/"
           className="group flex flex-col focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
         >
-          <span className="font-serif text-base tracking-[0.25em] text-[#D8D5CD] transition group-hover:text-white sm:text-lg">
+          <span className="font-sans font-medium text-sm tracking-[0.26em] text-[#D8D5CD] transition group-hover:text-white sm:text-base">
             JAVIER ESPINOSA
           </span>
-          <span className="text-[9px] tracking-[0.4em] text-[#95836B] uppercase transition group-hover:text-[#D8D5CD]">
+          <span className="text-[8px] sm:text-[9px] tracking-[0.38em] text-[#95836B] uppercase transition group-hover:text-[#D8D5CD]">
             Fotografía de autor
           </span>
         </Link>

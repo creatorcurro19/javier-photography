@@ -96,63 +96,62 @@ export default function Hero() {
       })}
 
       <div
-        className="absolute inset-0 bg-gradient-to-b from-[#101112]/55 via-[#101112]/35 to-[#101112]"
+        className="absolute inset-0 bg-gradient-to-b from-[#101112]/45 via-transparent to-[#101112]"
         aria-hidden="true"
       />
 
-      <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-6xl flex-col items-center justify-center px-6 pt-28 pb-28 sm:px-12 md:px-16 lg:px-20 text-center text-[#D8D5CD]">
-        <p className="mb-6 text-[11px] sm:text-xs uppercase tracking-[0.45em] text-[#D8D5CD] drop-shadow-[0_1px_8px_rgba(0,0,0,0.75)] font-normal">
-          Fotografía de Autor · España
+      <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-5xl flex-col items-center justify-center px-6 pt-24 pb-28 text-center text-[#D8D5CD]">
+        <p className="mb-4 text-[10px] sm:text-[11px] uppercase tracking-[0.4em] text-[#D8D5CD]/80 font-normal">
+          Fotografía de Autor
         </p>
 
-        <h1 className="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] font-light tracking-[0.05em] leading-[1.08] text-[#D8D5CD] drop-shadow-[0_4px_24px_rgba(0,0,0,0.75)]">
+        <h1 className="font-sans text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-light tracking-[0.2em] sm:tracking-[0.24em] uppercase text-[#D8D5CD] leading-none">
           Javier Espinosa
         </h1>
 
-        <p className="mt-6 text-[11px] sm:text-xs uppercase tracking-[0.32em] text-[#D8D5CD]/90 drop-shadow-[0_1px_8px_rgba(0,0,0,0.75)] font-light">
-          Landscapes · Wildlife · Architecture · Motorsport · Documentary
+        <p className="mt-5 text-xs sm:text-sm uppercase tracking-[0.3em] text-[#95836B] font-light">
+          Fauna · Paisaje · Rally · Arquitectura · Territorio
         </p>
 
-        <p className="mt-8 max-w-2xl text-base sm:text-lg font-light text-[#D8D5CD]/90 leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.75)]">
-          La luz natural como guía, el rigor geométrico del espacio y la paciente observación documental del instante decisivo.
-        </p>
-
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-5">
+        <div className="mt-10 flex items-center justify-center gap-4">
           <Link
             href="/portfolio"
-            className="inline-flex items-center justify-center border border-[#D8D5CD] bg-[#D8D5CD] px-9 py-4 text-xs uppercase tracking-[0.28em] text-[#101112] font-medium transition duration-300 hover:bg-transparent hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            className="border border-[#D8D5CD] bg-[#D8D5CD] px-7 py-3 text-[11px] uppercase tracking-[0.26em] text-[#101112] font-medium transition duration-300 hover:bg-transparent hover:text-white"
           >
-            Ver Colecciones
+            Ver Obras
           </Link>
           <Link
             href="/projects"
-            className="inline-flex items-center justify-center border border-[#D8D5CD]/40 bg-[#101112]/65 px-9 py-4 text-xs uppercase tracking-[0.28em] text-[#D8D5CD] backdrop-blur-md transition duration-300 hover:border-[#D8D5CD] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            className="border border-[#1D2021] bg-[#101112]/60 px-7 py-3 text-[11px] uppercase tracking-[0.26em] text-[#D8D5CD] backdrop-blur-md transition duration-300 hover:border-[#95836B] hover:text-white"
           >
-            Proyectos Narrativos
+            Series
           </Link>
         </div>
 
-        {/* Selector interactivo de obra en portada */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 w-full px-4">
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+        {/* Minimalist Slide Telemetry Indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3">
+          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#95836B]">
+            0{activeSlide + 1} / 0{HERO_SLIDES.length}
+          </span>
+          <span className="text-neutral-600">·</span>
+          <span className="font-serif italic text-xs tracking-wider text-[#D8D5CD]/80">
+            {HERO_SLIDES[activeSlide].title}
+          </span>
+          <div className="ml-2 flex items-center gap-1.5">
             {HERO_SLIDES.map((slide, idx) => (
               <button
                 key={slide.id}
                 type="button"
                 onClick={() => setActiveSlide(idx)}
-                className={`rounded-full px-3 py-1 text-[9px] sm:text-[10px] uppercase tracking-[0.25em] backdrop-blur-md transition ${
+                aria-label={`Ir a diapositiva ${idx + 1}: ${slide.title}`}
+                className={`h-1 transition-all ${
                   idx === activeSlide
-                    ? "border border-[#D8D5CD] bg-[#101112]/80 text-[#D8D5CD]"
-                    : "border border-white/15 bg-[#101112]/40 text-[#D8D5CD]/60 hover:text-[#D8D5CD]"
+                    ? "w-6 bg-[#D8D5CD]"
+                    : "w-2 bg-white/25 hover:bg-white/60"
                 }`}
-              >
-                {slide.code}
-              </button>
+              />
             ))}
           </div>
-          <span className="text-[10px] font-serif italic tracking-wider text-[#D8D5CD]/75">
-            {HERO_SLIDES[activeSlide].title}
-          </span>
         </div>
       </div>
     </section>

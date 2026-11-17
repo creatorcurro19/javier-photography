@@ -36,10 +36,10 @@ export default function Footer() {
               href="/"
               className="inline-flex flex-col focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
             >
-              <span className="font-serif text-xl tracking-[0.25em] text-[#D8D5CD]">
+              <span className="font-sans font-medium text-lg tracking-[0.26em] text-[#D8D5CD]">
                 JAVIER ESPINOSA
               </span>
-              <span className="text-[10px] tracking-[0.4em] text-[#95836B] uppercase">
+              <span className="text-[9px] tracking-[0.38em] text-[#95836B] uppercase">
                 Fotografía de autor & documental
               </span>
             </Link>
