@@ -1,15 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MobileNav from "@/components/layout/MobileNav";
 import SearchModal from "@/components/layout/SearchModal";
 import CartButton from "@/components/cart/CartButton";
 import BwToggle from "@/components/ui/BwToggle";
-import {
-  AndalusianMicroCenefa,
-  AndalusianStarMark,
-} from "@/components/ui/AndalusianMotif";
+import { AndalusianMicroCenefa } from "@/components/ui/AndalusianMotif";
 
 const links = [
   { href: "/selected-work", label: "Selected Works" },
@@ -36,7 +34,13 @@ export default function Navbar() {
           href="/"
           className="group flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
         >
-          <AndalusianStarMark className="h-5 w-5 text-[#C5A880]/75 transition-transform duration-500 group-hover:rotate-45 group-hover:text-[#C5A880]" />
+          <Image
+            src="/icon.svg"
+            alt="Monograma JE"
+            width={34}
+            height={34}
+            className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg ring-1 ring-[#C5A880]/30 transition-transform duration-300 group-hover:scale-105"
+          />
           <div className="flex flex-col">
             <span className="font-sans font-medium text-sm tracking-[0.28em] text-[#EBE7DF] transition group-hover:text-white sm:text-base">
               JAVIER ESPINOSA

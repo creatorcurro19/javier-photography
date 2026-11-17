@@ -1,8 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   AndalusianBackgroundPattern,
   AndalusianCenefa,
-  AndalusianStarMark,
 } from "@/components/ui/AndalusianMotif";
 
 const collections = [
@@ -53,9 +53,15 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <Link
               href="/"
-              className="group inline-flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              className="group inline-flex items-center gap-3.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
             >
-              <AndalusianStarMark className="h-6 w-6 text-[#C5A880]/80 transition-transform duration-500 group-hover:rotate-45" />
+              <Image
+                src="/icon.svg"
+                alt="Monograma JE"
+                width={42}
+                height={42}
+                className="h-10 w-10 rounded-xl ring-1 ring-[#C5A880]/35 transition-transform duration-300 group-hover:scale-105"
+              />
               <div className="flex flex-col">
                 <span className="font-sans font-medium text-lg tracking-[0.28em] text-[#EBE7DF]">
                   JAVIER ESPINOSA
