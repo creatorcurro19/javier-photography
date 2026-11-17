@@ -137,25 +137,25 @@ export default function CollectionsOverview() {
                         ? "(max-width: 1024px) 100vw, 50vw"
                         : "(max-width: 1024px) 100vw, 33vw"
                     }
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] brightness-[0.82] group-hover:brightness-95"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] brightness-[0.9] sm:brightness-[0.84] group-hover:brightness-95"
                   />
-                  {/* Veladura inferior profunda para lectura cristalina */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/70 via-40% to-transparent" />
+                  {/* Veladura inferior solo en pantallas sm+ donde la cartela se superpone */}
+                  <div className="hidden sm:block absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/65 via-40% to-transparent" />
+                </div>
 
-                  {/* Cartela inferior de museo sobre fondo oscuro traslúcido */}
-                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 border-t border-[#C5A880]/15 bg-[#0B0C0E]/65 px-5 py-4 backdrop-blur-sm sm:px-6 sm:py-5">
-                    <div>
-                      <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#E5D3B3]">
-                        {wing.roomRoman} · {count} Obras
-                      </p>
-                      <h3 className="mt-1 font-serif text-xl sm:text-2xl font-light text-[#F7F4EE] [text-shadow:0_2px_12px_rgba(0,0,0,0.85)] transition-colors group-hover:text-white">
-                        {info.title}
-                      </h3>
-                    </div>
-                    <span className="font-mono text-sm text-[#C5A880] transition-transform duration-300 group-hover:translate-x-1 group-hover:text-[#F7F4EE]">
-                      →
-                    </span>
+                {/* Cartela: debajo de la foto en móvil (cero obstrucción), superpuesta abajo en sm+ */}
+                <div className="flex items-end justify-between gap-4 border-t border-[#C5A880]/15 bg-[#151618] px-5 py-4 sm:absolute sm:inset-x-0 sm:bottom-0 sm:bg-[#0B0C0E]/70 sm:px-6 sm:py-5 sm:backdrop-blur-sm">
+                  <div className="min-w-0">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.26em] text-[#E5D3B3]">
+                      {wing.roomRoman} · {count} Obras
+                    </p>
+                    <h3 className="mt-1 truncate font-serif text-lg sm:text-2xl font-light text-[#F7F4EE] sm:[text-shadow:0_2px_12px_rgba(0,0,0,0.85)] transition-colors group-hover:text-white">
+                      {info.title}
+                    </h3>
                   </div>
+                  <span className="shrink-0 font-mono text-sm text-[#C5A880] transition-transform duration-300 group-hover:translate-x-1 group-hover:text-[#F7F4EE]">
+                    →
+                  </span>
                 </div>
               </Link>
             );

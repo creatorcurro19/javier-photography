@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   AndalusianCenefa,
-  AndalusianCornerOrnaments,
   AndalusianStarMark,
 } from "@/components/ui/AndalusianMotif";
 
@@ -36,7 +35,7 @@ const HERO_SLIDES: HeroSlide[] = [
     title: "Mirada del Lince Boreal",
     location: "Taiga Boreal · España",
     image: "/images/portfolio/fauna-naturaleza/B51A1823-Mejorado-NR.jpg",
-    position: "object-[center_35%]",
+    position: "object-[center_30%]",
   },
   {
     id: "peaks",
@@ -63,7 +62,7 @@ const HERO_SLIDES: HeroSlide[] = [
     title: "El Oficio y la Chispa",
     location: "Herrería Tradicional · Memoria Rural",
     image: "/images/portfolio/viajes-cultura/soldador.jpg",
-    position: "object-[center_40%]",
+    position: "object-[center_38%]",
   },
 ];
 
@@ -100,123 +99,108 @@ export default function Hero() {
 
   return (
     <section
-      className="relative min-h-screen min-h-svh w-full bg-[#0B0C0E] overflow-hidden flex items-center justify-center select-none"
+      className="relative w-full bg-[#0B0C0E] overflow-hidden select-none md:min-h-screen md:min-h-svh md:flex md:flex-col md:justify-end"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       aria-label="Museo de Fotografía de Autor — Javier Espinosa"
     >
-      {/* Slideshow fotográfico a gran escala */}
-      {HERO_SLIDES.map((slide, idx) => {
-        const isCurrent = idx === activeSlide;
-        const isNext = idx === (activeSlide + 1) % HERO_SLIDES.length;
-        if (!isCurrent && !isNext) return null;
+      {/* Escenario fotográfico: en móvil limpio y sin cuadros encima; en escritorio a pantalla completa */}
+      <div className="relative mt-[71px] h-[46svh] min-h-[290px] w-full overflow-hidden md:mt-0 md:absolute md:inset-0 md:h-full">
+        {HERO_SLIDES.map((slide, idx) => {
+          const isCurrent = idx === activeSlide;
+          const isNext = idx === (activeSlide + 1) % HERO_SLIDES.length;
+          if (!isCurrent && !isNext) return null;
 
-        return (
-          <div
-            key={slide.id}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              isCurrent ? "opacity-100 z-0" : "opacity-0 pointer-events-none -z-10"
-            }`}
-            aria-hidden={!isCurrent}
-          >
+          return (
             <div
-              className={`relative h-full w-full transition-transform duration-[7000ms] ease-out motion-reduce:transform-none ${
-                isCurrent ? "scale-[1.03]" : "scale-100"
+              key={slide.id}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                isCurrent ? "opacity-100 z-0" : "opacity-0 pointer-events-none -z-10"
               }`}
+              aria-hidden={!isCurrent}
             >
-              <Image
-                src={slide.image}
-                alt={`${slide.title} — ${slide.discipline} por Javier Espinosa Martínez`}
-                fill
-                priority={idx === 0}
-                loading={idx === 0 ? "eager" : "lazy"}
-                sizes="100vw"
-                className={`object-cover ${slide.position} brightness-[0.82] contrast-[1.05]`}
-              />
+              <div
+                className={`relative h-full w-full transition-transform duration-[7000ms] ease-out motion-reduce:transform-none ${
+                  isCurrent ? "scale-[1.03]" : "scale-100"
+                }`}
+              >
+                <Image
+                  src={slide.image}
+                  alt={`${slide.title} — ${slide.discipline} por Javier Espinosa Martínez`}
+                  fill
+                  priority={idx === 0}
+                  loading={idx === 0 ? "eager" : "lazy"}
+                  sizes="100vw"
+                  className={`object-cover ${slide.position} brightness-[0.94] contrast-[1.03] md:brightness-[0.88]`}
+                />
+              </div>
             </div>
+          );
+        })}
+
+        {/* Degradado sutil solo en el borde inferior en móvil, y cinematográfico en el tercio inferior en escritorio */}
+        <div
+          className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-[#0B0C0E]/20 via-transparent to-[#0B0C0E] md:from-[#0B0C0E]/55 md:via-[#0B0C0E]/15 md:via-45% md:to-[#0B0C0E]"
+          aria-hidden="true"
+        />
+        {/* Segundo velo inferior suave en escritorio para garantizar lectura perfecta sin tapar la foto */}
+        <div
+          className="pointer-events-none hidden md:block absolute inset-x-0 bottom-0 z-10 h-[56%] bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/75 to-transparent"
+          aria-hidden="true"
+        />
+
+        {/* Etiqueta discreta de sala en esquina superior (sin tapar el sujeto) */}
+        <div className="absolute top-4 left-4 z-20 md:top-28 md:left-1/2 md:-translate-x-1/2">
+          <div className="inline-flex items-center gap-2 border border-[#C5A880]/30 bg-[#0B0C0E]/70 px-3 py-1 backdrop-blur-md sm:px-4 sm:py-1.5">
+            <AndalusianStarMark className="h-2.5 w-2.5 text-[#C5A880] sm:h-3 sm:w-3" />
+            <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.28em] sm:tracking-[0.36em] text-[#E5D3B3] whitespace-nowrap">
+              {currentSlide.room} · {currentSlide.discipline}
+            </p>
           </div>
-        );
-      })}
-
-      {/* Veladura cinematográfica dual (garantiza lectura perfecta sobre fotos luminosas y nevadas) */}
-      <div
-        className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-[#0B0C0E]/80 via-[#0B0C0E]/35 to-[#0B0C0E]/95"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute inset-0 z-10"
-        style={{
-          background:
-            "radial-gradient(ellipse 72% 62% at 50% 48%, rgba(11,12,14,0.62) 0%, rgba(11,12,14,0.34) 58%, rgba(11,12,14,0.84) 100%)",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Contenido Editorial Central */}
-      <div className="relative z-20 mx-auto flex min-h-screen min-h-svh w-full max-w-6xl flex-col items-center justify-between px-5 pt-28 pb-14 sm:px-8 sm:pt-32 sm:pb-16 text-center text-[#F7F4EE]">
-        {/* Indicador superior de sala en cápsula oscura legible */}
-        <div className="inline-flex items-center gap-3 border border-[#C5A880]/30 bg-[#0B0C0E]/70 px-4 py-1.5 backdrop-blur-md">
-          <AndalusianStarMark className="h-3 w-3 text-[#C5A880]" />
-          <p className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.38em] text-[#E5D3B3]">
-            {currentSlide.room} · {currentSlide.discipline}
-          </p>
-          <AndalusianStarMark className="h-3 w-3 text-[#C5A880]" />
         </div>
+      </div>
 
-        {/* Cartela arquitectónica central andalusí: máxima elegancia y legibilidad */}
-        <div className="relative my-auto w-full max-w-3xl border border-[#C5A880]/30 bg-[#0B0C0E]/65 px-6 py-10 shadow-[0_32px_90px_rgba(0,0,0,0.75)] backdrop-blur-md sm:px-14 sm:py-12">
-          <AndalusianCornerOrnaments className="text-[#C5A880]/70" />
-
-          {/* Emblema JE andalusí */}
-          <div className="mx-auto mb-5 flex justify-center">
-            <Image
-              src="/icon.svg"
-              alt="Monograma JE — Javier Espinosa"
-              width={48}
-              height={48}
-              className="h-11 w-11 sm:h-12 sm:w-12 rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.6)] ring-1 ring-[#C5A880]/35"
-            />
-          </div>
-
-          <h1 className="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-[0.22em] uppercase text-[#F7F4EE] leading-tight [text-shadow:0_2px_20px_rgba(0,0,0,0.85)]">
+      {/* Bloque Editorial: debajo de la foto en móvil, y anclado limpiamente al tercio inferior en escritorio */}
+      <div className="relative z-20 mx-auto w-full max-w-6xl px-5 pt-6 pb-12 text-center text-[#F7F4EE] sm:px-8 md:pt-0 md:pb-14">
+        <div className="mx-auto max-w-3xl">
+          <h1 className="font-sans text-2xl sm:text-4xl md:text-6xl font-light tracking-[0.2em] sm:tracking-[0.24em] uppercase text-[#F7F4EE] leading-tight [text-shadow:0_2px_24px_rgba(0,0,0,0.9)]">
             Javier Espinosa
           </h1>
 
-          <div className="mt-4 flex items-center justify-center gap-3">
-            <span className="h-px w-8 bg-[#C5A880]/55 sm:w-14" />
-            <AndalusianStarMark className="h-3.5 w-3.5 text-[#C5A880]" />
-            <h2 className="font-serif italic text-lg sm:text-2xl font-normal tracking-wide text-[#E5D3B3] [text-shadow:0_2px_12px_rgba(0,0,0,0.8)]">
+          <div className="mt-3 flex items-center justify-center gap-2.5 sm:gap-3">
+            <span className="h-px w-6 bg-[#C5A880]/55 sm:w-12" />
+            <AndalusianStarMark className="h-3 w-3 text-[#C5A880] sm:h-3.5 sm:w-3.5" />
+            <h2 className="font-serif italic text-base sm:text-xl md:text-2xl font-normal tracking-wide text-[#E5D3B3] [text-shadow:0_2px_12px_rgba(0,0,0,0.85)]">
               The Art of Seeing
             </h2>
-            <AndalusianStarMark className="h-3.5 w-3.5 text-[#C5A880]" />
-            <span className="h-px w-8 bg-[#C5A880]/55 sm:w-14" />
+            <AndalusianStarMark className="h-3 w-3 text-[#C5A880] sm:h-3.5 sm:w-3.5" />
+            <span className="h-px w-6 bg-[#C5A880]/55 sm:w-12" />
           </div>
 
-          <p className="mx-auto mt-5 max-w-xl text-xs sm:text-sm font-light tracking-wide text-[#EBE7DF]/90 leading-relaxed">
+          <p className="mx-auto mt-3.5 max-w-xl text-xs sm:text-sm font-light tracking-wide text-[#EBE7DF]/85 leading-relaxed">
             La verdad óptica del territorio, la luz natural disponible y la paciente contemplación del instante irrepetible.
           </p>
 
           {/* Accesos principales */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <div className="mt-6 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4 md:mt-7">
             <Link
               href="/portfolio"
-              className="group inline-flex items-center gap-2 border border-[#EBE7DF] bg-[#EBE7DF] px-7 py-3 text-[11px] uppercase tracking-[0.26em] text-[#0B0C0E] font-medium transition-all duration-300 hover:bg-transparent hover:text-white"
+              className="group inline-flex items-center justify-center gap-2 border border-[#EBE7DF] bg-[#EBE7DF] px-7 py-3 text-[11px] uppercase tracking-[0.26em] text-[#0B0C0E] font-medium transition-all duration-300 hover:bg-transparent hover:text-white"
             >
               <span>Explorar Obras</span>
               <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
             </Link>
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 border border-[#C5A880]/45 bg-[#0B0C0E]/75 px-7 py-3 text-[11px] uppercase tracking-[0.26em] text-[#F7F4EE] transition-all duration-300 hover:border-[#C5A880] hover:bg-[#151618]"
+              className="inline-flex items-center justify-center gap-2 border border-[#C5A880]/45 bg-[#0B0C0E]/75 px-7 py-3 text-[11px] uppercase tracking-[0.26em] text-[#F7F4EE] transition-all duration-300 hover:border-[#C5A880] hover:bg-[#151618]"
             >
               Series Monográficas
             </Link>
           </div>
         </div>
 
-        {/* Barra inferior de sala en cristal oscuro legible */}
-        <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4 border border-[#C5A880]/20 bg-[#0B0C0E]/75 px-5 py-3.5 backdrop-blur-md">
-          {/* Obra activa y localización */}
+        {/* Barra de obra activa y selector de salas */}
+        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-[#C5A880]/20 pt-5 sm:flex-row md:mt-10">
           <div className="text-center sm:text-left">
             <p className="font-serif text-sm sm:text-base font-light text-[#F7F4EE] tracking-wide">
               {currentSlide.title}
@@ -226,7 +210,6 @@ export default function Hero() {
             </p>
           </div>
 
-          {/* Selector interactivo de salas */}
           <div className="flex items-center gap-2">
             {HERO_SLIDES.map((slide, idx) => {
               const isSelected = idx === activeSlide;
@@ -249,7 +232,7 @@ export default function Hero() {
                     <div
                       className={`mt-1.5 h-[2px] transition-all duration-500 rounded-full ${
                         isSelected
-                          ? "w-8 sm:w-10 bg-[#C5A880]"
+                          ? "w-7 sm:w-10 bg-[#C5A880]"
                           : "w-3 sm:w-4 bg-white/25 group-hover:bg-[#C5A880]/60"
                       }`}
                     />
@@ -259,7 +242,6 @@ export default function Hero() {
             })}
           </div>
 
-          {/* Indicador de desplazamiento */}
           <a
             href="#selected-work"
             className="hidden md:flex items-center gap-2 text-right font-mono text-[10px] uppercase tracking-[0.25em] text-[#EBE7DF]/80 transition hover:text-[#C5A880]"
@@ -271,7 +253,7 @@ export default function Hero() {
       </div>
 
       {/* Cenefa andalusí marcando la entrada a las salas */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20">
+      <div className="pointer-events-none relative z-20 md:absolute md:inset-x-0 md:bottom-0">
         <AndalusianCenefa variant="estrella" className="text-[#C5A880]/45" />
       </div>
     </section>

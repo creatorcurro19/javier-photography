@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import BwToggle from "@/components/ui/BwToggle";
 
 const links = [
   { href: "/selected-work", label: "Selected Works", note: "15 obras maestras" },
@@ -51,17 +52,33 @@ export default function MobileNav() {
         aria-controls="mobile-menu"
         aria-label={open ? "Cerrar menú" : "Abrir menú de navegación"}
         onClick={() => setOpen((value) => !value)}
-        className="flex items-center gap-2 border border-white/[0.1] bg-[#151618] px-3.5 py-1.5 text-[11px] uppercase tracking-[0.3em] text-[#EBE7DF] transition hover:border-white/30 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white font-mono"
+        className="flex items-center justify-center gap-2 border border-white/[0.1] bg-[#151618] px-2.5 py-1.5 sm:px-3.5 text-[11px] uppercase tracking-[0.26em] text-[#EBE7DF] transition hover:border-white/30 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white font-mono"
       >
-        <span>{open ? "Cerrar" : "Menú"}</span>
+        {open ? (
+          <svg className="h-4 w-4 sm:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.6} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        ) : (
+          <svg className="h-4 w-4 sm:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.6} d="M4 8h16M4 16h16" />
+          </svg>
+        )}
+        <span className="hidden sm:inline">{open ? "Cerrar" : "Menú"}</span>
       </button>
       {open ? (
         <nav
           id="mobile-menu"
           aria-label="Navegación móvil"
-          className="fixed inset-x-0 top-20 bottom-0 z-50 flex flex-col justify-between border-b border-white/[0.08] bg-[#0B0C0E]/98 px-6 py-6 shadow-2xl backdrop-blur-2xl overflow-y-auto no-scrollbar sm:px-8 sm:py-8"
+          className="fixed inset-x-0 top-[71px] sm:top-[87px] bottom-0 z-50 flex flex-col justify-between border-b border-white/[0.08] bg-[#0B0C0E]/98 px-5 py-6 shadow-2xl backdrop-blur-2xl overflow-y-auto no-scrollbar sm:px-8 sm:py-8"
         >
           <div>
+            {/* Modo Monocromo en móvil */}
+            <div className="mb-3 flex items-center justify-between border border-white/[0.08] bg-[#151618] px-4 py-2.5 sm:hidden">
+              <span className="font-mono text-xs text-[#8E8A80]">
+                Visualización de Archivo
+              </span>
+              <BwToggle />
+            </div>
             {/* Quick Mobile Cart Trigger */}
             <button
               type="button"

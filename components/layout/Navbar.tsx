@@ -29,23 +29,23 @@ export default function Navbar() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[#0B0C0E]/88 backdrop-blur-2xl"
       />
-      <div className="relative mx-auto flex h-20 max-w-7xl items-center justify-between px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24">
+      <div className="relative mx-auto flex h-16 sm:h-20 max-w-7xl items-center justify-between gap-2 px-4 sm:px-10 md:px-16 lg:px-20 xl:px-24">
         <Link
           href="/"
-          className="group flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+          className="group flex min-w-0 items-center gap-2.5 sm:gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
         >
           <Image
             src="/icon.svg"
             alt="Monograma JE"
             width={34}
             height={34}
-            className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg ring-1 ring-[#C5A880]/30 transition-transform duration-300 group-hover:scale-105"
+            className="h-8 w-8 shrink-0 sm:h-9 sm:w-9 rounded-lg ring-1 ring-[#C5A880]/30 transition-transform duration-300 group-hover:scale-105"
           />
-          <div className="flex flex-col">
-            <span className="font-sans font-medium text-sm tracking-[0.28em] text-[#EBE7DF] transition group-hover:text-white sm:text-base">
+          <div className="flex min-w-0 flex-col">
+            <span className="whitespace-nowrap font-sans font-medium text-xs tracking-[0.16em] text-[#EBE7DF] transition group-hover:text-white sm:text-base sm:tracking-[0.28em]">
               JAVIER ESPINOSA
             </span>
-            <span className="text-[8px] sm:text-[9px] tracking-[0.42em] text-[#C5A880]/80 uppercase transition group-hover:text-[#EBE7DF]">
+            <span className="whitespace-nowrap text-[7.5px] tracking-[0.24em] text-[#C5A880]/80 uppercase transition group-hover:text-[#EBE7DF] sm:text-[9px] sm:tracking-[0.42em]">
               The Art of Seeing
             </span>
           </div>
@@ -79,8 +79,10 @@ export default function Navbar() {
           })}
         </nav>
 
-        <div className="flex items-center gap-3">
-          <BwToggle />
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
+          <div className="hidden sm:block">
+            <BwToggle />
+          </div>
           <SearchModal />
           <CartButton />
           <MobileNav />
