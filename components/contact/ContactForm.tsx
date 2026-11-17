@@ -161,20 +161,59 @@ export default function ContactForm() {
     setSubmitting(true);
 
     try {
+      // 1. Try server route
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...formData, _gotcha: honeypot }),
       });
 
-      const data = await res.json();
+      const data = await res.json().catch(() => null);
 
-      if (res.ok && data.ok) {
+      if (res.ok && data?.ok) {
         setSubmissionStatus("success");
-      } else {
-        // Honest fallback when direct relay is unconfigured or blocked
-        setSubmissionStatus("manual-required");
+        return;
       }
+
+      // 2. Direct client-side relay to FormSubmit as seamless fallback
+      try {
+        const clientRelay = await fetch(
+          "https://formsubmit.co/ajax/javierespinosa1995@hotmail.com",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({
+              _subject: `[Web Javier Espinosa · ${formData.motivo.toUpperCase()}] ${formData.nombre}`,
+              _replyto: formData.email,
+              _captcha: "false",
+              _template: "table",
+              Nombre: formData.nombre,
+              Email: formData.email,
+              Telefono: formData.telefono || "No indicado",
+              Motivo: formData.motivo,
+              Referencia: formData.referencia || "General",
+              Mensaje: formData.mensaje,
+            }),
+          }
+        );
+
+        const clientData = await clientRelay.json().catch(() => null);
+        if (
+          clientRelay.ok &&
+          clientData &&
+          (clientData.success === "true" || clientData.success === true)
+        ) {
+          setSubmissionStatus("success");
+          return;
+        }
+      } catch {
+        // Continue to manual fallback
+      }
+
+      setSubmissionStatus("manual-required");
     } catch {
       setSubmissionStatus("manual-required");
     } finally {

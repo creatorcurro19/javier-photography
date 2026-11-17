@@ -75,9 +75,14 @@ export async function POST(request: Request) {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
+            Referer: "https://javier-photography.vercel.app/",
+            Origin: "https://javier-photography.vercel.app",
           },
           body: JSON.stringify({
             _subject: subject,
+            _replyto: email,
+            _captcha: "false",
+            _template: "table",
             Nombre: nombre,
             Email: email,
             Telefono: telefono || "No indicado",
@@ -88,8 +93,31 @@ export async function POST(request: Request) {
         }
       );
 
-      if (relayRes.ok) {
+      const relayData = await relayRes.json().catch(() => null);
+
+      if (
+        relayRes.ok &&
+        relayData &&
+        (relayData.success === "true" || relayData.success === true)
+      ) {
         return NextResponse.json({ ok: true, provider: "formsubmit" });
+      }
+
+      if (
+        relayData &&
+        relayData.message &&
+        relayData.message.toLowerCase().includes("activation")
+      ) {
+        return NextResponse.json(
+          {
+            ok: false,
+            needsActivation: true,
+            error:
+              "FormSubmit ha enviado un correo de activación a javierespinosa1995@hotmail.com. Revisa tu bandeja de entrada o correo no deseado y haz clic en 'Activate Form'.",
+            destinationEmail: DESTINATION_EMAIL,
+          },
+          { status: 200 }
+        );
       }
     } catch {
       // Handled gracefully below
