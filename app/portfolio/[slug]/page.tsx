@@ -3,6 +3,10 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 
 import Container from "@/components/ui/Container";
+import {
+  AndalusianBackgroundPattern,
+  AndalusianCenefa,
+} from "@/components/ui/AndalusianMotif";
 import CategoryNav from "@/components/portfolio/CategoryNav";
 import ExhibitionGallery from "@/components/portfolio/ExhibitionGallery";
 import AwardsList from "@/components/photo/AwardsList";
@@ -65,10 +69,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 function CategoryGallery({ category }: { category: PhotoCategory }) {
   const photos = getPhotosByCategory(category);
   const info = CATEGORY_METADATA[category];
+  const isSebka =
+    category === "arquitectura-urbana" || category === "viajes-cultura";
 
   return (
-    <div className="min-h-screen bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
-      <Container>
+    <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
+      {/* Filigrana andalusí sutil en el fondo de la colección */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[500px]">
+        <AndalusianBackgroundPattern
+          variant={isSebka ? "sebka" : "laceria"}
+          mask="top"
+          className="text-[#C5A880]/[0.06]"
+        />
+      </div>
+
+      <Container className="relative z-10">
         <header className="max-w-3xl">
           <div className="flex items-center gap-3">
             <span className="h-px w-6 bg-white/30" />
@@ -87,13 +102,23 @@ function CategoryGallery({ category }: { category: PhotoCategory }) {
           </p>
         </header>
 
-        <div className="mt-12">
+        <AndalusianCenefa
+          variant={isSebka ? "sebka" : "estrella"}
+          className="mt-10 text-[#C5A880]/22"
+        />
+
+        <div className="mt-8">
           <CategoryNav activeCategory={category} />
         </div>
 
         <div className="mt-16">
           <ExhibitionGallery photos={photos} />
         </div>
+
+        <AndalusianCenefa
+          variant={isSebka ? "sebka" : "estrella"}
+          className="mt-20 text-[#C5A880]/18"
+        />
       </Container>
     </div>
   );

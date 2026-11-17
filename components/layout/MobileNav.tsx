@@ -107,11 +107,11 @@ export default function MobileNav() {
                   />
                 </svg>
                 <span className="font-mono text-xs text-[#8E8A80]">
-                  Buscar en el archivo (100 obras)...
+                  Buscar fotografías o colecciones...
                 </span>
               </div>
-              <span className="font-mono text-[9px] uppercase tracking-widest text-[#8E8A80] border border-white/[0.08] px-2 py-0.5">
-                Índice
+              <span className="font-mono text-[10px] text-[#8E8A80]">
+                →
               </span>
             </button>
 

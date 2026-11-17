@@ -1,6 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
+import {
+  AndalusianBackgroundPattern,
+  AndalusianCenefa,
+} from "@/components/ui/AndalusianMotif";
 import { PHOTO_CATEGORIES, CATEGORY_METADATA } from "@/types/photo";
 import { getPhotosByCategory } from "@/lib/photos";
 
@@ -66,10 +70,22 @@ export default function CollectionsOverview() {
   return (
     <section
       id="colecciones"
-      className="bg-[#0B0C0E] py-28 sm:py-36 border-t border-white/[0.08] scroll-mt-20"
+      className="relative overflow-hidden bg-[#0B0C0E] py-28 sm:py-36 border-t border-white/[0.08] scroll-mt-20"
       aria-label="Salas de Exposición Permanente"
     >
-      <Container>
+      {/* Fondo discreto de lacería andalusí */}
+      <AndalusianBackgroundPattern
+        variant="laceria"
+        mask="radial"
+        className="text-[#C5A880]/[0.045]"
+      />
+
+      {/* Cenefa superior discreta */}
+      <div className="absolute inset-x-0 top-0">
+        <AndalusianCenefa variant="estrella" className="text-[#C5A880]/20" />
+      </div>
+
+      <Container className="relative z-10">
         {/* Curatorial Header */}
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end pb-12 border-b border-white/[0.08]">
           <div className="max-w-2xl">
@@ -158,6 +174,11 @@ export default function CollectionsOverview() {
           })}
         </div>
       </Container>
+
+      {/* Cenefa inferior discreta */}
+      <div className="absolute inset-x-0 bottom-0">
+        <AndalusianCenefa variant="estrella" className="text-[#C5A880]/20" />
+      </div>
     </section>
   );
 }

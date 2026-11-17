@@ -1,6 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
+import {
+  AndalusianBackgroundPattern,
+  AndalusianCenefa,
+} from "@/components/ui/AndalusianMotif";
 import PrintScaleVisualizer from "@/components/prints/PrintScaleVisualizer";
 import OpticalLoupeInspector from "@/components/prints/OpticalLoupeInspector";
 import CertificateOfAuthenticityModal from "@/components/prints/CertificateOfAuthenticityModal";
@@ -91,9 +95,18 @@ export default function PrintsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
+    <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
+      {/* Filigrana andalusí discreta en el fondo de la colección Fine Art */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[500px]">
+        <AndalusianBackgroundPattern
+          variant="sebka"
+          mask="top"
+          className="text-[#C5A880]/[0.055]"
+        />
+      </div>
+
       <JsonLd data={generateFAQSchema(printFaqs)} />
-      <Container>
+      <Container className="relative z-10">
         {/* Header Section */}
         <div className="max-w-3xl">
           <div className="flex items-center gap-3">
@@ -293,8 +306,13 @@ export default function PrintsPage() {
         {/* 32.5 MP Optical Loupe Inspector */}
         <OpticalLoupeInspector />
 
+        <AndalusianCenefa
+          variant="estrella"
+          className="mt-24 text-[#C5A880]/22"
+        />
+
         {/* Visual Catalog */}
-        <div className="mt-28">
+        <div className="mt-14">
           <div className="flex flex-col justify-between gap-4 border-b border-white/[0.08] pb-6 sm:flex-row sm:items-end">
             <div>
               <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#8E8A80]">

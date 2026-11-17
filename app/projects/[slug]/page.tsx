@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
+import {
+  AndalusianBackgroundPattern,
+  AndalusianCenefa,
+} from "@/components/ui/AndalusianMotif";
 import ExhibitionGallery from "@/components/portfolio/ExhibitionGallery";
 import ProjectEssayContainer from "@/components/portfolio/ProjectEssayContainer";
 import JsonLd from "@/components/seo/JsonLd";
@@ -71,9 +75,19 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         </Container>
       </div>
 
-      <Container className="mt-12">
-        {/* Project Header */}
-        <header className="max-w-4xl border-b border-white/[0.08] pb-12">
+      <div className="relative overflow-hidden">
+        {/* Filigrana andalusí discreta en el fondo de la serie */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[480px]">
+          <AndalusianBackgroundPattern
+            variant="laceria"
+            mask="top"
+            className="text-[#C5A880]/[0.055]"
+          />
+        </div>
+
+        <Container className="relative z-10 mt-12">
+          {/* Project Header */}
+          <header className="max-w-4xl pb-10">
           <div className="flex flex-wrap items-center gap-3">
             <span className="rounded-full border border-white/[0.1] bg-[#151618] px-3.5 py-1 text-xs font-mono uppercase tracking-[0.2em] text-[#8E8A80]">
               {project.discipline}
@@ -120,8 +134,13 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           </div>
         </header>
 
+        <AndalusianCenefa
+          variant="estrella"
+          className="text-[#C5A880]/22"
+        />
+
         {/* Exhibition Sequence */}
-        <section className="mt-16" aria-label={`Secuencia fotográfica del proyecto ${project.title}`}>
+        <section className="mt-14" aria-label={`Secuencia fotográfica del proyecto ${project.title}`}>
           <div className="mb-8 flex items-center justify-between">
             <span className="text-xs font-mono uppercase tracking-[0.3em] text-[#8E8A80]">
               Obras del Proyecto ({projectPhotos.length})
@@ -169,7 +188,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             ) : <div />}
           </div>
         </nav>
-      </Container>
+        </Container>
+      </div>
     </ProjectEssayContainer>
   );
 }

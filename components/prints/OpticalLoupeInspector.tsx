@@ -6,150 +6,155 @@ import Image from "next/image";
 const SAMPLES = [
   {
     id: "lince",
+    label: "Lince Boreal",
     title: "Mirada del Lince Boreal",
-    specs: "Canon EOS R7 · 32,5 MP · Sigma 150-600mm + IA Denoise",
     image: "/images/portfolio/fauna-naturaleza/B51A1823-Mejorado-NR.jpg",
-    focusX: 46,
-    focusY: 36,
-    note: "Nitidez milimétrica en el iris ámbar y el pelaje para impresiones de hasta 70×100 cm.",
+    width: 2200,
+    height: 1238,
+    note: "Nitidez milimétrica en el iris y el pelaje sobre algodón Hahnemühle 308 g/m².",
   },
   {
     id: "garza",
+    label: "Garza Blanca",
     title: "Garza Blanca al Sol",
-    specs: "600mm · f/6.3 · 1/1250s · ISO 400",
     image: "/images/portfolio/fauna-naturaleza/IMG_8446-Mejorado-NR.jpg",
-    focusX: 45,
-    focusY: 28,
-    note: "Separación de cada hebra del plumaje iluminado a contraluz sin grano digital.",
+    width: 1760,
+    height: 2200,
+    note: "Separación natural en cada hebra del plumaje iluminado a contraluz.",
   },
   {
     id: "fragua",
+    label: "El Oficio",
     title: "El Oficio y la Chispa",
-    specs: "Claroscuro en Fragua · Alto Rango Dinámico",
     image: "/images/portfolio/viajes-cultura/soldador.jpg",
-    focusX: 52,
-    focusY: 54,
-    note: "Riqueza tonal en las sombras profundas (D-Max) sobre algodón Hahnemühle Photo Rag 308g.",
+    width: 2200,
+    height: 1650,
+    note: "Profundidad de negros y detalle en las sombras en gran formato.",
   },
 ] as const;
 
+const ZOOM = 2.6;
+const LENS_SIZE = 196;
+
 export default function OpticalLoupeInspector() {
   const [selected, setSelected] = useState<(typeof SAMPLES)[number]>(SAMPLES[0]);
-  const [zoomPos, setZoomPos] = useState<{ x: number; y: number }>({
-    x: SAMPLES[0].focusX,
-    y: SAMPLES[0].focusY,
-  });
+  const [lens, setLens] = useState<{
+    active: boolean;
+    x: number;
+    y: number;
+    w: number;
+    h: number;
+  }>({ active: false, x: 0, y: 0, w: 0, h: 0 });
+
+  const updateLens = (clientX: number, clientY: number, rect: DOMRect) => {
+    const x = Math.min(rect.width, Math.max(0, clientX - rect.left));
+    const y = Math.min(rect.height, Math.max(0, clientY - rect.top));
+    setLens({ active: true, x, y, w: rect.width, h: rect.height });
+  };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = Math.min(90, Math.max(10, ((e.clientX - rect.left) / rect.width) * 100));
-    const y = Math.min(90, Math.max(10, ((e.clientY - rect.top) / rect.height) * 100));
-    setZoomPos({ x, y });
+    updateLens(e.clientX, e.clientY, e.currentTarget.getBoundingClientRect());
   };
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     if (e.touches.length === 0) return;
     const touch = e.touches[0];
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = Math.min(90, Math.max(10, ((touch.clientX - rect.left) / rect.width) * 100));
-    const y = Math.min(90, Math.max(10, ((touch.clientY - rect.top) / rect.height) * 100));
-    setZoomPos({ x, y });
+    updateLens(touch.clientX, touch.clientY, e.currentTarget.getBoundingClientRect());
   };
 
   return (
     <section
       aria-labelledby="loupe-heading"
-      className="mt-24 rounded-xl border border-[#202226] bg-[#202226]/25 p-6 sm:p-10 lg:p-12"
+      className="mt-24 border border-white/[0.08] bg-[#151618] p-6 sm:p-10"
     >
-      <div className="flex flex-col justify-between gap-4 border-b border-[#202226] pb-6 lg:flex-row lg:items-end">
+      <div className="flex flex-col justify-between gap-5 pb-6 sm:flex-row sm:items-end">
         <div>
-          <p className="text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
-            Control de Calidad Museística · 32,5 Megapíxeles
+          <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-[#8E8A80]">
+            Detalle de Impresión
           </p>
-          <h2 id="loupe-heading" className="mt-2 font-serif text-3xl font-light text-[#EBE7DF]">
-            Inspector de Detalle Óptico (Lupa 300% para Gran Formato)
+          <h2 id="loupe-heading" className="mt-2 font-serif text-2xl font-light text-[#EBE7DF] sm:text-3xl">
+            Lupa de Nitidez
           </h2>
+          <p className="mt-2 text-xs font-light text-[#8E8A80]">
+            Pasa el cursor o desliza el dedo sobre la fotografía para ver el detalle real de impresión.
+          </p>
         </div>
 
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1 -mx-2 px-2 sm:mx-0 sm:px-0 sm:flex-wrap">
-          {SAMPLES.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => {
-                setSelected(item);
-                setZoomPos({ x: item.focusX, y: item.focusY });
-              }}
-              className={`shrink-0 rounded-full px-3.5 py-1.5 text-[11px] uppercase tracking-wider transition ${
-                selected.id === item.id
-                  ? "bg-[#EBE7DF] text-[#0B0C0E] font-medium"
-                  : "border border-[#202226] bg-[#0B0C0E] text-[#EBE7DF]/80 hover:border-[#8E8A80]"
-              }`}
-            >
-              {item.title}
-            </button>
-          ))}
+        <div className="flex items-center gap-2">
+          {SAMPLES.map((item) => {
+            const active = selected.id === item.id;
+            return (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => {
+                  setSelected(item);
+                  setLens((prev) => ({ ...prev, active: false }));
+                }}
+                className={`px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] transition ${
+                  active
+                    ? "border border-[#EBE7DF] bg-[#EBE7DF] text-[#0B0C0E] font-medium"
+                    : "border border-white/[0.08] bg-[#0B0C0E] text-[#8E8A80] hover:border-white/30 hover:text-[#EBE7DF]"
+                }`}
+              >
+                {item.label}
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      <p className="mt-4 text-xs text-neutral-400">
-        Desplace el cursor o deslice el dedo sobre la fotografía para examinar a la derecha la definición real de impresión sobre fibra de algodón:
-      </p>
-
-      <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12 items-center">
-        {/* Vista Completa Interactiva (7 cols) */}
+      {/* Marco limpio que respeta las proporciones reales sin recorte */}
+      <div className="flex justify-center border border-white/[0.06] bg-[#0B0C0E] p-3 sm:p-5">
         <div
+          onMouseEnter={handleMouseMove}
           onMouseMove={handleMouseMove}
+          onMouseLeave={() => setLens((prev) => ({ ...prev, active: false }))}
           onTouchStart={handleTouchMove}
           onTouchMove={handleTouchMove}
-          className="relative aspect-[3/2] w-full cursor-crosshair overflow-hidden rounded-lg border border-[#202226] bg-[#0B0C0E] select-none touch-none lg:col-span-7"
+          onTouchEnd={() => setLens((prev) => ({ ...prev, active: false }))}
+          className="relative inline-block cursor-none overflow-hidden select-none touch-none"
         >
           <Image
             src={selected.image}
             alt={selected.title}
-            fill
-            sizes="(max-width: 1024px) 100vw, 60vw"
-            className="object-cover"
+            width={selected.width}
+            height={selected.height}
+            sizes="(max-width: 1024px) 100vw, 896px"
+            className="block h-auto max-h-[65vh] w-auto max-w-full"
           />
-          {/* Retícula de selección de la lupa */}
-          <div
-            style={{
-              left: `${zoomPos.x}%`,
-              top: `${zoomPos.y}%`,
-            }}
-            className="pointer-events-none absolute h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#EBE7DF] bg-white/10 shadow-[0_0_30px_rgba(0,0,0,0.8)] backdrop-blur-[1px]"
-          />
-          <span className="absolute bottom-3 left-3 rounded bg-[#0B0C0E]/85 px-3 py-1 text-[10px] uppercase tracking-widest text-[#EBE7DF] border border-[#202226]">
-            Encuadre Completo · Deslice para inspeccionar
-          </span>
-        </div>
 
-        {/* Vista Ampliada 300% (5 cols) */}
-        <div className="flex flex-col justify-between lg:col-span-5 space-y-4">
-          <div className="relative aspect-square w-full overflow-hidden rounded-lg border border-[#8E8A80]/50 bg-[#0B0C0E] shadow-2xl">
+          {/* Lente circular de aumento directo bajo el cursor o dedo */}
+          {lens.active && lens.w > 0 && (
             <div
+              aria-hidden="true"
               style={{
+                width: `${LENS_SIZE}px`,
+                height: `${LENS_SIZE}px`,
+                left: `${lens.x}px`,
+                top: `${lens.y}px`,
                 backgroundImage: `url(${selected.image})`,
-                backgroundPosition: `${zoomPos.x}% ${zoomPos.y}%`,
-                backgroundSize: "320%",
+                backgroundSize: `${lens.w * ZOOM}px ${lens.h * ZOOM}px`,
+                backgroundPosition: `${-(lens.x * ZOOM - LENS_SIZE / 2)}px ${-(lens.y * ZOOM - LENS_SIZE / 2)}px`,
               }}
-              className="h-full w-full bg-no-repeat transition-[background-position] duration-75"
+              className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#EBE7DF]/80 bg-[#0B0C0E] bg-no-repeat shadow-[0_16px_50px_rgba(0,0,0,0.85)] ring-1 ring-black/50"
             />
-            <div className="absolute top-3 left-3 rounded bg-[#0B0C0E]/90 px-3 py-1 text-[10px] uppercase tracking-widest text-[#8E8A80] border border-[#202226]">
-              Ampliación Óptica 3.2× (Detalle en 70×100 cm)
-            </div>
-          </div>
+          )}
 
-          <div className="rounded-lg border border-[#202226] bg-[#0B0C0E] p-4">
-            <p className="text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
-              {selected.specs}
-            </p>
-            <p className="mt-1.5 text-xs leading-relaxed text-[#EBE7DF]/85 font-light">
-              {selected.note}
-            </p>
-          </div>
+          {/* Indicación discreta en reposo */}
+          {!lens.active && (
+            <div className="pointer-events-none absolute bottom-4 left-4 border border-white/[0.1] bg-[#0B0C0E]/80 px-3.5 py-1.5 backdrop-blur-md">
+              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#EBE7DF]">
+                Toca o pasa el ratón para activar la lupa
+              </span>
+            </div>
+          )}
         </div>
       </div>
+
+      <p className="mt-4 text-xs font-light text-[#8E8A80]">
+        <span className="text-[#EBE7DF]">{selected.title}</span> — {selected.note}
+      </p>
     </section>
   );
 }

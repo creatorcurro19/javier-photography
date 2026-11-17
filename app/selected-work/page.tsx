@@ -1,4 +1,8 @@
 import Container from "@/components/ui/Container";
+import {
+  AndalusianBackgroundPattern,
+  AndalusianCenefa,
+} from "@/components/ui/AndalusianMotif";
 import ExhibitionGallery from "@/components/portfolio/ExhibitionGallery";
 import Link from "next/link";
 import { buildPageMetadata } from "@/lib/metadata";
@@ -15,8 +19,17 @@ export default function SelectedWorkPage() {
   const featuredPhotos = getFeaturedPhotos();
 
   return (
-    <div className="min-h-screen bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
-      <Container>
+    <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
+      {/* Filigrana andalusí discreta en el fondo */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[480px]">
+        <AndalusianBackgroundPattern
+          variant="laceria"
+          mask="top"
+          className="text-[#C5A880]/[0.055]"
+        />
+      </div>
+
+      <Container className="relative z-10">
         {/* Curatorial Header */}
         <header className="max-w-3xl">
           <div className="flex items-center gap-3">
@@ -50,8 +63,13 @@ export default function SelectedWorkPage() {
           </div>
         </header>
 
+        <AndalusianCenefa
+          variant="estrella"
+          className="mt-12 text-[#C5A880]/22"
+        />
+
         {/* The 15 Artworks Gallery */}
-        <div className="mt-16">
+        <div className="mt-14">
           <ExhibitionGallery photos={featuredPhotos} showMeta />
         </div>
 
