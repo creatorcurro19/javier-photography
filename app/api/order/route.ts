@@ -1,7 +1,14 @@
 import { NextResponse } from "next/server";
 import type { CartOrder } from "@/types/cart";
+import {
+  buildOrderCustomerEmailHtml,
+  buildOrderOwnerEmailHtml,
+} from "@/lib/email-templates";
 
 const DESTINATION_EMAIL = "javierespinosa1995@hotmail.com";
+const FROM_EMAIL =
+  process.env.RESEND_FROM_EMAIL ||
+  "Galería Javier Espinosa <onboarding@resend.dev>";
 
 export async function POST(request: Request) {
   try {
@@ -52,9 +59,12 @@ export async function POST(request: Request) {
       `CERTIFICADO: Numerado y firmado a mano por Javier Espinosa Martínez.`,
     ].join("\n");
 
-    // 1. Resend API if RESEND_API_KEY is present
+    // 1. Resend API if RESEND_API_KEY is present (envía HTML de lujo al autor y confirmación al coleccionista)
     if (process.env.RESEND_API_KEY) {
       try {
+        const ownerHtml = buildOrderOwnerEmailHtml(order);
+        const customerHtml = buildOrderCustomerEmailHtml(order);
+
         const resendRes = await fetch("https://api.resend.com/emails", {
           method: "POST",
           headers: {
@@ -62,13 +72,31 @@ export async function POST(request: Request) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            from: "Galería Javier Espinosa <onboarding@resend.dev>",
+            from: FROM_EMAIL,
             to: [DESTINATION_EMAIL],
             reply_to: customer.email,
             subject,
             text: textBody,
+            html: ownerHtml,
           }),
         });
+
+        // Confirmación automática al comprador (si el dominio remitente está verificado en Resend)
+        await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            from: FROM_EMAIL,
+            to: [customer.email],
+            reply_to: DESTINATION_EMAIL,
+            subject: `Confirmación de Reserva Fine Art · Ref. ${orderId} — Javier Espinosa`,
+            text: textBody,
+            html: customerHtml,
+          }),
+        }).catch(() => null);
 
         if (resendRes.ok) {
           return NextResponse.json({ ok: true, provider: "resend", orderId });

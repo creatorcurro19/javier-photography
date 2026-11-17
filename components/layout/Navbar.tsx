@@ -5,26 +5,29 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MobileNav from "@/components/layout/MobileNav";
 import SearchModal from "@/components/layout/SearchModal";
+import LanguageToggle from "@/components/layout/LanguageToggle";
 import CartButton from "@/components/cart/CartButton";
 import BwToggle from "@/components/ui/BwToggle";
 import { AndalusianMicroCenefa } from "@/components/ui/AndalusianMotif";
+import { useLanguage } from "@/lib/i18n";
 
 const links = [
-  { href: "/selected-work", label: "Selected Works" },
-  { href: "/portfolio", label: "Colecciones" },
-  { href: "/projects", label: "Series" },
-  { href: "/prints", label: "Fine Art" },
-  { href: "/stories", label: "Cuaderno" },
-  { href: "/servicios", label: "Encargos" },
-  { href: "/about", label: "El Autor" },
-  { href: "/contact", label: "Contacto" },
+  { href: "/selected-work", es: "Selected Works", en: "Selected Works" },
+  { href: "/portfolio", es: "Colecciones", en: "Collections" },
+  { href: "/projects", es: "Series", en: "Series" },
+  { href: "/prints", es: "Fine Art", en: "Fine Art" },
+  { href: "/stories", es: "Cuaderno", en: "Journal" },
+  { href: "/servicios", es: "Encargos", en: "Commissions" },
+  { href: "/about", es: "El Autor", en: "About" },
+  { href: "/contact", es: "Contacto", en: "Contact" },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { lang } = useLanguage();
 
   return (
-    <header className="fixed left-0 top-0 z-50 w-full transition-all duration-300">
+    <header className="fixed left-0 top-0 z-50 w-full transition-all duration-300 print:hidden">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[#0B0C0E]/88 backdrop-blur-2xl"
@@ -70,7 +73,7 @@ export default function Navbar() {
                     : "text-[#EBE7DF]/65 hover:text-white"
                 }`}
               >
-                {link.label}
+                {lang === "en" ? link.en : link.es}
                 {isActive && (
                   <span className="absolute bottom-0 left-0 right-0 h-px bg-[#C5A880]" />
                 )}
@@ -79,7 +82,10 @@ export default function Navbar() {
           })}
         </nav>
 
-        <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2.5">
+          <div className="hidden md:block">
+            <LanguageToggle />
+          </div>
           <div className="hidden sm:block">
             <BwToggle />
           </div>

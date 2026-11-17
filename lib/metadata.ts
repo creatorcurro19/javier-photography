@@ -5,9 +5,9 @@ export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ||
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "https://javierespinosa.vercel.app");
+    : "https://javier-photography.vercel.app");
 const SITE_NAME = "Javier Espinosa Fotografía";
-const DEFAULT_OG = "/images/portfolio/hero/hero.jpg";
+const DEFAULT_OG = "/opengraph-image";
 
 export function absoluteUrl(path: string): string {
   return new URL(path, SITE_URL).toString();

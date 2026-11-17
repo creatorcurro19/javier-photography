@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Container from "@/components/ui/Container";
 import AboutInteractiveStudio from "@/components/about/AboutInteractiveStudio";
 import {
@@ -19,9 +20,28 @@ export default function AboutPage() {
       <AndalusianPageBackdrop variant="sebka" />
       <Container className="relative z-10">
         <AboutInteractiveStudio />
+
+        <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border border-[#C5A880]/25 bg-[#151618]/90 px-6 py-5 sm:px-8">
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#C5A880]">
+              Prensa, Galerías &amp; Curadores
+            </p>
+            <p className="mt-1 text-xs font-light text-[#8E8A80]">
+              Descarga el dossier editorial en formato A4 con biografía, equipo óptico y selección de obra.
+            </p>
+          </div>
+          <Link
+            href="/dossier"
+            className="inline-flex items-center gap-2 border border-[#EBE7DF] bg-[#EBE7DF] px-6 py-2.5 font-mono text-[10px] uppercase tracking-[0.25em] font-medium text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
+          >
+            <span>Dossier / Press Kit (PDF)</span>
+            <span>→</span>
+          </Link>
+        </div>
+
         <AndalusianCenefa
           variant="estrella"
-          className="mt-20 text-[#C5A880]/36"
+          className="mt-16 text-[#C5A880]/36"
         />
       </Container>
     </div>

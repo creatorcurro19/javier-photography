@@ -28,11 +28,13 @@ const commercialLinks = [
   { href: "/servicios", label: "Encargos & Coberturas Especiales" },
   { href: "/licensing", label: "Licencias de Uso Editorial & Comercial" },
   { href: "/stories", label: "Cuaderno de Campo & Diario Óptico" },
+  { href: "/cliente", label: "Acceso Clientes · Galerías Privadas" },
+  { href: "/dossier", label: "Dossier de Autor & Press Kit (PDF)" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-[#C5A880]/20 bg-[#0B0C0E] text-[#8E8A80]">
+    <footer className="relative overflow-hidden border-t border-[#C5A880]/20 bg-[#0B0C0E] text-[#8E8A80] print:hidden">
       {/* Filigrana geométrica andalusí de fondo */}
       <AndalusianBackgroundPattern
         variant="laceria"

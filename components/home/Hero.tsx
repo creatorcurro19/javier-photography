@@ -7,6 +7,7 @@ import {
   AndalusianCenefa,
   AndalusianStarMark,
 } from "@/components/ui/AndalusianMotif";
+import { useLanguage } from "@/lib/i18n";
 
 interface HeroSlide {
   id: string;
@@ -71,6 +72,7 @@ const SLIDE_DURATION = 6500;
 export default function Hero() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const { t } = useLanguage();
 
   const nextSlide = useCallback(() => {
     setActiveSlide((prev) => (prev + 1) % HERO_SLIDES.length);
@@ -178,7 +180,10 @@ export default function Hero() {
           </div>
 
           <p className="mx-auto mt-3.5 max-w-xl text-xs sm:text-sm font-light tracking-wide text-[#EBE7DF]/85 leading-relaxed">
-            La verdad óptica del territorio, la luz natural disponible y la paciente contemplación del instante irrepetible.
+            {t(
+              "La verdad óptica del territorio, la luz natural disponible y la paciente contemplación del instante irrepetible.",
+              "The optical truth of the territory, natural available light, and the patient contemplation of the unrepeatable moment."
+            )}
           </p>
 
           {/* Accesos principales */}
@@ -187,14 +192,14 @@ export default function Hero() {
               href="/portfolio"
               className="group inline-flex items-center justify-center gap-2 border border-[#EBE7DF] bg-[#EBE7DF] px-7 py-3 text-[11px] uppercase tracking-[0.26em] text-[#0B0C0E] font-medium transition-all duration-300 hover:bg-transparent hover:text-white"
             >
-              <span>Explorar Obras</span>
+              <span>{t("Explorar Obras", "Explore Works")}</span>
               <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
             </Link>
             <Link
               href="/projects"
               className="inline-flex items-center justify-center gap-2 border border-[#C5A880]/45 bg-[#0B0C0E]/75 px-7 py-3 text-[11px] uppercase tracking-[0.26em] text-[#F7F4EE] transition-all duration-300 hover:border-[#C5A880] hover:bg-[#151618]"
             >
-              Series Monográficas
+              {t("Series Monográficas", "Monograph Series")}
             </Link>
           </div>
         </div>

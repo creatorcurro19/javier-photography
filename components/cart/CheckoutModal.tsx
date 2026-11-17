@@ -72,22 +72,32 @@ export default function CheckoutModal({
     };
 
     try {
-      const res = await fetch("/api/order", {
+      // 1. Registrar pedido y enviar notificación al autor
+      await fetch("/api/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(orderPayload),
-      });
+      }).catch(() => null);
 
-      const data = await res.json().catch(() => null);
+      // 2. Si Stripe está configurado en el servidor, redirigir a pasarela de pago segura
+      const checkoutRes = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderPayload),
+      }).catch(() => null);
 
-      if (res.ok && data?.ok) {
-        clearCart();
-        onSuccess(orderId);
-      } else {
-        // Fallback to success with direct email instructions
-        clearCart();
-        onSuccess(orderId);
+      const checkoutData = checkoutRes
+        ? await checkoutRes.json().catch(() => null)
+        : null;
+
+      clearCart();
+
+      if (checkoutData?.mode === "stripe" && checkoutData?.url) {
+        window.location.href = checkoutData.url;
+        return;
       }
+
+      onSuccess(orderId);
     } catch {
       clearCart();
       onSuccess(orderId);

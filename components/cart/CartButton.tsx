@@ -7,10 +7,12 @@ import {
   getCartSnapshot,
   getCartServerSnapshot,
 } from "@/lib/cart";
+import { useLanguage } from "@/lib/i18n";
 
 export default function CartButton() {
   const items = useSyncExternalStore(subscribeCart, getCartSnapshot, getCartServerSnapshot);
   const { totalItems } = useMemo(() => getCartSummary(items), [items]);
+  const { t } = useLanguage();
 
   const openDrawer = () => {
     window.dispatchEvent(new Event("open-cart-drawer"));
@@ -39,7 +41,7 @@ export default function CartButton() {
       </svg>
 
       <span className="hidden sm:inline font-mono text-[10px] uppercase tracking-[0.25em] text-[#EBE7DF]">
-        Cesta
+        {t("Cesta", "Bag")}
       </span>
 
       {totalItems > 0 && (

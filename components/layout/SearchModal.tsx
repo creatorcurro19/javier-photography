@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { getAllPhotos, getAllProjects } from "@/lib/photos";
 import { CATEGORY_METADATA, PhotoCategory } from "@/types/photo";
 import { AndalusianMicroCenefa } from "@/components/ui/AndalusianMotif";
+import { useLanguage } from "@/lib/i18n";
 
 const COLLECTIONS: { id: PhotoCategory; label: string; subtitle: string }[] = [
   { id: "paisajes-documental", label: "Paisajes", subtitle: "Territorio y naturaleza" },
@@ -21,6 +22,7 @@ export default function SearchModal() {
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const { t } = useLanguage();
 
   const allPhotos = useMemo(() => getAllPhotos(), []);
   const allProjects = useMemo(() => getAllProjects(), []);
@@ -122,7 +124,7 @@ export default function SearchModal() {
           />
         </svg>
         <span className="hidden sm:inline font-mono text-[10px] uppercase tracking-[0.25em] text-[#EBE7DF]">
-          Buscar
+          {t("Buscar", "Search")}
         </span>
       </button>
 
@@ -167,7 +169,10 @@ export default function SearchModal() {
                       navigateTo(`/portfolio/${matchedPhotos[0].slug}`);
                     }
                   }}
-                  placeholder="Buscar obras, lugares o colecciones..."
+                  placeholder={t(
+                    "Buscar obras, lugares o colecciones...",
+                    "Search artworks, places or collections..."
+                  )}
                   className="w-full bg-transparent font-serif text-lg font-light text-[#EBE7DF] placeholder-[#8E8A80]/60 focus:outline-none sm:text-xl"
                 />
 

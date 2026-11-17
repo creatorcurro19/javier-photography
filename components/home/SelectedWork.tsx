@@ -10,6 +10,7 @@ import {
   AndalusianPageBackdrop,
   AndalusianStarMark,
 } from "@/components/ui/AndalusianMotif";
+import { useLanguage } from "@/lib/i18n";
 import type { Photo } from "@/types/photo";
 import { CATEGORY_METADATA } from "@/types/photo";
 
@@ -21,6 +22,7 @@ interface SelectedWorkProps {
 export default function SelectedWork({ photos, totalCount }: SelectedWorkProps) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const { t } = useLanguage();
 
   const openLightbox = (index: number) => {
     setSelectedIndex(index);
@@ -42,7 +44,7 @@ export default function SelectedWork({ photos, totalCount }: SelectedWorkProps) 
             <div className="flex items-center gap-2.5">
               <AndalusianStarMark className="h-3.5 w-3.5 text-[#C5A880]/75" />
               <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-[#C5A880]/85">
-                Exposición Permanente
+                {t("Exposición Permanente", "Permanent Exhibition")}
               </p>
             </div>
             <h2 className="mt-2.5 font-serif text-3xl sm:text-4xl font-light text-[#EBE7DF] tracking-tight">
@@ -55,7 +57,8 @@ export default function SelectedWork({ photos, totalCount }: SelectedWorkProps) 
             className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.26em] text-[#8E8A80] transition-colors hover:text-[#EBE7DF]"
           >
             <span>
-              Ver selección completa{totalCount ? ` (${totalCount})` : ""}
+              {t("Ver selección completa", "View full selection")}
+              {totalCount ? ` (${totalCount})` : ""}
             </span>
             <span className="transition-transform duration-300 group-hover:translate-x-1">
               →

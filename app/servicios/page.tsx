@@ -118,6 +118,23 @@ export default function ServiciosPage() {
             Aporto mi identidad visual y experiencia técnica para proyectos comerciales, editoriales y documentales
             que demanden una mirada personal, libre de artificios publicitarios genéricos.
           </p>
+
+          <div className="mt-7 flex flex-wrap items-center gap-3">
+            <Link
+              href="/dossier"
+              className="inline-flex items-center gap-2 border border-[#EBE7DF] bg-[#EBE7DF] px-5 py-2.5 font-mono text-[10px] uppercase tracking-[0.25em] font-medium text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
+            >
+              <span>Dossier &amp; Press Kit (PDF)</span>
+              <span>→</span>
+            </Link>
+            <Link
+              href="/cliente"
+              className="inline-flex items-center gap-2 border border-[#C5A880]/40 bg-[#151618] px-5 py-2.5 font-mono text-[10px] uppercase tracking-[0.25em] text-[#EBE7DF] transition hover:border-[#C5A880] hover:text-white"
+            >
+              <span>Portal Privado de Clientes</span>
+              <span>→</span>
+            </Link>
+          </div>
         </header>
 
         <AndalusianCenefa

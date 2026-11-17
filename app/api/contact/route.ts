@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
+import { buildContactOwnerEmailHtml } from "@/lib/email-templates";
 
 const DESTINATION_EMAIL = "javierespinosa1995@hotmail.com";
+const FROM_EMAIL =
+  process.env.RESEND_FROM_EMAIL ||
+  "Portfolio Javier Espinosa <onboarding@resend.dev>";
 
 export async function POST(request: Request) {
   try {
@@ -39,10 +43,17 @@ export async function POST(request: Request) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            from: "Portfolio Javier Espinosa <onboarding@resend.dev>",
+            from: FROM_EMAIL,
             to: [DESTINATION_EMAIL],
             reply_to: email,
             subject,
+            html: buildContactOwnerEmailHtml({
+              nombre,
+              email,
+              motivo: String(motivo || "Consulta"),
+              asunto: String(referencia || subject),
+              mensaje,
+            }),
             text: [
               `Nueva consulta desde la web oficial de Javier Espinosa Martínez`,
               `--------------------------------------------------------------`,

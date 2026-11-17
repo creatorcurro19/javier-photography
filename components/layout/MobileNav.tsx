@@ -4,22 +4,26 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import BwToggle from "@/components/ui/BwToggle";
+import LanguageToggle from "@/components/layout/LanguageToggle";
+import { useLanguage } from "@/lib/i18n";
 
 const links = [
-  { href: "/selected-work", label: "Selected Works", note: "15 obras maestras" },
-  { href: "/portfolio", label: "Colecciones", note: "100 obras archivadas" },
-  { href: "/projects", label: "Series", note: "8 ensayos monográficos" },
-  { href: "/prints", label: "Copias Fine Art", note: "Hahnemühle Photo Rag 308g" },
-  { href: "/stories", label: "Cuaderno", note: "Notas de campo & óptica" },
-  { href: "/servicios", label: "Encargos", note: "Proyectos & licencias" },
-  { href: "/about", label: "El Autor", note: "The Art of Seeing" },
-  { href: "/contact", label: "Contacto", note: "Tenerife & Internacional" },
+  { href: "/selected-work", es: "Selected Works", en: "Selected Works", noteEs: "15 obras maestras", noteEn: "15 signature works" },
+  { href: "/portfolio", es: "Colecciones", en: "Collections", noteEs: "100 obras archivadas", noteEn: "100 archived works" },
+  { href: "/projects", es: "Series", en: "Series", noteEs: "8 ensayos monográficos", noteEn: "8 monographic essays" },
+  { href: "/prints", es: "Copias Fine Art", en: "Fine Art Prints", noteEs: "Hahnemühle Photo Rag 308g", noteEn: "Hahnemühle Photo Rag 308g" },
+  { href: "/stories", es: "Cuaderno", en: "Field Journal", noteEs: "Notas de campo & óptica", noteEn: "Field notes & optics" },
+  { href: "/servicios", es: "Encargos", en: "Commissions", noteEs: "Proyectos & licencias", noteEn: "Projects & licensing" },
+  { href: "/cliente", es: "Acceso Clientes", en: "Client Portal", noteEs: "Galerías privadas", noteEn: "Private galleries" },
+  { href: "/about", es: "El Autor", en: "About", noteEs: "The Art of Seeing", noteEn: "The Art of Seeing" },
+  { href: "/contact", es: "Contacto", en: "Contact", noteEs: "Tenerife & Internacional", noteEn: "Tenerife & Worldwide" },
 ];
 
 export default function MobileNav() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const [prevPathname, setPrevPathname] = useState(pathname);
+  const { lang, t } = useLanguage();
 
   if (prevPathname !== pathname) {
     setPrevPathname(pathname);
@@ -72,12 +76,17 @@ export default function MobileNav() {
           className="fixed inset-x-0 top-[71px] sm:top-[87px] bottom-0 z-50 flex flex-col justify-between border-b border-white/[0.08] bg-[#0B0C0E]/98 px-5 py-6 shadow-2xl backdrop-blur-2xl overflow-y-auto no-scrollbar sm:px-8 sm:py-8"
         >
           <div>
-            {/* Modo Monocromo en móvil */}
-            <div className="mb-3 flex items-center justify-between border border-white/[0.08] bg-[#151618] px-4 py-2.5 sm:hidden">
+            {/* Idioma y Modo Monocromo en móvil */}
+            <div className="mb-3 flex items-center justify-between gap-3 border border-white/[0.08] bg-[#151618] px-4 py-2.5">
               <span className="font-mono text-xs text-[#8E8A80]">
-                Visualización de Archivo
+                {t("Idioma & Archivo", "Language & View")}
               </span>
-              <BwToggle />
+              <div className="flex items-center gap-2">
+                <LanguageToggle />
+                <div className="sm:hidden">
+                  <BwToggle />
+                </div>
+              </div>
             </div>
             {/* Quick Mobile Cart Trigger */}
             <button
@@ -95,7 +104,7 @@ export default function MobileNav() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
                 <span className="font-mono text-xs text-[#EBE7DF]">
-                  Cesta de la Compra
+                  {t("Cesta de la Compra", "Collector's Bag")}
                 </span>
               </div>
               <span className="font-mono text-[9px] uppercase tracking-widest text-[#8E8A80] border border-white/[0.08] px-2 py-0.5">
@@ -124,7 +133,7 @@ export default function MobileNav() {
                   />
                 </svg>
                 <span className="font-mono text-xs text-[#8E8A80]">
-                  Buscar fotografías o colecciones...
+                  {t("Buscar fotografías o colecciones...", "Search photographs or collections...")}
                 </span>
               </div>
               <span className="font-mono text-[10px] text-[#8E8A80]">
@@ -146,15 +155,15 @@ export default function MobileNav() {
                       onClick={() => setOpen(false)}
                       className={`group flex items-baseline justify-between py-1 transition ${
                         isActive
-                          ? "text-[#EBE7DF] font-medium border-l-2 border-[#EBE7DF] pl-3"
+                          ? "text-[#EBE7DF] font-medium border-l-2 border-[#C5A880] pl-3"
                           : "text-[#8E8A80] hover:text-[#EBE7DF]"
                       }`}
                     >
                       <span className="text-base uppercase tracking-[0.22em]">
-                        {link.label}
+                        {lang === "en" ? link.en : link.es}
                       </span>
                       <span className="font-mono text-[10px] tracking-wider text-[#8E8A80]/70 transition group-hover:text-[#EBE7DF]">
-                        {link.note}
+                        {lang === "en" ? link.noteEn : link.noteEs}
                       </span>
                     </Link>
                   </li>
