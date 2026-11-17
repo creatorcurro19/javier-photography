@@ -80,7 +80,7 @@ export default function ServiciosPage() {
     },
     {
       q: "¿En qué formato y plazo se entregan los reportajes?",
-      a: "Se entrega una galería privada en alta resolución (archivos máster de 32,5 MP revelados individualmente y versiones optimizadas para prensa/web) en un plazo de 48 a 72 horas tras el evento, con opción de adelanto en el mismo día para notas de prensa.",
+      a: "Se entrega una galería privada en alta resolución (archivos máster de 32,5 MP revelados individualmente y versiones optimizadas para prensa/web). Para eventos de automoción y cobertura de prensa se proporciona un adelanto urgente prioritario en 24 horas, mientras que la galería completa calibrada se entrega de forma orientativa en un plazo de 3 a 5 días laborables según el volumen de tomas.",
     },
     {
       q: "¿Realizas desplazamientos fuera de tu provincia o a las islas?",
@@ -215,7 +215,7 @@ export default function ServiciosPage() {
             Conversemos sobre tu proyecto
           </h2>
           <p className="mt-4 max-w-xl mx-auto text-sm font-light text-[#EBE7DF]/80">
-            Cuéntame las fechas, la localización y el objetivo de tu encargo. Te enviaré una propuesta detallada en menos de 24 horas.
+            Cuéntame las fechas, la localización y el objetivo de tu encargo. Recibirás una respuesta o propuesta inicial orientativa habitualmente en un plazo de 24 a 48 horas laborables.
           </p>
           <div className="mt-8 flex justify-center gap-4">
             <Link

@@ -200,7 +200,91 @@ export default function PrintsPage() {
               </div>
             ))}
           </div>
+
+          <p className="mt-4 font-mono text-[11px] text-[#8E8A80] leading-relaxed">
+            * Tarifas base orientativas para lámina suelta sobre papel 100% algodón Hahnemühle Photo Rag® 308 g/m² sin enmarcar. El presupuesto definitivo se confirma individualmente según disponibilidad de la serie, opciones de enmarcado a medida con cristal museo antirreflejos UV 99% y costes de transporte con seguro a todo riesgo.
+          </p>
         </div>
+
+        {/* Distinction between Fine Art, Licensing, and Commissions */}
+        <section className="mt-28 border-t border-white/[0.08] pt-16">
+          <div className="max-w-2xl">
+            <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
+              Claridad y Rigor Profesional
+            </p>
+            <h2 className="mt-2 font-serif text-3xl font-light text-[#EBE7DF]">
+              Tres modalidades de relación con la obra
+            </h2>
+            <p className="mt-3 text-sm text-[#8E8A80] font-light leading-relaxed">
+              Distinción transparente entre la adquisición de piezas físicas de autor, la cesión de derechos de uso digital y la contratación de servicios fotográficos en campo.
+            </p>
+          </div>
+
+          <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-3">
+            <div className="border border-white/[0.08] bg-[#151618] p-8 flex flex-col justify-between">
+              <div>
+                <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
+                  MODALIDAD 01
+                </span>
+                <h3 className="mt-2 font-serif text-xl font-light text-[#EBE7DF]">
+                  Obra Fine Art de Colección
+                </h3>
+                <p className="mt-3 text-xs text-[#8E8A80] font-light leading-relaxed">
+                  Pieza física original producida en laboratorio bajo norma ISO 9706. Papel de algodón Hahnemühle Photo Rag® 308g, numeración limitada, firma manuscrita y certificado de autenticidad.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-white/[0.06]">
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#EBE7DF]">
+                  Uso: Coleccionismo e Interiorismo
+                </span>
+              </div>
+            </div>
+
+            <div className="border border-white/[0.08] bg-[#151618] p-8 flex flex-col justify-between">
+              <div>
+                <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
+                  MODALIDAD 02
+                </span>
+                <h3 className="mt-2 font-serif text-xl font-light text-[#EBE7DF]">
+                  Licencias de Imagen
+                </h3>
+                <p className="mt-3 text-xs text-[#8E8A80] font-light leading-relaxed">
+                  Cesión de derechos de explotación para prensa, publicaciones editoriales, campañas publicitarias o plataformas digitales. Archivo RAW revelado en TIFF/JPEG máxima resolución.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-between">
+                <Link
+                  href="/licensing"
+                  className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#EBE7DF] hover:underline underline-offset-4"
+                >
+                  Ver Banco de Licencias →
+                </Link>
+              </div>
+            </div>
+
+            <div className="border border-white/[0.08] bg-[#151618] p-8 flex flex-col justify-between">
+              <div>
+                <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
+                  MODALIDAD 03
+                </span>
+                <h3 className="mt-2 font-serif text-xl font-light text-[#EBE7DF]">
+                  Encargos en Campo
+                </h3>
+                <p className="mt-3 text-xs text-[#8E8A80] font-light leading-relaxed">
+                  Contratación de producción fotográfica para campeonatos de rally, documentación arquitectónica, patrimonio territorial o reportajes de autor desde Tenerife y con movilidad internacional.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-between">
+                <Link
+                  href="/servicios"
+                  className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#EBE7DF] hover:underline underline-offset-4"
+                >
+                  Servicios y Comisiones →
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Interactive Wall Scale Comparator */}
         <PrintScaleVisualizer />

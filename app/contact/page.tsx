@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import Container from "@/components/ui/Container";
 import ContactForm from "@/components/contact/ContactForm";
 import { buildPageMetadata } from "@/lib/metadata";
@@ -81,15 +80,7 @@ export default function ContactPage() {
             </p>
 
             <div className="mt-8">
-              <Suspense
-                fallback={
-                  <div className="py-12 text-center text-sm font-mono text-[#8E8A80]">
-                    Cargando formulario de contacto...
-                  </div>
-                }
-              >
-                <ContactForm />
-              </Suspense>
+              <ContactForm />
             </div>
           </div>
 

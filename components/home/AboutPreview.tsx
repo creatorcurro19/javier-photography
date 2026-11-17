@@ -1,8 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
+import { getPhotoByImage } from "@/lib/photos";
 
 export default function AboutPreview() {
+  const artwork = getPhotoByImage("/images/portfolio/fauna-naturaleza/B51A8662.jpg");
+
   return (
     <section
       id="autor"
@@ -25,10 +28,10 @@ export default function AboutPreview() {
               
               <div className="absolute bottom-4 left-5 right-5 flex items-center justify-between font-mono text-[9px] uppercase tracking-widest text-[#8E8A80]">
                 <span className="bg-[#0B0C0E]/85 px-2 py-0.5 border border-white/[0.08]">
-                  Descenso en la Roca
+                  {artwork?.title ?? "Descenso en la Roca"}
                 </span>
                 <span className="bg-[#0B0C0E]/85 px-2 py-0.5 border border-white/[0.08]">
-                  Canon EOS R7 · 600mm
+                  {artwork?.camera ?? "Canon EOS R7"} · {artwork?.focalLength ?? "35mm"}
                 </span>
               </div>
             </div>
@@ -56,7 +59,7 @@ export default function AboutPreview() {
             </blockquote>
 
             <p className="mt-6 text-sm sm:text-base font-light leading-relaxed text-[#8E8A80]">
-              Fotógrafo español especializado en fauna salvaje, paisaje documental, automovilismo clásico y patrimonio etnográfico.
+              Fotógrafo independiente con base profesional en Tenerife (Islas Canarias), especializado en cinco disciplinas fundamentales: Landscapes, Wildlife, Motorsport, Urban & Architecture y Documentary.
               Trabajo exclusivamente con luz natural disponible y rigor óptico, documentando la verdad del instante sin manipulaciones ni artificios generativos.
             </p>
 

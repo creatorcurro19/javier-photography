@@ -66,7 +66,7 @@ const TECHNICAL_SPECS = [
   },
   {
     label: "Tiempo de Respuesta",
-    value: "Entrega electrónica en menos de 24 horas",
+    value: "Entrega electrónica estimada en 24 horas laborables",
   },
 ];
 

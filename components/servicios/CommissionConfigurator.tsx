@@ -8,7 +8,7 @@ const SCOPES = [
     id: "rally-motor",
     label: "Rally & Automovilismo",
     opticalKit: "Canon EOS R7 + Sigma 150–600mm + RF-S 18–150mm",
-    turnaround: "Adelanto prensa 24h · Galería completa 48–72h",
+    turnaround: "Selección urgente para prensa (estimada 24h) · Galería revelada (estimada 3–5 días)",
     summary:
       "Cobertura en tramos cerrados, horquillas técnicas, asistencia mecánica y presentaciones de vehículos clásicos o de competición.",
   },
@@ -16,7 +16,7 @@ const SCOPES = [
     id: "arquitectura-territorio",
     label: "Arquitectura & Patrimonio",
     opticalKit: "Canon EOS R7 + EF-S 10–18mm + RF-S 18–150mm",
-    turnaround: "Entrega calibrada en 3 a 5 días laborables",
+    turnaround: "Entrega revelada orientativa en 3 a 5 días laborables",
     summary:
       "Estudio lumínico diurno/crepuscular, control de fugas geométricas y texturas constructivas para estudios, hoteles y patrimonio.",
   },
@@ -24,7 +24,7 @@ const SCOPES = [
     id: "documental-editorial",
     label: "Documental & Editorial",
     opticalKit: "Canon EOS R7 + RF-S 18–150mm + Teleobjetivo 600mm",
-    turnaround: "Según extensión del reportaje (4 a 7 días)",
+    turnaround: "Según extensión del reportaje (estimación 5 a 8 días)",
     summary:
       "Crónica visual en localización sobre territorio, naturaleza, oficios y reportajes para revistas, editoriales e instituciones.",
   },
@@ -32,7 +32,7 @@ const SCOPES = [
     id: "prints-interiorismo",
     label: "Fine Art & Interiorismo",
     opticalKit: "Impresión Giclée 12 tintas · Hahnemühle Photo Rag 308g",
-    turnaround: "Producción de laboratorio y envío en 5–10 días",
+    turnaround: "Producción de laboratorio y envío estimado en 6–10 días",
     summary:
       "Comisariado a medida de obra gráfica firmada y seriada para proyectos de interiorismo residencial, corporativo u hotelero.",
   },
@@ -46,7 +46,7 @@ const DURATIONS = [
 
 const DELIVERABLES = [
   "Galería Privada Máster 32.5 MP (TIFF/JPEG)",
-  "Adelanto Express para Prensa (24h)",
+  "Selección urgente para notas de prensa (estimada 24h)",
   "Licencia de Uso Comercial / Editorial",
   "Copias Físicas Fine Art Hahnemühle 308g",
 ];

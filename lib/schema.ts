@@ -11,9 +11,9 @@ export function generatePersonSchema() {
     url: absoluteUrl("/"),
     image: absoluteUrl("/images/portfolio/hero/hero.jpg"),
     email: "mailto:javierespinosa1995@hotmail.com",
-    jobTitle: "Fotógrafo de Autor, Documental, Fauna y Motorsport",
+    jobTitle: "Fotógrafo de Autor — Landscapes, Wildlife, Motorsport, Architecture & Documentary",
     description:
-      "Fotógrafo español especializado en fauna salvaje a 600mm, rally histórico, arquitectura vernácula y narrativa documental con sistema Canon EOS R7. Obra gráfica Fine Art en Hahnemühle 308g.",
+      "Fotógrafo español afincado en Tenerife (Canarias), especializado en cinco disciplinas fundamentales: Landscapes, Wildlife, Motorsport, Urban & Architecture y Documentary. Sistema óptico de precisión Canon EOS R7 (10-600mm) y obra gráfica Fine Art en papel Hahnemühle Photo Rag 308g bajo norma ISO 9706.",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Tenerife",
@@ -21,11 +21,12 @@ export function generatePersonSchema() {
       addressCountry: "ES",
     },
     knowsAbout: [
-      "Fotografía de naturaleza y fauna salvaje",
-      "Fotografía de automovilismo y rally",
-      "Fotografía de arquitectura y patrimonio",
-      "Fotografía documental y etnográfica",
-      "Impresión Fine Art Hahnemühle",
+      "Landscapes: Fotografía de paisaje y territorio",
+      "Wildlife: Fotografía de fauna y biodiversidad",
+      "Motorsport: Fotografía de automovilismo y rally",
+      "Urban & Architecture: Fotografía de arquitectura y espacio",
+      "Documentary: Fotografía documental y tradición",
+      "Impresión Fine Art Hahnemühle ISO 9706",
     ],
     sameAs: [
       "https://www.instagram.com/Javier.espinosa19/",

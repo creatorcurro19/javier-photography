@@ -47,7 +47,7 @@ const VIEWFINDER_SLIDES = [
   },
   {
     id: "patrimonio",
-    code: "04 / MEMORIA",
+    code: "04 / ARQUITECTURA",
     label: "Arquitectura & Raíz",
     title: "Entramados de La Vera",
     location: "Villanueva de la Vera, Cáceres",
@@ -58,56 +58,81 @@ const VIEWFINDER_SLIDES = [
     aspect: "aspect-[4/5]",
     note: "La madera de castaño, el granito y los oficios tradicionales conservan la huella del tiempo sin necesidad de artificios escenográficos.",
   },
+  {
+    id: "documental",
+    code: "05 / DOCUMENTAL",
+    label: "Oficio & Memoria",
+    title: "El Oficio y la Chispa",
+    location: "Herrería Tradicional · Memoria Rural",
+    image: "/images/portfolio/viajes-cultura/soldador.jpg",
+    secondaryImage: "/images/portfolio/viajes-cultura/B51A6369.jpg",
+    secondaryCaption: "Tornero en el Zoco · 18-150mm",
+    exif: "EOS R7 · 18mm · f/3.5 · 1/500s · ISO 1000",
+    aspect: "aspect-[4/5]",
+    note: "La luz incandescente y el silencio concentrado del artesano: documentar el patrimonio humano antes de que desaparezca.",
+  },
 ];
 
 const DISCIPLINES = [
   {
-    id: "fauna-naturaleza",
+    id: "paisajes-documental",
     roman: "I",
+    code: "LANDSCAPES & TERRITORY",
+    title: "Paisajes & Territorio",
+    subtitle: "El pulso mineral de la tierra",
+    image: "/images/portfolio/paisajes-documental/B51A0149.jpg",
+    telemetry: "10–150mm · Luz Natural · Geología y Atmósfera",
+    description:
+      "Una mirada contemplativa al territorio: cumbres de alta montaña, horizontes desérticos en el Erg sahariano y formaciones volcánicas en Canarias.",
+    href: "/portfolio/paisajes-documental",
+  },
+  {
+    id: "fauna-naturaleza",
+    roman: "II",
     code: "WILDLIFE & BIODIVERSITY",
-    title: "Fauna & Naturaleza",
+    title: "Fauna & Biodiversidad",
     subtitle: "El privilegio de ser invisible",
     image: "/images/portfolio/fauna-naturaleza/B51A1823-Mejorado-NR.jpg",
     telemetry: "600mm · f/6.3 · 1/1600s · AF Ojo Animal",
     description:
-      "Trabajar con fauna salvaje en libertad impone una ética innegociable: jamás alterar el comportamiento del animal. El teleobjetivo extremo comprime la atmósfera y aísla el gesto íntimo entre la maleza o la roca.",
-    href: "/portfolio?category=fauna-naturaleza",
+      "Trabajar con fauna salvaje en libertad impone una ética innegociable: jamás alterar el comportamiento del animal. El teleobjetivo a 600mm comprime la atmósfera y aísla el gesto íntimo entre la maleza o la roca.",
+    href: "/portfolio/fauna-naturaleza",
   },
   {
     id: "coches-rally",
-    roman: "II",
+    roman: "III",
     code: "MOTORSPORT & DYNAMICS",
-    title: "Coches & Rally",
+    title: "Coches & Rally Histórico",
     subtitle: "Geometría de la velocidad",
     image: "/images/portfolio/coches-rally/B51A9718.jpg",
-    telemetry: "150–400mm · 1/60s–1/2000s · Ráfaga 15 fps",
+    telemetry: "150–600mm · 1/60s–1/2000s · Ráfaga 15 fps",
     description:
-      "En un tramo de rally no hay segundas tomas. La lectura previa de la trazada, la luz rasante sobre el polvo en suspensión y el control del barrido transforman la máquina en escultura cinética.",
-    href: "/portfolio?category=coches-rally",
+      "En un tramo cerrado de rally no hay segundas tomas. La lectura previa de la trazada, la luz rasante sobre el asfalto o la gravilla y el control del barrido transforman la máquina en escultura cinética.",
+    href: "/portfolio/coches-rally",
   },
   {
     id: "arquitectura-urbana",
-    roman: "III",
-    code: "VERNACULAR & URBAN SPACE",
+    roman: "IV",
+    code: "URBAN & ARCHITECTURE",
     title: "Arquitectura & Espacio",
     subtitle: "Orden, piedra y entramado",
     image: "/images/portfolio/arquitectura-urbana/B51A4685.jpg",
     telemetry: "10–35mm · f/8.0 · Líneas de Fuga Controladas",
     description:
-      "Desde las fachadas históricas de Villanueva de la Vera hasta la geometría contemporánea: una búsqueda del equilibrio entre masa, sombra proyectada y escala humana.",
-    href: "/portfolio?category=arquitectura-urbana",
+      "Desde las fachadas tradicionales de piedra, madera y adobe en La Vera hasta la geometría urbana y la atmósfera nocturna: una búsqueda de armonía espacial y memoria constructiva.",
+    href: "/portfolio/arquitectura-urbana",
   },
   {
-    id: "paisajes-documental",
-    roman: "IV",
-    code: "TERRITORY & EXPEDITION",
-    title: "Territorio & Crónica",
-    subtitle: "Del Sahara al Atlántico",
-    image: "/images/portfolio/paisajes-documental/B51A0149.jpg",
-    telemetry: "18–150mm · Luz Natural · Sin Filtros Artificiales",
+    id: "viajes-cultura",
+    roman: "V",
+    code: "DOCUMENTARY & TRADITION",
+    title: "Documental & Tradición",
+    subtitle: "Oficios, devoción y memoria viva",
+    image: "/images/portfolio/viajes-cultura/soldador.jpg",
+    telemetry: "18–150mm · Luz Disponible · Antropología Visual",
     description:
-      "Las dunas móviles del Erg marroquí, la calima sahariana, los volcanes de Canarias y los oficios artesanos documentados con fidelidad cromática y respeto antropológico.",
-    href: "/projects",
+      "Crónica pausada de la identidad humana y los oficios ancestrales: herrerías de forja, secaderos de pimientos, talleres artesanales y el respeto documental por las comunidades observadas.",
+    href: "/portfolio/viajes-cultura",
   },
 ];
 
@@ -130,7 +155,7 @@ const OPTICAL_BENCH = [
   {
     id: "sigma600",
     tag: "SUPERTELEOBJETIVO",
-    name: "Sigma 150–600mm F5–6.3 DG OS HSM Contemporary",
+    name: "Sigma 150–600mm f/5–6.3 DG OS HSM Contemporary",
     spec: "Equivalente 240–960mm en 35mm · Estabilizador Óptico OS",
     angleDeg: 4,
     focalRange: "150mm — 600mm (2.5° de visión)",
@@ -145,7 +170,7 @@ const OPTICAL_BENCH = [
   {
     id: "rf18150",
     tag: "ÓPTICA DE EXPEDICIÓN",
-    name: "Canon RF-S 18–150mm F3.5–6.3 IS STM",
+    name: "Canon RF-S 18–150mm f/3.5–6.3 IS STM",
     spec: "Equivalente 29–240mm · 310 g · Estabilización Dinámica",
     angleDeg: 28,
     focalRange: "18mm — 150mm (Todoterreno Documental)",
@@ -160,7 +185,7 @@ const OPTICAL_BENCH = [
   {
     id: "efs1018",
     tag: "GRAN ANGULAR ARQUITECTÓNICO",
-    name: "Canon EF-S 10–18mm F4.5–5.6 IS STM",
+    name: "Canon EF-S 10–18mm f/4.5–5.6 IS STM",
     spec: "Equivalente 16–29mm · Ángulo Ultraancho de 107°",
     angleDeg: 88,
     focalRange: "10mm — 18mm (Geometría y Espacio)",
@@ -437,7 +462,7 @@ export default function AboutInteractiveStudio() {
                   </div>
                 </div>
                 <div className="hidden pr-2 font-mono text-[10px] text-neutral-500 sm:block">
-                  0{activeSlideIndex + 1} / 04
+                  0{activeSlideIndex + 1} / 05
                 </div>
               </div>
             </div>
@@ -452,7 +477,7 @@ export default function AboutInteractiveStudio() {
         {[
           { value: "100", label: "Obras Catalogadas", sub: "Edición Verificada" },
           { value: "08", label: "Series Narrativas", sub: "Ensayos de Campo" },
-          { value: "10–600", label: "Milímetros de Rango", sub: "Cobertura Óptica" },
+          { value: "3", label: "Ópticas Principales", sub: "Rango 10mm a 600mm" },
           { value: "32.5 MP", label: "Resolución Nativa", sub: "Canon EOS R7 RAW" },
           { value: "ISO 9706", label: "Calidad Museo", sub: "Papel 100% Algodón" },
         ].map((stat, i) => (
@@ -474,7 +499,7 @@ export default function AboutInteractiveStudio() {
       </section>
 
       {/* =====================================================================
-          3. INTERACTIVE EXPANDING GALLERY CURTAIN: LAS CUATRO MIRADAS
+          3. INTERACTIVE EXPANDING GALLERY CURTAIN: LAS CINCO DISCIPLINAS
       ===================================================================== */}
       <section>
         <div className="flex flex-col justify-between gap-4 border-b border-[#202226] pb-6 sm:flex-row sm:items-end">
@@ -483,11 +508,11 @@ export default function AboutInteractiveStudio() {
               Territorios de Práctica
             </p>
             <h2 className="mt-2 font-serif text-3xl font-light text-[#EBE7DF] sm:text-5xl">
-              Las cuatro miradas del archivo
+              Las cinco disciplinas del archivo
             </h2>
           </div>
           <p className="font-mono text-[11px] text-[#8E8A80]">
-            Pasa el cursor o selecciona cada disciplina para desplegar su enfoque →
+            Pasa el cursor o selecciona cada disciplina: Landscapes, Wildlife, Motorsport, Urban &amp; Architecture, Documentary →
           </p>
         </div>
 

@@ -56,7 +56,7 @@ export const PROJECTS: Project[] = [
       "Combinando aproximaciones de detalle en el paddock con disparos a 600mm en curva, la serie retrata la pasión técnica y estética por los automóviles de competición clásicos.",
       "Notas de campo: En tramos cronometrados, la lectura previa de la trazada permite situarse con seguridad y controlar los barridos a 1/60s para transmitir dinamismo o congelar a 1/1000s con el superteleobjetivo Sigma 150-600mm el polvo despedido y la suspensión en compresión máxima.",
     ],
-    photoIds: ["cr-13", "cr-14", "cr-04", "vc-32", "cr-07", "cr-08", "cr-11", "cr-02"],
+    photoIds: ["cr-13", "cr-14", "cr-04", "cr-15", "cr-07", "cr-08", "cr-11", "cr-02"],
   },
   {
     id: "silencio-del-desierto",
