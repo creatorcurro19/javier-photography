@@ -2,6 +2,7 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 import SectionHeader from "@/components/ui/SectionHeader";
 import CommissionConfigurator from "@/components/servicios/CommissionConfigurator";
+import UpcomingEventsSection from "@/components/events/UpcomingEventsSection";
 import {
   AndalusianCenefa,
   AndalusianPageBackdrop,
@@ -21,6 +22,7 @@ export const metadata = buildPageMetadata({
 const servicios = [
   {
     id: "rally-motor",
+    landingSlug: "fotografo-rally-motorsport",
     title: "Automovilismo y Rally Histórico",
     kicker: "Competición y Motor",
     description:
@@ -35,6 +37,7 @@ const servicios = [
   },
   {
     id: "arquitectura-territorio",
+    landingSlug: "fotografo-arquitectura-espacio-urbano",
     title: "Arquitectura, Espacios y Patrimonio",
     kicker: "Espacio y Memoria",
     description:
@@ -49,6 +52,7 @@ const servicios = [
   },
   {
     id: "documental-editorial",
+    landingSlug: "licencias-fotografia-fauna-naturaleza",
     title: "Proyectos Documentales y Fotografía Editorial",
     kicker: "Narrativa Visual",
     description:
@@ -63,6 +67,7 @@ const servicios = [
   },
   {
     id: "prints-interiorismo",
+    landingSlug: "copias-fine-art-coleccionismo",
     title: "Copia de Autor para Coleccionismo e Interiorismo",
     kicker: "Fine Art",
     description:
@@ -145,6 +150,9 @@ export default function ServiciosPage() {
         {/* Interactive Commission Brief Builder */}
         <CommissionConfigurator />
 
+        {/* Calendario de próximas coberturas confirmadas (se oculta automáticamente si no hay eventos futuros) */}
+        <UpcomingEventsSection />
+
         {/* Services Grid */}
         <div className="mt-20 space-y-16">
           {servicios.map((s, idx) => (
@@ -183,12 +191,18 @@ export default function ServiciosPage() {
                     ))}
                   </ul>
 
-                  <div className="mt-8">
+                  <div className="mt-8 space-y-2.5">
                     <Link
                       href={`/contact?servicio=${s.id}`}
                       className="inline-flex w-full items-center justify-center border border-[#EBE7DF] bg-[#EBE7DF] px-6 py-3 text-xs font-mono uppercase tracking-[0.25em] text-[#0B0C0E] font-semibold transition hover:bg-transparent hover:text-white"
                     >
                       Solicitar Propuesta
+                    </Link>
+                    <Link
+                      href={`/servicios/${s.landingSlug}`}
+                      className="inline-flex w-full items-center justify-center border border-white/15 bg-[#0B0C0E]/70 px-6 py-2.5 text-[11px] font-mono uppercase tracking-[0.22em] text-[#C5A880] transition hover:border-[#C5A880] hover:text-white"
+                    >
+                      Ver Dossier y Especificaciones →
                     </Link>
                   </div>
                 </div>

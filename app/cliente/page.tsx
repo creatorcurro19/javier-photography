@@ -2,7 +2,6 @@ import Container from "@/components/ui/Container";
 import ClientPortal from "@/components/client/ClientPortal";
 import { AndalusianPageBackdrop } from "@/components/ui/AndalusianMotif";
 import { buildPageMetadata } from "@/lib/metadata";
-import { getAllPhotos } from "@/lib/photos";
 
 export const metadata = buildPageMetadata({
   title: "Acceso Clientes · Galerías Privadas | Javier Espinosa",
@@ -12,13 +11,11 @@ export const metadata = buildPageMetadata({
 });
 
 export default function ClientePage() {
-  const photos = getAllPhotos();
-
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
       <AndalusianPageBackdrop variant="laceria" />
       <Container className="relative z-10">
-        <ClientPortal allPhotos={photos} />
+        <ClientPortal />
       </Container>
     </div>
   );

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useLanguage } from "@/lib/i18n";
+import { trackEvent } from "@/lib/analytics";
 import { AndalusianStarMark } from "@/components/ui/AndalusianMotif";
 
 export default function PrintAlertsForm() {
@@ -31,6 +32,7 @@ export default function PrintAlertsForm() {
         throw new Error(data.error || "Error al procesar la suscripción.");
       }
 
+      trackEvent("newsletter_alta", { idioma: lang });
       setStatus("success");
       setEmail("");
       setConsent(false);

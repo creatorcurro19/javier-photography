@@ -1,64 +1,67 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import { findClientGallery, type ClientGallery } from "@/data/client-galleries";
-import type { Photo } from "@/types/photo";
+import type { UnlockedClientGallery } from "@/types/client-gallery";
 import {
   AndalusianCenefa,
   AndalusianCornerOrnaments,
   AndalusianStarMark,
 } from "@/components/ui/AndalusianMotif";
 import LightboxModal from "@/components/ui/LightboxModal";
+import { trackEvent } from "@/lib/analytics";
 
 interface ClientPortalProps {
-  allPhotos: Photo[];
   initialCode?: string;
 }
 
-export default function ClientPortal({
-  allPhotos,
-  initialCode = "",
-}: ClientPortalProps) {
+export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
   const [codeInput, setCodeInput] = useState(initialCode);
-  const [unlocked, setUnlocked] = useState<ClientGallery | null>(() =>
-    initialCode ? findClientGallery(initialCode) ?? null : null
-  );
+  const [unlocked, setUnlocked] = useState<UnlockedClientGallery | null>(null);
+  const [verifying, setVerifying] = useState(false);
   const [error, setError] = useState("");
   const [favorites, setFavorites] = useState<string[]>([]);
   const [clientEmail, setClientEmail] = useState("");
   const [sending, setSending] = useState(false);
   const [sentOk, setSentOk] = useState(false);
+  const [sendError, setSendError] = useState("");
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
-  const galleryPhotos = useMemo(() => {
-    if (!unlocked) return [];
-    const bySlug = new Map(allPhotos.map((p) => [p.slug, p]));
-    const matched = unlocked.photoSlugs
-      .map((slug) => bySlug.get(slug))
-      .filter((p): p is Photo => Boolean(p));
-
-    // Fallback gracefully to motorsport photos if specific slugs aren't found
-    if (matched.length > 0) return matched;
-    return allPhotos
-      .filter((p) => p.category === "coches-rally")
-      .slice(0, 8);
-  }, [allPhotos, unlocked]);
-
-  const handleUnlock = (e: React.FormEvent) => {
-    e.preventDefault();
+  const unlockWithCode = async (rawCode: string) => {
+    const code = rawCode.trim();
+    if (!code) return;
     setError("");
-    const found = findClientGallery(codeInput);
-    if (!found) {
-      setError(
-        "Clave no reconocida. Verifica el código proporcionado por el estudio (o prueba «DEMO» para ver una muestra)."
-      );
-      return;
+    setVerifying(true);
+    try {
+      const res = await fetch("/api/client-gallery", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code }),
+      });
+      const data = await res.json().catch(() => null);
+      if (!res.ok || !data?.ok || !data?.gallery) {
+        setError(
+          data?.error ??
+            "Clave no reconocida. Verifica el código proporcionado por el estudio (o prueba «DEMO» para ver una muestra)."
+        );
+        return;
+      }
+      setUnlocked(data.gallery as UnlockedClientGallery);
+      setFavorites([]);
+      setSentOk(false);
+      setSendError("");
+      trackEvent("portal_cliente_acceso", { codigo: data.gallery.code });
+    } catch {
+      setError("Error de conexión verificando la clave. Inténtalo de nuevo.");
+    } finally {
+      setVerifying(false);
     }
-    setUnlocked(found);
-    setFavorites([]);
-    setSentOk(false);
+  };
+
+  const handleUnlock = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await unlockWithCode(codeInput);
   };
 
   const toggleFavorite = (photoId: string) => {
@@ -73,27 +76,41 @@ export default function ClientPortal({
     e.preventDefault();
     if (!unlocked || favorites.length === 0) return;
     setSending(true);
+    setSendError("");
 
+    const galleryPhotos = unlocked.photos;
     const selectedTitles = galleryPhotos
       .filter((p) => favorites.includes(p.id))
       .map((p, idx) => `${idx + 1}. ${p.title} (${p.slug})`)
       .join("\n");
 
     try {
-      await fetch("/api/contact", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           nombre: unlocked.clientName,
-          email: clientEmail.trim() || "cliente@javier-photography.vercel.app",
+          email: clientEmail.trim(),
           motivo: "Selección Galería Privada",
           referencia: `${unlocked.projectTitle} [${unlocked.code}]`,
           mensaje: `Selección final de ${favorites.length} fotografías desde el Portal de Clientes:\n\n${selectedTitles}`,
         }),
       });
+      const data = await res.json().catch(() => null);
+      if (!res.ok || !data?.ok) {
+        setSendError(
+          data?.error ??
+            "No se pudo enviar automáticamente. Escríbenos a javierespinosa1995@hotmail.com con tu selección."
+        );
+        return;
+      }
+      trackEvent("portal_cliente_seleccion", {
+        codigo: unlocked.code,
+        cantidad: favorites.length,
+      });
       setSentOk(true);
     } catch {
-      setSentOk(true);
+      setSendError("Error de red al enviar la selección. Inténtalo de nuevo.");
     } finally {
       setSending(false);
     }
@@ -156,22 +173,21 @@ export default function ClientPortal({
 
             <button
               type="submit"
-              className="w-full border border-[#EBE7DF] bg-[#EBE7DF] py-3.5 font-mono text-xs uppercase tracking-[0.28em] font-medium text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
+              disabled={verifying}
+              className="w-full border border-[#EBE7DF] bg-[#EBE7DF] py-3.5 font-mono text-xs uppercase tracking-[0.28em] font-medium text-[#0B0C0E] transition hover:bg-transparent hover:text-white disabled:opacity-50"
             >
-              Desbloquear Sala Privada →
+              {verifying ? "Verificando clave..." : "Desbloquear Sala Privada →"}
             </button>
 
             <div className="pt-3 text-center">
               <button
                 type="button"
+                disabled={verifying}
                 onClick={() => {
-                  const demo = findClientGallery("DEMO");
-                  if (demo) {
-                    setCodeInput("DEMO");
-                    setUnlocked(demo);
-                  }
+                  setCodeInput("DEMO");
+                  void unlockWithCode("DEMO");
                 }}
-                className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#C5A880]/85 underline underline-offset-4 hover:text-[#EBE7DF]"
+                className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#C5A880]/85 underline underline-offset-4 hover:text-[#EBE7DF] disabled:opacity-50"
               >
                 Ver galería de demostración (DEMO)
               </button>
@@ -181,6 +197,8 @@ export default function ClientPortal({
       </div>
     );
   }
+
+  const galleryPhotos = unlocked.photos;
 
   return (
     <div>
@@ -318,6 +336,9 @@ export default function ClientPortal({
               <p className="mt-1 text-xs font-light text-[#8E8A80]">
                 Marca las obras que deseas recibir en máxima resolución y confirma tu correo.
               </p>
+              {sendError && (
+                <p className="mt-2 text-xs text-red-300 font-mono">{sendError}</p>
+              )}
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">

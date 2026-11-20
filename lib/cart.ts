@@ -1,5 +1,6 @@
 import type { CartItem } from "@/types/cart";
 import { PRINT_FORMATS } from "@/types/cart";
+import { trackEvent } from "@/lib/analytics";
 
 const CART_STORAGE_KEY = "javier_fine_art_cart";
 const EMPTY_CART: CartItem[] = [];
@@ -82,6 +83,12 @@ export function addToCart(
   }
 
   saveCart(updated);
+  trackEvent("anadir_cesta", {
+    obra: item.slug,
+    formato: item.format.id,
+    enmarcado: item.framed,
+    precio: unitPrice,
+  });
   // Auto open cart drawer when item is added
   if (typeof window !== "undefined") {
     window.dispatchEvent(new Event("open-cart-drawer"));

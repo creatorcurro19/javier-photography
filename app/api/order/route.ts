@@ -1,26 +1,20 @@
 import { NextResponse } from "next/server";
-import type { CartOrder } from "@/types/cart";
 import {
   buildOrderCustomerEmailHtml,
   buildOrderOwnerEmailHtml,
 } from "@/lib/email-templates";
-
-const DESTINATION_EMAIL = "javierespinosa1995@hotmail.com";
-const FROM_EMAIL =
-  process.env.RESEND_FROM_EMAIL ||
-  "Galería Javier Espinosa <onboarding@resend.dev>";
+import { normalizeOrder } from "@/lib/server/order";
+import { DESTINATION_EMAIL, relayWithFormSubmit, sendWithResend } from "@/lib/server/email";
 
 export async function POST(request: Request) {
   try {
-    const order: CartOrder = await request.json();
-
-    if (!order.customer || !order.customer.email || !order.items || order.items.length === 0) {
-      return NextResponse.json(
-        { ok: false, error: "Datos de pedido incompletos." },
-        { status: 400 }
-      );
+    const raw = await request.json().catch(() => null);
+    const result = normalizeOrder(raw);
+    if (!result.ok) {
+      return NextResponse.json({ ok: false, error: result.error }, { status: 400 });
     }
-
+    // Importes recalculados en servidor a partir del catálogo.
+    const order = result.order;
     const { customer, items, subtotal, orderId } = order;
 
     const itemsSummary = items
@@ -38,8 +32,9 @@ export async function POST(request: Request) {
       `SOLICITUD DE PEDIDO FINE ART — JAVIER ESPINOSA PHOTOGRAPHY`,
       `============================================================`,
       `Referencia de Pedido: ${orderId}`,
-      `Fecha: ${new Date().toLocaleString("es-ES")}`,
+      `Fecha: ${new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" })}`,
       `Importe Total: ${subtotal} €`,
+      `Estado del pago: pendiente (si el comprador paga con Stripe recibirás un aviso aparte de "PAGO CONFIRMADO").`,
       ``,
       `DATOS DEL COLECCIONISTA / COMPRADOR:`,
       `------------------------------------`,
@@ -59,97 +54,68 @@ export async function POST(request: Request) {
       `CERTIFICADO: Numerado y firmado a mano por Javier Espinosa Martínez.`,
     ].join("\n");
 
-    // 1. Resend API if RESEND_API_KEY is present (envía HTML de lujo al autor y confirmación al coleccionista)
-    if (process.env.RESEND_API_KEY) {
-      try {
-        const ownerHtml = buildOrderOwnerEmailHtml(order);
-        const customerHtml = buildOrderCustomerEmailHtml(order);
+    // 1. Resend: aviso al autor + confirmación al comprador
+    const ownerSent = await sendWithResend(
+      {
+        to: [DESTINATION_EMAIL],
+        replyTo: customer.email,
+        subject,
+        text: textBody,
+        html: buildOrderOwnerEmailHtml(order),
+      },
+      "order-owner"
+    );
 
-        const resendRes = await fetch("https://api.resend.com/emails", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            from: FROM_EMAIL,
-            to: [DESTINATION_EMAIL],
-            reply_to: customer.email,
-            subject,
-            text: textBody,
-            html: ownerHtml,
-          }),
-        });
-
-        // Confirmación automática al comprador (si el dominio remitente está verificado en Resend)
-        await fetch("https://api.resend.com/emails", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            from: FROM_EMAIL,
-            to: [customer.email],
-            reply_to: DESTINATION_EMAIL,
-            subject: `Confirmación de Reserva Fine Art · Ref. ${orderId} — Javier Espinosa`,
-            text: textBody,
-            html: customerHtml,
-          }),
-        }).catch(() => null);
-
-        if (resendRes.ok) {
-          return NextResponse.json({ ok: true, provider: "resend", orderId });
-        }
-      } catch {
-        // Fallback to relay
-      }
-    }
-
-    // 2. FormSubmit relay
-    try {
-      const relayRes = await fetch(
-        `https://formsubmit.co/ajax/${DESTINATION_EMAIL}`,
+    if (ownerSent) {
+      await sendWithResend(
         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Referer: "https://javier-photography.vercel.app/",
-            Origin: "https://javier-photography.vercel.app",
-          },
-          body: JSON.stringify({
-            _subject: subject,
-            _replyto: customer.email,
-            _captcha: "false",
-            _template: "table",
-            Referencia_Pedido: orderId,
-            Nombre_Cliente: customer.nombre,
-            Email: customer.email,
-            Telefono: customer.telefono,
-            Direccion_Envio: `${customer.direccion}, ${customer.codigoPostal} ${customer.ciudad} (${customer.pais})`,
-            Total_Pedido: `${subtotal} €`,
-            Obras: itemsSummary,
-            Notas: customer.notas || "Ninguna",
-          }),
-        }
+          to: [customer.email],
+          replyTo: DESTINATION_EMAIL,
+          subject: `Confirmación de Reserva Fine Art · Ref. ${orderId} — Javier Espinosa`,
+          text: textBody,
+          html: buildOrderCustomerEmailHtml(order),
+        },
+        "order-customer"
       );
-
-      const relayData = await relayRes.json().catch(() => null);
-      if (relayRes.ok && relayData && (relayData.success === "true" || relayData.success === true)) {
-        return NextResponse.json({ ok: true, provider: "formsubmit", orderId });
-      }
-    } catch {
-      // Continue to response
+      return NextResponse.json({ ok: true, provider: "resend", orderId, subtotal });
     }
 
-    return NextResponse.json({
-      ok: true,
-      provider: "client-confirmed",
-      orderId,
-      destinationEmail: DESTINATION_EMAIL,
-    });
-  } catch {
+    // 2. FormSubmit como respaldo
+    const relay = await relayWithFormSubmit(
+      {
+        _subject: subject,
+        _replyto: customer.email,
+        Referencia_Pedido: orderId,
+        Nombre_Cliente: customer.nombre,
+        Email: customer.email,
+        Telefono: customer.telefono,
+        Direccion_Envio: `${customer.direccion}, ${customer.codigoPostal} ${customer.ciudad} (${customer.pais})`,
+        Total_Pedido: `${subtotal} €`,
+        Obras: itemsSummary,
+        Notas: customer.notas || "Ninguna",
+      },
+      "order"
+    );
+
+    if (relay === "sent") {
+      return NextResponse.json({ ok: true, provider: "formsubmit", orderId, subtotal });
+    }
+
+    // Informe honesto: el pedido NO ha llegado a Javier. El cliente debe ofrecer una vía alternativa.
+    console.error(`[order] Pedido ${orderId} NO entregado por ningún proveedor de correo.`);
+    return NextResponse.json(
+      {
+        ok: false,
+        delivered: false,
+        orderId,
+        destinationEmail: DESTINATION_EMAIL,
+        error:
+          "No hemos podido registrar tu pedido automáticamente. Escríbenos directamente para completarlo.",
+      },
+      { status: 503 }
+    );
+  } catch (error) {
+    console.error("[order] Error inesperado:", error);
     return NextResponse.json(
       { ok: false, error: "Error procesando el pedido." },
       { status: 500 }

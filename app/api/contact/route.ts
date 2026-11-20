@@ -1,14 +1,27 @@
 import { NextResponse } from "next/server";
 import { buildContactOwnerEmailHtml } from "@/lib/email-templates";
-
-const DESTINATION_EMAIL = "javierespinosa1995@hotmail.com";
-const FROM_EMAIL =
-  process.env.RESEND_FROM_EMAIL ||
-  "Portfolio Javier Espinosa <onboarding@resend.dev>";
+import { DESTINATION_EMAIL, relayWithFormSubmit, sendWithResend } from "@/lib/server/email";
+import { getClientIp, rateLimit } from "@/lib/server/rate-limit";
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const ip = getClientIp(request);
+    const rl = rateLimit(`contact:${ip}`, 10, 10 * 60 * 1000);
+    if (!rl.ok) {
+      return NextResponse.json(
+        { ok: false, error: "Demasiados intentos seguidos. Espera unos minutos e inténtalo de nuevo." },
+        { status: 429, headers: { "Retry-After": String(rl.retryAfter) } }
+      );
+    }
+
+    const body = await request.json().catch(() => null);
+    if (!body || typeof body !== "object") {
+      return NextResponse.json(
+        { ok: false, error: "Datos de consulta no válidos." },
+        { status: 400 }
+      );
+    }
+
     const { nombre, email, telefono, motivo, referencia, mensaje, _gotcha } = body;
 
     // Anti-spam honeypot: reject bots silently
@@ -24,117 +37,87 @@ export async function POST(request: Request) {
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(String(email))) {
       return NextResponse.json(
         { ok: false, error: "El formato de correo electrónico no es válido." },
         { status: 400 }
       );
     }
 
-    const subject = `[Web Javier Espinosa · ${String(motivo || "Consulta").toUpperCase()}] ${nombre}`;
+    const cleanNombre = String(nombre).trim().slice(0, 140);
+    const cleanEmail = String(email).trim().slice(0, 160);
+    const cleanTelefono = telefono ? String(telefono).trim().slice(0, 40) : "";
+    const cleanMotivo = String(motivo || "Consulta").trim().slice(0, 80);
+    const cleanReferencia = referencia ? String(referencia).trim().slice(0, 200) : "";
+    const cleanMensaje = String(mensaje).trim().slice(0, 4000);
 
-    // 1. Optional Resend API integration if RESEND_API_KEY is present in environment
-    if (process.env.RESEND_API_KEY) {
-      try {
-        const resendRes = await fetch("https://api.resend.com/emails", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            from: FROM_EMAIL,
-            to: [DESTINATION_EMAIL],
-            reply_to: email,
-            subject,
-            html: buildContactOwnerEmailHtml({
-              nombre,
-              email,
-              motivo: String(motivo || "Consulta"),
-              asunto: String(referencia || subject),
-              mensaje,
-            }),
-            text: [
-              `Nueva consulta desde la web oficial de Javier Espinosa Martínez`,
-              `--------------------------------------------------------------`,
-              `Nombre / Entidad: ${nombre}`,
-              `Correo electrónico: ${email}`,
-              `Teléfono: ${telefono || "No indicado"}`,
-              `Tipo de solicitud: ${motivo}`,
-              `Obra(s) o formato de referencia: ${referencia || "General"}`,
-              ``,
-              `Mensaje:`,
-              mensaje,
-            ].join("\n"),
-          }),
-        });
+    const subject = `[Web Javier Espinosa · ${cleanMotivo.toUpperCase()}] ${cleanNombre}`;
 
-        if (resendRes.ok) {
-          return NextResponse.json({ ok: true, provider: "resend" });
-        }
-      } catch {
-        // Continue to fallback
-      }
+    // 1. Envío mediante Resend API si RESEND_API_KEY está configurada
+    const resendOk = await sendWithResend(
+      {
+        to: [DESTINATION_EMAIL],
+        replyTo: cleanEmail,
+        subject,
+        html: buildContactOwnerEmailHtml({
+          nombre: cleanNombre,
+          email: cleanEmail,
+          motivo: cleanMotivo,
+          asunto: cleanReferencia || subject,
+          mensaje: cleanMensaje,
+        }),
+        text: [
+          `Nueva consulta desde la web oficial de Javier Espinosa Martínez`,
+          `--------------------------------------------------------------`,
+          `Nombre / Entidad: ${cleanNombre}`,
+          `Correo electrónico: ${cleanEmail}`,
+          `Teléfono: ${cleanTelefono || "No indicado"}`,
+          `Tipo de solicitud: ${cleanMotivo}`,
+          `Obra(s) o formato de referencia: ${cleanReferencia || "General"}`,
+          ``,
+          `Mensaje:`,
+          cleanMensaje,
+        ].join("\n"),
+      },
+      "contact"
+    );
+
+    if (resendOk) {
+      return NextResponse.json({ ok: true, provider: "resend" });
     }
 
-    // 2. FormSubmit AJAX relay directly to javierespinosa1995@hotmail.com
-    try {
-      const relayRes = await fetch(
-        `https://formsubmit.co/ajax/${DESTINATION_EMAIL}`,
+    // 2. FormSubmit AJAX relay directo a javierespinosa1995@hotmail.com
+    const relay = await relayWithFormSubmit(
+      {
+        _subject: subject,
+        _replyto: cleanEmail,
+        Nombre: cleanNombre,
+        Email: cleanEmail,
+        Telefono: cleanTelefono || "No indicado",
+        Motivo: cleanMotivo,
+        Referencia_Obra: cleanReferencia || "General",
+        Mensaje: cleanMensaje,
+      },
+      "contact"
+    );
+
+    if (relay === "sent") {
+      return NextResponse.json({ ok: true, provider: "formsubmit" });
+    }
+
+    if (relay === "needs-activation") {
+      return NextResponse.json(
         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Referer: "https://javier-photography.vercel.app/",
-            Origin: "https://javier-photography.vercel.app",
-          },
-          body: JSON.stringify({
-            _subject: subject,
-            _replyto: email,
-            _captcha: "false",
-            _template: "table",
-            Nombre: nombre,
-            Email: email,
-            Telefono: telefono || "No indicado",
-            Motivo: motivo,
-            Referencia_Obra: referencia || "General",
-            Mensaje: mensaje,
-          }),
-        }
+          ok: false,
+          needsActivation: true,
+          error:
+            "FormSubmit ha enviado un correo de activación a javierespinosa1995@hotmail.com. Revisa tu bandeja de entrada o correo no deseado y haz clic en 'Activate Form'.",
+          destinationEmail: DESTINATION_EMAIL,
+        },
+        { status: 200 }
       );
-
-      const relayData = await relayRes.json().catch(() => null);
-
-      if (
-        relayRes.ok &&
-        relayData &&
-        (relayData.success === "true" || relayData.success === true)
-      ) {
-        return NextResponse.json({ ok: true, provider: "formsubmit" });
-      }
-
-      if (
-        relayData &&
-        relayData.message &&
-        relayData.message.toLowerCase().includes("activation")
-      ) {
-        return NextResponse.json(
-          {
-            ok: false,
-            needsActivation: true,
-            error:
-              "FormSubmit ha enviado un correo de activación a javierespinosa1995@hotmail.com. Revisa tu bandeja de entrada o correo no deseado y haz clic en 'Activate Form'.",
-            destinationEmail: DESTINATION_EMAIL,
-          },
-          { status: 200 }
-        );
-      }
-    } catch {
-      // Handled gracefully below
     }
 
-    // Honest reporting: if no remote mail provider delivered the message, report to client so it uses direct mailto
     return NextResponse.json(
       {
         ok: false,
@@ -144,7 +127,8 @@ export async function POST(request: Request) {
       },
       { status: 503 }
     );
-  } catch {
+  } catch (error) {
+    console.error("[contact] Error procesando consulta:", error);
     return NextResponse.json(
       { ok: false, error: "Error procesando la solicitud." },
       { status: 500 }

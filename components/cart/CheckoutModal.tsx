@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CartItem, OrderCustomer, CartOrder } from "@/types/cart";
 import { clearCart } from "@/lib/cart";
+import { trackEvent } from "@/lib/analytics";
 
 interface CheckoutModalProps {
   items: CartItem[];
@@ -72,12 +73,18 @@ export default function CheckoutModal({
     };
 
     try {
-      // 1. Registrar pedido y enviar notificación al autor
-      await fetch("/api/order", {
+      // 1. Registrar pedido y enviar notificación al autor (importes recalculados en servidor)
+      const orderRes = await fetch("/api/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(orderPayload),
       }).catch(() => null);
+      const orderData = orderRes ? await orderRes.json().catch(() => null) : null;
+
+      if (orderRes?.status === 400) {
+        setError(orderData?.error ?? "Revisa los datos del pedido.");
+        return;
+      }
 
       // 2. Si Stripe está configurado en el servidor, redirigir a pasarela de pago segura
       const checkoutRes = await fetch("/api/checkout", {
@@ -90,17 +97,27 @@ export default function CheckoutModal({
         ? await checkoutRes.json().catch(() => null)
         : null;
 
-      clearCart();
-
       if (checkoutData?.mode === "stripe" && checkoutData?.url) {
+        trackEvent("checkout_iniciado", { modo: "stripe", importe: subtotal });
+        clearCart();
         window.location.href = checkoutData.url;
         return;
       }
 
-      onSuccess(orderId);
-    } catch {
+      // Sin pago online: solo confirmamos si el pedido ha llegado de verdad a Javier.
+      if (!orderData?.ok) {
+        const mail = orderData?.destinationEmail ?? "javierespinosa1995@hotmail.com";
+        setError(
+          `No hemos podido registrar el pedido automáticamente. Tu cesta se conserva: escríbenos a ${mail} indicando la referencia ${orderId} o usa WhatsApp.`
+        );
+        return;
+      }
+
+      trackEvent("checkout_iniciado", { modo: "reserva", importe: subtotal });
       clearCart();
       onSuccess(orderId);
+    } catch {
+      setError("Error de conexión. Tu cesta se conserva; inténtalo de nuevo en unos segundos.");
     } finally {
       setLoading(false);
     }

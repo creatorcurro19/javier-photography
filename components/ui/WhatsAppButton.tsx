@@ -1,6 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/lib/i18n";
+import { trackEvent } from "@/lib/analytics";
 
 export default function WhatsAppButton() {
   const { lang, t } = useLanguage();
@@ -29,6 +30,7 @@ export default function WhatsAppButton() {
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => trackEvent("whatsapp_click", { idioma: lang })}
         aria-label={t(
           "Contactar por WhatsApp con Javier Espinosa",
           "Contact Javier Espinosa via WhatsApp"

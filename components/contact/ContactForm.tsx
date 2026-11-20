@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState, Suspense, useCallback } from "react";
 import { getSavedWorks } from "@/components/photo/FavoriteButton";
+import { trackEvent } from "@/lib/analytics";
 
 interface SearchParamsSyncProps {
   onSync: (params: {
@@ -171,6 +172,7 @@ export default function ContactForm() {
       const data = await res.json().catch(() => null);
 
       if (res.ok && data?.ok) {
+        trackEvent("contacto_enviado", { motivo: formData.motivo, via: data.provider || "server" });
         setSubmissionStatus("success");
         return;
       }
@@ -206,6 +208,7 @@ export default function ContactForm() {
           clientData &&
           (clientData.success === "true" || clientData.success === true)
         ) {
+          trackEvent("contacto_enviado", { motivo: formData.motivo, via: "formsubmit-client" });
           setSubmissionStatus("success");
           return;
         }

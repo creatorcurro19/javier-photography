@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/metadata";
 import { getAllPhotos, getAllProjects, PHOTO_CATEGORIES } from "@/lib/photos";
 import { CATEGORY_METADATA } from "@/types/photo";
+import { SERVICE_LANDINGS } from "@/data/service-landings";
 
 const BASE = SITE_URL;
 
@@ -46,5 +47,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     images: [`${BASE}${photo.image}`],
   }));
 
-  return [...staticRoutes, ...categoryRoutes, ...projectRoutes, ...photoRoutes];
+  const serviceRoutes: MetadataRoute.Sitemap = SERVICE_LANDINGS.map((service) => ({
+    url: `${BASE}/servicios/${service.slug}`,
+    lastModified,
+    changeFrequency: "monthly",
+    priority: 0.85,
+    images: [`${BASE}${service.heroImage}`],
+  }));
+
+  return [...staticRoutes, ...serviceRoutes, ...categoryRoutes, ...projectRoutes, ...photoRoutes];
 }
