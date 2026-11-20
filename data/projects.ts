@@ -10,7 +10,7 @@ export const PROJECTS: Project[] = [
     category: "viajes-cultura",
     year: "2024 — 2026",
     location: "España & Marruecos",
-    coverImage: "/images/portfolio/viajes-cultura/soldador.jpg",
+    coverImage: "/images/portfolio/viajes-cultura/el-oficio-y-la-chispa.jpg",
     description:
       "Un ensayo documental sobre la vigencia de los oficios artesanales y las costumbres arraigadas: chispas en la penumbra de la fragua, mercados de especias, secaderos al sol y celebraciones populares.",
     statement: [
@@ -29,7 +29,7 @@ export const PROJECTS: Project[] = [
     category: "paisajes-documental",
     year: "2025 — 2026",
     location: "Tenerife & Islas Canarias",
-    coverImage: "/images/portfolio/paisajes-documental/B51A0149.jpg",
+    coverImage: "/images/portfolio/paisajes-documental/cumbre-nevada-al-alba.jpg",
     description:
       "Recorrido visual por los contrastes geológicos y climáticos del archipiélago: desde el cono nevado del Teide al amanecer y los senderos de laurisilva envueltos en niebla en Anaga hasta los acantilados bañados por el ocaso atlántico.",
     statement: [
@@ -48,7 +48,7 @@ export const PROJECTS: Project[] = [
     category: "coches-rally",
     year: "2024 — 2026",
     location: "Tramos de Montaña & Parque de Asistencia",
-    coverImage: "/images/portfolio/coches-rally/B51A9718.jpg",
+    coverImage: "/images/portfolio/coches-rally/cruzada-sobre-el-asfalto.jpg",
     description:
       "Doble mirada al automovilismo histórico: la adrenalina del derrapaje y los apoyos a tres ruedas en pleno tramo frente a la concentración previa, los detalles mecánicos y el ambiente humano del parque de asistencia.",
     statement: [
@@ -67,7 +67,7 @@ export const PROJECTS: Project[] = [
     category: "paisajes-documental",
     year: "2024 — 2025",
     location: "Desierto del Sahara",
-    coverImage: "/images/portfolio/viajes-cultura/B51A7335.jpg",
+    coverImage: "/images/portfolio/viajes-cultura/horizonte-de-dunas-al-atardecer.jpg",
     description:
       "Surcos de viento sobre la arena rojiza y figuras recortadas contra el sol poniente en un horizonte de dunas donde el tiempo parece suspenderse.",
     statement: [
@@ -84,7 +84,7 @@ export const PROJECTS: Project[] = [
     category: "fauna-naturaleza",
     year: "2025 — 2026",
     location: "Europa & Península Ibérica",
-    coverImage: "/images/portfolio/fauna-naturaleza/B51A1823-Mejorado-NR.jpg",
+    coverImage: "/images/portfolio/fauna-naturaleza/mirada-del-lince-boreal.jpg",
     description:
       "Aproximaciones a la fauna salvaje con teleobjetivo de 600mm: la mirada hipnótica del lince boreal, el trote silencioso del lobo europeo, el porte del ciervo ibérico y la delicadeza de las aves.",
     statement: [
@@ -101,7 +101,7 @@ export const PROJECTS: Project[] = [
     category: "arquitectura-urbana",
     year: "2025 — 2026",
     location: "Villanueva de la Vera, Cáceres",
-    coverImage: "/images/portfolio/viajes-cultura/B51A7089.jpg",
+    coverImage: "/images/portfolio/viajes-cultura/plaza-de-villanueva-de-la-vera.jpg",
     description:
       "Recorrido documental por el Conjunto Histórico de Villanueva de la Vera: soportales de granito, entramados de madera y adobe, secaderos de pimientos al sol y el juego de luces en sus callejas.",
     statement: [
@@ -132,7 +132,7 @@ export const PROJECTS: Project[] = [
     category: "viajes-cultura",
     year: "2025 — 2026",
     location: "Marrakech & Alto Atlas, Marruecos",
-    coverImage: "/images/portfolio/paisajes-documental/B51A7099.jpg",
+    coverImage: "/images/portfolio/paisajes-documental/oasis-y-cumbres-del-atlas.jpg",
     description:
       "Crónica visual entre el bullicio artesanal de la Medina de Marrakech, la simetría silenciosa de sus madrasas y la inmensidad ocre de los valles del Alto Atlas.",
     statement: [
@@ -167,7 +167,7 @@ export const PROJECTS: Project[] = [
     category: "fauna-naturaleza",
     year: "2025 — 2026",
     location: "Tenerife & Archipiélago Canario",
-    coverImage: "/images/portfolio/fauna-naturaleza/B51A8313.jpg",
+    coverImage: "/images/portfolio/fauna-naturaleza/cuervo-canario-ante-las-cumbres.jpg",
     description:
       "Exploración de la biodiversidad insular: desde el cuervo canario en las crestas brumosas de Anaga hasta el cangrejo moro, el vuelvepiedras y la carabela portuguesa en los charcos de lava del Atlántico.",
     statement: [

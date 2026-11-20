@@ -26,7 +26,7 @@ const HERO_SLIDES: HeroSlide[] = [
     discipline: "TERRITORIO",
     title: "Ocaso sobre el Erg",
     location: "Desierto del Sahara · Marruecos",
-    image: "/images/portfolio/viajes-cultura/B51A7341.jpg",
+    image: "/images/portfolio/viajes-cultura/ocaso-sobre-el-erg.jpg",
     position: "object-[center_42%]",
   },
   {
@@ -35,7 +35,7 @@ const HERO_SLIDES: HeroSlide[] = [
     discipline: "FAUNA SALVAJE",
     title: "Mirada del Lince Boreal",
     location: "Taiga Boreal · España",
-    image: "/images/portfolio/fauna-naturaleza/B51A1823-Mejorado-NR.jpg",
+    image: "/images/portfolio/fauna-naturaleza/mirada-del-lince-boreal.jpg",
     position: "object-[center_30%]",
   },
   {
@@ -44,7 +44,7 @@ const HERO_SLIDES: HeroSlide[] = [
     discipline: "PAISAJE MINERAL",
     title: "Cumbre Nevada al Alba",
     location: "Macizo Central · Alta Montaña",
-    image: "/images/portfolio/paisajes-documental/B51A0149.jpg",
+    image: "/images/portfolio/paisajes-documental/cumbre-nevada-al-alba.jpg",
     position: "object-[center_32%]",
   },
   {
@@ -53,7 +53,7 @@ const HERO_SLIDES: HeroSlide[] = [
     discipline: "AUTOMOVILISMO",
     title: "Cruzada sobre el Asfalto",
     location: "Tramo Cronometrado · Rally Histórico",
-    image: "/images/portfolio/coches-rally/B51A9718.jpg",
+    image: "/images/portfolio/coches-rally/cruzada-sobre-el-asfalto.jpg",
     position: "object-[center_45%]",
   },
   {
@@ -62,7 +62,7 @@ const HERO_SLIDES: HeroSlide[] = [
     discipline: "ETNOGRAFÍA",
     title: "El Oficio y la Chispa",
     location: "Herrería Tradicional · Memoria Rural",
-    image: "/images/portfolio/viajes-cultura/soldador.jpg",
+    image: "/images/portfolio/viajes-cultura/el-oficio-y-la-chispa.jpg",
     position: "object-[center_38%]",
   },
 ];
@@ -165,8 +165,11 @@ export default function Hero() {
       {/* Bloque Editorial: debajo de la foto en móvil, y anclado limpiamente al tercio inferior en escritorio */}
       <div className="relative z-20 mx-auto w-full max-w-6xl px-5 pt-6 pb-12 text-center text-[#F7F4EE] sm:px-8 md:pt-0 md:pb-14">
         <div className="mx-auto max-w-3xl">
-          <h1 className="font-sans text-2xl sm:text-4xl md:text-6xl font-light tracking-[0.2em] sm:tracking-[0.24em] uppercase text-[#F7F4EE] leading-tight [text-shadow:0_2px_24px_rgba(0,0,0,0.9)]">
+          <h1 className="font-sans text-2xl sm:text-4xl md:text-6xl font-light tracking-[0.18em] sm:tracking-[0.22em] uppercase text-[#F7F4EE] leading-tight [text-shadow:0_2px_24px_rgba(0,0,0,0.9)]">
             Javier Espinosa
+            <span className="block mt-1.5 font-mono text-[10px] sm:text-xs md:text-sm font-normal tracking-[0.32em] text-[#C5A880] uppercase">
+              {t("Fotografía de Autor en Tenerife", "Fine Art Photography in Tenerife")}
+            </span>
           </h1>
 
           <div className="mt-3 flex items-center justify-center gap-2.5 sm:gap-3">
@@ -179,11 +182,26 @@ export default function Hero() {
             <span className="h-px w-6 bg-[#C5A880]/55 sm:w-12" />
           </div>
 
-          <p className="mx-auto mt-3.5 max-w-xl text-xs sm:text-sm font-light tracking-wide text-[#EBE7DF]/85 leading-relaxed">
+          {/* Propuesta de Valor Concreta */}
+          <p className="mx-auto mt-3.5 max-w-2xl text-xs sm:text-sm font-light tracking-wide text-[#EBE7DF]/90 leading-relaxed">
             {t(
-              "La verdad óptica del territorio, la luz natural disponible y la paciente contemplación del instante irrepetible.",
-              "The optical truth of the territory, natural available light, and the patient contemplation of the unrepeatable moment."
+              "Fotógrafo de autor afincado en Tenerife. Capturo la verdad óptica del territorio, la fauna salvaje, el automovilismo clásico y la arquitectura a través de la luz natural. Ediciones limitadas de autor sobre papel de algodón Hahnemühle y servicios de encargo fotográfico para proyectos editoriales, comerciales y coleccionistas.",
+              "Fine art photographer based in Tenerife. I capture the optical truth of landscapes, wildlife, historic motorsport, and architecture through natural light. Limited edition museum prints on Hahnemühle cotton paper and bespoke photographic commissions for editorial, commercial, and private collectors."
             )}
+          </p>
+
+          {/* Bio Breve de 2 Líneas con Enlace a /about */}
+          <p className="mx-auto mt-2 max-w-xl text-[11px] sm:text-xs font-light text-[#8E8A80] leading-relaxed">
+            {t(
+              "Desarrollo mi práctica visual desde las Islas Canarias explorando la tensión entre la quietud del paisaje y el instante irrepetible.",
+              "Based in the Canary Islands, my visual practice explores the tension between landscape stillness and the unrepeatable moment."
+            )}{" "}
+            <Link
+              href="/about"
+              className="text-[#C5A880] underline underline-offset-4 hover:text-white transition whitespace-nowrap"
+            >
+              {t("Conoce mi trayectoria y método →", "Discover my background and method →")}
+            </Link>
           </p>
 
           {/* Jerarquía de CTAs: Principal "Encargar una copia", Secundario "Pedir presupuesto", Terciarios de exploración */}

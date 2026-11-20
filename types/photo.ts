@@ -67,7 +67,7 @@ export const CATEGORY_METADATA: Record<
     subtitle: "Fauna salvaje, biodiversidad y comportamiento animal en libertad",
     description:
       "Aproximación respetuosa a la fauna silvestre y la biodiversidad en su hábitat natural. Instantes capturados con paciencia, luz natural y teleobjetivo de 600mm en condiciones de campo.",
-    coverImage: "/images/portfolio/fauna-naturaleza/B51A1823-Mejorado-NR.jpg",
+    coverImage: "/images/portfolio/fauna-naturaleza/mirada-del-lince-boreal.jpg",
   },
   "paisajes-documental": {
     code: "PAISAJE & TERRITORIO",
@@ -76,7 +76,7 @@ export const CATEGORY_METADATA: Record<
     subtitle: "Territorios, montañas, desiertos y el pulso geológico del paisaje",
     description:
       "Una mirada contemplativa al territorio: cumbres de alta montaña, horizontes desérticos, formaciones geológicas y el diálogo silencioso entre la tierra y la atmósfera.",
-    coverImage: "/images/portfolio/paisajes-documental/B51A0149.jpg",
+    coverImage: "/images/portfolio/paisajes-documental/cumbre-nevada-al-alba.jpg",
   },
   "coches-rally": {
     code: "AUTOMOVILISMO & RALLY",
@@ -85,7 +85,7 @@ export const CATEGORY_METADATA: Record<
     subtitle: "Rally histórico, velocidad, mecánica de precisión y tensión cinética",
     description:
       "La energía cinética del automovilismo en tramos cerrados y el ambiente técnico del paddock. Clásicos de competición, tensión mecánica y precisión de pilotaje.",
-    coverImage: "/images/portfolio/coches-rally/B51A9718.jpg",
+    coverImage: "/images/portfolio/coches-rally/cruzada-sobre-el-asfalto.jpg",
   },
   "arquitectura-urbana": {
     code: "ARQUITECTURA",
@@ -94,7 +94,7 @@ export const CATEGORY_METADATA: Record<
     subtitle: "Arquitectura tradicional y contemporánea, geometrías y luces nocturnas",
     description:
       "Exploración de la geometría urbana, la arquitectura popular de piedra y entramado de madera, la fotografía nocturna y el diálogo entre el espacio construido y el paso del tiempo.",
-    coverImage: "/images/portfolio/arquitectura-urbana/B51A4685.jpg",
+    coverImage: "/images/portfolio/arquitectura-urbana/ventanas-tomadas-por-el-bosque.jpg",
   },
   "viajes-cultura": {
     code: "DOCUMENTAL",
@@ -103,7 +103,7 @@ export const CATEGORY_METADATA: Record<
     subtitle: "Oficios, tradiciones, memoria popular, devoción y vida cotidiana",
     description:
       "Crónica documental de la memoria colectiva: oficios tradicionales, celebraciones populares, retratos de calle y la dignidad de lo cotidiano sin artificios.",
-    coverImage: "/images/portfolio/viajes-cultura/soldador.jpg",
+    coverImage: "/images/portfolio/viajes-cultura/el-oficio-y-la-chispa.jpg",
   },
 };
 

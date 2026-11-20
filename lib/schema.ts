@@ -173,7 +173,7 @@ export function generateServiceSchema() {
     "@type": "ProfessionalService",
     name: "Javier Espinosa Martínez — Servicios Fotográficos y Obra Fine Art",
     url: absoluteUrl("/servicios"),
-    image: absoluteUrl("/images/portfolio/coches-rally/B51A9718.jpg"),
+    image: absoluteUrl("/images/portfolio/coches-rally/cruzada-sobre-el-asfalto.jpg"),
     email: "javierespinosa1995@hotmail.com",
     priceRange: "€€",
     areaServed: [

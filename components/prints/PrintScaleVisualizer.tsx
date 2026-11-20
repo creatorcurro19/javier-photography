@@ -50,7 +50,7 @@ const SAMPLE_WORKS = [
   {
     id: "dunas-atardecer",
     title: "Horizonte de Dunas al Atardecer",
-    image: "/images/portfolio/viajes-cultura/B51A7335.jpg",
+    image: "/images/portfolio/viajes-cultura/horizonte-de-dunas-al-atardecer.jpg",
     category: "viajes-cultura" as const,
     location: "Desierto del Sahara · Marruecos",
     year: 2024,
@@ -60,7 +60,7 @@ const SAMPLE_WORKS = [
   {
     id: "ocaso-erg",
     title: "Ocaso sobre el Erg",
-    image: "/images/portfolio/viajes-cultura/B51A7341.jpg",
+    image: "/images/portfolio/viajes-cultura/ocaso-sobre-el-erg.jpg",
     category: "viajes-cultura" as const,
     location: "Erg Chebbi · Marruecos",
     year: 2024,
@@ -70,7 +70,7 @@ const SAMPLE_WORKS = [
   {
     id: "lince-boreal",
     title: "Mirada del Lince Boreal",
-    image: "/images/portfolio/fauna-naturaleza/B51A1823-Mejorado-NR.jpg",
+    image: "/images/portfolio/fauna-naturaleza/mirada-del-lince-boreal.jpg",
     category: "fauna-naturaleza" as const,
     location: "Taiga Boreal · España",
     year: 2023,
@@ -80,7 +80,7 @@ const SAMPLE_WORKS = [
   {
     id: "paso-lobo",
     title: "El Paso del Lobo",
-    image: "/images/portfolio/fauna-naturaleza/B51A1865-Mejorado-NR.jpg",
+    image: "/images/portfolio/fauna-naturaleza/el-paso-del-lobo.jpg",
     category: "fauna-naturaleza" as const,
     location: "Cordillera Cantábrica",
     year: 2023,
@@ -90,7 +90,7 @@ const SAMPLE_WORKS = [
   {
     id: "cumbre-nevada",
     title: "Cumbre Nevada al Alba",
-    image: "/images/portfolio/paisajes-documental/B51A0149.jpg",
+    image: "/images/portfolio/paisajes-documental/cumbre-nevada-al-alba.jpg",
     category: "paisajes-documental" as const,
     location: "Macizo Central · Alta Montaña",
     year: 2024,
@@ -100,7 +100,7 @@ const SAMPLE_WORKS = [
   {
     id: "cruzada-rally",
     title: "Cruzada sobre el Asfalto",
-    image: "/images/portfolio/coches-rally/B51A9718.jpg",
+    image: "/images/portfolio/coches-rally/cruzada-sobre-el-asfalto.jpg",
     category: "coches-rally" as const,
     location: "Rally Histórico de España",
     year: 2023,
@@ -110,7 +110,7 @@ const SAMPLE_WORKS = [
   {
     id: "soldador-chispa",
     title: "El Oficio y la Chispa",
-    image: "/images/portfolio/viajes-cultura/soldador.jpg",
+    image: "/images/portfolio/viajes-cultura/el-oficio-y-la-chispa.jpg",
     category: "viajes-cultura" as const,
     location: "Herrería Tradicional · Memoria Rural",
     year: 2023,
@@ -120,7 +120,7 @@ const SAMPLE_WORKS = [
   {
     id: "arquitectura-vera",
     title: "Campanario y Nieve",
-    image: "/images/portfolio/arquitectura-urbana/B51A6080.jpg",
+    image: "/images/portfolio/arquitectura-urbana/columnata-de-la-madrasa.jpg",
     category: "arquitectura-urbana" as const,
     location: "Villanueva de la Vera",
     year: 2024,

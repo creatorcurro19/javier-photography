@@ -4,7 +4,7 @@ import Container from "@/components/ui/Container";
 import { getPhotoByImage } from "@/lib/photos";
 
 export default function AboutPreview() {
-  const artwork = getPhotoByImage("/images/portfolio/fauna-naturaleza/B51A8662.jpg");
+  const artwork = getPhotoByImage("/images/portfolio/fauna-naturaleza/descenso-en-la-roca.jpg");
 
   return (
     <section
@@ -18,7 +18,7 @@ export default function AboutPreview() {
           <div className="lg:col-span-5">
             <div className="relative aspect-[4/5] w-full overflow-hidden border border-white/[0.1] bg-[#151618] shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
               <Image
-                src="/images/portfolio/fauna-naturaleza/B51A8662.jpg"
+                src="/images/portfolio/fauna-naturaleza/descenso-en-la-roca.jpg"
                 alt="Descenso en la Roca — Obra de autor por Javier Espinosa Martínez"
                 fill
                 sizes="(max-width: 1024px) 100vw, 42vw"

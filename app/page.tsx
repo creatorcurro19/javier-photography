@@ -2,23 +2,25 @@ import Hero from "@/components/home/Hero";
 import TrustBadgeStrip from "@/components/home/TrustBadgeStrip";
 import SelectedWork from "@/components/home/SelectedWork";
 import SocialProofSection from "@/components/home/SocialProofSection";
+import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getFeaturedPhotos } from "@/lib/photos";
+import { generatePersonSchema } from "@/lib/schema";
 import type { Photo } from "@/types/photo";
 
 export const metadata = buildPageMetadata({
-  title: "Javier Espinosa | The Art of Seeing — Fotografía de Autor",
+  title: "Javier Espinosa | Fotógrafo en Tenerife · Copias y Encargos",
   description:
-    "Galería y museo digital de fotografía de autor por Javier Espinosa Martínez. Fauna salvaje, paisaje documental, automovilismo clásico y rally histórico, arquitectura vernácula y etnografía.",
+    "Fotógrafo de autor afincado en Tenerife. Fauna, paisaje, rally y arquitectura. Venta de copias Fine Art de conservación y encargos fotográficos a medida.",
   path: "/",
 });
 
 const HERO_IMAGES = new Set([
-  "/images/portfolio/viajes-cultura/B51A7341.jpg",
-  "/images/portfolio/fauna-naturaleza/B51A1823-Mejorado-NR.jpg",
-  "/images/portfolio/paisajes-documental/B51A0149.jpg",
-  "/images/portfolio/coches-rally/B51A9718.jpg",
-  "/images/portfolio/viajes-cultura/soldador.jpg",
+  "/images/portfolio/viajes-cultura/ocaso-sobre-el-erg.jpg",
+  "/images/portfolio/fauna-naturaleza/mirada-del-lince-boreal.jpg",
+  "/images/portfolio/paisajes-documental/cumbre-nevada-al-alba.jpg",
+  "/images/portfolio/coches-rally/cruzada-sobre-el-asfalto.jpg",
+  "/images/portfolio/viajes-cultura/el-oficio-y-la-chispa.jpg",
 ]);
 
 /** Selecciona 6 piezas equilibradas sin repetir ninguna fotografía del Hero */
@@ -51,6 +53,7 @@ export default function Home() {
 
   return (
     <>
+      <JsonLd data={generatePersonSchema()} />
       <Hero />
       <TrustBadgeStrip />
       <SelectedWork photos={homePreview} totalCount={featuredPhotos.length} />
