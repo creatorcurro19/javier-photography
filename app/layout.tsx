@@ -1,4 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import {
+  Plus_Jakarta_Sans,
+  Playfair_Display,
+  JetBrains_Mono,
+} from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
@@ -11,6 +16,36 @@ import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import JsonLd from "@/components/seo/JsonLd";
 import { SITE_URL } from "@/lib/metadata";
 import { generatePersonSchema } from "@/lib/schema";
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-plus-jakarta",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-playfair",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  display: "swap",
+  variable: "--font-jetbrains-mono",
+});
+
+export const viewport: Viewport = {
+  themeColor: "#0B0C0E",
+  colorScheme: "dark",
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -78,7 +113,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html
+      lang="es"
+      className={`${plusJakarta.variable} ${playfair.variable} ${jetbrainsMono.variable}`}
+    >
       <body className="font-sans antialiased bg-[#0B0C0E] text-[#EBE7DF] leading-relaxed tracking-[0.015em] selection:bg-white/20 selection:text-white">
         <a
           href="#main-content"
