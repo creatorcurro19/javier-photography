@@ -127,8 +127,8 @@ export default function LightboxModal({
       onTouchEnd={handleTouchEnd}
     >
       {/* Top Bar: Discreet Museum Telemetry */}
-      <header className="flex h-16 shrink-0 items-center justify-between border-b border-white/[0.08] px-4 md:px-8">
-        <div className="flex items-center gap-4 text-xs font-mono">
+      <header className="flex h-16 shrink-0 items-center justify-between border-b border-white/[0.08] px-4 md:px-8 gap-4">
+        <div className="flex shrink-0 items-center gap-3 sm:gap-4 text-xs font-mono">
           <span className="text-[#EBE7DF]">
             {String(currentIndex + 1).padStart(2, "0")} <span className="text-white/20">/</span> {String(photos.length).padStart(2, "0")}
           </span>
@@ -138,11 +138,11 @@ export default function LightboxModal({
           </span>
         </div>
 
-        <h2 className="hidden truncate text-sm font-light tracking-wide text-[#EBE7DF] md:block max-w-md font-serif">
+        <h2 className="hidden truncate text-sm font-light tracking-wide text-[#EBE7DF] md:block min-w-0 flex-1 text-center font-serif px-2">
           {photo.title}
         </h2>
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           {photos.length > 1 && (
             <>
               <button
@@ -425,14 +425,14 @@ export default function LightboxModal({
       )}
 
       {/* Bottom Bar: Clean Museum Plaque */}
-      <footer className="flex h-14 shrink-0 items-center justify-between border-t border-white/[0.08] px-4 md:px-8 text-xs text-[#8E8A80] font-mono">
-        <div className="truncate">
+      <footer className="flex h-14 shrink-0 items-center justify-between border-t border-white/[0.08] px-4 md:px-8 text-xs text-[#8E8A80] font-mono gap-4">
+        <div className="min-w-0 flex-1 truncate">
           <span className="font-light text-[#EBE7DF] font-serif text-sm">{photo.title}</span>
           <span className="mx-2 text-white/20">·</span>
           <span>{photo.location ? photo.location : `${photo.focalLength} · ${photo.camera}`}</span>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex shrink-0 items-center gap-4">
           <Link
             href={`/portfolio/${photo.slug}`}
             onClick={onClose}

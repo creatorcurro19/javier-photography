@@ -152,7 +152,7 @@ export default function Hero() {
         />
 
         {/* Etiqueta discreta de sala en esquina superior (sin tapar el sujeto) */}
-        <div className="absolute top-4 left-4 z-20 md:top-28 md:left-1/2 md:-translate-x-1/2">
+        <div className="absolute top-4 left-4 z-20 md:top-24 md:left-1/2 md:-translate-x-1/2">
           <div className="inline-flex items-center gap-2 border border-[#C5A880]/30 bg-[#0B0C0E]/70 px-3 py-1 backdrop-blur-md sm:px-4 sm:py-1.5">
             <AndalusianStarMark className="h-2.5 w-2.5 text-[#C5A880] sm:h-3 sm:w-3" />
             <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.28em] sm:tracking-[0.36em] text-[#E5D3B3] whitespace-nowrap">
