@@ -186,20 +186,37 @@ export default function Hero() {
             )}
           </p>
 
-          {/* Accesos principales */}
+          {/* Jerarquía de CTAs: Principal "Encargar una copia", Secundario "Pedir presupuesto", Terciarios de exploración */}
           <div className="mt-6 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4 md:mt-7">
             <Link
-              href="/portfolio"
-              className="group inline-flex items-center justify-center gap-2 border border-[#EBE7DF] bg-[#EBE7DF] px-7 py-3 text-[11px] uppercase tracking-[0.26em] text-[#0B0C0E] font-medium transition-all duration-300 hover:bg-transparent hover:text-white"
+              href="/prints"
+              className="group inline-flex items-center justify-center gap-2 border border-[#C5A880] bg-[#C5A880] px-7 py-3 text-[11px] uppercase tracking-[0.24em] text-[#0B0C0E] font-semibold transition-all duration-300 hover:bg-white hover:border-white shadow-lg"
             >
-              <span>{t("Explorar Obras", "Explore Works")}</span>
+              <span>{t("Encargar una copia", "Order a Print")}</span>
               <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
             </Link>
             <Link
-              href="/projects"
-              className="inline-flex items-center justify-center gap-2 border border-[#C5A880]/45 bg-[#0B0C0E]/75 px-7 py-3 text-[11px] uppercase tracking-[0.26em] text-[#F7F4EE] transition-all duration-300 hover:border-[#C5A880] hover:bg-[#151618]"
+              href="/servicios"
+              className="inline-flex items-center justify-center gap-2 border border-white/30 bg-[#0B0C0E]/80 px-7 py-3 text-[11px] uppercase tracking-[0.24em] text-[#F7F4EE] font-medium transition-all duration-300 hover:border-[#C5A880] hover:text-white hover:bg-[#151618]"
             >
-              {t("Series Monográficas", "Monograph Series")}
+              <span>{t("Pedir presupuesto", "Request a Quote")}</span>
+            </Link>
+          </div>
+
+          {/* Enlaces terciarios de exploración del archivo */}
+          <div className="mt-3.5 flex items-center justify-center gap-4 text-[10px] font-mono uppercase tracking-[0.22em] text-[#8E8A80]">
+            <Link
+              href="/portfolio"
+              className="transition-colors hover:text-[#EBE7DF] hover:underline underline-offset-4"
+            >
+              {t("Explorar Obras", "Explore Works")} →
+            </Link>
+            <span className="text-white/20">·</span>
+            <Link
+              href="/projects"
+              className="transition-colors hover:text-[#EBE7DF] hover:underline underline-offset-4"
+            >
+              {t("Series Monográficas", "Monograph Series")} →
             </Link>
           </div>
         </div>

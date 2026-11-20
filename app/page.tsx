@@ -1,5 +1,7 @@
 import Hero from "@/components/home/Hero";
+import TrustBadgeStrip from "@/components/home/TrustBadgeStrip";
 import SelectedWork from "@/components/home/SelectedWork";
+import SocialProofSection from "@/components/home/SocialProofSection";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getFeaturedPhotos } from "@/lib/photos";
 import type { Photo } from "@/types/photo";
@@ -50,7 +52,9 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <TrustBadgeStrip />
       <SelectedWork photos={homePreview} totalCount={featuredPhotos.length} />
+      <SocialProofSection />
     </>
   );
 }
