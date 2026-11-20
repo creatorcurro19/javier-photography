@@ -368,11 +368,12 @@ export default function ExhibitionGallery({
                     height={photo.height}
                     sizes={
                       viewMode === "immersive"
-                        ? "(max-width: 1024px) 100vw, 1024px"
+                        ? "(max-width: 1024px) 100vw, 1120px"
                         : viewMode === "grid"
-                        ? "(max-width: 640px) 50vw, 20vw"
-                        : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        ? "(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 260px"
+                        : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1440px) 33vw, 420px"
                     }
+                    loading="lazy"
                     className={`transition-transform duration-700 ease-out group-hover:scale-[1.02] brightness-[0.92] group-hover:brightness-100 ${
                       viewMode === "immersive"
                         ? "h-auto max-h-[85vh] w-auto max-w-full"
