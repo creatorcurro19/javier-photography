@@ -7,16 +7,53 @@ import BwToggle from "@/components/ui/BwToggle";
 import LanguageToggle from "@/components/layout/LanguageToggle";
 import { useLanguage } from "@/lib/i18n";
 
-const links = [
-  { href: "/selected-work", es: "Selected Works", en: "Selected Works", noteEs: "15 obras maestras", noteEn: "15 signature works" },
-  { href: "/portfolio", es: "Colecciones", en: "Collections", noteEs: "100 obras archivadas", noteEn: "100 archived works" },
-  { href: "/projects", es: "Series", en: "Series", noteEs: "8 ensayos monográficos", noteEn: "8 monographic essays" },
-  { href: "/prints", es: "Copias Fine Art", en: "Fine Art Prints", noteEs: "Hahnemühle Photo Rag 308g", noteEn: "Hahnemühle Photo Rag 308g" },
-  { href: "/stories", es: "Cuaderno", en: "Field Journal", noteEs: "Notas de campo & óptica", noteEn: "Field notes & optics" },
-  { href: "/servicios", es: "Encargos", en: "Commissions", noteEs: "Proyectos & licencias", noteEn: "Projects & licensing" },
-  { href: "/cliente", es: "Acceso Clientes", en: "Client Portal", noteEs: "Galerías privadas", noteEn: "Private galleries" },
-  { href: "/about", es: "El Autor", en: "About", noteEs: "The Art of Seeing", noteEn: "The Art of Seeing" },
-  { href: "/contact", es: "Contacto", en: "Contact", noteEs: "Tenerife & Internacional", noteEn: "Tenerife & Worldwide" },
+// 5 enlaces principales unificados
+const primaryLinks = [
+  {
+    href: "/portfolio",
+    es: "Obra",
+    en: "Works",
+    noteEs: "Colecciones, series y antología",
+    noteEn: "Collections, series & anthology",
+  },
+  {
+    href: "/prints",
+    es: "Copias",
+    en: "Prints",
+    noteEs: "Ediciones en papel de algodón",
+    noteEn: "Hahnemühle cotton paper editions",
+  },
+  {
+    href: "/servicios",
+    es: "Encargos",
+    en: "Commissions",
+    noteEs: "Proyectos y presupuestos",
+    noteEn: "Projects & assignments",
+  },
+  {
+    href: "/about",
+    es: "Sobre mí",
+    en: "About",
+    noteEs: "Trayectoria y método de autor",
+    noteEn: "Biography & optical method",
+  },
+  {
+    href: "/contact",
+    es: "Contacto",
+    en: "Contact",
+    noteEs: "Tenerife & Internacional",
+    noteEn: "Tenerife & Worldwide",
+  },
+];
+
+// Enlaces secundarios de archivo y servicios editoriales
+const secondaryLinks = [
+  { href: "/selected-work", es: "Obras Seleccionadas", en: "Selected Works" },
+  { href: "/projects", es: "Series Monográficas", en: "Monograph Series" },
+  { href: "/stories", es: "Cuaderno de Campo", en: "Field Journal" },
+  { href: "/licensing", es: "Licencias Editoriales", en: "Licensing" },
+  { href: "/cliente", es: "Acceso Clientes", en: "Client Portal" },
+  { href: "/dossier", es: "Dossier de Autor (PDF)", en: "Press Kit (PDF)" },
 ];
 
 export default function MobileNav() {
@@ -54,7 +91,7 @@ export default function MobileNav() {
         type="button"
         aria-expanded={open}
         aria-controls="mobile-menu"
-        aria-label={open ? "Cerrar menú" : "Abrir menú de navegación"}
+        aria-label={open ? (lang === "en" ? "Close menu" : "Cerrar menú") : (lang === "en" ? "Open navigation menu" : "Abrir menú de navegación")}
         onClick={() => setOpen((value) => !value)}
         className="flex items-center justify-center gap-2 border border-white/[0.1] bg-[#151618] px-2.5 py-1.5 sm:px-3.5 text-[11px] uppercase tracking-[0.26em] text-[#EBE7DF] transition hover:border-white/30 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white font-mono"
       >
@@ -67,19 +104,19 @@ export default function MobileNav() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.6} d="M4 8h16M4 16h16" />
           </svg>
         )}
-        <span className="hidden sm:inline">{open ? "Cerrar" : "Menú"}</span>
+        <span className="hidden sm:inline">{open ? (lang === "en" ? "Close" : "Cerrar") : (lang === "en" ? "Menu" : "Menú")}</span>
       </button>
       {open ? (
         <nav
           id="mobile-menu"
-          aria-label="Navegación móvil"
+          aria-label={lang === "en" ? "Mobile navigation" : "Navegación móvil"}
           className="fixed inset-x-0 top-[71px] sm:top-[87px] bottom-0 z-50 flex flex-col justify-between border-b border-white/[0.08] bg-[#0B0C0E]/98 px-5 py-6 shadow-2xl backdrop-blur-2xl overflow-y-auto no-scrollbar sm:px-8 sm:py-8"
         >
           <div>
             {/* Idioma y Modo Monocromo en móvil */}
             <div className="mb-3 flex items-center justify-between gap-3 border border-white/[0.08] bg-[#151618] px-4 py-2.5">
               <span className="font-mono text-xs text-[#8E8A80]">
-                {t("Idioma & Archivo", "Language & View")}
+                {t("Idioma & Visión", "Language & View")}
               </span>
               <div className="flex items-center gap-2">
                 <LanguageToggle />
@@ -88,7 +125,8 @@ export default function MobileNav() {
                 </div>
               </div>
             </div>
-            {/* Quick Mobile Cart Trigger */}
+
+            {/* Acceso a Cesta */}
             <button
               type="button"
               onClick={() => {
@@ -104,15 +142,15 @@ export default function MobileNav() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
                 <span className="font-mono text-xs text-[#EBE7DF]">
-                  {t("Cesta de la Compra", "Collector's Bag")}
+                  {t("Cesta de Compra", "Collector's Bag")}
                 </span>
               </div>
-              <span className="font-mono text-[9px] uppercase tracking-widest text-[#8E8A80] border border-white/[0.08] px-2 py-0.5">
-                Fine Art
+              <span className="font-mono text-[9px] uppercase tracking-widest text-[#C5A880] border border-[#C5A880]/30 px-2 py-0.5">
+                {t("Copias", "Prints")}
               </span>
             </button>
 
-            {/* Quick Mobile Search Trigger */}
+            {/* Búsqueda Rápida */}
             <button
               type="button"
               onClick={triggerSearch}
@@ -122,8 +160,8 @@ export default function MobileNav() {
                 <svg
                   className="h-4 w-4 text-[#8E8A80]"
                   fill="none"
-                  stroke="currentColor"
                   viewBox="0 0 24 24"
+                  stroke="currentColor"
                 >
                   <path
                     strokeLinecap="round"
@@ -141,9 +179,9 @@ export default function MobileNav() {
               </span>
             </button>
 
-            {/* Navigation Links with Editorial Notes */}
+            {/* 5 Enlaces Principales */}
             <ul className="flex flex-col gap-4">
-              {links.map((link) => {
+              {primaryLinks.map((link) => {
                 const isActive =
                   pathname === link.href ||
                   (link.href !== "/" && pathname.startsWith(link.href));
@@ -170,9 +208,28 @@ export default function MobileNav() {
                 );
               })}
             </ul>
+
+            {/* Enlaces Secundarios de Archivo y Servicios */}
+            <div className="mt-6 pt-5 border-t border-white/[0.08]">
+              <p className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#C5A880] mb-3">
+                {t("Archivo & Recursos", "Archive & Resources")}
+              </p>
+              <div className="grid grid-cols-2 gap-2 text-xs font-mono">
+                {secondaryLinks.map((sub) => (
+                  <Link
+                    key={sub.href}
+                    href={sub.href}
+                    onClick={() => setOpen(false)}
+                    className="rounded border border-white/[0.06] bg-[#151719] px-2.5 py-2 text-[10px] uppercase tracking-wider text-[#8E8A80] hover:text-[#EBE7DF] hover:border-white/20 transition"
+                  >
+                    {lang === "en" ? sub.en : sub.es}
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
 
-          {/* Bottom Dossier & Contact Strip */}
+          {/* Bloque de Contacto Directo al Pie */}
           <div className="border-t border-white/[0.08] pt-6 text-xs text-[#8E8A80] space-y-4">
             <div className="flex items-center justify-between">
               <div>
@@ -187,9 +244,9 @@ export default function MobileNav() {
               <Link
                 href="/contact"
                 onClick={() => setOpen(false)}
-                className="border border-[#EBE7DF] bg-[#EBE7DF] px-3.5 py-1.5 font-mono text-[10px] uppercase font-semibold tracking-wider text-[#0B0C0E]"
+                className="border border-[#C5A880] bg-[#C5A880] px-3.5 py-1.5 font-mono text-[10px] uppercase font-semibold tracking-wider text-[#0B0C0E]"
               >
-                Escribir →
+                {t("Escribir →", "Contact →")}
               </Link>
             </div>
 

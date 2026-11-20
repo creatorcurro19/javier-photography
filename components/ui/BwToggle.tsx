@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/lib/i18n";
 
 export default function BwToggle() {
+  const { lang } = useLanguage();
   const [isBw, setIsBw] = useState(() => {
     if (typeof window === "undefined") return false;
     try {
@@ -26,23 +28,40 @@ export default function BwToggle() {
     try {
       localStorage.setItem("javier_fine_art_bw", next ? "true" : "false");
     } catch {
-      // Ignore
+      // Ignore storage errors
     }
   };
+
+  const labelText = isBw
+    ? lang === "en" ? "B&W" : "B/N"
+    : "Color";
+
+  const ariaDescription = isBw
+    ? lang === "en"
+      ? "Disable black and white mode and return to natural color"
+      : "Desactivar modo blanco y negro y volver a color natural"
+    : lang === "en"
+      ? "Enable author black and white film emulation (silver gelatin)"
+      : "Activar modo blanco y negro de autor (emulsión grano de plata)";
+
+  const titleDescription = isBw
+    ? lang === "en" ? "Return to natural color" : "Volver a color natural"
+    : lang === "en" ? "Switch to black & white film view" : "Ver en blanco y negro de autor (grano de plata)";
 
   return (
     <button
       type="button"
       onClick={toggle}
-      title={isBw ? "Volver a color natural" : "Ver archivo en Blanco y Negro Fine Art (grano de plata)"}
-      aria-label={isBw ? "Activar modo color" : "Activar modo monocromo Fine Art"}
-      className={`group relative flex items-center gap-1.5 border px-2.5 py-1.5 font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.24em] transition-all duration-300 ${
+      title={titleDescription}
+      aria-label={ariaDescription}
+      aria-pressed={isBw}
+      className={`group relative flex items-center gap-1.5 border px-2.5 py-1.5 font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.22em] transition-all duration-300 ${
         isBw
           ? "border-[#EBE7DF] bg-[#EBE7DF] text-[#0B0C0E] font-semibold"
-          : "border-[#202226] bg-[#151618]/70 text-neutral-400 hover:border-[#8E8A80]/70 hover:text-white"
+          : "border-[#202226] bg-[#151618]/70 text-neutral-300 hover:border-[#8E8A80]/70 hover:text-white"
       }`}
     >
-      {/* Dual Yin-Yang Circle Indicator */}
+      {/* Indicador óptico de filtro de película */}
       <span
         aria-hidden="true"
         className={`relative inline-block h-3 w-3 sm:h-3.5 sm:w-3.5 rounded-full border transition-transform duration-300 ${
@@ -51,8 +70,7 @@ export default function BwToggle() {
             : "border-[#8E8A80]/60 bg-gradient-to-r from-[#8E8A80] to-[#EBE7DF]"
         }`}
       />
-      <span className="hidden sm:inline">{isBw ? "B&W" : "Color"}</span>
-      <span className="sm:hidden">{isBw ? "B/W" : "CLR"}</span>
+      <span className="whitespace-nowrap font-medium">{labelText}</span>
     </button>
   );
 }

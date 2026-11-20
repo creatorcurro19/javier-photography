@@ -1,16 +1,19 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import {
   AndalusianBackgroundPattern,
   AndalusianCenefa,
 } from "@/components/ui/AndalusianMotif";
+import { useLanguage } from "@/lib/i18n";
 
 const collections = [
-  { href: "/portfolio/fauna-naturaleza", label: "Fauna y Biodiversidad (Wildlife)" },
-  { href: "/portfolio/paisajes-documental", label: "Paisajes y Territorio (Landscapes)" },
-  { href: "/portfolio/coches-rally", label: "Coches y Rally (Motorsport)" },
-  { href: "/portfolio/arquitectura-urbana", label: "Arquitectura Vernácula & Urbana" },
-  { href: "/portfolio/viajes-cultura", label: "Crónica Documental & Oficios" },
+  { href: "/portfolio/fauna-naturaleza", es: "Fauna y Biodiversidad", en: "Wildlife & Biodiversity" },
+  { href: "/portfolio/paisajes-documental", es: "Paisajes y Territorio", en: "Landscapes & Territory" },
+  { href: "/portfolio/coches-rally", es: "Coches y Rally Histórico", en: "Classic Motorsport & Rally" },
+  { href: "/portfolio/arquitectura-urbana", es: "Arquitectura Vernácula & Urbana", en: "Vernacular & Urban Architecture" },
+  { href: "/portfolio/viajes-cultura", es: "Crónica Documental & Oficios", en: "Documentary & Living Heritage" },
 ];
 
 const projectLinks = [
@@ -24,15 +27,17 @@ const projectLinks = [
 ];
 
 const commercialLinks = [
-  { href: "/prints", label: "Catálogo Fine Art (Hahnemühle 308g)" },
-  { href: "/servicios", label: "Encargos & Coberturas Especiales" },
-  { href: "/licensing", label: "Licencias de Uso Editorial & Comercial" },
-  { href: "/stories", label: "Cuaderno de Campo & Diario Óptico" },
-  { href: "/cliente", label: "Acceso Clientes · Galerías Privadas" },
-  { href: "/dossier", label: "Dossier de Autor & Press Kit (PDF)" },
+  { href: "/prints", es: "Catálogo de Copias de Autor (Hahnemühle 308g)", en: "Fine Art Print Catalog (Hahnemühle 308g)" },
+  { href: "/servicios", es: "Encargos & Coberturas Especiales", en: "Bespoke Commissions & Assignments" },
+  { href: "/licensing", es: "Licencias de Uso Editorial & Comercial", en: "Editorial & Commercial Licensing" },
+  { href: "/stories", es: "Cuaderno de Campo & Diario Óptico", en: "Field Journal & Optical Notes" },
+  { href: "/cliente", es: "Acceso Clientes · Galerías Privadas", en: "Client Portal · Private Galleries" },
+  { href: "/dossier", es: "Dossier de Autor & Press Kit (PDF)", en: "Press Kit & Author Dossier (PDF)" },
 ];
 
 export default function Footer() {
+  const { lang, t } = useLanguage();
+
   return (
     <footer className="relative overflow-hidden border-t border-[#C5A880]/20 bg-[#0B0C0E] text-[#8E8A80] print:hidden">
       {/* Filigrana geométrica andalusí de fondo */}
@@ -51,7 +56,7 @@ export default function Footer() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24 py-16 lg:py-24">
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-5">
-          {/* Brand Col */}
+          {/* Columna de Autor & Marca */}
           <div className="lg:col-span-2">
             <Link
               href="/"
@@ -69,13 +74,15 @@ export default function Footer() {
                   JAVIER ESPINOSA
                 </span>
                 <span className="text-[9px] tracking-[0.42em] text-[#C5A880]/80 uppercase mt-0.5">
-                  The Art of Seeing · Fotografía de Autor
+                  The Art of Seeing · {t("Fotografía de Autor", "Fine Art Photography")}
                 </span>
               </div>
             </Link>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-[#8E8A80] font-light">
-              Práctica visual basada en la luz natural, la geometría espacial y la observación paciente. 
-              Capturas con sistema Canon EOS R7 y ópticas de alta fidelidad.
+              {t(
+                "Práctica visual basada en la luz natural disponible, la verdad geométrica del espacio y la observación paciente. Capturas con sistema óptico Canon EOS R7.",
+                "Visual practice grounded in natural light, spatial geometry, and patient observation. Captured with the Canon EOS R7 precision optical system."
+              )}
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2 text-[10px] font-mono tracking-wider uppercase text-[#8E8A80]">
@@ -117,7 +124,7 @@ export default function Footer() {
           {/* Colecciones */}
           <div>
             <h3 className="text-xs font-mono font-medium uppercase tracking-[0.3em] text-[#EBE7DF]">
-              Disciplinas
+              {t("Disciplinas", "Disciplines")}
             </h3>
             <ul className="mt-5 space-y-3 text-xs tracking-wider">
               {collections.map((item) => (
@@ -126,17 +133,17 @@ export default function Footer() {
                     href={item.href}
                     className="text-[#8E8A80] transition hover:text-[#EBE7DF] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                   >
-                    {item.label}
+                    {lang === "en" ? item.en : item.es}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Proyectos Narrativos */}
+          {/* Series Monográficas */}
           <div>
             <h3 className="text-xs font-mono font-medium uppercase tracking-[0.3em] text-[#EBE7DF]">
-              Series Monográficas
+              {t("Series Monográficas", "Monograph Series")}
             </h3>
             <ul className="mt-5 space-y-3 text-xs tracking-wider">
               {projectLinks.map((item) => (
@@ -155,7 +162,7 @@ export default function Footer() {
           {/* Adquisiciones & Contacto */}
           <div>
             <h3 className="text-xs font-mono font-medium uppercase tracking-[0.3em] text-[#EBE7DF]">
-              Adquisiciones & Obra
+              {t("Adquisiciones & Obra", "Acquisitions & Works")}
             </h3>
             <ul className="mt-5 space-y-3 text-xs tracking-wider">
               {commercialLinks.map((item) => (
@@ -164,7 +171,7 @@ export default function Footer() {
                     href={item.href}
                     className="text-[#8E8A80] transition hover:text-[#EBE7DF] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                   >
-                    {item.label}
+                    {lang === "en" ? item.en : item.es}
                   </Link>
                 </li>
               ))}
@@ -180,15 +187,15 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom bar */}
+        {/* Barra Inferior */}
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-white/[0.08] pt-8 text-[11px] font-mono tracking-wider text-[#8E8A80]/70 sm:flex-row">
-          <p>© {new Date().getFullYear()} Javier Espinosa Martínez. Archivo fotográfico original protegido por derechos de autor.</p>
+          <p>© {new Date().getFullYear()} Javier Espinosa Martínez. {t("Archivo fotográfico original protegido por derechos de autor.", "Original photographic archive protected by copyright.")}</p>
           <div className="flex flex-wrap items-center gap-4">
-            <Link href="/about" className="hover:text-[#EBE7DF] transition">Biografía</Link>
+            <Link href="/about" className="hover:text-[#EBE7DF] transition">{t("Sobre mí", "About")}</Link>
             <span>·</span>
-            <Link href="/contact" className="hover:text-[#EBE7DF] transition">Contacto Privado</Link>
+            <Link href="/contact" className="hover:text-[#EBE7DF] transition">{t("Contacto", "Contact")}</Link>
             <span>·</span>
-            <Link href="/legal" className="hover:text-[#EBE7DF] transition">Aviso Legal, Privacidad & Copyright</Link>
+            <Link href="/legal" className="hover:text-[#EBE7DF] transition">{t("Aviso Legal & Privacidad", "Legal Notice & Privacy")}</Link>
           </div>
         </div>
       </div>

@@ -53,6 +53,7 @@ export const CATEGORY_METADATA: Record<
   PhotoCategory,
   {
     code: string;
+    codeEn: string;
     title: string;
     subtitle: string;
     description: string;
@@ -60,7 +61,8 @@ export const CATEGORY_METADATA: Record<
   }
 > = {
   "fauna-naturaleza": {
-    code: "WILDLIFE",
+    code: "FAUNA SALVAJE",
+    codeEn: "WILDLIFE",
     title: "Fauna y Naturaleza",
     subtitle: "Fauna salvaje, biodiversidad y comportamiento animal en libertad",
     description:
@@ -68,7 +70,8 @@ export const CATEGORY_METADATA: Record<
     coverImage: "/images/portfolio/fauna-naturaleza/B51A1823-Mejorado-NR.jpg",
   },
   "paisajes-documental": {
-    code: "LANDSCAPES",
+    code: "PAISAJE & TERRITORIO",
+    codeEn: "LANDSCAPES",
     title: "Paisajes y Territorio",
     subtitle: "Territorios, montañas, desiertos y el pulso geológico del paisaje",
     description:
@@ -76,7 +79,8 @@ export const CATEGORY_METADATA: Record<
     coverImage: "/images/portfolio/paisajes-documental/B51A0149.jpg",
   },
   "coches-rally": {
-    code: "MOTORSPORT",
+    code: "AUTOMOVILISMO & RALLY",
+    codeEn: "MOTORSPORT",
     title: "Coches y Rally",
     subtitle: "Rally histórico, velocidad, mecánica de precisión y tensión cinética",
     description:
@@ -84,7 +88,8 @@ export const CATEGORY_METADATA: Record<
     coverImage: "/images/portfolio/coches-rally/B51A9718.jpg",
   },
   "arquitectura-urbana": {
-    code: "URBAN & ARCHITECTURE",
+    code: "ARQUITECTURA",
+    codeEn: "URBAN & ARCHITECTURE",
     title: "Arquitectura y Espacio Urbano",
     subtitle: "Arquitectura tradicional y contemporánea, geometrías y luces nocturnas",
     description:
@@ -92,7 +97,8 @@ export const CATEGORY_METADATA: Record<
     coverImage: "/images/portfolio/arquitectura-urbana/B51A4685.jpg",
   },
   "viajes-cultura": {
-    code: "DOCUMENTARY",
+    code: "DOCUMENTAL",
+    codeEn: "DOCUMENTARY",
     title: "Documental y Tradición",
     subtitle: "Oficios, tradiciones, memoria popular, devoción y vida cotidiana",
     description:

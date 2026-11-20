@@ -15,68 +15,45 @@ import {
 } from "@/components/ui/AndalusianMotif";
 import { useLanguage } from "@/lib/i18n";
 
-// 5 enlaces principales: menú simplificado, limpio y con máxima presencia museística
-const primaryLinks = [
-  { href: "/portfolio", es: "Galería", en: "Gallery" },
-  { href: "/projects", es: "Series", en: "Series" },
-  { href: "/prints", es: "Fine Art", en: "Fine Art" },
-  { href: "/about", es: "El Autor", en: "About" },
-  { href: "/contact", es: "Contacto", en: "Contact" },
-];
-
-// Enlaces secundarios organizados en un discreto desplegable de archivo
-const secondaryLinks = [
+// Submenú curatorial de "Obra": unifica Colecciones, Series y Obras Seleccionadas
+const obraSublinks = [
+  {
+    href: "/portfolio",
+    es: "Colecciones Archivadas",
+    en: "Archived Collections",
+    descEs: "100 obras maestras en 5 disciplinas",
+    descEn: "100 masterworks across 5 disciplines",
+  },
+  {
+    href: "/projects",
+    es: "Series Monográficas",
+    en: "Monograph Series",
+    descEs: "8 ensayos visuales en profundidad",
+    descEn: "8 deep visual photographic essays",
+  },
   {
     href: "/selected-work",
-    es: "Selected Works",
+    es: "Obras Seleccionadas",
     en: "Selected Works",
-    descEs: "15 obras maestras permanentes",
-    descEn: "15 signature permanent works",
-  },
-  {
-    href: "/stories",
-    es: "Cuaderno de Campo",
-    en: "Field Journal",
-    descEs: "Diario visual & apuntes ópticos",
-    descEn: "Visual diary & optical notes",
-  },
-  {
-    href: "/servicios",
-    es: "Encargos & Licencias",
-    en: "Commissions",
-    descEs: "Proyectos editoriales y comerciales",
-    descEn: "Editorial & commercial assignments",
-  },
-  {
-    href: "/cliente",
-    es: "Portal Clientes",
-    en: "Client Portal",
-    descEs: "Galerías privadas de entrega",
-    descEn: "Private client deliveries",
-  },
-  {
-    href: "/dossier",
-    es: "Dossier de Autor (PDF)",
-    en: "Press Kit (PDF)",
-    descEs: "Biografía, exposiciones y fichas",
-    descEn: "Biography, exhibitions & sheets",
+    descEs: "Antología de 15 piezas fundamentales",
+    descEn: "Curated anthology of 15 signature pieces",
   },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
   const { lang, t } = useLanguage();
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [obraMenuOpen, setObraMenuOpen] = useState(false);
+  const obraMenuRef = useRef<HTMLDivElement>(null);
 
-  // Cerrar desplegable al hacer clic fuera o navegar
+  // Cerrar submenú al hacer clic fuera
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
+        obraMenuRef.current &&
+        !obraMenuRef.current.contains(event.target as Node)
       ) {
-        setDropdownOpen(false);
+        setObraMenuOpen(false);
       }
     }
 
@@ -86,11 +63,12 @@ export default function Navbar() {
     };
   }, []);
 
-  const isSecondaryActive = secondaryLinks.some(
-    (item) =>
-      pathname === item.href ||
-      (item.href !== "/" && pathname.startsWith(item.href))
-  );
+  const isObraActive =
+    pathname === "/portfolio" ||
+    pathname.startsWith("/portfolio/") ||
+    pathname === "/projects" ||
+    pathname.startsWith("/projects/") ||
+    pathname === "/selected-work";
 
   return (
     <header className="fixed left-0 top-0 z-50 w-full transition-all duration-300 print:hidden">
@@ -121,56 +99,31 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Navegación principal simplificada (5 enlaces esenciales + Más) */}
+        {/* Menú Principal Reducido: Obra, Copias, Encargos, Sobre mí, Contacto */}
         <nav
           aria-label="Navegación principal"
           className="hidden items-center gap-6 xl:gap-8 text-[11px] xl:text-[12px] uppercase tracking-[0.22em] xl:tracking-[0.26em] lg:flex shrink-0"
         >
-          {primaryLinks.map((link) => {
-            const isActive =
-              pathname === link.href ||
-              (link.href !== "/" && pathname.startsWith(link.href));
-
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`relative whitespace-nowrap py-1 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${
-                  isActive
-                    ? "text-[#EBE7DF] font-medium"
-                    : "text-[#EBE7DF]/70 hover:text-white"
-                }`}
-              >
-                {lang === "en" ? link.en : link.es}
-                {isActive && (
-                  <span className="absolute bottom-0 left-0 right-0 h-px bg-[#C5A880]" />
-                )}
-              </Link>
-            );
-          })}
-
-          {/* Menú Desplegable "+ Más" para Archivo, Cuaderno y Servicios */}
+          {/* 1. Obra (con submenú curatorial para Colecciones, Series y Seleccionadas) */}
           <div
-            ref={dropdownRef}
+            ref={obraMenuRef}
             className="relative"
-            onMouseEnter={() => setDropdownOpen(true)}
-            onMouseLeave={() => setDropdownOpen(false)}
+            onMouseEnter={() => setObraMenuOpen(true)}
+            onMouseLeave={() => setObraMenuOpen(false)}
           >
-            <button
-              type="button"
-              onClick={() => setDropdownOpen((prev) => !prev)}
-              aria-expanded={dropdownOpen}
-              aria-haspopup="true"
+            <Link
+              href="/portfolio"
+              onClick={() => setObraMenuOpen(false)}
               className={`group inline-flex items-center gap-1.5 py-1 whitespace-nowrap transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${
-                isSecondaryActive || dropdownOpen
+                isObraActive
                   ? "text-[#EBE7DF] font-medium"
-                  : "text-[#EBE7DF]/70 hover:text-white"
+                  : "text-[#EBE7DF]/75 hover:text-white"
               }`}
             >
-              <span>{t("+ Más", "+ More")}</span>
+              <span>{t("Obra", "Works")}</span>
               <svg
                 className={`h-3 w-3 text-[#C5A880] transition-transform duration-200 ${
-                  dropdownOpen ? "rotate-180" : ""
+                  obraMenuOpen ? "rotate-180" : ""
                 }`}
                 fill="none"
                 viewBox="0 0 24 24"
@@ -183,33 +136,33 @@ export default function Navbar() {
                   d="M19 9l-7 7-7-7"
                 />
               </svg>
-              {isSecondaryActive && (
+              {isObraActive && (
                 <span className="absolute bottom-0 left-0 right-0 h-px bg-[#C5A880]" />
               )}
-            </button>
+            </Link>
 
-            {/* Panel flotante del desplegable */}
-            {dropdownOpen && (
-              <div className="absolute right-0 top-full pt-2.5 z-50">
+            {/* Submenú desplegable de Obra */}
+            {obraMenuOpen && (
+              <div className="absolute left-0 top-full pt-2.5 z-50">
                 <div className="w-64 rounded-xl border border-[#C5A880]/25 bg-[#0E1012]/96 p-2 shadow-2xl backdrop-blur-2xl ring-1 ring-black/50">
                   <div className="px-3 py-1.5 border-b border-white/[0.06] flex items-center gap-2">
                     <AndalusianStarMark className="h-2.5 w-2.5 text-[#C5A880]" />
                     <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#C5A880]">
-                      {t("Archivo & Proyectos", "Archive & Projects")}
+                      {t("Archivo & Series", "Archive & Series")}
                     </span>
                   </div>
 
                   <div className="mt-1 flex flex-col gap-1">
-                    {secondaryLinks.map((item) => {
+                    {obraSublinks.map((sub) => {
                       const active =
-                        pathname === item.href ||
-                        (item.href !== "/" && pathname.startsWith(item.href));
+                        pathname === sub.href ||
+                        (sub.href !== "/" && pathname.startsWith(sub.href));
 
                       return (
                         <Link
-                          key={item.href}
-                          href={item.href}
-                          onClick={() => setDropdownOpen(false)}
+                          key={sub.href}
+                          href={sub.href}
+                          onClick={() => setObraMenuOpen(false)}
                           className={`group/item flex flex-col rounded-lg px-3 py-2 text-left transition-colors ${
                             active
                               ? "bg-[#C5A880]/15 text-[#EBE7DF]"
@@ -217,10 +170,10 @@ export default function Navbar() {
                           }`}
                         >
                           <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#EBE7DF] group-hover/item:text-white">
-                            {lang === "en" ? item.en : item.es}
+                            {lang === "en" ? sub.en : sub.es}
                           </span>
                           <span className="font-mono text-[9px] text-[#8E8A80] transition group-hover/item:text-[#C5A880]">
-                            {lang === "en" ? item.descEn : item.descEs}
+                            {lang === "en" ? sub.descEn : sub.descEs}
                           </span>
                         </Link>
                       );
@@ -230,6 +183,66 @@ export default function Navbar() {
               </div>
             )}
           </div>
+
+          {/* 2. Copias (Fine Art Prints) */}
+          <Link
+            href="/prints"
+            className={`relative whitespace-nowrap py-1 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${
+              pathname === "/prints"
+                ? "text-[#EBE7DF] font-medium"
+                : "text-[#EBE7DF]/75 hover:text-white"
+            }`}
+          >
+            {t("Copias", "Prints")}
+            {pathname === "/prints" && (
+              <span className="absolute bottom-0 left-0 right-0 h-px bg-[#C5A880]" />
+            )}
+          </Link>
+
+          {/* 3. Encargos (Commissions & Projects) */}
+          <Link
+            href="/servicios"
+            className={`relative whitespace-nowrap py-1 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${
+              pathname === "/servicios"
+                ? "text-[#EBE7DF] font-medium"
+                : "text-[#EBE7DF]/75 hover:text-white"
+            }`}
+          >
+            {t("Encargos", "Commissions")}
+            {pathname === "/servicios" && (
+              <span className="absolute bottom-0 left-0 right-0 h-px bg-[#C5A880]" />
+            )}
+          </Link>
+
+          {/* 4. Sobre mí (About) */}
+          <Link
+            href="/about"
+            className={`relative whitespace-nowrap py-1 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${
+              pathname === "/about"
+                ? "text-[#EBE7DF] font-medium"
+                : "text-[#EBE7DF]/75 hover:text-white"
+            }`}
+          >
+            {t("Sobre mí", "About")}
+            {pathname === "/about" && (
+              <span className="absolute bottom-0 left-0 right-0 h-px bg-[#C5A880]" />
+            )}
+          </Link>
+
+          {/* 5. Contacto (Contact) */}
+          <Link
+            href="/contact"
+            className={`relative whitespace-nowrap py-1 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${
+              pathname === "/contact"
+                ? "text-[#EBE7DF] font-medium"
+                : "text-[#EBE7DF]/75 hover:text-white"
+            }`}
+          >
+            {t("Contacto", "Contact")}
+            {pathname === "/contact" && (
+              <span className="absolute bottom-0 left-0 right-0 h-px bg-[#C5A880]" />
+            )}
+          </Link>
         </nav>
 
         {/* Acciones del encabezado: Idioma, B/N, Búsqueda, Cesta y Menú Móvil */}

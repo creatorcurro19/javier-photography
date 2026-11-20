@@ -9,9 +9,9 @@ import { buildPageMetadata } from "@/lib/metadata";
 import { getFeaturedPhotos } from "@/lib/photos";
 
 export const metadata = buildPageMetadata({
-  title: "Selected Works | Antología Fotográfica Permanente",
+  title: "Obras Seleccionadas | Antología Fotográfica Permanente",
   description:
-    "Exposición permanente de quince obras maestras de Javier Espinosa Martínez. Selección curatorial que sintetiza la mirada sobre fauna, paisaje, motorsport, arquitectura y documental.",
+    "Exposición permanente de quince obras maestras de Javier Espinosa Martínez. Selección curatorial que sintetiza la mirada sobre fauna, paisaje, automovilismo, arquitectura y documental.",
   path: "/selected-work",
 });
 
@@ -33,8 +33,11 @@ export default function SelectedWorkPage() {
             </p>
           </div>
           <h1 className="mt-4 font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-tight leading-[1.12] text-[#EBE7DF]">
-            Selected Works
+            Obras Seleccionadas
           </h1>
+          <p className="mt-2 font-mono text-xs uppercase tracking-[0.25em] text-[#C5A880]">
+            Selected Works · Antología Curatorial de 15 Piezas
+          </p>
           <p className="mt-6 text-base sm:text-lg leading-relaxed text-[#8E8A80] font-light">
             Una antología visual meditada que reúne las piezas fundamentales del archivo de Javier Espinosa Martínez.
             Quince obras que capturan la comunión entre la observación paciente, la luz natural disponible y la verdad geométrica del instante.

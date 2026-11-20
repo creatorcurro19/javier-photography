@@ -32,7 +32,7 @@ export default function SelectedWork({ photos, totalCount }: SelectedWorkProps) 
     <section
       id="selected-work"
       className="relative overflow-hidden bg-[#0B0C0E] py-20 sm:py-24 scroll-mt-20"
-      aria-label="Selected Works — Exposición Permanente"
+      aria-label={t("Obras Seleccionadas — Exposición Permanente", "Selected Works — Permanent Exhibition")}
     >
       <AndalusianPageBackdrop variant="sebka" />
 
@@ -47,7 +47,7 @@ export default function SelectedWork({ photos, totalCount }: SelectedWorkProps) 
               </p>
             </div>
             <h2 className="mt-2.5 font-serif text-3xl sm:text-4xl font-light text-[#EBE7DF] tracking-tight">
-              Selected Works
+              {t("Obras Seleccionadas", "Selected Works")}
             </h2>
           </div>
 

@@ -240,14 +240,14 @@ export default function SearchModal() {
                         onClick={() => navigateTo("/portfolio")}
                         className="font-mono text-[10px] uppercase tracking-[0.24em] text-[#8E8A80] transition hover:text-[#EBE7DF]"
                       >
-                        Ver todo el catálogo →
+                        {t("Ver todo el catálogo →", "View full archive →")}
                       </button>
                       <button
                         type="button"
                         onClick={() => navigateTo("/prints")}
                         className="font-mono text-[10px] uppercase tracking-[0.24em] text-[#8E8A80] transition hover:text-[#EBE7DF]"
                       >
-                        Copias Fine Art →
+                        {t("Copias de Autor →", "Fine Art Prints →")}
                       </button>
                     </div>
                   </div>
