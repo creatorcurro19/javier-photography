@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { Photo } from "@/types/photo";
 import AddToCartModal from "@/components/cart/AddToCartModal";
+import { useLanguage } from "@/lib/i18n";
 
 interface PrintCardActionProps {
   photo: Photo;
@@ -10,15 +11,16 @@ interface PrintCardActionProps {
 
 export default function PrintCardAction({ photo }: PrintCardActionProps) {
   const [modalOpen, setModalOpen] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <>
       <button
         type="button"
         onClick={() => setModalOpen(true)}
-        className="border border-[#EBE7DF] bg-[#EBE7DF] px-4 py-2 font-mono text-[11px] uppercase tracking-[0.25em] text-[#0B0C0E] font-medium transition hover:bg-transparent hover:text-white"
+        className="inline-flex items-center gap-1.5 rounded border border-[#C5A880] bg-[#C5A880] px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-[#0B0C0E] font-semibold transition hover:bg-white hover:border-white shadow"
       >
-        Añadir a la Cesta
+        <span>+ {t("Cesta", "Bag")}</span>
       </button>
 
       <AddToCartModal

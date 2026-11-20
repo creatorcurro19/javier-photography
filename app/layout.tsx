@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import SavedCollectionDrawer from "@/components/photo/SavedCollectionDrawer";
 import CartDrawer from "@/components/cart/CartDrawer";
+import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import JsonLd from "@/components/seo/JsonLd";
 import { SITE_URL } from "@/lib/metadata";
 import { generatePersonSchema } from "@/lib/schema";
@@ -88,6 +89,7 @@ export default function RootLayout({
         <main id="main-content">{children}</main>
         <SavedCollectionDrawer />
         <CartDrawer />
+        <WhatsAppButton />
         <Footer />
       </body>
     </html>
