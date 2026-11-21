@@ -298,6 +298,11 @@ export default function PrintsPage() {
               </span>
             </div>
           </div>
+
+          {/* Visual Catalog with Direct Purchase for All 100 Artworks */}
+          <Suspense fallback={null}>
+            <DirectPrintsCatalog allPhotos={allPhotos} featuredPrints={printable} />
+          </Suspense>
         </div>
 
         {/* Distinction between Fine Art, Licensing, and Commissions */}
@@ -390,11 +395,6 @@ export default function PrintsPage() {
           variant="estrella"
           className="mt-24 text-[#C5A880]/32"
         />
-
-        {/* Visual Catalog with Direct Purchase for All 100 Artworks */}
-        <Suspense fallback={null}>
-          <DirectPrintsCatalog allPhotos={allPhotos} featuredPrints={printable} />
-        </Suspense>
 
         {/* Shipping in Rigid Tube Guarantee */}
         <div className="mt-28 border border-white/[0.08] bg-[#151618] p-8 sm:p-12 lg:p-14">
