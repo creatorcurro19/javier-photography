@@ -7,13 +7,13 @@ import ExhibitionGallery from "@/components/portfolio/ExhibitionGallery";
 import Link from "next/link";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/metadata";
-import { getFeaturedPhotos } from "@/lib/photos";
+import { getAllPhotos, getFeaturedPhotos } from "@/lib/photos";
 import { generateBreadcrumbSchema } from "@/lib/schema";
 
 export const metadata = buildPageMetadata({
   title: "Obras Seleccionadas",
   description:
-    "Quince fotografías seleccionadas del archivo de Javier Espinosa Martínez: fauna, paisaje, automovilismo, arquitectura y fotografía documental.",
+    "Fotografías seleccionadas del archivo de Javier Espinosa Martínez: fauna, paisaje, automovilismo, arquitectura y fotografía documental.",
   path: "/selected-work",
   keywords: [
     "obras seleccionadas fotografía",
@@ -24,6 +24,7 @@ export const metadata = buildPageMetadata({
 
 export default function SelectedWorkPage() {
   const featuredPhotos = getFeaturedPhotos();
+  const totalArchiveCount = getAllPhotos().length;
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
@@ -49,10 +50,10 @@ export default function SelectedWorkPage() {
             Obras Seleccionadas
           </h1>
           <p className="mt-2 font-mono text-xs uppercase tracking-[0.25em] text-[#C5A880]">
-            Quince Fotografías del Archivo
+            {featuredPhotos.length} Fotografías del Archivo
           </p>
           <p className="mt-6 text-base sm:text-lg leading-relaxed text-[#8E8A80] font-light">
-            Quince fotografías elegidas entre distintas series y lugares. Hay fauna, montaña, asfalto, callejones en penumbra y talleres donde todavía se trabaja a mano. No responden a un único tema, pero sí a una misma costumbre: detenerse, esperar a que la luz acompañe y disparar sin alterar lo que ocurre delante.
+            {featuredPhotos.length} fotografías elegidas entre distintas series y lugares. Hay fauna, montaña, asfalto, callejones en penumbra y talleres donde todavía se trabaja a mano. No responden a un único tema, pero sí a una misma costumbre: detenerse, esperar a que la luz acompañe y disparar sin alterar lo que ocurre delante.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4 text-xs font-mono uppercase tracking-[0.25em]">
@@ -60,7 +61,7 @@ export default function SelectedWorkPage() {
               href="/portfolio"
               className="text-[#8E8A80] transition-colors hover:text-[#EBE7DF]"
             >
-              ← Ver el Archivo Completo (100 Fotografías)
+              ← Ver el Archivo Completo ({totalArchiveCount} Fotografías)
             </Link>
             <span className="text-white/20">·</span>
             <Link

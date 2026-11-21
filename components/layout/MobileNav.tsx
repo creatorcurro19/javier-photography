@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 import BwToggle from "@/components/ui/BwToggle";
 import LanguageToggle from "@/components/layout/LanguageToggle";
 import { useLanguage } from "@/lib/i18n";
+import { WORKS, SERIES } from "@/data/works";
+import { PHOTO_CATEGORIES } from "@/types/photo";
 
 // 7 enlaces principales unificados con Header y Footer
 const primaryLinks = [
@@ -13,15 +15,15 @@ const primaryLinks = [
     href: "/portfolio",
     es: "Obra",
     en: "Works",
-    noteEs: "100 fotografías en 5 ámbitos",
-    noteEn: "100 photographs across 5 fields",
+    noteEs: `${WORKS.length} fotografías en ${PHOTO_CATEGORIES.length} ámbitos`,
+    noteEn: `${WORKS.length} photographs across ${PHOTO_CATEGORIES.length} fields`,
   },
   {
     href: "/projects",
     es: "Series",
     en: "Series",
-    noteEs: "8 series monográficas",
-    noteEn: "8 monograph series",
+    noteEs: `${SERIES.length} series monográficas`,
+    noteEn: `${SERIES.length} monograph series`,
   },
   {
     href: "/prints",

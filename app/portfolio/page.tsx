@@ -18,9 +18,8 @@ import { generateBreadcrumbSchema } from "@/lib/schema";
 import { CATEGORY_METADATA } from "@/types/photo";
 
 export const metadata = buildPageMetadata({
-  title: "Colecciones Fotográficas & Archivo de Autor (100 Obras) | Javier Espinosa",
-  description:
-    "Archivo fotográfico de autor por Javier Espinosa Martínez — 100 obras en 5 disciplinas: Fauna Salvaje (Wildlife), Paisajes (Landscapes), Rally Histórico (Motorsport), Arquitectura y Documental.",
+  title: `Colecciones Fotográficas & Archivo de Autor (${getAllPhotos().length} Obras) | Javier Espinosa`,
+  description: `Archivo fotográfico de autor por Javier Espinosa Martínez — ${getAllPhotos().length} obras en ${PHOTO_CATEGORIES.length} disciplinas: Fauna Salvaje (Wildlife), Paisajes (Landscapes), Rally Histórico (Motorsport), Arquitectura y Documental.`,
   path: "/portfolio",
   keywords: [
     "portfolio fotográfico",
@@ -60,7 +59,7 @@ export default function PortfolioPage() {
             Archivo Fotográfico
           </h1>
           <p className="mt-6 text-base sm:text-lg leading-relaxed text-[#8E8A80] font-light">
-            Cien fotografías organizadas en cinco ámbitos: fauna en libertad, paisajes, coches y rally, arquitectura y fotografía documental. Son temas muy distintos entre sí —del silencio de un monte al ruido de un parque de asistencia—, pero todos parten de la misma idea: mirar sin prisa y trabajar con la luz que hay.
+            {photos.length} fotografías organizadas en cinco ámbitos: fauna en libertad, paisajes, coches y rally, arquitectura y fotografía documental. Son temas muy distintos entre sí —del silencio de un monte al ruido de un parque de asistencia—, pero todos parten de la misma idea: mirar sin prisa y trabajar con la luz que hay.
           </p>
         </header>
 

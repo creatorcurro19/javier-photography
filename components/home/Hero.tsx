@@ -9,7 +9,12 @@ import {
 } from "@/components/ui/AndalusianMotif";
 import { useLanguage } from "@/lib/i18n";
 
-import { getPhotoBySlug } from "@/lib/photos";
+import {
+  getPhotoBySlug,
+  getPhotosByCategory,
+  getAllProjects,
+} from "@/lib/photos";
+import type { PhotoCategory } from "@/types/photo";
 
 interface HeroSlide {
   id: string;
@@ -22,10 +27,18 @@ interface HeroSlide {
   position: string;
 }
 
-const HERO_SLIDE_CONFIG = [
+const HERO_SLIDE_CONFIG: {
+  id: string;
+  slug: string;
+  category: PhotoCategory;
+  room: string;
+  discipline: string;
+  position: string;
+}[] = [
   {
     id: "landscapes",
     slug: "ocaso-sobre-el-erg",
+    category: "paisajes-documental",
     room: "SALA I",
     discipline: "TERRITORIO",
     position: "object-[center_42%]",
@@ -33,6 +46,7 @@ const HERO_SLIDE_CONFIG = [
   {
     id: "wildlife",
     slug: "mirada-del-lince-boreal",
+    category: "fauna-naturaleza",
     room: "SALA II",
     discipline: "FAUNA Y NATURALEZA",
     position: "object-[center_30%]",
@@ -40,6 +54,7 @@ const HERO_SLIDE_CONFIG = [
   {
     id: "peaks",
     slug: "cumbre-nevada-al-alba",
+    category: "paisajes-documental",
     room: "SALA III",
     discipline: "PAISAJE MINERAL",
     position: "object-[center_32%]",
@@ -47,6 +62,7 @@ const HERO_SLIDE_CONFIG = [
   {
     id: "motorsport",
     slug: "cruzada-sobre-el-asfalto",
+    category: "coches-rally",
     room: "SALA IV",
     discipline: "AUTOMOVILISMO",
     position: "object-[center_45%]",
@@ -54,23 +70,31 @@ const HERO_SLIDE_CONFIG = [
   {
     id: "documentary",
     slug: "el-oficio-y-la-chispa",
+    category: "viajes-cultura",
     room: "SALA V",
     discipline: "DOCUMENTAL",
     position: "object-[center_38%]",
   },
-] as const;
+];
 
 const HERO_SLIDES: HeroSlide[] = HERO_SLIDE_CONFIG.map((cfg) => {
-  const work = getPhotoBySlug(cfg.slug);
+  const catPhotos = getPhotosByCategory(cfg.category);
+  const work =
+    getPhotoBySlug(cfg.slug) ??
+    catPhotos.find((p) => p.featured) ??
+    catPhotos[0];
   return {
     ...cfg,
-    title: work?.title ?? cfg.slug,
+    slug: work?.slug ?? cfg.slug,
+    title: work?.title ?? cfg.discipline,
     location: work?.location
       ? `${work.location}${work.country && !work.location.includes(work.country) ? ` · ${work.country}` : ""}`
       : "Archivo Fotográfico",
-    image: work?.image ?? `/images/portfolio/paisajes-documental/${cfg.slug}.jpg`,
+    image: work?.image ?? "/images/portfolio/hero/hero.jpg",
   };
 });
+
+const TOTAL_SERIES_COUNT = getAllProjects().length;
 
 const DARK_BLUR_DATA_URL =
   "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxNicgaGVpZ2h0PScxMCc+PHJlY3Qgd2lkdGg9JzE2JyBoZWlnaHQ9JzEwJyBmaWxsPSclMjMxNTE2MTgnLz48L3N2Zz4=";
@@ -251,7 +275,7 @@ export default function Hero() {
               href="/projects"
               className="inline-flex min-h-[44px] items-center px-2 transition-colors hover:text-[#EBE7DF] hover:underline underline-offset-4"
             >
-              {t("8 Series", "8 Series")} →
+              {t(`${TOTAL_SERIES_COUNT} Series`, `${TOTAL_SERIES_COUNT} Series`)} →
             </Link>
           </div>
         </div>

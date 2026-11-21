@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Container from "@/components/ui/Container";
+import { WORKS, SERIES } from "@/data/works";
 
 const QUICK_LINKS = [
-  { href: "/portfolio", label: "Archivo de 100 Obras" },
-  { href: "/projects", label: "8 Series Monográficas" },
+  { href: "/portfolio", label: `Archivo (${WORKS.length} Obras)` },
+  { href: "/projects", label: `${SERIES.length} Series Monográficas` },
   { href: "/prints", label: "Copias Fine Art en Tubo" },
   { href: "/servicios", label: "Encargos Fotográficos" },
   { href: "/licensing", label: "Licencias TIFF 16-bit" },

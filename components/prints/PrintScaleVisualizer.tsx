@@ -58,9 +58,24 @@ const SAMPLE_SLUGS = [
   "entramados-de-villanueva-de-la-vera",
 ] as const;
 
-const SAMPLE_WORKS = SAMPLE_SLUGS.map((slug) => {
-  const w = WORKS.find((item) => item.slug === slug) ?? WORKS[0];
-  return {
+const SAMPLE_WORKS = (() => {
+  const seen = new Set<string>();
+  const resolved: Photo[] = [];
+  for (const slug of SAMPLE_SLUGS) {
+    const w = WORKS.find((item) => item.slug === slug);
+    if (w && !seen.has(w.slug)) {
+      seen.add(w.slug);
+      resolved.push(w);
+    }
+  }
+  for (const w of WORKS) {
+    if (resolved.length >= 8) break;
+    if (!seen.has(w.slug)) {
+      seen.add(w.slug);
+      resolved.push(w);
+    }
+  }
+  return resolved.map((w) => ({
     id: w.slug,
     title: w.title,
     image: w.image,
@@ -69,8 +84,8 @@ const SAMPLE_WORKS = SAMPLE_SLUGS.map((slug) => {
     year: w.year,
     focalLength: w.focalLength,
     camera: w.camera,
-  };
-});
+  }));
+})();
 
 // Acabados de enmarcado museístico
 const FINISHES = [

@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getAllPhotos } from "@/lib/photos";
+import { WORKS, SERIES } from "@/data/works";
 
 const VIEWFINDER_SLIDES = [
   {
@@ -347,14 +348,14 @@ export default function AboutInteractiveStudio() {
                 href="/portfolio"
                 className="inline-flex items-center gap-3 border border-[#EBE7DF] bg-[#EBE7DF] px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.28em] text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
               >
-                <span>Explorar Archivo (100 Obras)</span>
+                <span>Explorar Archivo ({WORKS.length} Obras)</span>
                 <span>→</span>
               </Link>
               <Link
                 href="/projects"
                 className="inline-flex items-center gap-2 border border-[#202226] bg-[#202226]/60 px-7 py-3.5 text-xs uppercase tracking-[0.28em] text-[#EBE7DF] transition hover:border-[#8E8A80] hover:text-white"
               >
-                <span>8 Series Documentales</span>
+                <span>{SERIES.length} Series Documentales</span>
               </Link>
               <button
                 type="button"
@@ -469,8 +470,8 @@ export default function AboutInteractiveStudio() {
       ===================================================================== */}
       <section className="grid grid-cols-2 border-y border-[#202226] bg-[#0D0E0F]/80 sm:grid-cols-5">
         {[
-          { value: "100", label: "Obras Catalogadas", sub: "Edición Verificada" },
-          { value: "08", label: "Series Narrativas", sub: "Ensayos de Campo" },
+          { value: String(WORKS.length), label: "Obras Catalogadas", sub: "Edición Verificada" },
+          { value: String(SERIES.length).padStart(2, "0"), label: "Series Narrativas", sub: "Ensayos de Campo" },
           { value: "3", label: "Ópticas Principales", sub: "Rango 10mm a 600mm" },
           { value: "32.5 MP", label: "Resolución Nativa", sub: "Canon EOS R7 RAW" },
           { value: "ISO 9706", label: "Calidad Museo", sub: "Papel 100% Algodón" },

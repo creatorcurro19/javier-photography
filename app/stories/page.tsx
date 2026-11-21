@@ -8,7 +8,7 @@ import {
   AndalusianStarMark,
 } from "@/components/ui/AndalusianMotif";
 import { buildPageMetadata } from "@/lib/metadata";
-import { getPhotosWithStory } from "@/lib/photos";
+import { getAllPhotos, getPhotosWithStory } from "@/lib/photos";
 
 export const metadata = buildPageMetadata({
   title: "Cuaderno de Campo & Diario Visual | Javier Espinosa",
@@ -57,7 +57,7 @@ export default function StoriesPage() {
             Archivo Completo
           </p>
           <h2 className="mt-2 font-serif text-3xl font-light text-[#EBE7DF]">
-            Explorar las 100 obras del catálogo
+            Explorar las {getAllPhotos().length} obras del catálogo
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-sm text-[#8E8A80] font-light">
             Recorre las 5 salas de exposición organizadas por disciplinas temáticas, focales ópticas y visor de alta resolución.

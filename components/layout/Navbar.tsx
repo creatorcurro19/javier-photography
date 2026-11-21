@@ -14,6 +14,8 @@ import {
   AndalusianStarMark,
 } from "@/components/ui/AndalusianMotif";
 import { useLanguage } from "@/lib/i18n";
+import { WORKS, SERIES } from "@/data/works";
+import { PHOTO_CATEGORIES } from "@/types/photo";
 
 // Submenú curatorial de "Obra": unifica Colecciones, Series y Obras Seleccionadas
 const obraSublinks = [
@@ -21,15 +23,15 @@ const obraSublinks = [
     href: "/portfolio",
     es: "Archivo por Disciplinas",
     en: "Archive by Discipline",
-    descEs: "100 fotografías en 5 ámbitos",
-    descEn: "100 photographs across 5 fields",
+    descEs: `${WORKS.length} fotografías en ${PHOTO_CATEGORIES.length} ámbitos`,
+    descEn: `${WORKS.length} photographs across ${PHOTO_CATEGORIES.length} fields`,
   },
   {
     href: "/projects",
     es: "Series y Proyectos",
     en: "Series & Projects",
-    descEs: "8 reportajes y ensayos visuales",
-    descEn: "8 visual series and essays",
+    descEs: `${SERIES.length} reportajes y ensayos visuales`,
+    descEn: `${SERIES.length} visual series and essays`,
   },
   {
     href: "/selected-work",

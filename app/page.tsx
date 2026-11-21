@@ -9,7 +9,7 @@ import HomeQuickContact from "@/components/home/HomeQuickContact";
 import Container from "@/components/ui/Container";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/metadata";
-import { getFeaturedPhotos } from "@/lib/photos";
+import { getAllPhotos, getFeaturedPhotos } from "@/lib/photos";
 import { generateWebSiteSchema } from "@/lib/schema";
 import type { Photo } from "@/types/photo";
 
@@ -91,8 +91,7 @@ const HOME_SERVICES = [
     kicker: "03 · Derechos de Reproducción",
     title: "Licencias Editoriales y Comerciales (TIFF 16-bit)",
     priceFrom: "Desde 45 €",
-    description:
-      "Cesión de derechos Rights-Managed del archivo de 100 obras en máxima resolución (32,5 MP · TIFF 16-bit) para editoriales, revistas, libros y campañas.",
+    description: `Cesión de derechos Rights-Managed del archivo de ${getAllPhotos().length} obras en máxima resolución (32,5 MP · TIFF 16-bit) para editoriales, revistas, libros y campañas.`,
     ctaLabel: "Configurar Licencia Directa",
     href: "/licensing",
   },

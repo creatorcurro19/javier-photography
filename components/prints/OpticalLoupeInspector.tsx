@@ -2,10 +2,13 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { WORKS } from "@/data/works";
 
-const SAMPLES = [
+const SAMPLE_CONFIGS = [
   {
     id: "lince",
+    slug: "mirada-del-lince-boreal",
+    category: "fauna-naturaleza",
     label: "Lince Boreal",
     title: "Mirada del Lince Boreal",
     image: "/images/portfolio/fauna-naturaleza/mirada-del-lince-boreal.jpg",
@@ -15,6 +18,8 @@ const SAMPLES = [
   },
   {
     id: "garza",
+    slug: "garza-blanca-al-sol",
+    category: "fauna-naturaleza",
     label: "Garza Blanca",
     title: "Garza Blanca al Sol",
     image: "/images/portfolio/fauna-naturaleza/garza-blanca-al-sol.jpg",
@@ -24,6 +29,8 @@ const SAMPLES = [
   },
   {
     id: "fragua",
+    slug: "el-oficio-y-la-chispa",
+    category: "viajes-cultura",
     label: "El Oficio",
     title: "El Oficio y la Chispa",
     image: "/images/portfolio/viajes-cultura/el-oficio-y-la-chispa.jpg",
@@ -32,6 +39,20 @@ const SAMPLES = [
     note: "Profundidad de negros y detalle en las sombras en gran formato.",
   },
 ] as const;
+
+const SAMPLES = SAMPLE_CONFIGS.map((cfg) => {
+  const w =
+    WORKS.find((item) => item.slug === cfg.slug) ??
+    WORKS.find((item) => item.category === cfg.category) ??
+    WORKS[0];
+  return {
+    ...cfg,
+    title: w?.title ?? cfg.title,
+    image: w?.image ?? cfg.image,
+    width: w?.width ?? cfg.width,
+    height: w?.height ?? cfg.height,
+  };
+});
 
 const ZOOM = 2.6;
 const LENS_SIZE = 196;

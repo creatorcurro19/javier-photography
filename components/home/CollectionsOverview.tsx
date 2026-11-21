@@ -8,7 +8,7 @@ import {
   AndalusianVerticalCenefa,
 } from "@/components/ui/AndalusianMotif";
 import { PHOTO_CATEGORIES, CATEGORY_METADATA } from "@/types/photo";
-import { getPhotosByCategory } from "@/lib/photos";
+import { getAllPhotos, getPhotosByCategory } from "@/lib/photos";
 
 interface CuratedWing {
   category: (typeof PHOTO_CATEGORIES)[number];
@@ -107,7 +107,7 @@ export default function CollectionsOverview() {
             href="/portfolio"
             className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.26em] text-[#8E8A80] transition-colors hover:text-[#EBE7DF]"
           >
-            <span>Ver archivo completo (100)</span>
+            <span>Ver archivo completo ({getAllPhotos().length})</span>
             <span className="transition-transform duration-300 group-hover:translate-x-1">
               →
             </span>
@@ -118,7 +118,11 @@ export default function CollectionsOverview() {
         <div className="mt-10 grid grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-12">
           {WINGS_CONFIG.map((wing) => {
             const info = CATEGORY_METADATA[wing.category];
-            const count = getPhotosByCategory(wing.category).length;
+            const catPhotos = getPhotosByCategory(wing.category);
+            const count = catPhotos.length;
+            const validCover = catPhotos.some((p) => p.image === info.coverImage)
+              ? info.coverImage
+              : catPhotos[0]?.image ?? info.coverImage;
 
             return (
               <Link
@@ -129,7 +133,7 @@ export default function CollectionsOverview() {
               >
                 <div className={`relative w-full overflow-hidden ${wing.aspectClass}`}>
                   <Image
-                    src={info.coverImage}
+                    src={validCover}
                     alt={`${info.title} — ${wing.subtitle}`}
                     fill
                     sizes={

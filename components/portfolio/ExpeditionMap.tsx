@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { getPhotoBySlug, getProjectBySlug, getProjectPhotos } from "@/lib/photos";
 
 const TERRITORIES = [
   {
@@ -169,7 +170,44 @@ const TERRITORIES = [
 
 export default function ExpeditionMap() {
   const [activeId, setActiveId] = useState<string>(TERRITORIES[0].id);
-  const current = TERRITORIES.find((t) => t.id === activeId) ?? TERRITORIES[0];
+  const rawCurrent = TERRITORIES.find((t) => t.id === activeId) ?? TERRITORIES[0];
+
+  const resolvedSamples = (() => {
+    const project = getProjectBySlug(rawCurrent.projectSlug);
+    const projectPhotos = project ? getProjectPhotos(project) : [];
+    const seen = new Set<string>();
+    const list: { title: string; slug: string; href: string; image: string }[] = [];
+
+    for (const s of rawCurrent.samples) {
+      const work = getPhotoBySlug(s.slug);
+      if (work && !seen.has(work.slug)) {
+        seen.add(work.slug);
+        list.push({
+          title: work.title,
+          slug: work.slug,
+          href: `/portfolio/${work.slug}`,
+          image: work.image,
+        });
+      }
+    }
+
+    for (const work of projectPhotos) {
+      if (list.length >= 3) break;
+      if (!seen.has(work.slug)) {
+        seen.add(work.slug);
+        list.push({
+          title: work.title,
+          slug: work.slug,
+          href: `/portfolio/${work.slug}`,
+          image: work.image,
+        });
+      }
+    }
+
+    return list;
+  })();
+
+  const current = { ...rawCurrent, samples: resolvedSamples };
 
   return (
     <section

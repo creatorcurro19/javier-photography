@@ -88,6 +88,34 @@ function applySeriesMembership(photo: Photo, seriesSlugs: string[] | undefined):
   return updated;
 }
 
+/**
+ * Asegura que todas las series tengan como coverImage una foto existente en el catálogo.
+ * Si el autor elimina la foto que era portada de una serie, se asigna automáticamente
+ * la primera foto disponible de esa serie o de su categoría.
+ */
+function ensureValidSeriesCovers(): void {
+  const validImages = new Set(inMemoryWorks.map((w) => w.image));
+  for (const series of inMemorySeries) {
+    // Limpiar IDs de fotos que ya no existan
+    series.photoIds = series.photoIds.filter((id) =>
+      inMemoryWorks.some((w) => w.id === id)
+    );
+    if (!validImages.has(series.coverImage)) {
+      const firstSeriesPhoto = series.photoIds
+        .map((id) => inMemoryWorks.find((w) => w.id === id))
+        .find((w): w is Photo => Boolean(w));
+      const fallbackCategoryPhoto = inMemoryWorks.find(
+        (w) => w.category === series.category
+      );
+      const replacement =
+        firstSeriesPhoto ?? fallbackCategoryPhoto ?? inMemoryWorks[0];
+      if (replacement) {
+        series.coverImage = replacement.image;
+      }
+    }
+  }
+}
+
 interface GithubFileEntry {
   path: string;
   content: string;
@@ -264,6 +292,7 @@ export async function saveWork(
   } else {
     inMemoryWorks[index] = updatedPhoto;
   }
+  ensureValidSeriesCovers();
 
   const fullSource = generateWorksTsSource();
   let persistedToDisk = false;
@@ -368,6 +397,7 @@ export async function deleteWork(
       series.photoIds = series.photoIds.filter((id) => id !== photoId);
     }
   }
+  ensureValidSeriesCovers();
 
   const fullSource = generateWorksTsSource();
   let persistedToDisk = false;
