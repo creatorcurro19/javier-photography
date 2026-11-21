@@ -2,10 +2,10 @@
 
 import React, { useState, useMemo } from "react";
 import Image from "next/image";
-import type { Photo } from "@/types/photo";
+import type { Photo, PhotoCategory } from "@/types/photo";
 import { PHOTO_CATEGORIES, CATEGORY_METADATA } from "@/types/photo";
 import WorkEditorModal from "./WorkEditorModal";
-import type { AdminSeries } from "./categoryEditorConfig";
+import { createBlankPhoto, type AdminSeries } from "./categoryEditorConfig";
 import {
   SearchIcon,
   CloseIcon,
@@ -16,6 +16,8 @@ import {
   LogOutIcon,
   GitHubIcon,
   CheckIcon,
+  TrashIcon,
+  PlusIcon,
 } from "./AdminIcons";
 
 interface AdminDashboardProps {
@@ -42,9 +44,13 @@ export default function AdminDashboard({
   const [filterStoryOnly, setFilterStoryOnly] = useState(false);
   const [sortBy, setSortBy] = useState<"id" | "title" | "price" | "year">("id");
 
-  // Edición
+  // Edición / Creación / Eliminación
   const [editingPhoto, setEditingPhoto] = useState<Photo | null>(null);
+  const [isCreatingNew, setIsCreatingNew] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [deletingPhoto, setDeletingPhoto] = useState<Photo | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [previewMap, setPreviewMap] = useState<Record<string, string>>({});
 
   // Modal de Sincronización / Respaldo
   const [isSyncModalOpen, setIsSyncModalOpen] = useState(false);
@@ -111,8 +117,22 @@ export default function AdminDashboard({
     };
   }, [works]);
 
-  // Guardar cambios en una obra
-  const handleSavePhoto = async (updated: Photo, seriesSlugs?: string[]) => {
+  const handleStartAddPhoto = () => {
+    const defaultCat: PhotoCategory =
+      selectedCategory !== "todas"
+        ? (selectedCategory as PhotoCategory)
+        : "fauna-naturaleza";
+    const blank = createBlankPhoto(defaultCat, works);
+    setIsCreatingNew(true);
+    setEditingPhoto(blank);
+  };
+
+  // Guardar cambios o crear nueva obra
+  const handleSavePhoto = async (
+    updated: Photo,
+    seriesSlugs?: string[],
+    imageBase64?: string
+  ) => {
     setIsSaving(true);
     try {
       const res = await fetch("/api/admin/works", {
@@ -121,6 +141,7 @@ export default function AdminDashboard({
         body: JSON.stringify({
           photo: updated,
           seriesSlugs,
+          imageBase64,
           githubToken: githubToken.trim() || undefined,
         }),
       });
@@ -129,9 +150,18 @@ export default function AdminDashboard({
 
       if (res.ok && data.ok) {
         const saved: Photo = data.photo ?? updated;
-        setWorks((prev) => prev.map((w) => (w.id === saved.id ? saved : w)));
+        if (imageBase64) {
+          setPreviewMap((prev) => ({ ...prev, [saved.id]: imageBase64 }));
+        }
+        setWorks((prev) => {
+          const exists = prev.some((w) => w.id === saved.id);
+          return exists
+            ? prev.map((w) => (w.id === saved.id ? saved : w))
+            : [saved, ...prev];
+        });
         if (Array.isArray(data.series)) setSeries(data.series);
         setEditingPhoto(null);
+        setIsCreatingNew(false);
         showToast(data.message || `"${saved.title}" guardada.`, data.published ? "success" : "warning");
       } else {
         showToast(data.error || "No se pudo guardar la fotografía en el servidor.", "error");
@@ -140,6 +170,40 @@ export default function AdminDashboard({
       showToast("Error de conexión al guardar los datos.", "error");
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  // Eliminar una obra del catálogo
+  const handleConfirmDelete = async () => {
+    if (!deletingPhoto) return;
+    setIsDeleting(true);
+    try {
+      const res = await fetch("/api/admin/works", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: deletingPhoto.id,
+          githubToken: githubToken.trim() || undefined,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.ok) {
+        const removedId = deletingPhoto.id;
+        setWorks((prev) => prev.filter((w) => w.id !== removedId));
+        if (Array.isArray(data.series)) setSeries(data.series);
+        if (editingPhoto?.id === removedId) {
+          setEditingPhoto(null);
+          setIsCreatingNew(false);
+        }
+        setDeletingPhoto(null);
+        showToast(data.message || "Fotografía eliminada.", data.published ? "success" : "warning");
+      } else {
+        showToast(data.error || "No se pudo eliminar la fotografía.", "error");
+      }
+    } catch {
+      showToast("Error de conexión al eliminar la fotografía.", "error");
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -202,6 +266,15 @@ export default function AdminDashboard({
           </div>
 
           <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleStartAddPhoto}
+              className="inline-flex items-center gap-1.5 rounded-lg bg-[#C5A880] px-3 py-1.5 text-xs font-semibold text-[#0B0C0E] hover:opacity-90 transition cursor-pointer"
+            >
+              <PlusIcon className="h-3.5 w-3.5" />
+              <span>Añadir foto</span>
+            </button>
+
             <a
               href="/"
               target="_blank"
@@ -245,6 +318,19 @@ export default function AdminDashboard({
             cambios no llegarán a la web pública hasta conectar GitHub (botón «Sincronizar»).
           </div>
         )}
+
+        {/* Botón Grande para Añadir Nuevas Fotografías */}
+        <div className="mb-6">
+          <button
+            type="button"
+            onClick={handleStartAddPhoto}
+            className="flex w-full items-center justify-center gap-3 rounded-2xl border border-[#C5A880]/50 bg-gradient-to-r from-[#C5A880] to-[#A88C64] px-6 py-4 text-sm sm:text-base font-semibold uppercase tracking-wider text-[#0B0C0E] shadow-xl shadow-[#C5A880]/10 transition hover:opacity-95 active:scale-[0.99] cursor-pointer"
+          >
+            <PlusIcon className="h-5 w-5" />
+            <span>Añadir nueva fotografía al catálogo</span>
+          </button>
+        </div>
+
         {/* Banner de Métricas Rápidas */}
         <section className="grid grid-cols-2 gap-3 sm:grid-cols-4 mb-6">
           <div className="rounded-xl border border-[#22242B] bg-[#141519] p-3.5 sm:p-4">
@@ -432,13 +518,22 @@ export default function AdminDashboard({
                     {/* Top fila: Miniatura + Info básica */}
                     <div className="flex gap-3.5">
                       <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg border border-[#262830] bg-[#1A1C22]">
-                        <Image
-                          src={photo.image}
-                          alt={photo.alt || photo.title}
-                          fill
-                          sizes="80px"
-                          className="object-cover transition-transform duration-300 group-hover:scale-105"
-                        />
+                        {previewMap[photo.id] ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={previewMap[photo.id]}
+                            alt={photo.alt || photo.title}
+                            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          />
+                        ) : (
+                          <Image
+                            src={photo.image}
+                            alt={photo.alt || photo.title}
+                            fill
+                            sizes="80px"
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          />
+                        )}
                         {photo.featured && (
                           <div
                             className="absolute top-1 left-1 rounded bg-[#0B0C0E]/80 p-0.5 text-[#C5A880]"
@@ -525,15 +620,33 @@ export default function AdminDashboard({
                       </button>
                     </div>
 
-                    {/* Botón principal Editar */}
-                    <button
-                      type="button"
-                      onClick={() => setEditingPhoto(photo)}
-                      className="inline-flex items-center gap-1.5 rounded-lg border border-[#C5A880]/30 bg-[#1A1C22] px-3 py-1.5 text-xs font-medium text-[#C5A880] hover:bg-[#C5A880] hover:text-[#0B0C0E] transition cursor-pointer"
-                    >
-                      <EditIcon className="h-3.5 w-3.5" />
-                      <span>Editar</span>
-                    </button>
+                    {/* Botones Editar y Papelera */}
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsCreatingNew(false);
+                          setEditingPhoto(photo);
+                        }}
+                        className="inline-flex min-h-[38px] items-center gap-1.5 rounded-lg border border-[#C5A880]/30 bg-[#1A1C22] px-3 py-1.5 text-xs font-medium text-[#C5A880] hover:bg-[#C5A880] hover:text-[#0B0C0E] transition cursor-pointer"
+                      >
+                        <EditIcon className="h-3.5 w-3.5" />
+                        <span>Editar</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setDeletingPhoto(photo);
+                        }}
+                        className="inline-flex min-h-[38px] min-w-[38px] items-center justify-center rounded-lg border border-red-500/25 bg-red-950/20 px-2.5 py-1.5 text-red-300 hover:bg-red-600 hover:border-red-500 hover:text-white transition cursor-pointer"
+                        title={`Eliminar "${photo.title}"`}
+                        aria-label={`Eliminar "${photo.title}"`}
+                      >
+                        <TrashIcon className="h-4 w-4" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               );
@@ -542,16 +655,91 @@ export default function AdminDashboard({
         )}
       </main>
 
-      {/* Modal de Edición Completa */}
+      {/* Modal de Edición / Creación Completa */}
       {editingPhoto && (
         <WorkEditorModal
-          key={editingPhoto.id}
+          key={`${isCreatingNew ? "new" : "edit"}-${editingPhoto.id}`}
           photo={editingPhoto}
+          isNew={isCreatingNew}
+          existingWorks={works}
           allSeries={series}
-          onClose={() => setEditingPhoto(null)}
+          onClose={() => {
+            setEditingPhoto(null);
+            setIsCreatingNew(false);
+          }}
           onSave={handleSavePhoto}
+          onDelete={(p) => setDeletingPhoto(p)}
           isSaving={isSaving}
         />
+      )}
+
+      {/* Modal de Confirmación de Eliminación */}
+      {deletingPhoto && (
+        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+          <div className="w-full max-w-md rounded-2xl border border-red-500/30 bg-[#121316] p-6 text-[#EBE7DF] shadow-2xl">
+            <div className="flex items-center gap-3.5">
+              <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-lg border border-[#2D3038] bg-[#1A1C22]">
+                {previewMap[deletingPhoto.id] ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={previewMap[deletingPhoto.id]}
+                    alt={deletingPhoto.title}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <Image
+                    src={deletingPhoto.image}
+                    alt={deletingPhoto.title}
+                    fill
+                    sizes="56px"
+                    className="object-cover"
+                  />
+                )}
+              </div>
+              <div className="min-w-0">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-red-400">
+                  Eliminar fotografía · {deletingPhoto.id}
+                </span>
+                <h3 className="truncate font-serif text-lg font-medium text-[#EBE7DF]">
+                  {deletingPhoto.title}
+                </h3>
+              </div>
+            </div>
+
+            <p className="mt-4 text-xs leading-relaxed text-[#A39E93]">
+              ¿Seguro que quieres eliminar esta fotografía? Se quitará del catálogo, de las series y de la web pública.
+            </p>
+
+            <div className="mt-6 flex items-center justify-end gap-2.5">
+              <button
+                type="button"
+                disabled={isDeleting}
+                onClick={() => setDeletingPhoto(null)}
+                className="min-h-[44px] rounded-lg border border-[#30333C] px-4 text-xs font-medium text-[#A39E93] hover:text-[#EBE7DF] hover:bg-[#1F2127] transition cursor-pointer"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                disabled={isDeleting}
+                onClick={handleConfirmDelete}
+                className="inline-flex min-h-[44px] items-center gap-2 rounded-lg bg-red-600 px-4 text-xs font-semibold uppercase tracking-wider text-white hover:bg-red-500 disabled:opacity-50 transition cursor-pointer"
+              >
+                {isDeleting ? (
+                  <>
+                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                    <span>Eliminando…</span>
+                  </>
+                ) : (
+                  <>
+                    <TrashIcon className="h-4 w-4" />
+                    <span>Sí, eliminar</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* Modal de Sincronización y Respaldo */}

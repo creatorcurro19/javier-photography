@@ -1,10 +1,100 @@
-import type { PhotoCategory } from "@/types/photo";
+import type { Photo, PhotoCategory } from "@/types/photo";
 
 export interface AdminSeries {
   slug: string;
   title: string;
   category: PhotoCategory;
   photoIds: string[];
+}
+
+export const CATEGORY_ID_PREFIX: Record<PhotoCategory, string> = {
+  "fauna-naturaleza": "fn",
+  "paisajes-documental": "pd",
+  "coches-rally": "cr",
+  "arquitectura-urbana": "au",
+  "viajes-cultura": "vc",
+};
+
+export function slugifyTitle(input: string): string {
+  return input
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export function generateNextPhotoId(
+  category: PhotoCategory,
+  existingWorks: Photo[]
+): string {
+  const prefix = CATEGORY_ID_PREFIX[category];
+  let maxNum = 0;
+  const used = new Set(existingWorks.map((w) => w.id));
+  for (const w of existingWorks) {
+    const match = w.id.match(new RegExp(`^${prefix}-(\\d+)$`));
+    if (match) {
+      const n = parseInt(match[1], 10);
+      if (n > maxNum) maxNum = n;
+    }
+  }
+  let candidateNum = maxNum + 1;
+  let candidate = `${prefix}-${String(candidateNum).padStart(2, "0")}`;
+  while (used.has(candidate)) {
+    candidateNum += 1;
+    candidate = `${prefix}-${String(candidateNum).padStart(2, "0")}`;
+  }
+  return candidate;
+}
+
+export function createBlankPhoto(
+  category: PhotoCategory,
+  existingWorks: Photo[]
+): Photo {
+  const id = generateNextPhotoId(category, existingWorks);
+  return {
+    id,
+    slug: "",
+    title: "",
+    category,
+    image: "",
+    width: 2200,
+    height: 1467,
+    alt: "",
+    location: "",
+    country: "España",
+    camera: "Canon EOS R7",
+    lens:
+      category === "fauna-naturaleza"
+        ? "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary"
+        : "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
+    iso: 400,
+    aperture: "f/5.6",
+    shutter: "1/500s",
+    focalLength: category === "fauna-naturaleza" ? "600mm" : "35mm",
+    maxRecommendedFormat: "coleccion",
+    description: "",
+    story: "",
+    year: new Date().getFullYear(),
+    featured: false,
+    prints: true,
+    licensing: true,
+    keywords: [],
+    pricing: {
+      estudio: 95,
+      galeria: 175,
+      coleccion: 290,
+      dimensions: {
+        estudio: "30 × 45 cm",
+        galeria: "50 × 70 cm",
+        coleccion: "70 × 100 cm",
+      },
+      paper: "Hahnemühle Photo Rag 308g (100% Algodón)",
+      editionTotal: 25,
+      score: 85,
+    },
+    ...(category === "fauna-naturaleza" ? { wildlifeCondition: "libre" as const } : {}),
+  };
 }
 
 interface CategoryEditorConfig {

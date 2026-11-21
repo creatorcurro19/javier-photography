@@ -1,21 +1,30 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import type { Photo, PhotoCategory, MaxPrintFormatId, WildlifeCondition } from "@/types/photo";
 import { PHOTO_CATEGORIES, CATEGORY_METADATA } from "@/types/photo";
-import { CloseIcon, CheckIcon, ExternalLinkIcon } from "./AdminIcons";
+import { CloseIcon, CheckIcon, ExternalLinkIcon, TrashIcon, UploadIcon } from "./AdminIcons";
 import {
   CATEGORY_EDITOR_CONFIG,
+  generateNextPhotoId,
   getRelevantSeries,
+  slugifyTitle,
   type AdminSeries,
 } from "./categoryEditorConfig";
 
 interface WorkEditorModalProps {
   photo: Photo;
+  isNew?: boolean;
+  existingWorks: Photo[];
   allSeries: AdminSeries[];
   onClose: () => void;
-  onSave: (updated: Photo, seriesSlugs: string[]) => Promise<void>;
+  onSave: (
+    updated: Photo,
+    seriesSlugs: string[],
+    imageBase64?: string
+  ) => Promise<void>;
+  onDelete?: (photo: Photo) => void;
   isSaving: boolean;
 }
 
@@ -27,15 +36,52 @@ const DEFAULT_DIMENSIONS = {
   coleccion: "70 × 100 cm",
 };
 
+function dimensionsForAspect(width: number, height: number) {
+  const ratio = Math.max(width, height) / Math.max(1, Math.min(width, height));
+  if (ratio >= 1.68) {
+    return {
+      estudio: "30 × 53 cm",
+      galeria: "45 × 80 cm",
+      coleccion: "60 × 105 cm",
+    };
+  }
+  if (ratio <= 1.32) {
+    return {
+      estudio: "32 × 40 cm",
+      galeria: "50 × 62 cm",
+      coleccion: "70 × 88 cm",
+    };
+  }
+  return { ...DEFAULT_DIMENSIONS };
+}
+
+function titleFromFilename(fileName: string): string {
+  const base = fileName.replace(/\.[^.]+$/, "").replace(/[_-]+/g, " ").replace(/\s+/g, " ").trim();
+  if (!base) return "";
+  return base
+    .split(" ")
+    .map((word, idx) => {
+      const lower = word.toLowerCase();
+      if (idx > 0 && ["de", "del", "la", "el", "en", "y", "a", "al", "con", "por"].includes(lower)) {
+        return lower;
+      }
+      return lower.charAt(0).toUpperCase() + lower.slice(1);
+    })
+    .join(" ");
+}
+
 const inputClass =
   "w-full rounded-lg border border-[#2D3036] bg-[#17181D] px-3.5 py-2.5 text-sm text-[#EBE7DF] placeholder-[#5E5A53] focus:border-[#C5A880] focus:outline-none";
 const labelClass = "block text-xs font-mono uppercase tracking-wider text-[#A39E93] mb-1";
 
 export default function WorkEditorModal({
   photo,
+  isNew = false,
+  existingWorks,
   allSeries,
   onClose,
   onSave,
+  onDelete,
   isSaving,
 }: WorkEditorModalProps) {
   const [formData, setFormData] = useState<Photo>({ ...photo });
@@ -44,28 +90,172 @@ export default function WorkEditorModal({
   const [selectedSeries, setSelectedSeries] = useState<string[]>(
     allSeries.filter((s) => s.photoIds.includes(photo.id)).map((s) => s.slug)
   );
+  const [uploadedDataUrl, setUploadedDataUrl] = useState<string | null>(null);
+  const [processingImage, setProcessingImage] = useState(false);
+  const [fileError, setFileError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const config = CATEGORY_EDITOR_CONFIG[formData.category];
   const dims = formData.pricing?.dimensions ?? DEFAULT_DIMENSIONS;
-  const categoryChanged = formData.category !== photo.category;
+  const categoryChanged = !isNew && formData.category !== photo.category;
 
   const relevantSeries = useMemo(
-    () => getRelevantSeries(allSeries, formData.category, photo.id),
-    [allSeries, formData.category, photo.id]
+    () => getRelevantSeries(allSeries, formData.category, formData.id),
+    [allSeries, formData.category, formData.id]
   );
 
   const setField = <K extends keyof Photo>(field: K, value: Photo[K]) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
+  const handleTitleChange = (newTitle: string) => {
+    setFormData((prev) => {
+      const next: Photo = { ...prev, title: newTitle };
+      if (isNew) {
+        const autoSlug = slugifyTitle(newTitle);
+        next.slug = autoSlug;
+        next.image = autoSlug
+          ? `/images/portfolio/${prev.category}/${autoSlug}.jpg`
+          : "";
+        if (!prev.alt || prev.alt === prev.title) {
+          next.alt = newTitle;
+        }
+      }
+      return next;
+    });
+  };
+
   const handleCategoryChange = (category: PhotoCategory) => {
-    setFormData((prev) => ({ ...prev, category }));
-    // Quita las series que ya no encajan con la nueva categoría (salvo las de otra categoría a las que ya pertenecía)
+    setFormData((prev) => {
+      const nextId = isNew ? generateNextPhotoId(category, existingWorks) : prev.id;
+      const nextSlug = prev.slug || slugifyTitle(prev.title);
+      return {
+        ...prev,
+        id: nextId,
+        category,
+        image:
+          isNew && nextSlug
+            ? `/images/portfolio/${category}/${nextSlug}.jpg`
+            : prev.image,
+      };
+    });
     setSelectedSeries((prev) =>
       prev.filter((slug) =>
-        getRelevantSeries(allSeries, category, photo.id).some((s) => s.slug === slug)
+        getRelevantSeries(allSeries, category, formData.id).some((s) => s.slug === slug)
       )
     );
+  };
+
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setFileError(null);
+    setProcessingImage(true);
+
+    try {
+      // 1. Intentar leer metadatos EXIF si la foto los trae
+      const exifPatch: Partial<Photo> = {};
+      try {
+        const exifr = await import("exifr");
+        const meta = await exifr.parse(file);
+        if (meta) {
+          if (meta.Model) {
+            const m = String(meta.Model);
+            exifPatch.camera = /R7/i.test(m)
+              ? "Canon EOS R7"
+              : /750D/i.test(m)
+              ? "Canon EOS 750D"
+              : m;
+          }
+          const focalNum = Number(meta.FocalLength);
+          if (Number.isFinite(focalNum) && focalNum > 0) {
+            exifPatch.focalLength = `${Math.round(focalNum)}mm`;
+          }
+          if (meta.LensModel || focalNum) {
+            const l = String(meta.LensModel || "");
+            if (/150-600/i.test(l) || focalNum > 150) {
+              exifPatch.lens = "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary";
+            } else if (/10-18/i.test(l) || (focalNum && focalNum < 18)) {
+              exifPatch.lens = "Canon EF-S 10-18mm f/4.5-5.6 IS STM";
+            } else if (l) {
+              exifPatch.lens = l;
+            }
+          }
+          if (Number.isFinite(Number(meta.ISO))) {
+            exifPatch.iso = Math.round(Number(meta.ISO));
+          }
+          if (Number.isFinite(Number(meta.FNumber)) && Number(meta.FNumber) > 0) {
+            exifPatch.aperture = `f/${Math.round(Number(meta.FNumber) * 10) / 10}`;
+          }
+          const exp = Number(meta.ExposureTime);
+          if (Number.isFinite(exp) && exp > 0) {
+            exifPatch.shutter = exp >= 1 ? `${Math.round(exp * 10) / 10}s` : `1/${Math.round(1 / exp)}s`;
+          }
+          if (meta.DateTimeOriginal instanceof Date && !Number.isNaN(meta.DateTimeOriginal.getTime())) {
+            exifPatch.year = meta.DateTimeOriginal.getFullYear();
+          }
+        }
+      } catch {
+        // Si la imagen no tiene EXIF continuamos con los valores por defecto
+      }
+
+      // 2. Redimensionar y comprimir en canvas (máx 2200px lado largo, JPEG 0.88)
+      const objectUrl = URL.createObjectURL(file);
+      const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+        const el = new window.Image();
+        el.onload = () => resolve(el);
+        el.onerror = () => reject(new Error("No se pudo leer el archivo de imagen."));
+        el.src = objectUrl;
+      });
+
+      const maxEdge = 2200;
+      const scale = Math.min(1, maxEdge / Math.max(img.naturalWidth, img.naturalHeight));
+      const targetW = Math.max(1, Math.round(img.naturalWidth * scale));
+      const targetH = Math.max(1, Math.round(img.naturalHeight * scale));
+
+      const canvas = document.createElement("canvas");
+      canvas.width = targetW;
+      canvas.height = targetH;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) throw new Error("No se pudo procesar la imagen.");
+      ctx.drawImage(img, 0, 0, targetW, targetH);
+      URL.revokeObjectURL(objectUrl);
+
+      const dataUrl = canvas.toDataURL("image/jpeg", 0.88);
+      setUploadedDataUrl(dataUrl);
+
+      const suggestedTitle = formData.title.trim() || titleFromFilename(file.name);
+      const suggestedSlug = formData.slug.trim() || slugifyTitle(suggestedTitle) || formData.id;
+      const newDims = dimensionsForAspect(targetW, targetH);
+
+      setFormData((prev) => ({
+        ...prev,
+        ...exifPatch,
+        title: suggestedTitle,
+        slug: suggestedSlug,
+        alt: prev.alt.trim() || suggestedTitle,
+        width: targetW,
+        height: targetH,
+        image: `/images/portfolio/${prev.category}/${suggestedSlug}.jpg`,
+        pricing: {
+          ...(prev.pricing ?? {
+            estudio: 95,
+            galeria: 175,
+            coleccion: 290,
+            paper: "Hahnemühle Photo Rag 308g (100% Algodón)",
+            editionTotal: 25,
+            score: 85,
+          }),
+          dimensions: newDims,
+        },
+      }));
+    } catch (err: unknown) {
+      setFileError(
+        err instanceof Error ? err.message : "No se pudo procesar la imagen seleccionada."
+      );
+    } finally {
+      setProcessingImage(false);
+    }
   };
 
   const toggleSeries = (slug: string) => {
@@ -94,14 +284,29 @@ export default function WorkEditorModal({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isNew && !uploadedDataUrl && !formData.image.trim()) {
+      setFileError("Selecciona primero la fotografía que quieres subir.");
+      setActiveTab("general");
+      return;
+    }
+
+    const cleanSlug =
+      formData.slug.trim() || slugifyTitle(formData.title) || formData.id;
     const finalPhoto: Photo = {
       ...formData,
+      slug: cleanSlug,
+      alt: formData.alt.trim() || formData.title.trim(),
+      description:
+        formData.description.trim() ||
+        `${formData.title.trim()}${formData.location ? ` (${formData.location})` : ""}.`,
+      image:
+        formData.image.trim() ||
+        `/images/portfolio/${formData.category}/${cleanSlug}.jpg`,
       keywords: keywordsText
         .split(",")
         .map((k) => k.trim())
         .filter((k) => k.length > 0),
     };
-    // Los datos de fauna solo tienen sentido en fotos de fauna
     if (!CATEGORY_EDITOR_CONFIG[finalPhoto.category].showWildlife) {
       delete finalPhoto.wildlifeCondition;
       delete finalPhoto.realLocation;
@@ -109,7 +314,7 @@ export default function WorkEditorModal({
     const validSeries = selectedSeries.filter((slug) =>
       relevantSeries.some((s) => s.slug === slug)
     );
-    await onSave(finalPhoto, validSeries);
+    await onSave(finalPhoto, validSeries, uploadedDataUrl ?? undefined);
   };
 
   const tabs: { id: TabId; label: string }[] = [
@@ -119,40 +324,53 @@ export default function WorkEditorModal({
     { id: "ubicacion", label: config.showWildlife ? "Lugar, fauna y EXIF" : "Lugar y EXIF" },
   ];
 
+  const previewSrc = uploadedDataUrl || formData.image;
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-md">
       <div className="relative flex max-h-[94vh] w-full max-w-4xl flex-col rounded-2xl border border-[#2B2E36] bg-[#121316] text-[#EBE7DF] shadow-2xl overflow-hidden">
         {/* Cabecera */}
         <div className="flex items-center justify-between border-b border-[#22242B] px-4 py-3 sm:px-6 sm:py-4 bg-[#16171B]">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-lg border border-[#30333C] bg-[#1B1D22]">
-              <Image src={photo.image} alt={photo.alt || photo.title} fill sizes="48px" className="object-cover" />
+            <div className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-lg border border-[#30333C] bg-[#1B1D22] flex items-center justify-center">
+              {previewSrc ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={previewSrc}
+                  alt={formData.alt || formData.title || "Vista previa"}
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <UploadIcon className="h-5 w-5 text-[#C5A880]" />
+              )}
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2">
                 <span className="font-mono text-[10px] text-[#C5A880] uppercase tracking-wider bg-[#C5A880]/10 px-1.5 py-0.5 rounded">
-                  {photo.id}
+                  {isNew ? `NUEVA · ${formData.id}` : formData.id}
                 </span>
                 <span className="text-xs text-[#8E8A81]">
                   {CATEGORY_METADATA[formData.category]?.title}
                 </span>
               </div>
               <h2 className="truncate font-serif text-lg font-medium text-[#EBE7DF] sm:text-xl">
-                {formData.title || "Sin título"}
+                {formData.title || (isNew ? "Añadir nueva fotografía" : "Sin título")}
               </h2>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
-            <a
-              href={`/portfolio/${photo.slug}`}
-              target="_blank"
-              rel="noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-lg border border-[#2D3038] px-3 py-1.5 text-xs text-[#A39E93] hover:text-[#EBE7DF] hover:border-[#C5A880] transition"
-            >
-              <span>Ver en la web</span>
-              <ExternalLinkIcon className="h-3.5 w-3.5" />
-            </a>
+            {!isNew && (
+              <a
+                href={`/portfolio/${photo.slug}`}
+                target="_blank"
+                rel="noreferrer"
+                className="hidden sm:inline-flex items-center gap-1.5 rounded-lg border border-[#2D3038] px-3 py-1.5 text-xs text-[#A39E93] hover:text-[#EBE7DF] hover:border-[#C5A880] transition"
+              >
+                <span>Ver en la web</span>
+                <ExternalLinkIcon className="h-3.5 w-3.5" />
+              </a>
+            )}
             <button
               onClick={onClose}
               className="flex h-11 w-11 items-center justify-center rounded-lg text-[#A39E93] hover:bg-[#202228] hover:text-[#EBE7DF] transition cursor-pointer"
@@ -185,13 +403,85 @@ export default function WorkEditorModal({
           {/* GENERAL */}
           {activeTab === "general" && (
             <div className="space-y-4">
+              {/* Selector de archivo de foto (protagonista al crear, disponible también para reemplazar) */}
+              <div className="rounded-xl border border-dashed border-[#C5A880]/40 bg-[#16171C] p-4">
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileSelect}
+                  className="hidden"
+                />
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="flex items-center gap-3.5 min-w-0">
+                    {uploadedDataUrl ? (
+                      <div className="relative h-16 w-20 flex-shrink-0 overflow-hidden rounded-lg border border-[#C5A880]/40 bg-[#0B0C0E]">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={uploadedDataUrl}
+                          alt="Vista previa subida"
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
+                    ) : !isNew && formData.image ? (
+                      <div className="relative h-16 w-20 flex-shrink-0 overflow-hidden rounded-lg border border-[#2D3038] bg-[#0B0C0E]">
+                        <Image
+                          src={formData.image}
+                          alt={formData.title}
+                          fill
+                          sizes="80px"
+                          className="object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-[#C5A880]/15 text-[#C5A880]">
+                        <UploadIcon className="h-6 w-6" />
+                      </div>
+                    )}
+                    <div className="min-w-0">
+                      <span className="block text-sm font-medium text-[#EBE7DF]">
+                        {uploadedDataUrl
+                          ? `Foto lista (${formData.width} × ${formData.height} px)`
+                          : isNew
+                          ? "Selecciona la fotografía desde tu móvil u ordenador"
+                          : "Cambiar archivo de imagen (opcional)"}
+                      </span>
+                      <span className="block text-xs text-[#8E8A81]">
+                        {uploadedDataUrl
+                          ? "Se optimizará y subirá automáticamente al guardar."
+                          : "Lee automáticamente los datos EXIF de la cámara y ajusta las medidas."}
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    disabled={processingImage}
+                    onClick={() => fileInputRef.current?.click()}
+                    className="inline-flex min-h-[44px] flex-shrink-0 items-center justify-center gap-2 rounded-lg bg-[#C5A880] px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-[#0B0C0E] transition hover:opacity-90 cursor-pointer"
+                  >
+                    <UploadIcon className="h-4 w-4" />
+                    <span>
+                      {processingImage
+                        ? "Procesando…"
+                        : uploadedDataUrl
+                        ? "Elegir otra foto"
+                        : "Elegir foto"}
+                    </span>
+                  </button>
+                </div>
+                {fileError && (
+                  <p className="mt-2.5 text-xs text-red-400">{fileError}</p>
+                )}
+              </div>
+
               <div>
                 <label className={labelClass}>Título *</label>
                 <input
                   type="text"
                   required
                   value={formData.title}
-                  onChange={(e) => setField("title", e.target.value)}
+                  onChange={(e) => handleTitleChange(e.target.value)}
+                  placeholder="Ej. Luz de Tarde en los Balcones"
                   className={inputClass}
                 />
               </div>
@@ -295,14 +585,16 @@ export default function WorkEditorModal({
                     <label className={labelClass}>Dirección web (slug)</label>
                     <input
                       type="text"
-                      required
                       value={formData.slug}
                       onChange={(e) => setField("slug", e.target.value)}
+                      placeholder="se-genera-del-titulo"
                       className={`${inputClass} font-mono text-xs`}
                     />
-                    <p className="mt-1 text-[11px] text-[#716C62]">
-                      Cambiarlo rompe los enlaces ya compartidos.
-                    </p>
+                    {!isNew && (
+                      <p className="mt-1 text-[11px] text-[#716C62]">
+                        Cambiarlo rompe los enlaces ya compartidos.
+                      </p>
+                    )}
                   </div>
                   <div>
                     <label className={labelClass}>Archivo de imagen</label>
@@ -325,7 +617,6 @@ export default function WorkEditorModal({
                 <label className={labelClass}>Descripción *</label>
                 <textarea
                   rows={3}
-                  required
                   value={formData.description}
                   onChange={(e) => setField("description", e.target.value)}
                   placeholder={config.descriptionPlaceholder}
@@ -564,28 +855,41 @@ export default function WorkEditorModal({
           )}
 
           {/* Barra de acciones */}
-          <div className="sticky bottom-0 -mx-4 -mb-5 sm:-mx-6 sm:-mb-6 flex items-center justify-between border-t border-[#25272F] bg-[#16171B]/95 p-4 backdrop-blur-md">
-            <button
-              type="button"
-              onClick={onClose}
-              className="min-h-[44px] rounded-lg border border-[#30333C] px-4 text-xs font-medium text-[#A39E93] hover:text-[#EBE7DF] hover:bg-[#1F2127] transition cursor-pointer"
-            >
-              Cancelar
-            </button>
+          <div className="sticky bottom-0 -mx-4 -mb-5 sm:-mx-6 sm:-mb-6 flex items-center justify-between gap-2 border-t border-[#25272F] bg-[#16171B]/95 p-4 backdrop-blur-md">
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={onClose}
+                className="min-h-[44px] rounded-lg border border-[#30333C] px-4 text-xs font-medium text-[#A39E93] hover:text-[#EBE7DF] hover:bg-[#1F2127] transition cursor-pointer"
+              >
+                Cancelar
+              </button>
+              {!isNew && onDelete && (
+                <button
+                  type="button"
+                  onClick={() => onDelete(photo)}
+                  className="inline-flex min-h-[44px] items-center gap-1.5 rounded-lg border border-red-500/30 bg-red-950/20 px-3.5 text-xs font-medium text-red-300 hover:bg-red-950/50 hover:border-red-500/50 transition cursor-pointer"
+                  title="Eliminar fotografía del catálogo"
+                >
+                  <TrashIcon className="h-4 w-4" />
+                  <span className="hidden xs:inline">Eliminar</span>
+                </button>
+              )}
+            </div>
             <button
               type="submit"
-              disabled={isSaving}
+              disabled={isSaving || processingImage}
               className="flex min-h-[44px] items-center gap-2 rounded-lg bg-gradient-to-r from-[#C5A880] to-[#A88C64] px-5 text-xs font-semibold tracking-wider text-[#0B0C0E] uppercase shadow-md transition hover:opacity-90 disabled:opacity-50 cursor-pointer"
             >
               {isSaving ? (
                 <>
                   <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#0B0C0E] border-t-transparent" />
-                  <span>Guardando…</span>
+                  <span>{isNew ? "Subiendo…" : "Guardando…"}</span>
                 </>
               ) : (
                 <>
                   <CheckIcon className="h-4 w-4 text-[#0B0C0E]" />
-                  <span>Guardar cambios</span>
+                  <span>{isNew ? "Publicar fotografía" : "Guardar cambios"}</span>
                 </>
               )}
             </button>
