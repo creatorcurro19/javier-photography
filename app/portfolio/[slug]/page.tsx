@@ -82,17 +82,30 @@ function CategoryGallery({ category }: { category: PhotoCategory }) {
 
   const breadcrumb = generateBreadcrumbSchema([
     { name: "Inicio", path: "/" },
-    { name: "Colecciones", path: "/portfolio" },
+    { name: "Obra", path: "/portfolio" },
     { name: info.title, path: `/portfolio/${category}` },
   ]);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
+    <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pb-28 text-[#EBE7DF]">
       <JsonLd data={[generateCategoryCollectionSchema(category, photos), breadcrumb]} />
       {/* Filigrana andalusí y cenefas laterales discretas en el fondo de la colección */}
       <AndalusianCollectionBackdrop variant={isSebka ? "sebka" : "laceria"} />
 
-      <Container className="relative z-10">
+      {/* Breadcrumb Bar */}
+      <div className="relative z-10 pt-24 border-b border-[#C5A880]/15 bg-[#0B0C0E]/80 backdrop-blur-md">
+        <Container className="py-4">
+          <nav aria-label="Miga de pan" className="flex items-center gap-2 text-xs font-mono text-[#A39E93]">
+            <Link href="/" className="hover:text-[#EBE7DF] transition">Inicio</Link>
+            <span className="text-white/25">/</span>
+            <Link href="/portfolio" className="hover:text-[#EBE7DF] transition">Obra</Link>
+            <span className="text-white/25">/</span>
+            <span className="text-[#EBE7DF] truncate">{info.title}</span>
+          </nav>
+        </Container>
+      </div>
+
+      <Container className="relative z-10 mt-12">
         <header className="max-w-3xl">
           <div className="flex items-center gap-3">
             <span className="h-px w-6 bg-white/30" />
@@ -211,7 +224,7 @@ function PhotoDetail({ slug }: { slug: string }) {
 
   const breadcrumb = generateBreadcrumbSchema([
     { name: "Inicio", path: "/" },
-    { name: "Portfolio", path: "/portfolio" },
+    { name: "Obra", path: "/portfolio" },
     {
       name: categoryInfo?.title ?? photo.category,
       path: `/portfolio/${photo.category}`,
@@ -232,15 +245,15 @@ function PhotoDetail({ slug }: { slug: string }) {
       {/* Breadcrumb Bar */}
       <div className="relative z-10 pt-24 border-b border-[#C5A880]/15 bg-[#0B0C0E]/80 backdrop-blur-md">
         <Container className="py-4">
-          <nav aria-label="Miga de pan" className="flex items-center gap-2 text-xs font-mono text-[#8E8A80]">
+          <nav aria-label="Miga de pan" className="flex items-center gap-2 text-xs font-mono text-[#A39E93]">
             <Link href="/" className="hover:text-[#EBE7DF] transition">Inicio</Link>
-            <span className="text-white/20">/</span>
-            <Link href="/portfolio" className="hover:text-[#EBE7DF] transition">Colecciones</Link>
-            <span className="text-white/20">/</span>
+            <span className="text-white/25">/</span>
+            <Link href="/portfolio" className="hover:text-[#EBE7DF] transition">Obra</Link>
+            <span className="text-white/25">/</span>
             <Link href={`/portfolio/${photo.category}`} className="hover:text-[#EBE7DF] transition">
               {categoryInfo?.title ?? photo.category}
             </Link>
-            <span className="text-white/20">/</span>
+            <span className="text-white/25">/</span>
             <span className="text-[#EBE7DF] truncate">{photo.title}</span>
           </nav>
         </Container>

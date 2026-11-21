@@ -1,20 +1,10 @@
-import { AndalusianStarMark } from "@/components/ui/AndalusianMotif";
-
 export default function Loading() {
   return (
     <div
-      role="status"
-      aria-live="polite"
-      aria-label="Cargando sala de exposición"
-      className="flex min-h-[75vh] flex-col items-center justify-center bg-[#0B0C0E] pt-24 pb-20 text-[#EBE7DF]"
+      aria-hidden="true"
+      className="pointer-events-none fixed inset-x-0 top-0 z-[120] h-0.5 overflow-hidden opacity-0 transition-opacity delay-300 duration-200"
     >
-      <div className="flex items-center gap-3">
-        <AndalusianStarMark className="h-4 w-4 animate-pulse text-[#C5A880]" />
-        <span className="font-mono text-[11px] uppercase tracking-[0.38em] text-[#8E8A80]">
-          Preparando Sala...
-        </span>
-        <AndalusianStarMark className="h-4 w-4 animate-pulse text-[#C5A880]" />
-      </div>
+      <div className="h-full w-1/3 animate-pulse bg-[#C5A880]" />
     </div>
   );
 }

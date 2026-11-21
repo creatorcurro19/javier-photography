@@ -63,13 +63,6 @@ export default function Navbar() {
     };
   }, []);
 
-  const isObraActive =
-    pathname === "/portfolio" ||
-    pathname.startsWith("/portfolio/") ||
-    pathname === "/projects" ||
-    pathname.startsWith("/projects/") ||
-    pathname === "/selected-work";
-
   return (
     <header className="fixed left-0 top-0 z-50 w-full transition-all duration-300 print:hidden">
       <div
@@ -99,12 +92,12 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Menú Principal Reducido: Obra, Copias, Encargos, Sobre mí, Contacto */}
+        {/* Menú Principal Unificado: Obra, Series, Copias, Encargos, Cuaderno, Sobre mí, Contacto */}
         <nav
           aria-label="Navegación principal"
-          className="hidden items-center gap-6 xl:gap-8 text-[11px] xl:text-[12px] uppercase tracking-[0.22em] xl:tracking-[0.26em] lg:flex shrink-0"
+          className="hidden items-center gap-4 xl:gap-6 text-[11px] xl:text-[12px] uppercase tracking-[0.18em] xl:tracking-[0.22em] lg:flex shrink-0"
         >
-          {/* 1. Obra (con submenú curatorial para Colecciones, Series y Seleccionadas) */}
+          {/* 1. Obra */}
           <div
             ref={obraMenuRef}
             className="relative flex items-center"
@@ -114,14 +107,14 @@ export default function Navbar() {
             <Link
               href="/portfolio"
               onClick={() => setObraMenuOpen(false)}
-              className={`group inline-flex min-h-[44px] items-center gap-1.5 py-2 whitespace-nowrap transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
-                isObraActive
+              className={`group inline-flex min-h-[44px] items-center gap-1 py-2 whitespace-nowrap transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
+                pathname === "/portfolio" || pathname.startsWith("/portfolio/") || pathname === "/selected-work"
                   ? "text-[#EBE7DF] font-medium"
                   : "text-[#EBE7DF]/85 hover:text-white"
               }`}
             >
               <span>{t("Obra", "Works")}</span>
-              {isObraActive && (
+              {(pathname === "/portfolio" || pathname.startsWith("/portfolio/") || pathname === "/selected-work") && (
                 <span className="absolute bottom-1 left-0 right-0 h-px bg-[#C5A880]" />
               )}
             </Link>
@@ -130,7 +123,7 @@ export default function Navbar() {
               aria-expanded={obraMenuOpen}
               aria-label={t("Abrir submenú de Obra", "Toggle Works submenu")}
               onClick={() => setObraMenuOpen((v) => !v)}
-              className="inline-flex min-h-[44px] min-w-[32px] items-center justify-center px-1 text-[#C5A880] hover:text-white"
+              className="inline-flex min-h-[44px] min-w-[28px] items-center justify-center px-1 text-[#C5A880] hover:text-white"
             >
               <svg
                 className={`h-3.5 w-3.5 transition-transform duration-200 ${
@@ -156,7 +149,7 @@ export default function Navbar() {
                   <div className="px-3 py-1.5 border-b border-white/[0.06] flex items-center gap-2">
                     <AndalusianStarMark className="h-2.5 w-2.5 text-[#C5A880]" />
                     <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#C5A880]">
-                      {t("Archivo & Series", "Archive & Series")}
+                      {t("Archivo y Series", "Archive & Series")}
                     </span>
                   </div>
 
@@ -180,7 +173,7 @@ export default function Navbar() {
                           <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#EBE7DF] group-hover/item:text-white">
                             {lang === "en" ? sub.en : sub.es}
                           </span>
-                          <span className="font-mono text-[9px] text-[#8E8A80] transition group-hover/item:text-[#C5A880]">
+                          <span className="font-mono text-[9px] text-[#A39E93] transition group-hover/item:text-[#C5A880]">
                             {lang === "en" ? sub.descEn : sub.descEs}
                           </span>
                         </Link>
@@ -192,7 +185,22 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* 2. Copias (Fine Art Prints) */}
+          {/* 2. Series */}
+          <Link
+            href="/projects"
+            className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
+              pathname === "/projects" || pathname.startsWith("/projects/")
+                ? "text-[#EBE7DF] font-medium"
+                : "text-[#EBE7DF]/85 hover:text-white"
+            }`}
+          >
+            {t("Series", "Series")}
+            {(pathname === "/projects" || pathname.startsWith("/projects/")) && (
+              <span className="absolute bottom-1 left-0 right-0 h-px bg-[#C5A880]" />
+            )}
+          </Link>
+
+          {/* 3. Copias */}
           <Link
             href="/prints"
             className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
@@ -207,22 +215,37 @@ export default function Navbar() {
             )}
           </Link>
 
-          {/* 3. Encargos (Commissions & Projects) */}
+          {/* 4. Encargos */}
           <Link
             href="/servicios"
             className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
-              pathname === "/servicios"
+              pathname === "/servicios" || pathname.startsWith("/servicios/")
                 ? "text-[#EBE7DF] font-medium"
                 : "text-[#EBE7DF]/85 hover:text-white"
             }`}
           >
             {t("Encargos", "Commissions")}
-            {pathname === "/servicios" && (
+            {(pathname === "/servicios" || pathname.startsWith("/servicios/")) && (
               <span className="absolute bottom-1 left-0 right-0 h-px bg-[#C5A880]" />
             )}
           </Link>
 
-          {/* 4. Sobre mí (About) */}
+          {/* 5. Cuaderno */}
+          <Link
+            href="/cuaderno"
+            className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
+              pathname === "/cuaderno" || pathname.startsWith("/cuaderno/") || pathname === "/stories"
+                ? "text-[#EBE7DF] font-medium"
+                : "text-[#EBE7DF]/85 hover:text-white"
+            }`}
+          >
+            {t("Cuaderno", "Journal")}
+            {(pathname === "/cuaderno" || pathname.startsWith("/cuaderno/") || pathname === "/stories") && (
+              <span className="absolute bottom-1 left-0 right-0 h-px bg-[#C5A880]" />
+            )}
+          </Link>
+
+          {/* 6. Sobre mí */}
           <Link
             href="/about"
             className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
@@ -237,7 +260,7 @@ export default function Navbar() {
             )}
           </Link>
 
-          {/* 5. Contacto (Contact) */}
+          {/* 7. Contacto */}
           <Link
             href="/contact"
             className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${

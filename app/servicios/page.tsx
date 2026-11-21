@@ -52,7 +52,7 @@ const servicios = [
   },
   {
     id: "documental-editorial",
-    landingSlug: "licencias-fotografia-fauna-naturaleza",
+    landingSlug: "proyectos-documentales-fotografia-editorial",
     title: "Proyectos Documentales y Fotografía Editorial",
     kicker: "Narrativa Visual",
     description:

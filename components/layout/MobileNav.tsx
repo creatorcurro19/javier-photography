@@ -7,14 +7,21 @@ import BwToggle from "@/components/ui/BwToggle";
 import LanguageToggle from "@/components/layout/LanguageToggle";
 import { useLanguage } from "@/lib/i18n";
 
-// 5 enlaces principales unificados
+// 7 enlaces principales unificados con Header y Footer
 const primaryLinks = [
   {
     href: "/portfolio",
     es: "Obra",
     en: "Works",
-    noteEs: "Colecciones, series y antología",
-    noteEn: "Collections, series & anthology",
+    noteEs: "100 fotografías en 5 ámbitos",
+    noteEn: "100 photographs across 5 fields",
+  },
+  {
+    href: "/projects",
+    es: "Series",
+    en: "Series",
+    noteEs: "8 series monográficas",
+    noteEn: "8 monograph series",
   },
   {
     href: "/prints",
@@ -31,6 +38,13 @@ const primaryLinks = [
     noteEn: "Projects & assignments",
   },
   {
+    href: "/cuaderno",
+    es: "Cuaderno",
+    en: "Journal",
+    noteEs: "Artículos y notas de campo",
+    noteEn: "Articles & field notes",
+  },
+  {
     href: "/about",
     es: "Sobre mí",
     en: "About",
@@ -41,7 +55,7 @@ const primaryLinks = [
     href: "/contact",
     es: "Contacto",
     en: "Contact",
-    noteEs: "Tenerife & Internacional",
+    noteEs: "Tenerife e Internacional",
     noteEn: "Tenerife & Worldwide",
   },
 ];
@@ -49,8 +63,6 @@ const primaryLinks = [
 // Enlaces secundarios de archivo y servicios editoriales
 const secondaryLinks = [
   { href: "/selected-work", es: "Obras Seleccionadas", en: "Selected Works" },
-  { href: "/projects", es: "Series Monográficas", en: "Monograph Series" },
-  { href: "/stories", es: "Cuaderno de Campo", en: "Field Journal" },
   { href: "/licensing", es: "Licencias Editoriales", en: "Licensing" },
   { href: "/cliente", es: "Acceso Clientes", en: "Client Portal" },
   { href: "/dossier", es: "Dossier de Autor (PDF)", en: "Press Kit (PDF)" },

@@ -58,18 +58,18 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       <JsonLd
         data={generateBreadcrumbSchema([
           { name: "Inicio", path: "/" },
-          { name: "Proyectos", path: "/projects" },
+          { name: "Series", path: "/projects" },
           { name: project.title, path: `/projects/${project.slug}` },
         ])}
       />
       {/* Breadcrumb Bar */}
       <div className="border-b border-white/[0.08] bg-[#0B0C0E]/80 backdrop-blur-md">
         <Container className="py-4">
-          <nav aria-label="Miga de pan" className="flex items-center gap-2 text-xs font-mono text-[#8E8A80]">
+          <nav aria-label="Miga de pan" className="flex items-center gap-2 text-xs font-mono text-[#A39E93]">
             <Link href="/" className="hover:text-[#EBE7DF] transition">Inicio</Link>
-            <span className="text-white/20">/</span>
-            <Link href="/projects" className="hover:text-[#EBE7DF] transition">Series Monográficas</Link>
-            <span className="text-white/20">/</span>
+            <span className="text-white/25">/</span>
+            <Link href="/projects" className="hover:text-[#EBE7DF] transition">Series</Link>
+            <span className="text-white/25">/</span>
             <span className="text-[#EBE7DF] truncate">{project.title}</span>
           </nav>
         </Container>

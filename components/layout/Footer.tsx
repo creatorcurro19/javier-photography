@@ -23,12 +23,15 @@ const projectLinks = SERIES.map((series) => ({
 }));
 
 const commercialLinks = [
-  { href: "/prints", es: "Catálogo de Copias de Autor (Hahnemühle 308g)", en: "Fine Art Print Catalog (Hahnemühle 308g)" },
-  { href: "/servicios", es: "Encargos & Coberturas Especiales", en: "Bespoke Commissions & Assignments" },
-  { href: "/licensing", es: "Licencias de Uso Editorial & Comercial", en: "Editorial & Commercial Licensing" },
-  { href: "/stories", es: "Cuaderno de Campo & Diario Óptico", en: "Field Journal & Optical Notes" },
-  { href: "/cliente", es: "Acceso Clientes · Galerías Privadas", en: "Client Portal · Private Galleries" },
-  { href: "/dossier", es: "Dossier de Autor & Press Kit (PDF)", en: "Press Kit & Author Dossier (PDF)" },
+  { href: "/portfolio", es: "Obra", en: "Works" },
+  { href: "/projects", es: "Series", en: "Series" },
+  { href: "/prints", es: "Copias", en: "Prints" },
+  { href: "/servicios", es: "Encargos", en: "Commissions" },
+  { href: "/cuaderno", es: "Cuaderno", en: "Journal" },
+  { href: "/about", es: "Sobre mí", en: "About" },
+  { href: "/contact", es: "Contacto", en: "Contact" },
+  { href: "/licensing", es: "Licencias Editoriales y Comerciales", en: "Editorial & Commercial Licensing" },
+  { href: "/dossier", es: "Dossier de Autor (PDF)", en: "Author Dossier (PDF)" },
 ];
 
 export default function Footer() {

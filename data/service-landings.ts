@@ -208,20 +208,95 @@ export const SERVICE_LANDINGS: ServiceLanding[] = [
     },
   },
   {
-    slug: "licencias-fotografia-fauna-naturaleza",
+    slug: "proyectos-documentales-fotografia-editorial",
     serviceId: "documental-editorial",
-    kicker: "Fauna Salvaje · Biodiversidad & Territorio",
-    title: "Fotografía de Fauna Salvaje y Licencias Editoriales de Naturaleza",
-    seoTitle: "Fotografía de Fauna Salvaje Ibérica y Licencias Editoriales | Javier Espinosa",
+    kicker: "Documental · Oficios, Territorio y Editorial",
+    title: "Proyectos Documentales y Fotografía Editorial",
+    seoTitle: "Proyectos Documentales y Fotografía Editorial | Javier Espinosa",
     seoDescription:
-      "Archivo fotográfico y encargos documentales de fauna salvaje, aves y espacios naturales (Monfragüe, Sierra de Gredos, Canarias) capturados a 600mm en libertad sin alteración del hábitat.",
+      "Encargos de fotografía documental, reportajes de oficios tradicionales, memoria rural y cobertura editorial por Javier Espinosa Martínez desde Tenerife.",
     subtitle:
-      "Licencias de reproducción editorial y encargos de documentación ambiental capturados en libertad con teleobjetivo de 600mm y ética estricta de conservación.",
+      "Reportajes de media y larga duración sobre oficios manuales, patrimonio vivo y territorio para editoriales, instituciones culturales y publicaciones.",
+    category: "viajes-cultura",
+    heroImage: "/images/portfolio/viajes-cultura/el-oficio-y-la-chispa.jpg",
+    intro: [
+      "El trabajo documental pide tiempo y discreción: entrar en un taller o en una plaza sin alterar lo que ocurre, aprovechar la luz que hay y dejar que las personas sigan con su tarea habitual sin posar para la cámara.",
+      "Desarrollo ensayos fotográficos y reportajes por encargo para revistas culturales, editoriales, fundaciones e instituciones públicas que necesitan documentar oficios artesanales, arquitectura vernácula y vida cotidiana con rigor y mirada propia.",
+    ],
+    deliverables: [
+      "Inmersión y documentación en campo con luz natural sin puestas en escena forzadas",
+      "Reportajes completos editados y secuenciados para publicación impresa o exposición",
+      "Archivos máster calibrados (TIFF 16-bit / JPEG 300 DPI) con metadatos y pies de foto contextuales",
+      "Cesión de derechos editoriales o institucionales por escrito según el alcance del proyecto",
+    ],
+    idealFor:
+      "Editoriales, revistas culturales y de viajes, instituciones públicas, museos etnográficos y fundaciones culturales.",
+    technicalSpecs: [
+      { label: "Cuerpo principal", value: "Canon EOS R7 (RAW 14-bit · 32,5 MP)" },
+      { label: "Ópticas de reportaje", value: "Canon RF-S 18-150mm & EF 50mm f/1.8 STM" },
+      { label: "Entrega máster", value: "TIFF 16-bit / JPEG 300 DPI en Sala Privada (/cliente)" },
+      { label: "Ámbito geográfico", value: "Tenerife, Canarias, Península Ibérica y desplazamientos" },
+    ],
+    process: [
+      {
+        step: "01",
+        title: "Documentación Previa y Guion Visual",
+        description:
+          "Definición del enfoque narrativo, localización de talleres o protagonistas y planificación de jornadas de trabajo.",
+      },
+      {
+        step: "02",
+        title: "Rodaje Discreto en Terreno",
+        description:
+          "Trabajo pausado con luz ambiente para recoger tanto los gestos del oficio como el contexto espacial que lo rodea.",
+      },
+      {
+        step: "03",
+        title: "Edición y Secuencia Narrativa",
+        description:
+          "Selección y revelado coherente de la serie junto a notas de campo sobre cada escena fotografiada.",
+      },
+      {
+        step: "04",
+        title: "Entrega Editorial o Expositiva",
+        description:
+          "Acceso privado para descarga de másters de imprenta y opción de producción de copias Fine Art para exposición.",
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Se pueden encargar reportajes de varios días fuera de Tenerife?",
+        a: "Sí. Realizo desplazamientos tanto entre islas como a la Península Ibérica y el extranjero para proyectos documentales y reportajes editoriales.",
+      },
+      {
+        q: "¿El reportaje puede adaptarse después a una exposición o catálogo impreso?",
+        a: "Sí. Todos los archivos se trabajan en RAW de 32,5 MP y pueden entregarse tanto para maquetación editorial como en copias Fine Art sobre papel de algodón Hahnemühle 308g.",
+      },
+    ],
+    primaryCta: {
+      label: "Solicitar Propuesta Documental",
+      href: "/contact?servicio=documental-editorial&motivo=Encargo",
+    },
+    secondaryCta: {
+      label: "Ver Archivo Documental",
+      href: "/portfolio/viajes-cultura",
+    },
+  },
+  {
+    slug: "licencias-fotografia-fauna-naturaleza",
+    serviceId: "licencias-fauna",
+    kicker: "Fauna y Naturaleza · Archivo a 600mm",
+    title: "Fotografía de Fauna y Licencias Editoriales de Naturaleza",
+    seoTitle: "Fotografía de Fauna y Licencias Editoriales | Javier Espinosa",
+    seoDescription:
+      "Archivo fotográfico y licencias editoriales de fauna, aves y espacios naturales (Tenerife, Monfragüe, Sierra de Gredos) capturados a 600mm con luz natural.",
+    subtitle:
+      "Licencias de reproducción editorial y encargos de documentación ambiental a 600mm, indicando en cada obra el lugar real y las condiciones de la toma.",
     category: "fauna-naturaleza",
     heroImage: "/images/portfolio/fauna-naturaleza/mirada-del-lince-boreal.jpg",
     intro: [
-      "Toda las imágenes de fauna y territorio de este archivo han sido realizadas bajo condiciones reales de campo, respetando la distancia de seguridad de cada especie y sin recurrir a manipulaciones generativas. La combinación del sensor APS-C de 32,5 MP con la focal de 600mm permite aislar comportamientos y texturas de plumaje desde la discreción absoluta.",
-      "El catálogo está disponible bajo licencia Rights-Managed (RM) para editoriales, revistas científicas y de naturaleza, centros de interpretación ambiental, parques nacionales y campañas institucionales de conservación.",
+      "Todas las imágenes de fauna y naturaleza de este archivo han sido tomadas con luz natural y sin manipulaciones generativas, trabajando a distancia con teleobjetivo de 600mm tanto en entorno natural abierto como en parques y centros de fauna, detallando con transparencia en cada ficha el lugar y las condiciones de captura.",
+      "El catálogo está disponible bajo licencia Rights-Managed (RM) para editoriales, revistas científicas y de naturaleza, centros de interpretación ambiental, parques naturales y publicaciones culturales.",
     ],
     deliverables: [
       "Licencias Rights-Managed (RM) de archivo con exclusividad sectorial o temporal opcional",
