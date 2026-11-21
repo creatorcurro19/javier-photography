@@ -189,7 +189,6 @@ export const SERIES: Project[] = [
       "vc-05",
       "vc-16",
       "au-11",
-      "au-10",
       "au-08",
       "vc-29",
       "vc-36",
@@ -4152,54 +4151,6 @@ export const WORKS: Photo[] = [
     "seriesSlug": "medina-y-kasbah",
     "maxRecommendedFormat": "coleccion",
     "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (60 × 90 cm)."
-  },
-  {
-    "id": "au-10",
-    "slug": "arco-polilobulado-en-luz",
-    "title": "Arco Polilobulado en Luz",
-    "category": "arquitectura-urbana",
-    "image": "/images/portfolio/arquitectura-urbana/arco-polilobulado-en-luz.jpg",
-    "width": 1650,
-    "height": 2200,
-    "alt": "Silueta de un arco polilobulado recortada a contraluz frente al reflejo dorado del pavimento cerámico de un patio en Marrakech",
-    "camera": "Canon EOS R7",
-    "lens": "Canon EF-S 10-18mm f/4.5-5.6 IS STM",
-    "iso": 6400,
-    "aperture": "f/6.3",
-    "shutter": "1/160s",
-    "focalLength": "12mm",
-    "description": "Contraste entre la silueta oscura del vano polilobulado y el resplandor dorado del pavimento cerámico del patio.",
-    "location": "Palacio Histórico, Marrakech",
-    "country": "Marruecos",
-    "year": 2026,
-    "featured": false,
-    "prints": true,
-    "licensing": true,
-    "keywords": [
-      "arco polilobulado",
-      "contraluz arquitectónico",
-      "marrakech",
-      "geometría islámica",
-      "marruecos",
-      "islamic arch geometry"
-    ],
-    "pricing": {
-      "estudio": 150,
-      "galeria": 265,
-      "coleccion": 440,
-      "dimensions": {
-        "estudio": "30 × 45 cm",
-        "galeria": "50 × 70 cm",
-        "coleccion": "60 × 90 cm"
-      },
-      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
-      "editionTotal": 18,
-      "score": 87
-    },
-    "series": "Medina, Atlas y Kasbah",
-    "seriesSlug": "medina-y-kasbah",
-    "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Captura nocturna o en penumbra a ISO 6400: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm."
   },
   {
     "id": "au-11",
