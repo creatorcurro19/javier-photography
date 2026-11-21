@@ -30,6 +30,10 @@ export default function SocialProofSection() {
   const { lang, t } = useLanguage();
   const hasRealItems = socialProofItems && socialProofItems.length > 0;
 
+  if (!hasRealItems) {
+    return null;
+  }
+
   return (
     <section
       aria-label={t("Prueba social y menciones", "Social proof and features")}
