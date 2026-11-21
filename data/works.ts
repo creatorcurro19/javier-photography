@@ -4172,7 +4172,7 @@ export const WORKS: Photo[] = [
     "country": "Marruecos",
     "year": 2026,
     "featured": false,
-    "prints": true,
+    "prints": false,
     "licensing": true,
     "keywords": [
       "vidrieras policromadas",
