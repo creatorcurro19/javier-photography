@@ -196,6 +196,8 @@ export default function Footer() {
             <Link href="/legal" className="hover:text-[#EBE7DF] transition">{t("Aviso Legal y Privacidad", "Legal Notice & Privacy")}</Link>
             <span>·</span>
             <Link href="/condiciones" className="hover:text-[#EBE7DF] transition">{t("Condiciones de Compra y Licencia", "Terms & Conditions")}</Link>
+            <span>·</span>
+            <Link href="/admin" className="hover:text-[#C5A880] transition">{t("Acceso Autor", "Creator Access")}</Link>
           </div>
         </div>
       </div>
