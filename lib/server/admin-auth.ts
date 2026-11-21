@@ -2,7 +2,7 @@ import "server-only";
 import crypto from "crypto";
 
 const DEFAULT_PIN = "88722";
-const DEFAULT_USER = "admin";
+const DEFAULT_USER = "Javier";
 const DEFAULT_SECRET = "javier-espinosa-studio-auth-secret-key-2026";
 
 export function getAdminPin(): string {
@@ -49,39 +49,29 @@ export function isValidSessionToken(token: string | null | undefined): boolean {
 }
 
 /**
- * Comprueba si las credenciales coinciden con el usuario y la clave de acceso (88722).
- * Admite 'admin', 'creatorcurro19' y 'javier' como identificadores válidos.
+ * Comprueba si las credenciales coinciden con el usuario (Javier) y la clave de acceso.
+ * El usuario no distingue mayúsculas/minúsculas ni tildes ("javier", "JAVIER"...).
  */
+function normalizeUser(value: string): string {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLowerCase();
+}
+
 export function verifyCredentials(
   userCandidate: string | null | undefined,
   pinCandidate: string | null | undefined
 ): boolean {
   if (!pinCandidate || typeof pinCandidate !== "string") return false;
+  if (!userCandidate || typeof userCandidate !== "string") return false;
 
-  const validPin = getAdminPin();
-  const cleanPin = pinCandidate.trim();
-
-  // Comprobar PIN primero
-  if (cleanPin !== validPin) {
+  if (pinCandidate.trim() !== getAdminPin()) {
     return false;
   }
 
-  // Comprobar usuario si se proporciona (permite 'admin', 'creatorcurro19', 'javier', o vacío)
-  if (userCandidate && typeof userCandidate === "string") {
-    const cleanUser = userCandidate.trim().toLowerCase();
-    const allowedUsers = [
-      getAdminUser().toLowerCase(),
-      "admin",
-      "creatorcurro19",
-      "javier",
-      "javier espinosa",
-    ];
-    if (!allowedUsers.includes(cleanUser)) {
-      return false;
-    }
-  }
-
-  return true;
+  return normalizeUser(userCandidate) === normalizeUser(getAdminUser());
 }
 
 /**

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { WORKS } from "@/data/works";
+import { CATEGORY_METADATA } from "@/types/photo";
 
 const USAGE_TYPES = [
   {
@@ -96,7 +97,7 @@ export default function LicenseConfigurator() {
               </option>
               {WORKS.map((w) => (
                 <option key={w.id} value={`${w.title} (${w.id})`}>
-                  {w.title} — {w.location ?? w.category} ({w.year})
+                  {w.title} — {w.location ?? CATEGORY_METADATA[w.category]?.title ?? w.category} ({w.year})
                 </option>
               ))}
             </select>

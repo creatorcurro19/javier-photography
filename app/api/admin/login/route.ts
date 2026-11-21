@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import {
   verifyCredentials,
   generateSessionToken,
+  getAdminUser,
 } from "@/lib/server/admin-auth";
 import { getClientIp, rateLimit } from "@/lib/server/rate-limit";
 
@@ -24,9 +25,9 @@ export async function POST(request: Request) {
     const userCandidate = typeof body?.username === "string" ? body.username.trim() : "";
     const pinCandidate = typeof body?.pin === "string" ? body.pin.trim() : "";
 
-    if (!pinCandidate) {
+    if (!userCandidate || !pinCandidate) {
       return NextResponse.json(
-        { ok: false, error: "Introduce la clave de acceso de 5 dígitos." },
+        { ok: false, error: "Introduce tu usuario y la clave de acceso." },
         { status: 400 }
       );
     }
@@ -47,7 +48,7 @@ export async function POST(request: Request) {
 
     const response = NextResponse.json({
       ok: true,
-      user: "Admin",
+      user: getAdminUser(),
       message: "Acceso concedido al Estudio de Autor",
       token, // Devuelto también para clientes que usen Authorization Bearer
     });

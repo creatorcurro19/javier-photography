@@ -5,6 +5,7 @@ import Image from "next/image";
 import type { Photo } from "@/types/photo";
 import { PHOTO_CATEGORIES, CATEGORY_METADATA } from "@/types/photo";
 import WorkEditorModal from "./WorkEditorModal";
+import type { AdminSeries } from "./categoryEditorConfig";
 import {
   SearchIcon,
   CloseIcon,
@@ -19,16 +20,21 @@ import {
 
 interface AdminDashboardProps {
   initialWorks: Photo[];
+  initialSeries: AdminSeries[];
+  githubConfigured: boolean;
   user: string;
   onLogout: () => void;
 }
 
 export default function AdminDashboard({
   initialWorks,
+  initialSeries,
+  githubConfigured,
   user,
   onLogout,
 }: AdminDashboardProps) {
   const [works, setWorks] = useState<Photo[]>(initialWorks);
+  const [series, setSeries] = useState<AdminSeries[]>(initialSeries);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("todas");
   const [filterPrintsOnly, setFilterPrintsOnly] = useState(false);
@@ -43,12 +49,15 @@ export default function AdminDashboard({
   // Modal de Sincronización / Respaldo
   const [isSyncModalOpen, setIsSyncModalOpen] = useState(false);
   const [githubToken, setGithubToken] = useState("");
-  const [toastMessage, setToastMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
+  const [toastMessage, setToastMessage] = useState<{ text: string; type: "success" | "error" | "warning" } | null>(null);
 
-  const showToast = (text: string, type: "success" | "error" = "success") => {
+  const showToast = (text: string, type: "success" | "error" | "warning" = "success") => {
     setToastMessage({ text, type });
-    setTimeout(() => setToastMessage(null), 4000);
+    setTimeout(() => setToastMessage(null), type === "success" ? 4000 : 7000);
   };
+
+  const seriesTitlesFor = (photoId: string) =>
+    series.filter((s) => s.photoIds.includes(photoId)).map((s) => s.title);
 
   // Filtrado y ordenación
   const filteredWorks = useMemo(() => {
@@ -70,7 +79,7 @@ export default function AdminDashboard({
           const matchTitle = w.title.toLowerCase().includes(q);
           const matchSlug = w.slug.toLowerCase().includes(q);
           const matchId = w.id.toLowerCase().includes(q);
-          const matchSeries = w.series?.toLowerCase().includes(q);
+          const matchSeries = seriesTitlesFor(w.id).some((t) => t.toLowerCase().includes(q));
           const matchLocation = w.location?.toLowerCase().includes(q) || w.realLocation?.toLowerCase().includes(q);
           const matchKeywords = w.keywords?.some((k) => k.toLowerCase().includes(q));
 
@@ -89,7 +98,8 @@ export default function AdminDashboard({
         }
         return a.id.localeCompare(b.id);
       });
-  }, [works, selectedCategory, filterPrintsOnly, filterFeaturedOnly, filterStoryOnly, searchTerm, sortBy]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [works, series, selectedCategory, filterPrintsOnly, filterFeaturedOnly, filterStoryOnly, searchTerm, sortBy]);
 
   // Contadores
   const stats = useMemo(() => {
@@ -102,7 +112,7 @@ export default function AdminDashboard({
   }, [works]);
 
   // Guardar cambios en una obra
-  const handleSavePhoto = async (updated: Photo) => {
+  const handleSavePhoto = async (updated: Photo, seriesSlugs?: string[]) => {
     setIsSaving(true);
     try {
       const res = await fetch("/api/admin/works", {
@@ -110,6 +120,7 @@ export default function AdminDashboard({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           photo: updated,
+          seriesSlugs,
           githubToken: githubToken.trim() || undefined,
         }),
       });
@@ -117,10 +128,11 @@ export default function AdminDashboard({
       const data = await res.json();
 
       if (res.ok && data.ok) {
-        // Actualizar array en estado local
-        setWorks((prev) => prev.map((w) => (w.id === updated.id ? updated : w)));
+        const saved: Photo = data.photo ?? updated;
+        setWorks((prev) => prev.map((w) => (w.id === saved.id ? saved : w)));
+        if (Array.isArray(data.series)) setSeries(data.series);
         setEditingPhoto(null);
-        showToast(data.message || `Fotografía "${updated.title}" guardada con éxito.`);
+        showToast(data.message || `"${saved.title}" guardada.`, data.published ? "success" : "warning");
       } else {
         showToast(data.error || "No se pudo guardar la fotografía en el servidor.", "error");
       }
@@ -149,10 +161,14 @@ export default function AdminDashboard({
     <div className="min-h-screen bg-[#0B0C0E] text-[#EBE7DF] pb-24">
       {/* Toast Flotante */}
       {toastMessage && (
-        <div className="fixed top-6 right-6 z-50 flex items-center gap-3 rounded-xl border border-[#C5A880]/40 bg-[#16171B]/95 px-5 py-3.5 shadow-2xl backdrop-blur-md animate-fadeIn">
+        <div className="fixed top-6 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-[60] flex items-center gap-3 rounded-xl border border-[#C5A880]/40 bg-[#16171B]/95 px-5 py-3.5 shadow-2xl backdrop-blur-md animate-fadeIn">
           {toastMessage.type === "success" ? (
             <div className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
               <CheckIcon className="h-4 w-4" />
+            </div>
+          ) : toastMessage.type === "warning" ? (
+            <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-amber-500/20 text-amber-300 font-bold text-sm">
+              !
             </div>
           ) : (
             <div className="flex h-6 w-6 items-center justify-center rounded-full bg-red-500/20 text-red-400">
@@ -180,7 +196,7 @@ export default function AdminDashboard({
                 </span>
               </div>
               <p className="hidden xs:block truncate text-[11px] text-[#8E8A81]">
-                Sesión: {user} &middot; Puerto de la Cruz
+                Sesión: {user}
               </p>
             </div>
           </div>
@@ -217,6 +233,12 @@ export default function AdminDashboard({
       </header>
 
       <main className="mx-auto max-w-7xl px-4 pt-6 sm:px-6">
+        {!githubConfigured && !githubToken.trim() && (
+          <div className="mb-6 rounded-xl border border-amber-500/30 bg-amber-950/20 px-4 py-3 text-xs leading-relaxed text-amber-200">
+            <strong className="font-semibold">Publicación pendiente de activar:</strong> puedes editar, pero los
+            cambios no llegarán a la web pública hasta conectar GitHub (botón «Sincronizar»).
+          </div>
+        )}
         {/* Banner de Métricas Rápidas */}
         <section className="grid grid-cols-2 gap-3 sm:grid-cols-4 mb-6">
           <div className="rounded-xl border border-[#22242B] bg-[#141519] p-3.5 sm:p-4">
@@ -270,7 +292,7 @@ export default function AdminDashboard({
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Buscar por título, serie, ubicación, cámara o etiquetas..."
+                placeholder="Buscar por título, serie, lugar o etiquetas…"
                 className="w-full rounded-xl border border-[#2A2C34] bg-[#18191F] py-2.5 pl-10 pr-9 text-xs sm:text-sm text-[#EBE7DF] placeholder-[#66635C] transition focus:border-[#C5A880] focus:outline-none"
               />
               {searchTerm && (
@@ -427,7 +449,7 @@ export default function AdminDashboard({
                             {photo.id}
                           </span>
                           <span className="truncate text-[10px] text-[#8E8A81] uppercase tracking-wider">
-                            {CATEGORY_METADATA[photo.category]?.title?.split(" ")[0] || photo.category}
+                            {CATEGORY_METADATA[photo.category]?.title || photo.category}
                           </span>
                         </div>
 
@@ -436,7 +458,7 @@ export default function AdminDashboard({
                         </h3>
 
                         <p className="truncate text-xs text-[#8E8A81]">
-                          {photo.series || photo.location || photo.country || "Archivo"} &middot; {photo.year}
+                          {seriesTitlesFor(photo.id)[0] || photo.location || photo.country || "Sin serie"} &middot; {photo.year}
                         </p>
                       </div>
                     </div>
@@ -517,8 +539,9 @@ export default function AdminDashboard({
       {/* Modal de Edición Completa */}
       {editingPhoto && (
         <WorkEditorModal
+          key={editingPhoto.id}
           photo={editingPhoto}
-          isOpen={Boolean(editingPhoto)}
+          allSeries={series}
           onClose={() => setEditingPhoto(null)}
           onSave={handleSavePhoto}
           isSaving={isSaving}

@@ -37,6 +37,63 @@ const PALETTES = [
 
 const INITIAL_BATCH = 24;
 
+function matchesFilterMode(photo: Photo, mode: FilterMode): boolean {
+  if (mode === "vertical") return photo.height > photo.width;
+  if (mode === "horizontal") return photo.width > photo.height;
+  if (mode === "telephoto") {
+    const mm = parseInt(photo.focalLength, 10);
+    return !Number.isNaN(mm) && mm >= 150;
+  }
+  if (mode === "prints") return Boolean(photo.prints);
+  return true;
+}
+
+function matchesPaletteMode(photo: Photo, pal: PaletteMode): boolean {
+  if (pal === "all") return true;
+  const text = `${photo.category} ${photo.title} ${photo.location ?? ""} ${photo.keywords.join(" ")}`.toLowerCase();
+  if (pal === "ochre") {
+    return (
+      text.includes("paisajes") ||
+      text.includes("sahara") ||
+      text.includes("duna") ||
+      text.includes("marruecos") ||
+      text.includes("teide") ||
+      text.includes("dorad")
+    );
+  }
+  if (pal === "green") {
+    return (
+      text.includes("fauna") ||
+      text.includes("lince") ||
+      text.includes("bosque") ||
+      text.includes("ave") ||
+      text.includes("verde") ||
+      text.includes("gomera")
+    );
+  }
+  if (pal === "dark") {
+    return (
+      text.includes("rally") ||
+      text.includes("coche") ||
+      text.includes("asfalto") ||
+      text.includes("nocturn") ||
+      text.includes("velocidad")
+    );
+  }
+  if (pal === "earth") {
+    return (
+      text.includes("vera") ||
+      text.includes("caceres") ||
+      text.includes("arquitectura") ||
+      text.includes("pueblo") ||
+      text.includes("oficio") ||
+      text.includes("tradicion") ||
+      text.includes("piedra")
+    );
+  }
+  return true;
+}
+
 export default function ExhibitionGallery({
   photos,
   showMeta = true,
@@ -49,61 +106,31 @@ export default function ExhibitionGallery({
   const [paletteMode, setPaletteMode] = useState<PaletteMode>("all");
   const [visibleCount, setVisibleCount] = useState(INITIAL_BATCH);
 
-  const filteredPhotos = photos.filter((photo) => {
-    if (filterMode === "vertical" && photo.height <= photo.width) return false;
-    if (filterMode === "horizontal" && photo.width <= photo.height) return false;
-    if (filterMode === "telephoto") {
-      const mm = parseInt(photo.focalLength, 10);
-      if (Number.isNaN(mm) || mm < 150) return false;
-    }
-    if (filterMode === "prints" && !photo.prints) return false;
-
-    if (paletteMode !== "all") {
-      const text = `${photo.category} ${photo.title} ${photo.location ?? ""} ${photo.keywords.join(" ")}`.toLowerCase();
-      if (paletteMode === "ochre") {
-        return (
-          text.includes("paisajes") ||
-          text.includes("sahara") ||
-          text.includes("duna") ||
-          text.includes("marruecos") ||
-          text.includes("teide") ||
-          text.includes("dorad")
-        );
-      }
-      if (paletteMode === "green") {
-        return (
-          text.includes("fauna") ||
-          text.includes("lince") ||
-          text.includes("bosque") ||
-          text.includes("ave") ||
-          text.includes("verde") ||
-          text.includes("gomera")
-        );
-      }
-      if (paletteMode === "dark") {
-        return (
-          text.includes("rally") ||
-          text.includes("coche") ||
-          text.includes("asfalto") ||
-          text.includes("nocturn") ||
-          text.includes("velocidad")
-        );
-      }
-      if (paletteMode === "earth") {
-        return (
-          text.includes("vera") ||
-          text.includes("caceres") ||
-          text.includes("arquitectura") ||
-          text.includes("pueblo") ||
-          text.includes("oficio") ||
-          text.includes("tradicion") ||
-          text.includes("piedra")
-        );
-      }
-    }
-
-    return true;
+  const availableFilterItems = (
+    [
+      { id: "all", label: "Todas" },
+      { id: "vertical", label: "Vertical" },
+      { id: "horizontal", label: "Horizontal" },
+      { id: "telephoto", label: "Tele ≥150mm" },
+      { id: "prints", label: "Fine Art" },
+    ] as const
+  ).filter((item) => {
+    if (item.id === "all") return true;
+    const count = photos.filter((p) => matchesFilterMode(p, item.id)).length;
+    return count > 0 && count < photos.length;
   });
+
+  const availablePalettes = PALETTES.filter((pal) => {
+    if (pal.id === "all") return true;
+    const count = photos.filter((p) => matchesPaletteMode(p, pal.id)).length;
+    return count > 0 && count < photos.length;
+  });
+
+  const filteredPhotos = photos.filter(
+    (photo) =>
+      matchesFilterMode(photo, filterMode) &&
+      matchesPaletteMode(photo, paletteMode)
+  );
 
   const visiblePhotos =
     viewMode === "archive"
@@ -133,18 +160,10 @@ export default function ExhibitionGallery({
           <span className="shrink-0 mr-1 font-mono text-xs text-[#8E8A80]">
             {filteredPhotos.length} {filteredPhotos.length === 1 ? "foto" : "fotos"}
           </span>
-          {photos.length > 4 && (
+          {photos.length > 4 && availableFilterItems.length > 1 && (
             <>
               <span className="hidden sm:inline text-white/20">|</span>
-              {(
-                [
-                  { id: "all", label: "Todas" },
-                  { id: "vertical", label: "Vertical" },
-                  { id: "horizontal", label: "Horizontal" },
-                  { id: "telephoto", label: "Tele ≥150mm" },
-                  { id: "prints", label: "Fine Art" },
-                ] as const
-              ).map((item) => (
+              {availableFilterItems.map((item) => (
                 <button
                   key={item.id}
                   type="button"
@@ -228,13 +247,13 @@ export default function ExhibitionGallery({
       </div>
 
       {/* Selector de Armonía Cromática para Interiorismo */}
-      {photos.length > 6 && (
+      {photos.length > 6 && availablePalettes.length > 2 && (
         <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border border-white/[0.08] bg-[#151618] px-4 py-2.5">
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1 -mx-2 px-2 sm:mx-0 sm:px-0 sm:flex-wrap">
             <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
               Armonía Cromática:
             </span>
-            {PALETTES.map((pal) => {
+            {availablePalettes.map((pal) => {
               const active = paletteMode === pal.id;
               return (
                 <button

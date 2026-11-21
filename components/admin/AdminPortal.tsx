@@ -4,16 +4,21 @@ import React, { useState, useEffect, useCallback } from "react";
 import type { Photo } from "@/types/photo";
 import AdminLogin from "./AdminLogin";
 import AdminDashboard from "./AdminDashboard";
+import type { AdminSeries } from "./categoryEditorConfig";
 
 interface AdminPortalProps {
   initialWorks: Photo[];
+  initialSeries: AdminSeries[];
 }
 
-export default function AdminPortal({ initialWorks }: AdminPortalProps) {
+export default function AdminPortal({ initialWorks, initialSeries }: AdminPortalProps) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const [user, setUser] = useState<string>("Admin");
+  const [user, setUser] = useState<string>("Javier");
   const [works, setWorks] = useState<Photo[]>(initialWorks);
+  const [series, setSeries] = useState<AdminSeries[]>(initialSeries);
+  const [githubConfigured, setGithubConfigured] = useState(false);
   const [loadingWorks, setLoadingWorks] = useState(false);
+  const [dataVersion, setDataVersion] = useState(0);
 
   const loadWorks = useCallback(async () => {
     setLoadingWorks(true);
@@ -24,6 +29,9 @@ export default function AdminPortal({ initialWorks }: AdminPortalProps) {
         if (data.works && Array.isArray(data.works)) {
           setWorks(data.works);
         }
+        if (Array.isArray(data.series)) setSeries(data.series);
+        setGithubConfigured(Boolean(data.githubConfigured));
+        setDataVersion((v) => v + 1);
       }
     } catch {
       // Si falla, se usan initialWorks pasados por servidor
@@ -40,7 +48,7 @@ export default function AdminPortal({ initialWorks }: AdminPortalProps) {
         if (res.ok) {
           const data = await res.json();
           if (data.authenticated) {
-            setUser(data.user || "Admin");
+            setUser(data.user || "Javier");
             setIsAuthenticated(true);
             loadWorks();
             return;
@@ -100,7 +108,14 @@ export default function AdminPortal({ initialWorks }: AdminPortalProps) {
           Sincronizando archivo...
         </div>
       )}
-      <AdminDashboard initialWorks={works} user={user} onLogout={handleLogout} />
+      <AdminDashboard
+        key={dataVersion}
+        initialWorks={works}
+        initialSeries={series}
+        githubConfigured={githubConfigured}
+        user={user}
+        onLogout={handleLogout}
+      />
     </div>
   );
 }

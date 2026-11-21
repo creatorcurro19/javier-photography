@@ -110,7 +110,8 @@ export default function PhotoMeta({ photo }: PhotoMetaProps) {
             </dd>
           </div>
         )}
-        {(photo.realLocation || photo.wildlifeCondition) && (
+        {photo.category === "fauna-naturaleza" &&
+          (photo.realLocation || photo.wildlifeCondition) && (
           <div className="col-span-2">
             <dt className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#C5A880]">
               Lugar Real y Condiciones (Fauna / Naturaleza)

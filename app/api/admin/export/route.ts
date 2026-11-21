@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { isAuthenticatedRequest } from "@/lib/server/admin-auth";
-import { getCurrentWorks, generateWorksTsSource } from "@/lib/server/works-updater";
+import { generateWorksTsSource } from "@/lib/server/works-updater";
 
 export async function GET(request: Request) {
   if (!isAuthenticatedRequest(request)) {
@@ -10,8 +10,7 @@ export async function GET(request: Request) {
     );
   }
 
-  const works = getCurrentWorks();
-  const source = generateWorksTsSource(works);
+  const source = generateWorksTsSource();
 
   return new NextResponse(source, {
     status: 200,

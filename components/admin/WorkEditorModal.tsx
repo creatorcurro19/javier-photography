@@ -1,94 +1,132 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Image from "next/image";
 import type { Photo, PhotoCategory, MaxPrintFormatId, WildlifeCondition } from "@/types/photo";
 import { PHOTO_CATEGORIES, CATEGORY_METADATA } from "@/types/photo";
 import { CloseIcon, CheckIcon, ExternalLinkIcon } from "./AdminIcons";
+import {
+  CATEGORY_EDITOR_CONFIG,
+  getRelevantSeries,
+  type AdminSeries,
+} from "./categoryEditorConfig";
 
 interface WorkEditorModalProps {
   photo: Photo;
-  isOpen: boolean;
+  allSeries: AdminSeries[];
   onClose: () => void;
-  onSave: (updated: Photo) => Promise<void>;
+  onSave: (updated: Photo, seriesSlugs: string[]) => Promise<void>;
   isSaving: boolean;
 }
 
+type TabId = "general" | "textos" | "precios" | "ubicacion";
+
+const DEFAULT_DIMENSIONS = {
+  estudio: "30 × 45 cm",
+  galeria: "50 × 70 cm",
+  coleccion: "70 × 100 cm",
+};
+
+const inputClass =
+  "w-full rounded-lg border border-[#2D3036] bg-[#17181D] px-3.5 py-2.5 text-sm text-[#EBE7DF] placeholder-[#5E5A53] focus:border-[#C5A880] focus:outline-none";
+const labelClass = "block text-xs font-mono uppercase tracking-wider text-[#A39E93] mb-1";
+
 export default function WorkEditorModal({
   photo,
-  isOpen,
+  allSeries,
   onClose,
   onSave,
   isSaving,
 }: WorkEditorModalProps) {
   const [formData, setFormData] = useState<Photo>({ ...photo });
-  const [activeTab, setActiveTab] = useState<"general" | "narrativa" | "fineart" | "tecnico">("general");
+  const [activeTab, setActiveTab] = useState<TabId>("general");
   const [keywordsText, setKeywordsText] = useState(photo.keywords?.join(", ") || "");
+  const [selectedSeries, setSelectedSeries] = useState<string[]>(
+    allSeries.filter((s) => s.photoIds.includes(photo.id)).map((s) => s.slug)
+  );
 
-  if (!isOpen) return null;
+  const config = CATEGORY_EDITOR_CONFIG[formData.category];
+  const dims = formData.pricing?.dimensions ?? DEFAULT_DIMENSIONS;
+  const categoryChanged = formData.category !== photo.category;
 
-  const handleTextChange = (field: keyof Photo, value: string | number | boolean) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
+  const relevantSeries = useMemo(
+    () => getRelevantSeries(allSeries, formData.category, photo.id),
+    [allSeries, formData.category, photo.id]
+  );
+
+  const setField = <K extends keyof Photo>(field: K, value: Photo[K]) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handlePricingChange = (key: "estudio" | "galeria" | "coleccion" | "paper" | "editionTotal", value: string | number) => {
+  const handleCategoryChange = (category: PhotoCategory) => {
+    setFormData((prev) => ({ ...prev, category }));
+    // Quita las series que ya no encajan con la nueva categoría (salvo las de otra categoría a las que ya pertenecía)
+    setSelectedSeries((prev) =>
+      prev.filter((slug) =>
+        getRelevantSeries(allSeries, category, photo.id).some((s) => s.slug === slug)
+      )
+    );
+  };
+
+  const toggleSeries = (slug: string) => {
+    setSelectedSeries((prev) =>
+      prev.includes(slug) ? prev.filter((s) => s !== slug) : [...prev, slug]
+    );
+  };
+
+  const handlePricingChange = (
+    key: "estudio" | "galeria" | "coleccion" | "paper" | "editionTotal",
+    value: string | number
+  ) => {
     setFormData((prev) => {
-      const currentPricing = prev.pricing || {
+      const current = prev.pricing ?? {
         estudio: 95,
         galeria: 175,
         coleccion: 290,
-        dimensions: {
-          estudio: "30 × 45 cm",
-          galeria: "50 × 70 cm",
-          coleccion: "70 × 100 cm",
-        },
+        dimensions: { ...DEFAULT_DIMENSIONS },
         paper: "Hahnemühle Photo Rag Baryta 315g",
         editionTotal: 25,
         score: 85,
       };
-
-      return {
-        ...prev,
-        pricing: {
-          ...currentPricing,
-          [key]: value,
-        },
-      };
+      return { ...prev, pricing: { ...current, [key]: value } };
     });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const updatedKeywords = keywordsText
-      .split(",")
-      .map((k) => k.trim())
-      .filter((k) => k.length > 0);
-
     const finalPhoto: Photo = {
       ...formData,
-      keywords: updatedKeywords,
+      keywords: keywordsText
+        .split(",")
+        .map((k) => k.trim())
+        .filter((k) => k.length > 0),
     };
-
-    await onSave(finalPhoto);
+    // Los datos de fauna solo tienen sentido en fotos de fauna
+    if (!CATEGORY_EDITOR_CONFIG[finalPhoto.category].showWildlife) {
+      delete finalPhoto.wildlifeCondition;
+      delete finalPhoto.realLocation;
+    }
+    const validSeries = selectedSeries.filter((slug) =>
+      relevantSeries.some((s) => s.slug === slug)
+    );
+    await onSave(finalPhoto, validSeries);
   };
 
+  const tabs: { id: TabId; label: string }[] = [
+    { id: "general", label: "General" },
+    { id: "textos", label: "Textos" },
+    { id: "precios", label: "Precios" },
+    { id: "ubicacion", label: config.showWildlife ? "Lugar, fauna y EXIF" : "Lugar y EXIF" },
+  ];
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-md">
       <div className="relative flex max-h-[94vh] w-full max-w-4xl flex-col rounded-2xl border border-[#2B2E36] bg-[#121316] text-[#EBE7DF] shadow-2xl overflow-hidden">
-        {/* Header Modal */}
+        {/* Cabecera */}
         <div className="flex items-center justify-between border-b border-[#22242B] px-4 py-3 sm:px-6 sm:py-4 bg-[#16171B]">
           <div className="flex items-center gap-3 min-w-0">
             <div className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-lg border border-[#30333C] bg-[#1B1D22]">
-              <Image
-                src={photo.image}
-                alt={photo.alt || photo.title}
-                fill
-                sizes="48px"
-                className="object-cover"
-              />
+              <Image src={photo.image} alt={photo.alt || photo.title} fill sizes="48px" className="object-cover" />
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2">
@@ -96,11 +134,11 @@ export default function WorkEditorModal({
                   {photo.id}
                 </span>
                 <span className="text-xs text-[#8E8A81]">
-                  {CATEGORY_METADATA[photo.category]?.title || photo.category}
+                  {CATEGORY_METADATA[formData.category]?.title}
                 </span>
               </div>
               <h2 className="truncate font-serif text-lg font-medium text-[#EBE7DF] sm:text-xl">
-                {formData.title}
+                {formData.title || "Sin título"}
               </h2>
             </div>
           </div>
@@ -111,33 +149,28 @@ export default function WorkEditorModal({
               target="_blank"
               rel="noreferrer"
               className="hidden sm:inline-flex items-center gap-1.5 rounded-lg border border-[#2D3038] px-3 py-1.5 text-xs text-[#A39E93] hover:text-[#EBE7DF] hover:border-[#C5A880] transition"
-              title="Abrir ficha pública en nueva pestaña"
             >
-              <span>Ver pública</span>
+              <span>Ver en la web</span>
               <ExternalLinkIcon className="h-3.5 w-3.5" />
             </a>
             <button
               onClick={onClose}
-              className="rounded-lg p-2 text-[#A39E93] hover:bg-[#202228] hover:text-[#EBE7DF] transition cursor-pointer"
-              aria-label="Cerrar modal"
+              className="flex h-11 w-11 items-center justify-center rounded-lg text-[#A39E93] hover:bg-[#202228] hover:text-[#EBE7DF] transition cursor-pointer"
+              aria-label="Cerrar"
             >
               <CloseIcon className="h-5 w-5" />
             </button>
           </div>
         </div>
 
-        {/* Tab Navigation */}
-        <div className="flex border-b border-[#22242B] bg-[#151619] px-4 sm:px-6 overflow-x-auto no-scrollbar">
-          {[
-            { id: "general", label: "General & Título" },
-            { id: "narrativa", label: "Historia & Textos" },
-            { id: "fineart", label: "Precios Fine Art" },
-            { id: "tecnico", label: "Ubicación & EXIF" },
-          ].map((tab) => (
+        {/* Pestañas */}
+        <div className="flex border-b border-[#22242B] bg-[#151619] px-2 sm:px-6 overflow-x-auto">
+          {tabs.map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id as typeof activeTab)}
-              className={`whitespace-nowrap py-3 px-3 text-xs font-medium uppercase tracking-wider transition-colors border-b-2 ${
+              type="button"
+              onClick={() => setActiveTab(tab.id)}
+              className={`min-h-[44px] whitespace-nowrap px-3 text-xs font-medium uppercase tracking-wider transition-colors border-b-2 cursor-pointer ${
                 activeTab === tab.id
                   ? "border-[#C5A880] text-[#C5A880]"
                   : "border-transparent text-[#8E8A81] hover:text-[#EBE7DF]"
@@ -148,46 +181,28 @@ export default function WorkEditorModal({
           ))}
         </div>
 
-        {/* Form Body Scrollable */}
         <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto px-4 py-5 sm:px-6 sm:py-6 space-y-5">
-          {/* TAB 1: GENERAL */}
+          {/* GENERAL */}
           {activeTab === "general" && (
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-[#A39E93] mb-1">
-                  Título de la Obra *
-                </label>
+                <label className={labelClass}>Título *</label>
                 <input
                   type="text"
                   required
                   value={formData.title}
-                  onChange={(e) => handleTextChange("title", e.target.value)}
-                  className="w-full rounded-lg border border-[#2D3036] bg-[#17181D] px-3.5 py-2.5 text-sm text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
+                  onChange={(e) => setField("title", e.target.value)}
+                  className={inputClass}
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-[#A39E93] mb-1">
-                    Slug / URL Permanente *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.slug}
-                    onChange={(e) => handleTextChange("slug", e.target.value)}
-                    className="w-full rounded-lg border border-[#2D3036] bg-[#17181D] px-3.5 py-2.5 font-mono text-xs text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-[#A39E93] mb-1">
-                    Categoría *
-                  </label>
+                  <label className={labelClass}>Categoría *</label>
                   <select
                     value={formData.category}
-                    onChange={(e) => handleTextChange("category", e.target.value as PhotoCategory)}
-                    className="w-full rounded-lg border border-[#2D3036] bg-[#17181D] px-3.5 py-2.5 text-sm text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
+                    onChange={(e) => handleCategoryChange(e.target.value as PhotoCategory)}
+                    className={inputClass}
                   >
                     {PHOTO_CATEGORIES.map((cat) => (
                       <option key={cat} value={cat}>
@@ -195,385 +210,352 @@ export default function WorkEditorModal({
                       </option>
                     ))}
                   </select>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-[#A39E93] mb-1">
-                    Serie Monográfica
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.series || ""}
-                    onChange={(e) => handleTextChange("series", e.target.value)}
-                    placeholder="Ej. Custodios, Entre la Bruma..."
-                    className="w-full rounded-lg border border-[#2D3036] bg-[#17181D] px-3.5 py-2.5 text-xs text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
-                  />
+                  {categoryChanged && (
+                    <p className="mt-1.5 text-[11px] text-[#C5A880]">
+                      Has cambiado la categoría: los campos y las series se han ajustado.
+                      {photo.category === "fauna-naturaleza" &&
+                        " Los datos de fauna se eliminarán al guardar."}
+                    </p>
+                  )}
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-[#A39E93] mb-1">
-                    Año de Captura
-                  </label>
+                  <label className={labelClass}>Año</label>
                   <input
                     type="number"
+                    inputMode="numeric"
                     value={formData.year}
-                    onChange={(e) => handleTextChange("year", parseInt(e.target.value, 10) || 2026)}
-                    className="w-full rounded-lg border border-[#2D3036] bg-[#17181D] px-3.5 py-2.5 font-mono text-sm text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-[#A39E93] mb-1">
-                    Ruta de Imagen
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.image}
-                    onChange={(e) => handleTextChange("image", e.target.value)}
-                    className="w-full rounded-lg border border-[#2D3036] bg-[#17181D] px-3.5 py-2.5 font-mono text-xs text-[#8E8A81] focus:border-[#C5A880] focus:outline-none"
+                    onChange={(e) => setField("year", parseInt(e.target.value, 10) || photo.year)}
+                    className={`${inputClass} font-mono`}
                   />
                 </div>
               </div>
 
-              {/* Switches Rápidos */}
-              <div className="rounded-xl border border-[#24262E] bg-[#16171C] p-4 space-y-3">
+              {/* Series de la categoría */}
+              <div className="rounded-xl border border-[#24262E] bg-[#16171C] p-4">
                 <span className="text-xs font-mono uppercase tracking-wider text-[#C5A880]">
-                  Visibilidad en Web
+                  Series en las que aparece
                 </span>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <label className="flex items-center gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={formData.featured}
-                      onChange={(e) => handleTextChange("featured", e.target.checked)}
-                      className="h-4 w-4 rounded border-[#3A3D46] bg-[#1E2026] text-[#C5A880] focus:ring-[#C5A880]"
-                    />
-                    <span className="text-xs text-[#EBE7DF]">Destacada en Portada</span>
-                  </label>
-
-                  <label className="flex items-center gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={formData.prints}
-                      onChange={(e) => handleTextChange("prints", e.target.checked)}
-                      className="h-4 w-4 rounded border-[#3A3D46] bg-[#1E2026] text-[#C5A880] focus:ring-[#C5A880]"
-                    />
-                    <span className="text-xs text-[#EBE7DF]">Venta Fine Art Activa</span>
-                  </label>
-
-                  <label className="flex items-center gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={Boolean(formData.licensing)}
-                      onChange={(e) => handleTextChange("licensing", e.target.checked)}
-                      className="h-4 w-4 rounded border-[#3A3D46] bg-[#1E2026] text-[#C5A880] focus:ring-[#C5A880]"
-                    />
-                    <span className="text-xs text-[#EBE7DF]">Licencias Comerciales</span>
-                  </label>
-                </div>
+                {relevantSeries.length === 0 ? (
+                  <p className="mt-2 text-xs text-[#8E8A81]">
+                    No hay series de {CATEGORY_METADATA[formData.category]?.title}.
+                  </p>
+                ) : (
+                  <div className="mt-3 grid grid-cols-1 gap-2">
+                    {relevantSeries.map((s) => (
+                      <label
+                        key={s.slug}
+                        className="flex min-h-[44px] items-center gap-3 rounded-lg border border-[#2A2C33] bg-[#1A1C21] px-3 cursor-pointer"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={selectedSeries.includes(s.slug)}
+                          onChange={() => toggleSeries(s.slug)}
+                          className="h-4 w-4 accent-[#C5A880]"
+                        />
+                        <span className="text-xs text-[#EBE7DF]">{s.title}</span>
+                        {s.category !== formData.category && (
+                          <span className="ml-auto text-[10px] text-[#8E8A81]">
+                            {CATEGORY_METADATA[s.category]?.title}
+                          </span>
+                        )}
+                      </label>
+                    ))}
+                  </div>
+                )}
               </div>
+
+              <div className="rounded-xl border border-[#24262E] bg-[#16171C] p-4 space-y-1">
+                <span className="text-xs font-mono uppercase tracking-wider text-[#C5A880]">
+                  Visibilidad en la web
+                </span>
+                {[
+                  { field: "featured" as const, label: "Destacada en portada", checked: formData.featured },
+                  { field: "prints" as const, label: "A la venta como copia Fine Art", checked: formData.prints },
+                  { field: "licensing" as const, label: "Disponible para licencias", checked: Boolean(formData.licensing) },
+                ].map((opt) => (
+                  <label key={opt.field} className="flex min-h-[44px] items-center gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={opt.checked}
+                      onChange={(e) => setField(opt.field, e.target.checked)}
+                      className="h-4 w-4 accent-[#C5A880]"
+                    />
+                    <span className="text-sm text-[#EBE7DF]">{opt.label}</span>
+                  </label>
+                ))}
+              </div>
+
+              <details className="rounded-xl border border-[#22242B] bg-[#141519] p-4">
+                <summary className="cursor-pointer text-xs font-mono uppercase tracking-wider text-[#8E8A81]">
+                  Avanzado (URL e imagen)
+                </summary>
+                <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className={labelClass}>Dirección web (slug)</label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.slug}
+                      onChange={(e) => setField("slug", e.target.value)}
+                      className={`${inputClass} font-mono text-xs`}
+                    />
+                    <p className="mt-1 text-[11px] text-[#716C62]">
+                      Cambiarlo rompe los enlaces ya compartidos.
+                    </p>
+                  </div>
+                  <div>
+                    <label className={labelClass}>Archivo de imagen</label>
+                    <input
+                      type="text"
+                      value={formData.image}
+                      onChange={(e) => setField("image", e.target.value)}
+                      className={`${inputClass} font-mono text-xs`}
+                    />
+                  </div>
+                </div>
+              </details>
             </div>
           )}
 
-          {/* TAB 2: NARRATIVA */}
-          {activeTab === "narrativa" && (
+          {/* TEXTOS */}
+          {activeTab === "textos" && (
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-[#A39E93] mb-1">
-                  Descripción Editorial (Ficha, Catálogo y SEO) *
-                </label>
+                <label className={labelClass}>Descripción *</label>
                 <textarea
                   rows={3}
                   required
                   value={formData.description}
-                  onChange={(e) => handleTextChange("description", e.target.value)}
-                  placeholder="Descripción concisa y visual de la fotografía..."
-                  className="w-full rounded-lg border border-[#2D3036] bg-[#17181D] px-3.5 py-2.5 text-sm text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none leading-relaxed"
+                  onChange={(e) => setField("description", e.target.value)}
+                  placeholder={config.descriptionPlaceholder}
+                  className={`${inputClass} leading-relaxed`}
                 />
               </div>
-
               <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-[#A39E93] mb-1">
-                  Historia de Campo / Anécdota del Autor
-                </label>
+                <label className={labelClass}>{config.storyLabel}</label>
                 <textarea
-                  rows={4}
+                  rows={5}
                   value={formData.story || ""}
-                  onChange={(e) => handleTextChange("story", e.target.value)}
-                  placeholder="Relato personal: cómo se planeó el disparo, condiciones de luz, esperas, o detalles del momento..."
-                  className="w-full rounded-lg border border-[#2D3036] bg-[#17181D] px-3.5 py-2.5 text-sm text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none leading-relaxed"
+                  onChange={(e) => setField("story", e.target.value)}
+                  placeholder={config.storyPlaceholder}
+                  className={`${inputClass} leading-relaxed`}
                 />
               </div>
-
               <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-[#A39E93] mb-1">
-                  Texto Alternativo (Accesibilidad & Google Images)
-                </label>
+                <label className={labelClass}>Texto alternativo (accesibilidad y Google)</label>
                 <input
                   type="text"
                   value={formData.alt}
-                  onChange={(e) => handleTextChange("alt", e.target.value)}
-                  className="w-full rounded-lg border border-[#2D3036] bg-[#17181D] px-3.5 py-2.5 text-xs text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
+                  onChange={(e) => setField("alt", e.target.value)}
+                  placeholder={config.altPlaceholder}
+                  className={inputClass}
                 />
               </div>
-
               <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-[#A39E93] mb-1">
-                  Palabras Clave (separadas por comas)
-                </label>
+                <label className={labelClass}>Palabras clave (separadas por comas)</label>
                 <input
                   type="text"
                   value={keywordsText}
                   onChange={(e) => setKeywordsText(e.target.value)}
-                  placeholder="fauna, tenerife, lince, 600mm, fine art..."
-                  className="w-full rounded-lg border border-[#2D3036] bg-[#17181D] px-3.5 py-2.5 text-xs text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
+                  placeholder={config.keywordsPlaceholder}
+                  className={inputClass}
                 />
               </div>
             </div>
           )}
 
-          {/* TAB 3: FINE ART & PRECIOS */}
-          {activeTab === "fineart" && (
+          {/* PRECIOS */}
+          {activeTab === "precios" && (
             <div className="space-y-4">
-              <div className="rounded-xl border border-[#C5A880]/20 bg-[#16171C] p-4">
-                <span className="text-xs font-mono uppercase tracking-wider text-[#C5A880]">
-                  Precios por Formato (Tubo protector desde Tenerife)
-                </span>
-                <p className="mt-1 text-xs text-[#8E8A81]">
-                  Precios finales en euros para copia impresa en papel de algodón Baritado.
+              {!formData.prints && (
+                <p className="rounded-lg border border-[#C5A880]/30 bg-[#C5A880]/10 px-3 py-2 text-xs text-[#E5D3B3]">
+                  Esta foto no está a la venta. Actívala en «General → A la venta» para que los precios se muestren en la web.
                 </p>
-
-                <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div className="rounded-lg border border-[#2C2E36] bg-[#1A1C22] p-3.5">
-                    <span className="block font-mono text-[10px] uppercase text-[#A39E93]">
-                      Formato Estudio (30×45 cm)
-                    </span>
-                    <div className="mt-2 flex items-center gap-1.5">
-                      <input
-                        type="number"
-                        min="50"
-                        max="2000"
-                        value={formData.pricing?.estudio || 95}
-                        onChange={(e) => handlePricingChange("estudio", parseInt(e.target.value, 10) || 95)}
-                        className="w-24 rounded border border-[#3A3D46] bg-[#131418] px-2.5 py-1.5 font-mono text-base font-semibold text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
-                      />
-                      <span className="font-mono text-sm text-[#C5A880]">€</span>
+              )}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {(
+                  [
+                    { key: "estudio", label: "Estudio" },
+                    { key: "galeria", label: "Galería" },
+                    { key: "coleccion", label: "Colección" },
+                  ] as const
+                ).map((fmt) => {
+                  const disabledBySize =
+                    (formData.maxRecommendedFormat === "estudio" && fmt.key !== "estudio") ||
+                    (formData.maxRecommendedFormat === "galeria" && fmt.key === "coleccion");
+                  return (
+                    <div
+                      key={fmt.key}
+                      className={`rounded-lg border border-[#2C2E36] bg-[#1A1C22] p-3.5 ${disabledBySize ? "opacity-50" : ""}`}
+                    >
+                      <span className="block font-mono text-[10px] uppercase text-[#A39E93]">
+                        {fmt.label} · {dims[fmt.key]}
+                      </span>
+                      <div className="mt-2 flex items-center gap-1.5">
+                        <input
+                          type="number"
+                          inputMode="numeric"
+                          min={1}
+                          value={formData.pricing?.[fmt.key] ?? ""}
+                          onChange={(e) => handlePricingChange(fmt.key, parseInt(e.target.value, 10) || 0)}
+                          className="w-28 rounded border border-[#3A3D46] bg-[#131418] px-2.5 py-2 font-mono text-base font-semibold text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
+                        />
+                        <span className="font-mono text-sm text-[#C5A880]">€</span>
+                      </div>
+                      {disabledBySize && (
+                        <p className="mt-1.5 text-[10px] text-[#8E8A81]">Supera el tamaño máximo recomendado</p>
+                      )}
                     </div>
-                  </div>
-
-                  <div className="rounded-lg border border-[#2C2E36] bg-[#1A1C22] p-3.5">
-                    <span className="block font-mono text-[10px] uppercase text-[#A39E93]">
-                      Formato Galería (50×70 cm)
-                    </span>
-                    <div className="mt-2 flex items-center gap-1.5">
-                      <input
-                        type="number"
-                        min="80"
-                        max="3000"
-                        value={formData.pricing?.galeria || 175}
-                        onChange={(e) => handlePricingChange("galeria", parseInt(e.target.value, 10) || 175)}
-                        className="w-24 rounded border border-[#3A3D46] bg-[#131418] px-2.5 py-1.5 font-mono text-base font-semibold text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
-                      />
-                      <span className="font-mono text-sm text-[#C5A880]">€</span>
-                    </div>
-                  </div>
-
-                  <div className="rounded-lg border border-[#2C2E36] bg-[#1A1C22] p-3.5">
-                    <span className="block font-mono text-[10px] uppercase text-[#A39E93]">
-                      Gran Colección (70×100 cm)
-                    </span>
-                    <div className="mt-2 flex items-center gap-1.5">
-                      <input
-                        type="number"
-                        min="120"
-                        max="5000"
-                        value={formData.pricing?.coleccion || 290}
-                        onChange={(e) => handlePricingChange("coleccion", parseInt(e.target.value, 10) || 290)}
-                        className="w-24 rounded border border-[#3A3D46] bg-[#131418] px-2.5 py-1.5 font-mono text-base font-semibold text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
-                      />
-                      <span className="font-mono text-sm text-[#C5A880]">€</span>
-                    </div>
-                  </div>
-                </div>
+                  );
+                })}
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-[#A39E93] mb-1">
-                    Formato Máximo Recomendado
-                  </label>
+                  <label className={labelClass}>Tamaño máximo recomendado</label>
                   <select
                     value={formData.maxRecommendedFormat || "coleccion"}
-                    onChange={(e) => handleTextChange("maxRecommendedFormat", e.target.value as MaxPrintFormatId)}
-                    className="w-full rounded-lg border border-[#2D3036] bg-[#17181D] px-3.5 py-2.5 text-sm text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
+                    onChange={(e) => setField("maxRecommendedFormat", e.target.value as MaxPrintFormatId)}
+                    className={inputClass}
                   >
-                    <option value="estudio">Solo Estudio (hasta 30×45 cm)</option>
-                    <option value="galeria">Hasta Galería (50×70 cm)</option>
-                    <option value="coleccion">Gran Colección (70×100 cm)</option>
+                    <option value="estudio">Hasta Estudio ({dims.estudio})</option>
+                    <option value="galeria">Hasta Galería ({dims.galeria})</option>
+                    <option value="coleccion">Hasta Colección ({dims.coleccion})</option>
                   </select>
                 </div>
-
                 <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-[#A39E93] mb-1">
-                    Tirada Total de la Edición
-                  </label>
+                  <label className={labelClass}>Copias de la edición limitada</label>
                   <input
                     type="number"
-                    value={formData.pricing?.editionTotal || 25}
-                    onChange={(e) => handlePricingChange("editionTotal", parseInt(e.target.value, 10) || 25)}
-                    className="w-full rounded-lg border border-[#2D3036] bg-[#17181D] px-3.5 py-2.5 font-mono text-sm text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
+                    inputMode="numeric"
+                    min={1}
+                    value={formData.pricing?.editionTotal ?? ""}
+                    onChange={(e) => handlePricingChange("editionTotal", parseInt(e.target.value, 10) || 0)}
+                    className={`${inputClass} font-mono`}
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-[#A39E93] mb-1">
-                  Aviso Técnico / Razón de Formato Máximo
-                </label>
+                <label className={labelClass}>Motivo del tamaño máximo (se muestra al comprar)</label>
                 <textarea
                   rows={2}
                   value={formData.maxFormatReason || ""}
-                  onChange={(e) => handleTextChange("maxFormatReason", e.target.value)}
-                  placeholder="Ej. Disparada con Canon EOS 750D (24.2 MP): formato máximo recomendado Galería (50×70 cm)..."
-                  className="w-full rounded-lg border border-[#2D3036] bg-[#17181D] px-3.5 py-2 text-xs text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
+                  onChange={(e) => setField("maxFormatReason", e.target.value)}
+                  placeholder="Ej. Recorte fuerte o ISO alto: no se recomienda ampliar más."
+                  className={`${inputClass} text-xs`}
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-[#A39E93] mb-1">
-                  Papel Fine Art Recomendado
-                </label>
+                <label className={labelClass}>Papel</label>
                 <input
                   type="text"
-                  value={formData.pricing?.paper || "Hahnemühle Photo Rag Baryta 315g"}
+                  value={formData.pricing?.paper || ""}
                   onChange={(e) => handlePricingChange("paper", e.target.value)}
-                  className="w-full rounded-lg border border-[#2D3036] bg-[#17181D] px-3.5 py-2 text-xs text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
+                  className={`${inputClass} text-xs`}
                 />
               </div>
             </div>
           )}
 
-          {/* TAB 4: TÉCNICO & UBICACIÓN */}
-          {activeTab === "tecnico" && (
+          {/* LUGAR Y EXIF */}
+          {activeTab === "ubicacion" && (
             <div className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-[#A39E93] mb-1">
-                    Ubicación Pública (Título / Ficha)
-                  </label>
+                  <label className={labelClass}>{config.locationLabel}</label>
                   <input
                     type="text"
                     value={formData.location || ""}
-                    onChange={(e) => handleTextChange("location", e.target.value)}
-                    placeholder="Austria, Tenerife, Sierra de Guadarrama..."
-                    className="w-full rounded-lg border border-[#2D3036] bg-[#17181D] px-3.5 py-2.5 text-sm text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
+                    onChange={(e) => setField("location", e.target.value)}
+                    placeholder={config.locationPlaceholder}
+                    className={inputClass}
                   />
                 </div>
-
                 <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-[#A39E93] mb-1">
-                    Ubicación Real / Detalle Santuario
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.realLocation || ""}
-                    onChange={(e) => handleTextChange("realLocation", e.target.value)}
-                    placeholder="Santuario de fauna salvaje, Austria"
-                    className="w-full rounded-lg border border-[#2D3036] bg-[#17181D] px-3.5 py-2.5 text-sm text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-[#A39E93] mb-1">
-                    Condición de Fauna Salvaje
-                  </label>
-                  <select
-                    value={formData.wildlifeCondition || "libre"}
-                    onChange={(e) => handleTextChange("wildlifeCondition", e.target.value as WildlifeCondition)}
-                    className="w-full rounded-lg border border-[#2D3036] bg-[#17181D] px-3.5 py-2.5 text-sm text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
-                  >
-                    <option value="libre">En libertad completa (Libre)</option>
-                    <option value="centro">Santuario / Centro de recuperación</option>
-                    <option value="parque">Parque natural / Espacio controlado</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-[#A39E93] mb-1">
-                    País
-                  </label>
+                  <label className={labelClass}>País</label>
                   <input
                     type="text"
                     value={formData.country || ""}
-                    onChange={(e) => handleTextChange("country", e.target.value)}
-                    placeholder="España, Austria..."
-                    className="w-full rounded-lg border border-[#2D3036] bg-[#17181D] px-3.5 py-2.5 text-sm text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
+                    onChange={(e) => setField("country", e.target.value)}
+                    placeholder="Ej. España"
+                    className={inputClass}
                   />
                 </div>
               </div>
 
-              {/* Parámetros EXIF */}
+              {config.showWildlife && (
+                <div className="rounded-xl border border-[#C5A880]/20 bg-[#16171C] p-4 space-y-4">
+                  <span className="text-xs font-mono uppercase tracking-wider text-[#C5A880]">
+                    Datos del avistamiento
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className={labelClass}>Condición del animal</label>
+                      <select
+                        value={formData.wildlifeCondition || ""}
+                        onChange={(e) =>
+                          setField(
+                            "wildlifeCondition",
+                            (e.target.value || undefined) as WildlifeCondition | undefined
+                          )
+                        }
+                        className={inputClass}
+                      >
+                        <option value="">Sin indicar</option>
+                        <option value="libre">En libertad</option>
+                        <option value="parque">Parque natural / reserva</option>
+                        <option value="centro">Santuario o centro de conservación</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className={labelClass}>Lugar exacto</label>
+                      <input
+                        type="text"
+                        value={formData.realLocation || ""}
+                        onChange={(e) => setField("realLocation", e.target.value || undefined)}
+                        placeholder="Ej. Santuario de fauna salvaje, Austria"
+                        className={inputClass}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <div className="rounded-xl border border-[#22242B] bg-[#15161A] p-4 space-y-3">
                 <span className="text-xs font-mono uppercase tracking-wider text-[#A39E93]">
-                  Metadatos EXIF de Disparo
+                  Datos de la cámara (EXIF)
                 </span>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  <div>
-                    <label className="block text-[10px] font-mono text-[#8E8A81] uppercase mb-0.5">Cámara</label>
-                    <input
-                      type="text"
-                      value={formData.camera}
-                      onChange={(e) => handleTextChange("camera", e.target.value)}
-                      className="w-full rounded border border-[#2D3036] bg-[#191A20] px-2.5 py-1.5 font-mono text-xs text-[#EBE7DF]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] font-mono text-[#8E8A81] uppercase mb-0.5">Objetivo</label>
-                    <input
-                      type="text"
-                      value={formData.lens}
-                      onChange={(e) => handleTextChange("lens", e.target.value)}
-                      className="w-full rounded border border-[#2D3036] bg-[#191A20] px-2.5 py-1.5 font-mono text-xs text-[#EBE7DF]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] font-mono text-[#8E8A81] uppercase mb-0.5">Focal</label>
-                    <input
-                      type="text"
-                      value={formData.focalLength}
-                      onChange={(e) => handleTextChange("focalLength", e.target.value)}
-                      className="w-full rounded border border-[#2D3036] bg-[#191A20] px-2.5 py-1.5 font-mono text-xs text-[#EBE7DF]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] font-mono text-[#8E8A81] uppercase mb-0.5">Apertura</label>
-                    <input
-                      type="text"
-                      value={formData.aperture}
-                      onChange={(e) => handleTextChange("aperture", e.target.value)}
-                      className="w-full rounded border border-[#2D3036] bg-[#191A20] px-2.5 py-1.5 font-mono text-xs text-[#EBE7DF]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] font-mono text-[#8E8A81] uppercase mb-0.5">Velocidad</label>
-                    <input
-                      type="text"
-                      value={formData.shutter}
-                      onChange={(e) => handleTextChange("shutter", e.target.value)}
-                      className="w-full rounded border border-[#2D3036] bg-[#191A20] px-2.5 py-1.5 font-mono text-xs text-[#EBE7DF]"
-                    />
-                  </div>
+                  {(
+                    [
+                      { field: "camera", label: "Cámara" },
+                      { field: "lens", label: "Objetivo" },
+                      { field: "focalLength", label: "Focal" },
+                      { field: "aperture", label: "Apertura" },
+                      { field: "shutter", label: "Velocidad" },
+                    ] as const
+                  ).map((f) => (
+                    <div key={f.field}>
+                      <label className="block text-[10px] font-mono text-[#8E8A81] uppercase mb-0.5">{f.label}</label>
+                      <input
+                        type="text"
+                        value={formData[f.field]}
+                        onChange={(e) => setField(f.field, e.target.value)}
+                        className="w-full rounded border border-[#2D3036] bg-[#191A20] px-2.5 py-2 font-mono text-xs text-[#EBE7DF]"
+                      />
+                    </div>
+                  ))}
                   <div>
                     <label className="block text-[10px] font-mono text-[#8E8A81] uppercase mb-0.5">ISO</label>
                     <input
                       type="number"
+                      inputMode="numeric"
                       value={formData.iso}
-                      onChange={(e) => handleTextChange("iso", parseInt(e.target.value, 10) || 100)}
-                      className="w-full rounded border border-[#2D3036] bg-[#191A20] px-2.5 py-1.5 font-mono text-xs text-[#EBE7DF]"
+                      onChange={(e) => setField("iso", parseInt(e.target.value, 10) || photo.iso)}
+                      className="w-full rounded border border-[#2D3036] bg-[#191A20] px-2.5 py-2 font-mono text-xs text-[#EBE7DF]"
                     />
                   </div>
                 </div>
@@ -581,30 +563,29 @@ export default function WorkEditorModal({
             </div>
           )}
 
-          {/* Sticky Actions Bar inside form */}
+          {/* Barra de acciones */}
           <div className="sticky bottom-0 -mx-4 -mb-5 sm:-mx-6 sm:-mb-6 flex items-center justify-between border-t border-[#25272F] bg-[#16171B]/95 p-4 backdrop-blur-md">
             <button
               type="button"
               onClick={onClose}
-              className="rounded-lg border border-[#30333C] px-4 py-2.5 text-xs font-medium text-[#A39E93] hover:text-[#EBE7DF] hover:bg-[#1F2127] transition cursor-pointer"
+              className="min-h-[44px] rounded-lg border border-[#30333C] px-4 text-xs font-medium text-[#A39E93] hover:text-[#EBE7DF] hover:bg-[#1F2127] transition cursor-pointer"
             >
               Cancelar
             </button>
-
             <button
               type="submit"
               disabled={isSaving}
-              className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#C5A880] to-[#A88C64] px-5 py-2.5 text-xs font-semibold tracking-wider text-[#0B0C0E] uppercase shadow-md transition hover:opacity-90 active:scale-[0.99] disabled:opacity-50 cursor-pointer"
+              className="flex min-h-[44px] items-center gap-2 rounded-lg bg-gradient-to-r from-[#C5A880] to-[#A88C64] px-5 text-xs font-semibold tracking-wider text-[#0B0C0E] uppercase shadow-md transition hover:opacity-90 disabled:opacity-50 cursor-pointer"
             >
               {isSaving ? (
                 <>
                   <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#0B0C0E] border-t-transparent" />
-                  <span>Guardando...</span>
+                  <span>Guardando…</span>
                 </>
               ) : (
                 <>
                   <CheckIcon className="h-4 w-4 text-[#0B0C0E]" />
-                  <span>Guardar Cambios</span>
+                  <span>Guardar cambios</span>
                 </>
               )}
             </button>

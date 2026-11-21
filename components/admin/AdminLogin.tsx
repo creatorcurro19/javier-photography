@@ -8,7 +8,7 @@ interface AdminLoginProps {
 }
 
 export default function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
-  const [username, setUsername] = useState("admin");
+  const [username, setUsername] = useState("Javier");
   const [pin, setPin] = useState("");
   const [showPin, setShowPin] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -45,9 +45,9 @@ export default function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
             // ignore
           }
         }
-        onLoginSuccess(data.user || "Admin");
+        onLoginSuccess(data.user || "Javier");
       } else {
-        setError(data.error || "Clave de acceso incorrecta. Verifica el código 88722.");
+        setError(data.error || "Usuario o clave de acceso incorrectos.");
       }
     } catch {
       setError("Error de red conectando con el portal de autor.");
@@ -64,14 +64,7 @@ export default function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
       setPin((prev) => prev.slice(0, -1));
     } else {
       if (pin.length < 8) {
-        const next = pin + val;
-        setPin(next);
-        // Si completa 5 dígitos y es 88722, permitir envío rápido
-        if (next === "88722") {
-          setTimeout(() => {
-            // auto-trigger
-          }, 150);
-        }
+        setPin(pin + val);
       }
     }
   };
@@ -106,13 +99,13 @@ export default function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
             <label className="block text-xs font-medium text-[#A39E93] uppercase tracking-wider mb-1.5">
-              Usuario o Identificador
+              Usuario
             </label>
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="Admin"
+              placeholder="Javier"
               autoComplete="username"
               className="w-full rounded-lg border border-[#2D3036] bg-[#181A1F] px-4 py-3 text-sm text-[#EBE7DF] placeholder-[#605C55] transition focus:border-[#C5A880] focus:outline-none focus:ring-1 focus:ring-[#C5A880]"
             />
