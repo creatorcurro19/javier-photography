@@ -78,7 +78,7 @@ export function generatePhotoSchema(photo: Photo) {
   const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": photo.prints
-      ? ["ImageObject", "Photograph", "VisualArtwork"]
+      ? ["ImageObject", "Photograph", "VisualArtwork", "Product"]
       : ["ImageObject", "Photograph"],
     "@id": pageUrl,
     name: photo.title,

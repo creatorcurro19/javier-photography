@@ -27,6 +27,41 @@ export function buildLanguageAlternates(path: string) {
   };
 }
 
+const BRAND_SUFFIX = " | Javier Espinosa";
+const MAX_TITLE_LEN = 60;
+const MAX_DESC_LEN = 155;
+
+/**
+ * Formatea cualquier título bajo la plantilla "{Página} | Javier Espinosa"
+ * sin duplicar la marca y garantizando longitud total <= 60 caracteres.
+ */
+export function formatSeoTitle(rawTitle: string): string {
+  const cleaned = rawTitle
+    .replace(/\s*\|\s*Javier Espinosa(\s+Fotograf[íi]a|\s+Photography)?/gi, "")
+    .replace(/^Javier Espinosa\s*\|\s*/i, "")
+    .trim();
+
+  const maxPageLen = MAX_TITLE_LEN - BRAND_SUFFIX.length; // 42 chars
+  let pagePart = cleaned || "Fotografía de Autor en Tenerife";
+  if (pagePart.length > maxPageLen) {
+    const sliced = pagePart.slice(0, maxPageLen - 1);
+    const lastSpace = sliced.lastIndexOf(" ");
+    pagePart = (lastSpace > 20 ? sliced.slice(0, lastSpace) : sliced).trim() + "…";
+  }
+  return `${pagePart}${BRAND_SUFFIX}`;
+}
+
+/**
+ * Trunca la metadescripción sin cortar palabras, garantizando <= 155 caracteres.
+ */
+export function formatSeoDescription(rawDesc: string): string {
+  const clean = rawDesc.replace(/\s+/g, " ").trim();
+  if (clean.length <= MAX_DESC_LEN) return clean;
+  const sliced = clean.slice(0, MAX_DESC_LEN - 1);
+  const lastSpace = sliced.lastIndexOf(" ");
+  return (lastSpace > 80 ? sliced.slice(0, lastSpace) : sliced).trim() + "…";
+}
+
 export function buildPageMetadata({
   title,
   description,
@@ -41,48 +76,56 @@ export function buildPageMetadata({
   keywords?: string[];
 }): Metadata {
   const url = absoluteUrl(path);
-  const imageUrl = absoluteUrl(image);
+  const seoTitle = formatSeoTitle(title);
+  const seoDescription = formatSeoDescription(description);
+  const ogImage =
+    image === DEFAULT_OG
+      ? `${SITE_URL}/opengraph-image?p=${encodeURIComponent(path)}`
+      : absoluteUrl(image);
 
   return {
-    title,
-    description,
+    title: {
+      absolute: seoTitle,
+    },
+    description: seoDescription,
     keywords,
     alternates: buildLanguageAlternates(path),
     openGraph: {
-      title,
-      description,
+      title: seoTitle,
+      description: seoDescription,
       url,
       siteName: SITE_NAME,
       type: "website",
       locale: "es_ES",
       alternateLocale: ["en_US", "en_GB"],
-      images: [{ url: imageUrl, width: 1200, height: 630, alt: title }],
+      images: [{ url: ogImage, width: 1200, height: 630, alt: seoTitle }],
     },
     twitter: {
       card: "summary_large_image",
-      title,
-      description,
-      images: [imageUrl],
+      title: seoTitle,
+      description: seoDescription,
+      images: [ogImage],
     },
   };
 }
 
 export function buildPhotoMetadata(photo: Photo): Metadata {
   const catMeta = CATEGORY_METADATA[photo.category];
-  const title = `${photo.title}${photo.location ? ` — ${photo.location}` : ""}`;
-  const modeNote = photo.prints
-    ? "Edición Fine Art Hahnemühle Photo Rag 308g & Licencia Editorial"
-    : "Archivo Fotográfico de Autor & Licencia Editorial";
-  const richDescription = `${photo.description} ${
-    photo.location ? `Localización: ${photo.location}${photo.country ? ` (${photo.country})` : ""}. ` : ""
-  }Disciplina: ${catMeta?.title ?? photo.category} (${catMeta?.titleEn ?? ""}). Captura: ${photo.camera} · ${photo.focalLength} · ${photo.aperture} · ${photo.shutter} · ISO ${photo.iso}. ${modeNote}.`;
+  const seoTitle = formatSeoTitle(photo.title);
+  const locPart = photo.location
+    ? `${photo.location}${photo.country && !photo.location.includes(photo.country) ? `, ${photo.country}` : ""}. `
+    : "";
+  const rawDescription = `${photo.description} ${locPart}${photo.camera} · ${photo.focalLength}. Copia Fine Art y licencia.`;
+  const seoDescription = formatSeoDescription(rawDescription);
   const path = `/portfolio/${photo.slug}`;
   const url = absoluteUrl(path);
   const imageUrl = absoluteUrl(photo.image);
 
   return {
-    title,
-    description: richDescription,
+    title: {
+      absolute: seoTitle,
+    },
+    description: seoDescription,
     keywords: [
       ...photo.keywords,
       photo.title,
@@ -93,8 +136,8 @@ export function buildPhotoMetadata(photo: Photo): Metadata {
     ],
     alternates: buildLanguageAlternates(path),
     openGraph: {
-      title: `${title} | Javier Espinosa Fotografía`,
-      description: richDescription,
+      title: seoTitle,
+      description: seoDescription,
       url,
       siteName: SITE_NAME,
       type: "article",
@@ -103,8 +146,8 @@ export function buildPhotoMetadata(photo: Photo): Metadata {
       images: [
         {
           url: imageUrl,
-          width: photo.width,
-          height: photo.height,
+          width: 1200,
+          height: 630,
           alt: photo.alt,
           type: "image/jpeg",
         },
@@ -112,8 +155,8 @@ export function buildPhotoMetadata(photo: Photo): Metadata {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | Javier Espinosa Fotografía`,
-      description: richDescription,
+      title: seoTitle,
+      description: seoDescription,
       images: [imageUrl],
     },
   };

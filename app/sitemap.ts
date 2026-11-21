@@ -10,6 +10,7 @@ import {
   PHOTO_CATEGORIES,
 } from "@/lib/photos";
 import { SERVICE_LANDINGS } from "@/data/service-landings";
+import { CUADERNO_POSTS } from "@/data/cuaderno";
 
 const BASE = SITE_URL;
 
@@ -82,11 +83,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: withLangAlternates(`${BASE}/licensing`),
     },
     {
-      url: `${BASE}/stories`,
+      url: `${BASE}/cuaderno`,
       lastModified,
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 0.8,
-      alternates: withLangAlternates(`${BASE}/stories`),
+      alternates: withLangAlternates(`${BASE}/cuaderno`),
     },
     {
       url: `${BASE}/about`,
@@ -116,7 +117,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
       alternates: withLangAlternates(`${BASE}/legal`),
     },
+    {
+      url: `${BASE}/condiciones`,
+      lastModified,
+      changeFrequency: "yearly",
+      priority: 0.3,
+      alternates: withLangAlternates(`${BASE}/condiciones`),
+    },
   ];
+
+  const cuadernoRoutes: MetadataRoute.Sitemap = CUADERNO_POSTS.map((post) => ({
+    url: `${BASE}/cuaderno/${post.slug}`,
+    lastModified,
+    changeFrequency: "monthly",
+    priority: 0.75,
+    alternates: withLangAlternates(`${BASE}/cuaderno/${post.slug}`),
+  }));
 
   const categoryRoutes: MetadataRoute.Sitemap = PHOTO_CATEGORIES.map((category) => {
     const url = `${BASE}/portfolio/${category}`;
@@ -170,6 +186,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...staticRoutes,
+    ...cuadernoRoutes,
     ...serviceRoutes,
     ...categoryRoutes,
     ...projectRoutes,

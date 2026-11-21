@@ -47,7 +47,20 @@ const nextConfig: NextConfig = {
     ];
   },
   async redirects() {
+    const customDomain = process.env.NEXT_PUBLIC_CUSTOM_DOMAIN;
+    const domainRedirects = customDomain
+      ? [
+          {
+            source: "/:path*",
+            has: [{ type: "host" as const, value: "javier-photography.vercel.app" }],
+            destination: `https://${customDomain}/:path*`,
+            permanent: true,
+          },
+        ]
+      : [];
+
     return [
+      ...domainRedirects,
     {
         "source": "/stories",
         "destination": "/cuaderno",

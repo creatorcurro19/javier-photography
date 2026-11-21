@@ -57,12 +57,12 @@ export const metadata: Metadata = {
   },
 
   title: {
-    default: "Javier Espinosa | Fotografía de Autor & Fine Art",
-    template: "%s | Javier Espinosa Fotografía",
+    default: "Fotografía de Autor en Tenerife | Javier Espinosa",
+    template: "%s | Javier Espinosa",
   },
 
   description:
-    "Portfolio oficial de Javier Espinosa Martínez. Fotografía de autor, documental, fauna salvaje, coches y rally, arquitectura urbana y viajes. Ediciones Fine Art y encargos profesionales.",
+    "Archivo fotográfico de Javier Espinosa en Tenerife: fauna, paisaje, rally histórico, arquitectura y documental. Copias Fine Art Hahnemühle y encargos.",
 
   applicationName: "Javier Espinosa Fotografía",
 
