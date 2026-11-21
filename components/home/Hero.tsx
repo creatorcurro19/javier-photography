@@ -113,6 +113,7 @@ const SLIDE_DURATION = 6500;
 export default function Hero() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
   const { t } = useLanguage();
 
   const nextSlide = useCallback(() => {
@@ -122,6 +123,23 @@ export default function Hero() {
   const prevSlide = useCallback(() => {
     setActiveSlide((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
   }, []);
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (touchStartX === null) return;
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+    }
+    setTouchStartX(null);
+  };
 
   useEffect(() => {
     if (isPaused) return;
@@ -153,8 +171,12 @@ export default function Hero() {
       onMouseLeave={() => setIsPaused(false)}
       aria-label="Museo de Fotografía de Autor — Javier Espinosa"
     >
-      {/* Escenario fotográfico: en móvil limpio y sin cuadros encima; en escritorio a pantalla completa */}
-      <div className="relative mt-[71px] h-[46svh] min-h-[290px] w-full overflow-hidden md:mt-0 md:absolute md:inset-0 md:h-full">
+      {/* Escenario fotográfico: en móvil con controles integrados directamente sobre la foto; en escritorio a pantalla completa */}
+      <div
+        className="relative mt-[71px] h-[48svh] min-h-[300px] w-full overflow-hidden md:mt-0 md:absolute md:inset-0 md:h-full"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         {HERO_SLIDES.map((slide, idx) => {
           const isCurrent = idx === activeSlide;
           const isNext = idx === (activeSlide + 1) % HERO_SLIDES.length;
@@ -192,7 +214,7 @@ export default function Hero() {
 
         {/* Degradado sutil solo en el borde inferior en móvil, y cinematográfico en el tercio inferior en escritorio */}
         <div
-          className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-[#0B0C0E]/20 via-transparent to-[#0B0C0E] md:from-[#0B0C0E]/55 md:via-[#0B0C0E]/15 md:via-45% md:to-[#0B0C0E]"
+          className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-[#0B0C0E]/25 via-transparent to-[#0B0C0E]/90 md:from-[#0B0C0E]/55 md:via-[#0B0C0E]/15 md:via-45% md:to-[#0B0C0E]"
           aria-hidden="true"
         />
         {/* Segundo velo inferior suave en escritorio para garantizar lectura perfecta sin tapar la foto */}
@@ -202,12 +224,57 @@ export default function Hero() {
         />
 
         {/* Etiqueta discreta de sala en esquina superior (sin tapar el sujeto) */}
-        <div className="absolute top-4 left-4 z-20 md:top-24 md:left-1/2 md:-translate-x-1/2">
-          <div className="inline-flex items-center gap-2 border border-[#C5A880]/30 bg-[#0B0C0E]/70 px-3 py-1 backdrop-blur-md sm:px-4 sm:py-1.5">
+        <div className="absolute top-3.5 left-3.5 z-20 md:top-24 md:left-1/2 md:-translate-x-1/2">
+          <div className="inline-flex items-center gap-2 border border-[#C5A880]/30 bg-[#0B0C0E]/75 px-3 py-1 backdrop-blur-md sm:px-4 sm:py-1.5">
             <AndalusianStarMark className="h-2.5 w-2.5 text-[#C5A880] sm:h-3 sm:w-3" />
             <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.28em] sm:tracking-[0.36em] text-[#E5D3B3] whitespace-nowrap">
               {currentSlide.room} · {currentSlide.discipline}
             </p>
+          </div>
+        </div>
+
+        {/* EN MÓVIL: Selector de portada y datos de la obra situados directamente sobre la fotografía */}
+        <div className="absolute inset-x-3 bottom-3 z-20 flex items-center justify-between gap-3 rounded-lg border border-[#C5A880]/30 bg-[#0B0C0E]/85 px-3.5 py-2 backdrop-blur-md md:hidden shadow-xl">
+          <div className="min-w-0 flex-1">
+            <p className="truncate font-serif text-xs font-light text-[#F7F4EE]">
+              {currentSlide.title}
+            </p>
+            <p className="truncate font-mono text-[9px] text-[#C5A880] tracking-wider mt-0.5">
+              {currentSlide.location}
+            </p>
+          </div>
+
+          {/* Números táctiles para elegir la portada sobre la propia foto */}
+          <div className="flex items-center gap-0.5 shrink-0" role="tablist" aria-label="Elegir portada">
+            {HERO_SLIDES.map((slide, idx) => {
+              const isSelected = idx === activeSlide;
+              return (
+                <button
+                  key={slide.id}
+                  type="button"
+                  onClick={() => setActiveSlide(idx)}
+                  role="tab"
+                  aria-selected={isSelected}
+                  aria-label={`Ver portada 0${idx + 1}: ${slide.title}`}
+                  className="flex min-h-[38px] min-w-[34px] items-center justify-center p-1 focus:outline-none"
+                >
+                  <div className="flex flex-col items-center">
+                    <span
+                      className={`font-mono text-[11px] tracking-wider transition-colors duration-200 ${
+                        isSelected ? "text-[#C5A880] font-bold" : "text-[#8E8A80]"
+                      }`}
+                    >
+                      0{idx + 1}
+                    </span>
+                    <div
+                      className={`mt-0.5 h-[2px] rounded-full transition-all duration-300 ${
+                        isSelected ? "w-4 bg-[#C5A880]" : "w-1.5 bg-white/20"
+                      }`}
+                    />
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -290,8 +357,8 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Barra de obra activa y selector de salas */}
-        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-[#C5A880]/20 pt-5 sm:flex-row md:mt-10">
+        {/* Barra de obra activa y selector de salas (visible en escritorio) */}
+        <div className="hidden md:flex mt-8 items-center justify-between gap-4 border-t border-[#C5A880]/20 pt-5 md:mt-10">
           <div className="text-center sm:text-left">
             <p className="font-serif text-sm sm:text-base font-light text-[#F7F4EE] tracking-wide">
               {currentSlide.title}
