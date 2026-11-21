@@ -56,7 +56,7 @@ export default function BatchUploadModal({
   const [estudioPrice, setEstudioPrice] = useState(95);
   const [galeriaPrice, setGaleriaPrice] = useState(175);
   const [coleccionPrice, setColeccionPrice] = useState(290);
-  const [printsEnabled, setPrintsEnabled] = useState(true);
+  const [printsEnabled, setPrintsEnabled] = useState(initialCategory !== "coches-rally");
   const [selectedSeries, setSelectedSeries] = useState<string[]>([]);
   const [items, setItems] = useState<BatchQueueItem[]>([]);
   const [processingCount, setProcessingCount] = useState(0);
@@ -71,6 +71,9 @@ export default function BatchUploadModal({
 
   const handleCategoryChange = (newCat: PhotoCategory) => {
     setCategory(newCat);
+    if (newCat === "coches-rally") {
+      setPrintsEnabled(false);
+    }
     setSelectedSeries((prev) =>
       prev.filter((slug) =>
         getRelevantSeries(allSeries, newCat, "").some((s) => s.slug === slug)
@@ -347,7 +350,7 @@ export default function BatchUploadModal({
                   className={`${inputClass} font-mono`}
                 />
               </div>
-              <div className="flex items-end">
+              <div className="flex flex-col justify-end">
                 <label className="flex min-h-[42px] w-full items-center gap-2.5 rounded-lg border border-[#2D3036] bg-[#17181D] px-3 cursor-pointer">
                   <input
                     type="checkbox"
@@ -359,6 +362,12 @@ export default function BatchUploadModal({
                 </label>
               </div>
             </div>
+
+            {category === "coches-rally" && (
+              <p className="rounded-lg border border-[#3A3D46] bg-[#17181D] px-3 py-2 text-[11px] text-[#A39E93] leading-relaxed">
+                <strong className="text-[#C5A880]">Aviso Motorsport / Rally:</strong> Venta directa desmarcada por defecto. Las imágenes se publicarán en el portfolio como archivo documental con botón de contacto y solicitud privada para pilotos, escuderías y prensa acreditada.
+              </p>
+            )}
 
             {categorySeries.length > 0 && (
               <div>

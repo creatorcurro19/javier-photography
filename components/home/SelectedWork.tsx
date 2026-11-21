@@ -128,9 +128,17 @@ export default function SelectedWork({ photos, totalCount }: SelectedWorkProps) 
                     <p className="mt-0.5 truncate font-mono text-[10px] uppercase tracking-[0.2em] text-[#8E8A80]">
                       {categoryInfo?.title ?? photo.category} · {photo.year}
                     </p>
-                    <p className="mt-1 font-mono text-[11px] text-[#C5A880]">
-                      Copia Fine Art · <span className="whitespace-nowrap">Desde {photo.pricing?.estudio ?? 100}&nbsp;€</span>
-                    </p>
+                    {photo.prints ? (
+                      <p className="mt-1 font-mono text-[11px] text-[#C5A880]">
+                        Copia Fine Art · <span className="whitespace-nowrap">Desde {photo.pricing?.estudio ?? 100}&nbsp;€</span>
+                      </p>
+                    ) : (
+                      <p className="mt-1 font-mono text-[11px] text-[#8E8A80]">
+                        {photo.category === "coches-rally"
+                          ? "Archivo Motorsport · Solicitud privada"
+                          : "Obra de Archivo"}
+                      </p>
+                    )}
                   </div>
 
                   <Link

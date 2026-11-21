@@ -116,6 +116,7 @@ export default function WorkEditorModal({
         ...prev,
         id: nextId,
         category,
+        prints: category === "coches-rally" && isNew ? false : prev.prints,
         image:
           isNew && nextSlug
             ? `/images/portfolio/${category}/${nextSlug}.jpg`
@@ -532,17 +533,24 @@ export default function WorkEditorModal({
                     </span>
                   </label>
 
-                  <label className="flex min-h-[42px] items-center gap-3 rounded-lg border border-[#25272F] bg-[#191B21] px-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={formData.prints}
-                      onChange={(e) => setField("prints", e.target.checked)}
-                      className="h-4 w-4 accent-[#C5A880]"
-                    />
-                    <span className="text-xs text-[#EBE7DF]">
-                      A la venta como copia Fine Art
-                    </span>
-                  </label>
+                  <div className="flex flex-col justify-center rounded-lg border border-[#25272F] bg-[#191B21] px-3 py-2">
+                    <label className="flex items-center gap-3 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={formData.prints}
+                        onChange={(e) => setField("prints", e.target.checked)}
+                        className="h-4 w-4 accent-[#C5A880]"
+                      />
+                      <span className="text-xs text-[#EBE7DF]">
+                        A la venta como copia Fine Art
+                      </span>
+                    </label>
+                    {formData.category === "coches-rally" && (
+                      <p className="mt-1.5 text-[10px] leading-relaxed text-[#8E8A81]">
+                        <strong className="text-[#C5A880]">Motorsport / Rally:</strong> Desactivado por defecto. Se muestra en el portfolio como archivo documental con botón de solicitud directa para pilotos, equipos y prensa. Actívalo solo si dispones de autorización expresa de la escudería o es un plano detalle sin marcas identificables.
+                      </p>
+                    )}
+                  </div>
 
                   <label className="flex min-h-[42px] items-center gap-3 rounded-lg border border-[#25272F] bg-[#191B21] px-3 cursor-pointer">
                     <input

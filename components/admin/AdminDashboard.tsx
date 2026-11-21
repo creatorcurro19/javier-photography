@@ -1021,23 +1021,34 @@ export default function AdminDashboard({
                           {photo.description}
                         </p>
 
-                        {/* Fila de Precios Fine Art */}
-                        <div className="mt-3 flex items-center justify-between rounded-lg border border-[#202228] bg-[#17181E] px-2.5 py-1.5 font-mono text-[11px]">
-                          <div className="text-center">
-                            <span className="block text-[9px] text-[#716C62] uppercase">Estudio</span>
-                            <span className="whitespace-nowrap font-semibold text-[#EBE7DF]">{estudioPrice}&nbsp;€</span>
+                        {/* Fila de Precios Fine Art o Archivo */}
+                        {photo.prints ? (
+                          <div className="mt-3 flex items-center justify-between rounded-lg border border-[#202228] bg-[#17181E] px-2.5 py-1.5 font-mono text-[11px]">
+                            <div className="text-center">
+                              <span className="block text-[9px] text-[#716C62] uppercase">Estudio</span>
+                              <span className="whitespace-nowrap font-semibold text-[#EBE7DF]">{estudioPrice}&nbsp;€</span>
+                            </div>
+                            <div className="h-6 w-px bg-[#262830]" />
+                            <div className="text-center">
+                              <span className="block text-[9px] text-[#716C62] uppercase">Galería</span>
+                              <span className="whitespace-nowrap font-semibold text-[#C5A880]">{galeriaPrice}&nbsp;€</span>
+                            </div>
+                            <div className="h-6 w-px bg-[#262830]" />
+                            <div className="text-center">
+                              <span className="block text-[9px] text-[#716C62] uppercase">Colección</span>
+                              <span className="whitespace-nowrap font-semibold text-[#EBE7DF]">{coleccionPrice}&nbsp;€</span>
+                            </div>
                           </div>
-                          <div className="h-6 w-px bg-[#262830]" />
-                          <div className="text-center">
-                            <span className="block text-[9px] text-[#716C62] uppercase">Galería</span>
-                            <span className="whitespace-nowrap font-semibold text-[#C5A880]">{galeriaPrice}&nbsp;€</span>
+                        ) : (
+                          <div className="mt-3 flex items-center justify-between rounded-lg border border-[#202228] bg-[#131418] px-2.5 py-1.5 font-mono text-[10px] text-[#8E8A81]">
+                            <span className="truncate">
+                              {photo.category === "coches-rally"
+                                ? "🏎️ Archivo Motorsport (Solicitud directa)"
+                                : "📁 Archivo documental (Sin cesta)"}
+                            </span>
+                            <span className="shrink-0 ml-1 rounded bg-[#1F2128] px-1.5 py-0.5 text-[#A39E93]">Venta pausada</span>
                           </div>
-                          <div className="h-6 w-px bg-[#262830]" />
-                          <div className="text-center">
-                            <span className="block text-[9px] text-[#716C62] uppercase">Colección</span>
-                            <span className="whitespace-nowrap font-semibold text-[#EBE7DF]">{coleccionPrice}&nbsp;€</span>
-                          </div>
-                        </div>
+                        )}
                       </div>
 
                       {/* Acciones y Toggles Rápidos */}

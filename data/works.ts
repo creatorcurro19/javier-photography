@@ -1060,7 +1060,7 @@ export const WORKS: Photo[] = [
     "description": "Unidad clásica con decoración histórica estacionada en la zona de asistencia bajo la silueta de la cordillera.",
     "year": 2026,
     "featured": false,
-    "prints": true,
+    "prints": false,
     "licensing": true,
     "keywords": [
       "parque de asistencia",
@@ -1107,7 +1107,7 @@ export const WORKS: Photo[] = [
     "year": 2026,
     "featured": true,
     "featuredOrder": 13,
-    "prints": true,
+    "prints": false,
     "licensing": true,
     "keywords": [
       "porsche 911",
@@ -1157,7 +1157,7 @@ export const WORKS: Photo[] = [
     "description": "Vista trasera simétrica del dorsal #30 en el parque de asistencia durante los preparativos previos a la salida.",
     "year": 2026,
     "featured": false,
-    "prints": true,
+    "prints": false,
     "licensing": true,
     "keywords": [
       "paddock",
@@ -1203,7 +1203,7 @@ export const WORKS: Photo[] = [
     "description": "El dorsal #29 atacando el vértice de la horquilla al límite de adherencia con la rueda delantera interior en el aire.",
     "year": 2026,
     "featured": false,
-    "prints": true,
+    "prints": false,
     "licensing": true,
     "keywords": [
       "rally clásico",
@@ -1252,7 +1252,7 @@ export const WORKS: Photo[] = [
     "description": "Detalle manual de la colocación de vinilos sobre la carrocería antes de las verificaciones técnicas.",
     "year": 2026,
     "featured": false,
-    "prints": true,
+    "prints": false,
     "licensing": true,
     "keywords": [
       "rotulación de competición",
@@ -1297,7 +1297,7 @@ export const WORKS: Photo[] = [
     "description": "Perfil de tres cuartos del dorsal #5 con llantas desplazadas rojas en la jornada previa a la prueba.",
     "year": 2026,
     "featured": false,
-    "prints": true,
+    "prints": false,
     "licensing": true,
     "keywords": [
       "coche clásico competición",
@@ -1342,7 +1342,7 @@ export const WORKS: Photo[] = [
     "description": "Un Volkswagen Golf GTI MK1 clásico apoyando con firmeza en el interior de la curva con su batería de faros supletorios.",
     "year": 2026,
     "featured": false,
-    "prints": true,
+    "prints": false,
     "licensing": true,
     "keywords": [
       "volkswagen golf mk1",
@@ -1390,7 +1390,7 @@ export const WORKS: Photo[] = [
     "description": "El dorsal #77 comprimiendo el tren delantero en plena entrada al viraje sobre el asfalto pintado del tramo.",
     "year": 2026,
     "featured": false,
-    "prints": true,
+    "prints": false,
     "licensing": true,
     "keywords": [
       "frenada en horquilla",
@@ -1437,7 +1437,7 @@ export const WORKS: Photo[] = [
     "description": "Detalle del puesto de mando, volante desplazado e instrumentación interior a través de la ventanilla.",
     "year": 2026,
     "featured": false,
-    "prints": true,
+    "prints": false,
     "licensing": true,
     "keywords": [
       "habitáculo de rally",
@@ -1482,7 +1482,7 @@ export const WORKS: Photo[] = [
     "description": "Piloto y copiloto revisando la documentación y el carnet de ruta sobre el capó amarillo antes de tomar la salida.",
     "year": 2026,
     "featured": false,
-    "prints": true,
+    "prints": false,
     "licensing": true,
     "keywords": [
       "notas de rally",
@@ -1528,7 +1528,7 @@ export const WORKS: Photo[] = [
     "description": "Un icónico compacto de rally con decoración histórica rodando sobre el asfalto de montaña.",
     "year": 2026,
     "featured": false,
-    "prints": true,
+    "prints": false,
     "licensing": true,
     "keywords": [
       "librea martini",
@@ -1576,7 +1576,7 @@ export const WORKS: Photo[] = [
     "description": "Paso rápido del dorsal #35 por una intersección de asfalto con la suspensión comprimida en pleno viraje.",
     "year": 2026,
     "featured": false,
-    "prints": true,
+    "prints": false,
     "licensing": true,
     "keywords": [
       "dorsal 35",
@@ -1622,7 +1622,7 @@ export const WORKS: Photo[] = [
     "year": 2026,
     "featured": true,
     "featuredOrder": 3,
-    "prints": true,
+    "prints": false,
     "licensing": true,
     "keywords": [
       "derrape rally",
@@ -1674,7 +1674,7 @@ export const WORKS: Photo[] = [
     "year": 2026,
     "featured": true,
     "featuredOrder": 8,
-    "prints": true,
+    "prints": false,
     "licensing": true,
     "keywords": [
       "600mm motorsport",
@@ -3544,7 +3544,7 @@ export const WORKS: Photo[] = [
     "description": "El pequeño Autobianchi A112 Abarth (#78) levantando la rueda trasera interior en un paso por curva de máxima entrega.",
     "year": 2026,
     "featured": false,
-    "prints": true,
+    "prints": false,
     "licensing": true,
     "keywords": [
       "autobianchi a112 abarth",
@@ -4912,7 +4912,7 @@ export const WORKS: Photo[] = [
     "description": "Simetría frontal de un BMW E30 clásico con luces ámbar encendidas sobre el asfalto húmedo al atardecer.",
     "year": 2026,
     "featured": false,
-    "prints": true,
+    "prints": false,
     "licensing": true,
     "keywords": [
       "bmw e30",

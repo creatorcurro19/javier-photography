@@ -180,47 +180,49 @@ export function generatePhotoSchema(photo: Photo) {
     "Impresión Giclée de 12 tintas pigmentadas sobre papel 100% algodón Hahnemühle Photo Rag 308 g/m²";
   schema.surface = "Papel Fine Art Certificado ISO 9706 (entrega en tubo rígido sin marco)";
   schema.artEdition = `Edición limitada numerada y firmada de ${editionTotal} ejemplares`;
-  schema.offers = {
-    "@type": "AggregateOffer",
-    priceCurrency: "EUR",
-    lowPrice,
-    highPrice,
-    offerCount: "3",
-    availability: "https://schema.org/InStock",
-    itemCondition: "https://schema.org/NewCondition",
-    url: absoluteUrl(`/portfolio/${photo.slug}#adquirir-copia`),
-    seller: {
-      "@type": "Person",
-      "@id": absoluteUrl("/#author"),
-      name: "Javier Espinosa Martínez",
-    },
-    offers: [
-      {
-        "@type": "Offer",
-        name: `${photo.title} — Formato Estudio (${dims.estudio} · Ed. ${editionTotal} · Tubo rígido)`,
-        price: lowPrice,
-        priceCurrency: "EUR",
-        availability: "https://schema.org/InStock",
-        url: absoluteUrl(`/portfolio/${photo.slug}#adquirir-copia`),
+  if (photo.prints) {
+    schema.offers = {
+      "@type": "AggregateOffer",
+      priceCurrency: "EUR",
+      lowPrice,
+      highPrice,
+      offerCount: "3",
+      availability: "https://schema.org/InStock",
+      itemCondition: "https://schema.org/NewCondition",
+      url: absoluteUrl(`/portfolio/${photo.slug}#adquirir-copia`),
+      seller: {
+        "@type": "Person",
+        "@id": absoluteUrl("/#author"),
+        name: "Javier Espinosa Martínez",
       },
-      {
-        "@type": "Offer",
-        name: `${photo.title} — Formato Galería (${dims.galeria} · Ed. ${editionTotal} · Tubo rígido)`,
-        price: midPrice,
-        priceCurrency: "EUR",
-        availability: "https://schema.org/InStock",
-        url: absoluteUrl(`/portfolio/${photo.slug}#adquirir-copia`),
-      },
-      {
-        "@type": "Offer",
-        name: `${photo.title} — Gran Colección (${dims.coleccion} · Ed. ${editionTotal} · Tubo rígido)`,
-        price: highPrice,
-        priceCurrency: "EUR",
-        availability: "https://schema.org/InStock",
-        url: absoluteUrl(`/portfolio/${photo.slug}#adquirir-copia`),
-      },
-    ],
-  };
+      offers: [
+        {
+          "@type": "Offer",
+          name: `${photo.title} — Formato Estudio (${dims.estudio} · Ed. ${editionTotal} · Tubo rígido)`,
+          price: lowPrice,
+          priceCurrency: "EUR",
+          availability: "https://schema.org/InStock",
+          url: absoluteUrl(`/portfolio/${photo.slug}#adquirir-copia`),
+        },
+        {
+          "@type": "Offer",
+          name: `${photo.title} — Formato Galería (${dims.galeria} · Ed. ${editionTotal} · Tubo rígido)`,
+          price: midPrice,
+          priceCurrency: "EUR",
+          availability: "https://schema.org/InStock",
+          url: absoluteUrl(`/portfolio/${photo.slug}#adquirir-copia`),
+        },
+        {
+          "@type": "Offer",
+          name: `${photo.title} — Gran Colección (${dims.coleccion} · Ed. ${editionTotal} · Tubo rígido)`,
+          price: highPrice,
+          priceCurrency: "EUR",
+          availability: "https://schema.org/InStock",
+          url: absoluteUrl(`/portfolio/${photo.slug}#adquirir-copia`),
+        },
+      ],
+    };
+  }
 
   return schema;
 }

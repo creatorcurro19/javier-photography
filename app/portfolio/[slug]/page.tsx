@@ -177,27 +177,42 @@ function CategoryGallery({ category }: { category: PhotoCategory }) {
           <div className="lg:col-span-5 border border-white/[0.08] bg-[#151618] p-7 sm:p-9 flex flex-col justify-between">
             <div>
               <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#C5A880]">
-                Adquisición &amp; Licencias · Fine Art &amp; Licensing
+                {category === "coches-rally"
+                  ? "Cobertura, Equipos y Prensa · Motorsport"
+                  : "Adquisición & Licencias · Fine Art & Licensing"}
               </p>
               <h2 className="mt-2 font-serif text-2xl font-light text-[#EBE7DF]">
-                Copias Hahnemühle 308g y Encargos
+                {category === "coches-rally"
+                  ? "Servicio para Pilotos, Escuderías y Prensa"
+                  : "Copias Hahnemühle 308g y Encargos"}
               </h2>
               <p className="mt-2 text-xs font-light leading-relaxed text-[#8E8A80]">
-                Todas las obras de {info.title} están disponibles bajo pedido como edición limitada en papel 100% algodón (ISO 9706) o licencia editorial de alta resolución (32,5 MP).
+                {category === "coches-rally"
+                  ? "Las imágenes de rally se destinan a cobertura de prensa, medios especializados y cesión directa para pilotos, patrocinadores y equipos de competición."
+                  : `Todas las obras de ${info.title} están disponibles bajo pedido como edición limitada en papel 100% algodón (ISO 9706) o licencia editorial de alta resolución (32,5 MP).`}
               </p>
             </div>
             <div className="mt-6 flex flex-wrap gap-3">
+              {category === "coches-rally" ? (
+                <Link
+                  href="/servicios/fotografo-rally-motorsport"
+                  className="border border-[#EBE7DF] bg-[#EBE7DF] px-5 py-2.5 font-mono text-[10px] uppercase tracking-[0.24em] font-medium text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
+                >
+                  Dossier Rally y Encargos →
+                </Link>
+              ) : (
+                <Link
+                  href="/prints"
+                  className="border border-[#EBE7DF] bg-[#EBE7DF] px-5 py-2.5 font-mono text-[10px] uppercase tracking-[0.24em] font-medium text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
+                >
+                  Catálogo Fine Art →
+                </Link>
+              )}
               <Link
-                href="/prints"
-                className="border border-[#EBE7DF] bg-[#EBE7DF] px-5 py-2.5 font-mono text-[10px] uppercase tracking-[0.24em] font-medium text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
-              >
-                Catálogo Fine Art →
-              </Link>
-              <Link
-                href="/servicios"
+                href={`/contact?motivo=${category === "coches-rally" ? "rally" : "consulta"}`}
                 className="border border-white/15 bg-[#0B0C0E] px-5 py-2.5 font-mono text-[10px] uppercase tracking-[0.24em] text-[#EBE7DF] transition hover:border-[#C5A880]"
               >
-                Encargos
+                {category === "coches-rally" ? "Solicitar Cobertura" : "Encargos"}
               </Link>
             </div>
           </div>

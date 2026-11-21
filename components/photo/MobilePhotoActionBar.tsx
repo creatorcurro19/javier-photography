@@ -93,21 +93,32 @@ export default function MobilePhotoActionBar({ photo }: { photo: Photo }) {
           )}
         </button>
 
-        {/* Primary Action: Direct In-Page Print Purchase Modal */}
-        <button
-          type="button"
-          onClick={() => setBuyModalOpen(true)}
-          className="flex h-11 flex-1 items-center justify-center gap-1 whitespace-nowrap rounded-lg border border-[#C5A880] bg-[#C5A880] px-2.5 sm:px-3 font-mono text-[10px] font-semibold uppercase tracking-[0.08em] sm:tracking-[0.18em] text-[#0B0C0E] transition hover:bg-white hover:border-white shadow"
-        >
-          <span className="whitespace-nowrap">Copia Fine Art · Desde {photo.pricing?.estudio ?? 100}&nbsp;€ →</span>
-        </button>
+        {/* Primary Action: Direct In-Page Print Purchase Modal or Archive Request */}
+        {photo.prints ? (
+          <button
+            type="button"
+            onClick={() => setBuyModalOpen(true)}
+            className="flex h-11 flex-1 items-center justify-center gap-1 whitespace-nowrap rounded-lg border border-[#C5A880] bg-[#C5A880] px-2.5 sm:px-3 font-mono text-[10px] font-semibold uppercase tracking-[0.08em] sm:tracking-[0.18em] text-[#0B0C0E] transition hover:bg-white hover:border-white shadow"
+          >
+            <span className="whitespace-nowrap">Copia Fine Art · Desde {photo.pricing?.estudio ?? 100}&nbsp;€ →</span>
+          </button>
+        ) : (
+          <a
+            href="#adquirir-copia"
+            className="flex h-11 flex-1 items-center justify-center gap-1 whitespace-nowrap rounded-lg border border-[#C5A880] bg-[#C5A880] px-2.5 sm:px-3 font-mono text-[10px] font-semibold uppercase tracking-[0.08em] sm:tracking-[0.18em] text-[#0B0C0E] transition hover:bg-white hover:border-white shadow"
+          >
+            <span>{photo.category === "coches-rally" ? "Solicitud Pilotos & Prensa →" : "Consultar Archivo →"}</span>
+          </a>
+        )}
       </div>
 
-      <AddToCartModal
-        photo={photo}
-        isOpen={buyModalOpen}
-        onClose={() => setBuyModalOpen(false)}
-      />
+      {photo.prints && (
+        <AddToCartModal
+          photo={photo}
+          isOpen={buyModalOpen}
+          onClose={() => setBuyModalOpen(false)}
+        />
+      )}
     </aside>
   );
 }

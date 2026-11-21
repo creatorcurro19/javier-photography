@@ -106,7 +106,7 @@ export default function DirectPrintsCatalog({
                 : "border-white/15 bg-[#151618] text-[#EBE7DF] hover:border-[#C5A880]"
             }`}
           >
-            Archivo Completo ({allPhotos.length} Obras)
+            Colección Disponible ({allPhotos.length} Obras)
           </button>
         </div>
       </div>
@@ -149,7 +149,7 @@ export default function DirectPrintsCatalog({
               setSearchQuery(e.target.value);
               if (e.target.value.trim()) setScope("all");
             }}
-            placeholder="Buscar obra, lugar, coche o especie..."
+            placeholder="Buscar obra, lugar o especie..."
             aria-label="Buscar obra para comprar copia Fine Art"
             className="w-full border border-white/15 bg-[#0B0C0E] px-3.5 py-2 font-mono text-xs text-[#EBE7DF] placeholder-[#8E8A80]/60 focus:border-[#C5A880] focus:outline-none"
           />
@@ -166,8 +166,58 @@ export default function DirectPrintsCatalog({
         </div>
       </div>
 
-      {/* Cuadrícula de Obras con Compra Directa */}
-      <div className="mt-10 columns-1 gap-8 sm:columns-2 lg:columns-3">
+      {/* Cuadrícula de Obras con Compra Directa o Mensaje Informativo */}
+      {visiblePhotos.length === 0 ? (
+        <div className="mt-12 rounded-xl border border-white/10 bg-[#151618] p-8 sm:p-12 text-center max-w-2xl mx-auto">
+          {activeCategory === "coches-rally" ? (
+            <>
+              <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#C5A880]">
+                Archivo Motorsport · Automovilismo y Rally Histórico
+              </p>
+              <h3 className="mt-3 font-serif text-2xl text-[#EBE7DF]">
+                Modalidad Especial para Pilotos, Escuderías y Prensa
+              </h3>
+              <p className="mt-3 text-xs font-light leading-relaxed text-[#A39E93]">
+                Para proteger los derechos de imagen de vehículos, patrocinadores y competidores, las fotografías de competición no se comercializan a través del carrito online. Si eres piloto, miembro de un equipo, organizador o medio acreditado, puedes solicitar archivos máster en alta resolución o láminas de autor de forma directa.
+              </p>
+              <div className="mt-6 flex flex-wrap justify-center gap-3">
+                <Link
+                  href="/contact?motivo=rally"
+                  className="border border-[#C5A880] bg-[#C5A880] px-5 py-2.5 font-mono text-xs uppercase tracking-wider text-[#0B0C0E] font-medium transition hover:bg-white hover:border-white shadow"
+                >
+                  Solicitar Obra de Rally →
+                </Link>
+                <Link
+                  href="/portfolio/coches-rally"
+                  className="border border-white/20 bg-[#0B0C0E] px-5 py-2.5 font-mono text-xs uppercase tracking-wider text-[#EBE7DF] hover:border-white transition"
+                >
+                  Ver Portfolio de Rally
+                </Link>
+              </div>
+            </>
+          ) : (
+            <>
+              <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#C5A880]">
+                Sin resultados
+              </p>
+              <h3 className="mt-2 font-serif text-xl text-[#EBE7DF]">
+                No hay obras disponibles con este criterio de búsqueda
+              </h3>
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveCategory("all");
+                  setSearchQuery("");
+                }}
+                className="mt-5 border border-white/20 bg-[#0B0C0E] px-4 py-2 font-mono text-xs text-[#EBE7DF] hover:border-[#C5A880] transition cursor-pointer"
+              >
+                Restablecer filtros →
+              </button>
+            </>
+          )}
+        </div>
+      ) : (
+        <div className="mt-10 columns-1 gap-8 sm:columns-2 lg:columns-3">
         {visiblePhotos.map((photo) => (
           <div
             key={photo.id}
@@ -241,6 +291,7 @@ export default function DirectPrintsCatalog({
           </div>
         ))}
       </div>
+      )}
     </div>
   );
 }

@@ -17,7 +17,7 @@ const OpticalLoupeInspector = dynamic(
 );
 import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/metadata";
-import { getAllPhotos, getPrintablePhotos } from "@/lib/photos";
+import { getPrintablePhotos } from "@/lib/photos";
 import { generateBreadcrumbSchema, generateFAQSchema } from "@/lib/schema";
 
 export const metadata = buildPageMetadata({
@@ -90,7 +90,7 @@ const SPECS = [
 
 export default function PrintsPage() {
   const printable = getPrintablePhotos();
-  const allPhotos = getAllPhotos();
+  const featuredPrintable = printable.filter((p) => p.featured);
   const printFaqs = [
     {
       q: "¿Cómo se entrega y protege cada copia Fine Art?",
@@ -299,9 +299,9 @@ export default function PrintsPage() {
             </div>
           </div>
 
-          {/* Visual Catalog with Direct Purchase for All 100 Artworks */}
+          {/* Visual Catalog with Direct Purchase for Printable Artworks */}
           <Suspense fallback={null}>
-            <DirectPrintsCatalog allPhotos={allPhotos} featuredPrints={printable} />
+            <DirectPrintsCatalog allPhotos={printable} featuredPrints={featuredPrintable} />
           </Suspense>
         </div>
 

@@ -36,28 +36,52 @@ export default function PhotoMeta({ photo }: PhotoMetaProps) {
       </h1>
 
       {/* Prominent Price & Acquisition Banner */}
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border border-[#C5A880]/30 bg-[#15171A] p-4 sm:p-5">
-        <div>
-          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#C5A880] block">
-            Copia Fine Art · {photo.pricing?.paper.includes("Baritado") ? "Papel Baritado 340g" : "Algodón 100% 308g"} (Ed. {photo.pricing?.editionTotal ?? 25} ej.)
-          </span>
-          <div className="mt-1 flex flex-wrap items-baseline gap-3">
-            <span className="whitespace-nowrap font-serif text-2xl sm:text-3xl font-light text-[#EBE7DF]">
-              Desde {photo.pricing?.estudio ?? 100}&nbsp;€
+      {photo.prints ? (
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border border-[#C5A880]/30 bg-[#15171A] p-4 sm:p-5">
+          <div>
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#C5A880] block">
+              Copia Fine Art · {photo.pricing?.paper.includes("Baritado") ? "Papel Baritado 340g" : "Algodón 100% 308g"} (Ed. {photo.pricing?.editionTotal ?? 25} ej.)
             </span>
-            <span className="font-mono text-xs text-[#A39E93]">
-              (<span className="whitespace-nowrap">Estudio {photo.pricing?.estudio ?? 100}&nbsp;€</span> · <span className="whitespace-nowrap">Galería {photo.pricing?.galeria ?? 190}&nbsp;€</span> · <span className="whitespace-nowrap">Colección {photo.pricing?.coleccion ?? 320}&nbsp;€</span>)
-            </span>
+            <div className="mt-1 flex flex-wrap items-baseline gap-3">
+              <span className="whitespace-nowrap font-serif text-2xl sm:text-3xl font-light text-[#EBE7DF]">
+                Desde {photo.pricing?.estudio ?? 100}&nbsp;€
+              </span>
+              <span className="font-mono text-xs text-[#A39E93]">
+                (<span className="whitespace-nowrap">Estudio {photo.pricing?.estudio ?? 100}&nbsp;€</span> · <span className="whitespace-nowrap">Galería {photo.pricing?.galeria ?? 190}&nbsp;€</span> · <span className="whitespace-nowrap">Colección {photo.pricing?.coleccion ?? 320}&nbsp;€</span>)
+              </span>
+            </div>
           </div>
+          <a
+            href="#adquirir-copia"
+            className="inline-flex min-h-[44px] items-center gap-2 border border-[#C5A880] bg-[#C5A880] px-5 py-2.5 font-mono text-xs uppercase tracking-[0.2em] text-[#0B0C0E] font-semibold transition hover:bg-white hover:border-white shadow"
+          >
+            <span>Elegir Formato y Comprar</span>
+            <span>↓</span>
+          </a>
         </div>
-        <a
-          href="#adquirir-copia"
-          className="inline-flex min-h-[44px] items-center gap-2 border border-[#C5A880] bg-[#C5A880] px-5 py-2.5 font-mono text-xs uppercase tracking-[0.2em] text-[#0B0C0E] font-semibold transition hover:bg-white hover:border-white shadow"
-        >
-          <span>Elegir Formato y Comprar</span>
-          <span>↓</span>
-        </a>
-      </div>
+      ) : (
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border border-white/10 bg-[#15171A] p-4 sm:p-5">
+          <div>
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#C5A880] block">
+              {photo.category === "coches-rally"
+                ? "Archivo Motorsport · Cobertura & Prensa"
+                : "Archivo Documental"}
+            </span>
+            <p className="mt-1 font-serif text-lg sm:text-xl font-light text-[#EBE7DF]">
+              {photo.category === "coches-rally"
+                ? "Disponible para pilotos, escuderías y prensa editorial"
+                : "Obra de archivo para consulta y proyectos editoriales"}
+            </p>
+          </div>
+          <a
+            href="#adquirir-copia"
+            className="inline-flex min-h-[44px] items-center gap-2 border border-[#C5A880] bg-[#C5A880] px-5 py-2.5 font-mono text-xs uppercase tracking-[0.2em] text-[#0B0C0E] font-semibold transition hover:bg-white hover:border-white shadow"
+          >
+            <span>{photo.category === "coches-rally" ? "Solicitar como Piloto / Prensa" : "Consultar Disponibilidad"}</span>
+            <span>↓</span>
+          </a>
+        </div>
+      )}
 
       <dl className="mt-8 grid grid-cols-2 gap-6 text-sm sm:grid-cols-4 border-y border-[#202226] py-6">
         <div>

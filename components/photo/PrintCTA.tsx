@@ -55,6 +55,65 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
     window.dispatchEvent(new Event("open-checkout-direct"));
   };
 
+  if (!photo.prints) {
+    const isMotorsport = photo.category === "coches-rally";
+    return (
+      <section
+        id="adquirir-copia"
+        aria-labelledby="archive-heading"
+        className="relative border border-white/[0.12] bg-[#151618]/95 p-8 sm:p-10 transition-colors scroll-mt-24"
+      >
+        <AndalusianCornerOrnaments className="text-[#C5A880]/40" />
+        <div className="flex items-center justify-between">
+          <span className="text-[10px] font-mono uppercase tracking-[0.35em] text-[#C5A880]">
+            {isMotorsport ? "Archivo Motorsport · Solicitud para Equipos y Prensa" : "Archivo Documental · Consulta Directa"}
+          </span>
+          <span className="font-mono text-[10px] uppercase tracking-wider text-[#A39E93] border border-white/15 px-2 py-0.5">
+            {isMotorsport ? "Uso Editorial / Equipos" : "Edición no disponible online"}
+          </span>
+        </div>
+
+        <h2
+          id="archive-heading"
+          className="mt-3 font-serif text-2xl sm:text-3xl font-light text-[#EBE7DF]"
+        >
+          {isMotorsport ? "Prensa, Pilotos y Escuderías" : "Consulta y Copia Privada de Autor"}
+        </h2>
+        <p className="mt-3 text-sm leading-relaxed text-[#8E8A80] font-light">
+          {isMotorsport
+            ? "Para respetar los derechos de imagen de escuderías, patrocinadores y participantes, las imágenes de competición no se comercializan a través de venta abierta al público. Si eres piloto, copiloto, miembro del equipo, organizador o medio acreditado, puedes solicitar archivos máster en alta resolución (TIFF 16-bit / 32,5 MP) o copias de autor para tu escudería o patrocinadores."
+            : "Esta fotografía forma parte del archivo documental y no cuenta con venta automatizada en cesta. Si deseas adquirir una copia Fine Art firmada o tramitar una cesión particular, contacta directamente con el autor."}
+        </p>
+
+        <div className="mt-8 pt-6 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#A39E93] block">
+              Modalidad de Cesión
+            </span>
+            <span className="font-serif text-xl text-[#EBE7DF]">
+              {isMotorsport ? "Cesión directa a pilotos y prensa" : "Consulta personalizada"}
+            </span>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <Link
+              href={`/contact?motivo=${isMotorsport ? "rally" : "print"}&obra=${encodeURIComponent(photo.title)}`}
+              className="inline-flex min-h-[44px] items-center justify-center gap-2 border border-[#C5A880] bg-[#C5A880] px-6 py-3 font-mono text-xs uppercase tracking-[0.22em] text-[#0B0C0E] font-semibold transition hover:bg-white hover:border-white shadow"
+            >
+              <span>{isMotorsport ? "Solicitar como Piloto / Prensa →" : "Contactar con Javier →"}</span>
+            </Link>
+            <Link
+              href="/servicios"
+              className="inline-flex min-h-[44px] items-center justify-center border border-white/20 bg-[#0B0C0E] px-5 py-3 font-mono text-xs uppercase tracking-[0.2em] text-[#EBE7DF] transition hover:border-[#C5A880] hover:text-white"
+            >
+              Encargos y Coberturas
+            </Link>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section
       id="adquirir-copia"

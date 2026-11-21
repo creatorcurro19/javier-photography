@@ -110,19 +110,19 @@ export function createBlankPhoto(
     country: "España",
     camera: "Canon EOS R7",
     lens:
-      category === "fauna-naturaleza"
+      category === "fauna-naturaleza" || category === "coches-rally"
         ? "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary"
         : "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     iso: 400,
     aperture: "f/5.6",
-    shutter: "1/500s",
-    focalLength: category === "fauna-naturaleza" ? "600mm" : "35mm",
+    shutter: category === "coches-rally" ? "1/1000s" : "1/500s",
+    focalLength: category === "fauna-naturaleza" || category === "coches-rally" ? "600mm" : "35mm",
     maxRecommendedFormat: "coleccion",
     description: "",
     story: "",
     year: new Date().getFullYear(),
     featured: false,
-    prints: true,
+    prints: category !== "coches-rally",
     licensing: true,
     keywords: [],
     pricing: {

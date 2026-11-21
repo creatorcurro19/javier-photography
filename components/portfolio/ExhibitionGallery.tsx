@@ -456,15 +456,26 @@ export default function ExhibitionGallery({
                     </div>
 
                     <div className="shrink-0 flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
-                      <div className="text-right hidden sm:block">
-                        <span className="whitespace-nowrap font-serif text-sm font-light text-[#C5A880] block leading-tight">
-                          {photo.pricing?.estudio ?? 100}&nbsp;€
-                        </span>
-                        <span className="whitespace-nowrap font-mono text-[8px] uppercase tracking-wider text-[#A39E93]">
-                          Desde ({photo.pricing?.dimensions?.estudio?.replace(/ cm$/, "") ?? "30×45"})
-                        </span>
-                      </div>
-                      <PrintCardAction photo={photo} />
+                      {photo.prints ? (
+                        <>
+                          <div className="text-right hidden sm:block">
+                            <span className="whitespace-nowrap font-serif text-sm font-light text-[#C5A880] block leading-tight">
+                              {photo.pricing?.estudio ?? 100}&nbsp;€
+                            </span>
+                            <span className="whitespace-nowrap font-mono text-[8px] uppercase tracking-wider text-[#A39E93]">
+                              Desde ({photo.pricing?.dimensions?.estudio?.replace(/ cm$/, "") ?? "30×45"})
+                            </span>
+                          </div>
+                          <PrintCardAction photo={photo} />
+                        </>
+                      ) : (
+                        <Link
+                          href={`/portfolio/${photo.slug}`}
+                          className="inline-flex min-h-[38px] items-center gap-1.5 rounded border border-white/15 bg-[#151618] px-3 py-1.5 font-mono text-[9px] uppercase tracking-wider text-[#C5A880] transition hover:border-[#C5A880] hover:text-white"
+                        >
+                          {photo.category === "coches-rally" ? "Archivo Rally" : "Ver Ficha"}
+                        </Link>
+                      )}
                     </div>
                   </figcaption>
                 )}
