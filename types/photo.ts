@@ -26,11 +26,7 @@ export interface PhotoPricing {
 
 export type MaxPrintFormatId = "estudio" | "galeria" | "coleccion";
 
-export type WildlifeCondition =
-  | "libre"
-  | "parque"
-  | "centro"
-  | "{{DATO_PENDIENTE: confirmar condición (libre / parque / centro)}}";
+export type WildlifeCondition = "libre" | "parque" | "centro";
 
 export interface Photo {
   id: string;

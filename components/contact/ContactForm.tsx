@@ -500,11 +500,7 @@ export default function ContactForm() {
               value={turnstileToken}
               onChange={(e) => setTurnstileToken(e.target.value)}
             />
-          ) : (
-            <span className="text-[#C5A880]">
-              {"{{DATO_PENDIENTE: NEXT_PUBLIC_TURNSTILE_SITE_KEY}}"}
-            </span>
-          )}
+          ) : null}
         </div>
 
         <div className="flex items-start gap-3 pt-1">
@@ -540,7 +536,7 @@ export default function ContactForm() {
           <p className="font-mono text-[11px] text-[#A39E93]">
             Respuesta en 24–48 h laborables ·{" "}
             <span className="text-[#EBE7DF]">
-              contacto@{"{{DATO_PENDIENTE: DOMINIO_PROPIO}}"}
+              javierespinosa1995@hotmail.com
             </span>
           </p>
         </div>

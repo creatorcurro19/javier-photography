@@ -25,10 +25,7 @@ export default function AboutPreview() {
 
               <div className="absolute bottom-4 left-5 right-5 flex flex-col gap-1 font-mono text-[10px] text-[#EBE7DF]">
                 <span className="bg-[#0B0C0E]/90 px-2.5 py-1 border border-white/[0.1] uppercase tracking-wider">
-                  Javier Espinosa Martínez · Tenerife
-                </span>
-                <span className="bg-[#0B0C0E]/90 px-2.5 py-1 border border-[#C5A880]/30 text-[#C5A880]">
-                  {"{{DATO_PENDIENTE: sustituir por retrato personal de Javier Espinosa con cámara}}"}
+                  Javier Espinosa Martínez · Puerto de la Cruz (Tenerife)
                 </span>
               </div>
             </div>

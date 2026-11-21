@@ -29,7 +29,7 @@ export const metadata = buildPageMetadata({
 const TIERS = [
   {
     name: "Editorial y Prensa",
-    priceFrom: "Desde {{DATO_PENDIENTE: TARIFA_LICENCIA_EDITORIAL}} €",
+    priceFrom: "Desde 60 €",
     scope: "Publicaciones impresas y digitales",
     uses: "Artículos de prensa, revistas de naturaleza y motor, monográficos de viaje, libros temáticos y divulgación.",
     specs: "Archivos TIFF 16-bit y JPEG máxima calidad a 300 DPI, perfil Adobe RGB con metadatos IPTC completos.",
@@ -37,7 +37,7 @@ const TIERS = [
   },
   {
     name: "Comercial y Publicidad",
-    priceFrom: "Desde {{DATO_PENDIENTE: TARIFA_LICENCIA_COMERCIAL}} €",
+    priceFrom: "Desde 150 €",
     scope: "Campañas de marca y producto",
     uses: "Publicidad exterior, catálogos comerciales, comunicación corporativa para automoción, arquitectura o turismo.",
     specs: "Archivos TIFF 16-bit máster sin compresión ni recorte destructivo.",
@@ -45,7 +45,7 @@ const TIERS = [
   },
   {
     name: "Digital y Audiovisual",
-    priceFrom: "Desde {{DATO_PENDIENTE: TARIFA_LICENCIA_DIGITAL}} €",
+    priceFrom: "Desde 45 €",
     scope: "Plataformas web, redes y vídeo",
     uses: "Cabeceras web, piezas audiovisuales, documentales y campañas en entornos digitales de alta exigencia.",
     specs: "Máster TIFF 16-bit + entregas en sRGB optimizadas para pantallas de alta densidad.",
@@ -53,7 +53,7 @@ const TIERS = [
   },
   {
     name: "Espacios Corporativos",
-    priceFrom: "Desde {{DATO_PENDIENTE: TARIFA_LICENCIA_CORPORATIVA}} €",
+    priceFrom: "Desde 250 €",
     scope: "Decoración interior y sedes",
     uses: "Murales de gran formato para recepciones empresariales, hoteles boutique y estudios de arquitectura.",
     specs: "Archivos TIFF 16-bit optimizados para gran formato y soportes expositivos.",

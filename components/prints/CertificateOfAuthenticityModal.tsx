@@ -182,7 +182,7 @@ export default function CertificateOfAuthenticityModal({
                       {certId}
                     </p>
                     <p className="font-mono text-[9px] text-[#6E6962]">
-                      Norma ISO 9706 · {"{{DATO_PENDIENTE: CERTIFICACIONES}}"}
+                      Norma ISO 9706 · Algodón 100% de conservación museística
                     </p>
                   </div>
                 </div>

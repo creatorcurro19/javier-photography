@@ -9,19 +9,19 @@ const PENDING_PROOF_SLOTS = [
   {
     id: "testimonios",
     category: "Testimonios de Coleccionistas y Clientes",
-    placeholder: "{{DATO_PENDIENTE: TESTIMONIOS REALES DE COLECCIONISTAS, INTERIORISTAS O EQUIPOS}}",
-    detail: "Espacio reservado para citas reales verificadas (sin testimonios inventados).",
+    placeholder: "Testimonios de coleccionistas y clientes",
+    detail: "Espacio reservado para citas reales verificadas.",
   },
   {
     id: "logos",
     category: "Clientes, Escuderías y Estudios Colaboradores",
-    placeholder: "{{DATO_PENDIENTE: LOGOS / NOMBRES DE CLIENTES, ESTUDIOS DE ARQUITECTURA O ESCUDERÍAS}}",
-    detail: "Espacio reservado para logotipos o referencias autorizadas por clientes reales.",
+    placeholder: "Colaboraciones editoriales y escuderías",
+    detail: "Espacio reservado para logotipos o referencias autorizadas.",
   },
   {
     id: "publicaciones",
     category: "Publicaciones, Exposiciones y Menciones",
-    placeholder: "{{DATO_PENDIENTE: PUBLICACIONES EDITORIALES, CATÁLOGOS Y EXPOSICIONES}}",
+    placeholder: "Publicaciones editoriales y exposiciones",
     detail: "Perfiles verificados activos: Saatchi Art · Getty Images / iStock · @Javier.espinosa19.",
   },
 ];

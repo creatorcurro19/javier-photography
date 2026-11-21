@@ -27,7 +27,6 @@ const commercialLinks = [
   { href: "/projects", es: "Series", en: "Series" },
   { href: "/prints", es: "Copias", en: "Prints" },
   { href: "/servicios", es: "Encargos", en: "Commissions" },
-  { href: "/cuaderno", es: "Cuaderno", en: "Journal" },
   { href: "/about", es: "Sobre mí", en: "About" },
   { href: "/contact", es: "Contacto", en: "Contact" },
   { href: "/licensing", es: "Licencias Editoriales y Comerciales", en: "Editorial & Commercial Licensing" },

@@ -17,19 +17,14 @@ export const metadata = buildPageMetadata({
 
 const CONTACT_INFO = [
   {
-    label: "Correo Electrónico (Dominio Propio / Estudio)",
-    value: "contacto@{{DATO_PENDIENTE: DOMINIO_PROPIO}} / javierespinosa1995@hotmail.com",
+    label: "Correo Electrónico de Contacto",
+    value: "javierespinosa1995@hotmail.com",
     href: "mailto:javierespinosa1995@hotmail.com",
-    note: "Plazo de respuesta: 24–48 h laborables",
-  },
-  {
-    label: "WhatsApp y Teléfono Directo",
-    value: "{{DATO_PENDIENTE: TELEFONO_WHATSAPP}}",
-    note: "Atención en horario de estudio (Tenerife · GMT/WEST) · Respuesta en 24–48 h laborables",
+    note: "Atención directa por el autor · Plazo de respuesta: 24–48 h laborables",
   },
   {
     label: "Base de Operaciones",
-    value: "Tenerife, Islas Canarias, España",
+    value: "Puerto de la Cruz (Tenerife, Islas Canarias)",
     note: "Base insular con disponibilidad para desplazamientos a Península e internacionales",
   },
   {

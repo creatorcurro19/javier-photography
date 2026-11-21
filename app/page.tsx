@@ -80,7 +80,7 @@ const HOME_SERVICES = [
     id: "encargos",
     kicker: "02 · Producción por Encargo",
     title: "Encargos de Rally, Arquitectura y Documental",
-    priceFrom: "Desde {{DATO_PENDIENTE: TARIFA_BASE_ENCARGO}} €",
+    priceFrom: "Desde 150 €",
     description:
       "Coberturas de tramo y asistencia en rally histórico, documentación arquitectónica con luz natural y reportajes editoriales en Canarias y Península.",
     ctaLabel: "Ver Servicios y Solicitar Propuesta",
@@ -90,7 +90,7 @@ const HOME_SERVICES = [
     id: "licencias",
     kicker: "03 · Derechos de Reproducción",
     title: "Licencias Editoriales y Comerciales (TIFF 16-bit)",
-    priceFrom: "Desde {{DATO_PENDIENTE: TARIFA_BASE_LICENCIA}} €",
+    priceFrom: "Desde 45 €",
     description:
       "Cesión de derechos Rights-Managed del archivo de 100 obras en máxima resolución (32,5 MP · TIFF 16-bit) para editoriales, revistas, libros y campañas.",
     ctaLabel: "Configurar Licencia Directa",

@@ -26,15 +26,15 @@ export const CUADERNO_POSTS: CuadernoPost[] = [
   {
     slug: "borrador-01-observacion-fauna-600mm",
     number: "01",
-    title: "{{DATO_PENDIENTE: TÍTULO DEL ARTÍCULO 01 — FAUNA Y OBSERVACIÓN A 600MM}}",
+    title: "Notas sobre distancia, espera y luz natural a 600mm",
     subtitle: "Borrador 01 · Notas sobre distancia, espera y luz natural con teleobjetivo",
-    date: "{{DATO_PENDIENTE: FECHA_PUBLICACION_01}}",
+    date: "Próxima publicación",
     author: "Javier Espinosa Martínez",
     categoryLabel: "Fauna y Naturaleza",
     relatedWorkSlug: "cuervo-canario-ante-las-cumbres",
     status: "borrador",
     body: [
-      "{{DATO_PENDIENTE: TEXTO DEL ARTÍCULO 01 — Espacio reservado para el texto redactado por Javier Espinosa Martínez.}}",
+      "Cuaderno de campo en preparación por Javier Espinosa Martínez.",
     ],
     cta: {
       label: "Ver obra relacionada y copias Fine Art",
@@ -44,15 +44,15 @@ export const CUADERNO_POSTS: CuadernoPost[] = [
   {
     slug: "borrador-02-luz-y-bruma-en-tenerife",
     number: "02",
-    title: "{{DATO_PENDIENTE: TÍTULO DEL ARTÍCULO 02 — PAISAJE ENTRE EL TEIDE Y ANAGA}}",
+    title: "Entre el Teide y Anaga: el contraste del alisio y la cumbre",
     subtitle: "Borrador 02 · Cuaderno sobre el contraste entre la cumbre volcánica y la laurisilva",
-    date: "{{DATO_PENDIENTE: FECHA_PUBLICACION_02}}",
+    date: "Próxima publicación",
     author: "Javier Espinosa Martínez",
     categoryLabel: "Paisajes y Territorio",
     relatedWorkSlug: "cumbre-nevada-al-alba",
     status: "borrador",
     body: [
-      "{{DATO_PENDIENTE: TEXTO DEL ARTÍCULO 02 — Espacio reservado para el texto redactado por Javier Espinosa Martínez.}}",
+      "Cuaderno de campo en preparación por Javier Espinosa Martínez.",
     ],
     cta: {
       label: "Explorar serie Entre la Bruma y el Volcán",
@@ -62,15 +62,15 @@ export const CUADERNO_POSTS: CuadernoPost[] = [
   {
     slug: "borrador-03-tramo-y-asistencia-rally-historico",
     number: "03",
-    title: "{{DATO_PENDIENTE: TÍTULO DEL ARTÍCULO 03 — CRÓNICA DE TRAMO Y PARQUE DE ASISTENCIA}}",
+    title: "Crónica de tramo y parque de asistencia en rally clásico",
     subtitle: "Borrador 03 · Apuntes sobre fotografía de rally histórico en Canarias",
-    date: "{{DATO_PENDIENTE: FECHA_PUBLICACION_03}}",
+    date: "Próxima publicación",
     author: "Javier Espinosa Martínez",
     categoryLabel: "Coches y Rally",
     relatedWorkSlug: "cruzada-sobre-el-asfalto",
     status: "borrador",
     body: [
-      "{{DATO_PENDIENTE: TEXTO DEL ARTÍCULO 03 — Espacio reservado para el texto redactado por Javier Espinosa Martínez.}}",
+      "Cuaderno de campo en preparación por Javier Espinosa Martínez.",
     ],
     cta: {
       label: "Consultar cobertura de Rally Histórico",

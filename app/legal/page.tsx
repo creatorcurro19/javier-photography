@@ -66,14 +66,14 @@ export default function LegalPage() {
                   <span className="block text-[10px] uppercase tracking-wider text-[#A39E93]">
                     NIF / Documento Fiscal
                   </span>
-                  <span className="mt-1 block text-[#C5A880]">{"{{DATO_PENDIENTE: NIF}}"}</span>
+                  <span className="mt-1 block text-[#C5A880]">26505129K</span>
                 </div>
                 <div>
                   <span className="block text-[10px] uppercase tracking-wider text-[#A39E93]">
                     Domicilio Fiscal / Estudio
                   </span>
-                  <span className="mt-1 block text-[#C5A880]">
-                    {"{{DATO_PENDIENTE: DOMICILIO_FISCAL}}"} (Tenerife, Islas Canarias, España)
+                  <span className="mt-1 block text-[#EBE7DF]">
+                    Puerto de la Cruz (Santa Cruz de Tenerife, Islas Canarias, España)
                   </span>
                 </div>
                 <div>
@@ -81,7 +81,7 @@ export default function LegalPage() {
                     Correo Electrónico de Contacto
                   </span>
                   <span className="mt-1 block text-[#EBE7DF]">
-                    contacto@{"{{DATO_PENDIENTE: DOMINIO_PROPIO}}"} / javierespinosa1995@hotmail.com
+                    javierespinosa1995@hotmail.com
                   </span>
                 </div>
               </div>
@@ -204,7 +204,7 @@ export default function LegalPage() {
                     Encargados del Tratamiento y Destinatarios Técnicos
                   </p>
                   <p className="mt-1 text-xs text-[#EBE7DF]">
-                    No se ceden datos a terceros salvo obligación legal. Actúan como encargados técnicos del tratamiento: <strong className="text-white">Vercel Inc.</strong> (alojamiento e infraestructura de servidor web) y <strong className="text-white">Resend / FormSubmit ({"{{DATO_PENDIENTE: confirmar proveedor definitivo de correo transaccional}}"})</strong> para la recepción y confirmación de mensajes enviados por los formularios de contacto y reserva.
+                    No se ceden datos a terceros salvo obligación legal. Actúan como encargados técnicos del tratamiento: <strong className="text-white">Vercel Inc.</strong> (alojamiento e infraestructura de servidor web) y <strong className="text-white">servicios de correo transaccional (FormSubmit / Resend)</strong> para la recepción y confirmación de mensajes enviados por los formularios de contacto y solicitud de copias.
                   </p>
                 </div>
               </div>

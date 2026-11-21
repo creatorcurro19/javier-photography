@@ -38,13 +38,6 @@ const primaryLinks = [
     noteEn: "Projects & assignments",
   },
   {
-    href: "/cuaderno",
-    es: "Cuaderno",
-    en: "Journal",
-    noteEs: "Artículos y notas de campo",
-    noteEn: "Articles & field notes",
-  },
-  {
     href: "/about",
     es: "Sobre mí",
     en: "About",

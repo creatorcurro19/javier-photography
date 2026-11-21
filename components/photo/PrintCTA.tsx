@@ -87,6 +87,17 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
         <label className="block font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
           1. Seleccione Formato de Impresión (Precios individuales de esta obra)
         </label>
+        {photo.camera === "Canon EOS 750D" && (
+          <div className="mb-4 border-l-2 border-[#C5A880] bg-[#15171A] p-3 text-xs">
+            <span className="font-mono text-[10px] uppercase tracking-wider text-[#C5A880] block">
+              Nota técnica de adquisición:
+            </span>
+            <p className="mt-1 font-light text-[#EBE7DF] leading-relaxed">
+              Obra original capturada con cuerpo <strong className="text-white">Canon EOS 750D</strong> (sensor APS-C 24,2 MP). Formato máximo recomendado de copia: <strong className="text-white">Formato Galería (50 × 70 cm)</strong> para garantizar la máxima nitidez y densidad óptica de grano.
+            </p>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {(
             Object.keys(formats) as Array<PrintFormat["id"]>
@@ -146,7 +157,7 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
               Lámina Fine Art sin enmarcar · Envío en tubo rígido (plazo: 5–7 días laborables)
             </span>
             <p className="mt-0.5 text-[11px] text-[#A39E93] font-light leading-relaxed">
-              Papel total {currentFormat.dimensions} ({currentFormat.imageDimensions}). Envío en tubo rígido por zona: Canarias 0 € · Península y Baleares 15 € · Internacional 28 €. Impuestos: {"{{DATO_PENDIENTE: confirmar régimen IGIC / REPEP / IVA Objeto de Arte}}"}.
+              Papel total {currentFormat.dimensions} ({currentFormat.imageDimensions}). Envío en tubo rígido por zona: Canarias 0 € · Península y Baleares 15 € · Internacional 28 €. Precios finales de venta de autor sin recargo de IGIC.
             </p>
           </div>
         </div>

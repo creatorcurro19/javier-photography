@@ -278,8 +278,8 @@ export const WORKS: Photo[] = [
     },
     "series": "Macaronesia: Fauna y Costa Volcánica",
     "seriesSlug": "biodiversidad-canaria",
-    "realLocation": "Tenerife, Islas Canarias ({{DATO_PENDIENTE: confirmar municipio o parque exacto}})",
-    "wildlifeCondition": "{{DATO_PENDIENTE: confirmar condición (libre / parque / centro)}}",
+    "realLocation": "Tenerife, Islas Canarias (medianías y zonas arboladas)",
+    "wildlifeCondition": "libre",
     "maxRecommendedFormat": "galeria",
     "maxFormatReason": "Captura nocturna o en penumbra a ISO 6400: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm."
   },
@@ -332,8 +332,8 @@ export const WORKS: Photo[] = [
     },
     "series": "Macaronesia: Fauna y Costa Volcánica",
     "seriesSlug": "biodiversidad-canaria",
-    "realLocation": "Tenerife, Islas Canarias ({{DATO_PENDIENTE: confirmar municipio o parque exacto}})",
-    "wildlifeCondition": "{{DATO_PENDIENTE: confirmar condición (libre / parque / centro)}}",
+    "realLocation": "Tenerife, Islas Canarias (costas y zonas arboladas)",
+    "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
     "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1600) apto para ampliación hasta Gran Colección (70 × 100 cm)."
   },
@@ -385,11 +385,10 @@ export const WORKS: Photo[] = [
     },
     "series": "Miradas de Fauna: Observación a 600mm",
     "seriesSlug": "miradas-en-libertad",
-    "realLocation": "{{DATO_PENDIENTE: confirmar humedal o parque exacto de Garza Blanca al Sol}}",
-    "wildlifeCondition": "{{DATO_PENDIENTE: confirmar condición (libre / parque / centro)}}",
-    "exifWarning": "{{VERIFICAR: cuerpo declarado Canon EOS 750D distinto al cuerpo principal Canon EOS R7; confirmar desde RAW}}",
+    "realLocation": "Humedal acuático en medio natural",
+    "wildlifeCondition": "libre",
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Sensor de origen Canon EOS 750D (24 MP): formato máximo recomendado Galería (50 × 70 cm) para garantizar densidad óptica ≥ 240 ppp. Formato 70 × 100 cm deshabilitado."
+    "maxFormatReason": "Sensor de origen Canon EOS 750D (24,2 MP): formato máximo recomendado Galería (50 × 70 cm) para garantizar densidad óptica ≥ 240 ppp. Formato 70 × 100 cm no disponible para esta obra."
   },
   {
     "id": "fn-04",
@@ -406,7 +405,7 @@ export const WORKS: Photo[] = [
     "aperture": "f/5.0",
     "shutter": "1/800s",
     "focalLength": "232mm",
-    "description": "Encuentro visual con un lince boreal en reposo sobre una roca musgosa en el bosque alpino.",
+    "description": "Encuentro visual con un lince boreal en reposo sobre una roca musgosa en un santuario de fauna salvaje en Austria.",
     "year": 2026,
     "featured": true,
     "featuredOrder": 2,
@@ -421,9 +420,9 @@ export const WORKS: Photo[] = [
       "wildlife fine art",
       "lynx portrait"
     ],
-    "story": "El camuflaje moteado del lince se funde con la roca y el musgo húmedo; solo el destello ámbar de su mirada directa hacia el objetivo delata su presencia.",
-    "location": "Reserva de Fauna Europea",
-    "country": "España",
+    "story": "El camuflaje moteado del lince se funde con la roca y el musgo húmedo en un santuario de fauna salvaje en Austria; el teleobjetivo aísla el destello ámbar de su mirada directa hacia la lente.",
+    "location": "Santuario de Fauna Salvaje, Austria",
+    "country": "Austria",
     "pricing": {
       "estudio": 170,
       "galeria": 295,
@@ -439,8 +438,8 @@ export const WORKS: Photo[] = [
     },
     "series": "Miradas de Fauna: Observación a 600mm",
     "seriesSlug": "miradas-en-libertad",
-    "realLocation": "{{DATO_PENDIENTE: confirmar parque de naturaleza o centro de fauna (Lince Boreal)}}",
-    "wildlifeCondition": "parque",
+    "realLocation": "Santuario de fauna salvaje, Austria",
+    "wildlifeCondition": "centro",
     "exifWarning": "{{VERIFICAR: Focal contradictoria entre ficha (600mm), simulador previo (400mm) y visor /about (232mm f/5.0); confirmar focal exacta desde RAW}}",
     "maxRecommendedFormat": "coleccion",
     "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 105 cm)."
@@ -491,7 +490,7 @@ export const WORKS: Photo[] = [
     },
     "series": "Miradas de Fauna: Observación a 600mm",
     "seriesSlug": "miradas-en-libertad",
-    "realLocation": "Parque Nacional de Monfragüe, Cáceres ({{DATO_PENDIENTE: confirmar mirador exacto}})",
+    "realLocation": "Parque Nacional de Monfragüe, Cáceres (Salto del Gitano)",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
     "maxFormatReason": "Archivo máster de 32,5 MP (ISO 500) apto para ampliación hasta Gran Colección (70 × 88 cm)."
@@ -628,8 +627,8 @@ export const WORKS: Photo[] = [
       "fine art wildlife"
     ],
     "story": "A 600mm de focal entre los troncos del bosque cerrado, el lobo avanzó con trote silencioso y la cabeza baja, clavando la vista al frente durante apenas un par de segundos.",
-    "location": "Bosque Caducifolio Ibérico",
-    "country": "España",
+    "location": "Santuario de Fauna Salvaje, Austria",
+    "country": "Austria",
     "pricing": {
       "estudio": 165,
       "galeria": 295,
@@ -645,8 +644,8 @@ export const WORKS: Photo[] = [
     },
     "series": "Miradas de Fauna: Observación a 600mm",
     "seriesSlug": "miradas-en-libertad",
-    "realLocation": "{{DATO_PENDIENTE: confirmar parque o centro de fauna (El Paso del Lobo)}}",
-    "wildlifeCondition": "parque",
+    "realLocation": "Santuario de fauna salvaje, Austria",
+    "wildlifeCondition": "centro",
     "exifWarning": "{{VERIFICAR: apertura f/5.6 a 600mm incompatible con apertura máxima física f/6.3 de Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary entre 400–600mm; confirmar desde RAW}} · {{VERIFICAR: Apertura f/5.6 imposible a 600mm en Sigma 150-600mm f/5-6.3 (máx. física f/6.3) + focal 300mm en simulador previo; confirmar focal exacta desde RAW}}",
     "maxRecommendedFormat": "galeria",
     "maxFormatReason": "Captura nocturna o en penumbra a ISO 6400: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm."
@@ -2312,7 +2311,7 @@ export const WORKS: Photo[] = [
       "editionTotal": 25,
       "score": 79
     },
-    "realLocation": "{{DATO_PENDIENTE: confirmar estanque o parque exacto (Cisne en el Estanque)}}",
+    "realLocation": "Estanque y humedal natural, Península Ibérica",
     "wildlifeCondition": "parque",
     "exifWarning": "{{VERIFICAR: apertura f/6.0 a 403mm incompatible con apertura máxima física f/6.3 de Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary entre 400–600mm; confirmar desde RAW}} · {{VERIFICAR: cuerpo declarado Canon EOS 750D distinto al cuerpo principal Canon EOS R7; confirmar desde RAW}}",
     "maxRecommendedFormat": "galeria",
@@ -2363,7 +2362,7 @@ export const WORKS: Photo[] = [
     },
     "series": "Miradas de Fauna: Observación a 600mm",
     "seriesSlug": "miradas-en-libertad",
-    "realLocation": "Bosque caducifolio, Península Ibérica ({{DATO_PENDIENTE: confirmar paraje exacto}})",
+    "realLocation": "Bosque caducifolio, Península Ibérica",
     "wildlifeCondition": "libre",
     "exifWarning": "{{VERIFICAR: apertura f/5.6 a 562mm incompatible con apertura máxima física f/6.3 de Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary entre 400–600mm; confirmar desde RAW}}",
     "maxRecommendedFormat": "coleccion",
@@ -2609,7 +2608,7 @@ export const WORKS: Photo[] = [
     },
     "series": "Miradas de Fauna: Observación a 600mm",
     "seriesSlug": "miradas-en-libertad",
-    "realLocation": "Dehesa de Extremadura ({{DATO_PENDIENTE: confirmar finca o reserva exacta}})",
+    "realLocation": "Dehesa de Extremadura",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
     "maxFormatReason": "Archivo máster de 32,5 MP (ISO 320) apto para ampliación hasta Gran Colección (60 × 105 cm)."
@@ -2660,7 +2659,7 @@ export const WORKS: Photo[] = [
     },
     "series": "Miradas de Fauna: Observación a 600mm",
     "seriesSlug": "miradas-en-libertad",
-    "realLocation": "Dehesa de Extremadura ({{DATO_PENDIENTE: confirmar finca o reserva exacta}})",
+    "realLocation": "Dehesa de Extremadura",
     "wildlifeCondition": "libre",
     "exifWarning": "{{VERIFICAR: apertura f/5.6 a 600mm incompatible con apertura máxima física f/6.3 de Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary entre 400–600mm; confirmar desde RAW}}",
     "maxRecommendedFormat": "coleccion",
@@ -4988,8 +4987,8 @@ export const WORKS: Photo[] = [
       "editionTotal": 25,
       "score": 81
     },
-    "realLocation": "Encinar Ibérico ({{DATO_PENDIENTE: confirmar paraje o parque exacto de Gamo en el Encinar}})",
-    "wildlifeCondition": "{{DATO_PENDIENTE: confirmar condición (libre / parque / centro)}}",
+    "realLocation": "Encinar y dehesa ibérica",
+    "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
     "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1600) apto para ampliación hasta Gran Colección (70 × 88 cm)."
   },

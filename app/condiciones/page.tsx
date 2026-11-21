@@ -35,7 +35,7 @@ export default function CondicionesPage() {
               Condiciones de Compra, Envío y Licencias
             </h1>
             <p className="mt-4 font-mono text-xs text-[#A39E93]">
-              Titular: Javier Espinosa Martínez · NIF: {"{{DATO_PENDIENTE: NIF}}"} · Domicilio: {"{{DATO_PENDIENTE: DOMICILIO_FISCAL}}"} (Tenerife, Islas Canarias) · Documento sujeto a revisión final por gestor/abogado.
+              Titular: Javier Espinosa Martínez · NIF: 26505129K · Domicilio: Puerto de la Cruz (Santa Cruz de Tenerife, Islas Canarias, España).
             </p>
           </header>
 
@@ -70,7 +70,7 @@ export default function CondicionesPage() {
               </p>
               <ul className="list-disc space-y-1.5 pl-5 text-[#A39E93]">
                 <li>
-                  <strong className="text-[#EBE7DF]">Régimen fiscal en Canarias y exportación:</strong> {"{{DATO_PENDIENTE: confirmar régimen fiscal aplicable — exención IGIC por REPEP (0%) o tipo reducido de Objeto de Arte Original (3% IGIC en Canarias / 10% IVA de importación en Península y UE conforme al art. 91.Uno.4 de la Ley 37/1992 para fotografías firmadas y numeradas limitadas a un máximo de 30 ejemplares totales)}}"}.
+                  <strong className="text-[#EBE7DF]">Régimen fiscal y precios:</strong> Venta particular de obra gráfica y artística de autor (creación artística independiente no sujeta a repercusión de IGIC mercantil). Los importes mostrados son precios finales para el adquirente. En envíos fuera de Canarias (Península, Baleares e Internacional), las entregas se realizan mediante correo postal certificado en tubo rígido.
                 </li>
                 <li>
                   <strong className="text-[#EBE7DF]">Medios de pago:</strong> Reserva directa con confirmación del autor y pago mediante pasarela segura (Stripe, cuando esté activa) o transferencia bancaria / enlace de pago verificado tras confirmar disponibilidad del número de edición.
