@@ -67,7 +67,7 @@ export default function BulkPricesModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md">
+    <div className="fixed inset-0 z-[90] flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md">
       <div className="relative w-full max-w-lg rounded-2xl border border-[#2B2E36] bg-[#121316] text-[#EBE7DF] shadow-2xl overflow-hidden">
         <div className="flex items-center justify-between border-b border-[#22242B] px-5 py-4 bg-[#16171B]">
           <div>

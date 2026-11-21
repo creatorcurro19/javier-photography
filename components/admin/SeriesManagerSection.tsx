@@ -271,7 +271,7 @@ export default function SeriesManagerSection({
 
       {/* Modal Editor / Creador de Serie */}
       {editing && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-md">
+        <div className="fixed inset-0 z-[90] flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-md">
           <div className="relative flex max-h-[94vh] w-full max-w-4xl flex-col rounded-2xl border border-[#2B2E36] bg-[#121316] text-[#EBE7DF] shadow-2xl overflow-hidden">
             <div className="flex items-center justify-between border-b border-[#22242B] px-4 py-3.5 sm:px-6 bg-[#16171B]">
               <div>
@@ -549,7 +549,7 @@ export default function SeriesManagerSection({
 
       {/* Confirmación de eliminación de Serie */}
       {deletingSeries && (
-        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
           <div className="w-full max-w-md rounded-2xl border border-red-500/30 bg-[#121316] p-6 text-[#EBE7DF] shadow-2xl">
             <span className="font-mono text-[10px] uppercase tracking-wider text-red-400">
               Eliminar Serie Monográfica

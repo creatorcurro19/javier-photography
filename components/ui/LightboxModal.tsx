@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
 import type { Photo } from "@/types/photo";
@@ -113,22 +114,22 @@ export default function LightboxModal({
     setZoomOrigin({ x, y });
   };
 
-  if (!isOpen || !photo) return null;
+  if (!isOpen || !photo || typeof document === "undefined") return null;
 
   const categoryInfo = CATEGORY_METADATA[photo.category];
 
-  return (
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
       aria-label={`Visor de fotografía: ${photo.title}`}
-      className="fixed inset-0 z-50 flex flex-col bg-[#0B0C0E]/98 backdrop-blur-2xl select-none"
+      className="fixed inset-0 z-[110] flex flex-col bg-[#0B0C0E]/98 backdrop-blur-2xl select-none"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
       {/* Top Bar: Discreet Museum Telemetry */}
-      <header className="flex h-16 shrink-0 items-center justify-between border-b border-white/[0.08] px-4 md:px-8 gap-4">
-        <div className="flex shrink-0 items-center gap-3 sm:gap-4 text-xs font-mono">
+      <header className="flex h-16 shrink-0 items-center justify-between border-b border-white/[0.08] px-3 sm:px-6 md:px-8 gap-2 sm:gap-4">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-4 text-xs font-mono">
           <span className="text-[#EBE7DF]">
             {String(currentIndex + 1).padStart(2, "0")} <span className="text-white/20">/</span> {String(photos.length).padStart(2, "0")}
           </span>
@@ -142,25 +143,26 @@ export default function LightboxModal({
           {photo.title}
         </h2>
 
-        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+        <div className="flex shrink-0 items-center gap-1 sm:gap-2">
           {photos.length > 1 && (
             <>
               <button
                 type="button"
                 onClick={() => setIsPlaying((prev) => !prev)}
-                className={`rounded-full px-3.5 py-1.5 text-xs font-mono tracking-wider transition ${
+                className={`inline-flex min-h-[38px] items-center rounded-full px-2.5 sm:px-3.5 py-1.5 text-[11px] sm:text-xs font-mono tracking-wider transition ${
                   isPlaying
                     ? "bg-[#EBE7DF] text-[#0B0C0E] font-medium"
                     : "border border-white/[0.08] bg-[#151618] text-[#8E8A80] hover:border-white/30 hover:text-white"
                 }`}
                 title="Presentación automática (Tecla P o Espacio)"
               >
-                {isPlaying ? "❚❚ Pausar" : "▶ Reproducir"}
+                <span className="sm:hidden">{isPlaying ? "❚❚" : "▶ Pase"}</span>
+                <span className="hidden sm:inline">{isPlaying ? "❚❚ Pausar" : "▶ Reproducir"}</span>
               </button>
               <button
                 type="button"
                 onClick={() => setShowFilmstrip((prev) => !prev)}
-                className={`hidden sm:inline-flex rounded-full px-3 py-1.5 text-xs font-mono tracking-wider transition ${
+                className={`hidden sm:inline-flex min-h-[38px] items-center rounded-full px-3 py-1.5 text-xs font-mono tracking-wider transition ${
                   showFilmstrip
                     ? "border border-white/30 bg-[#151618] text-[#EBE7DF]"
                     : "border border-white/[0.08] bg-[#151618] text-[#8E8A80] hover:text-white"
@@ -176,20 +178,21 @@ export default function LightboxModal({
           <button
             type="button"
             onClick={() => setIsZoomed((prev) => !prev)}
-            className={`rounded-full px-3 py-1.5 text-xs font-mono tracking-wider transition ${
+            className={`inline-flex min-h-[38px] items-center rounded-full px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-mono tracking-wider transition ${
               isZoomed
                 ? "bg-[#EBE7DF] text-[#0B0C0E] font-medium"
                 : "border border-white/[0.08] bg-[#151618] text-[#8E8A80] hover:border-white/30 hover:text-white"
             }`}
             title="Lupa óptica de detalle al 200% (Tecla Z o clic en imagen)"
           >
-            {isZoomed ? "1× Normal" : "2× Lupa"}
+            <span className="sm:hidden">{isZoomed ? "1×" : "2×"}</span>
+            <span className="hidden sm:inline">{isZoomed ? "1× Normal" : "2× Lupa"}</span>
           </button>
 
           <button
             type="button"
             onClick={() => setShowExif(!showExif)}
-            className={`rounded-full px-3 py-1.5 text-xs font-mono tracking-wider transition ${
+            className={`inline-flex min-h-[38px] items-center rounded-full px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-mono tracking-wider transition ${
               showExif
                 ? "bg-[#EBE7DF] text-[#0B0C0E] font-medium"
                 : "border border-white/[0.08] bg-[#151618] text-[#8E8A80] hover:border-white/30 hover:text-white"
@@ -203,7 +206,7 @@ export default function LightboxModal({
             <button
               type="button"
               onClick={() => setAddCartOpen(true)}
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-[#C5A880] bg-[#C5A880] px-3.5 py-1.5 text-xs font-mono tracking-wider text-[#0B0C0E] font-medium transition hover:bg-white hover:border-white shadow"
+              className="hidden sm:inline-flex min-h-[38px] items-center gap-1.5 rounded-full border border-[#C5A880] bg-[#C5A880] px-3.5 py-1.5 text-xs font-mono tracking-wider text-[#0B0C0E] font-medium transition hover:bg-white hover:border-white shadow"
               title="Adquirir copia Fine Art certificada"
             >
               <span>{photo.pricing ? `${photo.pricing.estudio} €` : "+ Cesta"}</span>
@@ -215,7 +218,7 @@ export default function LightboxModal({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full p-2 text-[#8E8A80] transition hover:bg-white/[0.08] hover:text-white"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-[#EBE7DF] transition hover:bg-white/[0.12] hover:text-white"
             aria-label="Cerrar visor (Esc)"
           >
             <svg
@@ -448,6 +451,7 @@ export default function LightboxModal({
         isOpen={addCartOpen}
         onClose={() => setAddCartOpen(false)}
       />
-    </div>
+    </div>,
+    document.body
   );
 }

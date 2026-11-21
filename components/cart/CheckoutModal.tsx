@@ -137,9 +137,9 @@ export default function CheckoutModal({
       role="dialog"
       aria-modal="true"
       aria-labelledby="checkout-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md overflow-y-auto"
+      className="fixed inset-0 z-[130] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md"
     >
-      <div className="relative w-full max-w-2xl border border-white/[0.1] bg-[#0B0C0E] p-6 sm:p-10 shadow-2xl my-8">
+      <div className="relative max-h-[92vh] w-full max-w-2xl overflow-y-auto border border-white/[0.1] bg-[#0B0C0E] p-5 sm:p-10 shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-white/[0.08] pb-5">
           <div>

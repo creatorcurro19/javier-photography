@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
 import type { Photo } from "@/types/photo";
@@ -26,7 +27,7 @@ export default function AddToCartModal({
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
 
-  if (!isOpen) return null;
+  if (!isOpen || typeof document === "undefined") return null;
 
   const formats = getFormatsForPhoto(photo);
   const currentFormat = formats[selectedFormatId];
@@ -71,14 +72,14 @@ export default function AddToCartModal({
     window.dispatchEvent(new Event("open-checkout-direct"));
   };
 
-  return (
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md"
+      className="fixed inset-0 z-[120] flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md"
     >
-      <div className="relative w-full max-w-lg rounded-2xl border border-[#C5A880]/30 bg-[#0E1012] p-6 sm:p-8 shadow-2xl">
+      <div className="relative max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-[#C5A880]/30 bg-[#0E1012] p-5 sm:p-8 shadow-2xl">
         {/* Close Button */}
         <button
           type="button"
@@ -257,6 +258,7 @@ export default function AddToCartModal({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

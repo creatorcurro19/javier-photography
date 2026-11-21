@@ -63,7 +63,7 @@ export default function CartDrawer() {
         <div
           role="presentation"
           onClick={() => setIsOpen(false)}
-          className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm transition-opacity duration-300"
+          className="fixed inset-0 z-[100] bg-black/75 backdrop-blur-sm transition-opacity duration-300"
         />
       )}
 
@@ -71,7 +71,7 @@ export default function CartDrawer() {
       <aside
         aria-label="Cesta de Colección Fine Art"
         aria-hidden={!isOpen}
-        className={`fixed inset-y-0 right-0 z-50 flex w-full max-w-md flex-col border-l border-white/[0.08] bg-[#0B0C0E] shadow-[0_20px_70px_rgba(0,0,0,0.9)] transition-all duration-500 ease-out select-none ${
+        className={`fixed inset-y-0 right-0 z-[100] flex w-full max-w-md flex-col border-l border-white/[0.08] bg-[#0B0C0E] shadow-[0_20px_70px_rgba(0,0,0,0.9)] transition-all duration-500 ease-out select-none ${
           isOpen
             ? "translate-x-0 visible"
             : "translate-x-full invisible pointer-events-none"

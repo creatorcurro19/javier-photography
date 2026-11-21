@@ -537,7 +537,7 @@ export default function AdminDashboard({
     <div className="min-h-screen bg-[#0B0C0E] text-[#EBE7DF] pb-24">
       {/* Toast Flotante */}
       {toastMessage && (
-        <div className="fixed top-6 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-[60] flex items-center gap-3 rounded-xl border border-[#C5A880]/40 bg-[#16171B]/95 px-5 py-3.5 shadow-2xl backdrop-blur-md animate-fadeIn">
+        <div className="fixed top-6 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-[105] flex items-center gap-3 rounded-xl border border-[#C5A880]/40 bg-[#16171B]/95 px-5 py-3.5 shadow-2xl backdrop-blur-md animate-fadeIn">
           {toastMessage.type === "success" ? (
             <div className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
               <CheckIcon className="h-4 w-4" />
@@ -556,7 +556,7 @@ export default function AdminDashboard({
       )}
 
       {/* Barra Superior de Control */}
-      <header className="sticky top-0 z-40 border-b border-[#202227] bg-[#121316]/95 backdrop-blur-md">
+      <header className="sticky top-[71px] sm:top-[87px] z-40 border-b border-[#202227] bg-[#121316]/95 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
           <div className="flex items-center gap-3 min-w-0">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#C5A880]/30 bg-[#181A1F] text-[#C5A880] font-serif font-bold text-sm">
@@ -1041,12 +1041,12 @@ export default function AdminDashboard({
                       </div>
 
                       {/* Acciones y Toggles Rápidos */}
-                      <div className="mt-4 pt-3 border-t border-[#1E2026] flex items-center justify-between gap-2">
+                      <div className="mt-4 pt-3 border-t border-[#1E2026] flex flex-wrap items-center justify-between gap-2">
                         <div className="flex items-center gap-1.5">
                           <button
                             type="button"
                             onClick={(e) => handleQuickTogglePrints(photo, e)}
-                            className={`rounded-md px-2 py-1 text-[10px] font-mono transition cursor-pointer ${
+                            className={`inline-flex min-h-[38px] items-center rounded-lg px-2.5 py-1.5 text-[10px] font-mono transition cursor-pointer ${
                               photo.prints
                                 ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
                                 : "bg-[#202228] text-[#716C62] border border-transparent"
@@ -1059,7 +1059,7 @@ export default function AdminDashboard({
                           <button
                             type="button"
                             onClick={(e) => handleQuickToggleFeatured(photo, e)}
-                            className={`rounded-md px-2 py-1 text-[10px] font-mono transition cursor-pointer ${
+                            className={`inline-flex min-h-[38px] items-center rounded-lg px-2.5 py-1.5 text-[10px] font-mono transition cursor-pointer ${
                               photo.featured
                                 ? "bg-[#C5A880]/20 text-[#C5A880] border border-[#C5A880]/40"
                                 : "bg-[#202228] text-[#716C62] border border-transparent"
@@ -1152,7 +1152,7 @@ export default function AdminDashboard({
 
       {/* Modal de Confirmación de Eliminación */}
       {deletingPhoto && (
-        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
           <div className="w-full max-w-md rounded-2xl border border-red-500/30 bg-[#121316] p-6 text-[#EBE7DF] shadow-2xl">
             <div className="flex items-center gap-3.5">
               <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-lg border border-[#2D3038] bg-[#1A1C22]">
@@ -1221,7 +1221,7 @@ export default function AdminDashboard({
 
       {/* Modal de Sincronización y Respaldo */}
       {isSyncModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
+        <div className="fixed inset-0 z-[95] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
           <div className="relative w-full max-w-lg rounded-2xl border border-[#2B2E36] bg-[#121316] p-6 text-[#EBE7DF] shadow-2xl">
             <div className="flex items-center justify-between border-b border-[#22242B] pb-4">
               <div className="flex items-center gap-2.5">

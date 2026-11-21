@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function AdminPage() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] text-[#EBE7DF] pt-24 sm:pt-28">
+    <div className="relative min-h-screen overflow-x-clip bg-[#0B0C0E] text-[#EBE7DF] pt-24 sm:pt-28">
       <AndalusianPageBackdrop variant="laceria" />
       <div className="relative z-10">
         <AdminPortal

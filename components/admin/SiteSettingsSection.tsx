@@ -392,7 +392,7 @@ export default function SiteSettingsSection({
 
       {/* Modal para escribir / editar un artículo del Cuaderno */}
       {editingPost && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-md">
+        <div className="fixed inset-0 z-[90] flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-md">
           <div className="relative flex max-h-[94vh] w-full max-w-3xl flex-col rounded-2xl border border-[#2B2E36] bg-[#121316] text-[#EBE7DF] shadow-2xl overflow-hidden">
             <div className="flex items-center justify-between border-b border-[#22242B] px-4 py-3.5 sm:px-6 bg-[#16171B]">
               <div>
