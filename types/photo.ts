@@ -24,16 +24,28 @@ export interface PhotoPricing {
   score: number;
 }
 
+export type MaxPrintFormatId = "estudio" | "galeria" | "coleccion";
+
+export type WildlifeCondition =
+  | "libre"
+  | "parque"
+  | "centro"
+  | "{{DATO_PENDIENTE: confirmar condición (libre / parque / centro)}}";
+
 export interface Photo {
   id: string;
   slug: string;
   title: string;
+  series?: string;
+  seriesSlug?: string;
   category: PhotoCategory;
   image: string;
   width: number;
   height: number;
   alt: string;
   location?: string;
+  realLocation?: string;
+  wildlifeCondition?: WildlifeCondition;
   country?: string;
   coordinates?: PhotoCoordinates;
   camera: string;
@@ -42,6 +54,9 @@ export interface Photo {
   aperture: string;
   shutter: string;
   focalLength: string;
+  exifWarning?: string;
+  maxRecommendedFormat: MaxPrintFormatId;
+  maxFormatReason?: string;
   description: string;
   story?: string;
   year: number;
@@ -82,19 +97,19 @@ export const CATEGORY_METADATA: Record<
   }
 > = {
   "fauna-naturaleza": {
-    code: "FAUNA SALVAJE",
+    code: "FAUNA & NATURALEZA",
     codeEn: "WILDLIFE & NATURE",
     title: "Fauna y Naturaleza",
     titleEn: "Wildlife & Nature",
-    subtitle: "Animales en libertad, aves y pequeños detalles del entorno natural",
-    subtitleEn: "Animals in the wild, birdlife, and quiet details of the natural world",
+    subtitle: "Mamíferos, aves y pequeños detalles del entorno natural a 600mm",
+    subtitleEn: "Mammals, birdlife, and quiet details of the natural world at 600mm",
     description:
-      "Fotografiar animales en libertad consiste casi siempre en esperar. A veces durante horas, a 600mm, procurando pasar desapercibido hasta que el animal sigue con lo suyo y te deja observar un gesto, una mirada o el brillo de la luz sobre el plumaje.",
+      "Fotografiar animales exige paciencia y distancia. Con el teleobjetivo de 600mm trabajo tanto en entorno natural abierto como en parques y centros de conservación de fauna, indicando con transparencia en cada ficha el lugar real y las condiciones de la toma.",
     descriptionEn:
-      "Photographing wildlife is mostly about waiting. Sometimes for hours with a 600mm lens, staying out of sight until an animal goes back to its routine and lets you observe a gesture, a glance, or the way morning light catches its feathers.",
-    seoTitle: "Fotografía de Fauna Salvaje y Naturaleza (Wildlife Photography) | Javier Espinosa",
+      "Photographing wildlife takes patience and distance. Using a 600mm telephoto lens, I work both in open natural habitats and in wildlife parks or conservation centers, transparently stating the real location and conditions on every work's technical sheet.",
+    seoTitle: "Fotografía de Fauna y Naturaleza | Javier Espinosa",
     seoDescription:
-      "Colección de fotografía de fauna salvaje, aves y naturaleza en libertad (Tenerife, Monfragüe, Sierra de Gredos). Capturas a 600mm con luz natural, copias Fine Art Hahnemühle y licencias editoriales.",
+      "Colección de fotografía de fauna, aves y naturaleza en Tenerife, Península Ibérica y reservas europeas. Capturas a 600mm con luz natural, copias Hahnemühle y licencias.",
     seoKeywords: [
       "fotografía de fauna salvaje",
       "fotógrafo de naturaleza españa",

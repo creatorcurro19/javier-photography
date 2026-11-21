@@ -5,7 +5,7 @@ import { getAllProjects } from "@/lib/photos";
 
 export default function SelectedProjects() {
   const allProjects = getAllProjects();
-  const featuredIds = ["custodios", "la-gomera", "trazadas-rally"];
+  const featuredIds = ["custodios", "entre-la-bruma-y-el-volcan", "trazadas-rally"];
   const featured = featuredIds
     .map((id) => allProjects.find((p) => p.id === id))
     .filter((p): p is (typeof allProjects)[number] => Boolean(p));

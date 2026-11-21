@@ -6,18 +6,19 @@ import Link from "next/link";
 import { useLanguage } from "@/lib/i18n";
 import { AndalusianStarMark } from "@/components/ui/AndalusianMotif";
 import AddToCartModal from "@/components/cart/AddToCartModal";
+import { WORKS } from "@/data/works";
 import type { Photo } from "@/types/photo";
 
 // Formatos normalizados de escala museística
 const FORMATS = [
   {
     id: "estudio",
-    label: "Formato Estudio (A3+)",
-    dims: "33 × 48 cm",
-    outerDims: "43 × 58 cm (con marco y paspartú)",
+    label: "Formato Estudio",
+    dims: "30 × 45 cm",
+    outerDims: "Lámina Fine Art con margen blanco (envío en tubo rígido)",
     widthPctSingle: 25,
     widthPctDiptych: 22,
-    edition: "Serie numerada de 50 ejemplares",
+    edition: "Edición limitada numerada (12 a 30 ej.)",
     descEs: "Ideal para despachos, estudios, librerías y composiciones en pareja.",
     descEn: "Ideal for studies, libraries, desks and paired diptych compositions.",
   },
@@ -25,10 +26,10 @@ const FORMATS = [
     id: "galeria",
     label: "Formato Galería",
     dims: "50 × 70 cm",
-    outerDims: "62 × 82 cm (con marco y paspartú)",
+    outerDims: "Lámina Fine Art con margen blanco (envío en tubo rígido)",
     widthPctSingle: 38,
     widthPctDiptych: 33,
-    edition: "Serie numerada de 25 ejemplares",
+    edition: "Edición limitada numerada (12 a 30 ej.)",
     descEs: "Proporción equilibrada de galería para salones y paredes principales.",
     descEn: "Balanced gallery proportion for living rooms and main feature walls.",
   },
@@ -36,98 +37,40 @@ const FORMATS = [
     id: "coleccion",
     label: "Gran Colección",
     dims: "70 × 100 cm",
-    outerDims: "84 × 114 cm (con marco y paspartú)",
+    outerDims: "Lámina Fine Art con margen blanco (envío en tubo rígido)",
     widthPctSingle: 52,
     widthPctDiptych: 44,
-    edition: "Serie exclusiva de 10 ejemplares",
+    edition: "Edición limitada numerada (12 a 30 ej.)",
     descEs: "Pieza central monumental de gran formato con máxima presencia arquitectónica.",
     descEn: "Monumental large-format centerpiece with maximum architectural presence.",
   },
 ] as const;
 
-// Obras representativas del archivo fotográfico de Javier Espinosa
-const SAMPLE_WORKS = [
-  {
-    id: "dunas-atardecer",
-    title: "Horizonte de Dunas al Atardecer",
-    image: "/images/portfolio/viajes-cultura/horizonte-de-dunas-al-atardecer.jpg",
-    category: "viajes-cultura" as const,
-    location: "Desierto del Sahara · Marruecos",
-    year: 2024,
-    focalLength: "70mm",
-    camera: "Canon EOS R7",
-  },
-  {
-    id: "ocaso-erg",
-    title: "Ocaso sobre el Erg",
-    image: "/images/portfolio/viajes-cultura/ocaso-sobre-el-erg.jpg",
-    category: "viajes-cultura" as const,
-    location: "Erg Chebbi · Marruecos",
-    year: 2024,
-    focalLength: "200mm",
-    camera: "Canon EOS R7",
-  },
-  {
-    id: "lince-boreal",
-    title: "Mirada del Lince Boreal",
-    image: "/images/portfolio/fauna-naturaleza/mirada-del-lince-boreal.jpg",
-    category: "fauna-naturaleza" as const,
-    location: "Taiga Boreal · España",
-    year: 2023,
-    focalLength: "400mm",
-    camera: "Canon EOS R7",
-  },
-  {
-    id: "paso-lobo",
-    title: "El Paso del Lobo",
-    image: "/images/portfolio/fauna-naturaleza/el-paso-del-lobo.jpg",
-    category: "fauna-naturaleza" as const,
-    location: "Cordillera Cantábrica",
-    year: 2023,
-    focalLength: "300mm",
-    camera: "Canon EOS R7",
-  },
-  {
-    id: "cumbre-nevada",
-    title: "Cumbre Nevada al Alba",
-    image: "/images/portfolio/paisajes-documental/cumbre-nevada-al-alba.jpg",
-    category: "paisajes-documental" as const,
-    location: "Macizo Central · Alta Montaña",
-    year: 2024,
-    focalLength: "24mm",
-    camera: "Canon EOS R7",
-  },
-  {
-    id: "cruzada-rally",
-    title: "Cruzada sobre el Asfalto",
-    image: "/images/portfolio/coches-rally/cruzada-sobre-el-asfalto.jpg",
-    category: "coches-rally" as const,
-    location: "Rally Histórico de España",
-    year: 2023,
-    focalLength: "135mm",
-    camera: "Canon EOS R7",
-  },
-  {
-    id: "soldador-chispa",
-    title: "El Oficio y la Chispa",
-    image: "/images/portfolio/viajes-cultura/el-oficio-y-la-chispa.jpg",
-    category: "viajes-cultura" as const,
-    location: "Herrería Tradicional · Memoria Rural",
-    year: 2023,
-    focalLength: "50mm",
-    camera: "Canon EOS R7",
-  },
-  {
-    id: "arquitectura-vera",
-    title: "Campanario y Nieve",
-    image: "/images/portfolio/arquitectura-urbana/columnata-de-la-madrasa.jpg",
-    category: "arquitectura-urbana" as const,
-    location: "Villanueva de la Vera",
-    year: 2024,
-    focalLength: "85mm",
-    camera: "Canon EOS R7",
-  },
-];
+// Obras representativas leídas directamente de la fuente única de verdad (/data/works.ts)
+const SAMPLE_SLUGS = [
+  "horizonte-de-dunas-al-atardecer",
+  "ocaso-sobre-el-erg",
+  "mirada-del-lince-boreal",
+  "el-paso-del-lobo",
+  "cumbre-nevada-al-alba",
+  "cruzada-sobre-el-asfalto",
+  "el-oficio-y-la-chispa",
+  "entramados-de-villanueva-de-la-vera",
+] as const;
+
+const SAMPLE_WORKS = SAMPLE_SLUGS.map((slug) => {
+  const w = WORKS.find((item) => item.slug === slug) ?? WORKS[0];
+  return {
+    id: w.slug,
+    title: w.title,
+    image: w.image,
+    category: w.category,
+    location: w.location ?? "Archivo Fotográfico",
+    year: w.year,
+    focalLength: w.focalLength,
+    camera: w.camera,
+  };
+});
 
 // Acabados de enmarcado museístico
 const FINISHES = [
@@ -376,29 +319,9 @@ export default function PrintScaleVisualizer() {
 
   const orderFormat = `${selectedFormat.label} (${selectedFormat.dims}) · ${currentFinish.label} · Ambiente: ${currentSofaStyle.labelEs} ${currentSofaColor.nameEs}`;
 
-  // Objeto Photo compatible con AddToCartModal
-  const photoForModal: Photo = {
-    id: workA.id,
-    title: workA.title,
-    slug: workA.id,
-    image: workA.image,
-    category: workA.category,
-    camera: workA.camera,
-    focalLength: workA.focalLength,
-    aperture: "f/5.6",
-    shutter: "1/500s",
-    iso: 100,
-    lens: "Canon RF",
-    year: workA.year,
-    location: workA.location,
-    prints: true,
-    featured: true,
-    alt: workA.title,
-    width: 2400,
-    height: 1600,
-    description: `Fotografía de autor por Javier Espinosa Martínez. ${workA.location} (${workA.year}). Copia Fine Art certificada sobre papel de algodón 100% Hahnemühle Photo Rag 308g.`,
-    keywords: ["fine art", workA.category, "coleccionismo", "hahnemuhle"],
-  };
+  // Obra real resuelta desde la fuente única de verdad (/data/works.ts)
+  const photoForModal: Photo =
+    WORKS.find((item) => item.slug === workA.id) ?? WORKS[0];
 
   return (
     <section className="mt-24 rounded-2xl border border-[#C5A880]/20 bg-[#121316]/60 p-5 sm:p-8 lg:p-10 backdrop-blur-md">

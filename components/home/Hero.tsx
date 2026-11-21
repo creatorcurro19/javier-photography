@@ -9,8 +9,11 @@ import {
 } from "@/components/ui/AndalusianMotif";
 import { useLanguage } from "@/lib/i18n";
 
+import { getPhotoBySlug } from "@/lib/photos";
+
 interface HeroSlide {
   id: string;
+  slug: string;
   room: string;
   discipline: string;
   title: string;
@@ -19,53 +22,55 @@ interface HeroSlide {
   position: string;
 }
 
-const HERO_SLIDES: HeroSlide[] = [
+const HERO_SLIDE_CONFIG = [
   {
     id: "landscapes",
+    slug: "ocaso-sobre-el-erg",
     room: "SALA I",
     discipline: "TERRITORIO",
-    title: "Ocaso sobre el Erg",
-    location: "Desierto del Sahara · Marruecos",
-    image: "/images/portfolio/viajes-cultura/ocaso-sobre-el-erg.jpg",
     position: "object-[center_42%]",
   },
   {
     id: "wildlife",
+    slug: "mirada-del-lince-boreal",
     room: "SALA II",
-    discipline: "FAUNA SALVAJE",
-    title: "Mirada del Lince Boreal",
-    location: "Taiga Boreal · España",
-    image: "/images/portfolio/fauna-naturaleza/mirada-del-lince-boreal.jpg",
+    discipline: "FAUNA Y NATURALEZA",
     position: "object-[center_30%]",
   },
   {
     id: "peaks",
+    slug: "cumbre-nevada-al-alba",
     room: "SALA III",
     discipline: "PAISAJE MINERAL",
-    title: "Cumbre Nevada al Alba",
-    location: "Macizo Central · Alta Montaña",
-    image: "/images/portfolio/paisajes-documental/cumbre-nevada-al-alba.jpg",
     position: "object-[center_32%]",
   },
   {
     id: "motorsport",
+    slug: "cruzada-sobre-el-asfalto",
     room: "SALA IV",
     discipline: "AUTOMOVILISMO",
-    title: "Cruzada sobre el Asfalto",
-    location: "Tramo Cronometrado · Rally Histórico",
-    image: "/images/portfolio/coches-rally/cruzada-sobre-el-asfalto.jpg",
     position: "object-[center_45%]",
   },
   {
     id: "documentary",
+    slug: "el-oficio-y-la-chispa",
     room: "SALA V",
-    discipline: "ETNOGRAFÍA",
-    title: "El Oficio y la Chispa",
-    location: "Herrería Tradicional · Memoria Rural",
-    image: "/images/portfolio/viajes-cultura/el-oficio-y-la-chispa.jpg",
+    discipline: "DOCUMENTAL",
     position: "object-[center_38%]",
   },
-];
+] as const;
+
+const HERO_SLIDES: HeroSlide[] = HERO_SLIDE_CONFIG.map((cfg) => {
+  const work = getPhotoBySlug(cfg.slug);
+  return {
+    ...cfg,
+    title: work?.title ?? cfg.slug,
+    location: work?.location
+      ? `${work.location}${work.country && !work.location.includes(work.country) ? ` · ${work.country}` : ""}`
+      : "Archivo Fotográfico",
+    image: work?.image ?? `/images/portfolio/paisajes-documental/${cfg.slug}.jpg`,
+  };
+});
 
 const SLIDE_DURATION = 6500;
 

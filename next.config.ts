@@ -49,8 +49,53 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
     {
+        "source": "/projects/la-gomera",
+        "destination": "/projects/entre-la-bruma-y-el-volcan",
+        "permanent": true
+    },
+    {
         "source": "/projects/ecos-del-sahara",
         "destination": "/projects/silencio-del-desierto",
+        "permanent": true
+    },
+    {
+        "source": "/images/portfolio/paisajes-documental/ave-del-paraiso-al-sol.jpg",
+        "destination": "/images/portfolio/fauna-naturaleza/ave-del-paraiso-al-sol.jpg",
+        "permanent": true
+    },
+    {
+        "source": "/images/portfolio/arquitectura-urbana/tunel-de-laurisilva-en-la-bruma.jpg",
+        "destination": "/images/portfolio/paisajes-documental/tunel-de-laurisilva-en-la-bruma.jpg",
+        "permanent": true
+    },
+    {
+        "source": "/images/portfolio/arquitectura-urbana/luz-entre-la-niebla-del-monte.jpg",
+        "destination": "/images/portfolio/paisajes-documental/luz-entre-la-niebla-del-monte.jpg",
+        "permanent": true
+    },
+    {
+        "source": "/images/portfolio/viajes-cultura/ocaso-sobre-el-erg.jpg",
+        "destination": "/images/portfolio/paisajes-documental/ocaso-sobre-el-erg.jpg",
+        "permanent": true
+    },
+    {
+        "source": "/images/portfolio/viajes-cultura/horizonte-de-dunas-al-atardecer.jpg",
+        "destination": "/images/portfolio/paisajes-documental/horizonte-de-dunas-al-atardecer.jpg",
+        "permanent": true
+    },
+    {
+        "source": "/images/portfolio/viajes-cultura/dunas-en-el-crepusculo.jpg",
+        "destination": "/images/portfolio/paisajes-documental/dunas-en-el-crepusculo.jpg",
+        "permanent": true
+    },
+    {
+        "source": "/images/portfolio/viajes-cultura/siluetas-bajo-el-sol-del-desierto.jpg",
+        "destination": "/images/portfolio/paisajes-documental/siluetas-bajo-el-sol-del-desierto.jpg",
+        "permanent": true
+    },
+    {
+        "source": "/images/portfolio/viajes-cultura/caminantes-en-la-inmensidad.jpg",
+        "destination": "/images/portfolio/paisajes-documental/caminantes-en-la-inmensidad.jpg",
         "permanent": true
     },
     {

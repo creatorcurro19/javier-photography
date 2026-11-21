@@ -56,35 +56,67 @@ export default function PhotoMeta({ photo }: PhotoMetaProps) {
           <dd className="mt-1.5 font-light text-[#EBE7DF]">{photo.year}</dd>
         </div>
         <div>
-          <dt className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#8E8A80]">
-            Disciplina
+          <dt className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#A39E93]">
+            Formato Máx. Recomendado
           </dt>
           <dd className="mt-1.5 font-light text-[#EBE7DF]">
-            {categoryInfo?.titleEn ?? "Fine Art Photography"}
+            {photo.maxRecommendedFormat === "coleccion"
+              ? `Gran Colección (${photo.pricing?.dimensions.coleccion ?? "70 × 100 cm"})`
+              : `Galería (${photo.pricing?.dimensions.galeria ?? "50 × 70 cm"})`}
           </dd>
         </div>
         <div>
-          <dt className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#8E8A80]">
+          <dt className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#A39E93]">
             Captura Original
           </dt>
           <dd className="mt-1.5 font-light text-[#EBE7DF]">
-            32,5 MP · {photo.focalLength}
+            {photo.camera.includes("750D") ? "24,2 MP" : "32,5 MP"} · {photo.focalLength}
           </dd>
         </div>
         {photo.location && (
           <div className="col-span-2">
-            <dt className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#8E8A80]">
-              Ubicación / Location
+            <dt className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#A39E93]">
+              Ubicación
             </dt>
             <dd className="mt-1.5 font-light text-[#EBE7DF]">
-              {photo.location}{photo.country ? `, ${photo.country}` : ""}
+              {photo.location}
+              {photo.country && !photo.location.includes(photo.country)
+                ? `, ${photo.country}`
+                : ""}
+            </dd>
+          </div>
+        )}
+        {(photo.realLocation || photo.wildlifeCondition) && (
+          <div className="col-span-2">
+            <dt className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#C5A880]">
+              Lugar Real y Condiciones (Fauna / Naturaleza)
+            </dt>
+            <dd className="mt-1.5 text-xs font-light text-[#EBE7DF] space-y-1">
+              {photo.realLocation && (
+                <p>
+                  <span className="font-mono text-[#A39E93]">Lugar real:</span>{" "}
+                  {photo.realLocation}
+                </p>
+              )}
+              {photo.wildlifeCondition && (
+                <p>
+                  <span className="font-mono text-[#A39E93]">Condiciones:</span>{" "}
+                  {photo.wildlifeCondition === "libre"
+                    ? "Libre (entorno natural abierto)"
+                    : photo.wildlifeCondition === "parque"
+                    ? "Parque de naturaleza / reserva controlada"
+                    : photo.wildlifeCondition === "centro"
+                    ? "Centro de conservación de fauna"
+                    : photo.wildlifeCondition}
+                </p>
+              )}
             </dd>
           </div>
         )}
         {relatedProjects.length > 0 && (
           <div className="col-span-2">
             <dt className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#C5A880]">
-              Ensayo Monográfico / Monograph Essay
+              Serie Monográfica
             </dt>
             <dd className="mt-1.5 flex flex-wrap gap-3 font-light text-[#EBE7DF]">
               {relatedProjects.map((project) => (

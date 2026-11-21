@@ -33,19 +33,19 @@ const TERRITORIES = [
         title: "Entramados de Villanueva de la Vera",
         slug: "entramados-de-villanueva-de-la-vera",
         href: "/portfolio/entramados-de-villanueva-de-la-vera",
-        image: "/images/portfolio/viajes-cultura/entramados-de-villanueva-de-la-vera.jpg",
+        image: "/images/portfolio/arquitectura-urbana/entramados-de-villanueva-de-la-vera.jpg",
       },
     ],
   },
   {
     id: "canarias",
-    name: "Islas Canarias: El Teide & Anaga",
+    name: "Islas Canarias: El Teide y Anaga",
     region: "Atlántico Macaronésico · España",
     coords: "28°16′N · 16°38′W",
     svgX: 16,
     svgY: 74,
-    discipline: "Paisaje Volcánico, Laurisilva & Rally",
-    projectSlug: "la-gomera",
+    discipline: "Paisaje Volcánico, Laurisilva y Rally",
+    projectSlug: "entre-la-bruma-y-el-volcan",
     summary:
       "Cumbres volcánicas por encima de los 3.700 metros, bosques terciarios de laurisilva envueltos por la bruma del alisio y tramos de rally histórico.",
     samples: [
@@ -59,7 +59,7 @@ const TERRITORIES = [
         title: "Túnel de Laurisilva en la Bruma",
         slug: "tunel-de-laurisilva-en-la-bruma",
         href: "/portfolio/tunel-de-laurisilva-en-la-bruma",
-        image: "/images/portfolio/arquitectura-urbana/tunel-de-laurisilva-en-la-bruma.jpg",
+        image: "/images/portfolio/paisajes-documental/tunel-de-laurisilva-en-la-bruma.jpg",
       },
       {
         title: "Cruzada sobre el Asfalto",
@@ -71,12 +71,12 @@ const TERRITORIES = [
   },
   {
     id: "sahara",
-    name: "Desierto del Sahara & Erg Chebbi",
+    name: "Desierto del Sahara y Erg Chebbi",
     region: "Sur del Magreb · Marruecos",
     coords: "31°08′N · 03°58′W",
     svgX: 42,
     svgY: 78,
-    discipline: "Paisaje Desértico & Minimalismo",
+    discipline: "Paisaje Desértico y Minimalismo",
     projectSlug: "silencio-del-desierto",
     summary:
       "Cordilleras de dunas modeladas por el viento donde la luz rasante del crepúsculo dibuja aristas entre el oro y la sombra.",
@@ -85,13 +85,13 @@ const TERRITORIES = [
         title: "Horizonte de Dunas al Atardecer",
         slug: "horizonte-de-dunas-al-atardecer",
         href: "/portfolio/horizonte-de-dunas-al-atardecer",
-        image: "/images/portfolio/viajes-cultura/horizonte-de-dunas-al-atardecer.jpg",
+        image: "/images/portfolio/paisajes-documental/horizonte-de-dunas-al-atardecer.jpg",
       },
       {
         title: "Ocaso sobre el Erg",
         slug: "ocaso-sobre-el-erg",
         href: "/portfolio/ocaso-sobre-el-erg",
-        image: "/images/portfolio/viajes-cultura/ocaso-sobre-el-erg.jpg",
+        image: "/images/portfolio/paisajes-documental/ocaso-sobre-el-erg.jpg",
       },
       {
         title: "Arista de Arena y Sombra",

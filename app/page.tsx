@@ -31,7 +31,7 @@ export const metadata = buildPageMetadata({
 });
 
 const HERO_IMAGES = new Set([
-  "/images/portfolio/viajes-cultura/ocaso-sobre-el-erg.jpg",
+  "/images/portfolio/paisajes-documental/ocaso-sobre-el-erg.jpg",
   "/images/portfolio/fauna-naturaleza/mirada-del-lince-boreal.jpg",
   "/images/portfolio/paisajes-documental/cumbre-nevada-al-alba.jpg",
   "/images/portfolio/coches-rally/cruzada-sobre-el-asfalto.jpg",

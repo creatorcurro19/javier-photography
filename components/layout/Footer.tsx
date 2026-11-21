@@ -6,26 +6,21 @@ import {
   AndalusianBackgroundPattern,
   AndalusianCenefa,
 } from "@/components/ui/AndalusianMotif";
+import { SERIES } from "@/data/works";
 import { useLanguage } from "@/lib/i18n";
 
 const collections = [
-  { href: "/portfolio/fauna-naturaleza", es: "Fauna y Biodiversidad", en: "Wildlife & Biodiversity" },
+  { href: "/portfolio/fauna-naturaleza", es: "Fauna y Naturaleza", en: "Wildlife & Nature" },
   { href: "/portfolio/paisajes-documental", es: "Paisajes y Territorio", en: "Landscapes & Territory" },
-  { href: "/portfolio/coches-rally", es: "Coches y Rally Histórico", en: "Classic Motorsport & Rally" },
-  { href: "/portfolio/arquitectura-urbana", es: "Arquitectura Vernácula & Urbana", en: "Vernacular & Urban Architecture" },
-  { href: "/portfolio/viajes-cultura", es: "Crónica Documental & Oficios", en: "Documentary & Living Heritage" },
+  { href: "/portfolio/coches-rally", es: "Coches y Rally", en: "Cars & Historic Rally" },
+  { href: "/portfolio/arquitectura-urbana", es: "Arquitectura y Espacio Urbano", en: "Architecture & Urban Space" },
+  { href: "/portfolio/viajes-cultura", es: "Documental y Tradición", en: "Documentary & Everyday Life" },
 ];
 
-const projectLinks = [
-  { href: "/projects/villanueva-de-la-vera", label: "Villanueva de la Vera: Tiempo y Raíz" },
-  { href: "/projects/medina-y-kasbah", label: "Medina, Atlas y Kasbah" },
-  { href: "/projects/custodios", label: "Custodios: Memoria y Oficios" },
-  { href: "/projects/la-gomera", label: "Entre la Bruma y el Volcán" },
-  { href: "/projects/biodiversidad-canaria", label: "Macaronesia: Fauna y Costa Volcánica" },
-  { href: "/projects/trazadas-rally", label: "Trazadas: Rally Histórico" },
-  { href: "/projects/silencio-del-desierto", label: "El Silencio del Desierto" },
-  { href: "/projects/miradas-en-libertad", label: "Miradas en Libertad: Fauna" },
-];
+const projectLinks = SERIES.map((series) => ({
+  href: `/projects/${series.slug}`,
+  label: series.title,
+}));
 
 const commercialLinks = [
   { href: "/prints", es: "Catálogo de Copias de Autor (Hahnemühle 308g)", en: "Fine Art Print Catalog (Hahnemühle 308g)" },

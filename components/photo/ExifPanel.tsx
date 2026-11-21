@@ -72,7 +72,7 @@ export default function ExifPanel({ photo }: ExifPanelProps) {
       <dl className="mt-6 grid grid-cols-2 gap-x-8 gap-y-6">
         {items.map((item) => (
           <div key={item.label} className="border-l border-[#202226] pl-4">
-            <dt className="text-[11px] font-mono uppercase tracking-[0.15em] text-[#8E8A80]">
+            <dt className="text-[11px] font-mono uppercase tracking-[0.15em] text-[#A39E93]">
               {item.label}
             </dt>
             <dd className="mt-1.5 font-mono text-base font-light text-[#EBE7DF]">
@@ -81,6 +81,15 @@ export default function ExifPanel({ photo }: ExifPanelProps) {
           </div>
         ))}
       </dl>
+
+      {photo.exifWarning && (
+        <div className="mt-5 border border-[#C5A880]/40 bg-[#C5A880]/10 p-3.5 font-mono text-[11px] leading-relaxed text-[#E5D3B3]">
+          <p className="uppercase tracking-wider text-[#C5A880] font-semibold">
+            Nota de verificación RAW:
+          </p>
+          <p className="mt-1">{photo.exifWarning}</p>
+        </div>
+      )}
 
       {/* Esquema visual del espectro óptico (10mm Ultra Angular a 600mm Superteleobjetivo) */}
       <div className="mt-7 border-t border-[#202226] pt-5">
