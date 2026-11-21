@@ -2,7 +2,7 @@ import type { Photo, Project } from "@/types/photo";
 
 /**
  * ÚNICA FUENTE DE VERDAD DEL ARCHIVO FOTOGRÁFICO (/data/works.ts)
- * Contiene las 100 obras verificadas y las 8 series monográficas.
+ * Contiene las obras verificadas y las 8 series monográficas.
  * Todas las páginas, componentes, sitemaps, schemas JSON-LD y validadores de pedido leen de este módulo.
  */
 
@@ -189,7 +189,6 @@ export const SERIES: Project[] = [
       "vc-05",
       "vc-16",
       "au-11",
-      "au-09",
       "au-10",
       "au-08",
       "vc-29",
@@ -4153,54 +4152,6 @@ export const WORKS: Photo[] = [
     "seriesSlug": "medina-y-kasbah",
     "maxRecommendedFormat": "coleccion",
     "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (60 × 90 cm)."
-  },
-  {
-    "id": "au-09",
-    "slug": "linterna-y-arco-dorado",
-    "title": "Linterna y Arco Dorado",
-    "category": "arquitectura-urbana",
-    "image": "/images/portfolio/arquitectura-urbana/linterna-y-arco-dorado.jpg",
-    "width": 1650,
-    "height": 2200,
-    "alt": "Pasaje abovedado en sombra con farol de forja que conduce a un patio soleado a través de un arco en Marrakech",
-    "camera": "Canon EOS R7",
-    "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
-    "iso": 6400,
-    "aperture": "f/6.3",
-    "shutter": "1/125s",
-    "focalLength": "50mm",
-    "description": "Profundidad arquitectónica desde un pasaje en sombra hacia un patio interior bañado en luz cálida bajo un farol de forja.",
-    "location": "Medina de Marrakech",
-    "country": "Marruecos",
-    "year": 2026,
-    "featured": false,
-    "prints": true,
-    "licensing": true,
-    "keywords": [
-      "patio marroquí",
-      "farol de forja",
-      "arco islámico",
-      "marrakech",
-      "luz y arquitectura",
-      "moroccan courtyard"
-    ],
-    "pricing": {
-      "estudio": 145,
-      "galeria": 260,
-      "coleccion": 430,
-      "dimensions": {
-        "estudio": "30 × 45 cm",
-        "galeria": "50 × 70 cm",
-        "coleccion": "60 × 90 cm"
-      },
-      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
-      "editionTotal": 18,
-      "score": 86
-    },
-    "series": "Medina, Atlas y Kasbah",
-    "seriesSlug": "medina-y-kasbah",
-    "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Captura nocturna o en penumbra a ISO 6400: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm."
   },
   {
     "id": "au-10",
