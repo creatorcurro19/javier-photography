@@ -166,7 +166,7 @@ export default function CheckoutModal({
                   <div className="truncate">
                     <p className="text-[#EBE7DF] font-serif truncate">{item.title}</p>
                     <p className="font-mono text-[10px] text-[#8E8A80]">
-                      {item.format.name} · {item.framed ? "Enmarcado Museo" : "Lámina suelta"} ({item.quantity}×)
+                      {item.format.name} ({item.format.dimensions}) · Envío en tubo rígido ({item.quantity}×)
                     </p>
                   </div>
                 </div>

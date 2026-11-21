@@ -34,7 +34,20 @@ export const photos: Photo[] = [
     ],
     "story": "Capturada a última hora de la tarde con el teleobjetivo a 600mm, aprovechando el fondo iluminado por el sol rasante para aislar la silueta y el plumaje del ave en completo silencio.",
     "location": "Tenerife, Islas Canarias",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 110,
+      "galeria": 195,
+      "coleccion": 325,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 25,
+      "score": 76
+    }
   },
   {
     "id": "fn-02",
@@ -69,7 +82,20 @@ export const photos: Photo[] = [
     ],
     "story": "Con el sujeto en reposo absoluto entre las ramas bajas, la focal de 600mm permitió comprimir el fondo vegetal oscuro y revelar cada detalle de las plumas y el ojo.",
     "location": "Tenerife, Islas Canarias",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 115,
+      "galeria": 200,
+      "coleccion": 335,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 25,
+      "score": 77
+    }
   },
   {
     "id": "fn-03",
@@ -103,7 +129,20 @@ export const photos: Photo[] = [
     ],
     "story": "Con las primeras luces del día incidiendo lateralmente sobre el cuello curvado de la garza, el teleobjetivo a 600mm permitió aislar la textura sedosa de las plumas sobre el agua en sombra.",
     "location": "Humedales Ibéricos",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 140,
+      "galeria": 250,
+      "coleccion": 410,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 20,
+      "score": 83
+    }
   },
   {
     "id": "fn-04",
@@ -137,7 +176,20 @@ export const photos: Photo[] = [
     ],
     "story": "El camuflaje moteado del lince se funde con la roca y el musgo húmedo; solo el destello ámbar de su mirada directa hacia el objetivo delata su presencia.",
     "location": "Reserva Alpina Europea",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 170,
+      "galeria": 295,
+      "coleccion": 490,
+      "dimensions": {
+        "estudio": "30 × 53 cm",
+        "galeria": "45 × 80 cm",
+        "coleccion": "60 × 105 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 12,
+      "score": 92
+    }
   },
   {
     "id": "fn-05",
@@ -169,7 +221,20 @@ export const photos: Photo[] = [
       "raptor photography"
     ],
     "location": "Parque Nacional de Monfragüe, Cáceres",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 105,
+      "galeria": 190,
+      "coleccion": 315,
+      "dimensions": {
+        "estudio": "32 × 40 cm",
+        "galeria": "50 × 62 cm",
+        "coleccion": "70 × 88 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 30,
+      "score": 75
+    }
   },
   {
     "id": "fn-06",
@@ -203,7 +268,20 @@ export const photos: Photo[] = [
     ],
     "story": "En las paredes rocosas de la sierra, la cabra montés se desplaza con un equilibrio asombroso sobre apoyos mínimos. Esperé a que asomara en el filo entre dos bloques antes de saltar.",
     "location": "Sierra de Gredos",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 140,
+      "galeria": 245,
+      "coleccion": 410,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 18,
+      "score": 84
+    }
   },
   {
     "id": "fn-07",
@@ -234,7 +312,20 @@ export const photos: Photo[] = [
       "wildlife spain"
     ],
     "location": "Sierra de Gredos",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 100,
+      "galeria": 185,
+      "coleccion": 305,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 30,
+      "score": 74
+    }
   },
   {
     "id": "fn-08",
@@ -268,7 +359,20 @@ export const photos: Photo[] = [
     ],
     "story": "A 600mm de focal entre los troncos del bosque cerrado, el lobo avanzó con trote silencioso y la cabeza baja, clavando la vista al frente durante apenas un par de segundos.",
     "location": "Bosque Ibérico",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 165,
+      "galeria": 295,
+      "coleccion": 485,
+      "dimensions": {
+        "estudio": "30 × 53 cm",
+        "galeria": "45 × 80 cm",
+        "coleccion": "60 × 105 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 12,
+      "score": 90
+    }
   },
   {
     "id": "pd-01",
@@ -301,7 +405,20 @@ export const photos: Photo[] = [
       "canary islands landscape"
     ],
     "location": "Costa de Tenerife, Islas Canarias",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 145,
+      "galeria": 255,
+      "coleccion": 425,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 20,
+      "score": 84
+    }
   },
   {
     "id": "pd-02",
@@ -337,7 +454,20 @@ export const photos: Photo[] = [
     ],
     "story": "Antes de que el sol superara la línea de cumbres, las nubes altas se tiñeron de tonos violáceos y rosados sobre el cono nevado del volcán, contrastando con la penumbra cerrada del bosque inferior.",
     "location": "Parque Nacional del Teide, Tenerife",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 180,
+      "galeria": 315,
+      "coleccion": 520,
+      "dimensions": {
+        "estudio": "30 × 53 cm",
+        "galeria": "45 × 80 cm",
+        "coleccion": "60 × 105 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 12,
+      "score": 95
+    }
   },
   {
     "id": "pd-03",
@@ -368,7 +498,20 @@ export const photos: Photo[] = [
       "coastal photography"
     ],
     "location": "Litoral Atlántico, Canarias",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 120,
+      "galeria": 215,
+      "coleccion": 355,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 25,
+      "score": 79
+    }
   },
   {
     "id": "pd-04",
@@ -400,7 +543,20 @@ export const photos: Photo[] = [
       "canary islands"
     ],
     "location": "Costa Norte de Tenerife, Canarias",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 150,
+      "galeria": 265,
+      "coleccion": 440,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 18,
+      "score": 87
+    }
   },
   {
     "id": "pd-05",
@@ -432,7 +588,20 @@ export const photos: Photo[] = [
       "claroscuro"
     ],
     "location": "Tenerife, Islas Canarias",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 125,
+      "galeria": 225,
+      "coleccion": 370,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 25,
+      "score": 79
+    }
   },
   {
     "id": "pd-06",
@@ -464,7 +633,20 @@ export const photos: Photo[] = [
       "minimalist landscape"
     ],
     "location": "Costa Atlántica, Tenerife",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 140,
+      "galeria": 250,
+      "coleccion": 410,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 25,
+      "score": 83
+    }
   },
   {
     "id": "pd-07",
@@ -496,7 +678,20 @@ export const photos: Photo[] = [
       "desert landscape"
     ],
     "location": "Desierto del Sahara",
-    "country": "Marruecos"
+    "country": "Marruecos",
+    "pricing": {
+      "estudio": 145,
+      "galeria": 250,
+      "coleccion": 420,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 18,
+      "score": 85
+    }
   },
   {
     "id": "pd-08",
@@ -529,7 +724,20 @@ export const photos: Photo[] = [
     ],
     "story": "La nubosidad densa actúa como un difusor gigante que elimina las sombras duras y permite apreciar toda la riqueza de pliegues y fracturas geológicas de la pared caliza.",
     "location": "Cordillera Ibérica",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 115,
+      "galeria": 210,
+      "coleccion": 345,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 25,
+      "score": 78
+    }
   },
   {
     "id": "cr-01",
@@ -560,7 +768,20 @@ export const photos: Photo[] = [
       "motorsport paddock"
     ],
     "location": "Parque de Asistencia, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 120,
+      "galeria": 220,
+      "coleccion": 360,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 25,
+      "score": 78
+    }
   },
   {
     "id": "cr-02",
@@ -594,7 +815,20 @@ export const photos: Photo[] = [
     ],
     "story": "En la calma tensa del parque de asistencia, los reflejos sobre la carrocería y el faro redondo clásico resumen décadas de historia del automovilismo deportivo.",
     "location": "Tramo de Rally Histórico, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 150,
+      "galeria": 270,
+      "coleccion": 445,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 18,
+      "score": 86
+    }
   },
   {
     "id": "cr-03",
@@ -625,7 +859,20 @@ export const photos: Photo[] = [
       "motorsport photography"
     ],
     "location": "Parque de Asistencia, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 125,
+      "galeria": 225,
+      "coleccion": 370,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 25,
+      "score": 79
+    }
   },
   {
     "id": "cr-04",
@@ -657,7 +904,20 @@ export const photos: Photo[] = [
       "motorsport action"
     ],
     "location": "Tramo Cronometrado de Montaña, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 155,
+      "galeria": 275,
+      "coleccion": 455,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 18,
+      "score": 87
+    }
   },
   {
     "id": "cr-05",
@@ -687,7 +947,20 @@ export const photos: Photo[] = [
       "racing livery"
     ],
     "location": "Parque de Trabajo, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 105,
+      "galeria": 190,
+      "coleccion": 315,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 30,
+      "score": 75
+    }
   },
   {
     "id": "cr-06",
@@ -717,7 +990,20 @@ export const photos: Photo[] = [
       "classic racing car"
     ],
     "location": "Parque Cerrado, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 120,
+      "galeria": 210,
+      "coleccion": 350,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 25,
+      "score": 77
+    }
   },
   {
     "id": "cr-07",
@@ -748,7 +1034,20 @@ export const photos: Photo[] = [
       "classic rally golf"
     ],
     "location": "Tramo de Montaña, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 155,
+      "galeria": 275,
+      "coleccion": 455,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 18,
+      "score": 87
+    }
   },
   {
     "id": "cr-08",
@@ -778,7 +1077,20 @@ export const photos: Photo[] = [
       "rally stage photography"
     ],
     "location": "Tramo Cronometrado, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 145,
+      "galeria": 255,
+      "coleccion": 425,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 20,
+      "score": 84
+    }
   },
   {
     "id": "cr-09",
@@ -808,7 +1120,20 @@ export const photos: Photo[] = [
       "racing cockpit"
     ],
     "location": "Parque de Asistencia, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 125,
+      "galeria": 225,
+      "coleccion": 370,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 25,
+      "score": 79
+    }
   },
   {
     "id": "cr-10",
@@ -839,7 +1164,20 @@ export const photos: Photo[] = [
       "pacenotes"
     ],
     "location": "Control Horario, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 120,
+      "galeria": 215,
+      "coleccion": 355,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 25,
+      "score": 79
+    }
   },
   {
     "id": "cr-11",
@@ -870,7 +1208,20 @@ export const photos: Photo[] = [
       "fine art motorsport"
     ],
     "location": "Tramo de Montaña, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 165,
+      "galeria": 295,
+      "coleccion": 485,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 15,
+      "score": 90
+    }
   },
   {
     "id": "cr-12",
@@ -900,7 +1251,20 @@ export const photos: Photo[] = [
       "tarmac rally action"
     ],
     "location": "Tramo Cronometrado, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 135,
+      "galeria": 235,
+      "coleccion": 390,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 25,
+      "score": 81
+    }
   },
   {
     "id": "cr-13",
@@ -934,7 +1298,20 @@ export const photos: Photo[] = [
     ],
     "story": "Apostado a la salida de la horquilla con el teleobjetivo en ráfaga, el piloto provocó la trasera sobre la pintura del asfalto dejando una estela de goma quemada.",
     "location": "Tramo Cronometrado de Montaña, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 180,
+      "galeria": 310,
+      "coleccion": 515,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 12,
+      "score": 93
+    }
   },
   {
     "id": "cr-14",
@@ -966,7 +1343,20 @@ export const photos: Photo[] = [
     ],
     "story": "Utilizando la máxima focal de 600mm desde una rasante lejana, la transferencia de pesos en el cambio de apoyo dejó el neumático delantero interior suspendido a varios centímetros del asfalto.",
     "location": "Tramo Cronometrado, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 160,
+      "galeria": 280,
+      "coleccion": 465,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 15,
+      "score": 88
+    }
   },
   {
     "id": "au-01",
@@ -996,7 +1386,20 @@ export const photos: Photo[] = [
       "urban night architecture"
     ],
     "location": "Casco Histórico, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 135,
+      "galeria": 235,
+      "coleccion": 390,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 25,
+      "score": 81
+    }
   },
   {
     "id": "au-02",
@@ -1028,7 +1431,20 @@ export const photos: Photo[] = [
     ],
     "story": "La iluminación de vapor de sodio transforma la piedra antigua en un escenario cinematográfico donde las siluetas humanas cobran protagonismo a contraluz.",
     "location": "Casco Histórico, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 135,
+      "galeria": 235,
+      "coleccion": 390,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 25,
+      "score": 81
+    }
   },
   {
     "id": "au-03",
@@ -1061,7 +1477,20 @@ export const photos: Photo[] = [
     ],
     "story": "En el interior en sombra del edificio abandonado, los dos ventanales funcionan como lienzos vivos por donde irrumpe el verde iluminado del bosque.",
     "location": "Monte de Laurisilva, Canarias",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 155,
+      "galeria": 270,
+      "coleccion": 450,
+      "dimensions": {
+        "estudio": "32 × 40 cm",
+        "galeria": "50 × 62 cm",
+        "coleccion": "70 × 88 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 15,
+      "score": 88
+    }
   },
   {
     "id": "au-04",
@@ -1094,7 +1523,20 @@ export const photos: Photo[] = [
       "fine art landscape"
     ],
     "location": "Macizo de Anaga, Tenerife",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 170,
+      "galeria": 295,
+      "coleccion": 490,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 12,
+      "score": 92
+    }
   },
   {
     "id": "au-05",
@@ -1126,7 +1568,20 @@ export const photos: Photo[] = [
       "enchanted forest tenerife"
     ],
     "location": "Macizo de Anaga, Tenerife",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 160,
+      "galeria": 275,
+      "coleccion": 460,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 18,
+      "score": 89
+    }
   },
   {
     "id": "au-06",
@@ -1157,7 +1612,20 @@ export const photos: Photo[] = [
       "architectural detail"
     ],
     "location": "Jardín Histórico, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 120,
+      "galeria": 215,
+      "coleccion": 355,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 25,
+      "score": 79
+    }
   },
   {
     "id": "au-07",
@@ -1187,7 +1655,20 @@ export const photos: Photo[] = [
       "night urban photography"
     ],
     "location": "Paseo Urbano, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 125,
+      "galeria": 225,
+      "coleccion": 370,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 25,
+      "score": 79
+    }
   },
   {
     "id": "vc-01",
@@ -1217,7 +1698,20 @@ export const photos: Photo[] = [
       "street documentary"
     ],
     "location": "Comercio Tradicional, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 105,
+      "galeria": 190,
+      "coleccion": 315,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 30,
+      "score": 75
+    }
   },
   {
     "id": "vc-02",
@@ -1247,7 +1741,20 @@ export const photos: Photo[] = [
       "spanish street photography"
     ],
     "location": "Casco Antiguo, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 120,
+      "galeria": 215,
+      "coleccion": 355,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 25,
+      "score": 79
+    }
   },
   {
     "id": "vc-03",
@@ -1277,7 +1784,20 @@ export const photos: Photo[] = [
       "documentary heritage"
     ],
     "location": "Templo Histórico, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 125,
+      "galeria": 225,
+      "coleccion": 370,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 25,
+      "score": 79
+    }
   },
   {
     "id": "vc-04",
@@ -1307,7 +1827,20 @@ export const photos: Photo[] = [
       "cultural documentary"
     ],
     "location": "Celebración Popular, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 135,
+      "galeria": 245,
+      "coleccion": 400,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 25,
+      "score": 82
+    }
   },
   {
     "id": "vc-05",
@@ -1339,7 +1872,20 @@ export const photos: Photo[] = [
       "travel photography"
     ],
     "location": "Plaza Jemaa el-Fna, Marrakech",
-    "country": "Marruecos"
+    "country": "Marruecos",
+    "pricing": {
+      "estudio": 140,
+      "galeria": 245,
+      "coleccion": 410,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 20,
+      "score": 84
+    }
   },
   {
     "id": "vc-06",
@@ -1371,7 +1917,20 @@ export const photos: Photo[] = [
       "wildlife"
     ],
     "location": "Humedal Europeo, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 125,
+      "galeria": 225,
+      "coleccion": 370,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 25,
+      "score": 79
+    }
   },
   {
     "id": "vc-07",
@@ -1402,7 +1961,20 @@ export const photos: Photo[] = [
       "minimalist bird photography"
     ],
     "location": "Bosque Ibérico, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 135,
+      "galeria": 240,
+      "coleccion": 395,
+      "dimensions": {
+        "estudio": "30 × 53 cm",
+        "galeria": "45 × 80 cm",
+        "coleccion": "60 × 105 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 20,
+      "score": 83
+    }
   },
   {
     "id": "vc-08",
@@ -1433,7 +2005,20 @@ export const photos: Photo[] = [
       "bird wildlife spain"
     ],
     "location": "Dehesa Extremeña, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 115,
+      "galeria": 200,
+      "coleccion": 335,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 25,
+      "score": 77
+    }
   },
   {
     "id": "vc-09",
@@ -1465,7 +2050,20 @@ export const photos: Photo[] = [
     ],
     "story": "Un haz de sol vertical caía exactamente sobre las manos del artesano en medio del estrecho callejón del zoco, creando un escenario de luz natural casi teatral.",
     "location": "Medina de Marrakech",
-    "country": "Marruecos"
+    "country": "Marruecos",
+    "pricing": {
+      "estudio": 135,
+      "galeria": 240,
+      "coleccion": 395,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 20,
+      "score": 83
+    }
   },
   {
     "id": "vc-10",
@@ -1496,7 +2094,20 @@ export const photos: Photo[] = [
       "amphibian photography"
     ],
     "location": "Garganta de la Sierra de Gredos",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 115,
+      "galeria": 205,
+      "coleccion": 340,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 30,
+      "score": 76
+    }
   },
   {
     "id": "vc-11",
@@ -1527,7 +2138,20 @@ export const photos: Photo[] = [
       "documentary morocco"
     ],
     "location": "Medina de Marrakech",
-    "country": "Marruecos"
+    "country": "Marruecos",
+    "pricing": {
+      "estudio": 130,
+      "galeria": 225,
+      "coleccion": 375,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 25,
+      "score": 81
+    }
   },
   {
     "id": "vc-12",
@@ -1559,7 +2183,20 @@ export const photos: Photo[] = [
       "wildlife fine art"
     ],
     "location": "Dehesa Ibérica, Extremadura",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 145,
+      "galeria": 250,
+      "coleccion": 420,
+      "dimensions": {
+        "estudio": "30 × 53 cm",
+        "galeria": "45 × 80 cm",
+        "coleccion": "60 × 105 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 18,
+      "score": 85
+    }
   },
   {
     "id": "vc-13",
@@ -1591,7 +2228,20 @@ export const photos: Photo[] = [
       "wildlife portrait"
     ],
     "location": "Dehesa Ibérica, Extremadura",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 140,
+      "galeria": 245,
+      "coleccion": 410,
+      "dimensions": {
+        "estudio": "30 × 53 cm",
+        "galeria": "45 × 80 cm",
+        "coleccion": "60 × 105 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 20,
+      "score": 84
+    }
   },
   {
     "id": "vc-14",
@@ -1623,7 +2273,20 @@ export const photos: Photo[] = [
     ],
     "story": "El sol bajo al final de la tarde transformó los adoquines en una superficie dorada, proyectando una sombra alargada mientras el caminante avanzaba exactamente hacia el eje de luz.",
     "location": "Casco Histórico, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 135,
+      "galeria": 235,
+      "coleccion": 390,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 25,
+      "score": 81
+    }
   },
   {
     "id": "vc-15",
@@ -1655,7 +2318,20 @@ export const photos: Photo[] = [
     ],
     "location": "Villanueva de la Vera, Cáceres",
     "country": "España",
-    "story": "En la comarca de La Vera, el secado de los pimientos forma parte del paisaje cotidiano de finales de verano y otoño, tiñendo de rojo intenso los huertos y balconadas."
+    "story": "En la comarca de La Vera, el secado de los pimientos forma parte del paisaje cotidiano de finales de verano y otoño, tiñendo de rojo intenso los huertos y balconadas.",
+    "pricing": {
+      "estudio": 140,
+      "galeria": 245,
+      "coleccion": 410,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 20,
+      "score": 84
+    }
   },
   {
     "id": "vc-16",
@@ -1687,7 +2363,20 @@ export const photos: Photo[] = [
       "morocco fine art"
     ],
     "location": "Madrasa de Marrakech",
-    "country": "Marruecos"
+    "country": "Marruecos",
+    "pricing": {
+      "estudio": 160,
+      "galeria": 285,
+      "coleccion": 470,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 12,
+      "score": 90
+    }
   },
   {
     "id": "vc-17",
@@ -1718,7 +2407,20 @@ export const photos: Photo[] = [
       "macro insect photography"
     ],
     "location": "Monte Mediterráneo, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 110,
+      "galeria": 195,
+      "coleccion": 325,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 30,
+      "score": 76
+    }
   },
   {
     "id": "vc-18",
@@ -1749,7 +2451,20 @@ export const photos: Photo[] = [
       "vernacular architecture"
     ],
     "location": "Villanueva de la Vera, Cáceres",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 125,
+      "galeria": 220,
+      "coleccion": 365,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 25,
+      "score": 80
+    }
   },
   {
     "id": "vc-19",
@@ -1780,7 +2495,20 @@ export const photos: Photo[] = [
       "cáceres"
     ],
     "location": "Villanueva de la Vera, Cáceres",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 105,
+      "galeria": 190,
+      "coleccion": 315,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 30,
+      "score": 75
+    }
   },
   {
     "id": "vc-20",
@@ -1811,7 +2539,20 @@ export const photos: Photo[] = [
       "extremadura"
     ],
     "location": "Villanueva de la Vera, Cáceres",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 125,
+      "galeria": 220,
+      "coleccion": 365,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 25,
+      "score": 80
+    }
   },
   {
     "id": "vc-21",
@@ -1842,7 +2583,20 @@ export const photos: Photo[] = [
       "cáceres"
     ],
     "location": "Villanueva de la Vera, Cáceres",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 110,
+      "galeria": 195,
+      "coleccion": 325,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 30,
+      "score": 76
+    }
   },
   {
     "id": "vc-22",
@@ -1873,7 +2627,20 @@ export const photos: Photo[] = [
       "cáceres"
     ],
     "location": "Villanueva de la Vera, Cáceres",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 110,
+      "galeria": 195,
+      "coleccion": 325,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 30,
+      "score": 76
+    }
   },
   {
     "id": "vc-23",
@@ -1904,7 +2671,20 @@ export const photos: Photo[] = [
       "spanish vernacular architecture"
     ],
     "location": "Villanueva de la Vera, Cáceres",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 145,
+      "galeria": 250,
+      "coleccion": 420,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 18,
+      "score": 85
+    }
   },
   {
     "id": "vc-24",
@@ -1935,7 +2715,20 @@ export const photos: Photo[] = [
       "cáceres"
     ],
     "location": "Villanueva de la Vera, Cáceres",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 130,
+      "galeria": 235,
+      "coleccion": 385,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 25,
+      "score": 82
+    }
   },
   {
     "id": "vc-25",
@@ -1966,7 +2759,20 @@ export const photos: Photo[] = [
       "morocco souk spices"
     ],
     "location": "Zoco de Marrakech",
-    "country": "Marruecos"
+    "country": "Marruecos",
+    "pricing": {
+      "estudio": 135,
+      "galeria": 240,
+      "coleccion": 395,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 20,
+      "score": 83
+    }
   },
   {
     "id": "vc-26",
@@ -1997,7 +2803,20 @@ export const photos: Photo[] = [
       "volcanic geology"
     ],
     "location": "Costa Volcánica, Islas Canarias",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 135,
+      "galeria": 240,
+      "coleccion": 395,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 25,
+      "score": 83
+    }
   },
   {
     "id": "vc-27",
@@ -2028,7 +2847,20 @@ export const photos: Photo[] = [
       "vernacular roofs"
     ],
     "location": "Villanueva de la Vera, Cáceres",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 140,
+      "galeria": 245,
+      "coleccion": 410,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 18,
+      "score": 84
+    }
   },
   {
     "id": "vc-28",
@@ -2059,7 +2891,20 @@ export const photos: Photo[] = [
       "cáceres"
     ],
     "location": "Villanueva de la Vera, Cáceres",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 120,
+      "galeria": 215,
+      "coleccion": 355,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 25,
+      "score": 79
+    }
   },
   {
     "id": "vc-29",
@@ -2090,7 +2935,20 @@ export const photos: Photo[] = [
       "moroccan tilework architecture"
     ],
     "location": "Marrakech",
-    "country": "Marruecos"
+    "country": "Marruecos",
+    "pricing": {
+      "estudio": 145,
+      "galeria": 250,
+      "coleccion": 420,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 18,
+      "score": 85
+    }
   },
   {
     "id": "vc-30",
@@ -2121,7 +2979,20 @@ export const photos: Photo[] = [
       "cáceres"
     ],
     "location": "Villanueva de la Vera, Cáceres",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 120,
+      "galeria": 215,
+      "coleccion": 355,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 25,
+      "score": 79
+    }
   },
   {
     "id": "vc-31",
@@ -2152,7 +3023,20 @@ export const photos: Photo[] = [
       "cáceres"
     ],
     "location": "Villanueva de la Vera, Cáceres",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 130,
+      "galeria": 225,
+      "coleccion": 375,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 25,
+      "score": 81
+    }
   },
   {
     "id": "cr-15",
@@ -2183,7 +3067,20 @@ export const photos: Photo[] = [
       "historic rally a112"
     ],
     "location": "Tramo de Rally Histórico, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 160,
+      "galeria": 280,
+      "coleccion": 465,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 18,
+      "score": 88
+    }
   },
   {
     "id": "vc-33",
@@ -2215,7 +3112,20 @@ export const photos: Photo[] = [
     ],
     "location": "Villanueva de la Vera, Cáceres",
     "country": "España",
-    "story": "El corazón de Villanueva de la Vera conserva intacta la armonía entre los soportales sobre columnas de granito y los pisos superiores de entramado de madera."
+    "story": "El corazón de Villanueva de la Vera conserva intacta la armonía entre los soportales sobre columnas de granito y los pisos superiores de entramado de madera.",
+    "pricing": {
+      "estudio": 140,
+      "galeria": 245,
+      "coleccion": 410,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 20,
+      "score": 84
+    }
   },
   {
     "id": "vc-34",
@@ -2246,7 +3156,20 @@ export const photos: Photo[] = [
       "cáceres"
     ],
     "location": "Villanueva de la Vera, Cáceres",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 120,
+      "galeria": 215,
+      "coleccion": 355,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 25,
+      "score": 79
+    }
   },
   {
     "id": "vc-35",
@@ -2277,7 +3200,20 @@ export const photos: Photo[] = [
       "cáceres"
     ],
     "location": "Villanueva de la Vera, Cáceres",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 115,
+      "galeria": 210,
+      "coleccion": 345,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 25,
+      "score": 78
+    }
   },
   {
     "id": "vc-36",
@@ -2308,7 +3244,20 @@ export const photos: Photo[] = [
       "moroccan kasbah architecture"
     ],
     "location": "Kasbah del Alto Atlas",
-    "country": "Marruecos"
+    "country": "Marruecos",
+    "pricing": {
+      "estudio": 145,
+      "galeria": 250,
+      "coleccion": 420,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 18,
+      "score": 85
+    }
   },
   {
     "id": "vc-37",
@@ -2339,7 +3288,20 @@ export const photos: Photo[] = [
       "cáceres"
     ],
     "location": "Villanueva de la Vera, Cáceres",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 110,
+      "galeria": 195,
+      "coleccion": 325,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 30,
+      "score": 76
+    }
   },
   {
     "id": "vc-38",
@@ -2370,7 +3332,20 @@ export const photos: Photo[] = [
       "fine art desert"
     ],
     "location": "Desierto del Sahara",
-    "country": "Marruecos"
+    "country": "Marruecos",
+    "pricing": {
+      "estudio": 150,
+      "galeria": 265,
+      "coleccion": 440,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 18,
+      "score": 87
+    }
   },
   {
     "id": "vc-39",
@@ -2401,7 +3376,20 @@ export const photos: Photo[] = [
       "fine art landscape print"
     ],
     "location": "Desierto del Sahara",
-    "country": "Marruecos"
+    "country": "Marruecos",
+    "pricing": {
+      "estudio": 170,
+      "galeria": 295,
+      "coleccion": 490,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 12,
+      "score": 92
+    }
   },
   {
     "id": "vc-40",
@@ -2434,7 +3422,20 @@ export const photos: Photo[] = [
     ],
     "story": "A medida que el sol descendía sobre el Sahara, la bruma en suspensión tiñó el cielo de un dorado uniforme, convirtiendo las crestas de arena en planos casi pictóricos.",
     "location": "Desierto del Sahara",
-    "country": "Marruecos"
+    "country": "Marruecos",
+    "pricing": {
+      "estudio": 150,
+      "galeria": 265,
+      "coleccion": 440,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 18,
+      "score": 87
+    }
   },
   {
     "id": "vc-41",
@@ -2465,7 +3466,20 @@ export const photos: Photo[] = [
       "vertical desert landscape"
     ],
     "location": "Desierto del Sahara",
-    "country": "Marruecos"
+    "country": "Marruecos",
+    "pricing": {
+      "estudio": 145,
+      "galeria": 260,
+      "coleccion": 430,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 18,
+      "score": 86
+    }
   },
   {
     "id": "vc-42",
@@ -2496,7 +3510,20 @@ export const photos: Photo[] = [
       "fine art photography"
     ],
     "location": "Desierto del Sahara",
-    "country": "Marruecos"
+    "country": "Marruecos",
+    "pricing": {
+      "estudio": 170,
+      "galeria": 295,
+      "coleccion": 490,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 12,
+      "score": 92
+    }
   },
   {
     "id": "vc-44",
@@ -2530,7 +3557,20 @@ export const photos: Photo[] = [
     ],
     "story": "En la penumbra densa del taller, la única iluminación provenía del propio trabajo sobre el metal y de un haz lateral que recortaba el humo y las herramientas acumuladas durante décadas.",
     "location": "Fragua Tradicional, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 175,
+      "galeria": 305,
+      "coleccion": 505,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 12,
+      "score": 92
+    }
   },
   {
     "id": "au-08",
@@ -2561,7 +3601,20 @@ export const photos: Photo[] = [
       "arquitectura islámica",
       "marruecos",
       "marrakech architecture"
-    ]
+    ],
+    "pricing": {
+      "estudio": 135,
+      "galeria": 240,
+      "coleccion": 395,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 20,
+      "score": 83
+    }
   },
   {
     "id": "au-09",
@@ -2592,7 +3645,20 @@ export const photos: Photo[] = [
       "marrakech",
       "luz y arquitectura",
       "moroccan courtyard"
-    ]
+    ],
+    "pricing": {
+      "estudio": 145,
+      "galeria": 260,
+      "coleccion": 430,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 18,
+      "score": 86
+    }
   },
   {
     "id": "au-10",
@@ -2623,7 +3689,20 @@ export const photos: Photo[] = [
       "geometría islámica",
       "marruecos",
       "islamic arch geometry"
-    ]
+    ],
+    "pricing": {
+      "estudio": 150,
+      "galeria": 265,
+      "coleccion": 440,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 18,
+      "score": 87
+    }
   },
   {
     "id": "au-11",
@@ -2654,7 +3733,20 @@ export const photos: Photo[] = [
       "arquitectura palaciega",
       "marruecos",
       "bahia palace marrakech"
-    ]
+    ],
+    "pricing": {
+      "estudio": 150,
+      "galeria": 265,
+      "coleccion": 440,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 18,
+      "score": 87
+    }
   },
   {
     "id": "vc-45",
@@ -2686,7 +3778,20 @@ export const photos: Photo[] = [
       "oficios tradicionales",
       "marruecos",
       "woodturner marrakech"
-    ]
+    ],
+    "pricing": {
+      "estudio": 145,
+      "galeria": 260,
+      "coleccion": 430,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 18,
+      "score": 86
+    }
   },
   {
     "id": "vc-46",
@@ -2717,7 +3822,20 @@ export const photos: Photo[] = [
       "marrakech",
       "marruecos",
       "marrakech souk light"
-    ]
+    ],
+    "pricing": {
+      "estudio": 140,
+      "galeria": 245,
+      "coleccion": 410,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 20,
+      "score": 84
+    }
   },
   {
     "id": "pd-10",
@@ -2749,7 +3867,20 @@ export const photos: Photo[] = [
       "marruecos",
       "high atlas mountains",
       "fine art landscape"
-    ]
+    ],
+    "pricing": {
+      "estudio": 145,
+      "galeria": 260,
+      "coleccion": 430,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 18,
+      "score": 86
+    }
   },
   {
     "id": "pd-11",
@@ -2780,7 +3911,20 @@ export const photos: Photo[] = [
       "alto atlas",
       "marruecos",
       "morocco oasis landscape"
-    ]
+    ],
+    "pricing": {
+      "estudio": 150,
+      "galeria": 265,
+      "coleccion": 440,
+      "dimensions": {
+        "estudio": "30 × 53 cm",
+        "galeria": "45 × 80 cm",
+        "coleccion": "60 × 105 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 18,
+      "score": 87
+    }
   },
   {
     "id": "pd-12",
@@ -2812,7 +3956,20 @@ export const photos: Photo[] = [
       "marruecos",
       "sand dune ridge",
       "fine art print"
-    ]
+    ],
+    "pricing": {
+      "estudio": 160,
+      "galeria": 285,
+      "coleccion": 470,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 12,
+      "score": 90
+    }
   },
   {
     "id": "fn-14",
@@ -2843,7 +4000,20 @@ export const photos: Photo[] = [
       "wildlife in rain"
     ],
     "location": "Dehesa Ibérica, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 130,
+      "galeria": 225,
+      "coleccion": 375,
+      "dimensions": {
+        "estudio": "30 × 53 cm",
+        "galeria": "45 × 80 cm",
+        "coleccion": "60 × 105 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 20,
+      "score": 81
+    }
   },
   {
     "id": "fn-15",
@@ -2875,7 +4045,20 @@ export const photos: Photo[] = [
       "fauna canaria",
       "aves de cumbre",
       "canary islands wildlife"
-    ]
+    ],
+    "pricing": {
+      "estudio": 170,
+      "galeria": 295,
+      "coleccion": 490,
+      "dimensions": {
+        "estudio": "30 × 53 cm",
+        "galeria": "45 × 80 cm",
+        "coleccion": "60 × 105 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 15,
+      "score": 92
+    }
   },
   {
     "id": "fn-16",
@@ -2906,7 +4089,20 @@ export const photos: Photo[] = [
       "tenerife",
       "aves en acción",
       "raven wings"
-    ]
+    ],
+    "pricing": {
+      "estudio": 165,
+      "galeria": 285,
+      "coleccion": 475,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 15,
+      "score": 89
+    }
   },
   {
     "id": "fn-17",
@@ -2937,7 +4133,20 @@ export const photos: Photo[] = [
       "costa volcánica",
       "canarias",
       "marine macro photography"
-    ]
+    ],
+    "pricing": {
+      "estudio": 150,
+      "galeria": 270,
+      "coleccion": 445,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 20,
+      "score": 86
+    }
   },
   {
     "id": "fn-18",
@@ -2969,7 +4178,20 @@ export const photos: Photo[] = [
       "tenerife",
       "canarias",
       "red rock crab"
-    ]
+    ],
+    "pricing": {
+      "estudio": 155,
+      "galeria": 275,
+      "coleccion": 455,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 18,
+      "score": 87
+    }
   },
   {
     "id": "fn-19",
@@ -3000,7 +4222,20 @@ export const photos: Photo[] = [
       "canarias"
     ],
     "location": "Tenerife, Islas Canarias",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 130,
+      "galeria": 235,
+      "coleccion": 385,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "70 × 100 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 25,
+      "score": 82
+    }
   },
   {
     "id": "fn-20",
@@ -3031,7 +4266,20 @@ export const photos: Photo[] = [
       "seabird portrait"
     ],
     "location": "Litoral Atlántico, Canarias",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 125,
+      "galeria": 220,
+      "coleccion": 365,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 70 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 25,
+      "score": 80
+    }
   },
   {
     "id": "fn-21",
@@ -3063,7 +4311,20 @@ export const photos: Photo[] = [
       "shorebird photography"
     ],
     "location": "Costa Volcánica, Tenerife",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 135,
+      "galeria": 245,
+      "coleccion": 400,
+      "dimensions": {
+        "estudio": "32 × 40 cm",
+        "galeria": "50 × 62 cm",
+        "coleccion": "70 × 88 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 25,
+      "score": 82
+    }
   },
   {
     "id": "fn-22",
@@ -3095,7 +4356,20 @@ export const photos: Photo[] = [
       "deer wildlife spain"
     ],
     "location": "Encinar Ibérico, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 130,
+      "galeria": 225,
+      "coleccion": 375,
+      "dimensions": {
+        "estudio": "32 × 40 cm",
+        "galeria": "50 × 62 cm",
+        "coleccion": "70 × 88 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
+      "editionTotal": 25,
+      "score": 81
+    }
   },
   {
     "id": "cr-16",
@@ -3127,7 +4401,20 @@ export const photos: Photo[] = [
       "automotive fine art"
     ],
     "location": "Tramo de Asfalto, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 155,
+      "galeria": 275,
+      "coleccion": 455,
+      "dimensions": {
+        "estudio": "32 × 40 cm",
+        "galeria": "50 × 62 cm",
+        "coleccion": "70 × 88 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 18,
+      "score": 87
+    }
   },
   {
     "id": "vc-47",
@@ -3158,6 +4445,19 @@ export const photos: Photo[] = [
       "documentary portrait"
     ],
     "location": "Semana Santa, España",
-    "country": "España"
+    "country": "España",
+    "pricing": {
+      "estudio": 145,
+      "galeria": 255,
+      "coleccion": 425,
+      "dimensions": {
+        "estudio": "32 × 40 cm",
+        "galeria": "50 × 62 cm",
+        "coleccion": "70 × 88 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 20,
+      "score": 84
+    }
   }
 ];

@@ -293,19 +293,19 @@ export const SERVICE_LANDINGS: ServiceLanding[] = [
       "Colaboro con estudios de interiorismo, despachos profesionales, hoteles boutique y coleccionistas particulares para comisariar obras individuales, dípticos o series completas adaptadas a la escala arquitectónica y temperatura lumínica de cada estancia.",
     ],
     deliverables: [
-      "Formatos normalizados: Estudio A3+ (33×48 cm · 240 €), Galería (50×70 cm · 480 €) y Gran Colección (70×100 cm · 890 €)",
-      "Opción de enmarcado artesanal a medida con cristal museo antirreflejos UV 99%",
-      "Certificado de autenticidad numerado y firmado a mano por Javier Espinosa Martínez",
+      "Valoración individualizada por obra: Estudio (95–175 €), Galería (165–310 €) y Gran Colección (280–510 €)",
+      "Soporte asignado según la luz de cada captura: Algodón 100% Mate (308g) o Baritado Satinado de Sulfato de Bario (340g)",
+      "Certificado de autenticidad numerado y firmado a mano por Javier Espinosa Martínez (máximo 12 a 30 copias por obra)",
       "Asesoramiento visual y simulación a escala real en sala (/prints)",
-      "Embalaje técnico de alta densidad y envío con seguro a todo riesgo",
+      "Expedición exclusiva en tubo rígido de alta densidad (sin enmarcar) con papel tisú libre de ácido y envío asegurado",
     ],
     idealFor:
       "Coleccionistas de fotografía contemporánea, estudios de diseño de interiores, arquitectos, hoteles con encanto y sedes corporativas.",
     technicalSpecs: [
-      { label: "Soporte museo", value: "100% Algodón Hahnemühle Photo Rag® 308 g/m²" },
+      { label: "Soportes museo", value: "Hahnemühle Photo Rag® 308g & Canson Baryta II 340g" },
       { label: "Longevidad certificada", value: "Norma ISO 9706 · Tintas pigmentadas de archivo" },
-      { label: "Tiradas máximas", value: "50 uds. (Estudio) · 25 uds. (Galería) · 10 uds. (Colección)" },
-      { label: "Enmarcado opcional", value: "Madera natural + Paspartú pH neutro + Cristal UV 99%" },
+      { label: "Tiradas máximas", value: "12 a 30 ejemplares totales por obra (Objeto de Arte Original)" },
+      { label: "Modalidad de entrega", value: "Impresión Fine Art con margen blanco · Envío en tubo rígido" },
     ],
     process: [
       {
@@ -318,7 +318,7 @@ export const SERVICE_LANDINGS: ServiceLanding[] = [
         step: "02",
         title: "Prueba de Color e Impresión Giclée",
         description:
-          "Impresión bajo perfil ICC específico para Hahnemühle Photo Rag 308g con revisión individual de negros profundos y medios tonos.",
+          "Impresión bajo perfil ICC específico para papel de algodón mate o baritado satinado en laboratorio especializado de Tenerife.",
       },
       {
         step: "03",
@@ -328,19 +328,23 @@ export const SERVICE_LANDINGS: ServiceLanding[] = [
       },
       {
         step: "04",
-        title: "Envío Asegurado",
+        title: "Envío Asegurado en Tubo Rígido",
         description:
-          "Expedición protegida en tubo rígido de alta densidad o cajón a medida para obra enmarcada.",
+          "Expedición de la lámina protegida con papel tisú neutro dentro de un tubo rígido indeformable de alta densidad.",
       },
     ],
     faqs: [
       {
-        q: "¿Ofreces condiciones especiales para estudios de interiorismo o proyectos de varias obras?",
-        a: "Sí. Para proyectos de interiorismo, hoteles o adquisiciones de 3 o más obras (series y dípticos), se elabora una propuesta a medida con asesoramiento de formatos y acabados de enmarcado.",
+        q: "¿Por qué las obras se envían únicamente en tubo rígido sin enmarcar?",
+        a: "Enviar la lámina Fine Art enrollada con papel tisú libre de ácido en un tubo rígido de alta densidad evita roturas de cristal en tránsito desde Tenerife, elimina sobrecostes volumétricos de transporte y permite al coleccionista enmarcar la obra en su ciudad con total seguridad.",
       },
       {
-        q: "¿Puedo adquirir una obra directamente online?",
-        a: "Sí. Puedes añadir cualquier obra habilitada a la cesta desde su ficha o desde el catálogo Fine Art (/prints) y tramitar la reserva o pago seguro.",
+        q: "¿Ofreces condiciones especiales para estudios de interiorismo o proyectos de varias obras?",
+        a: "Sí. Para proyectos de interiorismo, hoteles o adquisiciones de 3 o más obras (series y dípticos), se elabora una propuesta a medida con asesoramiento de formatos y papeles.",
+      },
+      {
+        q: "¿Puedo adquirir cualquiera de las 100 obras directamente online?",
+        a: "Sí. Las 100 obras del archivo cuentan con valoración individual y compra directa inmediata desde su ficha o desde el catálogo Fine Art (/prints).",
       },
     ],
     primaryCta: {

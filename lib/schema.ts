@@ -163,54 +163,64 @@ export function generatePhotoSchema(photo: Photo) {
     };
   }
 
-  if (photo.prints) {
-    schema.artform = "Fotografía Fine Art de Autor / Fine Art Photography";
-    schema.artMedium =
-      "Impresión Giclée de 12 tintas pigmentadas sobre papel 100% algodón Hahnemühle Photo Rag 308 g/m²";
-    schema.surface = "Papel 100% Algodón Hahnemühle Photo Rag 308g (ISO 9706)";
-    schema.artEdition = "Edición limitada numerada y firmada (10 a 50 ejemplares)";
-    schema.offers = {
-      "@type": "AggregateOffer",
-      priceCurrency: "EUR",
-      lowPrice: "240",
-      highPrice: "890",
-      offerCount: "3",
-      availability: "https://schema.org/InStock",
-      itemCondition: "https://schema.org/NewCondition",
-      url: absoluteUrl(`/prints?obra=${encodeURIComponent(photo.title)}`),
-      seller: {
-        "@type": "Person",
-        "@id": absoluteUrl("/#author"),
-        name: "Javier Espinosa Martínez",
+  const pricing = photo.pricing;
+  const lowPrice = pricing ? String(pricing.estudio) : "120";
+  const midPrice = pricing ? String(pricing.galeria) : "220";
+  const highPrice = pricing ? String(pricing.coleccion) : "380";
+  const dims = pricing?.dimensions ?? {
+    estudio: "30 × 45 cm",
+    galeria: "50 × 70 cm",
+    coleccion: "70 × 100 cm",
+  };
+  const editionTotal = pricing?.editionTotal ?? 25;
+
+  schema.artform = "Fotografía Fine Art de Autor / Fine Art Photography";
+  schema.artMedium =
+    pricing?.paper ??
+    "Impresión Giclée de 12 tintas pigmentadas sobre papel 100% algodón Hahnemühle Photo Rag 308 g/m²";
+  schema.surface = "Papel Fine Art Certificado ISO 9706 (entrega en tubo rígido sin marco)";
+  schema.artEdition = `Edición limitada numerada y firmada de ${editionTotal} ejemplares`;
+  schema.offers = {
+    "@type": "AggregateOffer",
+    priceCurrency: "EUR",
+    lowPrice,
+    highPrice,
+    offerCount: "3",
+    availability: "https://schema.org/InStock",
+    itemCondition: "https://schema.org/NewCondition",
+    url: absoluteUrl(`/portfolio/${photo.slug}#adquirir-copia`),
+    seller: {
+      "@type": "Person",
+      "@id": absoluteUrl("/#author"),
+      name: "Javier Espinosa Martínez",
+    },
+    offers: [
+      {
+        "@type": "Offer",
+        name: `${photo.title} — Formato Estudio (${dims.estudio} · Ed. ${editionTotal} · Tubo rígido)`,
+        price: lowPrice,
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        url: absoluteUrl(`/portfolio/${photo.slug}#adquirir-copia`),
       },
-      offers: [
-        {
-          "@type": "Offer",
-          name: `${photo.title} — Formato Estudio (33 × 48 cm · Ed. 50)`,
-          price: "240",
-          priceCurrency: "EUR",
-          availability: "https://schema.org/InStock",
-          url: absoluteUrl(`/portfolio/${photo.slug}`),
-        },
-        {
-          "@type": "Offer",
-          name: `${photo.title} — Formato Galería (50 × 70 cm · Ed. 25)`,
-          price: "480",
-          priceCurrency: "EUR",
-          availability: "https://schema.org/InStock",
-          url: absoluteUrl(`/portfolio/${photo.slug}`),
-        },
-        {
-          "@type": "Offer",
-          name: `${photo.title} — Gran Colección (70 × 100 cm · Ed. 10)`,
-          price: "890",
-          priceCurrency: "EUR",
-          availability: "https://schema.org/InStock",
-          url: absoluteUrl(`/portfolio/${photo.slug}`),
-        },
-      ],
-    };
-  }
+      {
+        "@type": "Offer",
+        name: `${photo.title} — Formato Galería (${dims.galeria} · Ed. ${editionTotal} · Tubo rígido)`,
+        price: midPrice,
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        url: absoluteUrl(`/portfolio/${photo.slug}#adquirir-copia`),
+      },
+      {
+        "@type": "Offer",
+        name: `${photo.title} — Gran Colección (${dims.coleccion} · Ed. ${editionTotal} · Tubo rígido)`,
+        price: highPrice,
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        url: absoluteUrl(`/portfolio/${photo.slug}#adquirir-copia`),
+      },
+    ],
+  };
 
   return schema;
 }

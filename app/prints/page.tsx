@@ -32,34 +32,34 @@ export const metadata = buildPageMetadata({
 
 const SIZES = [
   {
-    name: "Formato Estudio (A3+)",
-    dims: "33 × 48 cm",
-    imageSize: "aprox. 30 × 45 cm",
-    price: "Desde 240 €",
-    framedNote: "Enmarcado museo opcional (+110 €)",
+    name: "Formato Estudio",
+    dims: "30 × 45 cm (o según proporción)",
+    imageSize: "Con margen blanco de conservación",
+    price: "95 € — 175 €",
+    framedNote: "Valoración individual según la obra · Envío en tubo rígido",
     idealFor: "Estudios, despachos, librerías y composiciones murales combinadas.",
-    edition: "Serie numerada de 50 ejemplares",
-    packaging: "Embalaje plano rígido reforzado con paspartú de conservación.",
+    edition: "Edición limitada (12 a 30 ej. totales por obra)",
+    packaging: "Papel seda libre de ácido dentro de tubo rígido protector de alta densidad.",
   },
   {
     name: "Formato Galería",
-    dims: "50 × 70 cm",
-    imageSize: "aprox. 40 × 60 cm",
-    price: "Desde 480 €",
-    framedNote: "Enmarcado museo opcional (+190 €)",
+    dims: "50 × 70 cm (o según proporción)",
+    imageSize: "Con margen blanco de conservación",
+    price: "165 € — 310 €",
+    framedNote: "Valoración individual según la obra · Envío en tubo rígido",
     idealFor: "Salones, recepciones y espacios expositivos principales.",
-    edition: "Serie numerada de 25 ejemplares",
-    packaging: "Tubo rígido protector de alta densidad libre de ácido.",
+    edition: "Edición limitada (12 a 30 ej. totales por obra)",
+    packaging: "Tubo rígido cilíndrico de alta densidad (3-4 mm) con tapas selladas.",
   },
   {
     name: "Gran Colección",
-    dims: "70 × 100 cm",
-    imageSize: "aprox. 60 × 90 cm",
-    price: "Desde 890 €",
-    framedNote: "Acabado expositivo a medida bajo consulta",
-    idealFor: "Piezas centrales de interiorismo y coleccionismo institucional.",
-    edition: "Serie exclusiva de 10 ejemplares",
-    packaging: "Caja de madera o tubo técnico de máxima resistencia.",
+    dims: "70 × 100 cm (o 60 × 90 cm)",
+    imageSize: "Con margen blanco de conservación",
+    price: "280 € — 510 €",
+    framedNote: "Valoración individual según la obra · Envío en tubo rígido",
+    idealFor: "Piezas centrales de interiorismo y coleccionismo.",
+    edition: "Edición limitada (12 a 30 ej. totales por obra)",
+    packaging: "Tubo técnico de gran formato libre de ácido y seguro de transporte.",
   },
 ];
 
@@ -88,19 +88,19 @@ export default function PrintsPage() {
   const printFaqs = [
     {
       q: "¿Cómo se entrega y protege cada copia Fine Art?",
-      a: "Las copias sin enmarcar se envían envueltas en papel seda libre de ácido dentro de un tubo rígido de alta densidad (o carpeta plana rígida para formato Estudio). Las obras enmarcadas viajan en cajón protegido a medida con seguro a todo riesgo.",
+      a: "Todas las fotografías se comercializan exclusivamente como lámina Fine Art sin enmarcar. Se envían envueltas en papel seda libre de ácido dentro de un tubo rígido de alta densidad (3-4 mm de grosor) desde Tenerife, eliminando cualquier riesgo de rotura de cristal durante el transporte.",
+    },
+    {
+      q: "¿Por qué cada fotografía tiene un precio y soporte específico?",
+      a: "Cada obra del catálogo se valora individualmente según la complejidad técnica de la captura, la singularidad del momento, el tamaño de su edición limitada (entre 12 y 30 ejemplares máximos) y el soporte asignado: papel 100% algodón mate (Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g) o papel baritado de alto contraste (Baryta 340g).",
     },
     {
       q: "¿Qué incluye el Certificado de Autenticidad?",
-      a: "Cada obra va acompañada de un documento firmado de puño y letra por Javier Espinosa Martínez indicando título, fecha, soporte Hahnemühle Photo Rag® 308g, número de ejemplar dentro de la edición limitada y holograma numerado.",
+      a: "Cada obra va acompañada de un documento firmado de puño y letra por Javier Espinosa Martínez indicando título, fecha, soporte empleado, número de ejemplar dentro de la edición limitada y doble holograma numerado.",
     },
     {
       q: "¿Cuál es el plazo habitual de producción y entrega?",
-      a: "Dado que cada copia se imprime bajo demanda con supervisión directa de prueba de color en laboratorio profesional, el plazo de entrega es de 5 a 8 días laborables para láminas sueltas y de 10 a 14 días laborables para obras enmarcadas a medida.",
-    },
-    {
-      q: "¿Puedo solicitar una fotografía del archivo que no aparezca en esta selección?",
-      a: "Sí. Aunque esta página reúne las 20 obras principales de edición limitada, cualquiera de las 100 obras del archivo puede producirse bajo pedido en papel Hahnemühle o en formato díptico indicando su título en el formulario de contacto.",
+      a: "Dado que cada copia se imprime bajo demanda en laboratorio Fine Art en Tenerife con revisión directa de prueba de color y firma manuscrita, el plazo habitual de expedición en tubo rígido es de 5 a 8 días laborables.",
     },
   ];
 
@@ -224,7 +224,7 @@ export default function PrintsPage() {
           </div>
 
           <p className="mt-4 font-mono text-[11px] text-[#8E8A80] leading-relaxed">
-            * Tarifas base orientativas para lámina suelta sobre papel 100% algodón Hahnemühle Photo Rag® 308 g/m² sin enmarcar. El presupuesto definitivo se confirma individualmente según disponibilidad de la serie, opciones de enmarcado a medida con cristal museo antirreflejos UV 99% y costes de transporte con seguro a todo riesgo.
+            * Cada fotografía cuenta con una valoración individual según su dificultad técnica, soporte asignado (Algodón Mate 308g o Baritado 340g) y edición limitada (máximo de 12 a 30 ejemplares por obra). Todas las obras se entregan sin enmarcar en tubo rígido de alta densidad con margen blanco de conservación.
           </p>
         </div>
 
@@ -324,26 +324,24 @@ export default function PrintsPage() {
           <DirectPrintsCatalog allPhotos={allPhotos} featuredPrints={printable} />
         </Suspense>
 
-        {/* Framing & Shipping Guarantee */}
+        {/* Shipping in Rigid Tube Guarantee */}
         <div className="mt-28 border border-white/[0.08] bg-[#151618] p-8 sm:p-12 lg:p-14">
           <div className="max-w-2xl">
             <span className="font-mono text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
-              Garantía y Logística
+              Garantía y Logística desde Tenerife
             </span>
             <h2 className="mt-3 font-serif text-2xl font-light text-[#EBE7DF] sm:text-3xl">
-              Asesoramiento en enmarcado y envíos internacionales
+              Envío en tubo rígido de alta densidad y conservación
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-[#8E8A80] font-light">
-              Cada fotografía se entrega con instrucciones detalladas de conservación preventiva. 
-              Si desea recibir la obra ya montada en marco de madera maciza (roble, fresno o negro mate) 
-              con cristal museo antirreflejos de protección UV al 99%, indíquelo al realizar su consulta.
+              Todas las copias se comercializan sin marco para garantizar un transporte seguro y sin riesgo de rotura de cristal desde Puerto de la Cruz (Tenerife) hacia cualquier destino de Canarias, Península o Europa. Cada lámina incluye un margen blanco perimetral para que puedas enmarcarla fácilmente en tu taller de confianza junto a las instrucciones de conservación preventiva.
             </p>
             <div className="mt-8">
               <Link
                 href="/contact?motivo=print"
                 className="inline-flex border border-[#EBE7DF] bg-[#EBE7DF] px-8 py-3.5 font-mono text-xs uppercase tracking-[0.3em] text-[#0B0C0E] font-medium transition-all duration-300 hover:bg-transparent hover:text-white"
               >
-                Solicitar presupuesto personalizado
+                Consultar encargo o serie para interiorismo
               </Link>
             </div>
           </div>

@@ -4,7 +4,7 @@ import { useState } from "react";
 import CertificateOfAuthenticityModal from "@/components/prints/CertificateOfAuthenticityModal";
 import { AndalusianCornerOrnaments } from "@/components/ui/AndalusianMotif";
 import type { Photo } from "@/types/photo";
-import { PRINT_FORMATS, addToCart } from "@/lib/cart";
+import { getFormatsForPhoto, addToCart } from "@/lib/cart";
 import type { PrintFormat } from "@/types/cart";
 
 type PrintCTAProps = {
@@ -14,12 +14,15 @@ type PrintCTAProps = {
 export default function PrintCTA({ photo }: PrintCTAProps) {
   const [selectedFormatId, setSelectedFormatId] =
     useState<PrintFormat["id"]>("galeria");
-  const [framed, setFramed] = useState(false);
   const [added, setAdded] = useState(false);
 
-  const currentFormat = PRINT_FORMATS[selectedFormatId];
-  const unitPrice =
-    currentFormat.price + (framed ? currentFormat.framePrice : 0);
+  const formats = getFormatsForPhoto(photo);
+  const currentFormat = formats[selectedFormatId];
+  const unitPrice = currentFormat.price;
+  const recommendedPaper =
+    photo.pricing?.paper ??
+    "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)";
+  const editionTotal = photo.pricing?.editionTotal ?? 25;
 
   const handleAddToCart = () => {
     addToCart({
@@ -29,7 +32,7 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
       image: photo.image,
       category: photo.category,
       format: currentFormat,
-      framed,
+      framed: false,
       quantity: 1,
     });
 
@@ -45,7 +48,7 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
       image: photo.image,
       category: photo.category,
       format: currentFormat,
-      framed,
+      framed: false,
       quantity: 1,
     });
     window.dispatchEvent(new Event("open-checkout-direct"));
@@ -60,10 +63,10 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
       <AndalusianCornerOrnaments className="text-[#C5A880]/50" />
       <div className="flex items-center justify-between">
         <span className="text-[10px] font-mono uppercase tracking-[0.35em] text-[#C5A880]">
-          Adquisición Directa en el Estudio · Sin Intermediarios
+          Adquisición Directa · Impresión Fine Art en Tubo Rígido
         </span>
         <span className="font-mono text-[10px] uppercase tracking-wider text-[#EBE7DF] border border-white/20 px-2 py-0.5">
-          {photo.prints ? "Edición Principal Numerada" : "Edición Bajo Demanda"}
+          Edición Limitada ({editionTotal} ej.)
         </span>
       </div>
 
@@ -74,20 +77,20 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
         Adquirir Copia Fine Art
       </h2>
       <p className="mt-3 text-sm leading-relaxed text-[#8E8A80] font-light">
-        Impresión giclée de conservación sobre papel 100% algodón Hahnemühle Photo Rag® 308 g/m² bajo norma ISO 9706.
-        Cada obra incluye certificado de autenticidad firmado y numerado de puño y letra por Javier Espinosa Martínez.
+        Impresión Giclée de 12 tintas pigmentadas bajo norma ISO 9706 sobre soporte asignado a esta obra:{" "}
+        <strong className="text-[#EBE7DF] font-normal">{recommendedPaper}</strong>. Se entrega como lámina sin enmarcar, con margen blanco de conservación, envuelta en papel seda libre de ácido dentro de un tubo rígido de alta densidad junto a su Certificado de Autenticidad firmado y numerado.
       </p>
 
-      {/* Selector Interactivo de Formatos */}
+      {/* Selector Interactivo de Formatos con Precios Individuales de esta Obra */}
       <div className="mt-8 space-y-3">
         <label className="block font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
-          1. Seleccione Formato de Obra
+          1. Seleccione Formato de Impresión (Precios individuales de esta obra)
         </label>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {(
-            Object.keys(PRINT_FORMATS) as Array<PrintFormat["id"]>
+            Object.keys(formats) as Array<PrintFormat["id"]>
           ).map((fmtKey) => {
-            const fmt = PRINT_FORMATS[fmtKey];
+            const fmt = formats[fmtKey];
             const isSelected = selectedFormatId === fmtKey;
             return (
               <button
@@ -102,13 +105,13 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
               >
                 <div className="flex items-center justify-between w-full">
                   <span className="font-mono text-[10px] uppercase tracking-wider text-[#8E8A80]">
-                    {fmt.name.split("(")[0].trim()}
+                    {fmt.name}
                   </span>
-                  <span className="font-mono text-[9px] text-[#8E8A80]/70">
-                    Ed. {fmt.editionLimit}
+                  <span className="font-mono text-[9px] text-[#C5A880]">
+                    Ed. {editionTotal}
                   </span>
                 </div>
-                <span className="mt-2 font-serif text-lg font-light text-[#EBE7DF]">
+                <span className="mt-2 font-serif text-xl font-light text-[#EBE7DF]">
                   {fmt.price} €
                 </span>
                 <span className="mt-1 font-mono text-[10px] text-[#8E8A80]">
@@ -120,38 +123,33 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
         </div>
       </div>
 
-      {/* Opción de Enmarcado Museo */}
+      {/* Especificación de Entrega en Tubo Rígido (Sin Marco) */}
       <div className="mt-5 border border-white/[0.08] bg-[#0B0C0E]/60 p-4">
-        <label className="flex items-start gap-3 cursor-pointer">
-          <input
-            type="checkbox"
-            checked={framed}
-            onChange={(e) => setFramed(e.target.checked)}
-            className="mt-0.5 h-4 w-4 accent-[#EBE7DF]"
-          />
-          <div className="text-xs">
+        <div className="flex items-start gap-3 text-xs">
+          <span className="mt-0.5 text-[#C5A880] font-mono">✓</span>
+          <div>
             <span className="font-medium text-[#EBE7DF]">
-              Añadir Enmarcado Museo con Cristal UV 99% (+{currentFormat.framePrice} €)
+              Lámina Fine Art sin enmarcar · Envío en tubo rígido de alta densidad incluido
             </span>
             <p className="mt-0.5 text-[11px] text-[#8E8A80] font-light leading-relaxed">
-              Moldura maciza de madera con paspartú de conservación libre de ácido de 5 cm. Listo para colgar.
+              Incluye margen perimetral blanco para facilitar el enmarcado en tu destino, papel seda pH neutro, Certificado de Autenticidad manuscrito y doble holograma numerado.
             </p>
           </div>
-        </label>
+        </div>
       </div>
 
-      {/* Total & Añadir a la Cesta */}
+      {/* Total & Acciones de Compra Directa */}
       <div className="mt-8 pt-6 border-t border-white/[0.08] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-5">
         <div>
           <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80] block">
-            Importe de la Selección
+            Precio de la Copia ({currentFormat.dimensions})
           </span>
           <div className="flex items-baseline gap-2">
             <span className="font-serif text-3xl font-light text-[#EBE7DF]">
               {unitPrice} €
             </span>
             <span className="font-mono text-[11px] text-[#8E8A80]">
-              {framed ? "(Con Marco Museo)" : "(Lámina suelta)"}
+              (Impresión + Tubo Rígido + Certificado)
             </span>
           </div>
         </div>

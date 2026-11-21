@@ -1,3 +1,5 @@
+import type { Photo } from "@/types/photo";
+
 export interface PrintFormat {
   id: "estudio" | "galeria" | "coleccion";
   name: string;
@@ -11,32 +13,72 @@ export interface PrintFormat {
 export const PRINT_FORMATS: Record<PrintFormat["id"], PrintFormat> = {
   estudio: {
     id: "estudio",
-    name: "Formato Estudio (A3+)",
-    dimensions: "33 × 48 cm",
-    imageDimensions: "aprox. 30 × 45 cm",
-    price: 240,
-    framePrice: 110,
-    editionLimit: 50,
+    name: "Formato Estudio",
+    dimensions: "30 × 45 cm",
+    imageDimensions: "Margen blanco de conservación incluido",
+    price: 120,
+    framePrice: 0,
+    editionLimit: 25,
   },
   galeria: {
     id: "galeria",
     name: "Formato Galería",
     dimensions: "50 × 70 cm",
-    imageDimensions: "aprox. 40 × 60 cm",
-    price: 480,
-    framePrice: 190,
+    imageDimensions: "Margen blanco de conservación incluido",
+    price: 220,
+    framePrice: 0,
     editionLimit: 25,
   },
   coleccion: {
     id: "coleccion",
     name: "Gran Colección",
     dimensions: "70 × 100 cm",
-    imageDimensions: "aprox. 60 × 90 cm",
-    price: 890,
-    framePrice: 290,
-    editionLimit: 10,
+    imageDimensions: "Margen blanco de conservación incluido",
+    price: 380,
+    framePrice: 0,
+    editionLimit: 25,
   },
 };
+
+/**
+ * Devuelve los 3 formatos con el precio, dimensiones exactas y límite de edición
+ * propios e individuales de la fotografía indicada (solo impresión en tubo, sin marco).
+ */
+export function getFormatsForPhoto(
+  photo: Pick<Photo, "pricing">
+): Record<PrintFormat["id"], PrintFormat> {
+  const p = photo.pricing;
+  const editionLimit = p?.editionTotal ?? 25;
+  return {
+    estudio: {
+      id: "estudio",
+      name: "Formato Estudio",
+      dimensions: p?.dimensions.estudio ?? PRINT_FORMATS.estudio.dimensions,
+      imageDimensions: "Lámina con margen blanco · Envío en tubo rígido",
+      price: p?.estudio ?? PRINT_FORMATS.estudio.price,
+      framePrice: 0,
+      editionLimit,
+    },
+    galeria: {
+      id: "galeria",
+      name: "Formato Galería",
+      dimensions: p?.dimensions.galeria ?? PRINT_FORMATS.galeria.dimensions,
+      imageDimensions: "Lámina con margen blanco · Envío en tubo rígido",
+      price: p?.galeria ?? PRINT_FORMATS.galeria.price,
+      framePrice: 0,
+      editionLimit,
+    },
+    coleccion: {
+      id: "coleccion",
+      name: "Gran Colección",
+      dimensions: p?.dimensions.coleccion ?? PRINT_FORMATS.coleccion.dimensions,
+      imageDimensions: "Lámina con margen blanco · Envío en tubo rígido",
+      price: p?.coleccion ?? PRINT_FORMATS.coleccion.price,
+      framePrice: 0,
+      editionLimit,
+    },
+  };
+}
 
 export interface CartItem {
   id: string; // unique item id: `${photoSlug}-${formatId}-${framed ? "framed" : "print"}`

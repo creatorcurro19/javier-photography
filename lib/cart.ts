@@ -1,5 +1,5 @@
 import type { CartItem } from "@/types/cart";
-import { PRINT_FORMATS } from "@/types/cart";
+import { PRINT_FORMATS, getFormatsForPhoto } from "@/types/cart";
 import { trackEvent } from "@/lib/analytics";
 
 const CART_STORAGE_KEY = "javier_fine_art_cart";
@@ -54,9 +54,8 @@ export function addToCart(
   item: Omit<CartItem, "id" | "unitPrice" | "totalPrice">
 ): CartItem {
   const current = getCart();
-  const unitPrice =
-    item.format.price + (item.framed ? item.format.framePrice : 0);
-  const itemId = `${item.slug}-${item.format.id}-${item.framed ? "framed" : "print"}`;
+  const unitPrice = item.format.price;
+  const itemId = `${item.slug}-${item.format.id}-print`;
 
   const existingIndex = current.findIndex((i) => i.id === itemId);
 
@@ -67,6 +66,8 @@ export function addToCart(
     const newQty = existing.quantity + item.quantity;
     const updatedItem: CartItem = {
       ...existing,
+      framed: false,
+      unitPrice,
       quantity: newQty,
       totalPrice: unitPrice * newQty,
     };
@@ -75,6 +76,7 @@ export function addToCart(
   } else {
     const newItem: CartItem = {
       ...item,
+      framed: false,
       id: itemId,
       unitPrice,
       totalPrice: unitPrice * item.quantity,
@@ -135,4 +137,4 @@ export function getCartSummary(items: CartItem[]): {
   return { subtotal, totalItems };
 }
 
-export { PRINT_FORMATS };
+export { PRINT_FORMATS, getFormatsForPhoto };

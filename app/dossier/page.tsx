@@ -168,9 +168,9 @@ export default function DossierPage() {
                 04 · Formatos de Colección Fine Art
               </h2>
               <ul className="mt-3 space-y-1.5 font-mono text-xs text-[#D4CEC3] print:text-neutral-800">
-                <li>Estudio (33 × 48 cm · Ed. 50) — 240 €</li>
-                <li>Galería (50 × 70 cm · Ed. 25) — 480 €</li>
-                <li>Gran Colección (70 × 100 cm · Ed. 10) — 890 €</li>
+                <li>Estudio (30×45 / 30×40 cm · Ed. 12–30) — 95 a 175 €</li>
+                <li>Galería (50×70 / 45×60 cm · Ed. 12–30) — 165 a 310 €</li>
+                <li>Gran Colección (60×90 / 70×100 cm · Ed. 12–30) — 280 a 510 €</li>
               </ul>
             </div>
 

@@ -196,9 +196,12 @@ export default function DirectPrintsCatalog({
               </Link>
 
               <div className="p-6 sm:p-7">
-                <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#8E8A80]">
+                <p className="font-mono text-[10px] uppercase tracking-[0.26em] text-[#8E8A80]">
                   {photo.location ? `${photo.location} · ` : ""}
-                  {photo.year} · Hahnemühle 308g
+                  Ed. Limitada {photo.pricing?.editionTotal ?? 25} ej. ·{" "}
+                  {photo.pricing?.paper.includes("Baritado")
+                    ? "Baritado 340g"
+                    : "Algodón Mate 308g"}
                 </p>
                 <h3 className="mt-2 font-serif text-xl font-light text-[#EBE7DF] transition group-hover:text-white">
                   <Link href={`/portfolio/${photo.slug}`} className="hover:underline underline-offset-4">
@@ -209,8 +212,16 @@ export default function DirectPrintsCatalog({
                   {photo.description}
                 </p>
                 <div className="mt-4 flex items-center justify-between border-t border-white/[0.06] pt-3 font-mono text-[11px] text-[#8E8A80]">
-                  <span>33×48 · 50×70 · 70×100 cm</span>
-                  <span className="font-serif text-sm text-[#EBE7DF]">Desde 240 €</span>
+                  <span>
+                    {photo.pricing
+                      ? `${photo.pricing.dimensions.estudio.replace(/ cm$/, "")} · ${photo.pricing.dimensions.galeria.replace(/ cm$/, "")} · ${photo.pricing.dimensions.coleccion}`
+                      : "30×45 · 50×70 · 70×100 cm"}
+                  </span>
+                  <span className="font-serif text-sm text-[#EBE7DF]">
+                    {photo.pricing
+                      ? `${photo.pricing.estudio} € · ${photo.pricing.galeria} € · ${photo.pricing.coleccion} €`
+                      : "Desde 120 €"}
+                  </span>
                 </div>
               </div>
             </div>
@@ -220,7 +231,7 @@ export default function DirectPrintsCatalog({
                 href={`/portfolio/${photo.slug}#adquirir-copia`}
                 className="font-mono text-xs uppercase tracking-[0.22em] text-[#8E8A80] transition hover:text-[#EBE7DF]"
               >
-                Ver Enmarcado →
+                Ficha y Tamaños →
               </Link>
               <PrintCardAction photo={photo} />
             </div>

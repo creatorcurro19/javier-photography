@@ -10,6 +10,20 @@ export interface PhotoCoordinates {
   lng: number;
 }
 
+export interface PhotoPricing {
+  estudio: number;
+  galeria: number;
+  coleccion: number;
+  dimensions: {
+    estudio: string;
+    galeria: string;
+    coleccion: string;
+  };
+  paper: string;
+  editionTotal: number;
+  score: number;
+}
+
 export interface Photo {
   id: string;
   slug: string;
@@ -34,6 +48,7 @@ export interface Photo {
   featured: boolean;
   featuredOrder?: number;
   prints: boolean;
+  pricing?: PhotoPricing;
   licensing?: boolean;
   getty?: boolean;
   shutterstock?: boolean;

@@ -205,17 +205,11 @@ export default function CartDrawer() {
 
                       <div className="mt-1.5 flex flex-wrap gap-1.5">
                         <span className="font-mono text-[9px] uppercase tracking-wider text-[#8E8A80] border border-white/[0.06] bg-black/40 px-1.5 py-0.5">
-                          Hahnemühle 308g
+                          Fine Art ISO 9706
                         </span>
-                        {item.framed ? (
-                          <span className="font-mono text-[9px] uppercase tracking-wider text-[#EBE7DF] border border-white/20 bg-white/5 px-1.5 py-0.5">
-                            Marco Museo UV (+{item.format.framePrice} €)
-                          </span>
-                        ) : (
-                          <span className="font-mono text-[9px] uppercase tracking-wider text-[#8E8A80]/70 border border-white/[0.04] px-1.5 py-0.5">
-                            Lámina suelta
-                          </span>
-                        )}
+                        <span className="font-mono text-[9px] uppercase tracking-wider text-[#C5A880] border border-[#C5A880]/25 bg-black/40 px-1.5 py-0.5">
+                          Lámina en tubo rígido
+                        </span>
                       </div>
                     </div>
 

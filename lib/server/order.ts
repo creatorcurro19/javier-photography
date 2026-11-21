@@ -1,6 +1,12 @@
 import "server-only";
 
-import { PRINT_FORMATS, type CartItem, type CartOrder, type OrderCustomer, type PrintFormat } from "@/types/cart";
+import {
+  getFormatsForPhoto,
+  type CartItem,
+  type CartOrder,
+  type OrderCustomer,
+  type PrintFormat,
+} from "@/types/cart";
 import { getAllPhotos } from "@/lib/photos";
 import type { Photo } from "@/types/photo";
 
@@ -70,18 +76,20 @@ export function normalizeOrder(raw: unknown): OrderValidationResult {
   for (const rawItem of input.items as Partial<CartItem>[]) {
     const photo = findPhoto(rawItem);
     const formatId = rawItem?.format?.id as PrintFormat["id"] | undefined;
-    const format = formatId ? PRINT_FORMATS[formatId] : undefined;
+    const photoFormats = photo ? getFormatsForPhoto(photo) : undefined;
+    const format = formatId && photoFormats ? photoFormats[formatId] : undefined;
     const quantity = Math.floor(Number(rawItem?.quantity));
 
     if (!photo || !format || !Number.isFinite(quantity) || quantity < 1 || quantity > MAX_QTY_PER_ITEM) {
       return { ok: false, error: "Una de las obras de la cesta no es válida. Vacía la cesta y vuelve a añadirla." };
     }
 
-    const framed = rawItem.framed === true;
-    const unitPrice = format.price + (framed ? format.framePrice : 0);
+    // Venta exclusiva de impresión Fine Art sin enmarcar enviada en tubo rígido
+    const framed = false;
+    const unitPrice = format.price;
 
     items.push({
-      id: `${photo.slug}-${format.id}-${framed ? "framed" : "print"}`,
+      id: `${photo.slug}-${format.id}-print`,
       photoId: photo.id,
       slug: photo.slug,
       title: photo.title,

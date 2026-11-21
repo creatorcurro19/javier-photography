@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import type { Photo } from "@/types/photo";
-import { PRINT_FORMATS, addToCart } from "@/lib/cart";
+import { getFormatsForPhoto, addToCart } from "@/lib/cart";
 import type { PrintFormat } from "@/types/cart";
 import { useLanguage } from "@/lib/i18n";
 import { AndalusianStarMark } from "@/components/ui/AndalusianMotif";
@@ -22,15 +22,19 @@ export default function AddToCartModal({
   const { t } = useLanguage();
   const [selectedFormatId, setSelectedFormatId] =
     useState<PrintFormat["id"]>("galeria");
-  const [framed, setFramed] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
 
   if (!isOpen) return null;
 
-  const currentFormat = PRINT_FORMATS[selectedFormatId];
-  const unitPrice = currentFormat.price + (framed ? currentFormat.framePrice : 0);
+  const formats = getFormatsForPhoto(photo);
+  const currentFormat = formats[selectedFormatId];
+  const unitPrice = currentFormat.price;
   const totalPrice = unitPrice * quantity;
+  const editionTotal = photo.pricing?.editionTotal ?? 25;
+  const shortPaper = photo.pricing?.paper.includes("Baritado")
+    ? "Papel Baritado 340g · ISO 9706"
+    : "Papel 100% Algodón 308g · ISO 9706";
 
   const handleAdd = () => {
     addToCart({
@@ -40,7 +44,7 @@ export default function AddToCartModal({
       image: photo.image,
       category: photo.category,
       format: currentFormat,
-      framed,
+      framed: false,
       quantity,
     });
 
@@ -59,7 +63,7 @@ export default function AddToCartModal({
       image: photo.image,
       category: photo.category,
       format: currentFormat,
-      framed,
+      framed: false,
       quantity,
     });
     onClose();
@@ -97,16 +101,18 @@ export default function AddToCartModal({
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.25em] text-[#C5A880]">
               <AndalusianStarMark className="h-2.5 w-2.5 text-[#C5A880]" />
-              <span>{t("Configurar Copia de Autor", "Configure Certified Print")}</span>
+              <span>
+                {t(
+                  `Edición Limitada (${editionTotal} ej.) · Envío en Tubo`,
+                  `Limited Edition (${editionTotal} prints) · Tube Delivery`
+                )}
+              </span>
             </div>
             <h3 id="modal-title" className="mt-1 font-serif text-xl font-light text-[#EBE7DF] truncate">
               {photo.title}
             </h3>
             <p className="mt-1 font-mono text-[10px] text-[#8E8A80]">
-              {t(
-                "Papel 100% Algodón Hahnemühle 308g · Norma ISO 9706",
-                "100% Cotton Hahnemühle 308g · ISO 9706 Standard"
-              )}
+              {shortPaper}
             </p>
           </div>
         </div>
@@ -114,13 +120,13 @@ export default function AddToCartModal({
         {/* Format Selector */}
         <div className="mt-5 space-y-2.5">
           <label className="block font-mono text-[10px] uppercase tracking-[0.25em] text-[#C5A880]">
-            {t("1. Seleccione Formato de Edición:", "1. Select Edition Format:")}
+            {t("Seleccione Formato de Impresión:", "Select Print Format:")}
           </label>
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
             {(
-              Object.keys(PRINT_FORMATS) as Array<PrintFormat["id"]>
+              Object.keys(formats) as Array<PrintFormat["id"]>
             ).map((fmtKey) => {
-              const fmt = PRINT_FORMATS[fmtKey];
+              const fmt = formats[fmtKey];
               const isSelected = selectedFormatId === fmtKey;
               return (
                 <button
@@ -134,9 +140,9 @@ export default function AddToCartModal({
                   }`}
                 >
                   <span className="font-mono text-[9px] uppercase tracking-wider text-[#C5A880]">
-                    {fmt.name.split(" ")[1] || fmt.name}
+                    {fmt.name.replace("Formato ", "")}
                   </span>
-                  <span className="mt-1 font-serif text-base font-light text-[#EBE7DF]">
+                  <span className="mt-1 font-serif text-lg font-light text-[#EBE7DF]">
                     {fmt.price} €
                   </span>
                   <span className="mt-0.5 font-mono text-[9px] text-[#8E8A80]">
@@ -148,30 +154,20 @@ export default function AddToCartModal({
           </div>
         </div>
 
-        {/* Framing Option */}
-        <div className="mt-4 rounded-lg border border-white/[0.08] bg-[#151719] p-3.5">
-          <label className="flex items-start gap-3 cursor-pointer select-none">
-            <input
-              type="checkbox"
-              checked={framed}
-              onChange={(e) => setFramed(e.target.checked)}
-              className="mt-0.5 h-4 w-4 rounded accent-[#C5A880]"
-            />
-            <div className="text-xs">
-              <span className="font-medium text-[#EBE7DF]">
-                {t(
-                  `Añadir Enmarcado Museo con Cristal UV 99% (+${currentFormat.framePrice} €)`,
-                  `Add Museum Framing with 99% UV Glass (+${currentFormat.framePrice} €)`
-                )}
-              </span>
-              <p className="mt-0.5 text-[11px] text-[#8E8A80] font-light leading-relaxed">
-                {t(
-                  "Madera maciza lacada en negro mate o roble natural, con paspartú libre de ácido de 5 cm.",
-                  "Solid wood frame in matte black or natural oak, with 5 cm acid-free cotton mat."
-                )}
-              </p>
-            </div>
-          </label>
+        {/* Tube Delivery Guarantee (Unframed) */}
+        <div className="mt-4 rounded-lg border border-white/[0.08] bg-[#151719] p-3.5 text-xs">
+          <span className="font-medium text-[#EBE7DF]">
+            {t(
+              "Impresión Fine Art sin enmarcar · Envío en tubo rígido protector",
+              "Unframed Fine Art print · Shipped in a high-density protective tube"
+            )}
+          </span>
+          <p className="mt-0.5 text-[11px] text-[#8E8A80] font-light leading-relaxed">
+            {t(
+              "Envuelta en papel seda libre de ácido con margen blanco de conservación, Certificado de Autenticidad firmado y doble holograma numerado.",
+              "Wrapped in acid-free tissue paper with white archival border, signed Certificate of Authenticity, and dual numbered hologram."
+            )}
+          </p>
         </div>
 
         {/* Quantity & Summary Footer */}
