@@ -364,7 +364,7 @@ export const SERVICE_LANDINGS: ServiceLanding[] = [
     category: "paisajes-documental",
     heroImage: "/images/portfolio/paisajes-documental/cumbre-nevada-al-alba.jpg",
     intro: [
-      "Cada copia Fine Art se concibe como un objeto físico perdurable. Se imprime por encargo individual mediante sistema Giclée de 12 tintas pigmentadas sobre papel 100% algodón Hahnemühle Photo Rag® de 308 g/m², libre de ácidos y blanqueadores ópticos para garantizar una estabilidad de archivo superior a los cien años.",
+      "Cada copia Fine Art se concibe como un objeto físico perdurable. Se imprime por encargo individual mediante sistema Giclée de 12 tintas pigmentadas sobre papel 100% algodón Hahnemühle Photo Rag® de 308 g/m², libre de ácidos y blanqueadores ópticos conforme a la norma de conservación ISO 9706 ({{DATO_PENDIENTE: CERTIFICACIONES DE LABORATORIO}}).",
       "Colaboro con estudios de interiorismo, despachos profesionales, hoteles boutique y coleccionistas particulares para comisariar obras individuales, dípticos o series completas adaptadas a la escala arquitectónica y temperatura lumínica de cada estancia.",
     ],
     deliverables: [

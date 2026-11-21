@@ -10,17 +10,15 @@ import { buildPageMetadata } from "@/lib/metadata";
 import { generateBreadcrumbSchema } from "@/lib/schema";
 
 export const metadata = buildPageMetadata({
-  title: "El Autor · Javier Espinosa Martínez & The Art of Seeing | Biografía y Equipo",
+  title: "Sobre mí · Biografía y Equipo",
   description:
-    "Monografía, trayectoria y declaración artística de Javier Espinosa Martínez. Fotógrafo de autor afincado en Tenerife especializado en fauna salvaje, paisaje, rally histórico, arquitectura y narrativa documental con sistema Canon EOS R7.",
+    "Trayectoria y forma de trabajar de Javier Espinosa Martínez en Tenerife: fauna, paisaje, rally histórico, arquitectura y documental con Canon EOS R7.",
   path: "/about",
   keywords: [
     "Javier Espinosa Martínez",
     "Javier Espinosa biografía",
     "fotógrafo de autor Tenerife",
-    "The Art of Seeing",
     "Canon EOS R7 fotógrafo",
-    "fine art photographer Spain",
   ],
 });
 
@@ -48,16 +46,16 @@ export default function AboutPage() {
           </div>
           <Link
             href="/dossier"
-            className="inline-flex items-center gap-2 border border-[#EBE7DF] bg-[#EBE7DF] px-6 py-2.5 font-mono text-[10px] uppercase tracking-[0.25em] font-medium text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
+            className="inline-flex min-h-[44px] items-center gap-2 border border-[#EBE7DF] bg-[#EBE7DF] px-6 py-2.5 font-mono text-[10px] uppercase tracking-[0.25em] font-medium text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
           >
-            <span>Dossier / Press Kit (PDF)</span>
+            <span>Dossier de Autor (PDF)</span>
             <span>→</span>
           </Link>
         </div>
 
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Link
-            href="/stories"
+            href="/cuaderno"
             className="group flex flex-col justify-between rounded-xl border border-white/[0.08] bg-[#121417] p-6 hover:border-[#C5A880]/50 transition"
           >
             <div>

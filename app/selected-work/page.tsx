@@ -11,15 +11,13 @@ import { getFeaturedPhotos } from "@/lib/photos";
 import { generateBreadcrumbSchema } from "@/lib/schema";
 
 export const metadata = buildPageMetadata({
-  title: "Obras Seleccionadas · Selected Works | Javier Espinosa",
+  title: "Obras Seleccionadas",
   description:
-    "Quince fotografías seleccionadas del archivo de Javier Espinosa Martínez: fauna salvaje, paisaje, automovilismo, arquitectura y fotografía documental.",
+    "Quince fotografías seleccionadas del archivo de Javier Espinosa Martínez: fauna, paisaje, automovilismo, arquitectura y fotografía documental.",
   path: "/selected-work",
   keywords: [
     "obras seleccionadas fotografía",
-    "selected works photography",
     "fotografía de autor",
-    "fine art photography",
     "Javier Espinosa Martínez",
   ],
 });
@@ -43,15 +41,15 @@ export default function SelectedWorkPage() {
         <header className="max-w-3xl">
           <div className="flex items-center gap-3">
             <span className="h-px w-6 bg-white/30" />
-            <p className="font-mono text-xs uppercase tracking-[0.4em] text-[#8E8A80]">
-              The Art of Seeing · Selección Principal
+            <p className="font-mono text-xs uppercase tracking-[0.4em] text-[#A39E93]">
+              Archivo Fotográfico · Selección Principal
             </p>
           </div>
           <h1 className="mt-4 font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-tight leading-[1.12] text-[#EBE7DF]">
             Obras Seleccionadas
           </h1>
           <p className="mt-2 font-mono text-xs uppercase tracking-[0.25em] text-[#C5A880]">
-            Selected Works · Quince Fotografías del Archivo
+            Quince Fotografías del Archivo
           </p>
           <p className="mt-6 text-base sm:text-lg leading-relaxed text-[#8E8A80] font-light">
             Quince fotografías elegidas entre distintas series y lugares. Hay fauna, montaña, asfalto, callejones en penumbra y talleres donde todavía se trabaja a mano. No responden a un único tema, pero sí a una misma costumbre: detenerse, esperar a que la luz acompañe y disparar sin alterar lo que ocurre delante.
@@ -91,7 +89,7 @@ export default function SelectedWorkPage() {
               Sobre esta selección
             </span>
             <h2 className="mt-3 font-serif text-2xl sm:text-3xl font-light text-[#EBE7DF]">
-              Mirar antes de disparar
+              Observar antes de disparar
             </h2>
             <p className="mt-4 text-sm sm:text-base leading-relaxed text-[#8E8A80] font-light">
               A veces una fotografía aparece después de horas esperando en el campo; otras, al doblar una esquina y encontrar cómo entra el sol en una calle estrecha. Todas las imágenes de esta página están tomadas con luz natural y pueden encargarse como copia sobre papel de algodón Hahnemühle Photo Rag® 308g o bajo licencia editorial.

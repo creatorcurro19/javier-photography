@@ -13,9 +13,9 @@ import { getFeaturedPhotos } from "@/lib/photos";
 import { CATEGORY_METADATA } from "@/types/photo";
 
 export const metadata = buildPageMetadata({
-  title: "Dossier de Autor & Press Kit (PDF) | Javier Espinosa",
+  title: "Dossier de Autor y Prensa (PDF)",
   description:
-    "Dossier curatorial y Press Kit oficial de Javier Espinosa Martínez: biografía, cinco disciplinas, selección de obra Fine Art, equipo óptico y contacto para prensa y galerías.",
+    "Dossier editorial de Javier Espinosa Martínez: biografía, cinco disciplinas, selección de obra Fine Art, equipo óptico y contacto para prensa y galerías.",
   path: "/dossier",
 });
 
@@ -68,7 +68,7 @@ export default function DossierPage() {
             <div className="mt-5 flex items-center gap-2.5">
               <AndalusianStarMark className="h-3.5 w-3.5 text-[#C5A880]" />
               <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-[#C5A880] print:text-neutral-600">
-                Dossier de Autor & Press Kit
+                Dossier de Autor y Prensa
               </p>
               <AndalusianStarMark className="h-3.5 w-3.5 text-[#C5A880]" />
             </div>

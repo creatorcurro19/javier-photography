@@ -142,8 +142,8 @@ export default function ZenGalleryModal({
               <span className="font-serif text-lg tracking-[0.25em] text-[#EBE7DF]">
                 JAVIER ESPINOSA
               </span>
-              <span className="hidden font-mono text-[9px] uppercase tracking-[0.3em] text-[#8E8A80] sm:inline">
-                · MODO ZEN EXPOSICIÓN
+              <span className="hidden font-mono text-[9px] uppercase tracking-[0.3em] text-[#A39E93] sm:inline">
+                · PRESENTACIÓN A PANTALLA COMPLETA
               </span>
             </div>
 

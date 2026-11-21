@@ -198,8 +198,8 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
       </div>
 
       {/* Sello de Conservación Directa */}
-      <div className="mt-6 pt-4 border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono text-[#8E8A80]">
-        <span>✓ Compra 100% directa al autor · Certificado numerado, holograma y envío asegurado</span>
+      <div className="mt-6 pt-4 border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono text-[#A39E93]">
+        <span>✓ Compra 100% directa al autor · Certificado firmado y numerado · Envío en tubo rígido</span>
         <span className="text-[#C5A880]">Hahnemühle Photo Rag® 308g · ISO 9706</span>
       </div>
     </section>

@@ -80,11 +80,11 @@ const SPECS = [
   },
   {
     title: "Certificado de Autenticidad",
-    desc: "Cada copia se entrega con certificado firmado a mano, numerado y con holograma de seguridad intransferible.",
+    desc: "Cada copia se entrega con certificado firmado y numerado a mano por el autor ({{DATO_PENDIENTE: CERTIFICACIONES DE SELLADO}}).",
   },
   {
-    title: "Conservación Museística",
-    desc: "Conformidad estricta con la norma ISO 9706. Garantía de resistencia al envejecimiento superior a 100 años sin decoloración.",
+    title: "Conservación ISO 9706",
+    desc: "Papel libre de ácidos y blanqueadores ópticos conforme a la norma ISO 9706 de conservación ({{DATO_PENDIENTE: CERTIFICACIONES DE LABORATORIO}}).",
   },
 ];
 
@@ -102,7 +102,7 @@ export default function PrintsPage() {
     },
     {
       q: "¿Qué incluye el Certificado de Autenticidad?",
-      a: "Cada obra va acompañada de un documento firmado de puño y letra por Javier Espinosa Martínez indicando título, fecha, soporte empleado, número de ejemplar dentro de la edición limitada y doble holograma numerado.",
+      a: "Cada obra va acompañada de un documento firmado y numerado de puño y letra por Javier Espinosa Martínez indicando título, fecha, soporte empleado y número de ejemplar dentro de la edición limitada ({{DATO_PENDIENTE: CERTIFICACIONES DE SELLADO}}).",
     },
     {
       q: "¿Cuál es el plazo habitual de producción y entrega?",

@@ -306,7 +306,7 @@ export default function AboutInteractiveStudio() {
                       : "border-[#202226] text-neutral-500 hover:text-[#EBE7DF]"
                   }`}
                 >
-                  HUD Óptico: {hudEnabled ? "Activo" : "Oculto"}
+                  Visor de Cámara: {hudEnabled ? "Activo" : "Oculto"}
                 </button>
               </div>
 

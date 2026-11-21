@@ -251,7 +251,7 @@ export default function CartDrawer() {
               {/* Archival Guarantees */}
               <div className="border border-white/[0.06] bg-[#151618]/30 p-4 text-[11px] text-[#8E8A80] space-y-1.5 font-light">
                 <p className="flex items-center gap-2">
-                  <span className="text-[#EBE7DF]">✓</span> Certificado de autenticidad con holograma y firma manuscrita.
+                  <span className="text-[#EBE7DF]">✓</span> Certificado de autenticidad numerado y firma manuscrita.
                 </p>
                 <p className="flex items-center gap-2">
                   <span className="text-[#EBE7DF]">✓</span> Impresión mineral de conservación bajo norma ISO 9706.

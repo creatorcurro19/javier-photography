@@ -222,7 +222,7 @@ export default function ExhibitionGallery({
             className="inline-flex min-h-[44px] items-center gap-1.5 rounded border border-white/20 bg-white/[0.05] px-3 py-2 text-[#EBE7DF] transition hover:border-white/40 hover:bg-white/[0.1]"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-[#EBE7DF]" />
-            <span>Pase Zen</span>
+            <span>Presentación</span>
           </button>
         </div>
       </div>

@@ -176,13 +176,13 @@ export default function CertificateOfAuthenticityModal({
                   </div>
                   <div>
                     <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#8C765C]">
-                      ID Holograma de Autor:
+                      Registro de Edición Numerada:
                     </span>
                     <p className="font-mono text-xs font-semibold tracking-wider text-[#1A1A1A]">
                       {certId}
                     </p>
                     <p className="font-mono text-[9px] text-[#6E6962]">
-                      Sello Inviolable de Conservación
+                      Norma ISO 9706 · {"{{DATO_PENDIENTE: CERTIFICACIONES}}"}
                     </p>
                   </div>
                 </div>

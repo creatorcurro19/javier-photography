@@ -177,8 +177,8 @@ export default function AddToCartModal({
           </span>
           <p className="mt-0.5 text-[11px] text-[#8E8A80] font-light leading-relaxed">
             {t(
-              "Envuelta en papel seda libre de ácido con margen blanco de conservación, Certificado de Autenticidad firmado y doble holograma numerado.",
-              "Wrapped in acid-free tissue paper with white archival border, signed Certificate of Authenticity, and dual numbered hologram."
+              "Envuelta en papel seda libre de ácido con margen blanco de conservación y Certificado de Autenticidad firmado y numerado.",
+              "Wrapped in acid-free tissue paper with white archival border and signed, numbered Certificate of Authenticity."
             )}
           </p>
         </div>

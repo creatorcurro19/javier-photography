@@ -128,7 +128,7 @@ export default function ServiciosPage() {
               href="/dossier"
               className="inline-flex items-center gap-2 border border-[#EBE7DF] bg-[#EBE7DF] px-5 py-2.5 font-mono text-[10px] uppercase tracking-[0.25em] font-medium text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
             >
-              <span>Dossier &amp; Press Kit (PDF)</span>
+              <span>Dossier de Autor (PDF)</span>
               <span>→</span>
             </Link>
             <Link
