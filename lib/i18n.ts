@@ -10,8 +10,21 @@ const LANG_EVENT = "javier-lang-changed";
 function getStoredLang(): SiteLang {
   if (typeof window === "undefined") return "es";
   try {
+    const params = new URLSearchParams(window.location.search);
+    const urlLang = params.get("lang");
+    if (urlLang === "en" || urlLang === "es") {
+      window.localStorage.setItem(LANG_KEY, urlLang);
+      if (document.documentElement.lang !== urlLang) {
+        document.documentElement.lang = urlLang;
+      }
+      return urlLang;
+    }
     const val = window.localStorage.getItem(LANG_KEY);
-    return val === "en" ? "en" : "es";
+    const resolved: SiteLang = val === "en" ? "en" : "es";
+    if (document.documentElement.lang !== resolved) {
+      document.documentElement.lang = resolved;
+    }
+    return resolved;
   } catch {
     return "es";
   }

@@ -12,13 +12,22 @@ import PrintCardAction from "@/components/cart/PrintCardAction";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getPrintablePhotos } from "@/lib/photos";
-import { generateFAQSchema } from "@/lib/schema";
+import { generateBreadcrumbSchema, generateFAQSchema } from "@/lib/schema";
 
 export const metadata = buildPageMetadata({
-  title: "Copias Fine Art & Ediciones de Autor | Javier Espinosa",
+  title: "Copias Fine Art Hahnemühle & Ediciones Limitadas (Fine Art Prints) | Javier Espinosa",
   description:
-    "Ediciones limitadas de autor sobre papel de algodón Hahnemühle Photo Rag 308g. Impresión con tintas de pigmento mineral de conservación museística bajo norma ISO 9706.",
+    "Adquisición de copias Fine Art de edición limitada sobre papel 100% algodón Hahnemühle Photo Rag 308g (ISO 9706). Obra fotográfica de autor numerada y firmada para coleccionismo e interiorismo.",
   path: "/prints",
+  keywords: [
+    "copias Fine Art",
+    "Fine Art photography prints",
+    "Hahnemühle Photo Rag 308g",
+    "ediciones limitadas fotografía",
+    "limited edition photography prints",
+    "fotografía de autor para interiorismo",
+    "museum grade archival prints",
+  ],
 });
 
 const SIZES = [
@@ -99,7 +108,15 @@ export default function PrintsPage() {
       {/* Filigrana andalusí y cenefas laterales discretas en el fondo de la colección Fine Art */}
       <AndalusianCollectionBackdrop variant="sebka" />
 
-      <JsonLd data={generateFAQSchema(printFaqs)} />
+      <JsonLd
+        data={[
+          generateFAQSchema(printFaqs),
+          generateBreadcrumbSchema([
+            { name: "Inicio", path: "/" },
+            { name: "Copias Fine Art", path: "/prints" },
+          ]),
+        ]}
+      />
       <Container className="relative z-10">
         {/* Header Section */}
         <div className="max-w-3xl">
@@ -415,24 +432,7 @@ export default function PrintsPage() {
           </div>
 
           <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-2">
-            {[
-              {
-                q: "¿Cómo se entrega y protege cada copia Fine Art?",
-                a: "Las copias sin enmarcar se envían envueltas en papel seda libre de ácido dentro de un tubo rígido de alta densidad (o carpeta plana rígida para formato Estudio). Las obras enmarcadas viajan en cajón protegido a medida con seguro a todo riesgo.",
-              },
-              {
-                q: "¿Qué incluye el Certificado de Autenticidad?",
-                a: "Cada obra va acompañada de un documento firmado de puño y letra por Javier Espinosa Martínez indicando título, fecha, soporte Hahnemühle Photo Rag® 308g, número de ejemplar dentro de la edición limitada y holograma numerado.",
-              },
-              {
-                q: "¿Cuál es el plazo habitual de producción y entrega?",
-                a: "Dado que cada copia se imprime bajo demanda con supervisión directa de prueba de color en laboratorio profesional, el plazo de entrega es de 5 a 8 días laborables para láminas sueltas y de 10 a 14 días laborables para obras enmarcadas a medida.",
-              },
-              {
-                q: "¿Puedo solicitar una fotografía del archivo que no aparezca en esta selección?",
-                a: "Sí. Aunque esta página reúne las 20 obras principales de edición limitada, cualquiera de las 100 obras del archivo puede producirse bajo pedido en papel Hahnemühle o en formato díptico indicando su título en el formulario de contacto.",
-              },
-            ].map((item) => (
+            {printFaqs.map((item) => (
               <details
                 key={item.q}
                 className="group border border-white/[0.08] bg-[#151618] p-6 transition hover:border-white/30"

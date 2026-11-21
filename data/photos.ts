@@ -9,7 +9,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/cotorra-en-reposo.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Cotorra en Reposo: Aproximación a 600mm de una cotorra de Kramer posada sobre una rama, aislada sobre un fondo cálido desenfocado al atardecer",
+    "alt": "Cotorra de Kramer posada en reposo sobre una rama bajo la luz cálida del atardecer en Tenerife, capturada a 600mm",
     "camera": "Canon EOS R7",
     "lens": "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary",
     "iso": 6400,
@@ -23,13 +23,18 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "fauna",
+      "cotorra de kramer",
       "aves",
-      "naturaleza",
-      "teleobjetivo",
-      "600mm"
+      "fauna salvaje",
+      "tenerife",
+      "600mm",
+      "wildlife photography",
+      "ring-necked parakeet",
+      "bird photography"
     ],
-    "story": "Capturada a última hora de la tarde con el teleobjetivo a 600mm, aprovechando el fondo iluminado por el sol rasante para aislar la silueta y el plumaje del ave en completo silencio."
+    "story": "Capturada a última hora de la tarde con el teleobjetivo a 600mm, aprovechando el fondo iluminado por el sol rasante para aislar la silueta y el plumaje del ave en completo silencio.",
+    "location": "Tenerife, Islas Canarias",
+    "country": "España"
   },
   {
     "id": "fn-02",
@@ -39,7 +44,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/plumaje-esmeralda.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Plumaje Esmeralda: Retrato de perfil en primer plano a 600mm destacando la textura del plumaje verde y el contraste del pico rojizo sobre el follaje en penumbra",
+    "alt": "Detalle de perfil del plumaje verde esmeralda y pico rojizo de una cotorra sobre follaje en penumbra a 600mm",
     "camera": "Canon EOS R7",
     "lens": "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary",
     "iso": 1600,
@@ -53,13 +58,18 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "fauna",
-      "vuelo",
+      "plumaje",
+      "cotorra",
       "aves",
-      "accion",
-      "naturaleza"
+      "retrato de fauna",
+      "tenerife",
+      "600mm",
+      "avian photography",
+      "wildlife portrait"
     ],
-    "story": "Con el sujeto en reposo absoluto entre las ramas bajas, la focal de 600mm permitió comprimir el fondo vegetal oscuro y revelar cada detalle de las plumas y el ojo."
+    "story": "Con el sujeto en reposo absoluto entre las ramas bajas, la focal de 600mm permitió comprimir el fondo vegetal oscuro y revelar cada detalle de las plumas y el ojo.",
+    "location": "Tenerife, Islas Canarias",
+    "country": "España"
   },
   {
     "id": "fn-03",
@@ -69,7 +79,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/garza-blanca-al-sol.jpg",
     "width": 1760,
     "height": 2200,
-    "alt": "Garza Blanca al Sol: Primer plano de una garza blanca acicalando su plumaje bajo la luz dorada de la mañana sobre un fondo azul profundo",
+    "alt": "Garza blanca acicalando sus plumas bajo la luz dorada matinal frente a un espejo de agua azul oscuro a 600mm",
     "camera": "Canon EOS 750D",
     "lens": "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary",
     "iso": 400,
@@ -83,12 +93,17 @@ export const photos: Photo[] = [
     "prints": true,
     "licensing": true,
     "keywords": [
-      "fauna",
-      "entorno",
-      "habitat",
-      "naturaleza"
+      "garza blanca",
+      "great egret",
+      "aves acuáticas",
+      "fauna salvaje",
+      "600mm",
+      "fine art wildlife",
+      "heron photography"
     ],
-    "story": "Con las primeras luces del día incidiendo lateralmente sobre el cuello curvado de la garza, el teleobjetivo a 600mm permitió aislar la textura sedosa de las plumas sobre el agua en sombra."
+    "story": "Con las primeras luces del día incidiendo lateralmente sobre el cuello curvado de la garza, el teleobjetivo a 600mm permitió aislar la textura sedosa de las plumas sobre el agua en sombra.",
+    "location": "Humedales Ibéricos",
+    "country": "España"
   },
   {
     "id": "fn-04",
@@ -98,7 +113,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/mirada-del-lince-boreal.jpg",
     "width": 2200,
     "height": 1238,
-    "alt": "Mirada del Lince Boreal: Encuentro visual con un lince boreal en reposo sobre una roca musgosa en el bosque alpino",
+    "alt": "Lince boreal descansando sobre una roca cubierta de musgo en el bosque con mirada directa a cámara a 232mm",
     "camera": "Canon EOS R7",
     "lens": "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary",
     "iso": 2000,
@@ -112,12 +127,17 @@ export const photos: Photo[] = [
     "prints": true,
     "licensing": true,
     "keywords": [
-      "fauna",
-      "detalle",
-      "textura",
-      "plumaje"
+      "lince boreal",
+      "eurasian lynx",
+      "felino salvaje",
+      "fauna europea",
+      "bosque alpino",
+      "wildlife fine art",
+      "lynx portrait"
     ],
-    "story": "El camuflaje moteado del lince se funde con la roca y el musgo húmedo; solo el destello ámbar de su mirada directa hacia el objetivo delata su presencia."
+    "story": "El camuflaje moteado del lince se funde con la roca y el musgo húmedo; solo el destello ámbar de su mirada directa hacia el objetivo delata su presencia.",
+    "location": "Reserva Alpina Europea",
+    "country": "España"
   },
   {
     "id": "fn-05",
@@ -127,7 +147,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/vigias-del-risco.jpg",
     "width": 2200,
     "height": 1760,
-    "alt": "Vigías del Risco: Pareja de buitres leonados posados en la cresta caliza de un cortado rocoso, dominando visualmente el cañón",
+    "alt": "Pareja de buitres leonados vigilando el cañón desde la cresta de un risco calizo en Monfragüe",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 500,
@@ -140,10 +160,16 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "fauna",
-      "luz natural",
-      "silvestre"
-    ]
+      "buitre leonado",
+      "griffon vulture",
+      "monfragüe",
+      "aves rapaces",
+      "fauna ibérica",
+      "cortado rocoso",
+      "raptor photography"
+    ],
+    "location": "Parque Nacional de Monfragüe, Cáceres",
+    "country": "España"
   },
   {
     "id": "fn-06",
@@ -153,7 +179,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/descenso-en-la-roca.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Descenso en la Roca: Ejemplar de cabra montés sorteando con agilidad un desnivel vertical entre grandes bloques de granito en alta montaña",
+    "alt": "Cabra montés descendiendo con agilidad por una pared vertical de bloques de granito en la Sierra de Gredos",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 2000,
@@ -167,12 +193,17 @@ export const photos: Photo[] = [
     "prints": true,
     "licensing": true,
     "keywords": [
-      "fauna",
-      "bosque",
-      "silvestre",
-      "naturaleza"
+      "cabra montés",
+      "iberian ibex",
+      "sierra de gredos",
+      "alta montaña",
+      "fauna ibérica",
+      "granito",
+      "mountain wildlife"
     ],
-    "story": "En las paredes rocosas de la sierra, la cabra montés se desplaza con un equilibrio asombroso sobre apoyos mínimos. Esperé a que asomara en el filo entre dos bloques antes de saltar."
+    "story": "En las paredes rocosas de la sierra, la cabra montés se desplaza con un equilibrio asombroso sobre apoyos mínimos. Esperé a que asomara en el filo entre dos bloques antes de saltar.",
+    "location": "Sierra de Gredos",
+    "country": "España"
   },
   {
     "id": "fn-07",
@@ -182,7 +213,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/cabras-monteses-en-la-pena.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Cabras Monteses en la Peña: Pareja de cabras monteses en actitud vigilante sobre las formaciones rocosas del monte mediterráneo",
+    "alt": "Dos cabras monteses en actitud alerta sobre peñascos graníticos del monte mediterráneo en Gredos",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 1000,
@@ -195,11 +226,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "fauna",
-      "observacion",
-      "vegetacion",
-      "naturaleza"
-    ]
+      "cabra montés",
+      "iberian ibex",
+      "sierra de gredos",
+      "monte mediterráneo",
+      "fauna silvestre",
+      "wildlife spain"
+    ],
+    "location": "Sierra de Gredos",
+    "country": "España"
   },
   {
     "id": "fn-08",
@@ -209,7 +244,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/el-paso-del-lobo.jpg",
     "width": 2200,
     "height": 1237,
-    "alt": "El Paso del Lobo: Un lobo europeo avanzando en silencio sobre el manto de hojas secas en la penumbra del bosque",
+    "alt": "Lobo europeo caminando en silencio sobre un manto de hojarasca otoñal en la penumbra del bosque a 600mm",
     "camera": "Canon EOS R7",
     "lens": "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary",
     "iso": 6400,
@@ -222,11 +257,18 @@ export const photos: Photo[] = [
     "prints": true,
     "licensing": true,
     "keywords": [
-      "fauna",
-      "silencio",
-      "contraluz"
+      "lobo europeo",
+      "eurasian wolf",
+      "lobo ibérico",
+      "fauna salvaje",
+      "bosque",
+      "600mm",
+      "wolf photography",
+      "fine art wildlife"
     ],
-    "story": "A 600mm de focal entre los troncos del bosque cerrado, el lobo avanzó con trote silencioso y la cabeza baja, clavando la vista al frente durante apenas un par de segundos."
+    "story": "A 600mm de focal entre los troncos del bosque cerrado, el lobo avanzó con trote silencioso y la cabeza baja, clavando la vista al frente durante apenas un par de segundos.",
+    "location": "Bosque Ibérico",
+    "country": "España"
   },
   {
     "id": "pd-01",
@@ -236,7 +278,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/paisajes-documental/palmeras-en-el-ocaso-atlantico.jpg",
     "width": 1760,
     "height": 2200,
-    "alt": "Palmeras en el Ocaso Atlántico: Siluetas gemelas de palmeras enmarcando el horizonte marino bajo un cielo encendido al atardecer",
+    "alt": "Siluetas de dos palmeras recortadas frente al océano Atlántico durante un ocaso de tonos rojizos y dorados en Tenerife",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 200,
@@ -249,11 +291,17 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "paisaje",
-      "montaña",
-      "curva",
-      "viaje"
-    ]
+      "ocaso atlántico",
+      "palmeras",
+      "tenerife",
+      "islas canarias",
+      "contraluz",
+      "paisaje costero",
+      "atlantic sunset",
+      "canary islands landscape"
+    ],
+    "location": "Costa de Tenerife, Islas Canarias",
+    "country": "España"
   },
   {
     "id": "pd-02",
@@ -263,7 +311,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/paisajes-documental/cumbre-nevada-al-alba.jpg",
     "width": 2200,
     "height": 1237,
-    "alt": "Cumbre Nevada al Alba: La silueta nevada del pico volcánico emergiendo sobre el manto oscuro del pinar bajo las primeras luces rosadas del amanecer",
+    "alt": "Cono volcánico del Teide cubierto de nieve al amanecer sobre la corona forestal en Tenerife",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 320,
@@ -277,13 +325,19 @@ export const photos: Photo[] = [
     "prints": true,
     "licensing": true,
     "keywords": [
-      "paisaje",
-      "carretera",
-      "asfalto",
-      "horizonte",
-      "documental"
+      "teide",
+      "tenerife",
+      "volcán nevado",
+      "amanecer",
+      "islas canarias",
+      "alta montaña",
+      "mount teide",
+      "volcanic landscape",
+      "fine art landscape"
     ],
-    "story": "Antes de que el sol superara la línea de cumbres, las nubes altas se tiñeron de tonos violáceos y rosados sobre el cono nevado del volcán, contrastando con la penumbra cerrada del bosque inferior."
+    "story": "Antes de que el sol superara la línea de cumbres, las nubes altas se tiñeron de tonos violáceos y rosados sobre el cono nevado del volcán, contrastando con la penumbra cerrada del bosque inferior.",
+    "location": "Parque Nacional del Teide, Tenerife",
+    "country": "España"
   },
   {
     "id": "pd-03",
@@ -293,7 +347,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/paisajes-documental/pasarela-junto-al-mar.jpg",
     "width": 1760,
     "height": 2200,
-    "alt": "Pasarela junto al Mar: Contraluz costero sobre una pasarela de madera frente al océano, con la vela de un kitesurf recortada en el cielo",
+    "alt": "Pasarela costera de madera a contraluz frente al océano Atlántico con la silueta de una cometa de kitesurf en el horizonte",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 100,
@@ -306,11 +360,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "paisaje",
-      "sendero",
-      "piedra",
-      "rural"
-    ]
+      "costa atlántica",
+      "pasarela",
+      "contraluz marino",
+      "canarias",
+      "horizonte oceánico",
+      "coastal photography"
+    ],
+    "location": "Litoral Atlántico, Canarias",
+    "country": "España"
   },
   {
     "id": "pd-04",
@@ -320,7 +378,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/paisajes-documental/acantilados-al-atardecer.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Acantilados al Atardecer: Luz dorada envuelta en bruma marina sobre los acantilados volcánicos y la orilla pedregosa del Atlántico",
+    "alt": "Acantilados volcánicos bañados por la bruma marina y la luz dorada del atardecer en la costa de Tenerife",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 250,
@@ -333,11 +391,16 @@ export const photos: Photo[] = [
     "prints": true,
     "licensing": true,
     "keywords": [
-      "paisaje",
-      "campo",
-      "horizonte",
-      "rural"
-    ]
+      "acantilados volcánicos",
+      "bruma marina",
+      "océano atlántico",
+      "tenerife",
+      "paisaje costero",
+      "seascape photography",
+      "canary islands"
+    ],
+    "location": "Costa Norte de Tenerife, Canarias",
+    "country": "España"
   },
   {
     "id": "pd-05",
@@ -347,7 +410,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/paisajes-documental/ave-del-paraiso-al-sol.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Ave del Paraíso al Sol: Estudio de luz natural sobre flores de strelitzia cuyos tonos naranjas contrastan con la fachada en sombra",
+    "alt": "Flores de strelitzia o ave del paraíso iluminadas por luz solar rasante sobre fondo arquitectónico oscuro en Tenerife",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 200,
@@ -360,11 +423,16 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "paisaje",
-      "relieve",
-      "nubes",
-      "geografia"
-    ]
+      "ave del paraíso",
+      "strelitzia",
+      "flora canaria",
+      "luz natural",
+      "tenerife",
+      "botanical photography",
+      "claroscuro"
+    ],
+    "location": "Tenerife, Islas Canarias",
+    "country": "España"
   },
   {
     "id": "pd-06",
@@ -374,7 +442,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/paisajes-documental/reflejo-solar-en-la-orilla.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Reflejo Solar en la Orilla: Encuadre vertical del sol fundiéndose en el horizonte marino y proyectando su reflejo dorado sobre la arena húmeda",
+    "alt": "Sol poniente en el horizonte del Atlántico reflejando una estela dorada sobre la arena volcánica húmeda",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 2000,
@@ -387,11 +455,16 @@ export const photos: Photo[] = [
     "prints": true,
     "licensing": true,
     "keywords": [
-      "paisaje",
-      "agua",
-      "reflejos",
-      "vegetacion"
-    ]
+      "reflejo solar",
+      "arena volcánica",
+      "ocaso marino",
+      "atlántico",
+      "tenerife",
+      "seascape sunset",
+      "minimalist landscape"
+    ],
+    "location": "Costa Atlántica, Tenerife",
+    "country": "España"
   },
   {
     "id": "pd-07",
@@ -401,7 +474,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/paisajes-documental/surcos-del-viento-en-la-arena.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Surcos del Viento en la Arena: Geometría natural de las rizaduras eólicas sobre la arena rojiza del desierto bajo luz lateral",
+    "alt": "Textura y ondas eólicas esculpidas por el viento sobre la arena rojiza de las dunas del Sahara bajo luz rasante",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 800,
@@ -414,11 +487,16 @@ export const photos: Photo[] = [
     "prints": true,
     "licensing": true,
     "keywords": [
-      "paisaje",
-      "bruma",
-      "vegetacion",
-      "vertical"
-    ]
+      "desierto del sahara",
+      "dunas",
+      "rizaduras de arena",
+      "marruecos",
+      "abstracción natural",
+      "sahara desert dunes",
+      "desert landscape"
+    ],
+    "location": "Desierto del Sahara",
+    "country": "Marruecos"
   },
   {
     "id": "pd-08",
@@ -428,7 +506,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/paisajes-documental/murallas-de-caliza.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Murallas de Caliza: Relieve escarpado de paredes rocosas y vegetación de montaña bajo un cielo encapotado",
+    "alt": "Paredes verticales de roca caliza y bosque de montaña bajo un cielo tormentoso de invierno",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 2000,
@@ -442,12 +520,16 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "paisaje",
-      "niebla",
-      "montañas",
-      "profundidad"
+      "murallas de caliza",
+      "relieve montañoso",
+      "geología",
+      "paisaje de montaña",
+      "limestone cliffs",
+      "mountain landscape"
     ],
-    "story": "La nubosidad densa actúa como un difusor gigante que elimina las sombras duras y permite apreciar toda la riqueza de pliegues y fracturas geológicas de la pared caliza."
+    "story": "La nubosidad densa actúa como un difusor gigante que elimina las sombras duras y permite apreciar toda la riqueza de pliegues y fracturas geológicas de la pared caliza.",
+    "location": "Cordillera Ibérica",
+    "country": "España"
   },
   {
     "id": "cr-01",
@@ -457,7 +539,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/coches-rally/parque-de-trabajo.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Parque de Trabajo: Unidad clásica con decoración histórica estacionada en la zona de asistencia bajo la silueta de la cordillera",
+    "alt": "Vehículo clásico de rally con librea histórica estacionado en el parque de asistencia al pie de las montañas",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 640,
@@ -470,11 +552,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "rally",
-      "mecanica",
-      "parque de trabajo",
-      "detalle"
-    ]
+      "parque de asistencia",
+      "rally histórico",
+      "paddock",
+      "automovilismo clásico",
+      "historic rally",
+      "motorsport paddock"
+    ],
+    "location": "Parque de Asistencia, España",
+    "country": "España"
   },
   {
     "id": "cr-02",
@@ -484,7 +570,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/coches-rally/optica-clasica-en-el-box.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Óptica Clásica en el Box: Detalle frontal del faro cromado y la aleta de un Porsche 911 histórico (#52) bajo la carpa de asistencia antes de salir a tramo",
+    "alt": "Primer plano del faro cromado y aleta delantera de un Porsche 911 clásico dorsal 52 en el box de asistencia",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 800,
@@ -498,13 +584,17 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "rally",
-      "automovilismo",
-      "asfalto",
-      "competicion",
-      "velocidad"
+      "porsche 911",
+      "rally histórico",
+      "dorsal 52",
+      "óptica clásica",
+      "paddock",
+      "classic porsche rally",
+      "historic motorsport"
     ],
-    "story": "En la calma tensa del parque de asistencia, los reflejos sobre la carrocería y el faro redondo clásico resumen décadas de historia del automovilismo deportivo."
+    "story": "En la calma tensa del parque de asistencia, los reflejos sobre la carrocería y el faro redondo clásico resumen décadas de historia del automovilismo deportivo.",
+    "location": "Tramo de Rally Histórico, España",
+    "country": "España"
   },
   {
     "id": "cr-03",
@@ -514,7 +604,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/coches-rally/preparacion-en-paddock.jpg",
     "width": 2200,
     "height": 1466,
-    "alt": "Preparación en Paddock: Vista trasera simétrica del dorsal #30 en el parque de asistencia durante los preparativos previos a la salida",
+    "alt": "Zaga simétrica del coche de rally dorsal 30 en la carpa de asistencia durante las verificaciones previas al tramo",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 320,
@@ -527,11 +617,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "rally",
-      "potencia",
-      "aceleracion",
-      "motor"
-    ]
+      "paddock",
+      "rally clásico",
+      "dorsal 30",
+      "preparación mecánica",
+      "automovilismo",
+      "motorsport photography"
+    ],
+    "location": "Parque de Asistencia, España",
+    "country": "España"
   },
   {
     "id": "cr-04",
@@ -541,7 +635,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/coches-rally/clasico-a-tres-ruedas.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Clásico a Tres Ruedas: El dorsal #29 atacando el vértice de la horquilla al límite de adherencia con la rueda delantera interior en el aire",
+    "alt": "Coche clásico de rally dorsal 29 trazando una horquilla a tres ruedas con la rueda delantera interior en el aire",
     "camera": "Canon EOS R7",
     "lens": "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary",
     "iso": 400,
@@ -554,11 +648,16 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "rally",
-      "vertice",
-      "curva",
-      "precision"
-    ]
+      "rally clásico",
+      "tres ruedas",
+      "dorsal 29",
+      "horquilla",
+      "tramo cronometrado",
+      "tarmac rally",
+      "motorsport action"
+    ],
+    "location": "Tramo Cronometrado de Montaña, España",
+    "country": "España"
   },
   {
     "id": "cr-05",
@@ -568,7 +667,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/coches-rally/rotulacion-de-competicion.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Rotulación de Competición: Detalle manual de la colocación de vinilos sobre la carrocería antes de las verificaciones técnicas",
+    "alt": "Manos aplicando la rotulación y dorsales de competición sobre la carrocería antes de las verificaciones del rally",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 160,
@@ -581,11 +680,14 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "rally",
-      "horquilla",
-      "chasis",
-      "competicion"
-    ]
+      "rotulación de competición",
+      "verificaciones técnicas",
+      "rally histórico",
+      "cultura del motor",
+      "racing livery"
+    ],
+    "location": "Parque de Trabajo, España",
+    "country": "España"
   },
   {
     "id": "cr-06",
@@ -595,7 +697,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/coches-rally/clasico-en-exhibicion.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Clásico en Exhibición: Perfil de tres cuartos del dorsal #5 con llantas desplazadas rojas en la jornada previa a la prueba",
+    "alt": "Vista de tres cuartos del vehículo clásico de competición dorsal 5 con llantas desplazadas rojas en parque cerrado",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 160,
@@ -608,11 +710,14 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "rally",
-      "barrido",
-      "dinamismo",
-      "asfalto"
-    ]
+      "coche clásico competición",
+      "dorsal 5",
+      "parque cerrado",
+      "llantas competición",
+      "classic racing car"
+    ],
+    "location": "Parque Cerrado, España",
+    "country": "España"
   },
   {
     "id": "cr-07",
@@ -622,7 +727,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/coches-rally/trazada-del-golf-mk1.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Trazada del Golf MK1: Un Volkswagen Golf GTI MK1 clásico apoyando con firmeza en el interior de la curva con su batería de faros supletorios",
+    "alt": "Volkswagen Golf GTI MK1 de rally histórico apoyando con firmeza en curva cerrada con faros supletorios",
     "camera": "Canon EOS R7",
     "lens": "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary",
     "iso": 400,
@@ -635,11 +740,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "rally",
-      "vertice",
-      "apoyo",
-      "accion"
-    ]
+      "volkswagen golf mk1",
+      "golf gti clásico",
+      "rally histórico",
+      "faros supletorios",
+      "trazada",
+      "classic rally golf"
+    ],
+    "location": "Tramo de Montaña, España",
+    "country": "España"
   },
   {
     "id": "cr-08",
@@ -649,7 +758,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/coches-rally/frenada-en-horquilla.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Frenada en Horquilla: El dorsal #77 comprimiendo el tren delantero en plena entrada al viraje sobre el asfalto pintado del tramo",
+    "alt": "Vehículo de rally dorsal 77 en fuerte frenada comprimiendo la suspensión delantera a la entrada de una horquilla",
     "camera": "Canon EOS R7",
     "lens": "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary",
     "iso": 400,
@@ -662,11 +771,14 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "rally",
-      "vertical",
-      "pendiente",
-      "velocidad"
-    ]
+      "frenada en horquilla",
+      "dorsal 77",
+      "rally de asfalto",
+      "suspensión comprimida",
+      "rally stage photography"
+    ],
+    "location": "Tramo Cronometrado, España",
+    "country": "España"
   },
   {
     "id": "cr-09",
@@ -676,7 +788,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/coches-rally/habitaculo-de-pilotaje.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Habitáculo de Pilotaje: Detalle del puesto de mando, volante desplazado e instrumentación interior a través de la ventanilla",
+    "alt": "Interior del habitáculo de competición con volante desplazado de piel vuelta y cuadro de instrumentos clásico",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 1000,
@@ -689,11 +801,14 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "rally",
-      "polvo",
-      "asfalto roto",
-      "curva"
-    ]
+      "habitáculo de rally",
+      "volante desplazado",
+      "cockpit clásico",
+      "automovilismo",
+      "racing cockpit"
+    ],
+    "location": "Parque de Asistencia, España",
+    "country": "España"
   },
   {
     "id": "cr-10",
@@ -703,7 +818,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/coches-rally/notas-sobre-el-capo.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Notas sobre el Capó: Piloto y copiloto revisando la documentación y el carnet de ruta sobre el capó amarillo antes de tomar la salida",
+    "alt": "Piloto y copiloto revisando las notas de ruta y el carnet de control sobre el capó amarillo del coche de rally",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 160,
@@ -716,11 +831,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "rally",
-      "montaña",
-      "tramo",
-      "motor"
-    ]
+      "notas de rally",
+      "copiloto",
+      "rutómetro",
+      "rally histórico",
+      "motorsport storytelling",
+      "pacenotes"
+    ],
+    "location": "Control Horario, España",
+    "country": "España"
   },
   {
     "id": "cr-11",
@@ -730,7 +849,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/coches-rally/leyenda-con-librea-martini.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Leyenda con Librea Martini: Un icónico compacto de rally con decoración histórica rodando sobre el asfalto de montaña",
+    "alt": "Compacto clásico de rally con decoración histórica Martini Racing rodando en tramo de montaña asfaltado",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 125,
@@ -743,11 +862,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "rally",
-      "talud",
-      "vertical",
-      "velocidad"
-    ]
+      "librea martini",
+      "martini racing",
+      "rally histórico",
+      "clásico de competición",
+      "historic rally car",
+      "fine art motorsport"
+    ],
+    "location": "Tramo de Montaña, España",
+    "country": "España"
   },
   {
     "id": "cr-12",
@@ -757,7 +880,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/coches-rally/apoyo-en-el-cruce.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Apoyo en el Cruce: Paso rápido del dorsal #35 por una intersección de asfalto con la suspensión comprimida en pleno viraje",
+    "alt": "Coche de rally dorsal 35 negociando un cruce rápido de asfalto con máximo apoyo lateral",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 1000,
@@ -770,11 +893,14 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "rally",
-      "derrape",
-      "control",
-      "asfalto"
-    ]
+      "dorsal 35",
+      "cruce de tramo",
+      "apoyo lateral",
+      "rally de velocidad",
+      "tarmac rally action"
+    ],
+    "location": "Tramo Cronometrado, España",
+    "country": "España"
   },
   {
     "id": "cr-13",
@@ -784,7 +910,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/coches-rally/cruzada-sobre-el-asfalto.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Cruzada sobre el Asfalto: Espectacular derrapaje controlado del dorsal #50 a la salida de una curva lenta levantando humo de neumático",
+    "alt": "Derrapaje controlado del coche de rally dorsal 50 saliendo cruzado de una curva de asfalto entre humo de neumático",
     "camera": "Canon EOS R7",
     "lens": "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary",
     "iso": 400,
@@ -798,12 +924,17 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "rally",
-      "asfalto mojado",
-      "frenada",
-      "trazada"
+      "derrape rally",
+      "cruzada sobre asfalto",
+      "dorsal 50",
+      "rally histórico",
+      "drift",
+      "motorsport fine art",
+      "rally photography"
     ],
-    "story": "Apostado a la salida de la horquilla con el teleobjetivo en ráfaga, el piloto provocó la trasera sobre la pintura del asfalto dejando una estela de goma quemada."
+    "story": "Apostado a la salida de la horquilla con el teleobjetivo en ráfaga, el piloto provocó la trasera sobre la pintura del asfalto dejando una estela de goma quemada.",
+    "location": "Tramo Cronometrado de Montaña, España",
+    "country": "España"
   },
   {
     "id": "cr-14",
@@ -813,7 +944,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/coches-rally/rueda-en-el-aire.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Rueda en el Aire: Compresión a 600mm captando el instante exacto en que el chasis levanta la rueda delantera interior en pleno apoyo",
+    "alt": "Compresión óptica a 600mm de un clásico de rally levantando la rueda delantera interior en pleno apoyo en curva",
     "camera": "Canon EOS R7",
     "lens": "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary",
     "iso": 400,
@@ -827,13 +958,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "rally",
-      "600mm",
-      "frontal",
-      "piloto",
-      "velocidad"
+      "600mm motorsport",
+      "rueda en el aire",
+      "teleobjetivo rally",
+      "compresión óptica",
+      "historic rally action"
     ],
-    "story": "Utilizando la máxima focal de 600mm desde una rasante lejana, la transferencia de pesos en el cambio de apoyo dejó el neumático delantero interior suspendido a varios centímetros del asfalto."
+    "story": "Utilizando la máxima focal de 600mm desde una rasante lejana, la transferencia de pesos en el cambio de apoyo dejó el neumático delantero interior suspendido a varios centímetros del asfalto.",
+    "location": "Tramo Cronometrado, España",
+    "country": "España"
   },
   {
     "id": "au-01",
@@ -843,7 +976,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/arquitectura-urbana/farola-y-azulejeria-nocturna.jpg",
     "width": 1466,
     "height": 2200,
-    "alt": "Farola y Azulejería Nocturna: Luz cálida de alumbrado público revelando la textura cerámica de una fachada histórica y su balcón de forja en plena noche",
+    "alt": "Farola clásica iluminando en la noche los azulejos históricos y el balcón de forja de una fachada tradicional",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 5000,
@@ -856,11 +989,14 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "arquitectura",
-      "volumen",
-      "hormigon",
-      "sombras"
-    ]
+      "azulejería",
+      "fotografía nocturna",
+      "arquitectura histórica",
+      "forja tradicional",
+      "urban night architecture"
+    ],
+    "location": "Casco Histórico, España",
+    "country": "España"
   },
   {
     "id": "au-02",
@@ -870,7 +1006,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/arquitectura-urbana/paseo-nocturno-bajo-las-farolas.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Paseo Nocturno bajo las Farolas: Siluetas de dos caminantes con una bicicleta recorriendo una calle histórica iluminada cálidamente",
+    "alt": "Siluetas de dos caminantes junto a una bicicleta bajo la luz cálida de las farolas en una calle empedrada nocturna",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 6400,
@@ -884,13 +1020,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "arquitectura",
-      "lineas",
-      "geometria",
-      "vertical",
-      "contemporaneo"
+      "fotografía urbana nocturna",
+      "calle histórica",
+      "siluetas",
+      "alumbrado clásico",
+      "street photography night"
     ],
-    "story": "La iluminación de vapor de sodio transforma la piedra antigua en un escenario cinematográfico donde las siluetas humanas cobran protagonismo a contraluz."
+    "story": "La iluminación de vapor de sodio transforma la piedra antigua en un escenario cinematográfico donde las siluetas humanas cobran protagonismo a contraluz.",
+    "location": "Casco Histórico, España",
+    "country": "España"
   },
   {
     "id": "au-03",
@@ -900,7 +1038,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/arquitectura-urbana/ventanas-tomadas-por-el-bosque.jpg",
     "width": 2200,
     "height": 1760,
-    "alt": "Ventanas Tomadas por el Bosque: Contraste entre la penumbra interior de una ruina de piedra y la vegetación exuberante que invade los vanos abiertos",
+    "alt": "Vanos simétricos de una arquitectura abandonada en penumbra invadidos por el follaje verde del bosque",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 200,
@@ -914,12 +1052,16 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "arquitectura",
-      "patron",
-      "reticula",
-      "abstraccion"
+      "arquitectura y naturaleza",
+      "ruina histórica",
+      "vegetación",
+      "geometría arquitectónica",
+      "architectural photography",
+      "fine art architecture"
     ],
-    "story": "En el interior en sombra del edificio abandonado, los dos ventanales funcionan como lienzos vivos por donde irrumpe el verde iluminado del bosque."
+    "story": "En el interior en sombra del edificio abandonado, los dos ventanales funcionan como lienzos vivos por donde irrumpe el verde iluminado del bosque.",
+    "location": "Monte de Laurisilva, Canarias",
+    "country": "España"
   },
   {
     "id": "au-04",
@@ -929,7 +1071,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/arquitectura-urbana/tunel-de-laurisilva-en-la-bruma.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Túnel de Laurisilva en la Bruma: Carretera encajonada entre paredes de musgo y árboles centenarios envueltos por la niebla del alisio",
+    "alt": "Carretera estrecha atravesando un túnel natural de laurisilva y taludes de musgo envueltos en la niebla de Anaga, Tenerife",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 640,
@@ -942,11 +1084,17 @@ export const photos: Photo[] = [
     "prints": true,
     "licensing": true,
     "keywords": [
-      "arquitectura",
-      "diagonal",
-      "fachada",
-      "lineas"
-    ]
+      "macizo de anaga",
+      "laurisilva",
+      "tenerife",
+      "bosque de niebla",
+      "alisios",
+      "cloud forest",
+      "anaga tenerife",
+      "fine art landscape"
+    ],
+    "location": "Macizo de Anaga, Tenerife",
+    "country": "España"
   },
   {
     "id": "au-05",
@@ -956,7 +1104,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/arquitectura-urbana/luz-entre-la-niebla-del-monte.jpg",
     "width": 1466,
     "height": 2200,
-    "alt": "Luz entre la Niebla del Monte: Encuadre vertical del sendero excavado en la roca donde la luz matinal atraviesa la bóveda vegetal de laurisilva",
+    "alt": "Sendero encajonado entre paredes de roca y musgo en el bosque de laurisilva de Anaga bajo rayos de luz matinal",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 250,
@@ -969,11 +1117,16 @@ export const photos: Photo[] = [
     "prints": true,
     "licensing": true,
     "keywords": [
-      "arquitectura",
-      "esbeltez",
-      "perspectiva",
-      "vertical"
-    ]
+      "anaga",
+      "laurisilva",
+      "sendero brumoso",
+      "tenerife",
+      "islas canarias",
+      "bosque húmedo",
+      "enchanted forest tenerife"
+    ],
+    "location": "Macizo de Anaga, Tenerife",
+    "country": "España"
   },
   {
     "id": "au-06",
@@ -983,7 +1136,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/arquitectura-urbana/celosia-de-hierro-y-otono.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Celosía de Hierro y Otoño: Enmarcado simétrico a través de una reja tradicional en un muro de ladrillo hacia el follaje dorado de los árboles",
+    "alt": "Perspectiva simétrica a través de una celosía de hierro forjado en muro de ladrillo hacia árboles con follaje otoñal",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 640,
@@ -996,11 +1149,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "arquitectura",
-      "hormigon",
-      "textura",
-      "esquina"
-    ]
+      "celosía de hierro",
+      "forja",
+      "otoño",
+      "simetría arquitectónica",
+      "enmarcado natural",
+      "architectural detail"
+    ],
+    "location": "Jardín Histórico, España",
+    "country": "España"
   },
   {
     "id": "au-07",
@@ -1010,7 +1167,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/arquitectura-urbana/luna-creciente-sobre-el-paseo.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Luna Creciente sobre el Paseo: Perspectiva nocturna de un paseo arbolado iluminado bajo la fina silueta de la luna creciente",
+    "alt": "Paseo arbolado iluminado por farolas en la noche bajo el arco luminoso de la luna creciente",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 6400,
@@ -1023,11 +1180,14 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "arquitectura",
-      "noche",
-      "luz urbana",
-      "penumbra"
-    ]
+      "luna creciente",
+      "paisaje urbano nocturno",
+      "paseo arbolado",
+      "noche urbana",
+      "night urban photography"
+    ],
+    "location": "Paseo Urbano, España",
+    "country": "España"
   },
   {
     "id": "vc-01",
@@ -1037,7 +1197,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/fruteria-de-barrio.jpg",
     "width": 1760,
     "height": 2200,
-    "alt": "Frutería de Barrio: Escena cotidiana de comercio local frente al colorido escaparate de una frutería tradicional",
+    "alt": "Escaparate colorido de una frutería tradicional de barrio durante la jornada matinal de mercado",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 500,
@@ -1050,11 +1210,14 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "muelle",
-      "mar",
-      "alba"
-    ]
+      "comercio de barrio",
+      "frutería tradicional",
+      "vida cotidiana",
+      "fotografía documental",
+      "street documentary"
+    ],
+    "location": "Comercio Tradicional, España",
+    "country": "España"
   },
   {
     "id": "vc-02",
@@ -1064,7 +1227,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/la-espera-en-la-calleja.jpg",
     "width": 1760,
     "height": 2200,
-    "alt": "La Espera en la Calleja: Luz lateral de tarde en una calle estrecha donde un vecino contempla el paso del tiempo junto al portal",
+    "alt": "Vecino aguardando junto al umbral de un portal bajo la luz oblicua de la tarde en una calleja histórica",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 160,
@@ -1077,11 +1240,14 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "gaviotas",
-      "costa",
-      "ritmo"
-    ]
+      "vida de pueblo",
+      "calleja histórica",
+      "luz lateral",
+      "crónica documental",
+      "spanish street photography"
+    ],
+    "location": "Casco Antiguo, España",
+    "country": "España"
   },
   {
     "id": "vc-03",
@@ -1091,7 +1257,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/devocion-ante-el-retablo.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Devoción ante el Retablo: Recogimiento en el interior de un templo iluminado cálidamente sobre el altar mayor dorado",
+    "alt": "Interior en penumbra de una iglesia histórica con fieles en recogimiento frente al retablo barroco iluminado",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 5000,
@@ -1104,12 +1270,14 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "noche",
-      "farola",
-      "medieval",
-      "piedra"
-    ]
+      "retablo",
+      "patrimonio sacro",
+      "devoción popular",
+      "claroscuro",
+      "documentary heritage"
+    ],
+    "location": "Templo Histórico, España",
+    "country": "España"
   },
   {
     "id": "vc-04",
@@ -1119,7 +1287,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/procesion-y-fuegos-nocturnos.jpg",
     "width": 1760,
     "height": 2200,
-    "alt": "Procesión y Fuegos Nocturnos: Celebración popular nocturna donde el paso engalanado avanza entre la multitud bajo el estallido de la pirotecnia",
+    "alt": "Paso procesional avanzando en la noche entre la multitud bajo el resplandor de fuegos artificiales",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 4000,
@@ -1132,11 +1300,14 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "calleja",
-      "adoquines",
-      "noche"
-    ]
+      "procesión nocturna",
+      "tradición popular",
+      "pirotecnia",
+      "cultura española",
+      "cultural documentary"
+    ],
+    "location": "Celebración Popular, España",
+    "country": "España"
   },
   {
     "id": "vc-05",
@@ -1146,7 +1317,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/humo-y-atardecer-en-la-plaza.jpg",
     "width": 1650,
     "height": 2200,
-    "alt": "Humo y Atardecer en la Plaza: Ambiente vespertino en los puestos de comida tradicional con el humo de las brasas a contraluz y el alminar al fondo",
+    "alt": "Columnas de humo de los puestos de brasas iluminadas a contraluz al atardecer en la plaza Jemaa el-Fna de Marrakech",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 100,
@@ -1159,11 +1330,16 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "calle",
-      "pasaje",
-      "contraluz"
-    ]
+      "jemaa el-fna",
+      "marrakech",
+      "marruecos",
+      "humo a contraluz",
+      "atardecer",
+      "morocco documentary",
+      "travel photography"
+    ],
+    "location": "Plaza Jemaa el-Fna, Marrakech",
+    "country": "Marruecos"
   },
   {
     "id": "vc-06",
@@ -1173,7 +1349,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/cisne-en-el-estanque.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Cisne en el Estanque: Retrato de aproximación de un cisne vulgar en el instante en que una gota de agua se desprende de su pico anaranjado",
+    "alt": "Primer plano de un cisne vulgar sobre aguas oscuras con una gota desprendiéndose de su pico anaranjado",
     "camera": "Canon EOS 750D",
     "lens": "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary",
     "iso": 400,
@@ -1186,11 +1362,16 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "mercado",
-      "reportaje",
-      "cultura"
-    ]
+      "cisne vulgar",
+      "mute swan",
+      "aves acuáticas",
+      "fauna",
+      "retrato animal",
+      "swan photography",
+      "wildlife"
+    ],
+    "location": "Humedal Europeo, España",
+    "country": "España"
   },
   {
     "id": "vc-07",
@@ -1200,7 +1381,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/carbonero-en-la-niebla.jpg",
     "width": 2200,
     "height": 1237,
-    "alt": "Carbonero en la Niebla: Composición minimalista en clave alta de un carbonero común posado sobre una rama cubierta de líquenes",
+    "alt": "Carbonero común posado sobre una rama cubierta de líquenes en composición minimalista con niebla de fondo",
     "camera": "Canon EOS R7",
     "lens": "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary",
     "iso": 160,
@@ -1213,11 +1394,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "artesania",
-      "mercado",
-      "texturas"
-    ]
+      "carbonero común",
+      "great tit",
+      "aves forestales",
+      "minimalismo fauna",
+      "niebla",
+      "minimalist bird photography"
+    ],
+    "location": "Bosque Ibérico, España",
+    "country": "España"
   },
   {
     "id": "vc-08",
@@ -1227,7 +1412,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/ciguena-entre-la-hierba.jpg",
     "width": 1760,
     "height": 2200,
-    "alt": "Cigüeña entre la Hierba: Retrato lateral a 600mm de una cigüeña blanca sobre un fondo aterciopelado de pradera verde",
+    "alt": "Cigüeña blanca fotografiada de perfil a 600mm sobre el desenfoque verde intenso de una pradera húmeda",
     "camera": "Canon EOS R7",
     "lens": "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary",
     "iso": 1250,
@@ -1240,11 +1425,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "retrato",
-      "pausa",
-      "cotidiano"
-    ]
+      "cigüeña blanca",
+      "white stork",
+      "600mm",
+      "fauna ibérica",
+      "pradera",
+      "bird wildlife spain"
+    ],
+    "location": "Dehesa Extremeña, España",
+    "country": "España"
   },
   {
     "id": "vc-09",
@@ -1254,7 +1443,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/artesano-en-el-callejon-textil.jpg",
     "width": 1650,
     "height": 2200,
-    "alt": "Artesano en el Callejón Textil: Un artesano concentrado en su labor sobre un pequeño taburete de madera en un pasaje de la Medina tapizado de telas",
+    "alt": "Artesano trabajando sentado en un callejón textil del zoco de Marrakech rodeado de telas colgadas",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 100,
@@ -1267,12 +1456,16 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "umbral",
-      "arquitectura tradicional",
-      "sombras"
+      "artesano marrakech",
+      "zoco textil",
+      "medina de marrakech",
+      "oficios tradicionales",
+      "marruecos",
+      "morocco street photography"
     ],
-    "story": "Un haz de sol vertical caía exactamente sobre las manos del artesano en medio del estrecho callejón del zoco, creando un escenario de luz natural casi teatral."
+    "story": "Un haz de sol vertical caía exactamente sobre las manos del artesano en medio del estrecho callejón del zoco, creando un escenario de luz natural casi teatral.",
+    "location": "Medina de Marrakech",
+    "country": "Marruecos"
   },
   {
     "id": "vc-10",
@@ -1282,7 +1475,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/rana-en-la-corriente.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Rana en la Corriente: Primer plano de una rana común asomando sobre la lámina de agua cristalina y el fondo pedregoso del arroyo",
+    "alt": "Rana común asomando los ojos sobre la corriente cristalina y las piedras sumergidas de un arroyo de montaña",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 6400,
@@ -1295,11 +1488,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "color",
-      "adobe",
-      "textura"
-    ]
+      "rana común",
+      "anfibios",
+      "arroyo de montaña",
+      "biodiversidad",
+      "fauna acuática",
+      "amphibian photography"
+    ],
+    "location": "Garganta de la Sierra de Gredos",
+    "country": "España"
   },
   {
     "id": "vc-11",
@@ -1309,7 +1506,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/almuerzo-en-la-medina.jpg",
     "width": 1650,
     "height": 2200,
-    "alt": "Almuerzo en la Medina: Dos jóvenes comparten una bandeja tradicional en el umbral de un taller de la Medina durante la pausa del mediodía",
+    "alt": "Dos jóvenes artesanos compartiendo el almuerzo en el umbral de un taller tradicional de la Medina de Marrakech",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 2000,
@@ -1322,11 +1519,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "calle",
-      "transito",
-      "vida urbana"
-    ]
+      "medina de marrakech",
+      "vida cotidiana",
+      "taller artesanal",
+      "marruecos",
+      "fotografía humanista",
+      "documentary morocco"
+    ],
+    "location": "Medina de Marrakech",
+    "country": "Marruecos"
   },
   {
     "id": "vc-12",
@@ -1336,7 +1537,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/majestad-en-la-dehesa.jpg",
     "width": 2200,
     "height": 1237,
-    "alt": "Majestad en la Dehesa: Venado macho de gran cuerna detenido en lo alto de la ladera observando de frente con porte regio",
+    "alt": "Ciervo ibérico macho de gran cornamenta erguido en lo alto de la dehesa mirando directamente a cámara",
     "camera": "Canon EOS R7",
     "lens": "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary",
     "iso": 320,
@@ -1349,11 +1550,16 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "profundidad",
-      "arcos",
-      "espacio"
-    ]
+      "ciervo ibérico",
+      "venado",
+      "red deer stag",
+      "dehesa",
+      "fauna ibérica",
+      "600mm",
+      "wildlife fine art"
+    ],
+    "location": "Dehesa Ibérica, Extremadura",
+    "country": "España"
   },
   {
     "id": "vc-13",
@@ -1363,7 +1569,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/perfil-del-venado.jpg",
     "width": 2200,
     "height": 1237,
-    "alt": "Perfil del Venado: Retrato cerrado de perfil a 600mm destacando la arquitectura de las astas y la nobleza del ciervo bajo luz cálida",
+    "alt": "Retrato cerrado de perfil de un venado ibérico a 600mm destacando su cuerna bajo la luz dorada de la tarde",
     "camera": "Canon EOS R7",
     "lens": "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary",
     "iso": 250,
@@ -1376,11 +1582,16 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "retrato",
-      "humano",
-      "expresion"
-    ]
+      "venado",
+      "ciervo rojo",
+      "astas",
+      "600mm",
+      "fauna salvaje",
+      "iberian red deer",
+      "wildlife portrait"
+    ],
+    "location": "Dehesa Ibérica, Extremadura",
+    "country": "España"
   },
   {
     "id": "vc-14",
@@ -1390,7 +1601,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/caminante-a-contraluz.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Caminante a Contraluz: Silueta solitaria con sombrero y abrigo avanzando sobre el pavimento adoquinado bajo el destello directo del sol poniente",
+    "alt": "Silueta a contraluz de un caminante con sombrero proyectando una larga sombra sobre el pavimento adoquinado al atardecer",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 250,
@@ -1404,13 +1615,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "desierto",
-      "silueta",
-      "atardecer",
-      "dunas"
+      "contraluz urbano",
+      "silueta caminante",
+      "adoquines",
+      "fotografía de calle",
+      "street photography shadows"
     ],
-    "story": "El sol bajo al final de la tarde transformó los adoquines en una superficie dorada, proyectando una sombra alargada mientras el caminante avanzaba exactamente hacia el eje de luz."
+    "story": "El sol bajo al final de la tarde transformó los adoquines en una superficie dorada, proyectando una sombra alargada mientras el caminante avanzaba exactamente hacia el eje de luz.",
+    "location": "Casco Histórico, España",
+    "country": "España"
   },
   {
     "id": "vc-15",
@@ -1420,7 +1633,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/secadero-de-pimientos-en-la-vera.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Secadero de Pimientos en La Vera — Villanueva de la Vera, fotografía",
+    "alt": "Manto de pimientos rojos secándose al sol para pimentón artesanal en Villanueva de la Vera, comarca de La Vera",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 640,
@@ -1433,13 +1646,12 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "atardecer",
-      "sombras",
-      "paseo",
+      "secadero de pimientos",
+      "pimentón de la vera",
       "villanueva de la vera",
-      "caceres",
-      "la vera"
+      "cáceres",
+      "tradición agrícola",
+      "documental etnográfico"
     ],
     "location": "Villanueva de la Vera, Cáceres",
     "country": "España",
@@ -1453,7 +1665,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/arquitectura-urbana/columnata-de-la-madrasa.jpg",
     "width": 1650,
     "height": 2200,
-    "alt": "Columnata de la Madrasa: Simetría arquitectónica de columnas labradas, zócalos de zellij y arcos de mocárabes en el patio interior de una madrasa",
+    "alt": "Columnata simétrica con alicatados de zellij, estuco tallado y arcos islámicos en el patio de una madrasa en Marrakech",
     "camera": "Canon EOS R7",
     "lens": "Canon EF-S 10-18mm f/4.5-5.6 IS STM",
     "iso": 4000,
@@ -1466,11 +1678,16 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "oficio",
-      "comercio",
-      "cultura"
-    ]
+      "madrasa marrakech",
+      "arquitectura islámica",
+      "zellij",
+      "mocárabes",
+      "marruecos",
+      "islamic architecture",
+      "morocco fine art"
+    ],
+    "location": "Madrasa de Marrakech",
+    "country": "Marruecos"
   },
   {
     "id": "vc-17",
@@ -1480,7 +1697,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/macro-de-saltamontes.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Macro de Saltamontes: Aproximación macro de perfil revelando el detalle milimétrico de la anatomía del insecto sobre la piedra",
+    "alt": "Fotografía macro de perfil de un saltamontes posado sobre roca granítica mostrando el detalle de su exoesqueleto",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 400,
@@ -1493,11 +1710,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "tejidos",
-      "textura",
-      "artesania"
-    ]
+      "macrofotografía",
+      "saltamontes",
+      "entomología",
+      "microfauna",
+      "naturaleza",
+      "macro insect photography"
+    ],
+    "location": "Monte Mediterráneo, España",
+    "country": "España"
   },
   {
     "id": "vc-18",
@@ -1507,7 +1728,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/farola-y-sombra-en-la-cal.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Farola y Sombra en la Cal — Villanueva de la Vera, fotografía",
+    "alt": "Farola de forja proyectando su sombra geométrica sobre una fachada encalada en el conjunto histórico de Villanueva de la Vera",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 200,
@@ -1520,13 +1741,12 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "arcos",
-      "ritmo",
-      "arquitectura tradicional",
+      "arquitectura verata",
+      "fachada encalada",
+      "sombra geométrica",
       "villanueva de la vera",
-      "caceres",
-      "la vera"
+      "cáceres",
+      "vernacular architecture"
     ],
     "location": "Villanueva de la Vera, Cáceres",
     "country": "España"
@@ -1539,7 +1759,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/calleja-entre-muros-de-piedra.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Calleja entre Muros de Piedra — Villanueva de la Vera, fotografía",
+    "alt": "Camino rural empedrado flanqueado por muros de mampostería de granito y musgo en Villanueva de la Vera",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 1000,
@@ -1552,13 +1772,12 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "plaza",
-      "comunidad",
-      "documental",
+      "mampostería de granito",
+      "camino tradicional",
       "villanueva de la vera",
-      "caceres",
-      "la vera"
+      "sierra de gredos",
+      "paisaje rural",
+      "cáceres"
     ],
     "location": "Villanueva de la Vera, Cáceres",
     "country": "España"
@@ -1571,7 +1790,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/perspectiva-hacia-el-campanario.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Perspectiva hacia el Campanario — Villanueva de la Vera, fotografía",
+    "alt": "Calleja empedrada con aleros de madera que encuadra al fondo la torre del campanario de Villanueva de la Vera",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 1250,
@@ -1584,13 +1803,12 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "dialogo",
-      "costumbre",
-      "sociedad",
+      "campanario",
+      "conjunto histórico",
       "villanueva de la vera",
-      "caceres",
-      "la vera"
+      "arquitectura popular",
+      "cáceres",
+      "extremadura"
     ],
     "location": "Villanueva de la Vera, Cáceres",
     "country": "España"
@@ -1603,7 +1821,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/dintel-de-granito-y-madera.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Dintel de Granito y Madera — Villanueva de la Vera, fotografía",
+    "alt": "Luz lateral resaltando la textura de un dintel de sillería de granito y puerta antigua de madera en Villanueva de la Vera",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 2000,
@@ -1616,13 +1834,12 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "patio",
-      "luz natural",
-      "contraste",
+      "sillería de granito",
+      "dintel histórico",
+      "madera antigua",
       "villanueva de la vera",
-      "caceres",
-      "la vera"
+      "arquitectura vernácula",
+      "cáceres"
     ],
     "location": "Villanueva de la Vera, Cáceres",
     "country": "España"
@@ -1635,7 +1852,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/rincon-de-alfareria-y-piedra.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Rincón de Alfarería y Piedra — Villanueva de la Vera, fotografía",
+    "alt": "Vasijas de alfarería tradicional de barro y plantas sobre un muro de piedra al sol en Villanueva de la Vera",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 400,
@@ -1648,13 +1865,12 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "artesania",
-      "manos",
-      "oficio tradicional",
+      "alfarería tradicional",
+      "arquitectura de piedra",
       "villanueva de la vera",
-      "caceres",
-      "la vera"
+      "patrimonio rural",
+      "la vera",
+      "cáceres"
     ],
     "location": "Villanueva de la Vera, Cáceres",
     "country": "España"
@@ -1667,7 +1883,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/entramados-de-villanueva-de-la-vera.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Entramados de Villanueva de la Vera — Villanueva de la Vera, fotografía",
+    "alt": "Fachadas tradicionales de entramado de madera, adobe y balconadas voladas en una calle empedrada de Villanueva de la Vera",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 1250,
@@ -1680,13 +1896,12 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "forja",
-      "metal",
-      "tradicion",
+      "entramado de madera",
+      "adobe",
+      "arquitectura verata",
       "villanueva de la vera",
-      "caceres",
-      "la vera"
+      "conjunto histórico",
+      "spanish vernacular architecture"
     ],
     "location": "Villanueva de la Vera, Cáceres",
     "country": "España"
@@ -1699,7 +1914,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/tarde-dorada-en-la-vera.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Tarde Dorada en La Vera — Villanueva de la Vera, fotografía",
+    "alt": "Luz dorada del atardecer iluminando las casas de piedra y madera de Villanueva de la Vera con una vecina caminando al fondo",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 2000,
@@ -1712,13 +1927,12 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "hospitalidad",
-      "ritual",
-      "calma",
+      "luz dorada",
       "villanueva de la vera",
-      "caceres",
-      "la vera"
+      "vida rural",
+      "arquitectura tradicional",
+      "la vera",
+      "cáceres"
     ],
     "location": "Villanueva de la Vera, Cáceres",
     "country": "España"
@@ -1731,7 +1945,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/el-puesto-de-especias-en-el-zoco.jpg",
     "width": 1650,
     "height": 2200,
-    "alt": "El Puesto de Especias en el Zoco: Retrato ambiental entre cestos de mimbre colmados de especias, pétalos secos y hierbas aromáticas en el mercado tradicional",
+    "alt": "Vendedor en su puesto del zoco de Marrakech rodeado de cestos de mimbre con especias, hierbas y pétalos secos",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 2500,
@@ -1744,11 +1958,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "retrato",
-      "claroscuro",
-      "mirada"
-    ]
+      "zoco de especias",
+      "marrakech",
+      "mercado tradicional",
+      "marruecos",
+      "retrato ambiental",
+      "morocco souk spices"
+    ],
+    "location": "Zoco de Marrakech",
+    "country": "Marruecos"
   },
   {
     "id": "vc-26",
@@ -1758,7 +1976,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/paisajes-documental/estratos-volcanicos-junto-al-mar.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Estratos Volcánicos junto al Mar: Capas sedimentarias y volcánicas esculpidas por la erosión marina bañadas por la luz dorada de la tarde",
+    "alt": "Estratos geológicos y pliegues de roca volcánica junto al mar iluminados por el sol cálido de la tarde en Canarias",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 250,
@@ -1771,11 +1989,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "azotea",
-      "viento",
-      "vida cotidiana"
-    ]
+      "estratos volcánicos",
+      "geología canaria",
+      "acantilado costero",
+      "islas canarias",
+      "paisaje mineral",
+      "volcanic geology"
+    ],
+    "location": "Costa Volcánica, Islas Canarias",
+    "country": "España"
   },
   {
     "id": "vc-27",
@@ -1785,7 +2007,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/aleros-convergentes.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Aleros Convergentes — Villanueva de la Vera, fotografía",
+    "alt": "Contrapicado de grandes aleros de madera convergentes sobre fachadas encaladas frente al cielo en Villanueva de la Vera",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 1000,
@@ -1798,13 +2020,12 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "encrucijada",
-      "calles",
-      "recorrido",
+      "aleros de madera",
+      "contrapicado arquitectónico",
       "villanueva de la vera",
-      "caceres",
-      "la vera"
+      "arquitectura popular",
+      "cáceres",
+      "vernacular roofs"
     ],
     "location": "Villanueva de la Vera, Cáceres",
     "country": "España"
@@ -1817,7 +2038,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/soportal-de-vigas-hacia-la-fiesta.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Soportal de Vigas hacia la Fiesta — Villanueva de la Vera, fotografía",
+    "alt": "Vista desde la penumbra de un soportal con vigas de madera y pilares de granito hacia una calle engalanada en Villanueva de la Vera",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 4000,
@@ -1830,13 +2051,12 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "umbral",
-      "intimidad",
-      "hogar",
+      "soportal de granito",
+      "vigas de madera",
       "villanueva de la vera",
-      "caceres",
-      "la vera"
+      "fiesta popular",
+      "arquitectura verata",
+      "cáceres"
     ],
     "location": "Villanueva de la Vera, Cáceres",
     "country": "España"
@@ -1849,7 +2069,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/geometria-del-zellij-y-el-arco.jpg",
     "width": 1650,
     "height": 2200,
-    "alt": "Geometría del Zellij y el Arco: Detalle arquitectónico de pilares revestidos en mosaico cerámico tradicional y yesería tallada bajo la luz del patio",
+    "alt": "Detalle arquitectónico de mosaico cerámico zellij y arco con yesería tallada en un patio histórico de Marrakech",
     "camera": "Canon EOS R7",
     "lens": "Canon EF-S 10-18mm f/4.5-5.6 IS STM",
     "iso": 100,
@@ -1862,11 +2082,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "dignidad",
-      "tiempo",
-      "retrato"
-    ]
+      "zellij",
+      "mosaico islámico",
+      "yesería",
+      "arquitectura marroquí",
+      "marrakech",
+      "moroccan tilework architecture"
+    ],
+    "location": "Marrakech",
+    "country": "Marruecos"
   },
   {
     "id": "vc-30",
@@ -1876,7 +2100,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/calle-real-engalanada.jpg",
     "width": 1466,
     "height": 2200,
-    "alt": "Calle Real Engalanada — Villanueva de la Vera, fotografía",
+    "alt": "Calle Real de Villanueva de la Vera con casas de entramado de madera y balcones engalanados con flores y banderines",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 1000,
@@ -1889,13 +2113,12 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "especias",
-      "aroma",
-      "color",
+      "calle real",
       "villanueva de la vera",
-      "caceres",
-      "la vera"
+      "arquitectura tradicional",
+      "balcones de madera",
+      "la vera",
+      "cáceres"
     ],
     "location": "Villanueva de la Vera, Cáceres",
     "country": "España"
@@ -1908,7 +2131,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/ristras-en-la-fachada-verata.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Ristras en la Fachada Verata — Villanueva de la Vera, fotografía",
+    "alt": "Ristras de pimientos secándose colgadas junto a un balcón de forja sobre pared encalada en Villanueva de la Vera",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 125,
@@ -1921,13 +2144,12 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "grano",
-      "textura",
-      "mercado",
+      "ristras de pimientos",
+      "fachada encalada",
       "villanueva de la vera",
-      "caceres",
-      "la vera"
+      "tradición verata",
+      "etnografía",
+      "cáceres"
     ],
     "location": "Villanueva de la Vera, Cáceres",
     "country": "España"
@@ -1940,7 +2162,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/coches-rally/apoyo-del-autobianchi-a112.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Apoyo del Autobianchi A112: El pequeño Autobianchi A112 Abarth (#78) levantando la rueda trasera interior en un paso por curva de máxima entrega",
+    "alt": "Autobianchi A112 Abarth clásico dorsal 78 levantando la rueda trasera interior en pleno apoyo de curva en rally",
     "camera": "Canon EOS R7",
     "lens": "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary",
     "iso": 400,
@@ -1953,12 +2175,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "coches-rally",
-      "rally",
-      "autobianchi",
-      "clasico",
-      "competicion"
-    ]
+      "autobianchi a112 abarth",
+      "dorsal 78",
+      "rally histórico",
+      "coche clásico competición",
+      "rueda en el aire",
+      "historic rally a112"
+    ],
+    "location": "Tramo de Rally Histórico, España",
+    "country": "España"
   },
   {
     "id": "vc-33",
@@ -1968,7 +2193,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/plaza-de-villanueva-de-la-vera.jpg",
     "width": 2200,
     "height": 1466,
-    "alt": "Plaza de Villanueva de la Vera — Villanueva de la Vera, fotografía",
+    "alt": "Plaza Mayor porticada de Villanueva de la Vera con soportales de granito y arquitectura popular al pie de Gredos",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 500,
@@ -1981,13 +2206,12 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "infancia",
-      "mirada",
-      "inocencia",
+      "plaza porticada",
       "villanueva de la vera",
-      "caceres",
-      "la vera"
+      "soportales de granito",
+      "conjunto histórico",
+      "cáceres",
+      "extremadura"
     ],
     "location": "Villanueva de la Vera, Cáceres",
     "country": "España",
@@ -2001,7 +2225,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/claroscuro-en-la-calleja.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Claroscuro en la Calleja — Villanueva de la Vera, fotografía",
+    "alt": "Contraste de claroscuro entre el pavimento empedrado en sombra y las fachadas altas soleadas en Villanueva de la Vera",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 6400,
@@ -2014,13 +2238,12 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "camino",
-      "polvo",
-      "calor",
+      "claroscuro arquitectónico",
+      "calleja empedrada",
       "villanueva de la vera",
-      "caceres",
-      "la vera"
+      "luz y sombra",
+      "arquitectura popular",
+      "cáceres"
     ],
     "location": "Villanueva de la Vera, Cáceres",
     "country": "España"
@@ -2033,7 +2256,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/silencio-en-el-casco-historico.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Silencio en el Casco Histórico — Villanueva de la Vera, fotografía",
+    "alt": "Perspectiva silenciosa de una calle empedrada del casco histórico de Villanueva de la Vera al caer la tarde",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 500,
@@ -2046,13 +2269,12 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "palmeras",
-      "oasis",
-      "sombra",
+      "casco histórico",
+      "calle empedrada",
       "villanueva de la vera",
-      "caceres",
-      "la vera"
+      "arquitectura rural",
+      "la vera",
+      "cáceres"
     ],
     "location": "Villanueva de la Vera, Cáceres",
     "country": "España"
@@ -2065,7 +2287,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/escalinata-de-la-kasbah.jpg",
     "width": 1650,
     "height": 2200,
-    "alt": "Escalinata de la Kasbah: Composición simétrica donde una figura solitaria sobre la gran escalinata enfatiza la escala monumental de la arquitectura",
+    "alt": "Figura humana solitaria ascendiendo por la gran escalinata simétrica de una kasbah tradicional en Marruecos",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 125,
@@ -2078,11 +2300,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "retrato",
-      "sol",
-      "verdad"
-    ]
+      "kasbah",
+      "alto atlas",
+      "escalinata monumental",
+      "escala humana",
+      "marruecos",
+      "moroccan kasbah architecture"
+    ],
+    "location": "Kasbah del Alto Atlas",
+    "country": "Marruecos"
   },
   {
     "id": "vc-37",
@@ -2092,7 +2318,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/verdor-entre-muros-veratos.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Verdor entre Muros Veratos — Villanueva de la Vera, fotografía",
+    "alt": "Pasaje estrecho entre muros de piedra granítica adornado con macetas y vegetación doméstica en Villanueva de la Vera",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 3200,
@@ -2105,13 +2331,12 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "salida",
-      "mercado",
-      "luz",
+      "muros de granito",
+      "arquitectura popular",
       "villanueva de la vera",
-      "caceres",
-      "la vera"
+      "vida de pueblo",
+      "la vera",
+      "cáceres"
     ],
     "location": "Villanueva de la Vera, Cáceres",
     "country": "España"
@@ -2124,7 +2349,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/siluetas-bajo-el-sol-del-desierto.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Siluetas Bajo el Sol del Desierto: Dos figuras recortadas sobre el filo en sombra de la duna frente a la inmensidad del disco solar en el ocaso",
+    "alt": "Dos siluetas humanas sobre la cresta en sombra de una duna frente al gran disco solar al atardecer en el Sahara",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 100,
@@ -2137,11 +2362,15 @@ export const photos: Photo[] = [
     "prints": true,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "reposo",
-      "desierto",
-      "atardecer"
-    ]
+      "desierto del sahara",
+      "siluetas en dunas",
+      "ocaso en el desierto",
+      "marruecos",
+      "sahara sunset silhouettes",
+      "fine art desert"
+    ],
+    "location": "Desierto del Sahara",
+    "country": "Marruecos"
   },
   {
     "id": "vc-39",
@@ -2151,7 +2380,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/horizonte-de-dunas-al-atardecer.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Horizonte de Dunas al Atardecer: Perspectiva horizontal donde la escala humana dialoga con la sucesión infinita de crestas de arena bañadas por la luz dorada",
+    "alt": "Sucesión infinita de dunas doradas al atardecer en el desierto del Sahara con diminutas figuras humanas en la cresta",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 100,
@@ -2164,11 +2393,15 @@ export const photos: Photo[] = [
     "prints": true,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "horizonte",
-      "dunas",
-      "calidez"
-    ]
+      "dunas del sahara",
+      "horizonte desértico",
+      "escala humana",
+      "marruecos",
+      "sahara dunes",
+      "fine art landscape print"
+    ],
+    "location": "Desierto del Sahara",
+    "country": "Marruecos"
   },
   {
     "id": "vc-40",
@@ -2178,7 +2411,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/dunas-en-el-crepusculo.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Dunas en el Crepúsculo: Abstracción minimalista de planos sucesivos de dunas y montañas lejanas bajo la atmósfera ambarina del atardecer",
+    "alt": "Planos superpuestos de dunas de arena y montañas lejanas bajo la bruma ambarina del crepúsculo en el Sahara",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 100,
@@ -2192,13 +2425,16 @@ export const photos: Photo[] = [
     "prints": true,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "dunas",
-      "textura",
-      "arena",
-      "crepusculo"
+      "crepúsculo en el desierto",
+      "dunas sahara",
+      "minimalismo paisajístico",
+      "marruecos",
+      "desert twilight",
+      "minimalist dunes"
     ],
-    "story": "A medida que el sol descendía sobre el Sahara, la bruma en suspensión tiñó el cielo de un dorado uniforme, convirtiendo las crestas de arena en planos casi pictóricos."
+    "story": "A medida que el sol descendía sobre el Sahara, la bruma en suspensión tiñó el cielo de un dorado uniforme, convirtiendo las crestas de arena en planos casi pictóricos.",
+    "location": "Desierto del Sahara",
+    "country": "Marruecos"
   },
   {
     "id": "vc-41",
@@ -2208,7 +2444,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/caminantes-en-la-inmensidad.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Caminantes en la Inmensidad: Encuadre vertical que subraya la inmensidad del erg sahariano frente a dos diminutas siluetas en la cresta",
+    "alt": "Composición vertical de una gran duna del Sahara que enfatiza la inmensidad del erg frente a dos caminantes en la cima",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 2000,
@@ -2221,11 +2457,15 @@ export const photos: Photo[] = [
     "prints": true,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "desierto",
-      "dunas",
-      "luz y sombra"
-    ]
+      "erg sahariano",
+      "caminantes en el desierto",
+      "escala geológica",
+      "marruecos",
+      "sahara erg",
+      "vertical desert landscape"
+    ],
+    "location": "Desierto del Sahara",
+    "country": "Marruecos"
   },
   {
     "id": "vc-42",
@@ -2235,7 +2475,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/ocaso-sobre-el-erg.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Ocaso sobre el Erg: El último destello del sol ocultándose tras la cordillera desértica mientras la penumbra cubre las ondas de arena",
+    "alt": "Último rayo de sol ocultándose tras la cordillera sobre las ondas de arena en penumbra del desierto del Sahara",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 320,
@@ -2248,11 +2488,15 @@ export const photos: Photo[] = [
     "prints": true,
     "licensing": true,
     "keywords": [
-      "viajes",
-      "textura",
-      "arena",
-      "viento"
-    ]
+      "ocaso sobre el erg",
+      "desierto del sahara",
+      "ondas de arena",
+      "marruecos",
+      "sahara sunset",
+      "fine art photography"
+    ],
+    "location": "Desierto del Sahara",
+    "country": "Marruecos"
   },
   {
     "id": "vc-44",
@@ -2262,7 +2506,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/el-oficio-y-la-chispa.jpg",
     "width": 2200,
     "height": 1650,
-    "alt": "El Oficio y la Chispa: Claroscuro documental en el interior de una herrería tradicional donde las chispas del metal iluminan al artesano",
+    "alt": "Herrero trabajando el hierro candente en la penumbra de su fragua mientras una lluvia de chispas ilumina el taller",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 800,
@@ -2276,13 +2520,17 @@ export const photos: Photo[] = [
     "prints": true,
     "licensing": true,
     "keywords": [
-      "documental",
-      "oficio",
-      "artesano",
-      "luz",
-      "retrato"
+      "herrero tradicional",
+      "fragua",
+      "forja artesanal",
+      "oficios en extinción",
+      "fotografía documental",
+      "blacksmith documentary",
+      "fine art documentary"
     ],
-    "story": "En la penumbra densa del taller, la única iluminación provenía del propio trabajo sobre el metal y de un haz lateral que recortaba el humo y las herramientas acumuladas durante décadas."
+    "story": "En la penumbra densa del taller, la única iluminación provenía del propio trabajo sobre el metal y de un haz lateral que recortaba el humo y las herramientas acumuladas durante décadas.",
+    "location": "Fragua Tradicional, España",
+    "country": "España"
   },
   {
     "id": "au-08",
@@ -2292,7 +2540,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/arquitectura-urbana/umbral-de-la-medina.jpg",
     "width": 1650,
     "height": 2200,
-    "alt": "Umbral de la Medina: Enmarcado natural a través de un arco monumental en penumbra hacia el bullicio soleado de la Medina",
+    "alt": "Arco de herradura monumental en penumbra que enmarca el tránsito cotidiano de la Medina soleada de Marrakech",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 160,
@@ -2300,16 +2548,19 @@ export const photos: Photo[] = [
     "shutter": "1/500s",
     "focalLength": "24mm",
     "description": "Enmarcado natural a través de un arco monumental en penumbra hacia el bullicio soleado de la Medina.",
-    "location": "Marrakech",
+    "location": "Medina de Marrakech",
     "country": "Marruecos",
     "year": 2026,
     "featured": false,
     "prints": false,
     "licensing": true,
     "keywords": [
-      "arquitectura-urbana",
+      "arco de herradura",
+      "umbral medina",
       "marrakech",
-      "canon eos r7"
+      "arquitectura islámica",
+      "marruecos",
+      "marrakech architecture"
     ]
   },
   {
@@ -2320,7 +2571,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/arquitectura-urbana/linterna-y-arco-dorado.jpg",
     "width": 1650,
     "height": 2200,
-    "alt": "Linterna y Arco Dorado: Profundidad arquitectónica desde un pasaje en sombra hacia un patio interior bañado en luz cálida bajo un farol de forja",
+    "alt": "Pasaje abovedado en sombra con farol de forja que conduce a un patio soleado a través de un arco en Marrakech",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 6400,
@@ -2328,16 +2579,19 @@ export const photos: Photo[] = [
     "shutter": "1/125s",
     "focalLength": "50mm",
     "description": "Profundidad arquitectónica desde un pasaje en sombra hacia un patio interior bañado en luz cálida bajo un farol de forja.",
-    "location": "Marrakech",
+    "location": "Medina de Marrakech",
     "country": "Marruecos",
     "year": 2026,
     "featured": false,
     "prints": false,
     "licensing": true,
     "keywords": [
-      "arquitectura-urbana",
+      "patio marroquí",
+      "farol de forja",
+      "arco islámico",
       "marrakech",
-      "canon eos r7"
+      "luz y arquitectura",
+      "moroccan courtyard"
     ]
   },
   {
@@ -2348,7 +2602,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/arquitectura-urbana/arco-polilobulado-en-luz.jpg",
     "width": 1650,
     "height": 2200,
-    "alt": "Arco Polilobulado en Luz: Contraste entre la silueta oscura del vano polilobulado y el resplandor dorado del pavimento cerámico del patio",
+    "alt": "Silueta de un arco polilobulado recortada a contraluz frente al reflejo dorado del pavimento cerámico de un patio en Marrakech",
     "camera": "Canon EOS R7",
     "lens": "Canon EF-S 10-18mm f/4.5-5.6 IS STM",
     "iso": 6400,
@@ -2356,16 +2610,19 @@ export const photos: Photo[] = [
     "shutter": "1/160s",
     "focalLength": "12mm",
     "description": "Contraste entre la silueta oscura del vano polilobulado y el resplandor dorado del pavimento cerámico del patio.",
-    "location": "Marrakech",
+    "location": "Palacio Histórico, Marrakech",
     "country": "Marruecos",
     "year": 2026,
     "featured": false,
     "prints": false,
     "licensing": true,
     "keywords": [
-      "arquitectura-urbana",
+      "arco polilobulado",
+      "contraluz arquitectónico",
       "marrakech",
-      "canon eos r7"
+      "geometría islámica",
+      "marruecos",
+      "islamic arch geometry"
     ]
   },
   {
@@ -2376,7 +2633,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/arquitectura-urbana/vidriera-y-silueta-en-el-patio.jpg",
     "width": 1650,
     "height": 2200,
-    "alt": "Vidriera y Silueta en el Patio: Una figura solitaria enmarcada entre las columnas del patio a través de una puerta coronada por vidrieras policromadas",
+    "alt": "Silueta solitaria entre columnas vista a través de una puerta de madera coronada por vidrieras policromadas en Marrakech",
     "camera": "Canon EOS R7",
     "lens": "Canon EF-S 10-18mm f/4.5-5.6 IS STM",
     "iso": 800,
@@ -2384,16 +2641,19 @@ export const photos: Photo[] = [
     "shutter": "1/250s",
     "focalLength": "10mm",
     "description": "Una figura solitaria enmarcada entre las columnas del patio a través de una puerta coronada por vidrieras policromadas.",
-    "location": "Marrakech",
+    "location": "Palacio de la Bahía, Marrakech",
     "country": "Marruecos",
     "year": 2026,
     "featured": false,
     "prints": true,
     "licensing": true,
     "keywords": [
-      "arquitectura-urbana",
+      "vidrieras policromadas",
+      "patio de columnas",
       "marrakech",
-      "canon eos r7"
+      "arquitectura palaciega",
+      "marruecos",
+      "bahia palace marrakech"
     ]
   },
   {
@@ -2404,7 +2664,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/tornero-de-madera-en-el-zoco.jpg",
     "width": 1650,
     "height": 2200,
-    "alt": "Tornero de Madera en el Zoco: Maestro tornero trabajando la madera de cedro en el interior de su pequeño taller rodeado de gubias y piezas torneadas",
+    "alt": "Maestro tornero moldeando madera de cedro con gubia y arco manual en su taller del zoco de Marrakech",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 2500,
@@ -2413,16 +2673,19 @@ export const photos: Photo[] = [
     "focalLength": "32mm",
     "description": "Maestro tornero trabajando la madera de cedro en el interior de su pequeño taller rodeado de gubias y piezas torneadas.",
     "story": "En apenas dos metros cuadrados de taller, el artesano accionaba el torno con una destreza heredada durante generaciones mientras la luz de la calle acariciaba las virutas de cedro.",
-    "location": "Marrakech",
+    "location": "Zoco de los Carpinteros, Marrakech",
     "country": "Marruecos",
     "year": 2026,
     "featured": false,
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes-cultura",
-      "marrakech",
-      "canon eos r7"
+      "tornero de madera",
+      "artesano del cedro",
+      "zoco de marrakech",
+      "oficios tradicionales",
+      "marruecos",
+      "woodturner marrakech"
     ]
   },
   {
@@ -2433,7 +2696,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/contraluz-en-el-callejon-del-zoco.jpg",
     "width": 1650,
     "height": 2200,
-    "alt": "Contraluz en el Callejón del Zoco: Luz rasante filtrándose entre los toldos de cañizo del zoco y reflejándose sobre el pavimento empedrado",
+    "alt": "Haces de luz solar atravesando los toldos de cañizo sobre los transeúntes y el adoquín de un callejón del zoco de Marrakech",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 1250,
@@ -2441,16 +2704,19 @@ export const photos: Photo[] = [
     "shutter": "1/320s",
     "focalLength": "18mm",
     "description": "Luz rasante filtrándose entre los toldos de cañizo del zoco y reflejándose sobre el pavimento empedrado.",
-    "location": "Marrakech",
+    "location": "Zoco de Marrakech",
     "country": "Marruecos",
     "year": 2026,
     "featured": false,
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes-cultura",
+      "callejón del zoco",
+      "toldos de cañizo",
+      "luz rasante",
       "marrakech",
-      "canon eos r7"
+      "marruecos",
+      "marrakech souk light"
     ]
   },
   {
@@ -2461,7 +2727,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/paisajes-documental/pliegues-del-alto-atlas.jpg",
     "width": 1650,
     "height": 2200,
-    "alt": "Pliegues del Alto Atlas: Relieve escultórico de crestas y barrancos minerales en la cordillera del Alto Atlas bajo la luz oblicua de la tarde",
+    "alt": "Crestas plegadas y barrancos minerales de la cordillera del Alto Atlas esculpidos por la luz oblicua de la tarde",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 400,
@@ -2469,16 +2735,20 @@ export const photos: Photo[] = [
     "shutter": "1/640s",
     "focalLength": "35mm",
     "description": "Relieve escultórico de crestas y barrancos minerales en la cordillera del Alto Atlas bajo la luz oblicua de la tarde.",
-    "location": "Alto Atlas",
+    "location": "Cordillera del Alto Atlas",
     "country": "Marruecos",
     "year": 2026,
     "featured": false,
     "prints": false,
     "licensing": true,
     "keywords": [
-      "paisajes-documental",
       "alto atlas",
-      "canon eos r7"
+      "geología de montaña",
+      "cordillera marroquí",
+      "paisaje mineral",
+      "marruecos",
+      "high atlas mountains",
+      "fine art landscape"
     ]
   },
   {
@@ -2489,7 +2759,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/paisajes-documental/oasis-y-cumbres-del-atlas.jpg",
     "width": 2200,
     "height": 1237,
-    "alt": "Oasis y Cumbres del Atlas: Arquitectura de tierra y palmeral al pie de las mesetas desérticas con las cumbres nevadas del Atlas en el horizonte",
+    "alt": "Oasis de palmeras y arquitectura de adobe rojizo frente a las cumbres nevadas del Alto Atlas en Marruecos",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 500,
@@ -2497,16 +2767,19 @@ export const photos: Photo[] = [
     "shutter": "1/800s",
     "focalLength": "50mm",
     "description": "Arquitectura de tierra y palmeral al pie de las mesetas desérticas con las cumbres nevadas del Atlas en el horizonte.",
-    "location": "Valle del Sur",
+    "location": "Valle del Sur y Alto Atlas",
     "country": "Marruecos",
     "year": 2026,
     "featured": false,
     "prints": false,
     "licensing": true,
     "keywords": [
-      "paisajes-documental",
-      "valle del sur",
-      "canon eos r7"
+      "oasis y atlas",
+      "cumbres nevadas",
+      "arquitectura de tierra",
+      "alto atlas",
+      "marruecos",
+      "morocco oasis landscape"
     ]
   },
   {
@@ -2517,7 +2790,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/paisajes-documental/arista-de-arena-y-sombra.jpg",
     "width": 1650,
     "height": 2200,
-    "alt": "Arista de Arena y Sombra: Curva sinuosa en la cresta de una gran duna que divide el plano dorado iluminado por el sol de la ladera en sombra profunda",
+    "alt": "Arista sinuosa de una gran duna del Sahara que divide el flanco dorado al sol de la ladera en sombra profunda",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 250,
@@ -2532,9 +2805,13 @@ export const photos: Photo[] = [
     "prints": true,
     "licensing": true,
     "keywords": [
-      "paisajes-documental",
+      "arista de duna",
+      "abstracción desierto",
+      "luz y sombra",
       "desierto del sahara",
-      "canon eos r7"
+      "marruecos",
+      "sand dune ridge",
+      "fine art print"
     ]
   },
   {
@@ -2545,7 +2822,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/ciguena-bajo-la-lluvia.jpg",
     "width": 2200,
     "height": 1238,
-    "alt": "Cigüeña bajo la Lluvia: Paso pausado de una cigüeña blanca sobre la pradera húmeda mientras las gotas de lluvia quedan congeladas en el aire a 600mm",
+    "alt": "Cigüeña blanca caminando sobre una pradera verde bajo una cortina de gotas de lluvia congeladas a 600mm",
     "camera": "Canon EOS R7",
     "lens": "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary",
     "iso": 2000,
@@ -2558,10 +2835,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "fauna-naturaleza",
-      "autor",
-      "canon eos r7"
-    ]
+      "cigüeña bajo la lluvia",
+      "white stork rain",
+      "600mm",
+      "fauna ibérica",
+      "aves en libertad",
+      "wildlife in rain"
+    ],
+    "location": "Dehesa Ibérica, España",
+    "country": "España"
   },
   {
     "id": "fn-15",
@@ -2571,7 +2853,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/cuervo-canario-ante-las-cumbres.jpg",
     "width": 2200,
     "height": 1237,
-    "alt": "Cuervo Canario ante las Cumbres: Un cuervo canario posado frente a la silueta brumosa de los roques y barrancos volcánicos de Anaga",
+    "alt": "Cuervo canario posado en primer plano ante los roques volcánicos y barrancos brumosos del Macizo de Anaga en Tenerife",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 400,
@@ -2586,9 +2868,13 @@ export const photos: Photo[] = [
     "prints": true,
     "licensing": true,
     "keywords": [
-      "fauna-naturaleza",
-      "macizo de anaga, tenerife",
-      "canon eos r7"
+      "cuervo canario",
+      "canarian raven",
+      "macizo de anaga",
+      "tenerife",
+      "fauna canaria",
+      "aves de cumbre",
+      "canary islands wildlife"
     ]
   },
   {
@@ -2599,7 +2885,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/despliegue-de-alas-en-la-cresta.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Despliegue de Alas en la Cresta: Instante dinámico en el que el cuervo sacude y despliega el abanico de plumas primarias contra el viento de cumbre",
+    "alt": "Cuervo canario desplegando las plumas primarias de sus alas contra el viento en una cresta volcánica de Anaga",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 160,
@@ -2614,9 +2900,12 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "fauna-naturaleza",
-      "macizo de anaga, tenerife",
-      "canon eos r7"
+      "cuervo canario",
+      "alas desplegadas",
+      "macizo de anaga",
+      "tenerife",
+      "aves en acción",
+      "raven wings"
     ]
   },
   {
@@ -2627,7 +2916,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/vela-de-cristal-carabela-portuguesa.jpg",
     "width": 1467,
     "height": 2200,
-    "alt": "Vela de Cristal: Carabela Portuguesa: Detalle macro de la cresta translúcida azul y violeta de una carabela portuguesa brillando sobre la roca húmeda",
+    "alt": "Detalle macro de la vela translúcida azul y violeta de una carabela portuguesa sobre roca volcánica húmeda en Canarias",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 800,
@@ -2635,16 +2924,19 @@ export const photos: Photo[] = [
     "shutter": "1/500s",
     "focalLength": "86mm",
     "description": "Detalle macro de la cresta translúcida azul y violeta de una carabela portuguesa brillando sobre la roca húmeda.",
-    "location": "Costa Atlántica, Canarias",
+    "location": "Costa Atlántica, Islas Canarias",
     "country": "España",
     "year": 2026,
     "featured": false,
     "prints": false,
     "licensing": true,
     "keywords": [
-      "fauna-naturaleza",
-      "costa atlántica, canarias",
-      "canon eos r7"
+      "carabela portuguesa",
+      "portuguese man o war",
+      "fauna marina",
+      "costa volcánica",
+      "canarias",
+      "marine macro photography"
     ]
   },
   {
@@ -2655,7 +2947,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/cangrejo-moro-en-el-basalto.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Cangrejo Moro en el Basalto: Primer plano frontal de un cangrejo moro destacando el cromatismo rojo y púrpura de su caparazón sobre la lava",
+    "alt": "Primer plano frontal de un cangrejo moro rojo y violeta sobre la roca de basalto negro intermareal en Tenerife",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 800,
@@ -2663,16 +2955,20 @@ export const photos: Photo[] = [
     "shutter": "1/800s",
     "focalLength": "150mm",
     "description": "Primer plano frontal de un cangrejo moro destacando el cromatismo rojo y púrpura de su caparazón sobre la lava.",
-    "location": "Costa Atlántica, Canarias",
+    "location": "Costa Atlántica, Tenerife",
     "country": "España",
     "year": 2026,
     "featured": false,
     "prints": false,
     "licensing": true,
     "keywords": [
-      "fauna-naturaleza",
-      "costa atlántica, canarias",
-      "canon eos r7"
+      "cangrejo moro",
+      "grapsus adscensionis",
+      "basalto volcánico",
+      "fauna intermareal",
+      "tenerife",
+      "canarias",
+      "red rock crab"
     ]
   },
   {
@@ -2683,7 +2979,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/mariposa-monarca-a-contraluz.jpg",
     "width": 2200,
     "height": 1467,
-    "alt": "Mariposa Monarca a Contraluz: Luz solar atravesando las alas naranjas de una mariposa monarca como si fuera una vidriera natural",
+    "alt": "Alas naranjas de una mariposa monarca retroiluminadas por el sol natural entre la vegetación en Tenerife",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 800,
@@ -2696,10 +2992,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "fauna-naturaleza",
-      "autor",
-      "canon eos r7"
-    ]
+      "mariposa monarca",
+      "monarch butterfly",
+      "contraluz natural",
+      "macro naturaleza",
+      "tenerife",
+      "canarias"
+    ],
+    "location": "Tenerife, Islas Canarias",
+    "country": "España"
   },
   {
     "id": "fn-20",
@@ -2709,7 +3010,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/gaviota-sobre-azul-cobalto.jpg",
     "width": 1760,
     "height": 2200,
-    "alt": "Gaviota sobre Azul Cobalto: Retrato minimalista de perfil de una gaviota patiamarilla recortada sobre el azul profundo del cielo",
+    "alt": "Retrato minimalista de perfil de una gaviota patiamarilla recortada sobre el azul cobalto del cielo atlántico",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 320,
@@ -2722,10 +3023,15 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "fauna-naturaleza",
-      "autor",
-      "canon eos r7"
-    ]
+      "gaviota patiamarilla",
+      "yellow-legged gull",
+      "aves marinas",
+      "minimalismo natural",
+      "canarias",
+      "seabird portrait"
+    ],
+    "location": "Litoral Atlántico, Canarias",
+    "country": "España"
   },
   {
     "id": "fn-21",
@@ -2735,7 +3041,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/vuelvepiedras-en-la-orilla-volcanica.jpg",
     "width": 2200,
     "height": 1760,
-    "alt": "Vuelvepiedras en la Orilla Volcánica: Un vuelvepiedras común posado sobre el basalto negro costero frente al desenfoque plateado del mar",
+    "alt": "Vuelvepiedras común posado sobre lava negra costera con el brillo plateado del océano Atlántico desenfocado a 600mm",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 400,
@@ -2748,10 +3054,16 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "fauna-naturaleza",
-      "autor",
-      "canon eos r7"
-    ]
+      "vuelvepiedras común",
+      "ruddy turnstone",
+      "aves limícolas",
+      "costa volcánica",
+      "tenerife",
+      "600mm",
+      "shorebird photography"
+    ],
+    "location": "Costa Volcánica, Tenerife",
+    "country": "España"
   },
   {
     "id": "fn-22",
@@ -2761,7 +3073,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/gamo-en-el-encinar.jpg",
     "width": 2200,
     "height": 1760,
-    "alt": "Gamo en el Encinar: Ejemplar joven de gamo deteniendo su marcha entre las encinas y dirigiendo la mirada hacia la cámara",
+    "alt": "Gamo joven detenido entre las encinas del bosque mediterráneo dirigiendo su mirada hacia el teleobjetivo a 600mm",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 1600,
@@ -2774,10 +3086,16 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "fauna-naturaleza",
-      "autor",
-      "canon eos r7"
-    ]
+      "gamo",
+      "fallow deer",
+      "encinar ibérico",
+      "fauna silvestre",
+      "600mm",
+      "bosque mediterráneo",
+      "deer wildlife spain"
+    ],
+    "location": "Encinar Ibérico, España",
+    "country": "España"
   },
   {
     "id": "cr-16",
@@ -2787,7 +3105,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/coches-rally/frontal-clasico-bmw-e30.jpg",
     "width": 2200,
     "height": 1760,
-    "alt": "Frontal Clásico BMW E30: Simetría frontal de un BMW E30 clásico con luces ámbar encendidas sobre el asfalto húmedo al atardecer",
+    "alt": "Frontal simétrico a ras de suelo de un BMW E30 clásico con faros ámbar encendidos sobre el asfalto húmedo al atardecer",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 800,
@@ -2800,10 +3118,16 @@ export const photos: Photo[] = [
     "prints": true,
     "licensing": true,
     "keywords": [
-      "coches-rally",
-      "autor",
-      "canon eos r7"
-    ]
+      "bmw e30",
+      "clásico alemán",
+      "faros ámbar",
+      "automovilismo clásico",
+      "rally histórico",
+      "classic bmw e30",
+      "automotive fine art"
+    ],
+    "location": "Tramo de Asfalto, España",
+    "country": "España"
   },
   {
     "id": "vc-47",
@@ -2813,7 +3137,7 @@ export const photos: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/el-esfuerzo-del-portador.jpg",
     "width": 2200,
     "height": 1760,
-    "alt": "El Esfuerzo del Portador: Claroscuro dramático de rostro y expresión durante el esfuerzo de una procesión nocturna",
+    "alt": "Retrato en claroscuro del rostro de un portador bajo el varal durante el esfuerzo de una procesión nocturna",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 3200,
@@ -2826,9 +3150,14 @@ export const photos: Photo[] = [
     "prints": false,
     "licensing": true,
     "keywords": [
-      "viajes-cultura",
-      "autor",
-      "canon eos r7"
-    ]
+      "portador",
+      "semana santa",
+      "claroscuro documental",
+      "retrato nocturno",
+      "tradición española",
+      "documentary portrait"
+    ],
+    "location": "Semana Santa, España",
+    "country": "España"
   }
 ];

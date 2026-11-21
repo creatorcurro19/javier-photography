@@ -100,3 +100,11 @@ export function getProjectPhotos(project: Project): Photo[] {
     .map((id) => photos.find((p) => p.id === id))
     .filter((p): p is Photo => Boolean(p));
 }
+
+export function getProjectsForPhoto(photoId: string): Project[] {
+  return PROJECTS.filter((project) => project.photoIds.includes(photoId));
+}
+
+export function getProjectsByCategory(category: PhotoCategory): Project[] {
+  return PROJECTS.filter((project) => project.category === category);
+}

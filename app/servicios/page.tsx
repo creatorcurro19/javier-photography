@@ -222,7 +222,7 @@ export default function ServiciosPage() {
           <div className="mt-12 grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="rounded-lg border border-[#202226] bg-[#202226]/30 p-6">
               <span className="font-mono text-2xl font-light text-[#8E8A80]">01</span>
-              <h4 className="mt-3 font-serif text-lg text-[#EBE7DF]">Briefing y Planificación</h4>
+              <h3 className="mt-3 font-serif text-lg text-[#EBE7DF]">Briefing y Planificación</h3>
               <p className="mt-2 text-xs font-light leading-relaxed text-neutral-400">
                 Definición de objetivos, horarios de luz, localizaciones y estilo visual requerido antes de salir al campo.
               </p>
@@ -230,7 +230,7 @@ export default function ServiciosPage() {
 
             <div className="rounded-lg border border-[#202226] bg-[#202226]/30 p-6">
               <span className="font-mono text-2xl font-light text-[#8E8A80]">02</span>
-              <h4 className="mt-3 font-serif text-lg text-[#EBE7DF]">Producción en Campo</h4>
+              <h3 className="mt-3 font-serif text-lg text-[#EBE7DF]">Producción en Campo</h3>
               <p className="mt-2 text-xs font-light leading-relaxed text-neutral-400">
                 Jornada de disparo con equipo Canon EOS R7, ópticas profesionales y adaptación constante a la luz natural.
               </p>
@@ -238,7 +238,7 @@ export default function ServiciosPage() {
 
             <div className="rounded-lg border border-[#202226] bg-[#202226]/30 p-6">
               <span className="font-mono text-2xl font-light text-[#8E8A80]">03</span>
-              <h4 className="mt-3 font-serif text-lg text-[#EBE7DF]">Revelado de Autor</h4>
+              <h3 className="mt-3 font-serif text-lg text-[#EBE7DF]">Revelado de Autor</h3>
               <p className="mt-2 text-xs font-light leading-relaxed text-neutral-400">
                 Edición digital en Lightroom Classic, calibración de color precisa y corrección óptica individualizada.
               </p>
@@ -246,7 +246,7 @@ export default function ServiciosPage() {
 
             <div className="rounded-lg border border-[#202226] bg-[#202226]/30 p-6">
               <span className="font-mono text-2xl font-light text-[#8E8A80]">04</span>
-              <h4 className="mt-3 font-serif text-lg text-[#EBE7DF]">Entrega y Licencia</h4>
+              <h3 className="mt-3 font-serif text-lg text-[#EBE7DF]">Entrega y Licencia</h3>
               <p className="mt-2 text-xs font-light leading-relaxed text-neutral-400">
                 Galería privada para descarga de archivos maestros en alta resolución y formatos web optimizados con contrato de cesión.
               </p>
@@ -284,24 +284,7 @@ export default function ServiciosPage() {
           </div>
 
           <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-2">
-            {[
-              {
-                q: "¿Cómo se planifica la cobertura de un rally o evento de motor?",
-                a: "Antes de la prueba se estudian el rutómetro, los horarios de corte y la orientación solar de cada tramo. Se combinan tomas en el parque de asistencia (ambiente, detalles mecánicos y pilotos) con disparos en curva y horquilla hasta 600mm.",
-              },
-              {
-                q: "¿En qué formato y plazo se entregan los reportajes?",
-                a: "Se entrega una galería privada en alta resolución (archivos máster de 32,5 MP revelados individualmente y versiones optimizadas para prensa/web) en un plazo de 48 a 72 horas tras el evento, con opción de adelanto en el mismo día para notas de prensa.",
-              },
-              {
-                q: "¿Realizas desplazamientos fuera de tu provincia o a las islas?",
-                a: "Sí. Con base en Tenerife (Islas Canarias), trabajo habitualmente tanto en el archipiélago como en la Península Ibérica (Extremadura, Salamanca, Madrid, Gredos) y proyectos internacionales.",
-              },
-              {
-                q: "¿Los encargos de arquitectura y turismo incluyen licencia de uso comercial?",
-                a: "Sí, cada presupuesto incluye por escrito la cesión de derechos adaptada a las necesidades del cliente (web corporativa, catálogos impresos, campañas editoriales o promoción institucional).",
-              },
-            ].map((item) => (
+            {faqItems.map((item) => (
               <details
                 key={item.q}
                 className="group rounded-lg border border-[#202226] bg-[#202226]/30 p-6 transition hover:border-[#8E8A80]/50"

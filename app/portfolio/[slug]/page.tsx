@@ -29,10 +29,15 @@ import {
   getAdjacentPhotos,
   getPhotoBySlug,
   getPhotosByCategory,
+  getProjectsByCategory,
   isPhotoCategory,
   PHOTO_CATEGORIES,
 } from "@/lib/photos";
-import { generateBreadcrumbSchema, generatePhotoSchema } from "@/lib/schema";
+import {
+  generateBreadcrumbSchema,
+  generateCategoryCollectionSchema,
+  generatePhotoSchema,
+} from "@/lib/schema";
 import { CATEGORY_METADATA, type PhotoCategory } from "@/types/photo";
 
 type PageProps = {
@@ -52,10 +57,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (isPhotoCategory(slug)) {
     const meta = CATEGORY_METADATA[slug];
     return buildPageMetadata({
-      title: `${meta.title} | Javier Espinosa`,
-      description: meta.description,
+      title: meta.seoTitle,
+      description: meta.seoDescription,
       path: `/portfolio/${slug}`,
       image: meta.coverImage,
+      keywords: meta.seoKeywords,
     });
   }
 
@@ -69,12 +75,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 function CategoryGallery({ category }: { category: PhotoCategory }) {
   const photos = getPhotosByCategory(category);
+  const relatedProjects = getProjectsByCategory(category);
   const info = CATEGORY_METADATA[category];
   const isSebka =
     category === "arquitectura-urbana" || category === "viajes-cultura";
 
+  const breadcrumb = generateBreadcrumbSchema([
+    { name: "Inicio", path: "/" },
+    { name: "Colecciones", path: "/portfolio" },
+    { name: info.title, path: `/portfolio/${category}` },
+  ]);
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
+      <JsonLd data={[generateCategoryCollectionSchema(category, photos), breadcrumb]} />
       {/* Filigrana andalusí y cenefas laterales discretas en el fondo de la colección */}
       <AndalusianCollectionBackdrop variant={isSebka ? "sebka" : "laceria"} />
 
@@ -82,18 +96,21 @@ function CategoryGallery({ category }: { category: PhotoCategory }) {
         <header className="max-w-3xl">
           <div className="flex items-center gap-3">
             <span className="h-px w-6 bg-white/30" />
-            <p className="font-mono text-xs uppercase tracking-[0.4em] text-[#8E8A80]">
-              {info.code} · Disciplina de Autor
+            <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#C5A880]">
+              {info.code} · {info.codeEn}
             </p>
           </div>
           <h1 className="mt-4 font-serif text-5xl font-light md:text-6xl text-[#EBE7DF]">
             {info.title}
           </h1>
-          <p className="mt-3 font-mono text-xs uppercase tracking-[0.2em] text-[#8E8A80]">
-            {info.subtitle}
+          <p className="mt-2 font-mono text-xs uppercase tracking-[0.22em] text-[#8E8A80]">
+            {info.titleEn} — {info.subtitle}
           </p>
-          <p className="mt-6 text-base sm:text-lg leading-relaxed text-[#8E8A80] font-light">
+          <p className="mt-6 text-base sm:text-lg leading-relaxed text-[#EBE7DF]/85 font-light">
             {info.description}
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-[#8E8A80] font-light italic font-serif">
+            {info.descriptionEn}
           </p>
         </header>
 
@@ -110,9 +127,72 @@ function CategoryGallery({ category }: { category: PhotoCategory }) {
           <ExhibitionGallery photos={photos} />
         </div>
 
+        {/* Conexión Semántica con Series Monográficas y Servicios de la Disciplina */}
+        <section
+          aria-label={`Ensayos monográficos y adquisiciones de ${info.title}`}
+          className="mt-20 grid grid-cols-1 gap-6 border-t border-[#C5A880]/20 pt-14 lg:grid-cols-12"
+        >
+          <div className="lg:col-span-7 border border-white/[0.08] bg-[#151618] p-7 sm:p-9">
+            <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#C5A880]">
+              Ensayos Narrativos · Monograph Series
+            </p>
+            <h2 className="mt-2 font-serif text-2xl font-light text-[#EBE7DF]">
+              Series monográficas de {info.title}
+            </h2>
+            <p className="mt-2 text-xs font-light leading-relaxed text-[#8E8A80]">
+              Profundiza en el contexto documental, las notas de cuaderno de campo y la secuencia curatorial completa de cada proyecto asociado a esta disciplina.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              {relatedProjects.map((project) => (
+                <Link
+                  key={project.id}
+                  href={`/projects/${project.slug}`}
+                  className="border border-white/15 bg-[#0B0C0E] px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.18em] text-[#EBE7DF] transition hover:border-[#C5A880] hover:text-white"
+                >
+                  {project.title} →
+                </Link>
+              ))}
+              <Link
+                href="/projects"
+                className="border border-white/[0.08] px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.18em] text-[#8E8A80] transition hover:text-[#EBE7DF]"
+              >
+                Ver las 8 Series
+              </Link>
+            </div>
+          </div>
+
+          <div className="lg:col-span-5 border border-white/[0.08] bg-[#151618] p-7 sm:p-9 flex flex-col justify-between">
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#C5A880]">
+                Adquisición &amp; Licencias · Fine Art &amp; Licensing
+              </p>
+              <h2 className="mt-2 font-serif text-2xl font-light text-[#EBE7DF]">
+                Copias Hahnemühle 308g y Encargos
+              </h2>
+              <p className="mt-2 text-xs font-light leading-relaxed text-[#8E8A80]">
+                Todas las obras de {info.title} están disponibles bajo pedido como edición limitada en papel 100% algodón (ISO 9706) o licencia editorial de alta resolución (32,5 MP).
+              </p>
+            </div>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href="/prints"
+                className="border border-[#EBE7DF] bg-[#EBE7DF] px-5 py-2.5 font-mono text-[10px] uppercase tracking-[0.24em] font-medium text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
+              >
+                Catálogo Fine Art →
+              </Link>
+              <Link
+                href="/servicios"
+                className="border border-white/15 bg-[#0B0C0E] px-5 py-2.5 font-mono text-[10px] uppercase tracking-[0.24em] text-[#EBE7DF] transition hover:border-[#C5A880]"
+              >
+                Encargos
+              </Link>
+            </div>
+          </div>
+        </section>
+
         <AndalusianCenefa
           variant={isSebka ? "sebka" : "estrella"}
-          className="mt-20 text-[#C5A880]/28"
+          className="mt-16 text-[#C5A880]/28"
         />
       </Container>
     </div>

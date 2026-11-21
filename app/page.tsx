@@ -7,14 +7,27 @@ import HomeQuickContact from "@/components/home/HomeQuickContact";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getFeaturedPhotos } from "@/lib/photos";
-import { generatePersonSchema } from "@/lib/schema";
+import { generateWebSiteSchema } from "@/lib/schema";
 import type { Photo } from "@/types/photo";
 
 export const metadata = buildPageMetadata({
-  title: "Javier Espinosa | Fotógrafo en Tenerife · Copias y Encargos",
+  title: "Javier Espinosa | Fotografía de Autor & Fine Art Photography (Tenerife · España)",
   description:
-    "Fotógrafo de autor afincado en Tenerife. Fauna, paisaje, rally y arquitectura. Venta de copias Fine Art de conservación y encargos fotográficos a medida.",
+    "Portfolio oficial de Javier Espinosa Martínez. Fotógrafo de autor afincado en Tenerife: fauna salvaje (Wildlife), paisaje (Landscape), rally histórico (Motorsport), arquitectura y documental. Ediciones limitadas Fine Art en papel Hahnemühle Photo Rag 308g y encargos.",
   path: "/",
+  keywords: [
+    "Javier Espinosa Photography",
+    "Javier Espinosa Martínez",
+    "fotógrafo en Tenerife",
+    "fotografía de autor",
+    "Fine Art Photography",
+    "Wildlife Photography",
+    "Landscape Photography",
+    "Motorsport Photography",
+    "Architectural Photography",
+    "Documentary Photography",
+    "copias Fine Art Hahnemühle",
+  ],
 });
 
 const HERO_IMAGES = new Set([
@@ -55,7 +68,7 @@ export default function Home() {
 
   return (
     <>
-      <JsonLd data={generatePersonSchema()} />
+      <JsonLd data={generateWebSiteSchema()} />
       <Hero />
       <TrustBadgeStrip />
       <SelectedWork photos={homePreview} totalCount={featuredPhotos.length} />

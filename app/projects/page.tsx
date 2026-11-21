@@ -5,14 +5,26 @@ import {
 } from "@/components/ui/AndalusianMotif";
 import ProjectsInteractiveIndex from "@/components/projects/ProjectsInteractiveIndex";
 import ExpeditionMap from "@/components/portfolio/ExpeditionMap";
+import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getAllProjects, getProjectPhotos } from "@/lib/photos";
+import { generateBreadcrumbSchema } from "@/lib/schema";
 
 export const metadata = buildPageMetadata({
-  title: "Series Monográficas & Ensayos | Javier Espinosa",
+  title: "Series Monográficas & Ensayos Documentales (Monograph Photo Essays) | Javier Espinosa",
   description:
-    "Series fotográficas y ensayos documentales por Javier Espinosa Martínez. Narrativas visuales sobre memoria, oficios tradicionales, orografía del territorio y automovilismo.",
+    "Series fotográficas y ensayos documentales por Javier Espinosa Martínez: Villanueva de la Vera, Medina y Alto Atlas, Paisaje Volcánico de Canarias, Rally Histórico, Desierto del Sahara y Fauna Silvestre.",
   path: "/projects",
+  keywords: [
+    "series fotográficas documentales",
+    "ensayos fotográficos",
+    "documentary photo essays",
+    "monograph photography series",
+    "Villanueva de la Vera fotografía",
+    "Medina Marrakech documental",
+    "paisaje volcánico Tenerife",
+    "rally histórico España",
+  ],
 });
 
 export default function ProjectsPage() {
@@ -23,6 +35,12 @@ export default function ProjectsPage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
+      <JsonLd
+        data={generateBreadcrumbSchema([
+          { name: "Inicio", path: "/" },
+          { name: "Series Monográficas", path: "/projects" },
+        ])}
+      />
       {/* Fondo discreto de sebka y cenefas laterales andalusíes */}
       <AndalusianCollectionBackdrop variant="sebka" />
 

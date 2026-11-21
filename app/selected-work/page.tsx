@@ -5,14 +5,23 @@ import {
 } from "@/components/ui/AndalusianMotif";
 import ExhibitionGallery from "@/components/portfolio/ExhibitionGallery";
 import Link from "next/link";
+import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getFeaturedPhotos } from "@/lib/photos";
+import { generateBreadcrumbSchema } from "@/lib/schema";
 
 export const metadata = buildPageMetadata({
-  title: "Obras Seleccionadas | Antología Fotográfica Permanente",
+  title: "Obras Seleccionadas · Selected Works (Antología Fine Art) | Javier Espinosa",
   description:
-    "Exposición permanente de quince obras maestras de Javier Espinosa Martínez. Selección curatorial que sintetiza la mirada sobre fauna, paisaje, automovilismo, arquitectura y documental.",
+    "Exposición permanente de quince obras maestras de Javier Espinosa Martínez. Selección curatorial que sintetiza la mirada sobre fauna salvaje, paisaje, automovilismo, arquitectura y documental.",
   path: "/selected-work",
+  keywords: [
+    "obras seleccionadas fotografía",
+    "selected works photography",
+    "antología fotográfica",
+    "fine art photography exhibition",
+    "Javier Espinosa Martínez",
+  ],
 });
 
 export default function SelectedWorkPage() {
@@ -20,6 +29,12 @@ export default function SelectedWorkPage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
+      <JsonLd
+        data={generateBreadcrumbSchema([
+          { name: "Inicio", path: "/" },
+          { name: "Obras Seleccionadas", path: "/selected-work" },
+        ])}
+      />
       {/* Filigrana andalusí y cenefas laterales discretas en el fondo */}
       <AndalusianCollectionBackdrop variant="laceria" />
 

@@ -1,5 +1,30 @@
 import { absoluteUrl } from "@/lib/metadata";
-import type { Photo, Project } from "@/types/photo";
+import {
+  CATEGORY_METADATA,
+  type Photo,
+  type PhotoCategory,
+  type Project,
+} from "@/types/photo";
+
+export function generateWebSiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": ["WebSite", "ArtGallery"],
+    "@id": absoluteUrl("/#website"),
+    name: "Javier Espinosa Fotografía",
+    alternateName: "Javier Espinosa — Fine Art & Documentary Photography",
+    url: absoluteUrl("/"),
+    inLanguage: ["es-ES", "en"],
+    description:
+      "Galería oficial y archivo fotográfico de Javier Espinosa Martínez. Fotografía de autor en Tenerife y España: fauna salvaje (Wildlife), paisajes (Landscapes), automovilismo (Motorsport), arquitectura (Architecture) y documental (Documentary). Ediciones limitadas Fine Art en papel Hahnemühle Photo Rag 308g.",
+    publisher: {
+      "@id": absoluteUrl("/#author"),
+    },
+    creator: {
+      "@id": absoluteUrl("/#author"),
+    },
+  };
+}
 
 export function generatePersonSchema() {
   return {
@@ -7,13 +32,22 @@ export function generatePersonSchema() {
     "@type": ["Person", "Photographer"],
     "@id": absoluteUrl("/#author"),
     name: "Javier Espinosa Martínez",
-    alternateName: "Javier Espinosa Fotografía",
+    alternateName: [
+      "Javier Espinosa Fotografía",
+      "Javier Espinosa Photography",
+    ],
     url: absoluteUrl("/"),
     image: absoluteUrl("/images/portfolio/hero/hero.jpg"),
     email: "mailto:javierespinosa1995@hotmail.com",
-    jobTitle: "Fotógrafo de Autor — Landscapes, Wildlife, Motorsport, Architecture & Documentary",
+    jobTitle:
+      "Fotógrafo de Autor & Fine Art Photographer — Landscapes, Wildlife, Motorsport, Architecture & Documentary",
     description:
       "Fotógrafo español afincado en Tenerife (Canarias), especializado en cinco disciplinas fundamentales: Landscapes, Wildlife, Motorsport, Urban & Architecture y Documentary. Sistema óptico de precisión Canon EOS R7 (10-600mm) y obra gráfica Fine Art en papel Hahnemühle Photo Rag 308g bajo norma ISO 9706.",
+    knowsLanguage: ["es", "en"],
+    nationality: {
+      "@type": "Country",
+      name: "Spain",
+    },
     address: {
       "@type": "PostalAddress",
       addressLocality: "Tenerife",
@@ -21,12 +55,12 @@ export function generatePersonSchema() {
       addressCountry: "ES",
     },
     knowsAbout: [
-      "Landscapes: Fotografía de paisaje y territorio",
-      "Wildlife: Fotografía de fauna y biodiversidad",
-      "Motorsport: Fotografía de automovilismo y rally",
-      "Urban & Architecture: Fotografía de arquitectura y espacio",
-      "Documentary: Fotografía documental y tradición",
-      "Impresión Fine Art Hahnemühle ISO 9706",
+      "Landscapes: Fotografía de paisaje y territorio (Fine Art Landscape Photography)",
+      "Wildlife: Fotografía de fauna salvaje y biodiversidad (Wildlife Photography)",
+      "Motorsport: Fotografía de automovilismo y rally histórico (Motorsport Photography)",
+      "Urban & Architecture: Fotografía de arquitectura y patrimonio (Architectural Photography)",
+      "Documentary: Fotografía documental, oficios y tradición (Documentary Photography)",
+      "Impresión Fine Art Hahnemühle Photo Rag 308g ISO 9706",
     ],
     sameAs: [
       "https://www.instagram.com/Javier.espinosa19/",
@@ -39,6 +73,7 @@ export function generatePersonSchema() {
 export function generatePhotoSchema(photo: Photo) {
   const pageUrl = absoluteUrl(`/portfolio/${photo.slug}`);
   const imgUrl = absoluteUrl(photo.image);
+  const catMeta = CATEGORY_METADATA[photo.category];
 
   const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
@@ -47,10 +82,17 @@ export function generatePhotoSchema(photo: Photo) {
       : ["ImageObject", "Photograph"],
     "@id": pageUrl,
     name: photo.title,
-    headline: photo.title,
+    headline: `${photo.title}${photo.location ? ` — ${photo.location}` : ""}`,
+    caption: photo.description,
     description: photo.description,
+    alternateName: photo.alt,
     contentUrl: imgUrl,
     url: pageUrl,
+    mainEntityOfPage: pageUrl,
+    representativeOfPage: true,
+    encodingFormat: "image/jpeg",
+    inLanguage: ["es-ES", "en"],
+    genre: catMeta ? `${catMeta.title} / ${catMeta.titleEn}` : photo.category,
     width: {
       "@type": "QuantitativeValue",
       value: photo.width,
@@ -65,7 +107,8 @@ export function generatePhotoSchema(photo: Photo) {
     license: absoluteUrl("/licensing"),
     acquireLicensePage: absoluteUrl("/licensing"),
     creditText: "Javier Espinosa Martínez",
-    copyrightNotice: `© ${photo.year} Javier Espinosa Martínez. Todos los derechos reservados.`,
+    copyrightNotice: `© ${photo.year} Javier Espinosa Martínez. Todos los derechos reservados / All rights reserved.`,
+    copyrightYear: photo.year,
     creator: {
       "@type": "Person",
       "@id": absoluteUrl("/#author"),
@@ -79,9 +122,11 @@ export function generatePhotoSchema(photo: Photo) {
     },
     copyrightHolder: {
       "@type": "Person",
+      "@id": absoluteUrl("/#author"),
       name: "Javier Espinosa Martínez",
     },
     dateCreated: `${photo.year}`,
+    datePublished: `${photo.year}-01-01`,
     keywords: photo.keywords.join(", "),
     exifData: [
       { "@type": "PropertyValue", name: "Camera", value: photo.camera },
@@ -101,6 +146,7 @@ export function generatePhotoSchema(photo: Photo) {
         ? {
             address: {
               "@type": "PostalAddress",
+              addressLocality: photo.location,
               addressCountry: photo.country,
             },
           }
@@ -118,9 +164,11 @@ export function generatePhotoSchema(photo: Photo) {
   }
 
   if (photo.prints) {
-    schema.artform = "Fotografía Fine Art de Autor";
-    schema.artMedium = "Impresión Giclée de 12 tintas sobre algodón Hahnemühle Photo Rag 308 g/m²";
-    schema.surface = "Papel 100% Algodón ISO 9706";
+    schema.artform = "Fotografía Fine Art de Autor / Fine Art Photography";
+    schema.artMedium =
+      "Impresión Giclée de 12 tintas pigmentadas sobre papel 100% algodón Hahnemühle Photo Rag 308 g/m²";
+    schema.surface = "Papel 100% Algodón Hahnemühle Photo Rag 308g (ISO 9706)";
+    schema.artEdition = "Edición limitada numerada y firmada (10 a 50 ejemplares)";
     schema.offers = {
       "@type": "AggregateOffer",
       priceCurrency: "EUR",
@@ -128,15 +176,83 @@ export function generatePhotoSchema(photo: Photo) {
       highPrice: "890",
       offerCount: "3",
       availability: "https://schema.org/InStock",
+      itemCondition: "https://schema.org/NewCondition",
       url: absoluteUrl(`/prints?obra=${encodeURIComponent(photo.title)}`),
       seller: {
         "@type": "Person",
+        "@id": absoluteUrl("/#author"),
         name: "Javier Espinosa Martínez",
       },
+      offers: [
+        {
+          "@type": "Offer",
+          name: `${photo.title} — Formato Estudio (33 × 48 cm · Ed. 50)`,
+          price: "240",
+          priceCurrency: "EUR",
+          availability: "https://schema.org/InStock",
+          url: absoluteUrl(`/portfolio/${photo.slug}`),
+        },
+        {
+          "@type": "Offer",
+          name: `${photo.title} — Formato Galería (50 × 70 cm · Ed. 25)`,
+          price: "480",
+          priceCurrency: "EUR",
+          availability: "https://schema.org/InStock",
+          url: absoluteUrl(`/portfolio/${photo.slug}`),
+        },
+        {
+          "@type": "Offer",
+          name: `${photo.title} — Gran Colección (70 × 100 cm · Ed. 10)`,
+          price: "890",
+          priceCurrency: "EUR",
+          availability: "https://schema.org/InStock",
+          url: absoluteUrl(`/portfolio/${photo.slug}`),
+        },
+      ],
     };
   }
 
   return schema;
+}
+
+export function generateCategoryCollectionSchema(
+  category: PhotoCategory,
+  photos: Photo[],
+) {
+  const info = CATEGORY_METADATA[category];
+  return {
+    "@context": "https://schema.org",
+    "@type": ["CollectionPage", "ImageGallery"],
+    "@id": absoluteUrl(`/portfolio/${category}`),
+    name: `${info.title} (${info.titleEn}) — Javier Espinosa Fotografía`,
+    alternateName: info.titleEn,
+    headline: info.subtitle,
+    description: info.description,
+    url: absoluteUrl(`/portfolio/${category}`),
+    inLanguage: ["es-ES", "en"],
+    numberOfItems: photos.length,
+    author: {
+      "@type": "Person",
+      "@id": absoluteUrl("/#author"),
+      name: "Javier Espinosa Martínez",
+    },
+    image: photos.map((p) => ({
+      "@type": "ImageObject",
+      name: p.title,
+      caption: p.description,
+      description: p.alt,
+      contentUrl: absoluteUrl(p.image),
+      url: absoluteUrl(`/portfolio/${p.slug}`),
+      creditText: "Javier Espinosa Martínez",
+      copyrightNotice: `© ${p.year} Javier Espinosa Martínez`,
+      license: absoluteUrl("/licensing"),
+      acquireLicensePage: absoluteUrl("/licensing"),
+      creator: {
+        "@type": "Person",
+        name: "Javier Espinosa Martínez",
+      },
+    })),
+  };
 }
 
 export function generateProjectSchema(project: Project, photos: Photo[]) {

@@ -5,18 +5,34 @@ import {
   AndalusianCenefa,
   AndalusianPageBackdrop,
 } from "@/components/ui/AndalusianMotif";
+import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/metadata";
+import { generateBreadcrumbSchema } from "@/lib/schema";
 
 export const metadata = buildPageMetadata({
-  title: "El Autor & The Art of Seeing | Javier Espinosa",
+  title: "El Autor · Javier Espinosa Martínez & The Art of Seeing | Biografía y Equipo",
   description:
-    "Monografía y declaración artística de Javier Espinosa Martínez. Fotógrafo español especializado en fauna salvaje, rally, arquitectura y narrativa documental con sistema Canon EOS R7.",
+    "Monografía, trayectoria y declaración artística de Javier Espinosa Martínez. Fotógrafo de autor afincado en Tenerife especializado en fauna salvaje, paisaje, rally histórico, arquitectura y narrativa documental con sistema Canon EOS R7.",
   path: "/about",
+  keywords: [
+    "Javier Espinosa Martínez",
+    "Javier Espinosa biografía",
+    "fotógrafo de autor Tenerife",
+    "The Art of Seeing",
+    "Canon EOS R7 fotógrafo",
+    "fine art photographer Spain",
+  ],
 });
 
 export default function AboutPage() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-32 pb-28 text-[#EBE7DF]">
+      <JsonLd
+        data={generateBreadcrumbSchema([
+          { name: "Inicio", path: "/" },
+          { name: "Sobre el Autor", path: "/about" },
+        ])}
+      />
       <AndalusianPageBackdrop variant="sebka" />
       <Container className="relative z-10">
         <AboutInteractiveStudio />

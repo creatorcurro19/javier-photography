@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Photo } from "@/types/photo";
 import { CATEGORY_METADATA } from "@/types/photo";
+import { getProjectsForPhoto } from "@/lib/photos";
 import FavoriteButton from "@/components/photo/FavoriteButton";
 
 type PhotoMetaProps = {
@@ -9,6 +10,7 @@ type PhotoMetaProps = {
 
 export default function PhotoMeta({ photo }: PhotoMetaProps) {
   const categoryInfo = CATEGORY_METADATA[photo.category];
+  const relatedProjects = getProjectsForPhoto(photo.id);
 
   return (
     <header className="border-b border-[#202226] pb-10">
@@ -18,7 +20,7 @@ export default function PhotoMeta({ photo }: PhotoMetaProps) {
             href={`/portfolio/${photo.category}`}
             className="rounded-full border border-[#202226] bg-[#202226]/50 px-3.5 py-1 text-xs font-mono uppercase tracking-[0.2em] text-[#8E8A80] hover:border-[#8E8A80]/60 hover:text-[#EBE7DF] transition"
           >
-            {categoryInfo?.title ?? photo.category}
+            {categoryInfo?.title ?? photo.category} · {categoryInfo?.codeEn}
           </Link>
           <span className="text-xs font-mono text-neutral-600">·</span>
           <span className="text-xs font-mono uppercase tracking-wider text-[#8E8A80]">
@@ -36,10 +38,15 @@ export default function PhotoMeta({ photo }: PhotoMetaProps) {
       <dl className="mt-8 grid grid-cols-2 gap-6 text-sm sm:grid-cols-4 border-y border-[#202226] py-6">
         <div>
           <dt className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#8E8A80]">
-            Serie
+            Colección / Series
           </dt>
           <dd className="mt-1.5 font-light text-[#EBE7DF]">
-            {categoryInfo?.title ?? photo.category}
+            <Link
+              href={`/portfolio/${photo.category}`}
+              className="hover:text-[#C5A880] transition"
+            >
+              {categoryInfo?.title ?? photo.category}
+            </Link>
           </dd>
         </div>
         <div>
@@ -53,7 +60,7 @@ export default function PhotoMeta({ photo }: PhotoMetaProps) {
             Disciplina
           </dt>
           <dd className="mt-1.5 font-light text-[#EBE7DF]">
-            Fotografía de Autor
+            {categoryInfo?.titleEn ?? "Fine Art Photography"}
           </dd>
         </div>
         <div>
@@ -61,16 +68,34 @@ export default function PhotoMeta({ photo }: PhotoMetaProps) {
             Captura Original
           </dt>
           <dd className="mt-1.5 font-light text-[#EBE7DF]">
-            32,5 MP (Sensor Dual Pixel)
+            32,5 MP · {photo.focalLength}
           </dd>
         </div>
         {photo.location && (
           <div className="col-span-2">
             <dt className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#8E8A80]">
-              Ubicación
+              Ubicación / Location
             </dt>
             <dd className="mt-1.5 font-light text-[#EBE7DF]">
               {photo.location}{photo.country ? `, ${photo.country}` : ""}
+            </dd>
+          </div>
+        )}
+        {relatedProjects.length > 0 && (
+          <div className="col-span-2">
+            <dt className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#C5A880]">
+              Ensayo Monográfico / Monograph Essay
+            </dt>
+            <dd className="mt-1.5 flex flex-wrap gap-3 font-light text-[#EBE7DF]">
+              {relatedProjects.map((project) => (
+                <Link
+                  key={project.id}
+                  href={`/projects/${project.slug}`}
+                  className="underline decoration-[#C5A880]/50 underline-offset-4 hover:text-[#C5A880] transition"
+                >
+                  {project.title} →
+                </Link>
+              ))}
             </dd>
           </div>
         )}

@@ -6,14 +6,24 @@ import {
   AndalusianCenefa,
   AndalusianPageBackdrop,
 } from "@/components/ui/AndalusianMotif";
+import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getLicensedPhotos } from "@/lib/photos";
+import { generateBreadcrumbSchema } from "@/lib/schema";
 
 export const metadata = buildPageMetadata({
-  title: "Licencias de Imagen | Javier Espinosa",
+  title: "Licencias de Imagen Editorial y Comercial (Image Licensing) | Javier Espinosa",
   description:
-    "Cesión de derechos y licencias de fotografía de alta resolución para usos editoriales, comerciales, corporativos y publicitarios.",
+    "Cesión de derechos y licencias Rights-Managed de fotografía en alta resolución (32,5 MP TIFF/JPEG) para usos editoriales, prensa, campañas comerciales y decoración corporativa.",
   path: "/licensing",
+  keywords: [
+    "licencias de fotografía",
+    "image licensing spain",
+    "cesión de derechos fotográficos",
+    "editorial photography licensing",
+    "rights managed photography",
+    "banco de imágenes autor",
+  ],
 });
 
 const TIERS = [
@@ -80,6 +90,12 @@ export default function LicensingPage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
+      <JsonLd
+        data={generateBreadcrumbSchema([
+          { name: "Inicio", path: "/" },
+          { name: "Licencias de Imagen", path: "/licensing" },
+        ])}
+      />
       <AndalusianPageBackdrop variant="laceria" />
       <Container className="relative z-10">
         {/* Header */}

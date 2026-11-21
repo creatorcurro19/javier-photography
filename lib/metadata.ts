@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import type { Photo } from "@/types/photo";
+import { CATEGORY_METADATA, type Photo } from "@/types/photo";
 
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ||
@@ -11,6 +11,20 @@ const DEFAULT_OG = "/opengraph-image";
 
 export function absoluteUrl(path: string): string {
   return new URL(path, SITE_URL).toString();
+}
+
+export function buildLanguageAlternates(path: string) {
+  const cleanUrl = absoluteUrl(path);
+  const sep = cleanUrl.includes("?") ? "&" : "?";
+  return {
+    canonical: cleanUrl,
+    languages: {
+      "es-ES": cleanUrl,
+      es: cleanUrl,
+      en: `${cleanUrl}${sep}lang=en`,
+      "x-default": cleanUrl,
+    },
+  };
 }
 
 export function buildPageMetadata({
@@ -33,9 +47,7 @@ export function buildPageMetadata({
     title,
     description,
     keywords,
-    alternates: {
-      canonical: url,
-    },
+    alternates: buildLanguageAlternates(path),
     openGraph: {
       title,
       description,
@@ -43,7 +55,8 @@ export function buildPageMetadata({
       siteName: SITE_NAME,
       type: "website",
       locale: "es_ES",
-      images: [{ url: imageUrl, alt: title }],
+      alternateLocale: ["en_US", "en_GB"],
+      images: [{ url: imageUrl, width: 1200, height: 630, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
@@ -55,30 +68,45 @@ export function buildPageMetadata({
 }
 
 export function buildPhotoMetadata(photo: Photo): Metadata {
-  const title = `${photo.title}${photo.location ? ` (${photo.location})` : ""}`;
-  const richDescription = `${photo.description} [${photo.camera} · ${photo.focalLength} · ${photo.aperture} · ${photo.shutter} · ISO ${photo.iso}]`;
+  const catMeta = CATEGORY_METADATA[photo.category];
+  const title = `${photo.title}${photo.location ? ` — ${photo.location}` : ""}`;
+  const modeNote = photo.prints
+    ? "Edición Fine Art Hahnemühle Photo Rag 308g & Licencia Editorial"
+    : "Archivo Fotográfico de Autor & Licencia Editorial";
+  const richDescription = `${photo.description} ${
+    photo.location ? `Localización: ${photo.location}${photo.country ? ` (${photo.country})` : ""}. ` : ""
+  }Disciplina: ${catMeta?.title ?? photo.category} (${catMeta?.titleEn ?? ""}). Captura: ${photo.camera} · ${photo.focalLength} · ${photo.aperture} · ${photo.shutter} · ISO ${photo.iso}. ${modeNote}.`;
   const path = `/portfolio/${photo.slug}`;
+  const url = absoluteUrl(path);
+  const imageUrl = absoluteUrl(photo.image);
 
   return {
     title,
     description: richDescription,
-    keywords: photo.keywords,
-    alternates: {
-      canonical: absoluteUrl(path),
-    },
+    keywords: [
+      ...photo.keywords,
+      photo.title,
+      ...(photo.location ? [photo.location] : []),
+      catMeta?.title ?? photo.category,
+      catMeta?.titleEn ?? "Fine Art Photography",
+      "Javier Espinosa Martínez",
+    ],
+    alternates: buildLanguageAlternates(path),
     openGraph: {
       title: `${title} | Javier Espinosa Fotografía`,
       description: richDescription,
-      url: absoluteUrl(path),
+      url,
       siteName: SITE_NAME,
       type: "article",
       locale: "es_ES",
+      alternateLocale: ["en_US", "en_GB"],
       images: [
         {
-          url: absoluteUrl(photo.image),
+          url: imageUrl,
           width: photo.width,
           height: photo.height,
           alt: photo.alt,
+          type: "image/jpeg",
         },
       ],
     },
@@ -86,7 +114,7 @@ export function buildPhotoMetadata(photo: Photo): Metadata {
       card: "summary_large_image",
       title: `${title} | Javier Espinosa Fotografía`,
       description: richDescription,
-      images: [absoluteUrl(photo.image)],
+      images: [imageUrl],
     },
   };
 }
