@@ -11,6 +11,9 @@ interface SearchParamsSyncProps {
     motivo: string;
     obra: string;
     formato: string;
+    uso: string;
+    territorio: string;
+    duracion: string;
     tipo: string;
     servicio: string;
   }) => void;
@@ -21,12 +24,15 @@ function SearchParamsReader({ onSync }: SearchParamsSyncProps) {
   const motivo = searchParams.get("motivo") || "";
   const obra = searchParams.get("obra") || "";
   const formato = searchParams.get("formato") || "";
+  const uso = searchParams.get("uso") || "";
+  const territorio = searchParams.get("territorio") || "";
+  const duracion = searchParams.get("duracion") || "";
   const tipo = searchParams.get("tipo") || "";
   const servicio = searchParams.get("servicio") || "";
 
   // Call parent once synchronously or on mount
   useState(() => {
-    onSync({ motivo, obra, formato, tipo, servicio });
+    onSync({ motivo, obra, formato, uso, territorio, duracion, tipo, servicio });
   });
 
   return null;
@@ -52,6 +58,7 @@ export default function ContactForm() {
   });
 
   const [honeypot, setHoneypot] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
   const [submissionStatus, setSubmissionStatus] = useState<
     "idle" | "success" | "manual-required"
   >("idle");
@@ -65,12 +72,18 @@ export default function ContactForm() {
       motivo,
       obra,
       formato,
+      uso,
+      territorio,
+      duracion,
       tipo,
       servicio,
     }: {
       motivo: string;
       obra: string;
       formato: string;
+      uso: string;
+      territorio: string;
+      duracion: string;
       tipo: string;
       servicio: string;
     }) => {
@@ -93,15 +106,18 @@ export default function ContactForm() {
         },
       };
 
+      const normalizedMotivo = motivo.toLowerCase();
       const resolvedMotivo =
         servicio && servicioMap[servicio]
           ? servicioMap[servicio].motivo
-          : motivo === "print"
+          : normalizedMotivo.includes("print")
           ? "print"
-          : motivo === "licencia"
+          : normalizedMotivo.includes("licencia")
           ? "licencia"
-          : motivo === "exposicion"
+          : normalizedMotivo.includes("exposicion")
           ? "exposicion"
+          : normalizedMotivo.includes("encargo")
+          ? "encargo"
           : "";
 
       let resolvedRef = "";
@@ -110,6 +126,9 @@ export default function ContactForm() {
       }
       if (obra) resolvedRef += (resolvedRef ? " | " : "") + `Obra: ${obra}`;
       if (formato) resolvedRef += (resolvedRef ? " | " : "") + `Formato: ${formato}`;
+      if (uso) resolvedRef += (resolvedRef ? " | " : "") + `Uso: ${uso}`;
+      if (territorio) resolvedRef += (resolvedRef ? " | " : "") + `Territorio: ${territorio}`;
+      if (duracion) resolvedRef += (resolvedRef ? " | " : "") + `Duración: ${duracion}`;
       if (tipo) resolvedRef += (resolvedRef ? " | " : "") + `Tipo: ${tipo}`;
 
       setFormData((prev) => ({
@@ -162,11 +181,15 @@ export default function ContactForm() {
     setSubmitting(true);
 
     try {
-      // 1. Try server route
+      // 1. Try server route (with honeypot + Turnstile token)
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, _gotcha: honeypot }),
+        body: JSON.stringify({
+          ...formData,
+          _gotcha: honeypot,
+          turnstileToken,
+        }),
       });
 
       const data = await res.json().catch(() => null);
@@ -465,6 +488,25 @@ export default function ContactForm() {
           />
         </div>
 
+        {/* Protección Antispam: Honeypot + Cloudflare Turnstile */}
+        <div className="border border-white/[0.06] bg-[#0B0C0E]/70 px-4 py-3 font-mono text-[10px] text-[#A39E93] flex flex-wrap items-center justify-between gap-2">
+          <span>
+            Protección Antispam activa (Honeypot + Cloudflare Turnstile)
+          </span>
+          {process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ? (
+            <input
+              type="hidden"
+              name="cf-turnstile-response"
+              value={turnstileToken}
+              onChange={(e) => setTurnstileToken(e.target.value)}
+            />
+          ) : (
+            <span className="text-[#C5A880]">
+              {"{{DATO_PENDIENTE: NEXT_PUBLIC_TURNSTILE_SITE_KEY}}"}
+            </span>
+          )}
+        </div>
+
         <div className="flex items-start gap-3 pt-1">
           <input
             id="privacidad"
@@ -474,7 +516,7 @@ export default function ContactForm() {
             onChange={(e) => setPrivacyAccepted(e.target.checked)}
             className="mt-1 h-4 w-4 accent-[#EBE7DF]"
           />
-          <label htmlFor="privacidad" className="text-xs text-[#8E8A80] font-light leading-relaxed">
+          <label htmlFor="privacidad" className="text-xs text-[#A39E93] font-light leading-relaxed">
             He leído y acepto la{" "}
             <Link
               href="/legal#privacidad"
@@ -482,7 +524,7 @@ export default function ContactForm() {
             >
               Política de Privacidad (RGPD)
             </Link>
-            . Los datos facilitados se emplearán exclusivamente para responder a esta solicitud profesional.
+            . Los datos facilitados se emplearán exclusivamente para responder a esta solicitud en un plazo de 24–48 h laborables.
           </label>
         </div>
 
@@ -490,13 +532,16 @@ export default function ContactForm() {
           <button
             type="submit"
             disabled={submitting || !privacyAccepted}
-            className="inline-flex items-center justify-center border border-[#EBE7DF] bg-[#EBE7DF] px-8 py-3.5 font-mono text-xs uppercase tracking-[0.28em] text-[#0B0C0E] font-medium transition hover:bg-transparent hover:text-white disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+            className="inline-flex min-h-[44px] items-center justify-center border border-[#EBE7DF] bg-[#EBE7DF] px-8 py-3.5 font-mono text-xs uppercase tracking-[0.28em] text-[#0B0C0E] font-medium transition hover:bg-transparent hover:text-white disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
           >
             {submitting ? "Transmitiendo solicitud..." : "Enviar Solicitud"}
           </button>
 
-          <p className="font-mono text-[11px] text-[#8E8A80]">
-            Destino directo: <span className="text-[#EBE7DF]">javierespinosa1995@hotmail.com</span>
+          <p className="font-mono text-[11px] text-[#A39E93]">
+            Respuesta en 24–48 h laborables ·{" "}
+            <span className="text-[#EBE7DF]">
+              contacto@{"{{DATO_PENDIENTE: DOMINIO_PROPIO}}"}
+            </span>
           </p>
         </div>
       </form>

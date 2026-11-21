@@ -28,31 +28,35 @@ export const metadata = buildPageMetadata({
 
 const TIERS = [
   {
-    name: "Editorial & Prensa",
+    name: "Editorial y Prensa",
+    priceFrom: "Desde {{DATO_PENDIENTE: TARIFA_LICENCIA_EDITORIAL}} €",
     scope: "Publicaciones impresas y digitales",
     uses: "Artículos de prensa, revistas de naturaleza y motor, monográficos de viaje, libros temáticos y divulgación.",
-    specs: "Archivos a 300 DPI, perfil Adobe RGB con metadatos IPTC completos.",
+    specs: "Archivos TIFF 16-bit y JPEG máxima calidad a 300 DPI, perfil Adobe RGB con metadatos IPTC completos.",
     pricing: "Tarifas basadas en tirada, posición (portada/interior) y territorio.",
   },
   {
-    name: "Comercial & Publicidad",
+    name: "Comercial y Publicidad",
+    priceFrom: "Desde {{DATO_PENDIENTE: TARIFA_LICENCIA_COMERCIAL}} €",
     scope: "Campañas de marca y producto",
     uses: "Publicidad exterior, catálogos comerciales, comunicación corporativa para automoción, arquitectura o turismo.",
-    specs: "Archivos TIFF 16-bit master sin compresión ni recorte destructivo.",
-    pricing: "Presupuesto a medida según duración de campaña, medios y exclusivity.",
+    specs: "Archivos TIFF 16-bit máster sin compresión ni recorte destructivo.",
+    pricing: "Presupuesto a medida según duración de campaña, medios y exclusividad sectorial.",
   },
   {
-    name: "Digital & Audiovisual",
+    name: "Digital y Audiovisual",
+    priceFrom: "Desde {{DATO_PENDIENTE: TARIFA_LICENCIA_DIGITAL}} €",
     scope: "Plataformas web, redes y vídeo",
     uses: "Cabeceras web, piezas audiovisuales, documentales y campañas en entornos digitales de alta exigencia.",
-    specs: "Entregas en sRGB optimizadas para renderizado en pantallas retina.",
+    specs: "Máster TIFF 16-bit + entregas en sRGB optimizadas para pantallas de alta densidad.",
     pricing: "Cesiones temporales o indefinidas según el alcance del proyecto.",
   },
   {
     name: "Espacios Corporativos",
+    priceFrom: "Desde {{DATO_PENDIENTE: TARIFA_LICENCIA_CORPORATIVA}} €",
     scope: "Decoración interior y sedes",
-    uses: "Murales gran formato para recepciones empresariales, hoteles boutique y oficinas de arquitectura.",
-    specs: "Archivos optimizados para gigantografía y soportes rígidos retroiluminados.",
+    uses: "Murales de gran formato para recepciones empresariales, hoteles boutique y estudios de arquitectura.",
+    specs: "Archivos TIFF 16-bit optimizados para gran formato y soportes expositivos.",
     pricing: "Tarifa fija por ubicación y dimensiones del soporte expositivo.",
   },
 ];
@@ -111,21 +115,22 @@ export default function LicensingPage() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
+            <Link
+              href="/contact?motivo=licencia"
+              className="inline-flex min-h-[44px] items-center gap-2 border border-[#C5A880] bg-[#C5A880] px-6 py-3 text-xs font-mono uppercase tracking-[0.25em] text-[#0B0C0E] font-semibold transition hover:bg-white hover:border-white"
+            >
+              <span>Solicitar Licencia Directa al Autor (Canal Principal)</span>
+              <span>→</span>
+            </Link>
             <a
               href="https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border border-[#EBE7DF] bg-[#EBE7DF] px-6 py-3 text-xs uppercase tracking-[0.25em] text-[#0B0C0E] font-semibold transition hover:bg-transparent hover:text-white"
+              className="inline-flex min-h-[44px] items-center gap-2 border border-[#202226] bg-[#202226]/60 px-6 py-3 text-xs font-mono uppercase tracking-[0.25em] text-[#EBE7DF] transition hover:border-[#A39E93] hover:text-white"
             >
-              <span>Portfolio Oficial en Getty Images / iStock</span>
+              <span>Canal Secundario: Getty Images / iStock</span>
               <span>↗</span>
             </a>
-            <Link
-              href="/contact?motivo=licencia"
-              className="inline-flex items-center gap-2 border border-[#202226] bg-[#202226]/60 px-6 py-3 text-xs uppercase tracking-[0.25em] text-[#EBE7DF] transition hover:border-[#8E8A80] hover:text-white"
-            >
-              Licencia Directa o Exclusividad
-            </Link>
           </div>
         </div>
 
@@ -179,9 +184,14 @@ export default function LicensingPage() {
                 className="flex flex-col justify-between rounded-lg border border-[#202226] bg-[#202226]/40 p-8 sm:p-10 transition hover:border-[#8E8A80]/60"
               >
                 <div>
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-[#8E8A80] font-mono">
-                    {tier.scope}
-                  </span>
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-[#A39E93] font-mono">
+                      {tier.scope}
+                    </span>
+                    <span className="border border-[#C5A880]/35 bg-[#0B0C0E] px-2.5 py-0.5 font-mono text-[10px] text-[#C5A880]">
+                      {tier.priceFrom}
+                    </span>
+                  </div>
                   <h3 className="mt-2 font-serif text-2xl text-[#EBE7DF]">{tier.name}</h3>
                   <p className="mt-4 text-xs leading-relaxed text-[#EBE7DF]/80 font-light">
                     <strong className="text-[#EBE7DF]">Aplicaciones:</strong> {tier.uses}

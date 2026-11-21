@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import type { CartItem, OrderCustomer, CartOrder } from "@/types/cart";
+import type { CartItem, OrderCustomer, CartOrder, ShippingZoneId } from "@/types/cart";
+import { SHIPPING_ZONES } from "@/types/cart";
 import { clearCart } from "@/lib/cart";
 import { trackEvent } from "@/lib/analytics";
 
@@ -33,11 +34,16 @@ export default function CheckoutModal({
     notas: "",
   });
 
+  const [shippingZone, setShippingZone] = useState<ShippingZoneId>("canarias");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [privacyAccepted, setPrivacyAccepted] = useState(true);
 
   if (!isOpen) return null;
+
+  const currentZone = SHIPPING_ZONES[shippingZone];
+  const shippingCost = currentZone.cost;
+  const totalAmount = subtotal + shippingCost;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,6 +75,9 @@ export default function CheckoutModal({
       customer,
       items,
       subtotal,
+      shippingZone,
+      shippingCost,
+      total: totalAmount,
       createdAt: new Date().toISOString(),
     };
 
@@ -175,9 +184,53 @@ export default function CheckoutModal({
             ))}
           </div>
 
-          <div className="mt-4 pt-3 border-t border-white/[0.08] flex items-center justify-between font-mono text-xs">
-            <span className="text-[#8E8A80] uppercase tracking-wider">Total a tramitar:</span>
-            <span className="text-[#EBE7DF] text-sm font-semibold">{subtotal} €</span>
+          {/* Selector de Zona de Envío e Impuestos */}
+          <div className="mt-4 border-t border-white/[0.08] pt-3">
+            <label className="block font-mono text-[10px] uppercase tracking-[0.25em] text-[#C5A880] mb-2">
+              Zona de Envío en Tubo Rígido e Impuestos:
+            </label>
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+              {(Object.keys(SHIPPING_ZONES) as ShippingZoneId[]).map((zId) => {
+                const z = SHIPPING_ZONES[zId];
+                const active = shippingZone === zId;
+                return (
+                  <button
+                    key={zId}
+                    type="button"
+                    onClick={() => setShippingZone(zId)}
+                    className={`border p-2.5 text-left font-mono text-[10px] transition ${
+                      active
+                        ? "border-[#C5A880] bg-[#C5A880]/15 text-[#EBE7DF]"
+                        : "border-white/[0.08] bg-[#0B0C0E] text-[#A39E93] hover:text-white"
+                    }`}
+                  >
+                    <span className="block font-semibold text-[#EBE7DF]">{z.label}</span>
+                    <span className="block mt-0.5 text-[#C5A880]">
+                      Envío: {z.cost === 0 ? "0 € (Incluido)" : `+${z.cost} €`}
+                    </span>
+                    <span className="block mt-0.5 text-[9px] text-[#A39E93]">{z.deliveryDays}</span>
+                  </button>
+                );
+              })}
+            </div>
+            <p className="mt-2 font-mono text-[10px] text-[#A39E93]">
+              {currentZone.taxNote}
+            </p>
+          </div>
+
+          <div className="mt-4 pt-3 border-t border-white/[0.08] space-y-1 font-mono text-xs">
+            <div className="flex items-center justify-between text-[#A39E93]">
+              <span>Subtotal copias Fine Art:</span>
+              <span>{subtotal} €</span>
+            </div>
+            <div className="flex items-center justify-between text-[#A39E93]">
+              <span>Envío asegurado en tubo rígido ({currentZone.label}):</span>
+              <span>{shippingCost === 0 ? "0 € (Incluido)" : `${shippingCost} €`}</span>
+            </div>
+            <div className="flex items-center justify-between pt-1 text-sm">
+              <span className="text-[#EBE7DF] uppercase tracking-wider">Total a tramitar:</span>
+              <span className="text-[#EBE7DF] font-semibold">{totalAmount} €</span>
+            </div>
           </div>
         </div>
 

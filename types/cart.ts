@@ -1,5 +1,39 @@
 import type { Photo } from "@/types/photo";
 
+export type ShippingZoneId = "canarias" | "peninsula" | "internacional";
+
+export interface ShippingZone {
+  id: ShippingZoneId;
+  label: string;
+  cost: number;
+  taxNote: string;
+  deliveryDays: string;
+}
+
+export const SHIPPING_ZONES: Record<ShippingZoneId, ShippingZone> = {
+  canarias: {
+    id: "canarias",
+    label: "Tenerife e Islas Canarias",
+    cost: 0,
+    taxNote: "Impuestos: {{DATO_PENDIENTE: confirmar exención IGIC REPEP 0% o tipo IGIC aplicable}}",
+    deliveryDays: "5–7 días laborables (entrega en tubo rígido)",
+  },
+  peninsula: {
+    id: "peninsula",
+    label: "España Peninsular y Baleares",
+    cost: 15,
+    taxNote: "Impuestos y DUA: {{DATO_PENDIENTE: confirmar régimen IGIC exportación / IVA 10% Objeto de Arte}}",
+    deliveryDays: "6–9 días laborables (correo certificado en tubo rígido)",
+  },
+  internacional: {
+    id: "internacional",
+    label: "Unión Europea e Internacional",
+    cost: 28,
+    taxNote: "Impuestos: Exportación desde Canarias ({{DATO_PENDIENTE: confirmar régimen aduanero aplicable}})",
+    deliveryDays: "8–12 días laborables (envío internacional en tubo rígido)",
+  },
+};
+
 export interface PrintFormat {
   id: "estudio" | "galeria" | "coleccion";
   name: string;
@@ -8,6 +42,8 @@ export interface PrintFormat {
   price: number;
   framePrice: number;
   editionLimit: number;
+  disabled?: boolean;
+  disabledReason?: string;
 }
 
 export const PRINT_FORMATS: Record<PrintFormat["id"], PrintFormat> = {
@@ -15,7 +51,7 @@ export const PRINT_FORMATS: Record<PrintFormat["id"], PrintFormat> = {
     id: "estudio",
     name: "Formato Estudio",
     dimensions: "30 × 45 cm",
-    imageDimensions: "Margen blanco de conservación incluido",
+    imageDimensions: "Mancha 24 × 36 cm (margen blanco 3–4,5 cm)",
     price: 120,
     framePrice: 0,
     editionLimit: 25,
@@ -24,7 +60,7 @@ export const PRINT_FORMATS: Record<PrintFormat["id"], PrintFormat> = {
     id: "galeria",
     name: "Formato Galería",
     dimensions: "50 × 70 cm",
-    imageDimensions: "Margen blanco de conservación incluido",
+    imageDimensions: "Mancha 40 × 60 cm (margen blanco 5 cm)",
     price: 220,
     framePrice: 0,
     editionLimit: 25,
@@ -33,28 +69,48 @@ export const PRINT_FORMATS: Record<PrintFormat["id"], PrintFormat> = {
     id: "coleccion",
     name: "Gran Colección",
     dimensions: "70 × 100 cm",
-    imageDimensions: "Margen blanco de conservación incluido",
+    imageDimensions: "Mancha 60 × 90 cm (margen blanco 5 cm)",
     price: 380,
     framePrice: 0,
     editionLimit: 25,
   },
 };
 
+function computeImageArea(paperDims: string, tier: "estudio" | "galeria" | "coleccion"): string {
+  if (paperDims.includes("30 × 40")) return "Mancha 24 × 32 cm (margen blanco 3–4 cm)";
+  if (paperDims.includes("30 × 45")) return "Mancha 24 × 36 cm (margen blanco 3–4,5 cm)";
+  if (paperDims.includes("45 × 60")) return "Mancha 36 × 48 cm (margen blanco 4,5–6 cm)";
+  if (paperDims.includes("50 × 70")) return "Mancha 40 × 60 cm (margen blanco 5 cm)";
+  if (paperDims.includes("60 × 90")) return "Mancha 50 × 75 cm (margen blanco 5–7,5 cm)";
+  if (paperDims.includes("70 × 100")) return "Mancha 60 × 90 cm (margen blanco 5 cm)";
+  return PRINT_FORMATS[tier].imageDimensions;
+}
+
 /**
- * Devuelve los 3 formatos con el precio, dimensiones exactas y límite de edición
- * propios e individuales de la fotografía indicada (solo impresión en tubo, sin marco).
+ * Devuelve los 3 formatos con el precio, dimensiones exactas (papel vs mancha),
+ * límite de edición y restricción de formato máximo según resolución e ISO.
  */
 export function getFormatsForPhoto(
-  photo: Pick<Photo, "pricing">
+  photo: Pick<Photo, "pricing" | "maxRecommendedFormat" | "maxFormatReason" | "iso" | "camera">
 ): Record<PrintFormat["id"], PrintFormat> {
   const p = photo.pricing;
   const editionLimit = p?.editionTotal ?? 25;
+  const estudioDims = p?.dimensions.estudio ?? PRINT_FORMATS.estudio.dimensions;
+  const galeriaDims = p?.dimensions.galeria ?? PRINT_FORMATS.galeria.dimensions;
+  const coleccionDims = p?.dimensions.coleccion ?? PRINT_FORMATS.coleccion.dimensions;
+
+  const isColeccionDisabled =
+    photo.maxRecommendedFormat === "galeria" ||
+    photo.maxRecommendedFormat === "estudio" ||
+    (photo.iso !== undefined && photo.iso >= 3200) ||
+    Boolean(photo.camera && photo.camera.includes("750D"));
+
   return {
     estudio: {
       id: "estudio",
       name: "Formato Estudio",
-      dimensions: p?.dimensions.estudio ?? PRINT_FORMATS.estudio.dimensions,
-      imageDimensions: "Lámina con margen blanco · Envío en tubo rígido",
+      dimensions: estudioDims,
+      imageDimensions: computeImageArea(estudioDims, "estudio"),
       price: p?.estudio ?? PRINT_FORMATS.estudio.price,
       framePrice: 0,
       editionLimit,
@@ -62,8 +118,8 @@ export function getFormatsForPhoto(
     galeria: {
       id: "galeria",
       name: "Formato Galería",
-      dimensions: p?.dimensions.galeria ?? PRINT_FORMATS.galeria.dimensions,
-      imageDimensions: "Lámina con margen blanco · Envío en tubo rígido",
+      dimensions: galeriaDims,
+      imageDimensions: computeImageArea(galeriaDims, "galeria"),
       price: p?.galeria ?? PRINT_FORMATS.galeria.price,
       framePrice: 0,
       editionLimit,
@@ -71,11 +127,16 @@ export function getFormatsForPhoto(
     coleccion: {
       id: "coleccion",
       name: "Gran Colección",
-      dimensions: p?.dimensions.coleccion ?? PRINT_FORMATS.coleccion.dimensions,
-      imageDimensions: "Lámina con margen blanco · Envío en tubo rígido",
+      dimensions: coleccionDims,
+      imageDimensions: computeImageArea(coleccionDims, "coleccion"),
       price: p?.coleccion ?? PRINT_FORMATS.coleccion.price,
       framePrice: 0,
       editionLimit,
+      disabled: isColeccionDisabled,
+      disabledReason: isColeccionDisabled
+        ? photo.maxFormatReason ??
+          "Por resolución nativa o sensibilidad ISO elevada, esta obra se limita a Formato Galería (50 × 70 cm) para garantizar máxima nitidez."
+        : undefined,
     },
   };
 }
@@ -110,5 +171,8 @@ export interface CartOrder {
   customer: OrderCustomer;
   items: CartItem[];
   subtotal: number;
+  shippingZone?: ShippingZoneId;
+  shippingCost?: number;
+  total?: number;
   createdAt: string;
 }

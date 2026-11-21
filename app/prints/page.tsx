@@ -223,9 +223,75 @@ export default function PrintsPage() {
             ))}
           </div>
 
-          <p className="mt-4 font-mono text-[11px] text-[#8E8A80] leading-relaxed">
-            * Cada fotografía cuenta con una valoración individual según su dificultad técnica, soporte asignado (Algodón Mate 308g o Baritado 340g) y edición limitada (máximo de 12 a 30 ejemplares por obra). Todas las obras se entregan sin enmarcar en tubo rígido de alta densidad con margen blanco de conservación.
-          </p>
+          {/* Tabla Única de Formatos, Medidas (Papel vs Mancha), Plazos, Impuestos y Envío */}
+          <div className="mt-10 overflow-x-auto border border-white/[0.08] bg-[#151618]">
+            <table className="w-full text-left text-xs">
+              <thead className="border-b border-white/[0.08] bg-[#0B0C0E] font-mono text-[10px] uppercase tracking-[0.22em] text-[#C5A880]">
+                <tr>
+                  <th className="py-3.5 px-4">Formato</th>
+                  <th className="py-3.5 px-4">Papel Total</th>
+                  <th className="py-3.5 px-4">Mancha de Imagen</th>
+                  <th className="py-3.5 px-4">Precio (según obra)</th>
+                  <th className="py-3.5 px-4">Enmarcado / Entrega</th>
+                  <th className="py-3.5 px-4">Plazo Producción</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/[0.06] font-mono text-xs text-[#EBE7DF]">
+                <tr>
+                  <td className="py-3.5 px-4 font-serif text-base">Formato Estudio</td>
+                  <td className="py-3.5 px-4">30 × 45 cm (o 30 × 40 cm)</td>
+                  <td className="py-3.5 px-4 text-[#A39E93]">24 × 36 cm (o 24 × 32 cm) · Margen blanco 3–4,5 cm</td>
+                  <td className="py-3.5 px-4 text-[#C5A880] font-semibold">95 € — 175 €</td>
+                  <td className="py-3.5 px-4 text-[#A39E93]">Sin enmarcar · Tubo rígido de alta densidad</td>
+                  <td className="py-3.5 px-4 text-[#A39E93]">5–7 días laborables</td>
+                </tr>
+                <tr>
+                  <td className="py-3.5 px-4 font-serif text-base">Formato Galería</td>
+                  <td className="py-3.5 px-4">50 × 70 cm (o 45 × 60 cm)</td>
+                  <td className="py-3.5 px-4 text-[#A39E93]">40 × 60 cm (o 36 × 48 cm) · Margen blanco 4,5–6 cm</td>
+                  <td className="py-3.5 px-4 text-[#C5A880] font-semibold">165 € — 310 €</td>
+                  <td className="py-3.5 px-4 text-[#A39E93]">Sin enmarcar · Tubo rígido de alta densidad</td>
+                  <td className="py-3.5 px-4 text-[#A39E93]">5–7 días laborables</td>
+                </tr>
+                <tr>
+                  <td className="py-3.5 px-4 font-serif text-base">Gran Colección*</td>
+                  <td className="py-3.5 px-4">70 × 100 cm (o 60 × 90 cm)</td>
+                  <td className="py-3.5 px-4 text-[#A39E93]">60 × 90 cm (o 50 × 75 cm) · Margen blanco 5–7,5 cm</td>
+                  <td className="py-3.5 px-4 text-[#C5A880] font-semibold">280 € — 510 €</td>
+                  <td className="py-3.5 px-4 text-[#A39E93]">Sin enmarcar · Tubo rígido de gran formato</td>
+                  <td className="py-3.5 px-4 text-[#A39E93]">5–7 días laborables</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-4 grid grid-cols-1 gap-4 border border-white/[0.08] bg-[#0B0C0E] p-5 font-mono text-[11px] text-[#A39E93] sm:grid-cols-2">
+            <div>
+              <strong className="text-[#EBE7DF] block uppercase tracking-wider">
+                Coste de envío asegurado en tubo rígido por zona:
+              </strong>
+              <span className="mt-1 block">
+                · Tenerife e Islas Canarias: <strong className="text-[#EBE7DF]">0 € (Incluido)</strong> · Entrega 5–7 días laborables.
+              </span>
+              <span className="block">
+                · España Peninsular y Baleares: <strong className="text-[#EBE7DF]">+15 €</strong> · Entrega 6–9 días laborables.
+              </span>
+              <span className="block">
+                · Unión Europea e Internacional: <strong className="text-[#EBE7DF]">+28 €</strong> · Entrega 8–12 días laborables.
+              </span>
+            </div>
+            <div>
+              <strong className="text-[#EBE7DF] block uppercase tracking-wider">
+                Impuestos y Formato Máximo Recomendado:
+              </strong>
+              <span className="mt-1 block">
+                · Régimen fiscal: {"{{DATO_PENDIENTE: confirmar mención fiscal exacta IGIC / REPEP / IVA Objeto de Arte}}"}.
+              </span>
+              <span className="block">
+                · *En fotografías capturadas a ISO ≥ 3200 o con sensor de 24 MP (EOS 750D), el formato 70 × 100 cm se deshabilita automáticamente recomendando hasta Galería (50 × 70 cm).
+              </span>
+            </div>
+          </div>
         </div>
 
         {/* Distinction between Fine Art, Licensing, and Commissions */}

@@ -22,11 +22,39 @@ export async function POST(request: Request) {
       );
     }
 
-    const { nombre, email, telefono, motivo, referencia, mensaje, _gotcha } = body;
+    const { nombre, email, telefono, motivo, referencia, mensaje, _gotcha, turnstileToken } = body;
 
     // Anti-spam honeypot: reject bots silently
     if (_gotcha) {
       return NextResponse.json({ ok: true, provider: "spam-filtered" });
+    }
+
+    // Optional Cloudflare Turnstile verification if TURNSTILE_SECRET_KEY is configured
+    const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
+    if (turnstileSecret && turnstileToken) {
+      try {
+        const verifyRes = await fetch(
+          "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams({
+              secret: turnstileSecret,
+              response: String(turnstileToken),
+              remoteip: ip,
+            }),
+          }
+        );
+        const verifyJson = await verifyRes.json().catch(() => null);
+        if (verifyJson && verifyJson.success === false) {
+          return NextResponse.json(
+            { ok: false, error: "Verificación antispam (Turnstile) no superada." },
+            { status: 400 }
+          );
+        }
+      } catch {
+        // Allow fallback if Turnstile endpoint is unreachable
+      }
     }
 
     if (!nombre || !email || !mensaje) {
@@ -83,7 +111,23 @@ export async function POST(request: Request) {
     );
 
     if (resendOk) {
-      return NextResponse.json({ ok: true, provider: "resend" });
+      // Enviar correo de confirmación automática al remitente (promesa única: 24–48 h laborables)
+      await sendWithResend(
+        {
+          to: [cleanEmail],
+          replyTo: DESTINATION_EMAIL,
+          subject: `Confirmación de consulta recibida — Javier Espinosa Fotografía`,
+          html: `<div style="font-family:sans-serif;background:#0B0C0E;color:#EBE7DF;padding:32px;max-width:560px">
+            <p style="font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:#C5A880">Javier Espinosa · Fotografía de Autor (Tenerife)</p>
+            <h2 style="font-weight:300;margin-top:12px">Hemos recibido tu consulta, ${cleanNombre}</h2>
+            <p style="color:#A39E93;font-size:14px;line-height:1.6">Tu solicitud sobre <strong>${cleanMotivo}</strong> (${cleanReferencia || "Consulta general"}) ha quedado registrada. Javier Espinosa te responderá personalmente en un plazo de <strong>24 a 48 horas laborables</strong>.</p>
+          </div>`,
+          text: `Hola ${cleanNombre},\n\nHemos recibido tu consulta (${cleanMotivo} · ${cleanReferencia || "General"}).\nTe responderemos personalmente en un plazo de 24 a 48 horas laborables.\n\nJavier Espinosa Martínez\nTenerife, Islas Canarias`,
+        },
+        "contact"
+      ).catch(() => null);
+
+      return NextResponse.json({ ok: true, provider: "resend", confirmationSent: true });
     }
 
     // 2. FormSubmit AJAX relay directo a javierespinosa1995@hotmail.com

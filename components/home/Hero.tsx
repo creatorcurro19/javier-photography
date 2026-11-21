@@ -215,37 +215,38 @@ export default function Hero() {
             </Link>
           </p>
 
-          {/* Jerarquía de CTAs: Principal "Encargar una copia", Secundario "Pedir presupuesto", Terciarios de exploración */}
-          <div className="mt-6 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4 md:mt-7">
+          {/* CTA Primario Único en Hero + Enlaces secundarios de exploración */}
+          <div className="mt-6 flex flex-col items-center justify-center gap-3 md:mt-7">
             <Link
               href="/prints"
-              className="group inline-flex min-h-[44px] items-center justify-center gap-2 border border-[#C5A880] bg-[#C5A880] px-7 py-3 text-[11px] uppercase tracking-[0.24em] text-[#0B0C0E] font-semibold transition-all duration-300 hover:bg-white hover:border-white shadow-lg"
+              className="group inline-flex min-h-[44px] items-center justify-center gap-2 border border-[#C5A880] bg-[#C5A880] px-8 py-3.5 text-[11px] uppercase tracking-[0.24em] text-[#0B0C0E] font-semibold transition-all duration-300 hover:bg-white hover:border-white shadow-lg"
             >
-              <span>{t("Encargar una copia", "Order a Print")}</span>
+              <span>{t("Encargar una copia Fine Art", "Order a Fine Art Print")}</span>
               <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-            </Link>
-            <Link
-              href="/servicios"
-              className="inline-flex min-h-[44px] items-center justify-center gap-2 border border-white/30 bg-[#0B0C0E]/80 px-7 py-3 text-[11px] uppercase tracking-[0.24em] text-[#F7F4EE] font-medium transition-all duration-300 hover:border-[#C5A880] hover:text-white hover:bg-[#151618]"
-            >
-              <span>{t("Pedir presupuesto", "Request a Quote")}</span>
             </Link>
           </div>
 
-          {/* Enlaces terciarios de exploración del archivo */}
-          <div className="mt-3.5 flex items-center justify-center gap-4 text-[10px] font-mono uppercase tracking-[0.22em] text-[#A39E93]">
+          {/* Enlaces secundarios limpios */}
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-3 text-[10px] font-mono uppercase tracking-[0.22em] text-[#A39E93]">
             <Link
               href="/portfolio"
               className="inline-flex min-h-[44px] items-center px-2 transition-colors hover:text-[#EBE7DF] hover:underline underline-offset-4"
             >
-              {t("Explorar Obras", "Explore Works")} →
+              {t("Explorar Obra", "Explore Works")} →
+            </Link>
+            <span className="text-white/25">·</span>
+            <Link
+              href="/servicios"
+              className="inline-flex min-h-[44px] items-center px-2 transition-colors hover:text-[#EBE7DF] hover:underline underline-offset-4"
+            >
+              {t("Encargos y Presupuestos", "Commissions & Quotes")} →
             </Link>
             <span className="text-white/25">·</span>
             <Link
               href="/projects"
               className="inline-flex min-h-[44px] items-center px-2 transition-colors hover:text-[#EBE7DF] hover:underline underline-offset-4"
             >
-              {t("Series Monográficas", "Monograph Series")} →
+              {t("8 Series", "8 Series")} →
             </Link>
           </div>
         </div>

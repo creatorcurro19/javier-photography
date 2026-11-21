@@ -17,38 +17,37 @@ export const metadata = buildPageMetadata({
 
 const CONTACT_INFO = [
   {
-    label: "Correo Electrónico",
-    value: "javierespinosa1995@hotmail.com",
+    label: "Correo Electrónico (Dominio Propio / Estudio)",
+    value: "contacto@{{DATO_PENDIENTE: DOMINIO_PROPIO}} / javierespinosa1995@hotmail.com",
     href: "mailto:javierespinosa1995@hotmail.com",
-    note: "Respuesta habitual en menos de 24 horas",
+    note: "Plazo de respuesta: 24–48 h laborables",
+  },
+  {
+    label: "WhatsApp y Teléfono Directo",
+    value: "{{DATO_PENDIENTE: TELEFONO_WHATSAPP}}",
+    note: "Atención en horario de estudio (Tenerife · GMT/WEST) · Respuesta en 24–48 h laborables",
   },
   {
     label: "Base de Operaciones",
-    value: "Tenerife, Canarias, España",
+    value: "Tenerife, Islas Canarias, España",
     note: "Base insular con disponibilidad para desplazamientos a Península e internacionales",
   },
   {
     label: "Especialidades",
-    value: "Rally / Motor · Arquitectura · Fauna · Viajes",
+    value: "Rally / Motor · Arquitectura · Fauna · Documental",
     note: "Equipo Canon EOS R7 y ópticas de precisión",
   },
   {
     label: "Tiradas Fine Art",
-    value: "Saatchi Art & Edición Directa Hahnemühle 308g",
+    value: "Edición Directa en Tubo Rígido (Hahnemühle 308g / Baryta 340g) y Saatchi Art",
     href: "https://www.saatchiart.com/javier-espinosa-photography",
     note: "Certificado de autenticidad y numeración de autor",
   },
   {
-    label: "Banco de Licencias",
+    label: "Banco de Licencias Secundario",
     value: "Getty Images / iStock Portfolio",
     href: "https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image",
-    note: "Descarga inmediata para agencias y editoriales",
-  },
-  {
-    label: "Instagram Oficial",
-    value: "@Javier.espinosa19",
-    href: "https://www.instagram.com/Javier.espinosa19/",
-    note: "Publicaciones recientes y cuaderno de viaje",
+    note: "Licencia directa como canal principal; iStock para descarga de agencia",
   },
 ];
 

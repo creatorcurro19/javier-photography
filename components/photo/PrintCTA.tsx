@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import CertificateOfAuthenticityModal from "@/components/prints/CertificateOfAuthenticityModal";
 import { AndalusianCornerOrnaments } from "@/components/ui/AndalusianMotif";
 import type { Photo } from "@/types/photo";
@@ -92,64 +93,77 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
           ).map((fmtKey) => {
             const fmt = formats[fmtKey];
             const isSelected = selectedFormatId === fmtKey;
+            const isDisabled = Boolean(fmt.disabled);
             return (
               <button
                 key={fmtKey}
                 type="button"
-                onClick={() => setSelectedFormatId(fmtKey)}
+                disabled={isDisabled}
+                onClick={() => !isDisabled && setSelectedFormatId(fmtKey)}
                 className={`flex flex-col justify-between border p-4 text-left transition ${
-                  isSelected
+                  isDisabled
+                    ? "cursor-not-allowed border-white/[0.04] bg-[#0B0C0E]/30 opacity-45"
+                    : isSelected
                     ? "border-[#EBE7DF] bg-[#0B0C0E] text-[#EBE7DF] shadow-md"
-                    : "border-white/[0.08] bg-[#0B0C0E]/50 text-[#8E8A80] hover:border-white/30"
+                    : "border-white/[0.08] bg-[#0B0C0E]/50 text-[#A39E93] hover:border-white/30"
                 }`}
               >
                 <div className="flex items-center justify-between w-full">
-                  <span className="font-mono text-[10px] uppercase tracking-wider text-[#8E8A80]">
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-[#A39E93]">
                     {fmt.name}
                   </span>
                   <span className="font-mono text-[9px] text-[#C5A880]">
-                    Ed. {editionTotal}
+                    {isDisabled ? "No disp." : `Ed. ${editionTotal}`}
                   </span>
                 </div>
                 <span className="mt-2 font-serif text-xl font-light text-[#EBE7DF]">
                   {fmt.price} €
                 </span>
-                <span className="mt-1 font-mono text-[10px] text-[#8E8A80]">
-                  {fmt.dimensions}
+                <span className="mt-1 font-mono text-[10px] text-[#A39E93]">
+                  Papel: {fmt.dimensions}
+                </span>
+                <span className="mt-0.5 font-mono text-[9px] text-[#A39E93]">
+                  {fmt.imageDimensions}
                 </span>
               </button>
             );
           })}
         </div>
+
+        {formats.coleccion.disabled && (
+          <p className="mt-2 border border-[#C5A880]/35 bg-[#0B0C0E]/80 px-3.5 py-2.5 font-mono text-[11px] leading-relaxed text-[#E5D3B3]">
+            Aviso de formato máximo recomendado: {formats.coleccion.disabledReason}
+          </p>
+        )}
       </div>
 
-      {/* Especificación de Entrega en Tubo Rígido (Sin Marco) */}
+      {/* Especificación de Entrega en Tubo Rígido (Sin Marco), Impuestos y Envío por Zona */}
       <div className="mt-5 border border-white/[0.08] bg-[#0B0C0E]/60 p-4">
         <div className="flex items-start gap-3 text-xs">
           <span className="mt-0.5 text-[#C5A880] font-mono">✓</span>
           <div>
             <span className="font-medium text-[#EBE7DF]">
-              Lámina Fine Art sin enmarcar · Envío en tubo rígido de alta densidad incluido
+              Lámina Fine Art sin enmarcar · Envío en tubo rígido (plazo: 5–7 días laborables)
             </span>
-            <p className="mt-0.5 text-[11px] text-[#8E8A80] font-light leading-relaxed">
-              Incluye margen perimetral blanco para facilitar el enmarcado en tu destino, papel seda pH neutro, Certificado de Autenticidad manuscrito y doble holograma numerado.
+            <p className="mt-0.5 text-[11px] text-[#A39E93] font-light leading-relaxed">
+              Papel total {currentFormat.dimensions} ({currentFormat.imageDimensions}). Envío en tubo rígido por zona: Canarias 0 € · Península y Baleares 15 € · Internacional 28 €. Impuestos: {"{{DATO_PENDIENTE: confirmar régimen IGIC / REPEP / IVA Objeto de Arte}}"}.
             </p>
           </div>
         </div>
       </div>
 
-      {/* Total & Acciones de Compra Directa */}
+      {/* Total & Acciones de Compra Directa / Solicitud */}
       <div className="mt-8 pt-6 border-t border-white/[0.08] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-5">
         <div>
-          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80] block">
+          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#A39E93] block">
             Precio de la Copia ({currentFormat.dimensions})
           </span>
           <div className="flex items-baseline gap-2">
             <span className="font-serif text-3xl font-light text-[#EBE7DF]">
               {unitPrice} €
             </span>
-            <span className="font-mono text-[11px] text-[#8E8A80]">
-              (Impresión + Tubo Rígido + Certificado)
+            <span className="font-mono text-[11px] text-[#A39E93]">
+              (Lámina + Tubo Rígido + Certificado)
             </span>
           </div>
         </div>
@@ -158,19 +172,26 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
           <button
             type="button"
             onClick={handleBuyDirectly}
-            className="inline-flex items-center justify-center gap-2 border border-[#EBE7DF] bg-[#EBE7DF] px-7 py-3.5 font-mono text-xs uppercase tracking-[0.25em] text-[#0B0C0E] font-semibold transition hover:bg-transparent hover:text-white"
+            className="inline-flex min-h-[44px] items-center justify-center gap-2 border border-[#EBE7DF] bg-[#EBE7DF] px-6 py-3 font-mono text-xs uppercase tracking-[0.22em] text-[#0B0C0E] font-semibold transition hover:bg-transparent hover:text-white"
           >
-            <span>Comprar Ahora</span>
+            <span>Tramitar Pedido</span>
             <span>→</span>
           </button>
 
           <button
             type="button"
             onClick={handleAddToCart}
-            className="inline-flex items-center justify-center gap-2 border border-[#C5A880] bg-[#C5A880]/15 px-6 py-3.5 font-mono text-xs uppercase tracking-[0.25em] text-[#EBE7DF] font-medium transition hover:bg-[#C5A880] hover:text-[#0B0C0E]"
+            className="inline-flex min-h-[44px] items-center justify-center gap-2 border border-[#C5A880] bg-[#C5A880]/15 px-5 py-3 font-mono text-xs uppercase tracking-[0.22em] text-[#EBE7DF] font-medium transition hover:bg-[#C5A880] hover:text-[#0B0C0E]"
           >
             <span>{added ? "✓ En la Cesta" : "+ Añadir a la Cesta"}</span>
           </button>
+
+          <Link
+            href={`/contact?motivo=print&obra=${encodeURIComponent(photo.title)}&formato=${encodeURIComponent(`${currentFormat.name} (${currentFormat.dimensions} · ${unitPrice} €)`)}`}
+            className="inline-flex min-h-[44px] items-center justify-center border border-white/20 bg-[#0B0C0E] px-5 py-3 font-mono text-xs uppercase tracking-[0.2em] text-[#EBE7DF] transition hover:border-[#C5A880] hover:text-white"
+          >
+            Solicitar esta copia
+          </Link>
 
           <CertificateOfAuthenticityModal photo={photo} />
         </div>

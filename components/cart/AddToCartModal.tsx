@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import type { Photo } from "@/types/photo";
 import { getFormatsForPhoto, addToCart } from "@/lib/cart";
 import type { PrintFormat } from "@/types/cart";
@@ -128,30 +129,42 @@ export default function AddToCartModal({
             ).map((fmtKey) => {
               const fmt = formats[fmtKey];
               const isSelected = selectedFormatId === fmtKey;
+              const isDisabled = Boolean(fmt.disabled);
               return (
                 <button
                   key={fmtKey}
                   type="button"
-                  onClick={() => setSelectedFormatId(fmtKey)}
+                  disabled={isDisabled}
+                  onClick={() => !isDisabled && setSelectedFormatId(fmtKey)}
                   className={`flex flex-col justify-between rounded-lg border p-3 text-left transition ${
-                    isSelected
+                    isDisabled
+                      ? "cursor-not-allowed border-white/[0.04] bg-[#111214] opacity-45"
+                      : isSelected
                       ? "border-[#C5A880] bg-[#C5A880]/15 text-[#EBE7DF] ring-1 ring-[#C5A880]"
-                      : "border-white/[0.08] bg-[#151719] text-[#8E8A80] hover:border-white/30 hover:text-white"
+                      : "border-white/[0.08] bg-[#151719] text-[#A39E93] hover:border-white/30 hover:text-white"
                   }`}
                 >
                   <span className="font-mono text-[9px] uppercase tracking-wider text-[#C5A880]">
-                    {fmt.name.replace("Formato ", "")}
+                    {fmt.name.replace("Formato ", "")} {isDisabled ? "(No disp.)" : ""}
                   </span>
                   <span className="mt-1 font-serif text-lg font-light text-[#EBE7DF]">
                     {fmt.price} €
                   </span>
-                  <span className="mt-0.5 font-mono text-[9px] text-[#8E8A80]">
-                    {fmt.dimensions}
+                  <span className="mt-0.5 font-mono text-[9px] text-[#A39E93]">
+                    Papel: {fmt.dimensions}
+                  </span>
+                  <span className="mt-0.5 font-mono text-[8.5px] text-[#A39E93]">
+                    {fmt.imageDimensions}
                   </span>
                 </button>
               );
             })}
           </div>
+          {formats.coleccion.disabled && (
+            <p className="mt-2 rounded border border-[#C5A880]/30 bg-black/50 p-2.5 font-mono text-[10px] leading-relaxed text-[#E5D3B3]">
+              {formats.coleccion.disabledReason}
+            </p>
+          )}
         </div>
 
         {/* Tube Delivery Guarantee (Unframed) */}
@@ -213,25 +226,32 @@ export default function AddToCartModal({
               <button
                 type="button"
                 onClick={handleBuyNow}
-                className="w-full rounded-lg border border-[#EBE7DF] bg-[#EBE7DF] py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-[#0B0C0E] font-semibold transition hover:bg-transparent hover:text-white"
+                className="w-full rounded-lg border border-[#EBE7DF] bg-[#EBE7DF] py-3 font-mono text-xs uppercase tracking-[0.2em] text-[#0B0C0E] font-semibold transition hover:bg-transparent hover:text-white"
               >
-                {t("Comprar Ahora →", "Buy Directly →")}
+                {t("Tramitar Pedido →", "Proceed to Checkout →")}
               </button>
               <button
                 type="button"
                 onClick={handleAdd}
                 disabled={added}
-                className="w-full rounded-lg border border-[#C5A880] bg-[#C5A880]/15 py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-[#EBE7DF] font-semibold transition hover:bg-[#C5A880] hover:text-[#0B0C0E] disabled:opacity-50"
+                className="w-full rounded-lg border border-[#C5A880] bg-[#C5A880]/15 py-3 font-mono text-xs uppercase tracking-[0.2em] text-[#EBE7DF] font-semibold transition hover:bg-[#C5A880] hover:text-[#0B0C0E] disabled:opacity-50"
               >
                 {added
                   ? t("✓ En la Cesta", "✓ In Bag")
                   : t("+ Añadir a Cesta", "+ Add to Bag")}
               </button>
             </div>
-            <p className="text-center font-mono text-[9px] text-[#8E8A80]">
+            <Link
+              href={`/contact?motivo=print&obra=${encodeURIComponent(photo.title)}&formato=${encodeURIComponent(`${currentFormat.name} (${currentFormat.dimensions} · ${unitPrice} €)`)}`}
+              onClick={onClose}
+              className="w-full rounded-lg border border-white/15 bg-[#151719] py-2.5 text-center font-mono text-[11px] uppercase tracking-[0.2em] text-[#EBE7DF] transition hover:border-[#C5A880] hover:text-white"
+            >
+              {t("Solicitar esta copia por formulario →", "Request this print via form →")}
+            </Link>
+            <p className="text-center font-mono text-[9px] text-[#A39E93]">
               {t(
-                "Venta directa del estudio · Certificado firmado ISO 9706 y envío asegurado",
-                "Direct studio acquisition · Signed ISO 9706 Certificate & insured shipping"
+                "Venta directa del estudio · Certificado firmado ISO 9706 y envío en tubo rígido",
+                "Direct studio acquisition · Signed ISO 9706 Certificate & rigid tube shipping"
               )}
             </p>
           </div>

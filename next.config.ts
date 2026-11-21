@@ -49,6 +49,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
     {
+        "source": "/stories",
+        "destination": "/cuaderno",
+        "permanent": true
+    },
+    {
         "source": "/projects/la-gomera",
         "destination": "/projects/entre-la-bruma-y-el-volcan",
         "permanent": true
