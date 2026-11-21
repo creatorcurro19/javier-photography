@@ -2,6 +2,21 @@ import type { Photo, PhotoCategory, Project } from "@/types/photo";
 
 export type AdminSeries = Project;
 
+export interface BulkWorksParams {
+  ids: string[];
+  actionType:
+    | "addToSeries"
+    | "removeFromSeries"
+    | "setCategory"
+    | "setPrints"
+    | "setFeatured"
+    | "delete";
+  targetSeriesSlug?: string;
+  targetCategory?: PhotoCategory;
+  printsValue?: boolean;
+  featuredValue?: boolean;
+}
+
 export const CATEGORY_ID_PREFIX: Record<PhotoCategory, string> = {
   "fauna-naturaleza": "fn",
   "paisajes-documental": "pd",

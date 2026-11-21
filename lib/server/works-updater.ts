@@ -984,3 +984,186 @@ export async function deleteWork(
     error: diskRes.error,
   };
 }
+
+export interface BulkWorksParams {
+  ids: string[];
+  actionType:
+    | "addToSeries"
+    | "removeFromSeries"
+    | "setCategory"
+    | "setPrints"
+    | "setFeatured"
+    | "delete";
+  targetSeriesSlug?: string;
+  targetCategory?: PhotoCategory;
+  printsValue?: boolean;
+  featuredValue?: boolean;
+}
+
+/**
+ * Realiza operaciones por lote sobre múltiples fotografías a la vez:
+ * asignación a colecciones, cambio de categoría, activación de venta, destacado o borrado múltiple.
+ */
+export async function bulkUpdateWorks(
+  params: BulkWorksParams,
+  customGithubToken?: string
+): Promise<{
+  ok: boolean;
+  persistedToDisk: boolean;
+  persistedToGit: boolean;
+  updatedCount: number;
+  message: string;
+}> {
+  const targetIds = new Set(params.ids);
+  let updatedCount = 0;
+  let commitMessage = "";
+
+  if (params.actionType === "delete") {
+    const toDelete = inMemoryWorks.filter((w) => targetIds.has(w.id));
+    updatedCount = toDelete.length;
+    for (let i = inMemoryWorks.length - 1; i >= 0; i--) {
+      if (targetIds.has(inMemoryWorks[i].id)) {
+        inMemoryWorks.splice(i, 1);
+      }
+    }
+    for (const s of inMemorySeries) {
+      s.photoIds = s.photoIds.filter((id) => !targetIds.has(id));
+    }
+    ensureValidSeriesCovers();
+    syncAllPhotosSeriesTags();
+    commitMessage = `Editorial: eliminación en lote de ${updatedCount} fotografías`;
+  } else if (params.actionType === "addToSeries" && params.targetSeriesSlug) {
+    const series = inMemorySeries.find(
+      (s) => s.slug === params.targetSeriesSlug || s.id === params.targetSeriesSlug
+    );
+    if (!series) {
+      return {
+        ok: false,
+        persistedToDisk: false,
+        persistedToGit: false,
+        updatedCount: 0,
+        message: "La colección seleccionada no existe.",
+      };
+    }
+    for (const id of params.ids) {
+      if (inMemoryWorks.some((w) => w.id === id) && !series.photoIds.includes(id)) {
+        series.photoIds.push(id);
+        updatedCount++;
+      }
+    }
+    ensureValidSeriesCovers();
+    syncAllPhotosSeriesTags();
+    commitMessage = `Editorial: ${updatedCount} obras añadidas a la colección "${series.title}"`;
+  } else if (params.actionType === "removeFromSeries" && params.targetSeriesSlug) {
+    const series = inMemorySeries.find(
+      (s) => s.slug === params.targetSeriesSlug || s.id === params.targetSeriesSlug
+    );
+    if (!series) {
+      return {
+        ok: false,
+        persistedToDisk: false,
+        persistedToGit: false,
+        updatedCount: 0,
+        message: "La colección seleccionada no existe.",
+      };
+    }
+    const initialLen = series.photoIds.length;
+    series.photoIds = series.photoIds.filter((id) => !targetIds.has(id));
+    updatedCount = initialLen - series.photoIds.length;
+    ensureValidSeriesCovers();
+    syncAllPhotosSeriesTags();
+    commitMessage = `Editorial: ${updatedCount} obras retiradas de la colección "${series.title}"`;
+  } else if (params.actionType === "setCategory" && params.targetCategory) {
+    for (const w of inMemoryWorks) {
+      if (targetIds.has(w.id)) {
+        w.category = params.targetCategory;
+        const sanitized = sanitizePhotoForCategory(w);
+        Object.assign(w, sanitized);
+        updatedCount++;
+      }
+    }
+    const catLabel = CATEGORY_METADATA[params.targetCategory]?.title || params.targetCategory;
+    commitMessage = `Editorial: cambio de categoría a ${catLabel} en ${updatedCount} obras`;
+  } else if (params.actionType === "setPrints") {
+    const val = Boolean(params.printsValue);
+    for (const w of inMemoryWorks) {
+      if (targetIds.has(w.id)) {
+        w.prints = val;
+        updatedCount++;
+      }
+    }
+    commitMessage = `Editorial: venta Fine Art ${val ? "activada" : "pausada"} en ${updatedCount} obras`;
+  } else if (params.actionType === "setFeatured") {
+    const val = Boolean(params.featuredValue);
+    for (const w of inMemoryWorks) {
+      if (targetIds.has(w.id)) {
+        w.featured = val;
+        if (!val) delete w.featuredOrder;
+        updatedCount++;
+      }
+    }
+    commitMessage = `Editorial: estado portada ${val ? "activado" : "desactivado"} en ${updatedCount} obras`;
+  }
+
+  const fullSource = generateWorksTsSource();
+  const diskRes = writeWorksToLocalDisk(fullSource);
+  const gitResult = await commitFilesToGithub(
+    commitMessage || `Editorial: actualización en lote de ${updatedCount} fotografías`,
+    [{ path: "data/works.ts", content: fullSource, encoding: "utf-8" }],
+    customGithubToken
+  );
+
+  return {
+    ok: true,
+    persistedToDisk: diskRes.ok,
+    persistedToGit: gitResult.ok,
+    updatedCount,
+    message: `${updatedCount} fotografías actualizadas con éxito.`,
+  };
+}
+
+/**
+ * Actualiza de forma ágil las colecciones a las que pertenece una fotografía concreta.
+ */
+export async function setPhotoSeries(
+  photoId: string,
+  seriesSlugs: string[],
+  customGithubToken?: string
+): Promise<{
+  ok: boolean;
+  persistedToDisk: boolean;
+  persistedToGit: boolean;
+  message: string;
+}> {
+  const photo = inMemoryWorks.find((w) => w.id === photoId);
+  if (!photo) {
+    return { ok: false, persistedToDisk: false, persistedToGit: false, message: "Obra no encontrada." };
+  }
+  const slugSet = new Set(seriesSlugs);
+  for (const s of inMemorySeries) {
+    const shouldBeIn = slugSet.has(s.slug) || slugSet.has(s.id);
+    const currentlyIn = s.photoIds.includes(photoId);
+    if (shouldBeIn && !currentlyIn) {
+      s.photoIds.push(photoId);
+    } else if (!shouldBeIn && currentlyIn) {
+      s.photoIds = s.photoIds.filter((id) => id !== photoId);
+    }
+  }
+  ensureValidSeriesCovers();
+  syncAllPhotosSeriesTags();
+
+  const fullSource = generateWorksTsSource();
+  const diskRes = writeWorksToLocalDisk(fullSource);
+  const gitResult = await commitFilesToGithub(
+    `Editorial: colecciones actualizadas para "${photo.title}" [${photo.id}]`,
+    [{ path: "data/works.ts", content: fullSource, encoding: "utf-8" }],
+    customGithubToken
+  );
+
+  return {
+    ok: true,
+    persistedToDisk: diskRes.ok,
+    persistedToGit: gitResult.ok,
+    message: `Colecciones de "${photo.title}" actualizadas.`,
+  };
+}

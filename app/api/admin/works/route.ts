@@ -13,6 +13,8 @@ import {
   deleteSeriesItem,
   saveSiteConfig,
   restoreCatalogSnapshot,
+  bulkUpdateWorks,
+  setPhotoSeries,
 } from "@/lib/server/works-updater";
 import type { Photo, PhotoCategory, Project } from "@/types/photo";
 import type { SiteSettings, CuadernoPost } from "@/data/site-config";
@@ -134,6 +136,31 @@ export async function POST(request: Request) {
         message: bulkRes.message,
         published: bulkRes.persistedToGit || bulkRes.persistedToDisk,
         updatedCount: bulkRes.updatedCount,
+        works: getCurrentWorks(),
+        series: serializeSeries(),
+      });
+    }
+
+    // 3b. Operaciones por lote sobre fotografías (asignar a serie, cambiar categoría, venta, etc.)
+    if (body.action === "bulk-works" && body.params && Array.isArray(body.params.ids)) {
+      const bulkRes = await bulkUpdateWorks(body.params, customGithubToken);
+      return NextResponse.json({
+        ok: bulkRes.ok,
+        message: bulkRes.message,
+        published: bulkRes.persistedToGit || bulkRes.persistedToDisk,
+        updatedCount: bulkRes.updatedCount,
+        works: getCurrentWorks(),
+        series: serializeSeries(),
+      });
+    }
+
+    // 3c. Asignación rápida de colecciones para una fotografía
+    if (body.action === "set-photo-series" && typeof body.photoId === "string" && Array.isArray(body.seriesSlugs)) {
+      const sRes = await setPhotoSeries(body.photoId, body.seriesSlugs, customGithubToken);
+      return NextResponse.json({
+        ok: sRes.ok,
+        message: sRes.message,
+        published: sRes.persistedToGit || sRes.persistedToDisk,
         works: getCurrentWorks(),
         series: serializeSeries(),
       });

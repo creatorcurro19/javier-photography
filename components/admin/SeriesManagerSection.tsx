@@ -6,6 +6,7 @@ import type { Photo, PhotoCategory, Project } from "@/types/photo";
 import { PHOTO_CATEGORIES, CATEGORY_METADATA } from "@/types/photo";
 import { CloseIcon, CheckIcon, EditIcon, ExternalLinkIcon, PlusIcon, TrashIcon } from "./AdminIcons";
 import { slugifyTitle } from "./categoryEditorConfig";
+import SeriesPhotoPickerModal from "./SeriesPhotoPickerModal";
 
 interface SeriesManagerSectionProps {
   series: Project[];
@@ -40,6 +41,7 @@ export default function SeriesManagerSection({
   const [isNewSeries, setIsNewSeries] = useState(false);
   const [statementText, setStatementText] = useState("");
   const [deletingSeries, setDeletingSeries] = useState<Project | null>(null);
+  const [isPickerOpen, setIsPickerOpen] = useState(false);
 
   const openEditor = (s: Project) => {
     setIsNewSeries(false);
@@ -393,22 +395,32 @@ export default function SeriesManagerSection({
                     Fotografías en esta serie ({editing.photoIds.length}) · Orden y Portada
                   </span>
 
-                  {candidatePhotosToAdd.length > 0 && (
-                    <select
-                      value=""
-                      onChange={(e) => {
-                        if (e.target.value) addPhotoToSeries(e.target.value);
-                      }}
-                      className="rounded-lg border border-[#2D3036] bg-[#1A1C22] px-3 py-1.5 text-xs text-[#EBE7DF]"
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <button
+                      type="button"
+                      onClick={() => setIsPickerOpen(true)}
+                      className="flex items-center gap-1.5 rounded-lg border border-[#C5A880]/60 bg-[#C5A880]/15 px-3 py-1.5 font-mono text-xs text-[#C5A880] hover:bg-[#C5A880] hover:text-[#0B0C0E] transition cursor-pointer"
                     >
-                      <option value="">+ Añadir fotografía a esta serie…</option>
-                      {candidatePhotosToAdd.map((w) => (
-                        <option key={w.id} value={w.id}>
-                          [{w.id}] {w.title} ({CATEGORY_METADATA[w.category]?.title})
-                        </option>
-                      ))}
-                    </select>
-                  )}
+                      <span>🖼️ Seleccionar fotos visualmente ({editing.photoIds.length})</span>
+                    </button>
+
+                    {candidatePhotosToAdd.length > 0 && (
+                      <select
+                        value=""
+                        onChange={(e) => {
+                          if (e.target.value) addPhotoToSeries(e.target.value);
+                        }}
+                        className="rounded-lg border border-[#2D3036] bg-[#1A1C22] px-3 py-1.5 text-xs text-[#EBE7DF]"
+                      >
+                        <option value="">+ Añadir por ID…</option>
+                        {candidatePhotosToAdd.map((w) => (
+                          <option key={w.id} value={w.id}>
+                            [{w.id}] {w.title} ({CATEGORY_METADATA[w.category]?.title})
+                          </option>
+                        ))}
+                      </select>
+                    )}
+                  </div>
                 </div>
 
                 {editing.photoIds.length === 0 ? (
@@ -545,6 +557,32 @@ export default function SeriesManagerSection({
             </form>
           </div>
         </div>
+      )}
+
+      {/* Modal Selector Visual de Fotos para la Serie */}
+      {isPickerOpen && editing && (
+        <SeriesPhotoPickerModal
+          isOpen={isPickerOpen}
+          seriesTitle={editing.title}
+          currentPhotoIds={editing.photoIds}
+          works={works}
+          previewMap={previewMap}
+          onClose={() => setIsPickerOpen(false)}
+          onApply={(newIds) => {
+            const firstValidPhoto = works.find((w) => newIds.includes(w.id));
+            const hasCurrentCover = works.some(
+              (w) => newIds.includes(w.id) && w.image === editing.coverImage
+            );
+            setEditing({
+              ...editing,
+              photoIds: newIds,
+              coverImage:
+                hasCurrentCover || !firstValidPhoto
+                  ? editing.coverImage
+                  : firstValidPhoto.image,
+            });
+          }}
+        />
       )}
 
       {/* Confirmación de eliminación de Serie */}

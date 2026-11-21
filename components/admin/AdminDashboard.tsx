@@ -9,7 +9,8 @@ import BatchUploadModal from "./BatchUploadModal";
 import BulkPricesModal from "./BulkPricesModal";
 import SeriesManagerSection from "./SeriesManagerSection";
 import SiteSettingsSection from "./SiteSettingsSection";
-import { createBlankPhoto, type AdminSeries } from "./categoryEditorConfig";
+import { createBlankPhoto, type AdminSeries, type BulkWorksParams } from "./categoryEditorConfig";
+import PhotoSeriesAssignModal from "./PhotoSeriesAssignModal";
 import type { CuadernoPost, SiteSettings } from "@/data/site-config";
 import {
   SearchIcon,
@@ -109,8 +110,92 @@ export default function AdminDashboard({
     setUndoHistory((prev) => [snap, ...prev.slice(0, 9)]);
   };
 
+  // Gestión por lote y selección múltiple de fotografías
+  const [selectedPhotoIds, setSelectedPhotoIds] = useState<string[]>([]);
+  const [quickAssignPhoto, setQuickAssignPhoto] = useState<Photo | null>(null);
+  const [bulkTargetSeries, setBulkTargetSeries] = useState<string>("");
+  const [bulkTargetCategory, setBulkTargetCategory] = useState<PhotoCategory | "">("");
+
   const seriesTitlesFor = (photoId: string) =>
     series.filter((s) => s.photoIds.includes(photoId)).map((s) => s.title);
+
+  const seriesForPhoto = (photoId: string) =>
+    series.filter((s) => s.photoIds.includes(photoId));
+
+  const toggleSelectPhoto = (photoId: string) => {
+    setSelectedPhotoIds((prev) =>
+      prev.includes(photoId) ? prev.filter((id) => id !== photoId) : [...prev, photoId]
+    );
+  };
+
+  const handleQuickAssignSeries = async (photoId: string, seriesSlugs: string[]) => {
+    setIsSaving(true);
+    pushUndoSnapshot("asignar colecciones");
+    try {
+      const res = await fetch("/api/admin/works", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "set-photo-series",
+          photoId,
+          seriesSlugs,
+          githubToken: githubToken.trim() || undefined,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.ok) {
+        if (Array.isArray(data.works)) setWorks(data.works);
+        if (Array.isArray(data.series)) setSeries(data.series);
+        showToast(data.message || "Colecciones actualizadas con éxito.");
+      } else {
+        setUndoHistory((prev) => prev.slice(1));
+        showToast(data.error || "No se pudieron actualizar las colecciones.", "error");
+      }
+    } catch {
+      setUndoHistory((prev) => prev.slice(1));
+      showToast("Error de conexión al asignar colecciones.", "error");
+    } finally {
+      setIsSaving(false);
+      setQuickAssignPhoto(null);
+    }
+  };
+
+  const handleExecuteBulkAction = async (params: BulkWorksParams) => {
+    if (params.ids.length === 0) return;
+    if (params.actionType === "delete") {
+      if (!confirm(`¿Eliminar definitivamente las ${params.ids.length} fotografías seleccionadas del catálogo?`)) {
+        return;
+      }
+    }
+    setIsSaving(true);
+    pushUndoSnapshot(`operación por lote en ${params.ids.length} fotos`);
+    try {
+      const res = await fetch("/api/admin/works", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "bulk-works",
+          params,
+          githubToken: githubToken.trim() || undefined,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.ok) {
+        if (Array.isArray(data.works)) setWorks(data.works);
+        if (Array.isArray(data.series)) setSeries(data.series);
+        setSelectedPhotoIds([]);
+        showToast(data.message || `${params.ids.length} fotos actualizadas.`);
+      } else {
+        setUndoHistory((prev) => prev.slice(1));
+        showToast(data.error || "Error en la operación por lote.", "error");
+      }
+    } catch {
+      setUndoHistory((prev) => prev.slice(1));
+      showToast("Error de conexión en la operación por lote.", "error");
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   const isSeriesCoverPhoto = (photo: Photo) =>
     series.some((s) => s.coverImage === photo.image);
@@ -722,7 +807,7 @@ export default function AdminDashboard({
                 : "border border-[#262830] bg-[#141519] text-[#A39E93] hover:text-[#EBE7DF]"
             }`}
           >
-            Series Monográficas ({series.length})
+            Colecciones y Series ({series.length})
           </button>
           <button
             type="button"
@@ -947,6 +1032,56 @@ export default function AdminDashboard({
               </div>
             </section>
 
+            {/* Barra de Gestión por Lote y Selección Rápida */}
+            <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#23252D] bg-[#15161B] px-4 py-2.5">
+              <div className="flex items-center gap-2.5">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const visibleIds = filteredWorks.map((w) => w.id);
+                    const allSelected = visibleIds.every((id) => selectedPhotoIds.includes(id));
+                    if (allSelected) {
+                      setSelectedPhotoIds((prev) => prev.filter((id) => !visibleIds.includes(id)));
+                    } else {
+                      setSelectedPhotoIds((prev) => Array.from(new Set([...prev, ...visibleIds])));
+                    }
+                  }}
+                  className={`flex items-center gap-2 rounded-lg px-3 py-1.5 font-mono text-xs transition cursor-pointer ${
+                    selectedPhotoIds.length > 0
+                      ? "border border-[#C5A880]/50 bg-[#C5A880]/15 text-[#C5A880]"
+                      : "border border-[#2D3038] bg-[#1A1C22] text-[#A39E93] hover:text-[#EBE7DF]"
+                  }`}
+                >
+                  <CheckIcon className="h-3.5 w-3.5" />
+                  <span>
+                    {filteredWorks.length > 0 && filteredWorks.every((w) => selectedPhotoIds.includes(w.id))
+                      ? "Desmarcar todas las visibles"
+                      : `Seleccionar todas las visibles (${filteredWorks.length})`}
+                  </span>
+                </button>
+
+                {selectedPhotoIds.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => setSelectedPhotoIds([])}
+                    className="font-mono text-xs text-[#8E8A81] hover:text-red-400 transition cursor-pointer"
+                  >
+                    Deseleccionar ({selectedPhotoIds.length})
+                  </button>
+                )}
+              </div>
+
+              <div className="font-mono text-xs text-[#8E8A81]">
+                {selectedPhotoIds.length > 0 ? (
+                  <span className="text-[#C5A880] font-semibold">
+                    ✓ {selectedPhotoIds.length} foto(s) marcada(s) para acciones en lote
+                  </span>
+                ) : (
+                  <span>Marca el recuadro de cualquier foto para gestionarla en lote o asignarla a colecciones</span>
+                )}
+              </div>
+            </div>
+
             {/* Cuadrícula de Obras */}
             {filteredWorks.length === 0 ? (
               <div className="rounded-2xl border border-[#22242B] bg-[#131418] py-16 text-center">
@@ -972,16 +1107,39 @@ export default function AdminDashboard({
                   const galeriaPrice = photo.pricing?.galeria || 175;
                   const coleccionPrice = photo.pricing?.coleccion || 290;
                   const seriesCover = isSeriesCoverPhoto(photo);
+                  const isSelected = selectedPhotoIds.includes(photo.id);
+                  const photoSeriesList = seriesForPhoto(photo.id);
 
                   return (
                     <div
                       key={photo.id}
-                      className="group relative flex flex-col justify-between rounded-xl border border-[#202228] bg-[#131418] p-4 transition-all hover:border-[#C5A880]/40 hover:bg-[#16171D] hover:shadow-xl"
+                      className={`group relative flex flex-col justify-between rounded-xl border p-4 transition-all hover:bg-[#16171D] hover:shadow-xl ${
+                        isSelected
+                          ? "border-[#C5A880] bg-[#161720] ring-1 ring-[#C5A880]/50"
+                          : "border-[#202228] bg-[#131418] hover:border-[#C5A880]/40"
+                      }`}
                     >
                       <div>
                         {/* Top fila: Miniatura + Info básica */}
                         <div className="flex gap-3.5">
                           <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg border border-[#262830] bg-[#1A1C22]">
+                            {/* Checkbox de Selección Múltiple */}
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleSelectPhoto(photo.id);
+                              }}
+                              className={`absolute top-1.5 left-1.5 z-10 flex h-5 w-5 items-center justify-center rounded border transition cursor-pointer ${
+                                isSelected
+                                  ? "bg-[#C5A880] text-[#0B0C0E] border-[#C5A880] shadow"
+                                  : "bg-black/70 border-white/40 text-transparent hover:border-[#C5A880]"
+                              }`}
+                              title={isSelected ? "Deseleccionar" : "Seleccionar"}
+                            >
+                              <CheckIcon className="h-3 w-3 stroke-[3]" />
+                            </button>
+
                             {previewMap[photo.id] ? (
                               // eslint-disable-next-line @next/next/no-img-element
                               <img
@@ -1000,7 +1158,7 @@ export default function AdminDashboard({
                             )}
                             {photo.featured && (
                               <div
-                                className="absolute top-1 left-1 rounded bg-[#0B0C0E]/80 p-0.5 text-[#C5A880]"
+                                className="absolute top-1 right-1 rounded bg-[#0B0C0E]/80 p-0.5 text-[#C5A880]"
                                 title="Destacada en portada"
                               >
                                 <StarIcon className="h-3 w-3" filled />
@@ -1023,8 +1181,27 @@ export default function AdminDashboard({
                             </h3>
 
                             <p className="truncate text-xs text-[#8E8A81]">
-                              {seriesTitlesFor(photo.id)[0] || photo.location || photo.country || "Sin serie"} &middot; {photo.year}
+                              {photo.location || photo.country || "España"} &middot; {photo.year}
                             </p>
+
+                            {/* Colecciones / Series a las que pertenece */}
+                            <div className="mt-1.5 flex flex-wrap items-center gap-1">
+                              {photoSeriesList.length > 0 ? (
+                                photoSeriesList.map((s) => (
+                                  <span
+                                    key={s.slug}
+                                    className="inline-flex items-center gap-1 rounded bg-[#C5A880]/15 border border-[#C5A880]/30 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-[#C5A880]"
+                                    title={`En la colección: ${s.title}`}
+                                  >
+                                    <span>📁 {s.title}</span>
+                                  </span>
+                                ))
+                              ) : (
+                                <span className="font-mono text-[9px] text-[#716C62]">
+                                  Sin colección
+                                </span>
+                              )}
+                            </div>
 
                             {/* Etiquetas de posición en Hero / Portadas (#3) */}
                             {(photo.heroOrder || photo.categoryCover || seriesCover) && (
@@ -1116,8 +1293,17 @@ export default function AdminDashboard({
                           </button>
                         </div>
 
-                        {/* Botones Editar y Papelera */}
+                        {/* Botones Colecciones, Editar y Papelera */}
                         <div className="flex items-center gap-1.5">
+                          <button
+                            type="button"
+                            onClick={() => setQuickAssignPhoto(photo)}
+                            className="inline-flex min-h-[38px] items-center gap-1 rounded-lg border border-[#2B2D36] bg-[#16171E] px-2.5 py-1.5 text-xs font-mono text-[#A39E93] hover:border-[#C5A880] hover:text-[#C5A880] transition cursor-pointer"
+                            title="Gestionar colecciones de esta obra"
+                          >
+                            <span>📁 Colecciones</span>
+                          </button>
+
                           <button
                             type="button"
                             onClick={() => {
@@ -1149,9 +1335,182 @@ export default function AdminDashboard({
                 })}
               </div>
             )}
+
+            {/* Barra Flotante de Acciones en Lote */}
+            {selectedPhotoIds.length > 0 && (
+              <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[80] w-[95vw] max-w-4xl rounded-2xl border border-[#C5A880]/60 bg-[#121316]/95 p-3 sm:p-4 text-[#EBE7DF] shadow-2xl backdrop-blur-xl animate-in fade-in slide-in-from-bottom-4 duration-300">
+                <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#C5A880] font-mono text-xs font-bold text-[#0B0C0E]">
+                      {selectedPhotoIds.length}
+                    </span>
+                    <span className="font-mono text-xs text-[#EBE7DF]">
+                      fotos seleccionadas
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedPhotoIds([])}
+                      className="ml-2 font-mono text-xs text-[#8E8A81] hover:text-white transition cursor-pointer underline"
+                    >
+                      Deseleccionar
+                    </button>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-2">
+                    {/* Asignar a Colección */}
+                    <div className="flex items-center gap-1.5">
+                      <select
+                        value={bulkTargetSeries}
+                        onChange={(e) => setBulkTargetSeries(e.target.value)}
+                        className="rounded-lg border border-[#2E313A] bg-[#181920] px-2.5 py-1.5 font-mono text-xs text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
+                      >
+                        <option value="">Colección destino…</option>
+                        {series.map((s) => (
+                          <option key={s.slug} value={s.slug}>
+                            📁 {s.title} ({s.photoIds.length})
+                          </option>
+                        ))}
+                      </select>
+                      <button
+                        type="button"
+                        disabled={!bulkTargetSeries || isSaving}
+                        onClick={() => {
+                          if (!bulkTargetSeries) return;
+                          handleExecuteBulkAction({
+                            ids: selectedPhotoIds,
+                            actionType: "addToSeries",
+                            targetSeriesSlug: bulkTargetSeries,
+                          });
+                          setBulkTargetSeries("");
+                        }}
+                        className="rounded-lg border border-[#C5A880]/50 bg-[#C5A880]/20 px-2.5 py-1.5 font-mono text-xs font-semibold text-[#C5A880] hover:bg-[#C5A880] hover:text-[#0B0C0E] disabled:opacity-40 transition cursor-pointer"
+                      >
+                        + Asignar
+                      </button>
+                    </div>
+
+                    {/* Cambiar Categoría */}
+                    <div className="flex items-center gap-1.5">
+                      <select
+                        value={bulkTargetCategory}
+                        onChange={(e) => setBulkTargetCategory(e.target.value as PhotoCategory | "")}
+                        className="rounded-lg border border-[#2E313A] bg-[#181920] px-2.5 py-1.5 font-mono text-xs text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
+                      >
+                        <option value="">Categoría…</option>
+                        {PHOTO_CATEGORIES.map((cat) => (
+                          <option key={cat} value={cat}>
+                            {CATEGORY_METADATA[cat]?.title}
+                          </option>
+                        ))}
+                      </select>
+                      <button
+                        type="button"
+                        disabled={!bulkTargetCategory || isSaving}
+                        onClick={() => {
+                          if (!bulkTargetCategory) return;
+                          handleExecuteBulkAction({
+                            ids: selectedPhotoIds,
+                            actionType: "setCategory",
+                            targetCategory: bulkTargetCategory,
+                          });
+                          setBulkTargetCategory("");
+                        }}
+                        className="rounded-lg border border-[#2E313A] bg-[#181920] px-2.5 py-1.5 font-mono text-xs text-[#A39E93] hover:text-[#EBE7DF] disabled:opacity-40 transition cursor-pointer"
+                      >
+                        Cambiar
+                      </button>
+                    </div>
+
+                    {/* Venta ON / OFF */}
+                    <div className="flex items-center gap-1 border-l border-[#262830] pl-2">
+                      <button
+                        type="button"
+                        disabled={isSaving}
+                        onClick={() =>
+                          handleExecuteBulkAction({
+                            ids: selectedPhotoIds,
+                            actionType: "setPrints",
+                            printsValue: true,
+                          })
+                        }
+                        className="rounded-lg border border-emerald-500/30 bg-emerald-950/30 px-2 py-1.5 font-mono text-[11px] text-emerald-300 hover:bg-emerald-600 hover:text-white transition cursor-pointer"
+                        title="Activar venta Fine Art en seleccionadas"
+                      >
+                        Venta: ON
+                      </button>
+                      <button
+                        type="button"
+                        disabled={isSaving}
+                        onClick={() =>
+                          handleExecuteBulkAction({
+                            ids: selectedPhotoIds,
+                            actionType: "setPrints",
+                            printsValue: false,
+                          })
+                        }
+                        className="rounded-lg border border-[#2E313A] bg-[#181920] px-2 py-1.5 font-mono text-[11px] text-[#A39E93] hover:text-[#EBE7DF] transition cursor-pointer"
+                        title="Pausar venta en seleccionadas"
+                      >
+                        Venta: OFF
+                      </button>
+                    </div>
+
+                    {/* Portada */}
+                    <div className="flex items-center gap-1 border-l border-[#262830] pl-2">
+                      <button
+                        type="button"
+                        disabled={isSaving}
+                        onClick={() =>
+                          handleExecuteBulkAction({
+                            ids: selectedPhotoIds,
+                            actionType: "setFeatured",
+                            featuredValue: true,
+                          })
+                        }
+                        className="rounded-lg border border-[#C5A880]/40 bg-[#C5A880]/15 px-2 py-1.5 font-mono text-[11px] text-[#C5A880] hover:bg-[#C5A880] hover:text-[#0B0C0E] transition cursor-pointer"
+                        title="Destacar en portada principal"
+                      >
+                        ★ Portada
+                      </button>
+                    </div>
+
+                    {/* Eliminar en bloque */}
+                    <div className="border-l border-[#262830] pl-2">
+                      <button
+                        type="button"
+                        disabled={isSaving}
+                        onClick={() =>
+                          handleExecuteBulkAction({
+                            ids: selectedPhotoIds,
+                            actionType: "delete",
+                          })
+                        }
+                        className="rounded-lg border border-red-500/30 bg-red-950/40 px-2 py-1.5 font-mono text-[11px] text-red-300 hover:bg-red-600 hover:text-white transition cursor-pointer"
+                        title="Eliminar las fotos seleccionadas"
+                      >
+                        🗑️ Eliminar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </>
         )}
       </main>
+
+      {/* Modal de Asignación Rápida a Colecciones */}
+      {quickAssignPhoto && (
+        <PhotoSeriesAssignModal
+          key={quickAssignPhoto.id}
+          photo={quickAssignPhoto}
+          series={series}
+          previewSrc={previewMap[quickAssignPhoto.id]}
+          isSaving={isSaving}
+          onClose={() => setQuickAssignPhoto(null)}
+          onSave={handleQuickAssignSeries}
+        />
+      )}
 
       {/* Modal de Edición / Creación Individual */}
       {editingPhoto && (
