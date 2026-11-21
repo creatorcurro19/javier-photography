@@ -9,7 +9,7 @@ import BatchUploadModal from "./BatchUploadModal";
 import BulkPricesModal from "./BulkPricesModal";
 import SeriesManagerSection from "./SeriesManagerSection";
 import SiteSettingsSection from "./SiteSettingsSection";
-import { createBlankPhoto, type AdminSeries, type BulkWorksParams } from "./categoryEditorConfig";
+import { type AdminSeries, type BulkWorksParams } from "./categoryEditorConfig";
 import PhotoSeriesAssignModal from "./PhotoSeriesAssignModal";
 import type { CuadernoPost, SiteSettings } from "@/data/site-config";
 import {
@@ -23,7 +23,6 @@ import {
   GitHubIcon,
   CheckIcon,
   TrashIcon,
-  PlusIcon,
   UploadIcon,
   TagIcon,
 } from "./AdminIcons";
@@ -271,16 +270,6 @@ export default function AdminDashboard({
       withStory: works.filter((w) => w.story && w.story.trim().length > 0).length,
     };
   }, [works]);
-
-  const handleStartAddPhoto = () => {
-    const defaultCat: PhotoCategory =
-      selectedCategory !== "todas"
-        ? (selectedCategory as PhotoCategory)
-        : "fauna-naturaleza";
-    const blank = createBlankPhoto(defaultCat, works);
-    setIsCreatingNew(true);
-    setEditingPhoto(blank);
-  };
 
   // Guardar o crear obra individual
   const handleSavePhoto = async (
@@ -684,15 +673,6 @@ export default function AdminDashboard({
               </button>
             )}
 
-            <button
-              type="button"
-              onClick={handleStartAddPhoto}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-[#C5A880] px-3 py-1.5 text-xs font-semibold text-[#0B0C0E] hover:opacity-90 transition cursor-pointer"
-            >
-              <PlusIcon className="h-3.5 w-3.5" />
-              <span>Añadir foto</span>
-            </button>
-
             <a
               href="/"
               target="_blank"
@@ -755,24 +735,15 @@ export default function AdminDashboard({
           </div>
         )}
 
-        {/* Botones Grandes de Acción Rápida (#1, #2, Individual) */}
-        <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
-          <button
-            type="button"
-            onClick={handleStartAddPhoto}
-            className="flex items-center justify-center gap-2.5 rounded-2xl border border-[#C5A880]/50 bg-gradient-to-r from-[#C5A880] to-[#A88C64] px-5 py-3.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#0B0C0E] shadow-xl shadow-[#C5A880]/10 transition hover:opacity-95 cursor-pointer"
-          >
-            <PlusIcon className="h-5 w-5" />
-            <span>Añadir 1 fotografía</span>
-          </button>
-
+        {/* Botones Grandes de Acción Rápida */}
+        <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
           <button
             type="button"
             onClick={() => setIsBatchModalOpen(true)}
-            className="flex items-center justify-center gap-2.5 rounded-2xl border border-[#C5A880]/40 bg-[#17181E] px-5 py-3.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#C5A880] transition hover:bg-[#C5A880] hover:text-[#0B0C0E] cursor-pointer"
+            className="flex items-center justify-center gap-2.5 rounded-2xl border border-[#C5A880]/50 bg-gradient-to-r from-[#C5A880] to-[#A88C64] px-5 py-3.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#0B0C0E] shadow-xl shadow-[#C5A880]/10 transition hover:opacity-95 cursor-pointer"
           >
             <UploadIcon className="h-5 w-5" />
-            <span>Subir varias fotos en lote</span>
+            <span>Subir fotos en lote</span>
           </button>
 
           <button
