@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import type { Photo } from "@/types/photo";
 import type { CuadernoPost, SiteSettings } from "@/data/site-config";
+import type { InboxItem } from "@/data/inbox";
 import AdminLogin from "./AdminLogin";
 import AdminDashboard from "./AdminDashboard";
 import type { AdminSeries } from "./categoryEditorConfig";
@@ -12,6 +13,7 @@ interface AdminPortalProps {
   initialSeries: AdminSeries[];
   initialSiteSettings: SiteSettings;
   initialCuadernoPosts: CuadernoPost[];
+  initialInboxItems?: InboxItem[];
 }
 
 export default function AdminPortal({
@@ -19,6 +21,7 @@ export default function AdminPortal({
   initialSeries,
   initialSiteSettings,
   initialCuadernoPosts,
+  initialInboxItems = [],
 }: AdminPortalProps) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [user, setUser] = useState<string>("Javier");
@@ -26,6 +29,7 @@ export default function AdminPortal({
   const [series, setSeries] = useState<AdminSeries[]>(initialSeries);
   const [siteSettings, setSiteSettings] = useState<SiteSettings>(initialSiteSettings);
   const [cuadernoPosts, setCuadernoPosts] = useState<CuadernoPost[]>(initialCuadernoPosts);
+  const [inboxItems, setInboxItems] = useState<InboxItem[]>(initialInboxItems);
   const [githubConfigured, setGithubConfigured] = useState(false);
   const [loadingWorks, setLoadingWorks] = useState(false);
   const [dataVersion, setDataVersion] = useState(0);
@@ -33,9 +37,12 @@ export default function AdminPortal({
   const loadWorks = useCallback(async () => {
     setLoadingWorks(true);
     try {
-      const res = await fetch("/api/admin/works");
-      if (res.ok) {
-        const data = await res.json();
+      const [worksRes, inboxRes] = await Promise.all([
+        fetch("/api/admin/works"),
+        fetch("/api/admin/inbox"),
+      ]);
+      if (worksRes.ok) {
+        const data = await worksRes.json();
         if (data.works && Array.isArray(data.works)) {
           setWorks(data.works);
         }
@@ -43,8 +50,14 @@ export default function AdminPortal({
         if (data.siteSettings) setSiteSettings(data.siteSettings);
         if (Array.isArray(data.cuadernoPosts)) setCuadernoPosts(data.cuadernoPosts);
         setGithubConfigured(Boolean(data.githubConfigured));
-        setDataVersion((v) => v + 1);
       }
+      if (inboxRes.ok) {
+        const inboxData = await inboxRes.json();
+        if (Array.isArray(inboxData.items)) {
+          setInboxItems(inboxData.items);
+        }
+      }
+      setDataVersion((v) => v + 1);
     } catch {
       // Si falla, se usan initialWorks pasados por servidor
     } finally {
@@ -124,6 +137,7 @@ export default function AdminPortal({
         initialSeries={series}
         initialSiteSettings={siteSettings}
         initialCuadernoPosts={cuadernoPosts}
+        initialInboxItems={inboxItems}
         githubConfigured={githubConfigured}
         user={user}
         onLogout={handleLogout}

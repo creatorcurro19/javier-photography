@@ -180,9 +180,10 @@ export default function Hero() {
                   priority={idx === 0}
                   loading={idx === 0 ? "eager" : "lazy"}
                   placeholder="blur"
+                  draggable={false}
                   blurDataURL={DARK_BLUR_DATA_URL}
                   sizes="(max-width: 640px) 640px, (max-width: 1200px) 1200px, 1920px"
-                  className={`object-cover ${slide.position} brightness-[0.94] contrast-[1.03] md:brightness-[0.88]`}
+                  className={`object-cover ${slide.position} brightness-[0.94] contrast-[1.03] md:brightness-[0.88] select-none pointer-events-none`}
                 />
               </div>
             </div>

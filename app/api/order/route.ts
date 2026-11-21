@@ -5,6 +5,7 @@ import {
 } from "@/lib/email-templates";
 import { normalizeOrder } from "@/lib/server/order";
 import { DESTINATION_EMAIL, relayWithFormSubmit, sendWithResend } from "@/lib/server/email";
+import { addInboxItem } from "@/lib/server/inbox-store";
 
 export async function POST(request: Request) {
   try {
@@ -53,6 +54,31 @@ export async function POST(request: Request) {
       `SOPORTE: Papel 100% algodón Hahnemühle Photo Rag® 308 g/m² (ISO 9706).`,
       `CERTIFICADO: Numerado y firmado a mano por Javier Espinosa Martínez.`,
     ].join("\n");
+
+    // Registrar en la bandeja de administración
+    try {
+      await addInboxItem({
+        id: orderId,
+        type: "pedido",
+        customerName: customer.nombre,
+        customerEmail: customer.email,
+        customerPhone: customer.telefono || undefined,
+        subject: `Pedido Fine Art (${orderId}) — ${subtotal} €`,
+        message: customer.notas || "Sin notas adicionales del cliente.",
+        status: "pendiente",
+        orderTotal: subtotal,
+        items: items.map((it) => ({
+          title: it.title,
+          format: `${it.format.name} (${it.format.dimensions})`,
+          quantity: it.quantity,
+          price: it.totalPrice,
+        })),
+        shippingAddress: `${customer.direccion}, ${customer.codigoPostal} ${customer.ciudad} (${customer.pais})`,
+        notes: `Envío a: ${customer.ciudad} (${customer.pais}). Total a cobrar: ${subtotal} €`,
+      });
+    } catch (err) {
+      console.warn("[order] Error guardando en bandeja de admin:", err);
+    }
 
     // 1. Resend: aviso al autor + confirmación al comprador
     const ownerSent = await sendWithResend(

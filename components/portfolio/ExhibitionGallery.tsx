@@ -406,7 +406,8 @@ export default function ExhibitionGallery({
                         : "(max-width: 640px) 92vw, (max-width: 1024px) 45vw, 420px"
                     }
                     loading="lazy"
-                    className={`transition-transform duration-700 ease-out group-hover:scale-[1.02] brightness-[0.92] group-hover:brightness-100 ${
+                    draggable={false}
+                    className={`transition-transform duration-700 ease-out group-hover:scale-[1.02] brightness-[0.92] group-hover:brightness-100 pointer-events-none select-none ${
                       viewMode === "immersive"
                         ? "h-auto max-h-[85vh] w-auto max-w-full"
                         : "h-auto w-full"

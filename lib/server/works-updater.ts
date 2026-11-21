@@ -216,7 +216,7 @@ function ensureValidSeriesCovers(): void {
   }
 }
 
-interface GithubFileEntry {
+export interface GithubFileEntry {
   path: string;
   content: string;
   encoding: "utf-8" | "base64";
@@ -225,7 +225,7 @@ interface GithubFileEntry {
 /**
  * Realiza un commit atómico (uno o varios archivos a la vez) en la rama main de GitHub.
  */
-async function commitFilesToGithub(
+export async function commitFilesToGithub(
   commitMessage: string,
   files: GithubFileEntry[],
   customGithubToken?: string

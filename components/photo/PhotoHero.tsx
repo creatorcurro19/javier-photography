@@ -62,10 +62,11 @@ export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
                 width={photo.width}
                 height={photo.height}
                 priority
+                draggable={false}
                 placeholder="blur"
                 blurDataURL={DARK_BLUR_DATA_URL}
                 sizes="(max-width: 640px) 640px, (max-width: 1200px) 1200px, 1600px"
-                className="max-h-[82vh] w-auto max-w-full rounded-sm object-contain shadow-2xl transition duration-500 group-hover:brightness-105"
+                className="max-h-[82vh] w-auto max-w-full rounded-sm object-contain shadow-2xl transition duration-500 group-hover:brightness-105 pointer-events-none select-none"
               />
             </div>
           ) : (
@@ -84,8 +85,9 @@ export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
                   width={photo.width}
                   height={photo.height}
                   priority
+                  draggable={false}
                   sizes="(max-width: 1024px) 90vw, 70vw"
-                  className="max-h-[64vh] w-auto max-w-full object-contain"
+                  className="max-h-[64vh] w-auto max-w-full object-contain pointer-events-none select-none"
                 />
               </div>
               <div className="mt-3 flex w-full items-center justify-between px-1 text-[10px] tracking-[0.2em] text-neutral-500 font-serif italic">

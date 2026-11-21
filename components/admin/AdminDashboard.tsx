@@ -26,6 +26,8 @@ import {
   UploadIcon,
   TagIcon,
 } from "./AdminIcons";
+import InboxSection from "./InboxSection";
+import type { InboxItem } from "@/data/inbox";
 
 interface UndoSnapshot {
   label: string;
@@ -38,6 +40,7 @@ interface AdminDashboardProps {
   initialSeries: AdminSeries[];
   initialSiteSettings: SiteSettings;
   initialCuadernoPosts: CuadernoPost[];
+  initialInboxItems?: InboxItem[];
   githubConfigured: boolean;
   user: string;
   onLogout: () => void;
@@ -48,6 +51,7 @@ export default function AdminDashboard({
   initialSeries,
   initialSiteSettings,
   initialCuadernoPosts,
+  initialInboxItems = [],
   githubConfigured,
   user,
   onLogout,
@@ -56,7 +60,8 @@ export default function AdminDashboard({
   const [series, setSeries] = useState<AdminSeries[]>(initialSeries);
   const [siteSettings, setSiteSettings] = useState<SiteSettings>(initialSiteSettings);
   const [cuadernoPosts, setCuadernoPosts] = useState<CuadernoPost[]>(initialCuadernoPosts);
-  const [activeSection, setActiveSection] = useState<"photos" | "series" | "settings">("photos");
+  const [inboxItems, setInboxItems] = useState<InboxItem[]>(initialInboxItems);
+  const [activeSection, setActiveSection] = useState<"photos" | "series" | "settings" | "inbox">("photos");
 
   // Búsqueda y filtros
   const [searchTerm, setSearchTerm] = useState("");
@@ -730,9 +735,37 @@ export default function AdminDashboard({
           >
             Ajustes de la Web (Retrato, Cuaderno y Contacto)
           </button>
+          <button
+            type="button"
+            onClick={() => setActiveSection("inbox")}
+            className={`relative flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-medium transition cursor-pointer ${
+              activeSection === "inbox"
+                ? "bg-[#C5A880] text-[#0B0C0E] font-semibold"
+                : "border border-[#262830] bg-[#141519] text-[#A39E93] hover:text-[#EBE7DF]"
+            }`}
+          >
+            <span>Mensajes y Reservas</span>
+            <span
+              className={`rounded-full px-2 py-0.5 text-[10px] font-mono font-semibold ${
+                activeSection === "inbox"
+                  ? "bg-[#0B0C0E] text-[#C5A880]"
+                  : inboxItems.filter((i) => i.status === "pendiente").length > 0
+                  ? "bg-[#C5A880] text-[#0B0C0E]"
+                  : "bg-[#22242B] text-[#8E8A81]"
+              }`}
+            >
+              {inboxItems.filter((i) => i.status === "pendiente").length} pendientes
+            </span>
+          </button>
         </div>
 
-        {activeSection === "series" ? (
+        {activeSection === "inbox" ? (
+          <InboxSection
+            initialItems={inboxItems}
+            onToast={showToast}
+            onItemsChange={setInboxItems}
+          />
+        ) : activeSection === "series" ? (
           <SeriesManagerSection
             series={series}
             works={works}

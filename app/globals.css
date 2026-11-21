@@ -74,6 +74,17 @@
 
   img {
     display: block;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    user-select: none !important;
+    -webkit-user-drag: none !important;
+  }
+
+  /* Protección contra capturas al cambiar de app en móvil (multitarea iOS / Android) */
+  body.privacy-protect-active {
+    filter: blur(25px) grayscale(90%);
+    opacity: 0.15;
+    transition: none !important;
   }
 
   section {

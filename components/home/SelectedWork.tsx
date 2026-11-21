@@ -103,7 +103,8 @@ export default function SelectedWork({ photos, totalCount }: SelectedWorkProps) 
                     blurDataURL={DARK_BLUR_DATA_URL}
                     sizes="(max-width: 640px) 92vw, (max-width: 1024px) 45vw, 420px"
                     loading="lazy"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] brightness-[0.92] group-hover:brightness-100"
+                    draggable={false}
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] brightness-[0.92] group-hover:brightness-100 pointer-events-none select-none"
                   />
 
                   <div className="absolute inset-0 flex items-center justify-center bg-black/35 opacity-0 transition-opacity duration-300 group-hover:opacity-100">

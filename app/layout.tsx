@@ -13,6 +13,7 @@ import Footer from "@/components/layout/Footer";
 import SavedCollectionDrawer from "@/components/photo/SavedCollectionDrawer";
 import CartDrawer from "@/components/cart/CartDrawer";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
+import PhotoProtection from "@/components/ui/PhotoProtection";
 import JsonLd from "@/components/seo/JsonLd";
 import { SITE_URL } from "@/lib/metadata";
 import { generatePersonSchema } from "@/lib/schema";
@@ -132,6 +133,7 @@ export default function RootLayout({
         <SavedCollectionDrawer />
         <CartDrawer />
         <WhatsAppButton />
+        <PhotoProtection />
         <Footer />
         <Analytics />
         <SpeedInsights />

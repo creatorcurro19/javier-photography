@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { WORKS, SERIES } from "@/data/works";
 import { SITE_SETTINGS, CUADERNO_POSTS } from "@/data/site-config";
+import { INITIAL_INBOX_ITEMS } from "@/data/inbox";
 import AdminPortal from "@/components/admin/AdminPortal";
 import { AndalusianPageBackdrop } from "@/components/ui/AndalusianMotif";
 
@@ -25,6 +26,7 @@ export default function AdminPage() {
           initialSeries={SERIES}
           initialSiteSettings={SITE_SETTINGS}
           initialCuadernoPosts={CUADERNO_POSTS}
+          initialInboxItems={INITIAL_INBOX_ITEMS}
         />
       </div>
     </div>

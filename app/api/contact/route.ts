@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { buildContactOwnerEmailHtml } from "@/lib/email-templates";
 import { DESTINATION_EMAIL, relayWithFormSubmit, sendWithResend } from "@/lib/server/email";
 import { getClientIp, rateLimit } from "@/lib/server/rate-limit";
+import { addInboxItem } from "@/lib/server/inbox-store";
 
 export async function POST(request: Request) {
   try {
@@ -80,6 +81,28 @@ export async function POST(request: Request) {
     const cleanMensaje = String(mensaje).trim().slice(0, 4000);
 
     const subject = `[Web Javier Espinosa · ${cleanMotivo.toUpperCase()}] ${cleanNombre}`;
+
+    // Registrar en la bandeja unificada de administración
+    try {
+      const type = cleanMotivo.toLowerCase().includes("rally")
+        ? "rally"
+        : cleanMotivo.toLowerCase().includes("licencia")
+        ? "licencia"
+        : "consulta";
+
+      await addInboxItem({
+        type,
+        customerName: cleanNombre,
+        customerEmail: cleanEmail,
+        customerPhone: cleanTelefono || undefined,
+        subject: cleanReferencia ? `${cleanMotivo} — ${cleanReferencia}` : cleanMotivo,
+        message: cleanMensaje,
+        photoTitle: cleanReferencia || undefined,
+        status: "pendiente",
+      });
+    } catch (err) {
+      console.warn("[contact] Error guardando en bandeja de admin:", err);
+    }
 
     // 1. Envío mediante Resend API si RESEND_API_KEY está configurada
     const resendOk = await sendWithResend(

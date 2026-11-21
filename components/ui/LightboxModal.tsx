@@ -298,7 +298,7 @@ export default function LightboxModal({
           }`}
         >
           <div
-            className={`relative h-full w-full transition-transform ease-out ${
+            className={`relative h-full w-full transition-transform ease-out select-none ${
               isZoomed ? "scale-[2.0] duration-200" : "scale-100 duration-300"
             }`}
             style={{
@@ -311,8 +311,15 @@ export default function LightboxModal({
               fill
               sizes="95vw"
               priority
-              className="object-contain"
+              draggable={false}
+              className="object-contain pointer-events-none"
             />
+            {/* Sello de protección de autor para capturas de pantalla */}
+            <div className="pointer-events-none absolute bottom-3 right-4 z-10 select-none opacity-45">
+              <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#EBE7DF] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]">
+                © Javier Espinosa · Archivo de Autor
+              </span>
+            </div>
           </div>
         </div>
 
