@@ -57,11 +57,10 @@ export default function PortfolioPage() {
             </p>
           </div>
           <h1 className="mt-4 font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-tight leading-[1.12] text-[#EBE7DF]">
-            Colecciones Fotográficas
+            Archivo Fotográfico
           </h1>
           <p className="mt-6 text-base sm:text-lg leading-relaxed text-[#8E8A80] font-light">
-            Una mirada pausada sobre el territorio, la memoria, la velocidad y la naturaleza salvaje.
-            Explora las cinco grandes disciplinas fotográficas o recorre las 100 obras archivadas en alta resolución.
+            Cien fotografías organizadas en cinco ámbitos: fauna en libertad, paisajes, coches y rally, arquitectura y fotografía documental. Son temas muy distintos entre sí —del silencio de un monte al ruido de un parque de asistencia—, pero todos parten de la misma idea: mirar sin prisa y trabajar con la luz que hay.
           </p>
         </header>
 

@@ -81,8 +81,8 @@ export default function Footer() {
             </Link>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-[#8E8A80] font-light">
               {t(
-                "Práctica visual basada en la luz natural disponible, la verdad geométrica del espacio y la observación paciente. Capturas con sistema óptico Canon EOS R7.",
-                "Visual practice grounded in natural light, spatial geometry, and patient observation. Captured with the Canon EOS R7 precision optical system."
+                "Fotografía desde Tenerife, Canarias. Naturaleza, paisajes, arquitectura, motor clásico y vida cotidiana trabajados con luz natural. Copias en papel de algodón Hahnemühle 308g y encargos.",
+                "Photography from Tenerife, Canary Islands. Wildlife, landscapes, architecture, classic motorsport, and everyday life shot in natural light. Hahnemühle 308g cotton prints and commissions."
               )}
             </p>
 

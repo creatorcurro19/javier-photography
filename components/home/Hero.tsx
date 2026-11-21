@@ -185,22 +185,22 @@ export default function Hero() {
           {/* Propuesta de Valor Concreta */}
           <p className="mx-auto mt-3.5 max-w-2xl text-xs sm:text-sm font-light tracking-wide text-[#EBE7DF]/90 leading-relaxed">
             {t(
-              "Fotógrafo de autor afincado en Tenerife. Capturo la verdad óptica del territorio, la fauna salvaje, el automovilismo clásico y la arquitectura a través de la luz natural. Ediciones limitadas de autor sobre papel de algodón Hahnemühle y servicios de encargo fotográfico para proyectos editoriales, comerciales y coleccionistas.",
-              "Fine art photographer based in Tenerife. I capture the optical truth of landscapes, wildlife, historic motorsport, and architecture through natural light. Limited edition museum prints on Hahnemühle cotton paper and bespoke photographic commissions for editorial, commercial, and private collectors."
+              "Fotografía de naturaleza, paisaje, arquitectura, motor y vida cotidiana desde Tenerife. Me interesan los lugares con carácter, la huella del tiempo y los detalles que suelen pasar desapercibidos. Todas las imágenes están tomadas con luz natural y están disponibles como copia en papel de algodón Hahnemühle o para encargos y proyectos.",
+              "Nature, landscape, architecture, motorsport, and documentary photography based in Tenerife. I am drawn to places with character, the trace of time, and the details that often go unnoticed. Every image is shot in natural light and available as a Hahnemühle cotton print or for editorial and commercial projects."
             )}
           </p>
 
           {/* Bio Breve de 2 Líneas con Enlace a /about */}
           <p className="mx-auto mt-2 max-w-xl text-[11px] sm:text-xs font-light text-[#8E8A80] leading-relaxed">
             {t(
-              "Desarrollo mi práctica visual desde las Islas Canarias explorando la tensión entre la quietud del paisaje y el instante irrepetible.",
-              "Based in the Canary Islands, my visual practice explores the tension between landscape stillness and the unrepeatable moment."
+              "Distintos temas —del silencio del bosque al ruido de un tramo o la sombra de una calle antigua—, unidos por una misma forma de mirar.",
+              "Different subjects—from the quiet of the forest to a mountain rally stage or a shaded street—connected by the same way of looking."
             )}{" "}
             <Link
               href="/about"
               className="text-[#C5A880] underline underline-offset-4 hover:text-white transition whitespace-nowrap"
             >
-              {t("Conoce mi trayectoria y método →", "Discover my background and method →")}
+              {t("Sobre mi trabajo →", "About my work →")}
             </Link>
           </p>
 

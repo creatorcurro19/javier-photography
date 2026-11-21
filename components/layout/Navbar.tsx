@@ -19,24 +19,24 @@ import { useLanguage } from "@/lib/i18n";
 const obraSublinks = [
   {
     href: "/portfolio",
-    es: "Colecciones Archivadas",
-    en: "Archived Collections",
-    descEs: "100 obras maestras en 5 disciplinas",
-    descEn: "100 masterworks across 5 disciplines",
+    es: "Archivo por Disciplinas",
+    en: "Archive by Discipline",
+    descEs: "100 fotografías en 5 ámbitos",
+    descEn: "100 photographs across 5 fields",
   },
   {
     href: "/projects",
-    es: "Series Monográficas",
-    en: "Monograph Series",
-    descEs: "8 ensayos visuales en profundidad",
-    descEn: "8 deep visual photographic essays",
+    es: "Series y Proyectos",
+    en: "Series & Projects",
+    descEs: "8 reportajes y ensayos visuales",
+    descEn: "8 visual series and essays",
   },
   {
     href: "/selected-work",
     es: "Obras Seleccionadas",
     en: "Selected Works",
-    descEs: "Antología de 15 piezas fundamentales",
-    descEn: "Curated anthology of 15 signature pieces",
+    descEs: "Selección de 15 fotografías",
+    descEn: "A selection of 15 photographs",
   },
 ];
 

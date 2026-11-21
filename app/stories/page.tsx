@@ -33,13 +33,10 @@ export default function StoriesPage() {
             </p>
           </div>
           <h1 className="mt-4 font-serif text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight text-[#EBE7DF]">
-            Historias detrás del visor
+            Cuaderno de campo
           </h1>
           <p className="mt-6 text-base sm:text-lg leading-relaxed text-[#8E8A80] font-light">
-            Una fotografía es el punto culminante de un proceso previo: horas de exploración silenciosa,
-            estudio de las condiciones meteorológicas, posicionamiento milimétrico y comprensión del
-            comportamiento de la luz y el sujeto. Este cuaderno recoge las anotaciones y vivencias
-            de cada toma.
+            Detrás de algunas fotografías hay horas de espera en el monte, una luz que duró pocos minutos o una escena encontrada casi por casualidad. Aquí recojo breves apuntes sobre dónde y cómo se tomaron varias imágenes del archivo, junto con sus datos técnicos reales.
           </p>
         </div>
 

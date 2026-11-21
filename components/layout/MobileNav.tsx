@@ -34,8 +34,8 @@ const primaryLinks = [
     href: "/about",
     es: "Sobre mí",
     en: "About",
-    noteEs: "Trayectoria y método de autor",
-    noteEn: "Biography & optical method",
+    noteEs: "Mirada, equipo y forma de trabajar",
+    noteEn: "Approach, gear & way of working",
   },
   {
     href: "/contact",

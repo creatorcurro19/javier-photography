@@ -128,12 +128,10 @@ export default function PrintsPage() {
             </p>
           </div>
           <h1 className="mt-4 font-serif text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight text-[#EBE7DF]">
-            Copias Fine Art de Autor
+            Copias Fine Art en Papel de Algodón
           </h1>
           <p className="mt-6 text-base leading-relaxed text-[#8E8A80] sm:text-lg font-light">
-            Cada copia es producida bajo demanda individual con supervisión directa de calibración 
-            y perfilado cromático. Una traslación física precisa de la luz natural sobre soportes de fibra 
-            de algodón de la máxima calidad museística europea.
+            Una fotografía cambia cuando pasa de la pantalla al papel. Cada copia se imprime bajo pedido sobre algodón 100% Hahnemühle Photo Rag® de 308 g/m², revisando las pruebas de color para que las sombras, las texturas y la luz se vean tal como fueron pensadas. Se entregan numeradas, firmadas a mano y listas para conservar o enmarcar.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">

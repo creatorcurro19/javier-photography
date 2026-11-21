@@ -23,15 +23,15 @@ export default function HomeQuickContact() {
 
           <h2 className="mt-3 font-serif text-2xl sm:text-3xl font-light text-[#EBE7DF]">
             {t(
-              "¿Planeas un proyecto editorial o buscas una pieza para tu espacio?",
-              "Planning an editorial assignment or seeking a print for your space?"
+              "¿Tienes un proyecto en mente o buscas una fotografía para tu espacio?",
+              "Have a project in mind or looking for a print for your space?"
             )}
           </h2>
 
           <p className="mx-auto mt-3 max-w-xl text-xs sm:text-sm font-light text-[#8E8A80] leading-relaxed">
             {t(
-              "Atiendo personalmente cada solicitud de adquisición de copias Fine Art, encargos en las Islas Canarias o internacional, y cesión de licencias de archivo.",
-              "I personally attend each request for certified prints, bespoke photographic commissions in the Canary Islands or abroad, and archive licensing."
+              "Respondo personalmente a cada consulta sobre copias en papel Hahnemühle, encargos fotográficos en Canarias o fuera de las islas, y licencias de uso.",
+              "I personally reply to every inquiry regarding Hahnemühle prints, photographic commissions in the Canary Islands or abroad, and archive licensing."
             )}
           </p>
 

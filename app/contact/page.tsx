@@ -67,12 +67,10 @@ export default function ContactPage() {
             </p>
           </div>
           <h1 className="mt-4 font-serif text-4xl font-light tracking-wide text-[#EBE7DF] sm:text-5xl lg:text-6xl">
-            Iniciar una conversación
+            Contacto
           </h1>
           <p className="mt-6 text-base sm:text-lg leading-relaxed text-[#8E8A80] font-light">
-            Ya sea para la cobertura técnica de una prueba de automoción, un proyecto arquitectónico, 
-            la adquisición de una obra en soporte de algodón Hahnemühle o la cesión de derechos para una publicación editorial, 
-            describa sus requerimientos y recibirá una propuesta detallada.
+            Si quieres encargar una copia en un tamaño concreto, consultar una licencia para una publicación o proponer un reportaje de motor, arquitectura o territorio, escríbeme con los detalles y te responderé personalmente.
           </p>
         </div>
 

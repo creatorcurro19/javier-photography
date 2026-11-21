@@ -8,68 +8,68 @@ import { getAllPhotos } from "@/lib/photos";
 const VIEWFINDER_SLIDES = [
   {
     id: "autor",
-    code: "01 / AUTOR",
-    label: "El Autor en Campo",
-    title: "Silencio, espera y horizonte",
+    code: "01 / MIRADA",
+    label: "Observar en Campo",
+    title: "Detenerse a mirar",
     location: "Tenerife, Canarias, España",
     image: "/images/portfolio/hero/hero.jpg",
     secondaryImage: "/images/portfolio/paisajes-documental/cumbre-nevada-al-alba.jpg",
-    secondaryCaption: "Cumbre del Teide · 24mm · Luz cenital",
+    secondaryCaption: "Cumbre del Teide · 24mm · Luz de primera hora",
     exif: "EOS R7 · 50mm · f/4.0 · 1/500s · ISO 100",
     aspect: "aspect-[4/5]",
-    note: "La fotografía comienza mucho antes de levantar la cámara: empieza al leer la dirección del viento, la caída del sol y el ritmo del territorio.",
+    note: "La fotografía empieza bastante antes de levantar la cámara: empieza al fijarse en cómo cae la luz, en el silencio de un lugar o en un detalle que a simple vista pasaría de largo.",
   },
   {
     id: "fauna",
     code: "02 / FAUNA",
     label: "Fauna a 600mm",
     title: "Mirada del Lince Boreal",
-    location: "Bosque Boreal · Aproximación Silenciosa",
+    location: "Bosque Alpino · Espera a Distancia",
     image: "/images/portfolio/fauna-naturaleza/mirada-del-lince-boreal.jpg",
     secondaryImage: "/images/portfolio/fauna-naturaleza/garza-blanca-al-sol.jpg",
     secondaryCaption: "Garza Blanca al Sol · 600mm · f/6.3",
     exif: "EOS R7 · 232mm · f/5.0 · 1/800s · ISO 2000",
     aspect: "aspect-[4/5]",
-    note: "Horas de inmovilidad absoluta hasta que el animal olvida la presencia humana y regala un instante de contacto visual irrepetible.",
+    note: "Pasar desapercibido con el 600mm hasta que el animal sigue a lo suyo y te regala unos segundos de calma.",
   },
   {
     id: "rally",
     code: "03 / RALLY",
-    label: "Tensión Cinética",
-    title: "Vértigo en Tramo Cerrado",
-    location: "Campeonato de Rally · Asfalto y Tierra",
+    label: "Motor y Acción",
+    title: "Cruzada sobre el Asfalto",
+    location: "Tramo Cronometrado · Rally Histórico",
     image: "/images/portfolio/coches-rally/cruzada-sobre-el-asfalto.jpg",
     secondaryImage: "/images/portfolio/coches-rally/leyenda-con-librea-martini.jpg",
-    secondaryCaption: "Compresión en Curva · 150-600mm",
+    secondaryCaption: "Apoyo en Curva · 150-600mm",
     exif: "EOS R7 · 200mm · f/5.6 · 1/1000s · ISO 400",
     aspect: "aspect-[4/5]",
-    note: "Del silencio del bosque al rugido mecánico: congelar la deformación del neumático o barrer el fondo a 1/60s exige reflejos milimétricos.",
+    note: "De la quietud del monte al ruido de un motor clásico: tanto me interesa el coche apoyando al límite en una horquilla como las manos del mecánico en la asistencia.",
   },
   {
     id: "patrimonio",
     code: "04 / ARQUITECTURA",
-    label: "Arquitectura & Raíz",
-    title: "Entramados de La Vera",
-    location: "Villanueva de la Vera, Cáceres",
+    label: "Piedra y Tiempo",
+    title: "Ventanas Tomadas por el Bosque",
+    location: "Lugares Abandonados & Arquitectura",
     image: "/images/portfolio/arquitectura-urbana/ventanas-tomadas-por-el-bosque.jpg",
     secondaryImage: "/images/portfolio/viajes-cultura/el-oficio-y-la-chispa.jpg",
-    secondaryCaption: "Oficios de Forja · Crónica Documental",
+    secondaryCaption: "Oficios de Forja · Luz Natural",
     exif: "EOS R7 · 35mm · f/5.6 · 1/250s · ISO 200",
     aspect: "aspect-[4/5]",
-    note: "La madera de castaño, el granito y los oficios tradicionales conservan la huella del tiempo sin necesidad de artificios escenográficos.",
+    note: "La madera vieja, el granito, los muros descascarillados y los lugares abandonados donde el tiempo y la vegetación van recuperando su sitio.",
   },
   {
     id: "documental",
     code: "05 / DOCUMENTAL",
-    label: "Oficio & Memoria",
+    label: "Oficios y Calle",
     title: "El Oficio y la Chispa",
-    location: "Herrería Tradicional · Memoria Rural",
+    location: "Herrería Tradicional · Vida Cotidiana",
     image: "/images/portfolio/viajes-cultura/el-oficio-y-la-chispa.jpg",
     secondaryImage: "/images/portfolio/viajes-cultura/tornero-de-madera-en-el-zoco.jpg",
     secondaryCaption: "Tornero en el Zoco · 18-150mm",
     exif: "EOS R7 · 18mm · f/3.5 · 1/500s · ISO 1000",
     aspect: "aspect-[4/5]",
-    note: "La luz incandescente y el silencio concentrado del artesano: documentar el patrimonio humano antes de que desaparezca.",
+    note: "Registrar talleres, mercados y escenas de calle tal como suceden, sin pedir que nadie pose para la cámara.",
   },
 ];
 
@@ -77,61 +77,61 @@ const DISCIPLINES = [
   {
     id: "paisajes-documental",
     roman: "I",
-    code: "LANDSCAPES & TERRITORY",
-    title: "Paisajes & Territorio",
-    subtitle: "El pulso mineral de la tierra",
+    code: "LANDSCAPES",
+    title: "Paisajes y Territorio",
+    subtitle: "Montaña, niebla, costa y desierto",
     image: "/images/portfolio/paisajes-documental/cumbre-nevada-al-alba.jpg",
-    telemetry: "10–150mm · Luz Natural · Geología y Atmósfera",
+    telemetry: "10–150mm · Luz Natural · Canarias, Península y Sahara",
     description:
-      "Una mirada contemplativa al territorio: cumbres de alta montaña, horizontes desérticos en el Erg sahariano y formaciones volcánicas en Canarias.",
+      "Lugares abiertos donde la luz y el relieve hacen todo el trabajo: las cumbres volcánicas de Tenerife al amanecer, los bosques húmedos de laurisilva o las dunas del Sahara al caer la tarde.",
     href: "/portfolio/paisajes-documental",
   },
   {
     id: "fauna-naturaleza",
     roman: "II",
-    code: "WILDLIFE & BIODIVERSITY",
-    title: "Fauna & Biodiversidad",
-    subtitle: "El privilegio de ser invisible",
+    code: "WILDLIFE",
+    title: "Fauna y Naturaleza",
+    subtitle: "Observación en libertad a distancia",
     image: "/images/portfolio/fauna-naturaleza/mirada-del-lince-boreal.jpg",
-    telemetry: "600mm · f/6.3 · 1/1600s · AF Ojo Animal",
+    telemetry: "600mm · f/6.3 · Luz Natural · Sin Alterar el Entorno",
     description:
-      "Trabajar con fauna salvaje en libertad impone una ética innegociable: jamás alterar el comportamiento del animal. El teleobjetivo a 600mm comprime la atmósfera y aísla el gesto íntimo entre la maleza o la roca.",
+      "Fotografiar fauna consiste en saber esperar sin molestar. Con el teleobjetivo de 600mm busco aislar al animal en su propio entorno —desde un ave en los riscos de Anaga hasta un lobo o un ciervo en el monte— sin interferir en lo que hace.",
     href: "/portfolio/fauna-naturaleza",
   },
   {
     id: "coches-rally",
     roman: "III",
-    code: "MOTORSPORT & DYNAMICS",
-    title: "Coches & Rally Histórico",
-    subtitle: "Geometría de la velocidad",
+    code: "MOTORSPORT",
+    title: "Coches y Rally",
+    subtitle: "Tramos, paddock y clásicos con historia",
     image: "/images/portfolio/coches-rally/cruzada-sobre-el-asfalto.jpg",
-    telemetry: "150–600mm · 1/60s–1/2000s · Ráfaga 15 fps",
+    telemetry: "150–600mm · 1/60s–1/2000s · Tramo y Parque de Trabajo",
     description:
-      "En un tramo cerrado de rally no hay segundas tomas. La lectura previa de la trazada, la luz rasante sobre el asfalto o la gravilla y el control del barrido transforman la máquina en escultura cinética.",
+      "En las carreras de clásicos conviven la velocidad del tramo cerrado y la calma tensa de las carpas de asistencia: frenadas en horquilla, ruedas en el aire, faros supletorios, notas sobre el capó y olor a gasolina.",
     href: "/portfolio/coches-rally",
   },
   {
     id: "arquitectura-urbana",
     roman: "IV",
-    code: "URBAN & ARCHITECTURE",
-    title: "Arquitectura & Espacio",
-    subtitle: "Orden, piedra y entramado",
+    code: "ARCHITECTURE",
+    title: "Arquitectura y Espacio Urbano",
+    subtitle: "Huella del tiempo, piedra y calles nocturnas",
     image: "/images/portfolio/arquitectura-urbana/ventanas-tomadas-por-el-bosque.jpg",
-    telemetry: "10–35mm · f/8.0 · Líneas de Fuga Controladas",
+    telemetry: "10–35mm · f/8.0 · Luz Lateral y Nocturna",
     description:
-      "Desde las fachadas tradicionales de piedra, madera y adobe en La Vera hasta la geometría urbana y la atmósfera nocturna: una búsqueda de armonía espacial y memoria constructiva.",
+      "Edificios y rincones que cuentan cómo se construía antes o cómo pasa el tiempo por ellos: soportales de granito y entramados de madera en La Vera, patios antiguos, lugares abandonados y calles solitarias de noche.",
     href: "/portfolio/arquitectura-urbana",
   },
   {
     id: "viajes-cultura",
     roman: "V",
-    code: "DOCUMENTARY & TRADITION",
-    title: "Documental & Tradición",
-    subtitle: "Oficios, devoción y memoria viva",
+    code: "DOCUMENTARY",
+    title: "Documental y Tradición",
+    subtitle: "Oficios, mercados y escenas cotidianas",
     image: "/images/portfolio/viajes-cultura/el-oficio-y-la-chispa.jpg",
-    telemetry: "18–150mm · Luz Disponible · Antropología Visual",
+    telemetry: "18–150mm · Luz Disponible · Sin Posados",
     description:
-      "Crónica pausada de la identidad humana y los oficios ancestrales: herrerías de forja, secaderos de pimientos, talleres artesanales y el respeto documental por las comunidades observadas.",
+      "Historias pequeñas y oficios que resisten: el interior oscuro de una fragua, un tornero de madera en Marrakech, secaderos de pimientos al sol y escenas cotidianas donde la presencia humana forma parte natural del lugar.",
     href: "/portfolio/viajes-cultura",
   },
 ];
@@ -252,48 +252,42 @@ export default function AboutInteractiveStudio() {
           {/* Left Column: Editorial Statement & Interactive Perspective Selector */}
           <div className="lg:col-span-7 lg:pr-4">
             <p className="font-mono text-xs uppercase tracking-[0.38em] text-[#8E8A80]">
-              Biografía & Declaración Visual
+              Sobre mí y mi forma de mirar
             </p>
             <h1 className="mt-4 font-serif text-4xl font-light leading-[1.08] tracking-wide text-[#EBE7DF] sm:text-6xl lg:text-[4.25rem]">
-              La mirada que detiene{" "}
-              <span className="italic text-[#8E8A80]">el instante</span>
+              Observar antes de{" "}
+              <span className="italic text-[#8E8A80]">disparar</span>
             </h1>
 
             {/* Editorial Pull Quote */}
             <blockquote className="mt-8 border-l-2 border-[#8E8A80] pl-6 font-serif text-xl italic leading-relaxed text-[#EBE7DF]/90 sm:text-2xl">
-              «No busco el artificio ni la escena fabricada; busco el segundo
-              exacto en que la luz natural, la geometría y el instinto se
-              alinean en silencio.»
+              «La fotografía no tiene que demostrar constantemente lo impresionante que es el mundo. A veces basta con detenerse a observarlo.»
             </blockquote>
 
             <div className="mt-8 space-y-5 text-base font-light leading-relaxed text-[#EBE7DF]/80 sm:text-[17px] sm:leading-8">
               <p>
                 Soy <strong className="font-medium text-[#EBE7DF]">Javier Espinosa Martínez</strong>,
-                fotógrafo español afincado en Tenerife (Islas Canarias) y especializado en fotografía de naturaleza salvaje,
-                automovilismo de competición, arquitectura vernácula y narrativa
-                documental. Concibo la cámara como un instrumento de observación
-                paciente donde el respeto por la realidad prima sobre cualquier
-                manipulación.
+                fotógrafo afincado en Tenerife (Islas Canarias). Me interesa salir con la cámara a observar lo que tengo delante y encontrar carácter en cosas muy distintas: un animal en mitad del monte, la niebla entrando en un bosque, una fachada antigua o el paso de un coche clásico en un tramo de montaña.
               </p>
               <p>
-                Mi trabajo habita en la tensión entre dos ritmos opuestos: la
-                quietud absoluta frente a la fauna ibérica a 600 milímetros y la
-                adrenalina milimétrica a pie de cuneta en un tramo de rally, o el
-                recorrido pausado por la piedra centenaria de{" "}
+                Nunca me ha interesado encasillarme en una sola disciplina. Paso con naturalidad de esperar en silencio con el 600mm a recorrer los soportales de piedra y madera de{" "}
                 <Link
                   href="/projects/villanueva-de-la-vera"
                   className="underline decoration-[#8E8A80]/60 underline-offset-4 transition hover:text-white"
                 >
                   Villanueva de la Vera
-                </Link>{" "}
-                y las dunas del{" "}
+                </Link>
+                , un edificio abandonado tomado por las plantas, los talleres de Marrakech o las dunas del{" "}
                 <Link
                   href="/projects/silencio-del-desierto"
                   className="underline decoration-[#8E8A80]/60 underline-offset-4 transition hover:text-white"
                 >
                   Sahara
                 </Link>
-                .
+                . Son temas diferentes, pero todos parten de la misma curiosidad por la luz real, la huella del tiempo y los detalles que normalmente pasan desapercibidos.
+              </p>
+              <p>
+                Prefiero la autenticidad a la espectacularidad forzada. Cuando aparece una persona en mis fotografías —un herrero en su fragua, un vecino en la sombra de una calleja o un mecánico bajo la carpa de asistencia—, forma parte del lugar y del momento, sin necesidad de posados ni de convertirlo todo en espectáculo.
               </p>
             </div>
 
@@ -793,28 +787,28 @@ export default function AboutInteractiveStudio() {
         {/* Left: Ethical Manifesto in Numbered Editorial Format */}
         <div className="lg:col-span-6">
           <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
-            Código Deontológico
+            Manera de Trabajar
           </p>
           <h2 className="mt-2 font-serif text-3xl font-light text-[#EBE7DF] sm:text-4xl">
-            Tres principios innegociables
+            Tres criterios sencillos
           </h2>
 
           <div className="mt-8 divide-y divide-[#202226] border-y border-[#202226]">
             {[
               {
                 num: "01",
-                title: "Luz Natural Exclusiva",
-                desc: "Ninguna obra recurre a iluminación artificial invasiva. La penumbra del alba, la calima del desierto o los faros reales de un coche de competición dictan la atmósfera.",
+                title: "Trabajar con la luz que hay",
+                desc: "Prefiero adaptarme a la luz real de cada hora: la penumbra antes del amanecer, el sol filtrado en un callejón, la niebla del monte o las farolas de una calle de noche.",
               },
               {
                 num: "02",
-                title: "Verdad Óptica & Cero Generación Artificial",
-                desc: "Cada obra procede de la luz real que impactó en el sensor fotográfico, sin píxeles inventados ni elementos generativos. En el revelado digital se aplican estrictamente ajustes de tono, geometría óptica y herramientas de reducción de ruido asistidas (denoise) para preservar el microdetalle a sensibilidades elevadas sin alterar jamás la verdad de la escena.",
+                title: "Fotografía real, sin elementos inventados",
+                desc: "Lo que aparece en la imagen estaba delante del objetivo. El revelado se limita a cuidar el tono, el contraste y la limpieza del archivo para impresión, sin añadir ni generar nada artificialmente.",
               },
               {
                 num: "03",
-                title: "Respeto Absoluto al Hábitat",
-                desc: "En fotografía de naturaleza jamás se emplean reclamos agresivos ni se perturba la cría o el descanso de las especies observadas.",
+                title: "Respeto por el lugar y por lo fotografiado",
+                desc: "Tanto en la naturaleza como en un taller o en la calle, procuro interferir lo mínimo posible: mantener la distancia con la fauna y dejar que las escenas ocurran a su propio ritmo.",
               },
             ].map((pillar) => (
               <div key={pillar.num} className="flex gap-5 py-6">

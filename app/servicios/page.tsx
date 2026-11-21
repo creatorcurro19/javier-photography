@@ -117,11 +117,10 @@ export default function ServiciosPage() {
             </p>
           </div>
           <h1 className="mt-4 text-4xl sm:text-5xl md:text-6xl font-light tracking-tight text-[#EBE7DF]">
-            Servicios Fotográficos de Autor
+            Encargos y Proyectos Fotográficos
           </h1>
           <p className="mt-6 text-lg font-light leading-relaxed text-[#EBE7DF]/80">
-            Aporto mi identidad visual y experiencia técnica para proyectos comerciales, editoriales y documentales
-            que demanden una mirada personal, libre de artificios publicitarios genéricos.
+            Realizo encargos fotográficos para quienes buscan imágenes con personalidad propia y sin poses forzadas: desde la cobertura de un rally de clásicos o la documentación de una obra de arquitectura hasta reportajes editoriales y selección de copias para interiorismo.
           </p>
 
           <div className="mt-7 flex flex-wrap items-center gap-3">

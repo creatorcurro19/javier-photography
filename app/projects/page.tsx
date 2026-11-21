@@ -50,16 +50,14 @@ export default function ProjectsPage() {
           <div className="flex items-center gap-3">
             <span className="h-px w-6 bg-white/30" />
             <p className="font-mono text-xs uppercase tracking-[0.4em] text-[#8E8A80]">
-              The Art of Seeing · Ensayos de Autor
+              The Art of Seeing · Proyectos y Series
             </p>
           </div>
           <h1 className="mt-4 font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-tight leading-[1.12] text-[#EBE7DF]">
-            Series Monográficas
+            Series Fotográficas
           </h1>
           <p className="mt-6 text-base sm:text-lg leading-relaxed text-[#8E8A80] font-light">
-            Cuerpos de obra articulados con una intención documental y estética específica.
-            Cada proyecto constituye una secuencia visual meditada donde el contexto humano, el territorio
-            y la técnica dialogan con el espectador.
+            Hay lugares y temas que no caben en una sola foto. Esta sección reúne ocho series trabajadas con más calma: oficios que siguen vivos, pueblos de piedra y madera en La Vera, la niebla y la costa volcánica de Canarias, los talleres de Marrakech, el desierto, la fauna silvestre y los rallies de clásicos.
           </p>
         </header>
 

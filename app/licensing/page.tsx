@@ -107,9 +107,7 @@ export default function LicensingPage() {
             Licencias de Imagen
           </h1>
           <p className="mt-6 text-base leading-relaxed text-[#EBE7DF]/80 sm:text-lg font-light">
-            Las fotografías del archivo de Javier Espinosa están disponibles para licenciamiento 
-            editorial, publicitario y corporativo. Cada imagen cuenta con archivo master de 32,5 MP 
-            de resolución nativa, revelado profesional riguroso y metadatos de catalogación completos.
+            Todas las fotografías del archivo están disponibles bajo licencia para revistas, libros, prensa, proyectos culturales o campañas comerciales. Los archivos se entregan a resolución completa (32,5 MP) con revelado cuidado y datos de catalogación listos para publicación.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">

@@ -88,13 +88,13 @@ export default function DossierPage() {
           <section className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-12">
             <div className="md:col-span-7 space-y-4">
               <h2 className="font-mono text-[10px] uppercase tracking-[0.35em] text-[#C5A880] print:text-neutral-700">
-                01 · Manifiesto y Trayectoria
+                01 · Enfoque y Trayectoria
               </h2>
               <blockquote className="border-l-2 border-[#C5A880]/60 pl-4 font-serif italic text-base leading-relaxed text-[#F7F4EE] print:text-neutral-900">
-                «Concibo la fotografía como un acto de paciencia y respeto por lo observado: la luz natural sin artificio, la verdad geométrica del espacio y el instante en que la memoria se hace tangible.»
+                «La fotografía no tiene que demostrar constantemente lo impresionante que es el mundo. A veces basta con detenerse a observarlo.»
               </blockquote>
               <p className="text-sm font-light leading-relaxed text-[#D4CEC3] print:text-neutral-700">
-                Fotógrafo independiente español con sensibilidad forjada entre la herencia arquitectónica andaluza y el carácter volcánico de las Islas Canarias. Su obra abarca cinco disciplinas —<strong>Landscapes, Wildlife, Motorsport, Urban &amp; Architecture y Documentary</strong>— unidas por un rigor óptico innegociable: captura exclusiva con luz natural disponible y cero manipulación generativa.
+                Fotógrafo español con raíces andaluzas y base en Tenerife (Islas Canarias). Su archivo abarca cinco ámbitos —<strong>Paisaje, Fauna salvaje, Automovilismo clásico, Arquitectura y Fotografía documental</strong>— unidos por una misma forma de mirar: atención a los detalles cotidianos, respeto por la huella del tiempo y trabajo exclusivo con luz natural, sin alteraciones generativas.
               </p>
             </div>
 

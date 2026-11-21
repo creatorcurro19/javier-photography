@@ -60,13 +60,13 @@ export default function PrintAlertsForm() {
         </div>
 
         <h2 className="mt-2.5 font-serif text-3xl sm:text-4xl font-light text-[#EBE7DF]">
-          {t("Avisos de Nuevas Tiradas de Autor", "New Release Print Alerts")}
+          {t("Nuevas series y ediciones en papel", "New Series & Print Editions")}
         </h2>
 
         <p className="mx-auto mt-3 max-w-xl text-xs sm:text-sm font-light text-[#8E8A80] leading-relaxed">
           {t(
-            "Recibe notificación previa 48 horas antes de que se abran nuevas series numeradas sobre papel Hahnemühle Photo Rag 308g. Cero spam, solo aperturas de archivo.",
-            "Receive private advance notice 48 hours before new numbered series open on Hahnemühle Photo Rag 308g paper. Zero spam, only archive releases."
+            "Si quieres que te avise cuando publique un nuevo proyecto o abra una tirada numerada en papel Hahnemühle Photo Rag 308g, deja tu correo. Solo escribo cuando hay obra nueva.",
+            "If you would like to know when I publish a new series or release a numbered edition on Hahnemühle Photo Rag 308g paper, leave your email. I only write when there is new work."
           )}
         </p>
 

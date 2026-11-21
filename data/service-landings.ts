@@ -64,8 +64,8 @@ export const SERVICE_LANDINGS: ServiceLanding[] = [
     category: "coches-rally",
     heroImage: "/images/portfolio/coches-rally/parque-de-trabajo.jpg",
     intro: [
-      "El automovilismo de tramo exige anticipación técnica, lectura del rutómetro y conocimiento mecánico. Trabajo a pie de horquilla y en el interior del parque de asistencia para documentar tanto la tensión cinética del vehículo al límite de adherencia como el esfuerzo humano de pilotos, copilotos y mecánicos.",
-      "Con base en Tenerife (Islas Canarias) y desplazamientos habituales a pruebas en la Península Ibérica, combino teleobjetivo largo (Sigma 150-600mm Contemporary) para compresión en curva con angulares luminosos en el box, entregando un archivo coherente para patrocinadores, prensa especializada y coleccionistas.",
+      "En un rally de tramo las cosas pasan muy deprisa y conviene conocer bien el terreno antes de que pase el primer coche. Trabajo tanto a pie de curva como dentro del parque de asistencia para recoger no solo la frenada o el apoyo del vehículo, sino también el ambiente del equipo: los mecánicos bajo la carpa, las notas sobre el capó y los detalles de cada coche.",
+      "Desde Tenerife (Islas Canarias) y con desplazamientos a pruebas en la Península, combino el teleobjetivo de 600mm en tramo con ópticas más abiertas en el paddock para entregar un reportaje completo pensado para pilotos, escuderías, organizadores y prensa.",
     ],
     deliverables: [
       "Cobertura en múltiples ubicaciones de tramo (horquillas, apoyos, rasantes y salidas)",

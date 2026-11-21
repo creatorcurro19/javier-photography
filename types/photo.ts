@@ -68,18 +68,18 @@ export const CATEGORY_METADATA: Record<
 > = {
   "fauna-naturaleza": {
     code: "FAUNA SALVAJE",
-    codeEn: "WILDLIFE & NATURAL HISTORY",
+    codeEn: "WILDLIFE & NATURE",
     title: "Fauna y Naturaleza",
-    titleEn: "Wildlife & Biodiversity",
-    subtitle: "Fauna salvaje, biodiversidad y comportamiento animal en libertad",
-    subtitleEn: "Untamed wildlife, insular biodiversity, and animal behavior in the wild",
+    titleEn: "Wildlife & Nature",
+    subtitle: "Animales en libertad, aves y pequeños detalles del entorno natural",
+    subtitleEn: "Animals in the wild, birdlife, and quiet details of the natural world",
     description:
-      "Aproximación respetuosa a la fauna silvestre y la biodiversidad en su hábitat natural. Instantes capturados con paciencia, luz natural y teleobjetivo de 600mm en condiciones de campo.",
+      "Fotografiar animales en libertad consiste casi siempre en esperar. A veces durante horas, a 600mm, procurando pasar desapercibido hasta que el animal sigue con lo suyo y te deja observar un gesto, una mirada o el brillo de la luz sobre el plumaje.",
     descriptionEn:
-      "Ethical field observation of Iberian, Alpine, and Macaronesian wildlife in its natural habitat. Captured with available light and a 600mm super-telephoto lens without habitat disturbance.",
+      "Photographing wildlife is mostly about waiting. Sometimes for hours with a 600mm lens, staying out of sight until an animal goes back to its routine and lets you observe a gesture, a glance, or the way morning light catches its feathers.",
     seoTitle: "Fotografía de Fauna Salvaje y Naturaleza (Wildlife Photography) | Javier Espinosa",
     seoDescription:
-      "Colección de fotografía de fauna salvaje, aves y biodiversidad en libertad (Tenerife, Monfragüe, Sierra de Gredos). Capturas a 600mm con luz natural, copias Fine Art Hahnemühle y licencias editoriales.",
+      "Colección de fotografía de fauna salvaje, aves y naturaleza en libertad (Tenerife, Monfragüe, Sierra de Gredos). Capturas a 600mm con luz natural, copias Fine Art Hahnemühle y licencias editoriales.",
     seoKeywords: [
       "fotografía de fauna salvaje",
       "fotógrafo de naturaleza españa",
@@ -93,18 +93,18 @@ export const CATEGORY_METADATA: Record<
   },
   "paisajes-documental": {
     code: "PAISAJE & TERRITORIO",
-    codeEn: "LANDSCAPES & TERRITORY",
+    codeEn: "LANDSCAPES",
     title: "Paisajes y Territorio",
-    titleEn: "Landscapes & Geological Territory",
-    subtitle: "Territorios, montañas, desiertos y el pulso geológico del paisaje",
-    subtitleEn: "Volcanic summits, desert ergs, cloud forests, and geological stillness",
+    titleEn: "Landscapes & Territory",
+    subtitle: "Montañas, costas volcánicas, niebla y desierto",
+    subtitleEn: "Mountains, volcanic coasts, cloud forests, and desert dunes",
     description:
-      "Una mirada contemplativa al territorio: cumbres de alta montaña, horizontes desérticos, formaciones geológicas y el diálogo silencioso entre la tierra y la atmósfera.",
+      "Un paisaje no necesita grandes artificios cuando la luz acompaña. Desde el Teide al amanecer o la niebla cerrada en los montes de Anaga hasta las dunas del Sahara y el relieve del Atlas, son lugares donde apetece detenerse a mirar.",
     descriptionEn:
-      "A contemplative study of territory: snow-capped volcanic peaks in Tenerife, Saharan dune ridges, High Atlas reliefs, and the silent dialogue between geology and natural light.",
+      "A landscape needs very little when the light is right. From Mount Teide at dawn and the mist in Anaga's laurel forests to the dunes of the Sahara and the ridges of the High Atlas—places that invite you to stop and look.",
     seoTitle: "Fotografía de Paisaje y Territorio (Fine Art Landscape Photography) | Javier Espinosa",
     seoDescription:
-      "Fotografía de paisaje de autor en Tenerife (Teide, Anaga), Desierto del Sahara, Alto Atlas y Península Ibérica. Obra gráfica Fine Art sobre papel de algodón Hahnemühle Photo Rag 308g.",
+      "Fotografía de paisaje en Tenerife (Teide, Anaga), Desierto del Sahara, Alto Atlas y Península Ibérica. Copias Fine Art sobre papel de algodón Hahnemühle Photo Rag 308g.",
     seoKeywords: [
       "fotografía de paisaje",
       "fine art landscape photography",
@@ -117,15 +117,15 @@ export const CATEGORY_METADATA: Record<
   },
   "coches-rally": {
     code: "AUTOMOVILISMO & RALLY",
-    codeEn: "HISTORIC MOTORSPORT & RALLY",
+    codeEn: "MOTORSPORT & RALLY",
     title: "Coches y Rally",
-    titleEn: "Classic Motorsport & Rally",
-    subtitle: "Rally histórico, velocidad, mecánica de precisión y tensión cinética",
-    subtitleEn: "Timed mountain stages, paddock craftsmanship, and classic racing mechanics",
+    titleEn: "Cars & Historic Rally",
+    subtitle: "Tramos de montaña, clásicos de competición y ambiente de asistencia",
+    subtitleEn: "Mountain rally stages, classic competition cars, and the service park",
     description:
-      "La energía cinética del automovilismo en tramos cerrados y el ambiente técnico del paddock. Clásicos de competición, tensión mecánica y precisión de pilotaje.",
+      "En un rally pasan muchas cosas fuera de la trazada. Están los coches clásicos apurando una frenada o levantando rueda en una horquilla, pero también los mecánicos bajo la carpa, las notas sobre el capó y los detalles de carrocerías con décadas de historia.",
     descriptionEn:
-      "The kinetic tension of historic tarmac rallies and the intimate human ritual of the service park. Classic competition machines—Porsche 911, Golf Mk1, Autobianchi A112, BMW E30—at the limit of grip.",
+      "There is more to a rally than the racing line. There are classic cars braking late into a hairpin or lifting an inside wheel, but also mechanics working under the tent, pacenotes spread across a hood, and the worn details of bodywork with decades of history.",
     seoTitle: "Fotografía de Rally Histórico y Automovilismo (Motorsport Photography) | Javier Espinosa",
     seoDescription:
       "Archivo y encargos de fotografía de automovilismo, rally histórico, clásicos de competición y parque de asistencia en Tenerife y España. Láminas Fine Art de motor y cobertura para equipos.",
@@ -142,18 +142,18 @@ export const CATEGORY_METADATA: Record<
   },
   "arquitectura-urbana": {
     code: "ARQUITECTURA",
-    codeEn: "ARCHITECTURE & URBAN SPACE",
+    codeEn: "ARCHITECTURE & URBAN",
     title: "Arquitectura y Espacio Urbano",
-    titleEn: "Vernacular & Urban Architecture",
-    subtitle: "Arquitectura tradicional y contemporánea, geometrías y luces nocturnas",
-    subtitleEn: "Vernacular stone and timber heritage, Islamic geometry, and nocturnal urban space",
+    titleEn: "Architecture & Urban Space",
+    subtitle: "Piedra, madera, lugares abandonados y calles de noche",
+    subtitleEn: "Stone, timber, abandoned places, and quiet streets at night",
     description:
-      "Exploración de la geometría urbana, la arquitectura popular de piedra y entramado de madera, la fotografía nocturna y el diálogo entre el espacio construido y el paso del tiempo.",
+      "Me atraen los edificios que guardan la huella del tiempo: casas de granito y entramado de madera en pueblos antiguos, patios de azulejo y yeso, ruinas tomadas por la vegetación o la luz de una farola sobre una fachada a medianoche.",
     descriptionEn:
-      "An architectural inquiry into spatial geometry, vernacular granite-and-timber construction in La Vera, Islamic zellij courtyards in Marrakech, and nocturnal urban atmospheres.",
+      "I am drawn to buildings that show the passage of time: granite and timber houses in old villages, tiled courtyards, ruins slowly reclaimed by vegetation, or the warm glow of a streetlamp against a facade late at night.",
     seoTitle: "Fotografía de Arquitectura, Patrimonio y Espacio Urbano | Javier Espinosa",
     seoDescription:
-      "Fotografía de arquitectura vernácula, patrimonio histórico, geometría islámica y paisaje urbano nocturno por Javier Espinosa Martínez. Reportajes para arquitectos y obra Fine Art.",
+      "Fotografía de arquitectura tradicional, patrimonio histórico, lugares con huella del tiempo y espacio urbano nocturno por Javier Espinosa Martínez. Reportajes y copias Fine Art.",
     seoKeywords: [
       "fotografía de arquitectura",
       "fotógrafo de arquitectura y patrimonio",
@@ -166,18 +166,18 @@ export const CATEGORY_METADATA: Record<
   },
   "viajes-cultura": {
     code: "DOCUMENTAL",
-    codeEn: "DOCUMENTARY & LIVING HERITAGE",
+    codeEn: "DOCUMENTARY",
     title: "Documental y Tradición",
-    titleEn: "Documentary & Living Heritage",
-    subtitle: "Oficios, tradiciones, memoria popular, devoción y vida cotidiana",
-    subtitleEn: "Traditional crafts, ethnographic memory, souk workshops, and everyday dignity",
+    titleEn: "Documentary & Everyday Life",
+    subtitle: "Oficios manuales, mercados, costumbres y escenas cotidianas",
+    subtitleEn: "Handcrafts, markets, local traditions, and everyday scenes",
     description:
-      "Crónica documental de la memoria colectiva: oficios tradicionales, celebraciones populares, retratos de calle y la dignidad de lo cotidiano sin artificios.",
+      "Talleres donde se sigue trabajando el hierro o la madera a mano, secaderos de pimientos al sol, mercados de barrio y escenas de calle sin posar. Fotografías que buscan registrar cómo son los lugares y quienes los habitan sin interrumpir lo que está pasando.",
     descriptionEn:
-      "A documentary chronicle of collective memory: traditional blacksmiths, cedar woodturners in Marrakech, paprika drying in Villanueva de la Vera, and unposed street portraits in available light.",
-    seoTitle: "Fotografía Documental, Etnografía y Viajes (Documentary Photography) | Javier Espinosa",
+      "Workshops where iron and cedar are still shaped by hand, peppers drying in the sun, neighborhood markets, and unposed street scenes. Photographs meant to record places and the people in them without interrupting what is happening.",
+    seoTitle: "Fotografía Documental, Oficios y Vida Cotidiana (Documentary Photography) | Javier Espinosa",
     seoDescription:
-      "Ensayos de fotografía documental sobre oficios tradicionales, memoria rural, cultura popular en España y zocos históricos de Marruecos. Captura con luz natural sin artificio.",
+      "Series de fotografía documental sobre oficios tradicionales, vida rural, tradiciones en España y zocos históricos de Marruecos. Fotografías tomadas con luz natural sin posados.",
     seoKeywords: [
       "fotografía documental",
       "documentary photography spain",
