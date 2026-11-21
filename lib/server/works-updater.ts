@@ -2,11 +2,45 @@ import "server-only";
 import fs from "fs";
 import path from "path";
 import { WORKS, SERIES } from "@/data/works";
-import type { Photo, Project } from "@/types/photo";
+import { CATEGORY_METADATA, PHOTO_CATEGORIES, type Photo, type PhotoCategory, type Project } from "@/types/photo";
+
+const DEFAULT_HERO_SLUGS = [
+  "ocaso-sobre-el-erg",
+  "mirada-del-lince-boreal",
+  "cumbre-nevada-al-alba",
+  "cruzada-sobre-el-asfalto",
+  "el-oficio-y-la-chispa",
+];
+
+function initWorks(): Photo[] {
+  const list: Photo[] = WORKS.map((w) => ({ ...w }));
+  // Inicializar heroOrder (1..5) si ninguna foto lo tiene asignado aún
+  if (!list.some((w) => typeof w.heroOrder === "number")) {
+    DEFAULT_HERO_SLUGS.forEach((slug, idx) => {
+      const found = list.find((w) => w.slug === slug);
+      if (found) found.heroOrder = idx + 1;
+    });
+  }
+  // Inicializar categoryCover si ninguna foto de la categoría lo tiene asignado aún
+  for (const cat of PHOTO_CATEGORIES) {
+    if (!list.some((w) => w.category === cat && w.categoryCover)) {
+      const defaultCoverImg = CATEGORY_METADATA[cat]?.coverImage;
+      const found =
+        list.find((w) => w.category === cat && w.image === defaultCoverImg) ??
+        list.find((w) => w.category === cat);
+      if (found) found.categoryCover = true;
+    }
+  }
+  return list;
+}
 
 // Copia en memoria para reflejar los cambios inmediatamente en el runtime del servidor
-const inMemoryWorks: Photo[] = WORKS.map((w) => ({ ...w }));
-const inMemorySeries: Project[] = SERIES.map((s) => ({ ...s, photoIds: [...s.photoIds] }));
+const inMemoryWorks: Photo[] = initWorks();
+const inMemorySeries: Project[] = SERIES.map((s) => ({
+  ...s,
+  statement: [...s.statement],
+  photoIds: [...s.photoIds],
+}));
 
 export function getCurrentWorks(): Photo[] {
   return inMemoryWorks;
@@ -52,12 +86,45 @@ export function sanitizePhotoForCategory(photo: Photo): Photo {
     delete clean.wildlifeCondition;
     delete clean.realLocation;
   }
+  if (!clean.heroOrder || clean.heroOrder < 1 || clean.heroOrder > 5) {
+    delete clean.heroOrder;
+  }
+  if (!clean.categoryCover) {
+    delete clean.categoryCover;
+  }
   (["story", "location", "country", "maxFormatReason", "exifWarning"] as const).forEach((key) => {
     if (typeof clean[key] === "string" && (clean[key] as string).trim() === "") {
       delete clean[key];
     }
   });
   return clean;
+}
+
+/**
+ * Aplica reglas de exclusividad para Carrusel Hero (1..5), Portada de Categoría y Portada de Serie.
+ */
+function applyPlacementExclusivity(photo: Photo, seriesCoverSlugs?: string[]): void {
+  if (photo.heroOrder && photo.heroOrder >= 1 && photo.heroOrder <= 5) {
+    for (const w of inMemoryWorks) {
+      if (w.id !== photo.id && w.heroOrder === photo.heroOrder) {
+        delete w.heroOrder;
+      }
+    }
+  }
+  if (photo.categoryCover) {
+    for (const w of inMemoryWorks) {
+      if (w.id !== photo.id && w.category === photo.category && w.categoryCover) {
+        delete w.categoryCover;
+      }
+    }
+  }
+  if (Array.isArray(seriesCoverSlugs)) {
+    for (const series of inMemorySeries) {
+      if (seriesCoverSlugs.includes(series.slug)) {
+        series.coverImage = photo.image;
+      }
+    }
+  }
 }
 
 /**
@@ -89,14 +156,27 @@ function applySeriesMembership(photo: Photo, seriesSlugs: string[] | undefined):
 }
 
 /**
+ * Sincroniza los campos series / seriesSlug de todas las fotos a partir de inMemorySeries.
+ */
+function syncAllPhotosSeriesTags(): void {
+  for (const work of inMemoryWorks) {
+    const matching = inMemorySeries.find((s) => s.photoIds.includes(work.id));
+    if (matching) {
+      work.series = matching.title;
+      work.seriesSlug = matching.slug;
+    } else {
+      delete work.series;
+      delete work.seriesSlug;
+    }
+  }
+}
+
+/**
  * Asegura que todas las series tengan como coverImage una foto existente en el catálogo.
- * Si el autor elimina la foto que era portada de una serie, se asigna automáticamente
- * la primera foto disponible de esa serie o de su categoría.
  */
 function ensureValidSeriesCovers(): void {
   const validImages = new Set(inMemoryWorks.map((w) => w.image));
   for (const series of inMemorySeries) {
-    // Limpiar IDs de fotos que ya no existan
     series.photoIds = series.photoIds.filter((id) =>
       inMemoryWorks.some((w) => w.id === id)
     );
@@ -144,7 +224,6 @@ async function commitFilesToGithub(
   };
 
   try {
-    // 1. Obtener el último commit de main
     const refRes = await fetch(`${baseApi}/git/ref/heads/main`, {
       headers,
       cache: "no-store",
@@ -156,7 +235,6 @@ async function commitFilesToGithub(
     const refData = await refRes.json();
     const latestCommitSha: string = refData.object.sha;
 
-    // 2. Obtener el árbol base del último commit
     const commitRes = await fetch(`${baseApi}/git/commits/${latestCommitSha}`, {
       headers,
       cache: "no-store",
@@ -168,7 +246,6 @@ async function commitFilesToGithub(
     const commitData = await commitRes.json();
     const baseTreeSha: string = commitData.tree.sha;
 
-    // 3. Crear los blobs para cada archivo (data/works.ts y/o imagen subida)
     const treeEntries: { path: string; mode: "100644"; type: "blob"; sha: string }[] = [];
     for (const file of files) {
       const blobRes = await fetch(`${baseApi}/git/blobs`, {
@@ -192,7 +269,6 @@ async function commitFilesToGithub(
       });
     }
 
-    // 4. Crear el nuevo árbol
     const newTreeRes = await fetch(`${baseApi}/git/trees`, {
       method: "POST",
       headers,
@@ -207,7 +283,6 @@ async function commitFilesToGithub(
     }
     const newTreeData = await newTreeRes.json();
 
-    // 5. Crear el commit
     const newCommitRes = await fetch(`${baseApi}/git/commits`, {
       method: "POST",
       headers,
@@ -227,7 +302,6 @@ async function commitFilesToGithub(
     }
     const newCommitData = await newCommitRes.json();
 
-    // 6. Actualizar la referencia main
     const updateRefRes = await fetch(`${baseApi}/git/refs/heads/main`, {
       method: "PATCH",
       headers,
@@ -247,7 +321,20 @@ async function commitFilesToGithub(
   }
 }
 
-interface SaveResult {
+function writeWorksToLocalDisk(fullSource: string): { ok: boolean; error?: string } {
+  if (process.env.VERCEL === "1") return { ok: false };
+  try {
+    const filePath = path.join(process.cwd(), "data", "works.ts");
+    fs.writeFileSync(filePath, fullSource, "utf8");
+    return { ok: true };
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.warn("[works-updater] No se pudo guardar en disco:", msg);
+    return { ok: false, error: msg };
+  }
+}
+
+export interface SaveResult {
   ok: boolean;
   persistedToDisk: boolean;
   persistedToGit: boolean;
@@ -265,11 +352,11 @@ export async function saveWork(
   incomingPhoto: Photo,
   seriesSlugs?: string[],
   customGithubToken?: string,
-  imageBase64?: string
+  imageBase64?: string,
+  seriesCoverSlugs?: string[]
 ): Promise<SaveResult> {
   let updatedPhoto = sanitizePhotoForCategory(incomingPhoto);
 
-  // Si viene una imagen nueva codificada en base64, preparamos su ruta canónica
   let cleanBase64: string | undefined;
   let repoImagePath: string | undefined;
   if (imageBase64 && imageBase64.trim().length > 0) {
@@ -284,6 +371,7 @@ export async function saveWork(
   }
 
   updatedPhoto = applySeriesMembership(updatedPhoto, seriesSlugs);
+  applyPlacementExclusivity(updatedPhoto, seriesCoverSlugs);
 
   const index = inMemoryWorks.findIndex((w) => w.id === updatedPhoto.id);
   const isNew = index === -1;
@@ -298,7 +386,6 @@ export async function saveWork(
   let persistedToDisk = false;
   let diskError: string | undefined;
 
-  // 1. Persistir en disco local (entorno de desarrollo)
   if (process.env.VERCEL !== "1") {
     try {
       if (cleanBase64) {
@@ -314,16 +401,14 @@ export async function saveWork(
         fs.mkdirSync(path.dirname(absImgPath), { recursive: true });
         fs.writeFileSync(absImgPath, Buffer.from(cleanBase64, "base64"));
       }
-      const filePath = path.join(process.cwd(), "data", "works.ts");
-      fs.writeFileSync(filePath, fullSource, "utf8");
-      persistedToDisk = true;
+      const diskRes = writeWorksToLocalDisk(fullSource);
+      persistedToDisk = diskRes.ok;
+      diskError = diskRes.error;
     } catch (err: unknown) {
       diskError = err instanceof Error ? err.message : String(err);
-      console.warn("[works-updater] No se pudo guardar en disco:", diskError);
     }
   }
 
-  // 2. Persistir en GitHub (commit atómico de data/works.ts + imagen si se subió)
   const filesToCommit: GithubFileEntry[] = [
     { path: "data/works.ts", content: fullSource, encoding: "utf-8" },
   ];
@@ -345,8 +430,8 @@ export async function saveWork(
   let message: string;
   if (gitResult.ok) {
     message = isNew
-      ? `Nueva fotografía "${updatedPhoto.title}" añadida. Se publicará en la web en ~1 minuto.`
-      : `"${updatedPhoto.title}" guardada. La web se actualizará sola en ~1 minuto.`;
+      ? `Nueva fotografía "${updatedPhoto.title}" añadida y publicada.`
+      : `"${updatedPhoto.title}" guardada y publicada.`;
   } else if (persistedToDisk) {
     message = `"${updatedPhoto.title}" guardada en data/works.ts (entorno local).`;
   } else {
@@ -364,7 +449,275 @@ export async function saveWork(
   };
 }
 
-interface DeleteResult {
+/**
+ * Subida en lote (#1): crea múltiples fotografías y sube todos sus archivos .jpg en un único commit atómico.
+ */
+export async function batchCreateWorks(
+  items: { photo: Photo; imageBase64: string }[],
+  seriesSlugs?: string[],
+  customGithubToken?: string
+): Promise<{
+  ok: boolean;
+  persistedToDisk: boolean;
+  persistedToGit: boolean;
+  message: string;
+  createdPhotos: Photo[];
+}> {
+  const createdPhotos: Photo[] = [];
+  const filesToCommit: GithubFileEntry[] = [];
+
+  for (const item of items) {
+    let cleanPhoto = sanitizePhotoForCategory(item.photo);
+    const cleanBase64 = item.imageBase64.replace(/^data:image\/[a-zA-Z0-9.+-]+;base64,/, "").trim();
+    const safeSlug = cleanPhoto.slug.replace(/[^a-z0-9-]/gi, "-").toLowerCase() || cleanPhoto.id;
+    cleanPhoto = {
+      ...cleanPhoto,
+      slug: safeSlug,
+      image: `/images/portfolio/${cleanPhoto.category}/${safeSlug}.jpg`,
+    };
+    cleanPhoto = applySeriesMembership(cleanPhoto, seriesSlugs);
+    inMemoryWorks.unshift(cleanPhoto);
+    createdPhotos.push(cleanPhoto);
+
+    filesToCommit.push({
+      path: `public/images/portfolio/${cleanPhoto.category}/${safeSlug}.jpg`,
+      content: cleanBase64,
+      encoding: "base64",
+    });
+
+    if (process.env.VERCEL !== "1" && cleanBase64) {
+      try {
+        const absImgPath = path.join(
+          process.cwd(),
+          "public",
+          "images",
+          "portfolio",
+          cleanPhoto.category,
+          `${safeSlug}.jpg`
+        );
+        fs.mkdirSync(path.dirname(absImgPath), { recursive: true });
+        fs.writeFileSync(absImgPath, Buffer.from(cleanBase64, "base64"));
+      } catch {
+        // ignore local write errors
+      }
+    }
+  }
+
+  ensureValidSeriesCovers();
+  const fullSource = generateWorksTsSource();
+  const diskRes = writeWorksToLocalDisk(fullSource);
+  filesToCommit.push({ path: "data/works.ts", content: fullSource, encoding: "utf-8" });
+
+  const gitResult = await commitFilesToGithub(
+    `Editorial: subida en lote de ${createdPhotos.length} fotografías`,
+    filesToCommit,
+    customGithubToken
+  );
+
+  const message = gitResult.ok
+    ? `${createdPhotos.length} fotografías añadidas al catálogo y publicadas.`
+    : diskRes.ok
+    ? `${createdPhotos.length} fotografías guardadas en entorno local.`
+    : `${createdPhotos.length} fotografías añadidas solo en sesión.`;
+
+  return {
+    ok: true,
+    persistedToDisk: diskRes.ok,
+    persistedToGit: gitResult.ok,
+    message,
+    createdPhotos,
+  };
+}
+
+/**
+ * Ajuste de precios en bloque (#2): modifica los precios de todo el catálogo o de una categoría en un solo paso.
+ */
+export async function bulkUpdatePrices(
+  params: {
+    scope: "all" | PhotoCategory;
+    mode: "set" | "delta";
+    estudio?: number;
+    galeria?: number;
+    coleccion?: number;
+    deltaAmount?: number;
+    editionTotal?: number;
+    prints?: boolean;
+  },
+  customGithubToken?: string
+): Promise<{
+  ok: boolean;
+  persistedToDisk: boolean;
+  persistedToGit: boolean;
+  updatedCount: number;
+  message: string;
+}> {
+  let updatedCount = 0;
+  for (const w of inMemoryWorks) {
+    if (params.scope !== "all" && w.category !== params.scope) continue;
+    updatedCount += 1;
+
+    const current = w.pricing ?? {
+      estudio: 95,
+      galeria: 175,
+      coleccion: 290,
+      dimensions: {
+        estudio: "30 × 45 cm",
+        galeria: "50 × 70 cm",
+        coleccion: "70 × 100 cm",
+      },
+      paper: "Hahnemühle Photo Rag 308g (100% Algodón)",
+      editionTotal: 25,
+      score: 85,
+    };
+
+    if (params.mode === "set") {
+      w.pricing = {
+        ...current,
+        estudio:
+          typeof params.estudio === "number" && params.estudio >= 20
+            ? Math.round(params.estudio)
+            : current.estudio,
+        galeria:
+          typeof params.galeria === "number" && params.galeria >= 20
+            ? Math.round(params.galeria)
+            : current.galeria,
+        coleccion:
+          typeof params.coleccion === "number" && params.coleccion >= 20
+            ? Math.round(params.coleccion)
+            : current.coleccion,
+        editionTotal:
+          typeof params.editionTotal === "number" && params.editionTotal >= 1
+            ? Math.round(params.editionTotal)
+            : current.editionTotal,
+      };
+    } else if (params.mode === "delta" && typeof params.deltaAmount === "number") {
+      const d = Math.round(params.deltaAmount);
+      w.pricing = {
+        ...current,
+        estudio: Math.max(20, current.estudio + d),
+        galeria: Math.max(30, current.galeria + d),
+        coleccion: Math.max(50, current.coleccion + d),
+      };
+    }
+
+    if (typeof params.prints === "boolean") {
+      w.prints = params.prints;
+    }
+  }
+
+  const fullSource = generateWorksTsSource();
+  const diskRes = writeWorksToLocalDisk(fullSource);
+  const scopeLabel =
+    params.scope === "all"
+      ? "todo el catálogo"
+      : CATEGORY_METADATA[params.scope]?.title ?? params.scope;
+
+  const gitResult = await commitFilesToGithub(
+    `Editorial: actualización de precios en lote (${scopeLabel}, ${updatedCount} obras)`,
+    [{ path: "data/works.ts", content: fullSource, encoding: "utf-8" }],
+    customGithubToken
+  );
+
+  return {
+    ok: true,
+    persistedToDisk: diskRes.ok,
+    persistedToGit: gitResult.ok,
+    updatedCount,
+    message: `Precios actualizados en ${updatedCount} obras (${scopeLabel}).`,
+  };
+}
+
+/**
+ * Edición de una Serie Monográfica (#4): actualiza textos, portada y orden de fotografías de una serie.
+ */
+export async function saveSeriesItem(
+  incomingSeries: Project,
+  customGithubToken?: string
+): Promise<{
+  ok: boolean;
+  persistedToDisk: boolean;
+  persistedToGit: boolean;
+  seriesItem: Project;
+  message: string;
+}> {
+  const idx = inMemorySeries.findIndex((s) => s.slug === incomingSeries.slug || s.id === incomingSeries.id);
+  const cleanSeries: Project = {
+    ...incomingSeries,
+    statement: incomingSeries.statement.map((p) => p.trim()).filter((p) => p.length > 0),
+    photoIds: incomingSeries.photoIds.filter((id) => inMemoryWorks.some((w) => w.id === id)),
+  };
+
+  if (idx === -1) {
+    inMemorySeries.push(cleanSeries);
+  } else {
+    inMemorySeries[idx] = cleanSeries;
+  }
+
+  ensureValidSeriesCovers();
+  syncAllPhotosSeriesTags();
+
+  const fullSource = generateWorksTsSource();
+  const diskRes = writeWorksToLocalDisk(fullSource);
+  const gitResult = await commitFilesToGithub(
+    `Editorial: actualización de serie "${cleanSeries.title}"`,
+    [{ path: "data/works.ts", content: fullSource, encoding: "utf-8" }],
+    customGithubToken
+  );
+
+  return {
+    ok: true,
+    persistedToDisk: diskRes.ok,
+    persistedToGit: gitResult.ok,
+    seriesItem: cleanSeries,
+    message: `Serie "${cleanSeries.title}" actualizada y publicada.`,
+  };
+}
+
+/**
+ * Restaurar estado anterior (#7: Deshacer último cambio / recuperar foto borrada).
+ */
+export async function restoreCatalogSnapshot(
+  worksSnapshot: Photo[],
+  seriesSnapshot: Project[],
+  label: string,
+  customGithubToken?: string
+): Promise<{
+  ok: boolean;
+  persistedToDisk: boolean;
+  persistedToGit: boolean;
+  message: string;
+}> {
+  inMemoryWorks.length = 0;
+  for (const w of worksSnapshot) {
+    inMemoryWorks.push({ ...w });
+  }
+  inMemorySeries.length = 0;
+  for (const s of seriesSnapshot) {
+    inMemorySeries.push({
+      ...s,
+      statement: [...(s.statement ?? [])],
+      photoIds: [...(s.photoIds ?? [])],
+    });
+  }
+  ensureValidSeriesCovers();
+
+  const fullSource = generateWorksTsSource();
+  const diskRes = writeWorksToLocalDisk(fullSource);
+  const gitResult = await commitFilesToGithub(
+    `Editorial: deshacer cambio (${label})`,
+    [{ path: "data/works.ts", content: fullSource, encoding: "utf-8" }],
+    customGithubToken
+  );
+
+  return {
+    ok: true,
+    persistedToDisk: diskRes.ok,
+    persistedToGit: gitResult.ok,
+    message: `Cambio deshecho: ${label}.`,
+  };
+}
+
+export interface DeleteResult {
   ok: boolean;
   persistedToDisk: boolean;
   persistedToGit: boolean;
@@ -400,19 +753,7 @@ export async function deleteWork(
   ensureValidSeriesCovers();
 
   const fullSource = generateWorksTsSource();
-  let persistedToDisk = false;
-  let diskError: string | undefined;
-
-  if (process.env.VERCEL !== "1") {
-    try {
-      const filePath = path.join(process.cwd(), "data", "works.ts");
-      fs.writeFileSync(filePath, fullSource, "utf8");
-      persistedToDisk = true;
-    } catch (err: unknown) {
-      diskError = err instanceof Error ? err.message : String(err);
-      console.warn("[works-updater] No se pudo guardar en disco tras eliminar:", diskError);
-    }
-  }
+  const diskRes = writeWorksToLocalDisk(fullSource);
 
   const gitResult = await commitFilesToGithub(
     `Editorial: eliminación de obra "${removed.title}" [${removed.id}]`,
@@ -422,8 +763,8 @@ export async function deleteWork(
 
   let message: string;
   if (gitResult.ok) {
-    message = `"${removed.title}" eliminada del catálogo. La web se actualizará en ~1 minuto.`;
-  } else if (persistedToDisk) {
+    message = `"${removed.title}" eliminada del catálogo.`;
+  } else if (diskRes.ok) {
     message = `"${removed.title}" eliminada de data/works.ts (entorno local).`;
   } else {
     message = `"${removed.title}" eliminada solo en sesión: falta conectar GitHub.`;
@@ -431,10 +772,10 @@ export async function deleteWork(
 
   return {
     ok: true,
-    persistedToDisk,
+    persistedToDisk: diskRes.ok,
     persistedToGit: gitResult.ok,
     message,
     deletedId: photoId,
-    error: diskError,
+    error: diskRes.error,
   };
 }

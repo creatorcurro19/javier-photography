@@ -1,11 +1,6 @@
-import type { Photo, PhotoCategory } from "@/types/photo";
+import type { Photo, PhotoCategory, Project } from "@/types/photo";
 
-export interface AdminSeries {
-  slug: string;
-  title: string;
-  category: PhotoCategory;
-  photoIds: string[];
-}
+export type AdminSeries = Project;
 
 export const CATEGORY_ID_PREFIX: Record<PhotoCategory, string> = {
   "fauna-naturaleza": "fn",
@@ -24,15 +19,64 @@ export function slugifyTitle(input: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
+export function titleFromFilename(fileName: string): string {
+  const base = fileName
+    .replace(/\.[^.]+$/, "")
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!base) return "Nueva obra";
+  return base
+    .split(" ")
+    .map((word, idx) => {
+      const lower = word.toLowerCase();
+      if (
+        idx > 0 &&
+        ["de", "del", "la", "el", "en", "y", "a", "al", "con", "por"].includes(lower)
+      ) {
+        return lower;
+      }
+      return lower.charAt(0).toUpperCase() + lower.slice(1);
+    })
+    .join(" ");
+}
+
+export function dimensionsForAspect(width: number, height: number) {
+  const ratio = Math.max(width, height) / Math.max(1, Math.min(width, height));
+  if (ratio >= 1.68) {
+    return {
+      estudio: "30 × 53 cm",
+      galeria: "45 × 80 cm",
+      coleccion: "60 × 105 cm",
+    };
+  }
+  if (ratio <= 1.32) {
+    return {
+      estudio: "32 × 40 cm",
+      galeria: "50 × 62 cm",
+      coleccion: "70 × 88 cm",
+    };
+  }
+  return {
+    estudio: "30 × 45 cm",
+    galeria: "50 × 70 cm",
+    coleccion: "70 × 100 cm",
+  };
+}
+
 export function generateNextPhotoId(
   category: PhotoCategory,
-  existingWorks: Photo[]
+  existingWorks: Photo[],
+  reservedIds?: Set<string>
 ): string {
   const prefix = CATEGORY_ID_PREFIX[category];
   let maxNum = 0;
   const used = new Set(existingWorks.map((w) => w.id));
-  for (const w of existingWorks) {
-    const match = w.id.match(new RegExp(`^${prefix}-(\\d+)$`));
+  if (reservedIds) {
+    for (const r of reservedIds) used.add(r);
+  }
+  for (const id of used) {
+    const match = id.match(new RegExp(`^${prefix}-(\\d+)$`));
     if (match) {
       const n = parseInt(match[1], 10);
       if (n > maxNum) maxNum = n;
@@ -49,9 +93,10 @@ export function generateNextPhotoId(
 
 export function createBlankPhoto(
   category: PhotoCategory,
-  existingWorks: Photo[]
+  existingWorks: Photo[],
+  reservedIds?: Set<string>
 ): Photo {
-  const id = generateNextPhotoId(category, existingWorks);
+  const id = generateNextPhotoId(category, existingWorks, reservedIds);
   return {
     id,
     slug: "",
@@ -94,6 +139,102 @@ export function createBlankPhoto(
       score: 85,
     },
     ...(category === "fauna-naturaleza" ? { wildlifeCondition: "libre" as const } : {}),
+  };
+}
+
+/**
+ * Lee metadatos EXIF y comprime/redimensiona un archivo de imagen en el navegador
+ * a máx. 2200px (JPEG 0.88). Usado tanto en subida individual como en subida por lotes.
+ */
+export async function processImageFileClient(file: File): Promise<{
+  dataUrl: string;
+  width: number;
+  height: number;
+  suggestedTitle: string;
+  exifPatch: Partial<Photo>;
+}> {
+  const exifPatch: Partial<Photo> = {};
+  try {
+    const exifr = await import("exifr");
+    const meta = await exifr.parse(file);
+    if (meta) {
+      if (meta.Model) {
+        const m = String(meta.Model);
+        exifPatch.camera = /R7/i.test(m)
+          ? "Canon EOS R7"
+          : /750D/i.test(m)
+          ? "Canon EOS 750D"
+          : m;
+      }
+      const focalNum = Number(meta.FocalLength);
+      if (Number.isFinite(focalNum) && focalNum > 0) {
+        exifPatch.focalLength = `${Math.round(focalNum)}mm`;
+      }
+      if (meta.LensModel || focalNum) {
+        const l = String(meta.LensModel || "");
+        if (/150-600/i.test(l) || focalNum > 150) {
+          exifPatch.lens = "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary";
+        } else if (/10-18/i.test(l) || (focalNum && focalNum < 18)) {
+          exifPatch.lens = "Canon EF-S 10-18mm f/4.5-5.6 IS STM";
+        } else if (l) {
+          exifPatch.lens = l;
+        }
+      }
+      if (Number.isFinite(Number(meta.ISO))) {
+        exifPatch.iso = Math.round(Number(meta.ISO));
+      }
+      if (Number.isFinite(Number(meta.FNumber)) && Number(meta.FNumber) > 0) {
+        exifPatch.aperture = `f/${Math.round(Number(meta.FNumber) * 10) / 10}`;
+      }
+      const exp = Number(meta.ExposureTime);
+      if (Number.isFinite(exp) && exp > 0) {
+        exifPatch.shutter =
+          exp >= 1 ? `${Math.round(exp * 10) / 10}s` : `1/${Math.round(1 / exp)}s`;
+      }
+      if (
+        meta.DateTimeOriginal instanceof Date &&
+        !Number.isNaN(meta.DateTimeOriginal.getTime())
+      ) {
+        exifPatch.year = meta.DateTimeOriginal.getFullYear();
+      }
+    }
+  } catch {
+    // Continuar si no hay EXIF
+  }
+
+  const objectUrl = URL.createObjectURL(file);
+  const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+    const el = new window.Image();
+    el.onload = () => resolve(el);
+    el.onerror = () => reject(new Error("No se pudo leer el archivo de imagen."));
+    el.src = objectUrl;
+  });
+
+  const maxEdge = 2200;
+  const scale = Math.min(1, maxEdge / Math.max(img.naturalWidth, img.naturalHeight));
+  const width = Math.max(1, Math.round(img.naturalWidth * scale));
+  const height = Math.max(1, Math.round(img.naturalHeight * scale));
+
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) {
+    URL.revokeObjectURL(objectUrl);
+    throw new Error("No se pudo procesar la imagen.");
+  }
+  ctx.drawImage(img, 0, 0, width, height);
+  URL.revokeObjectURL(objectUrl);
+
+  const dataUrl = canvas.toDataURL("image/jpeg", 0.88);
+  const suggestedTitle = titleFromFilename(file.name);
+
+  return {
+    dataUrl,
+    width,
+    height,
+    suggestedTitle,
+    exifPatch,
   };
 }
 

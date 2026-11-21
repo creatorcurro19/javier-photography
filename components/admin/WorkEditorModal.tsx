@@ -7,8 +7,10 @@ import { PHOTO_CATEGORIES, CATEGORY_METADATA } from "@/types/photo";
 import { CloseIcon, CheckIcon, ExternalLinkIcon, TrashIcon, UploadIcon } from "./AdminIcons";
 import {
   CATEGORY_EDITOR_CONFIG,
+  dimensionsForAspect,
   generateNextPhotoId,
   getRelevantSeries,
+  processImageFileClient,
   slugifyTitle,
   type AdminSeries,
 } from "./categoryEditorConfig";
@@ -22,7 +24,8 @@ interface WorkEditorModalProps {
   onSave: (
     updated: Photo,
     seriesSlugs: string[],
-    imageBase64?: string
+    imageBase64?: string,
+    seriesCoverSlugs?: string[]
   ) => Promise<void>;
   onDelete?: (photo: Photo) => void;
   isSaving: boolean;
@@ -35,40 +38,6 @@ const DEFAULT_DIMENSIONS = {
   galeria: "50 × 70 cm",
   coleccion: "70 × 100 cm",
 };
-
-function dimensionsForAspect(width: number, height: number) {
-  const ratio = Math.max(width, height) / Math.max(1, Math.min(width, height));
-  if (ratio >= 1.68) {
-    return {
-      estudio: "30 × 53 cm",
-      galeria: "45 × 80 cm",
-      coleccion: "60 × 105 cm",
-    };
-  }
-  if (ratio <= 1.32) {
-    return {
-      estudio: "32 × 40 cm",
-      galeria: "50 × 62 cm",
-      coleccion: "70 × 88 cm",
-    };
-  }
-  return { ...DEFAULT_DIMENSIONS };
-}
-
-function titleFromFilename(fileName: string): string {
-  const base = fileName.replace(/\.[^.]+$/, "").replace(/[_-]+/g, " ").replace(/\s+/g, " ").trim();
-  if (!base) return "";
-  return base
-    .split(" ")
-    .map((word, idx) => {
-      const lower = word.toLowerCase();
-      if (idx > 0 && ["de", "del", "la", "el", "en", "y", "a", "al", "con", "por"].includes(lower)) {
-        return lower;
-      }
-      return lower.charAt(0).toUpperCase() + lower.slice(1);
-    })
-    .join(" ");
-}
 
 const inputClass =
   "w-full rounded-lg border border-[#2D3036] bg-[#17181D] px-3.5 py-2.5 text-sm text-[#EBE7DF] placeholder-[#5E5A53] focus:border-[#C5A880] focus:outline-none";
@@ -90,6 +59,9 @@ export default function WorkEditorModal({
   const [selectedSeries, setSelectedSeries] = useState<string[]>(
     allSeries.filter((s) => s.photoIds.includes(photo.id)).map((s) => s.slug)
   );
+  const [seriesCoverSlugs, setSeriesCoverSlugs] = useState<string[]>(
+    allSeries.filter((s) => s.coverImage === photo.image && photo.image).map((s) => s.slug)
+  );
   const [uploadedDataUrl, setUploadedDataUrl] = useState<string | null>(null);
   const [processingImage, setProcessingImage] = useState(false);
   const [fileError, setFileError] = useState<string | null>(null);
@@ -103,6 +75,17 @@ export default function WorkEditorModal({
     () => getRelevantSeries(allSeries, formData.category, formData.id),
     [allSeries, formData.category, formData.id]
   );
+
+  // Qué fotos ocupan actualmente cada posición del Hero (1..5)
+  const heroOccupants = useMemo(() => {
+    const map: Record<number, string> = {};
+    for (const w of existingWorks) {
+      if (w.heroOrder && w.id !== formData.id) {
+        map[w.heroOrder] = w.title;
+      }
+    }
+    return map;
+  }, [existingWorks, formData.id]);
 
   const setField = <K extends keyof Photo>(field: K, value: Photo[K]) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -153,89 +136,21 @@ export default function WorkEditorModal({
     setProcessingImage(true);
 
     try {
-      // 1. Intentar leer metadatos EXIF si la foto los trae
-      const exifPatch: Partial<Photo> = {};
-      try {
-        const exifr = await import("exifr");
-        const meta = await exifr.parse(file);
-        if (meta) {
-          if (meta.Model) {
-            const m = String(meta.Model);
-            exifPatch.camera = /R7/i.test(m)
-              ? "Canon EOS R7"
-              : /750D/i.test(m)
-              ? "Canon EOS 750D"
-              : m;
-          }
-          const focalNum = Number(meta.FocalLength);
-          if (Number.isFinite(focalNum) && focalNum > 0) {
-            exifPatch.focalLength = `${Math.round(focalNum)}mm`;
-          }
-          if (meta.LensModel || focalNum) {
-            const l = String(meta.LensModel || "");
-            if (/150-600/i.test(l) || focalNum > 150) {
-              exifPatch.lens = "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary";
-            } else if (/10-18/i.test(l) || (focalNum && focalNum < 18)) {
-              exifPatch.lens = "Canon EF-S 10-18mm f/4.5-5.6 IS STM";
-            } else if (l) {
-              exifPatch.lens = l;
-            }
-          }
-          if (Number.isFinite(Number(meta.ISO))) {
-            exifPatch.iso = Math.round(Number(meta.ISO));
-          }
-          if (Number.isFinite(Number(meta.FNumber)) && Number(meta.FNumber) > 0) {
-            exifPatch.aperture = `f/${Math.round(Number(meta.FNumber) * 10) / 10}`;
-          }
-          const exp = Number(meta.ExposureTime);
-          if (Number.isFinite(exp) && exp > 0) {
-            exifPatch.shutter = exp >= 1 ? `${Math.round(exp * 10) / 10}s` : `1/${Math.round(1 / exp)}s`;
-          }
-          if (meta.DateTimeOriginal instanceof Date && !Number.isNaN(meta.DateTimeOriginal.getTime())) {
-            exifPatch.year = meta.DateTimeOriginal.getFullYear();
-          }
-        }
-      } catch {
-        // Si la imagen no tiene EXIF continuamos con los valores por defecto
-      }
+      const processed = await processImageFileClient(file);
+      setUploadedDataUrl(processed.dataUrl);
 
-      // 2. Redimensionar y comprimir en canvas (máx 2200px lado largo, JPEG 0.88)
-      const objectUrl = URL.createObjectURL(file);
-      const img = await new Promise<HTMLImageElement>((resolve, reject) => {
-        const el = new window.Image();
-        el.onload = () => resolve(el);
-        el.onerror = () => reject(new Error("No se pudo leer el archivo de imagen."));
-        el.src = objectUrl;
-      });
-
-      const maxEdge = 2200;
-      const scale = Math.min(1, maxEdge / Math.max(img.naturalWidth, img.naturalHeight));
-      const targetW = Math.max(1, Math.round(img.naturalWidth * scale));
-      const targetH = Math.max(1, Math.round(img.naturalHeight * scale));
-
-      const canvas = document.createElement("canvas");
-      canvas.width = targetW;
-      canvas.height = targetH;
-      const ctx = canvas.getContext("2d");
-      if (!ctx) throw new Error("No se pudo procesar la imagen.");
-      ctx.drawImage(img, 0, 0, targetW, targetH);
-      URL.revokeObjectURL(objectUrl);
-
-      const dataUrl = canvas.toDataURL("image/jpeg", 0.88);
-      setUploadedDataUrl(dataUrl);
-
-      const suggestedTitle = formData.title.trim() || titleFromFilename(file.name);
+      const suggestedTitle = formData.title.trim() || processed.suggestedTitle;
       const suggestedSlug = formData.slug.trim() || slugifyTitle(suggestedTitle) || formData.id;
-      const newDims = dimensionsForAspect(targetW, targetH);
+      const newDims = dimensionsForAspect(processed.width, processed.height);
 
       setFormData((prev) => ({
         ...prev,
-        ...exifPatch,
+        ...processed.exifPatch,
         title: suggestedTitle,
         slug: suggestedSlug,
         alt: prev.alt.trim() || suggestedTitle,
-        width: targetW,
-        height: targetH,
+        width: processed.width,
+        height: processed.height,
         image: `/images/portfolio/${prev.category}/${suggestedSlug}.jpg`,
         pricing: {
           ...(prev.pricing ?? {
@@ -259,8 +174,22 @@ export default function WorkEditorModal({
   };
 
   const toggleSeries = (slug: string) => {
-    setSelectedSeries((prev) =>
-      prev.includes(slug) ? prev.filter((s) => s !== slug) : [...prev, slug]
+    setSelectedSeries((prev) => {
+      const exists = prev.includes(slug);
+      if (exists) {
+        setSeriesCoverSlugs((covers) => covers.filter((c) => c !== slug));
+        return prev.filter((s) => s !== slug);
+      }
+      return [...prev, slug];
+    });
+  };
+
+  const toggleSeriesCover = (slug: string) => {
+    if (!selectedSeries.includes(slug)) {
+      setSelectedSeries((prev) => [...prev, slug]);
+    }
+    setSeriesCoverSlugs((prev) =>
+      prev.includes(slug) ? prev.filter((c) => c !== slug) : [...prev, slug]
     );
   };
 
@@ -314,11 +243,12 @@ export default function WorkEditorModal({
     const validSeries = selectedSeries.filter((slug) =>
       relevantSeries.some((s) => s.slug === slug)
     );
-    await onSave(finalPhoto, validSeries, uploadedDataUrl ?? undefined);
+    const validCovers = seriesCoverSlugs.filter((slug) => validSeries.includes(slug));
+    await onSave(finalPhoto, validSeries, uploadedDataUrl ?? undefined, validCovers);
   };
 
   const tabs: { id: TabId; label: string }[] = [
-    { id: "general", label: "General" },
+    { id: "general", label: "General y Portadas" },
     { id: "textos", label: "Textos" },
     { id: "precios", label: "Precios" },
     { id: "ubicacion", label: config.showWildlife ? "Lugar, fauna y EXIF" : "Lugar y EXIF" },
@@ -400,10 +330,10 @@ export default function WorkEditorModal({
         </div>
 
         <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto px-4 py-5 sm:px-6 sm:py-6 space-y-5">
-          {/* GENERAL */}
+          {/* GENERAL Y PORTADAS */}
           {activeTab === "general" && (
             <div className="space-y-4">
-              {/* Selector de archivo de foto (protagonista al crear, disponible también para reemplazar) */}
+              {/* Selector de archivo de foto */}
               <div className="rounded-xl border border-dashed border-[#C5A880]/40 bg-[#16171C] p-4">
                 <input
                   ref={fileInputRef}
@@ -521,10 +451,117 @@ export default function WorkEditorModal({
                 </div>
               </div>
 
-              {/* Series de la categoría */}
+              {/* Control de Portadas, Carrusel Hero y Orden de Destacadas (#3) */}
+              <div className="rounded-xl border border-[#C5A880]/25 bg-[#16171C] p-4 space-y-3">
+                <span className="text-xs font-mono uppercase tracking-wider text-[#C5A880]">
+                  Portadas, Carrusel Principal (Hero) y Visibilidad
+                </span>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                  <div>
+                    <label className={labelClass}>
+                      Carrusel grande de entrada (Hero · 5 salas)
+                    </label>
+                    <select
+                      value={formData.heroOrder || ""}
+                      onChange={(e) => {
+                        const val = parseInt(e.target.value, 10);
+                        setField("heroOrder", val >= 1 && val <= 5 ? val : undefined);
+                      }}
+                      className={inputClass}
+                    >
+                      <option value="">No mostrar en el carrusel Hero</option>
+                      {[1, 2, 3, 4, 5].map((slot) => (
+                        <option key={slot} value={slot}>
+                          Sala {slot} del Hero{" "}
+                          {heroOccupants[slot]
+                            ? `(reemplaza a: ${heroOccupants[slot]})`
+                            : "(actual)"}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className={labelClass}>
+                      Orden en «Obras Seleccionadas» (1º, 2º, 3º…)
+                    </label>
+                    <input
+                      type="number"
+                      inputMode="numeric"
+                      min={1}
+                      max={99}
+                      disabled={!formData.featured}
+                      value={formData.featured ? formData.featuredOrder ?? "" : ""}
+                      onChange={(e) => {
+                        const n = parseInt(e.target.value, 10);
+                        setField("featuredOrder", Number.isFinite(n) && n >= 1 ? n : undefined);
+                      }}
+                      placeholder={
+                        formData.featured
+                          ? "Ej. 1 para que salga la primera"
+                          : "Marca «Destacada en portada» para ordenar"
+                      }
+                      className={`${inputClass} font-mono disabled:opacity-40`}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                  <label className="flex min-h-[42px] items-center gap-3 rounded-lg border border-[#25272F] bg-[#191B21] px-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={formData.featured}
+                      onChange={(e) => setField("featured", e.target.checked)}
+                      className="h-4 w-4 accent-[#C5A880]"
+                    />
+                    <span className="text-xs text-[#EBE7DF]">
+                      Destacada en portada (Obras Seleccionadas)
+                    </span>
+                  </label>
+
+                  <label className="flex min-h-[42px] items-center gap-3 rounded-lg border border-[#25272F] bg-[#191B21] px-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(formData.categoryCover)}
+                      onChange={(e) => setField("categoryCover", e.target.checked)}
+                      className="h-4 w-4 accent-[#C5A880]"
+                    />
+                    <span className="text-xs text-[#EBE7DF]">
+                      Usar como portada de «{CATEGORY_METADATA[formData.category]?.title}»
+                    </span>
+                  </label>
+
+                  <label className="flex min-h-[42px] items-center gap-3 rounded-lg border border-[#25272F] bg-[#191B21] px-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={formData.prints}
+                      onChange={(e) => setField("prints", e.target.checked)}
+                      className="h-4 w-4 accent-[#C5A880]"
+                    />
+                    <span className="text-xs text-[#EBE7DF]">
+                      A la venta como copia Fine Art
+                    </span>
+                  </label>
+
+                  <label className="flex min-h-[42px] items-center gap-3 rounded-lg border border-[#25272F] bg-[#191B21] px-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(formData.licensing)}
+                      onChange={(e) => setField("licensing", e.target.checked)}
+                      className="h-4 w-4 accent-[#C5A880]"
+                    />
+                    <span className="text-xs text-[#EBE7DF]">
+                      Disponible para licencias
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+              {/* Series de la categoría + botón para usar como portada de serie */}
               <div className="rounded-xl border border-[#24262E] bg-[#16171C] p-4">
                 <span className="text-xs font-mono uppercase tracking-wider text-[#C5A880]">
-                  Series en las que aparece
+                  Series en las que aparece (y portada de serie)
                 </span>
                 {relevantSeries.length === 0 ? (
                   <p className="mt-2 text-xs text-[#8E8A81]">
@@ -532,48 +569,40 @@ export default function WorkEditorModal({
                   </p>
                 ) : (
                   <div className="mt-3 grid grid-cols-1 gap-2">
-                    {relevantSeries.map((s) => (
-                      <label
-                        key={s.slug}
-                        className="flex min-h-[44px] items-center gap-3 rounded-lg border border-[#2A2C33] bg-[#1A1C21] px-3 cursor-pointer"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={selectedSeries.includes(s.slug)}
-                          onChange={() => toggleSeries(s.slug)}
-                          className="h-4 w-4 accent-[#C5A880]"
-                        />
-                        <span className="text-xs text-[#EBE7DF]">{s.title}</span>
-                        {s.category !== formData.category && (
-                          <span className="ml-auto text-[10px] text-[#8E8A81]">
-                            {CATEGORY_METADATA[s.category]?.title}
-                          </span>
-                        )}
-                      </label>
-                    ))}
+                    {relevantSeries.map((s) => {
+                      const isMember = selectedSeries.includes(s.slug);
+                      const isSeriesCover = seriesCoverSlugs.includes(s.slug);
+                      return (
+                        <div
+                          key={s.slug}
+                          className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-[#2A2C33] bg-[#1A1C21] px-3 py-2"
+                        >
+                          <label className="flex min-h-[36px] items-center gap-3 cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={isMember}
+                              onChange={() => toggleSeries(s.slug)}
+                              className="h-4 w-4 accent-[#C5A880]"
+                            />
+                            <span className="text-xs text-[#EBE7DF]">{s.title}</span>
+                          </label>
+
+                          <button
+                            type="button"
+                            onClick={() => toggleSeriesCover(s.slug)}
+                            className={`rounded-md px-2.5 py-1 font-mono text-[10px] transition cursor-pointer ${
+                              isSeriesCover
+                                ? "bg-[#C5A880] text-[#0B0C0E] font-semibold"
+                                : "border border-[#2E313A] bg-[#14151A] text-[#A39E93] hover:border-[#C5A880]"
+                            }`}
+                          >
+                            {isSeriesCover ? "★ Portada de esta serie" : "Hacer portada de serie"}
+                          </button>
+                        </div>
+                      );
+                    })}
                   </div>
                 )}
-              </div>
-
-              <div className="rounded-xl border border-[#24262E] bg-[#16171C] p-4 space-y-1">
-                <span className="text-xs font-mono uppercase tracking-wider text-[#C5A880]">
-                  Visibilidad en la web
-                </span>
-                {[
-                  { field: "featured" as const, label: "Destacada en portada", checked: formData.featured },
-                  { field: "prints" as const, label: "A la venta como copia Fine Art", checked: formData.prints },
-                  { field: "licensing" as const, label: "Disponible para licencias", checked: Boolean(formData.licensing) },
-                ].map((opt) => (
-                  <label key={opt.field} className="flex min-h-[44px] items-center gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={opt.checked}
-                      onChange={(e) => setField(opt.field, e.target.checked)}
-                      className="h-4 w-4 accent-[#C5A880]"
-                    />
-                    <span className="text-sm text-[#EBE7DF]">{opt.label}</span>
-                  </label>
-                ))}
               </div>
 
               <details className="rounded-xl border border-[#22242B] bg-[#141519] p-4">
@@ -590,11 +619,6 @@ export default function WorkEditorModal({
                       placeholder="se-genera-del-titulo"
                       className={`${inputClass} font-mono text-xs`}
                     />
-                    {!isNew && (
-                      <p className="mt-1 text-[11px] text-[#716C62]">
-                        Cambiarlo rompe los enlaces ya compartidos.
-                      </p>
-                    )}
                   </div>
                   <div>
                     <label className={labelClass}>Archivo de imagen</label>

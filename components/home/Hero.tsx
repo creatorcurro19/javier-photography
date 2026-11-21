@@ -10,11 +10,12 @@ import {
 import { useLanguage } from "@/lib/i18n";
 
 import {
+  getAllPhotos,
   getPhotoBySlug,
   getPhotosByCategory,
   getAllProjects,
 } from "@/lib/photos";
-import type { PhotoCategory } from "@/types/photo";
+import { CATEGORY_METADATA, type PhotoCategory } from "@/types/photo";
 
 interface HeroSlide {
   id: string;
@@ -77,14 +78,22 @@ const HERO_SLIDE_CONFIG: {
   },
 ];
 
-const HERO_SLIDES: HeroSlide[] = HERO_SLIDE_CONFIG.map((cfg) => {
+const HERO_SLIDES: HeroSlide[] = HERO_SLIDE_CONFIG.map((cfg, idx) => {
+  const slot = idx + 1;
+  const allPhotos = getAllPhotos();
+  const customHeroWork = allPhotos.find((p) => p.heroOrder === slot);
   const catPhotos = getPhotosByCategory(cfg.category);
   const work =
+    customHeroWork ??
     getPhotoBySlug(cfg.slug) ??
     catPhotos.find((p) => p.featured) ??
     catPhotos[0];
+  const discipline = customHeroWork
+    ? CATEGORY_METADATA[customHeroWork.category]?.code ?? cfg.discipline
+    : cfg.discipline;
   return {
     ...cfg,
+    discipline,
     slug: work?.slug ?? cfg.slug,
     title: work?.title ?? cfg.discipline,
     location: work?.location

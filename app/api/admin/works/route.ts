@@ -5,15 +5,18 @@ import {
   getCurrentSeries,
   saveWork,
   deleteWork,
+  batchCreateWorks,
+  bulkUpdatePrices,
+  saveSeriesItem,
+  restoreCatalogSnapshot,
 } from "@/lib/server/works-updater";
-import type { Photo } from "@/types/photo";
+import type { Photo, PhotoCategory, Project } from "@/types/photo";
 
-function serializeSeries() {
+function serializeSeries(): Project[] {
   return getCurrentSeries().map((s) => ({
-    slug: s.slug,
-    title: s.title,
-    category: s.category,
-    photoIds: s.photoIds,
+    ...s,
+    statement: [...s.statement],
+    photoIds: [...s.photoIds],
   }));
 }
 
@@ -56,7 +59,7 @@ export async function POST(request: Request) {
     const customGithubToken =
       typeof body.githubToken === "string" ? body.githubToken.trim() : undefined;
 
-    // Si es una acción de borrado enviada por POST
+    // 1. Borrado por POST
     if (body.action === "delete" && typeof body.id === "string") {
       const delRes = await deleteWork(body.id.trim(), customGithubToken);
       if (!delRes.ok) {
@@ -72,10 +75,106 @@ export async function POST(request: Request) {
         persistedToDisk: delRes.persistedToDisk,
         persistedToGit: delRes.persistedToGit,
         deletedId: delRes.deletedId,
+        works: getCurrentWorks(),
         series: serializeSeries(),
       });
     }
 
+    // 2. Subida en lote (#1)
+    if (body.action === "batch-create" && Array.isArray(body.items)) {
+      const items = (body.items as { photo: Photo; imageBase64: string }[]).filter(
+        (it) => it && it.photo && it.photo.id && it.photo.title && typeof it.imageBase64 === "string"
+      );
+      if (items.length === 0) {
+        return NextResponse.json(
+          { ok: false, error: "No hay fotografías válidas en el lote." },
+          { status: 400 }
+        );
+      }
+      const seriesSlugs = Array.isArray(body.seriesSlugs)
+        ? (body.seriesSlugs as unknown[]).filter((s): s is string => typeof s === "string")
+        : undefined;
+      const batchRes = await batchCreateWorks(items, seriesSlugs, customGithubToken);
+      return NextResponse.json({
+        ok: batchRes.ok,
+        message: batchRes.message,
+        published: batchRes.persistedToGit || batchRes.persistedToDisk,
+        createdPhotos: batchRes.createdPhotos,
+        works: getCurrentWorks(),
+        series: serializeSeries(),
+      });
+    }
+
+    // 3. Cambio de precios en bloque (#2)
+    if (body.action === "bulk-prices") {
+      const scope = (body.scope || "all") as "all" | PhotoCategory;
+      const mode = (body.mode === "delta" ? "delta" : "set") as "set" | "delta";
+      const bulkRes = await bulkUpdatePrices(
+        {
+          scope,
+          mode,
+          estudio: typeof body.estudio === "number" ? body.estudio : undefined,
+          galeria: typeof body.galeria === "number" ? body.galeria : undefined,
+          coleccion: typeof body.coleccion === "number" ? body.coleccion : undefined,
+          deltaAmount: typeof body.deltaAmount === "number" ? body.deltaAmount : undefined,
+          editionTotal: typeof body.editionTotal === "number" ? body.editionTotal : undefined,
+          prints: typeof body.prints === "boolean" ? body.prints : undefined,
+        },
+        customGithubToken
+      );
+      return NextResponse.json({
+        ok: bulkRes.ok,
+        message: bulkRes.message,
+        published: bulkRes.persistedToGit || bulkRes.persistedToDisk,
+        updatedCount: bulkRes.updatedCount,
+        works: getCurrentWorks(),
+        series: serializeSeries(),
+      });
+    }
+
+    // 4. Guardar una Serie Monográfica (#4)
+    if (body.action === "save-series" && body.seriesItem) {
+      const seriesItem = body.seriesItem as Project;
+      if (!seriesItem.slug || !seriesItem.title?.trim()) {
+        return NextResponse.json(
+          { ok: false, error: "La serie debe tener título y slug." },
+          { status: 400 }
+        );
+      }
+      const sRes = await saveSeriesItem(seriesItem, customGithubToken);
+      return NextResponse.json({
+        ok: sRes.ok,
+        message: sRes.message,
+        published: sRes.persistedToGit || sRes.persistedToDisk,
+        seriesItem: sRes.seriesItem,
+        works: getCurrentWorks(),
+        series: serializeSeries(),
+      });
+    }
+
+    // 5. Deshacer último cambio / restaurar foto borrada (#7)
+    if (
+      body.action === "restore-snapshot" &&
+      Array.isArray(body.works) &&
+      Array.isArray(body.series)
+    ) {
+      const label = typeof body.label === "string" ? body.label : "acción anterior";
+      const rRes = await restoreCatalogSnapshot(
+        body.works as Photo[],
+        body.series as Project[],
+        label,
+        customGithubToken
+      );
+      return NextResponse.json({
+        ok: rRes.ok,
+        message: rRes.message,
+        published: rRes.persistedToGit || rRes.persistedToDisk,
+        works: getCurrentWorks(),
+        series: serializeSeries(),
+      });
+    }
+
+    // 6. Guardar o crear una fotografía individual
     if (!body.photo) {
       return NextResponse.json(
         { ok: false, error: "Datos de fotografía no proporcionados." },
@@ -94,12 +193,21 @@ export async function POST(request: Request) {
     const seriesSlugs = Array.isArray(body.seriesSlugs)
       ? (body.seriesSlugs as unknown[]).filter((s): s is string => typeof s === "string")
       : undefined;
+    const seriesCoverSlugs = Array.isArray(body.seriesCoverSlugs)
+      ? (body.seriesCoverSlugs as unknown[]).filter((s): s is string => typeof s === "string")
+      : undefined;
     const imageBase64 =
       typeof body.imageBase64 === "string" && body.imageBase64.trim().length > 0
         ? body.imageBase64.trim()
         : undefined;
 
-    const result = await saveWork(photo, seriesSlugs, customGithubToken, imageBase64);
+    const result = await saveWork(
+      photo,
+      seriesSlugs,
+      customGithubToken,
+      imageBase64,
+      seriesCoverSlugs
+    );
 
     return NextResponse.json({
       ok: result.ok,
@@ -109,6 +217,7 @@ export async function POST(request: Request) {
       persistedToGit: result.persistedToGit,
       gitCommitUrl: result.gitCommitUrl,
       photo: result.photo,
+      works: getCurrentWorks(),
       series: serializeSeries(),
     });
   } catch (error) {
@@ -156,6 +265,7 @@ export async function DELETE(request: Request) {
       persistedToDisk: delRes.persistedToDisk,
       persistedToGit: delRes.persistedToGit,
       deletedId: delRes.deletedId,
+      works: getCurrentWorks(),
       series: serializeSeries(),
     });
   } catch (error) {

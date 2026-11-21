@@ -58,6 +58,10 @@ export interface Photo {
   year: number;
   featured: boolean;
   featuredOrder?: number;
+  /** Posición (1 a 5) en el carrusel principal (Hero) de la portada */
+  heroOrder?: number;
+  /** Si es true, esta foto es la portada de su categoría en la web */
+  categoryCover?: boolean;
   prints: boolean;
   pricing?: PhotoPricing;
   licensing?: boolean;

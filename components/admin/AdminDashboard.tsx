@@ -2,9 +2,12 @@
 
 import React, { useState, useMemo } from "react";
 import Image from "next/image";
-import type { Photo, PhotoCategory } from "@/types/photo";
+import type { Photo, PhotoCategory, Project } from "@/types/photo";
 import { PHOTO_CATEGORIES, CATEGORY_METADATA } from "@/types/photo";
 import WorkEditorModal from "./WorkEditorModal";
+import BatchUploadModal from "./BatchUploadModal";
+import BulkPricesModal from "./BulkPricesModal";
+import SeriesManagerSection from "./SeriesManagerSection";
 import { createBlankPhoto, type AdminSeries } from "./categoryEditorConfig";
 import {
   SearchIcon,
@@ -18,7 +21,15 @@ import {
   CheckIcon,
   TrashIcon,
   PlusIcon,
+  UploadIcon,
+  TagIcon,
 } from "./AdminIcons";
+
+interface UndoSnapshot {
+  label: string;
+  works: Photo[];
+  series: Project[];
+}
 
 interface AdminDashboardProps {
   initialWorks: Photo[];
@@ -37,20 +48,30 @@ export default function AdminDashboard({
 }: AdminDashboardProps) {
   const [works, setWorks] = useState<Photo[]>(initialWorks);
   const [series, setSeries] = useState<AdminSeries[]>(initialSeries);
+  const [activeSection, setActiveSection] = useState<"photos" | "series">("photos");
+
+  // Búsqueda y filtros
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("todas");
   const [filterPrintsOnly, setFilterPrintsOnly] = useState(false);
   const [filterFeaturedOnly, setFilterFeaturedOnly] = useState(false);
+  const [filterCoversOnly, setFilterCoversOnly] = useState(false);
   const [filterStoryOnly, setFilterStoryOnly] = useState(false);
-  const [sortBy, setSortBy] = useState<"id" | "title" | "price" | "year">("id");
+  const [sortBy, setSortBy] = useState<"id" | "title" | "price" | "year" | "featuredOrder">("id");
 
-  // Edición / Creación / Eliminación
+  // Modales de edición, subida en lote, precios en bloque y borrado
   const [editingPhoto, setEditingPhoto] = useState<Photo | null>(null);
   const [isCreatingNew, setIsCreatingNew] = useState(false);
+  const [isBatchModalOpen, setIsBatchModalOpen] = useState(false);
+  const [isBulkPricesOpen, setIsBulkPricesOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [deletingPhoto, setDeletingPhoto] = useState<Photo | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [previewMap, setPreviewMap] = useState<Record<string, string>>({});
+
+  // Historial de Deshacer (#7)
+  const [undoHistory, setUndoHistory] = useState<UndoSnapshot[]>([]);
+  const [isRestoring, setIsRestoring] = useState(false);
 
   // Modal de Sincronización / Respaldo
   const [isSyncModalOpen, setIsSyncModalOpen] = useState(false);
@@ -62,31 +83,52 @@ export default function AdminDashboard({
     setTimeout(() => setToastMessage(null), type === "success" ? 4000 : 7000);
   };
 
+  const pushUndoSnapshot = (label: string) => {
+    const snap: UndoSnapshot = {
+      label,
+      works: works.map((w) => ({ ...w })),
+      series: series.map((s) => ({
+        ...s,
+        statement: [...s.statement],
+        photoIds: [...s.photoIds],
+      })),
+    };
+    setUndoHistory((prev) => [snap, ...prev.slice(0, 9)]);
+  };
+
   const seriesTitlesFor = (photoId: string) =>
     series.filter((s) => s.photoIds.includes(photoId)).map((s) => s.title);
+
+  const isSeriesCoverPhoto = (photo: Photo) =>
+    series.some((s) => s.coverImage === photo.image);
 
   // Filtrado y ordenación
   const filteredWorks = useMemo(() => {
     return works
       .filter((w) => {
-        // Categoría
         if (selectedCategory !== "todas" && w.category !== selectedCategory) {
           return false;
         }
-
-        // Toggles
         if (filterPrintsOnly && !w.prints) return false;
         if (filterFeaturedOnly && !w.featured) return false;
+        if (
+          filterCoversOnly &&
+          !w.heroOrder &&
+          !w.categoryCover &&
+          !series.some((s) => s.coverImage === w.image)
+        ) {
+          return false;
+        }
         if (filterStoryOnly && (!w.story || w.story.trim().length === 0)) return false;
 
-        // Búsqueda
         if (searchTerm.trim()) {
           const q = searchTerm.toLowerCase();
           const matchTitle = w.title.toLowerCase().includes(q);
           const matchSlug = w.slug.toLowerCase().includes(q);
           const matchId = w.id.toLowerCase().includes(q);
           const matchSeries = seriesTitlesFor(w.id).some((t) => t.toLowerCase().includes(q));
-          const matchLocation = w.location?.toLowerCase().includes(q) || w.realLocation?.toLowerCase().includes(q);
+          const matchLocation =
+            w.location?.toLowerCase().includes(q) || w.realLocation?.toLowerCase().includes(q);
           const matchKeywords = w.keywords?.some((k) => k.toLowerCase().includes(q));
 
           return matchTitle || matchSlug || matchId || matchSeries || matchLocation || matchKeywords;
@@ -97,6 +139,11 @@ export default function AdminDashboard({
       .sort((a, b) => {
         if (sortBy === "title") return a.title.localeCompare(b.title);
         if (sortBy === "year") return b.year - a.year;
+        if (sortBy === "featuredOrder") {
+          const fa = a.featured ? a.featuredOrder ?? 99 : 999;
+          const fb = b.featured ? b.featuredOrder ?? 99 : 999;
+          return fa - fb || a.id.localeCompare(b.id);
+        }
         if (sortBy === "price") {
           const priceA = a.pricing?.estudio || 95;
           const priceB = b.pricing?.estudio || 95;
@@ -105,7 +152,17 @@ export default function AdminDashboard({
         return a.id.localeCompare(b.id);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [works, series, selectedCategory, filterPrintsOnly, filterFeaturedOnly, filterStoryOnly, searchTerm, sortBy]);
+  }, [
+    works,
+    series,
+    selectedCategory,
+    filterPrintsOnly,
+    filterFeaturedOnly,
+    filterCoversOnly,
+    filterStoryOnly,
+    searchTerm,
+    sortBy,
+  ]);
 
   // Contadores
   const stats = useMemo(() => {
@@ -127,13 +184,17 @@ export default function AdminDashboard({
     setEditingPhoto(blank);
   };
 
-  // Guardar cambios o crear nueva obra
+  // Guardar o crear obra individual
   const handleSavePhoto = async (
     updated: Photo,
     seriesSlugs?: string[],
-    imageBase64?: string
+    imageBase64?: string,
+    seriesCoverSlugs?: string[]
   ) => {
     setIsSaving(true);
+    pushUndoSnapshot(
+      isCreatingNew ? `añadir "${updated.title}"` : `editar "${updated.title}"`
+    );
     try {
       const res = await fetch("/api/admin/works", {
         method: "POST",
@@ -141,6 +202,7 @@ export default function AdminDashboard({
         body: JSON.stringify({
           photo: updated,
           seriesSlugs,
+          seriesCoverSlugs,
           imageBase64,
           githubToken: githubToken.trim() || undefined,
         }),
@@ -153,21 +215,149 @@ export default function AdminDashboard({
         if (imageBase64) {
           setPreviewMap((prev) => ({ ...prev, [saved.id]: imageBase64 }));
         }
-        setWorks((prev) => {
-          const exists = prev.some((w) => w.id === saved.id);
-          return exists
-            ? prev.map((w) => (w.id === saved.id ? saved : w))
-            : [saved, ...prev];
-        });
+        if (Array.isArray(data.works)) {
+          setWorks(data.works);
+        } else {
+          setWorks((prev) => {
+            const exists = prev.some((w) => w.id === saved.id);
+            return exists
+              ? prev.map((w) => (w.id === saved.id ? saved : w))
+              : [saved, ...prev];
+          });
+        }
         if (Array.isArray(data.series)) setSeries(data.series);
         setEditingPhoto(null);
         setIsCreatingNew(false);
         showToast(data.message || `"${saved.title}" guardada.`, data.published ? "success" : "warning");
       } else {
+        setUndoHistory((prev) => prev.slice(1));
         showToast(data.error || "No se pudo guardar la fotografía en el servidor.", "error");
       }
     } catch {
+      setUndoHistory((prev) => prev.slice(1));
       showToast("Error de conexión al guardar los datos.", "error");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  // Subida en lote (#1)
+  const handleBatchSubmit = async (
+    items: { photo: Photo; imageBase64: string }[],
+    seriesSlugs: string[]
+  ) => {
+    setIsSaving(true);
+    pushUndoSnapshot(`subida en lote (${items.length} fotos)`);
+    try {
+      const res = await fetch("/api/admin/works", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "batch-create",
+          items,
+          seriesSlugs,
+          githubToken: githubToken.trim() || undefined,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.ok) {
+        const nextPreviews: Record<string, string> = {};
+        for (const it of items) {
+          nextPreviews[it.photo.id] = it.imageBase64;
+        }
+        setPreviewMap((prev) => ({ ...prev, ...nextPreviews }));
+        if (Array.isArray(data.works)) setWorks(data.works);
+        if (Array.isArray(data.series)) setSeries(data.series);
+        setIsBatchModalOpen(false);
+        showToast(
+          data.message || `${items.length} fotografías añadidas.`,
+          data.published ? "success" : "warning"
+        );
+      } else {
+        setUndoHistory((prev) => prev.slice(1));
+        showToast(data.error || "No se pudo completar la subida en lote.", "error");
+      }
+    } catch {
+      setUndoHistory((prev) => prev.slice(1));
+      showToast("Error de conexión en la subida en lote.", "error");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  // Cambio de precios en bloque (#2)
+  const handleBulkPricesApply = async (params: {
+    scope: "all" | PhotoCategory;
+    mode: "set" | "delta";
+    estudio?: number;
+    galeria?: number;
+    coleccion?: number;
+    deltaAmount?: number;
+    editionTotal?: number;
+    prints?: boolean;
+  }) => {
+    setIsSaving(true);
+    pushUndoSnapshot("cambio de precios en bloque");
+    try {
+      const res = await fetch("/api/admin/works", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "bulk-prices",
+          ...params,
+          githubToken: githubToken.trim() || undefined,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.ok) {
+        if (Array.isArray(data.works)) setWorks(data.works);
+        if (Array.isArray(data.series)) setSeries(data.series);
+        setIsBulkPricesOpen(false);
+        showToast(
+          data.message || "Precios actualizados en bloque.",
+          data.published ? "success" : "warning"
+        );
+      } else {
+        setUndoHistory((prev) => prev.slice(1));
+        showToast(data.error || "No se pudieron actualizar los precios.", "error");
+      }
+    } catch {
+      setUndoHistory((prev) => prev.slice(1));
+      showToast("Error de conexión al actualizar precios.", "error");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  // Guardar Serie Monográfica (#4)
+  const handleSaveSeries = async (updatedSeries: Project) => {
+    setIsSaving(true);
+    pushUndoSnapshot(`editar serie "${updatedSeries.title}"`);
+    try {
+      const res = await fetch("/api/admin/works", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "save-series",
+          seriesItem: updatedSeries,
+          githubToken: githubToken.trim() || undefined,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.ok) {
+        if (Array.isArray(data.works)) setWorks(data.works);
+        if (Array.isArray(data.series)) setSeries(data.series);
+        showToast(
+          data.message || `Serie "${updatedSeries.title}" actualizada.`,
+          data.published ? "success" : "warning"
+        );
+      } else {
+        setUndoHistory((prev) => prev.slice(1));
+        showToast(data.error || "No se pudo guardar la serie.", "error");
+      }
+    } catch {
+      setUndoHistory((prev) => prev.slice(1));
+      showToast("Error de conexión al guardar la serie.", "error");
     } finally {
       setIsSaving(false);
     }
@@ -177,6 +367,7 @@ export default function AdminDashboard({
   const handleConfirmDelete = async () => {
     if (!deletingPhoto) return;
     setIsDeleting(true);
+    pushUndoSnapshot(`eliminar "${deletingPhoto.title}"`);
     try {
       const res = await fetch("/api/admin/works", {
         method: "DELETE",
@@ -189,7 +380,11 @@ export default function AdminDashboard({
       const data = await res.json();
       if (res.ok && data.ok) {
         const removedId = deletingPhoto.id;
-        setWorks((prev) => prev.filter((w) => w.id !== removedId));
+        if (Array.isArray(data.works)) {
+          setWorks(data.works);
+        } else {
+          setWorks((prev) => prev.filter((w) => w.id !== removedId));
+        }
         if (Array.isArray(data.series)) setSeries(data.series);
         if (editingPhoto?.id === removedId) {
           setEditingPhoto(null);
@@ -198,28 +393,65 @@ export default function AdminDashboard({
         setDeletingPhoto(null);
         showToast(data.message || "Fotografía eliminada.", data.published ? "success" : "warning");
       } else {
+        setUndoHistory((prev) => prev.slice(1));
         showToast(data.error || "No se pudo eliminar la fotografía.", "error");
       }
     } catch {
+      setUndoHistory((prev) => prev.slice(1));
       showToast("Error de conexión al eliminar la fotografía.", "error");
     } finally {
       setIsDeleting(false);
     }
   };
 
-  // Toggle rápido de venta Fine Art
-  const handleQuickTogglePrints = async (photo: Photo, e: React.MouseEvent) => {
-    e.stopPropagation();
-    const updated = { ...photo, prints: !photo.prints };
-    await handleSavePhoto(updated);
+  // Deshacer último cambio (#7)
+  const handleUndoLastAction = async () => {
+    const latest = undoHistory[0];
+    if (!latest || isRestoring) return;
+    setIsRestoring(true);
+    try {
+      const res = await fetch("/api/admin/works", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "restore-snapshot",
+          label: latest.label,
+          works: latest.works,
+          series: latest.series,
+          githubToken: githubToken.trim() || undefined,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.ok) {
+        if (Array.isArray(data.works)) setWorks(data.works);
+        if (Array.isArray(data.series)) setSeries(data.series);
+        setUndoHistory((prev) => prev.slice(1));
+        showToast(data.message || `Deshecho: ${latest.label}`, data.published ? "success" : "warning");
+      } else {
+        showToast(data.error || "No se pudo deshacer el cambio.", "error");
+      }
+    } catch {
+      showToast("Error de conexión al deshacer el cambio.", "error");
+    } finally {
+      setIsRestoring(false);
+    }
   };
 
-  // Toggle rápido de destacada en portada
+  // Toggles rápidos en tarjeta
+  const handleQuickTogglePrints = async (photo: Photo, e: React.MouseEvent) => {
+    e.stopPropagation();
+    await handleSavePhoto({ ...photo, prints: !photo.prints });
+  };
+
   const handleQuickToggleFeatured = async (photo: Photo, e: React.MouseEvent) => {
     e.stopPropagation();
-    const updated = { ...photo, featured: !photo.featured };
-    await handleSavePhoto(updated);
+    await handleSavePhoto({ ...photo, featured: !photo.featured });
   };
+
+  const defaultBatchCategory: PhotoCategory =
+    selectedCategory !== "todas"
+      ? (selectedCategory as PhotoCategory)
+      : "fauna-naturaleza";
 
   return (
     <div className="min-h-screen bg-[#0B0C0E] text-[#EBE7DF] pb-24">
@@ -266,6 +498,22 @@ export default function AdminDashboard({
           </div>
 
           <div className="flex items-center gap-2">
+            {undoHistory.length > 0 && (
+              <button
+                type="button"
+                disabled={isRestoring}
+                onClick={handleUndoLastAction}
+                className="inline-flex items-center gap-1.5 rounded-lg border border-amber-400/40 bg-amber-500/15 px-3 py-1.5 text-xs font-medium text-amber-200 hover:bg-amber-500/25 transition cursor-pointer"
+                title={`Deshacer: ${undoHistory[0].label}`}
+              >
+                <span>↩</span>
+                <span className="hidden md:inline truncate max-w-[180px]">
+                  Deshacer ({undoHistory[0].label})
+                </span>
+                <span className="md:hidden">Deshacer</span>
+              </button>
+            )}
+
             <button
               type="button"
               onClick={handleStartAddPhoto}
@@ -319,343 +567,449 @@ export default function AdminDashboard({
           </div>
         )}
 
-        {/* Botón Grande para Añadir Nuevas Fotografías */}
-        <div className="mb-6">
+        {/* Barra de Deshacer Destacada si hay cambios recientes (#7) */}
+        {undoHistory.length > 0 && (
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-amber-500/30 bg-amber-950/20 px-4 py-2.5 text-xs text-amber-200">
+            <span>
+              Último cambio: <strong className="text-[#EBE7DF]">{undoHistory[0].label}</strong>
+            </span>
+            <button
+              type="button"
+              disabled={isRestoring}
+              onClick={handleUndoLastAction}
+              className="inline-flex items-center gap-1.5 rounded-lg bg-amber-400 px-3 py-1.5 font-semibold text-[#0B0C0E] hover:bg-amber-300 disabled:opacity-50 transition cursor-pointer"
+            >
+              <span>↩</span>
+              <span>{isRestoring ? "Restaurando…" : "Deshacer este cambio / recuperar"}</span>
+            </button>
+          </div>
+        )}
+
+        {/* Botones Grandes de Acción Rápida (#1, #2, Individual) */}
+        <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
           <button
             type="button"
             onClick={handleStartAddPhoto}
-            className="flex w-full items-center justify-center gap-3 rounded-2xl border border-[#C5A880]/50 bg-gradient-to-r from-[#C5A880] to-[#A88C64] px-6 py-4 text-sm sm:text-base font-semibold uppercase tracking-wider text-[#0B0C0E] shadow-xl shadow-[#C5A880]/10 transition hover:opacity-95 active:scale-[0.99] cursor-pointer"
+            className="flex items-center justify-center gap-2.5 rounded-2xl border border-[#C5A880]/50 bg-gradient-to-r from-[#C5A880] to-[#A88C64] px-5 py-3.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#0B0C0E] shadow-xl shadow-[#C5A880]/10 transition hover:opacity-95 cursor-pointer"
           >
             <PlusIcon className="h-5 w-5" />
-            <span>Añadir nueva fotografía al catálogo</span>
+            <span>Añadir 1 fotografía</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setIsBatchModalOpen(true)}
+            className="flex items-center justify-center gap-2.5 rounded-2xl border border-[#C5A880]/40 bg-[#17181E] px-5 py-3.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#C5A880] transition hover:bg-[#C5A880] hover:text-[#0B0C0E] cursor-pointer"
+          >
+            <UploadIcon className="h-5 w-5" />
+            <span>Subir varias fotos en lote</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setIsBulkPricesOpen(true)}
+            className="flex items-center justify-center gap-2.5 rounded-2xl border border-[#2D303A] bg-[#14151A] px-5 py-3.5 text-xs sm:text-sm font-medium uppercase tracking-wider text-[#EBE7DF] transition hover:border-[#C5A880] hover:text-[#C5A880] cursor-pointer"
+          >
+            <TagIcon className="h-4 w-4 text-[#C5A880]" />
+            <span>Cambiar precios en bloque</span>
           </button>
         </div>
 
-        {/* Banner de Métricas Rápidas */}
-        <section className="grid grid-cols-2 gap-3 sm:grid-cols-4 mb-6">
-          <div className="rounded-xl border border-[#22242B] bg-[#141519] p-3.5 sm:p-4">
-            <span className="font-mono text-[10px] text-[#8E8A81] uppercase tracking-wider">
-              Total Archivo
-            </span>
-            <div className="mt-1 flex items-baseline justify-between">
-              <span className="font-serif text-2xl font-light text-[#EBE7DF]">{stats.total}</span>
-              <span className="font-mono text-[10px] text-[#C5A880]">100% catalogado</span>
-            </div>
-          </div>
+        {/* Conmutador principal: Fotografías vs Series Monográficas (#4) */}
+        <div className="mb-6 flex items-center gap-2 border-b border-[#22242B] pb-3">
+          <button
+            type="button"
+            onClick={() => setActiveSection("photos")}
+            className={`rounded-xl px-4 py-2.5 text-xs sm:text-sm font-medium transition cursor-pointer ${
+              activeSection === "photos"
+                ? "bg-[#C5A880] text-[#0B0C0E] font-semibold"
+                : "border border-[#262830] bg-[#141519] text-[#A39E93] hover:text-[#EBE7DF]"
+            }`}
+          >
+            Fotografías ({works.length})
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveSection("series")}
+            className={`rounded-xl px-4 py-2.5 text-xs sm:text-sm font-medium transition cursor-pointer ${
+              activeSection === "series"
+                ? "bg-[#C5A880] text-[#0B0C0E] font-semibold"
+                : "border border-[#262830] bg-[#141519] text-[#A39E93] hover:text-[#EBE7DF]"
+            }`}
+          >
+            Series Monográficas ({series.length})
+          </button>
+        </div>
 
-          <div className="rounded-xl border border-[#22242B] bg-[#141519] p-3.5 sm:p-4">
-            <span className="font-mono text-[10px] text-[#8E8A81] uppercase tracking-wider">
-              Venta Fine Art
-            </span>
-            <div className="mt-1 flex items-baseline justify-between">
-              <span className="font-serif text-2xl font-light text-[#C5A880]">{stats.prints}</span>
-              <span className="font-mono text-[10px] text-emerald-400">Activas</span>
-            </div>
-          </div>
+        {activeSection === "series" ? (
+          <SeriesManagerSection
+            series={series}
+            works={works}
+            previewMap={previewMap}
+            isSaving={isSaving}
+            onSaveSeries={handleSaveSeries}
+          />
+        ) : (
+          <>
+            {/* Banner de Métricas Rápidas */}
+            <section className="grid grid-cols-2 gap-3 sm:grid-cols-4 mb-6">
+              <div className="rounded-xl border border-[#22242B] bg-[#141519] p-3.5 sm:p-4">
+                <span className="font-mono text-[10px] text-[#8E8A81] uppercase tracking-wider">
+                  Total Archivo
+                </span>
+                <div className="mt-1 flex items-baseline justify-between">
+                  <span className="font-serif text-2xl font-light text-[#EBE7DF]">{stats.total}</span>
+                  <span className="font-mono text-[10px] text-[#C5A880]">100% catalogado</span>
+                </div>
+              </div>
 
-          <div className="rounded-xl border border-[#22242B] bg-[#141519] p-3.5 sm:p-4">
-            <span className="font-mono text-[10px] text-[#8E8A81] uppercase tracking-wider">
-              En Portada
-            </span>
-            <div className="mt-1 flex items-baseline justify-between">
-              <span className="font-serif text-2xl font-light text-[#EBE7DF]">{stats.featured}</span>
-              <span className="font-mono text-[10px] text-[#C5A880]">Destacadas</span>
-            </div>
-          </div>
+              <div className="rounded-xl border border-[#22242B] bg-[#141519] p-3.5 sm:p-4">
+                <span className="font-mono text-[10px] text-[#8E8A81] uppercase tracking-wider">
+                  Venta Fine Art
+                </span>
+                <div className="mt-1 flex items-baseline justify-between">
+                  <span className="font-serif text-2xl font-light text-[#C5A880]">{stats.prints}</span>
+                  <span className="font-mono text-[10px] text-emerald-400">Activas</span>
+                </div>
+              </div>
 
-          <div className="rounded-xl border border-[#22242B] bg-[#141519] p-3.5 sm:p-4">
-            <span className="font-mono text-[10px] text-[#8E8A81] uppercase tracking-wider">
-              Historias de Campo
-            </span>
-            <div className="mt-1 flex items-baseline justify-between">
-              <span className="font-serif text-2xl font-light text-[#EBE7DF]">{stats.withStory}</span>
-              <span className="font-mono text-[10px] text-[#A39E93]">Narradas</span>
-            </div>
-          </div>
-        </section>
+              <div className="rounded-xl border border-[#22242B] bg-[#141519] p-3.5 sm:p-4">
+                <span className="font-mono text-[10px] text-[#8E8A81] uppercase tracking-wider">
+                  En Portada
+                </span>
+                <div className="mt-1 flex items-baseline justify-between">
+                  <span className="font-serif text-2xl font-light text-[#EBE7DF]">{stats.featured}</span>
+                  <span className="font-mono text-[10px] text-[#C5A880]">Destacadas</span>
+                </div>
+              </div>
 
-        {/* Barra de Filtros y Búsqueda */}
-        <section className="mb-6 space-y-3 rounded-2xl border border-[#202227] bg-[#131418] p-4 sm:p-5">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            {/* Buscador en tiempo real */}
-            <div className="relative flex-1">
-              <SearchIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#8E8A81]" />
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Buscar por título, serie, lugar o etiquetas…"
-                className="w-full rounded-xl border border-[#2A2C34] bg-[#18191F] py-2.5 pl-10 pr-9 text-xs sm:text-sm text-[#EBE7DF] placeholder-[#66635C] transition focus:border-[#C5A880] focus:outline-none"
-              />
-              {searchTerm && (
+              <div className="rounded-xl border border-[#22242B] bg-[#141519] p-3.5 sm:p-4">
+                <span className="font-mono text-[10px] text-[#8E8A81] uppercase tracking-wider">
+                  Historias de Campo
+                </span>
+                <div className="mt-1 flex items-baseline justify-between">
+                  <span className="font-serif text-2xl font-light text-[#EBE7DF]">{stats.withStory}</span>
+                  <span className="font-mono text-[10px] text-[#A39E93]">Narradas</span>
+                </div>
+              </div>
+            </section>
+
+            {/* Barra de Filtros y Búsqueda */}
+            <section className="mb-6 space-y-3 rounded-2xl border border-[#202227] bg-[#131418] p-4 sm:p-5">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="relative flex-1">
+                  <SearchIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#8E8A81]" />
+                  <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="Buscar por título, serie, lugar o etiquetas…"
+                    className="w-full rounded-xl border border-[#2A2C34] bg-[#18191F] py-2.5 pl-10 pr-9 text-xs sm:text-sm text-[#EBE7DF] placeholder-[#66635C] transition focus:border-[#C5A880] focus:outline-none"
+                  />
+                  {searchTerm && (
+                    <button
+                      onClick={() => setSearchTerm("")}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8E8A81] hover:text-[#EBE7DF] p-1"
+                    >
+                      <CloseIcon className="h-4 w-4" />
+                    </button>
+                  )}
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <label className="text-[11px] font-mono uppercase text-[#8E8A81] whitespace-nowrap">
+                    Ordenar:
+                  </label>
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
+                    className="rounded-lg border border-[#2A2C34] bg-[#18191F] px-3 py-2 text-xs text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
+                  >
+                    <option value="id">Catálogo (ID)</option>
+                    <option value="featuredOrder">Orden en Portada (1º, 2º…)</option>
+                    <option value="title">Título (A-Z)</option>
+                    <option value="year">Año de captura</option>
+                    <option value="price">Precio Estudio (€)</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Pastillas de Categoría */}
+              <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar pt-1">
                 <button
-                  onClick={() => setSearchTerm("")}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8E8A81] hover:text-[#EBE7DF] p-1"
-                >
-                  <CloseIcon className="h-4 w-4" />
-                </button>
-              )}
-            </div>
-
-            {/* Ordenar */}
-            <div className="flex items-center gap-2">
-              <label className="text-[11px] font-mono uppercase text-[#8E8A81] whitespace-nowrap">
-                Ordenar:
-              </label>
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-                className="rounded-lg border border-[#2A2C34] bg-[#18191F] px-3 py-2 text-xs text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
-              >
-                <option value="id">Catálogo (ID)</option>
-                <option value="title">Título (A-Z)</option>
-                <option value="year">Año de captura</option>
-                <option value="price">Precio Estudio (€)</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Pastillas de Categoría */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar pt-1">
-            <button
-              onClick={() => setSelectedCategory("todas")}
-              className={`rounded-full px-3.5 py-1.5 text-xs font-medium whitespace-nowrap transition-colors cursor-pointer ${
-                selectedCategory === "todas"
-                  ? "bg-[#C5A880] text-[#0B0C0E] font-semibold"
-                  : "border border-[#282A31] bg-[#17181D] text-[#8E8A81] hover:text-[#EBE7DF]"
-              }`}
-            >
-              Todas ({works.length})
-            </button>
-
-            {PHOTO_CATEGORIES.map((cat) => {
-              const count = works.filter((w) => w.category === cat).length;
-              const title = CATEGORY_METADATA[cat]?.title || cat;
-              return (
-                <button
-                  key={cat}
-                  onClick={() => setSelectedCategory(cat)}
+                  onClick={() => setSelectedCategory("todas")}
                   className={`rounded-full px-3.5 py-1.5 text-xs font-medium whitespace-nowrap transition-colors cursor-pointer ${
-                    selectedCategory === cat
+                    selectedCategory === "todas"
                       ? "bg-[#C5A880] text-[#0B0C0E] font-semibold"
                       : "border border-[#282A31] bg-[#17181D] text-[#8E8A81] hover:text-[#EBE7DF]"
                   }`}
                 >
-                  {title} ({count})
+                  Todas ({works.length})
                 </button>
-              );
-            })}
-          </div>
 
-          {/* Filtros rápidos secundarios */}
-          <div className="flex flex-wrap items-center gap-3 pt-1 border-t border-[#1F2126] text-xs">
-            <label className="flex items-center gap-2 cursor-pointer text-[#A39E93] hover:text-[#EBE7DF]">
-              <input
-                type="checkbox"
-                checked={filterPrintsOnly}
-                onChange={(e) => setFilterPrintsOnly(e.target.checked)}
-                className="h-3.5 w-3.5 rounded border-[#383A43] bg-[#1A1C22] text-[#C5A880]"
-              />
-              <span>Solo con Venta Activa</span>
-            </label>
+                {PHOTO_CATEGORIES.map((cat) => {
+                  const count = works.filter((w) => w.category === cat).length;
+                  const title = CATEGORY_METADATA[cat]?.title || cat;
+                  return (
+                    <button
+                      key={cat}
+                      onClick={() => setSelectedCategory(cat)}
+                      className={`rounded-full px-3.5 py-1.5 text-xs font-medium whitespace-nowrap transition-colors cursor-pointer ${
+                        selectedCategory === cat
+                          ? "bg-[#C5A880] text-[#0B0C0E] font-semibold"
+                          : "border border-[#282A31] bg-[#17181D] text-[#8E8A81] hover:text-[#EBE7DF]"
+                      }`}
+                    >
+                      {title} ({count})
+                    </button>
+                  );
+                })}
+              </div>
 
-            <label className="flex items-center gap-2 cursor-pointer text-[#A39E93] hover:text-[#EBE7DF]">
-              <input
-                type="checkbox"
-                checked={filterFeaturedOnly}
-                onChange={(e) => setFilterFeaturedOnly(e.target.checked)}
-                className="h-3.5 w-3.5 rounded border-[#383A43] bg-[#1A1C22] text-[#C5A880]"
-              />
-              <span>Solo Portada</span>
-            </label>
+              {/* Filtros rápidos secundarios */}
+              <div className="flex flex-wrap items-center gap-3 pt-1 border-t border-[#1F2126] text-xs">
+                <label className="flex items-center gap-2 cursor-pointer text-[#A39E93] hover:text-[#EBE7DF]">
+                  <input
+                    type="checkbox"
+                    checked={filterPrintsOnly}
+                    onChange={(e) => setFilterPrintsOnly(e.target.checked)}
+                    className="h-3.5 w-3.5 rounded border-[#383A43] bg-[#1A1C22] text-[#C5A880]"
+                  />
+                  <span>Solo Venta Activa</span>
+                </label>
 
-            <label className="flex items-center gap-2 cursor-pointer text-[#A39E93] hover:text-[#EBE7DF]">
-              <input
-                type="checkbox"
-                checked={filterStoryOnly}
-                onChange={(e) => setFilterStoryOnly(e.target.checked)}
-                className="h-3.5 w-3.5 rounded border-[#383A43] bg-[#1A1C22] text-[#C5A880]"
-              />
-              <span>Solo con Historia Narrada</span>
-            </label>
+                <label className="flex items-center gap-2 cursor-pointer text-[#A39E93] hover:text-[#EBE7DF]">
+                  <input
+                    type="checkbox"
+                    checked={filterFeaturedOnly}
+                    onChange={(e) => setFilterFeaturedOnly(e.target.checked)}
+                    className="h-3.5 w-3.5 rounded border-[#383A43] bg-[#1A1C22] text-[#C5A880]"
+                  />
+                  <span>Solo Destacadas</span>
+                </label>
 
-            <span className="ml-auto font-mono text-[11px] text-[#8E8A81]">
-              Mostrando {filteredWorks.length} de {works.length} obras
-            </span>
-          </div>
-        </section>
+                <label className="flex items-center gap-2 cursor-pointer text-[#A39E93] hover:text-[#EBE7DF]">
+                  <input
+                    type="checkbox"
+                    checked={filterCoversOnly}
+                    onChange={(e) => setFilterCoversOnly(e.target.checked)}
+                    className="h-3.5 w-3.5 rounded border-[#383A43] bg-[#1A1C22] text-[#C5A880]"
+                  />
+                  <span>Solo Hero / Portadas</span>
+                </label>
 
-        {/* Cuadrícula de Obras */}
-        {filteredWorks.length === 0 ? (
-          <div className="rounded-2xl border border-[#22242B] bg-[#131418] py-16 text-center">
-            <p className="text-sm text-[#A39E93]">No se encontraron obras con los filtros aplicados.</p>
-            <button
-              onClick={() => {
-                setSearchTerm("");
-                setSelectedCategory("todas");
-                setFilterPrintsOnly(false);
-                setFilterFeaturedOnly(false);
-                setFilterStoryOnly(false);
-              }}
-              className="mt-3 rounded-lg border border-[#C5A880]/30 px-4 py-2 text-xs text-[#C5A880] hover:bg-[#C5A880]/10 transition"
-            >
-              Restablecer todos los filtros
-            </button>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredWorks.map((photo) => {
-              const estudioPrice = photo.pricing?.estudio || 95;
-              const galeriaPrice = photo.pricing?.galeria || 175;
-              const coleccionPrice = photo.pricing?.coleccion || 290;
+                <label className="flex items-center gap-2 cursor-pointer text-[#A39E93] hover:text-[#EBE7DF]">
+                  <input
+                    type="checkbox"
+                    checked={filterStoryOnly}
+                    onChange={(e) => setFilterStoryOnly(e.target.checked)}
+                    className="h-3.5 w-3.5 rounded border-[#383A43] bg-[#1A1C22] text-[#C5A880]"
+                  />
+                  <span>Solo con Historia</span>
+                </label>
 
-              return (
-                <div
-                  key={photo.id}
-                  className="group relative flex flex-col justify-between rounded-xl border border-[#202228] bg-[#131418] p-4 transition-all hover:border-[#C5A880]/40 hover:bg-[#16171D] hover:shadow-xl"
+                <span className="ml-auto font-mono text-[11px] text-[#8E8A81]">
+                  Mostrando {filteredWorks.length} de {works.length} obras
+                </span>
+              </div>
+            </section>
+
+            {/* Cuadrícula de Obras */}
+            {filteredWorks.length === 0 ? (
+              <div className="rounded-2xl border border-[#22242B] bg-[#131418] py-16 text-center">
+                <p className="text-sm text-[#A39E93]">No se encontraron obras con los filtros aplicados.</p>
+                <button
+                  onClick={() => {
+                    setSearchTerm("");
+                    setSelectedCategory("todas");
+                    setFilterPrintsOnly(false);
+                    setFilterFeaturedOnly(false);
+                    setFilterCoversOnly(false);
+                    setFilterStoryOnly(false);
+                  }}
+                  className="mt-3 rounded-lg border border-[#C5A880]/30 px-4 py-2 text-xs text-[#C5A880] hover:bg-[#C5A880]/10 transition"
                 >
-                  <div>
-                    {/* Top fila: Miniatura + Info básica */}
-                    <div className="flex gap-3.5">
-                      <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg border border-[#262830] bg-[#1A1C22]">
-                        {previewMap[photo.id] ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
-                            src={previewMap[photo.id]}
-                            alt={photo.alt || photo.title}
-                            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                          />
-                        ) : (
-                          <Image
-                            src={photo.image}
-                            alt={photo.alt || photo.title}
-                            fill
-                            sizes="80px"
-                            className="object-cover transition-transform duration-300 group-hover:scale-105"
-                          />
-                        )}
-                        {photo.featured && (
-                          <div
-                            className="absolute top-1 left-1 rounded bg-[#0B0C0E]/80 p-0.5 text-[#C5A880]"
-                            title="Destacada en portada"
-                          >
-                            <StarIcon className="h-3 w-3" filled />
-                          </div>
-                        )}
-                      </div>
+                  Restablecer todos los filtros
+                </button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {filteredWorks.map((photo) => {
+                  const estudioPrice = photo.pricing?.estudio || 95;
+                  const galeriaPrice = photo.pricing?.galeria || 175;
+                  const coleccionPrice = photo.pricing?.coleccion || 290;
+                  const seriesCover = isSeriesCoverPhoto(photo);
 
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-1.5 flex-wrap">
-                          <span className="font-mono text-[10px] text-[#C5A880] bg-[#C5A880]/10 px-1.5 py-0.5 rounded">
-                            {photo.id}
-                          </span>
-                          <span className="truncate text-[10px] text-[#8E8A81] uppercase tracking-wider">
-                            {CATEGORY_METADATA[photo.category]?.title || photo.category}
-                          </span>
+                  return (
+                    <div
+                      key={photo.id}
+                      className="group relative flex flex-col justify-between rounded-xl border border-[#202228] bg-[#131418] p-4 transition-all hover:border-[#C5A880]/40 hover:bg-[#16171D] hover:shadow-xl"
+                    >
+                      <div>
+                        {/* Top fila: Miniatura + Info básica */}
+                        <div className="flex gap-3.5">
+                          <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg border border-[#262830] bg-[#1A1C22]">
+                            {previewMap[photo.id] ? (
+                              // eslint-disable-next-line @next/next/no-img-element
+                              <img
+                                src={previewMap[photo.id]}
+                                alt={photo.alt || photo.title}
+                                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                              />
+                            ) : (
+                              <Image
+                                src={photo.image}
+                                alt={photo.alt || photo.title}
+                                fill
+                                sizes="80px"
+                                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                              />
+                            )}
+                            {photo.featured && (
+                              <div
+                                className="absolute top-1 left-1 rounded bg-[#0B0C0E]/80 p-0.5 text-[#C5A880]"
+                                title="Destacada en portada"
+                              >
+                                <StarIcon className="h-3 w-3" filled />
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              <span className="font-mono text-[10px] text-[#C5A880] bg-[#C5A880]/10 px-1.5 py-0.5 rounded">
+                                {photo.id}
+                              </span>
+                              <span className="truncate text-[10px] text-[#8E8A81] uppercase tracking-wider">
+                                {CATEGORY_METADATA[photo.category]?.title || photo.category}
+                              </span>
+                            </div>
+
+                            <h3 className="mt-1 truncate font-serif text-base font-medium text-[#EBE7DF]">
+                              {photo.title}
+                            </h3>
+
+                            <p className="truncate text-xs text-[#8E8A81]">
+                              {seriesTitlesFor(photo.id)[0] || photo.location || photo.country || "Sin serie"} &middot; {photo.year}
+                            </p>
+
+                            {/* Etiquetas de posición en Hero / Portadas (#3) */}
+                            {(photo.heroOrder || photo.categoryCover || seriesCover) && (
+                              <div className="mt-1.5 flex flex-wrap gap-1">
+                                {photo.heroOrder && (
+                                  <span className="rounded bg-[#C5A880] px-1.5 py-0.5 font-mono text-[9px] font-semibold uppercase text-[#0B0C0E]">
+                                    Hero Sala {photo.heroOrder}
+                                  </span>
+                                )}
+                                {photo.categoryCover && (
+                                  <span className="rounded border border-[#C5A880]/40 bg-[#C5A880]/15 px-1.5 py-0.5 font-mono text-[9px] uppercase text-[#C5A880]">
+                                    Portada Categoría
+                                  </span>
+                                )}
+                                {seriesCover && (
+                                  <span className="rounded border border-white/20 bg-white/10 px-1.5 py-0.5 font-mono text-[9px] uppercase text-[#EBE7DF]">
+                                    Portada Serie
+                                  </span>
+                                )}
+                              </div>
+                            )}
+                          </div>
                         </div>
 
-                        <h3 className="mt-1 truncate font-serif text-base font-medium text-[#EBE7DF]">
-                          {photo.title}
-                        </h3>
-
-                        <p className="truncate text-xs text-[#8E8A81]">
-                          {seriesTitlesFor(photo.id)[0] || photo.location || photo.country || "Sin serie"} &middot; {photo.year}
+                        {/* Descripción */}
+                        <p className="mt-3 line-clamp-2 text-xs text-[#A39E93] leading-relaxed">
+                          {photo.description}
                         </p>
+
+                        {/* Fila de Precios Fine Art */}
+                        <div className="mt-3 flex items-center justify-between rounded-lg border border-[#202228] bg-[#17181E] px-2.5 py-1.5 font-mono text-[11px]">
+                          <div className="text-center">
+                            <span className="block text-[9px] text-[#716C62] uppercase">Estudio</span>
+                            <span className="font-semibold text-[#EBE7DF]">{estudioPrice} €</span>
+                          </div>
+                          <div className="h-6 w-px bg-[#262830]" />
+                          <div className="text-center">
+                            <span className="block text-[9px] text-[#716C62] uppercase">Galería</span>
+                            <span className="font-semibold text-[#C5A880]">{galeriaPrice} €</span>
+                          </div>
+                          <div className="h-6 w-px bg-[#262830]" />
+                          <div className="text-center">
+                            <span className="block text-[9px] text-[#716C62] uppercase">Colección</span>
+                            <span className="font-semibold text-[#EBE7DF]">{coleccionPrice} €</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Acciones y Toggles Rápidos */}
+                      <div className="mt-4 pt-3 border-t border-[#1E2026] flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-1.5">
+                          <button
+                            type="button"
+                            onClick={(e) => handleQuickTogglePrints(photo, e)}
+                            className={`rounded-md px-2 py-1 text-[10px] font-mono transition cursor-pointer ${
+                              photo.prints
+                                ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
+                                : "bg-[#202228] text-[#716C62] border border-transparent"
+                            }`}
+                            title="Activar/desactivar venta Fine Art"
+                          >
+                            {photo.prints ? "Venta: ON" : "Venta: OFF"}
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={(e) => handleQuickToggleFeatured(photo, e)}
+                            className={`rounded-md px-2 py-1 text-[10px] font-mono transition cursor-pointer ${
+                              photo.featured
+                                ? "bg-[#C5A880]/20 text-[#C5A880] border border-[#C5A880]/40"
+                                : "bg-[#202228] text-[#716C62] border border-transparent"
+                            }`}
+                            title="Destacar en portada principal"
+                          >
+                            {photo.featured
+                              ? `★ Portada${photo.featuredOrder ? ` #${photo.featuredOrder}` : ""}`
+                              : "Portada: No"}
+                          </button>
+                        </div>
+
+                        {/* Botones Editar y Papelera */}
+                        <div className="flex items-center gap-1.5">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setIsCreatingNew(false);
+                              setEditingPhoto(photo);
+                            }}
+                            className="inline-flex min-h-[38px] items-center gap-1.5 rounded-lg border border-[#C5A880]/30 bg-[#1A1C22] px-3 py-1.5 text-xs font-medium text-[#C5A880] hover:bg-[#C5A880] hover:text-[#0B0C0E] transition cursor-pointer"
+                          >
+                            <EditIcon className="h-3.5 w-3.5" />
+                            <span>Editar</span>
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setDeletingPhoto(photo);
+                            }}
+                            className="inline-flex min-h-[38px] min-w-[38px] items-center justify-center rounded-lg border border-red-500/25 bg-red-950/20 px-2.5 py-1.5 text-red-300 hover:bg-red-600 hover:border-red-500 hover:text-white transition cursor-pointer"
+                            title={`Eliminar "${photo.title}"`}
+                            aria-label={`Eliminar "${photo.title}"`}
+                          >
+                            <TrashIcon className="h-4 w-4" />
+                          </button>
+                        </div>
                       </div>
                     </div>
-
-                    {/* Descripción y detalle */}
-                    <p className="mt-3 line-clamp-2 text-xs text-[#A39E93] leading-relaxed">
-                      {photo.description}
-                    </p>
-
-                    {/* Fila de Precios Fine Art */}
-                    <div className="mt-3 flex items-center justify-between rounded-lg border border-[#202228] bg-[#17181E] px-2.5 py-1.5 font-mono text-[11px]">
-                      <div className="text-center">
-                        <span className="block text-[9px] text-[#716C62] uppercase">Estudio</span>
-                        <span className="font-semibold text-[#EBE7DF]">{estudioPrice} €</span>
-                      </div>
-                      <div className="h-6 w-px bg-[#262830]" />
-                      <div className="text-center">
-                        <span className="block text-[9px] text-[#716C62] uppercase">Galería</span>
-                        <span className="font-semibold text-[#C5A880]">{galeriaPrice} €</span>
-                      </div>
-                      <div className="h-6 w-px bg-[#262830]" />
-                      <div className="text-center">
-                        <span className="block text-[9px] text-[#716C62] uppercase">Colección</span>
-                        <span className="font-semibold text-[#EBE7DF]">{coleccionPrice} €</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Acciones y Toggles Rápidos */}
-                  <div className="mt-4 pt-3 border-t border-[#1E2026] flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-1.5">
-                      {/* Botón rápido Venta */}
-                      <button
-                        type="button"
-                        onClick={(e) => handleQuickTogglePrints(photo, e)}
-                        className={`rounded-md px-2 py-1 text-[10px] font-mono transition cursor-pointer ${
-                          photo.prints
-                            ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
-                            : "bg-[#202228] text-[#716C62] border border-transparent"
-                        }`}
-                        title="Activar/desactivar venta Fine Art"
-                      >
-                        {photo.prints ? "Venta: ON" : "Venta: OFF"}
-                      </button>
-
-                      {/* Botón rápido Destacada */}
-                      <button
-                        type="button"
-                        onClick={(e) => handleQuickToggleFeatured(photo, e)}
-                        className={`rounded-md px-2 py-1 text-[10px] font-mono transition cursor-pointer ${
-                          photo.featured
-                            ? "bg-[#C5A880]/20 text-[#C5A880] border border-[#C5A880]/40"
-                            : "bg-[#202228] text-[#716C62] border border-transparent"
-                        }`}
-                        title="Destacar en portada principal"
-                      >
-                        {photo.featured ? "★ Portada" : "Portada: No"}
-                      </button>
-                    </div>
-
-                    {/* Botones Editar y Papelera */}
-                    <div className="flex items-center gap-1.5">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setIsCreatingNew(false);
-                          setEditingPhoto(photo);
-                        }}
-                        className="inline-flex min-h-[38px] items-center gap-1.5 rounded-lg border border-[#C5A880]/30 bg-[#1A1C22] px-3 py-1.5 text-xs font-medium text-[#C5A880] hover:bg-[#C5A880] hover:text-[#0B0C0E] transition cursor-pointer"
-                      >
-                        <EditIcon className="h-3.5 w-3.5" />
-                        <span>Editar</span>
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setDeletingPhoto(photo);
-                        }}
-                        className="inline-flex min-h-[38px] min-w-[38px] items-center justify-center rounded-lg border border-red-500/25 bg-red-950/20 px-2.5 py-1.5 text-red-300 hover:bg-red-600 hover:border-red-500 hover:text-white transition cursor-pointer"
-                        title={`Eliminar "${photo.title}"`}
-                        aria-label={`Eliminar "${photo.title}"`}
-                      >
-                        <TrashIcon className="h-4 w-4" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+                  );
+                })}
+              </div>
+            )}
+          </>
         )}
       </main>
 
-      {/* Modal de Edición / Creación Completa */}
+      {/* Modal de Edición / Creación Individual */}
       {editingPhoto && (
         <WorkEditorModal
           key={`${isCreatingNew ? "new" : "edit"}-${editingPhoto.id}`}
@@ -670,6 +1024,29 @@ export default function AdminDashboard({
           onSave={handleSavePhoto}
           onDelete={(p) => setDeletingPhoto(p)}
           isSaving={isSaving}
+        />
+      )}
+
+      {/* Modal de Subida en Lote (#1) */}
+      {isBatchModalOpen && (
+        <BatchUploadModal
+          initialCategory={defaultBatchCategory}
+          existingWorks={works}
+          allSeries={series}
+          isSaving={isSaving}
+          onClose={() => setIsBatchModalOpen(false)}
+          onBatchSubmit={handleBatchSubmit}
+        />
+      )}
+
+      {/* Modal de Precios en Bloque (#2) */}
+      {isBulkPricesOpen && (
+        <BulkPricesModal
+          works={works}
+          initialScope={selectedCategory !== "todas" ? (selectedCategory as PhotoCategory) : "all"}
+          isSaving={isSaving}
+          onClose={() => setIsBulkPricesOpen(false)}
+          onApply={handleBulkPricesApply}
         />
       )}
 
@@ -707,7 +1084,7 @@ export default function AdminDashboard({
             </div>
 
             <p className="mt-4 text-xs leading-relaxed text-[#A39E93]">
-              ¿Seguro que quieres eliminar esta fotografía? Se quitará del catálogo, de las series y de la web pública.
+              ¿Seguro que quieres eliminar esta fotografía? Se quitará del catálogo, de las series y de la web pública (podrás recuperarla con el botón «Deshacer»).
             </p>
 
             <div className="mt-6 flex items-center justify-end gap-2.5">

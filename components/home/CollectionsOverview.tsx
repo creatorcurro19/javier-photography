@@ -120,7 +120,10 @@ export default function CollectionsOverview() {
             const info = CATEGORY_METADATA[wing.category];
             const catPhotos = getPhotosByCategory(wing.category);
             const count = catPhotos.length;
-            const validCover = catPhotos.some((p) => p.image === info.coverImage)
+            const customCoverPhoto = catPhotos.find((p) => p.categoryCover);
+            const validCover = customCoverPhoto
+              ? customCoverPhoto.image
+              : catPhotos.some((p) => p.image === info.coverImage)
               ? info.coverImage
               : catPhotos[0]?.image ?? info.coverImage;
 

@@ -41,28 +41,11 @@ const HERO_IMAGES = new Set([
   "/images/portfolio/viajes-cultura/el-oficio-y-la-chispa.jpg",
 ]);
 
-/** Selecciona 6 piezas equilibradas sin repetir ninguna fotografía del Hero */
+/** Selecciona las 6 primeras obras destacadas respetando el orden configurado por el autor (featuredOrder) */
 function pickHomePreview(featured: Photo[]): Photo[] {
-  const uniqueFeatured = featured.filter((p) => !HERO_IMAGES.has(p.image));
-  const seenCategories = new Set<string>();
-  const picked: Photo[] = [];
-
-  for (const photo of uniqueFeatured) {
-    if (!seenCategories.has(photo.category)) {
-      seenCategories.add(photo.category);
-      picked.push(photo);
-    }
-    if (picked.length === 5) break;
-  }
-
-  for (const photo of uniqueFeatured) {
-    if (picked.length >= 6) break;
-    if (!picked.some((p) => p.id === photo.id)) {
-      picked.push(photo);
-    }
-  }
-
-  return picked;
+  const nonHero = featured.filter((p) => !p.heroOrder && !HERO_IMAGES.has(p.image));
+  const pool = nonHero.length >= 6 ? nonHero : featured;
+  return pool.slice(0, 6);
 }
 
 const HOME_SERVICES = [
