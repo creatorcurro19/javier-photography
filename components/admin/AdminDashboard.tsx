@@ -215,10 +215,16 @@ export default function AdminDashboard({
             <button
               onClick={() => setIsSyncModalOpen(true)}
               className="inline-flex items-center gap-1.5 rounded-lg border border-[#2B2D35] bg-[#17181D] px-3 py-1.5 text-xs text-[#EBE7DF] hover:border-[#C5A880] transition cursor-pointer"
-              title="Ajustes de Sincronización y Respaldo"
+              title="Estado de sincronización y descarga de respaldo"
             >
-              <GitHubIcon className="h-3.5 w-3.5 text-[#C5A880]" />
-              <span className="hidden xs:inline">Sincronizar</span>
+              {githubConfigured ? (
+                <span className="h-2 w-2 rounded-full bg-emerald-400" />
+              ) : (
+                <GitHubIcon className="h-3.5 w-3.5 text-[#C5A880]" />
+              )}
+              <span className="hidden xs:inline">
+                {githubConfigured ? "Conectado" : "Sincronizar"}
+              </span>
             </button>
 
             <button
@@ -568,29 +574,32 @@ export default function AdminDashboard({
             </div>
 
             <div className="mt-4 space-y-4 text-xs text-[#A39E93] leading-relaxed">
-              <p>
-                Los cambios que guardas en este panel se actualizan automáticamente en el archivo local{" "}
-                <code className="text-[#C5A880]">data/works.ts</code> durante el desarrollo.
-              </p>
-
-              <div className="rounded-xl border border-[#252830] bg-[#16171D] p-4 space-y-3">
-                <span className="block font-mono text-[10px] uppercase tracking-wider text-[#C5A880]">
-                  Sincronización directa con GitHub (Despliegue Vercel)
-                </span>
-                <p>
-                  Si deseas que los cambios realizados desde tu móvil o desde la web en producción se sincronicen directamente con GitHub y activen el despliegue automático en Vercel, introduce tu Personal Access Token (PAT) de GitHub:
-                </p>
-                <input
-                  type="password"
-                  value={githubToken}
-                  onChange={(e) => setGithubToken(e.target.value)}
-                  placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
-                  className="w-full rounded-lg border border-[#2D3038] bg-[#121316] px-3 py-2 font-mono text-xs text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
-                />
-                <p className="text-[11px] text-[#716C62]">
-                  También puedes configurar la variable de entorno <code className="text-[#EBE7DF]">GITHUB_TOKEN</code> en el panel de Vercel para no tener que introducirlo aquí.
-                </p>
-              </div>
+              {githubConfigured ? (
+                <div className="rounded-xl border border-emerald-500/30 bg-emerald-950/20 p-4 text-emerald-200 space-y-1.5">
+                  <span className="block font-mono text-[10px] uppercase tracking-wider text-emerald-400">
+                    ✓ Sincronización Automática Activa
+                  </span>
+                  <p>
+                    Tu panel está conectado directamente con GitHub y Vercel. Cada vez que guardes un cambio desde el móvil o el ordenador, la web pública se actualizará sola en 1–2 minutos.
+                  </p>
+                </div>
+              ) : (
+                <div className="rounded-xl border border-[#252830] bg-[#16171D] p-4 space-y-3">
+                  <span className="block font-mono text-[10px] uppercase tracking-wider text-[#C5A880]">
+                    Sincronización directa con GitHub (Despliegue Vercel)
+                  </span>
+                  <p>
+                    Introduce tu Personal Access Token (PAT) de GitHub para publicar cambios directamente en la web:
+                  </p>
+                  <input
+                    type="password"
+                    value={githubToken}
+                    onChange={(e) => setGithubToken(e.target.value)}
+                    placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+                    className="w-full rounded-lg border border-[#2D3038] bg-[#121316] px-3 py-2 font-mono text-xs text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
+                  />
+                </div>
+              )}
 
               <div className="rounded-xl border border-[#252830] bg-[#16171D] p-4 flex items-center justify-between">
                 <div>
