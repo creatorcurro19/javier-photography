@@ -128,6 +128,9 @@ export default function SelectedWork({ photos, totalCount }: SelectedWorkProps) 
                     <p className="mt-0.5 truncate font-mono text-[10px] uppercase tracking-[0.2em] text-[#8E8A80]">
                       {categoryInfo?.title ?? photo.category} · {photo.year}
                     </p>
+                    <p className="mt-1 font-mono text-[11px] text-[#C5A880]">
+                      Copia Fine Art · Desde {photo.pricing?.estudio ?? 100} €
+                    </p>
                   </div>
 
                   <Link

@@ -248,7 +248,7 @@ export const WORKS: Photo[] = [
     "year": 2026,
     "featured": true,
     "featuredOrder": 15,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "cotorra de kramer",
@@ -302,7 +302,7 @@ export const WORKS: Photo[] = [
     "year": 2026,
     "featured": true,
     "featuredOrder": 14,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "plumaje",
@@ -462,7 +462,7 @@ export const WORKS: Photo[] = [
     "description": "Pareja de buitres leonados posados en la cresta caliza de un cortado rocoso, dominando visualmente el cañón.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "buitre leonado",
@@ -566,7 +566,7 @@ export const WORKS: Photo[] = [
     "description": "Pareja de cabras monteses en actitud vigilante sobre las formaciones rocosas del monte mediterráneo.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "cabra montés",
@@ -668,7 +668,7 @@ export const WORKS: Photo[] = [
     "description": "Siluetas gemelas de palmeras enmarcando el horizonte marino bajo un cielo encendido al atardecer.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "ocaso atlántico",
@@ -772,7 +772,7 @@ export const WORKS: Photo[] = [
     "description": "Contraluz costero sobre una pasarela de madera frente al océano, con la vela de un kitesurf recortada en el cielo.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "costa atlántica",
@@ -867,7 +867,7 @@ export const WORKS: Photo[] = [
     "description": "Estudio de luz natural sobre flores de strelitzia cuyos tonos naranjas contrastan con la fachada en sombra.",
     "year": 2025,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "ave del paraíso",
@@ -1015,7 +1015,7 @@ export const WORKS: Photo[] = [
     "year": 2026,
     "featured": true,
     "featuredOrder": 12,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "murallas de caliza",
@@ -1062,7 +1062,7 @@ export const WORKS: Photo[] = [
     "description": "Unidad clásica con decoración histórica estacionada en la zona de asistencia bajo la silueta de la cordillera.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "parque de asistencia",
@@ -1109,7 +1109,7 @@ export const WORKS: Photo[] = [
     "year": 2026,
     "featured": true,
     "featuredOrder": 13,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "porsche 911",
@@ -1159,7 +1159,7 @@ export const WORKS: Photo[] = [
     "description": "Vista trasera simétrica del dorsal #30 en el parque de asistencia durante los preparativos previos a la salida.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "paddock",
@@ -1205,7 +1205,7 @@ export const WORKS: Photo[] = [
     "description": "El dorsal #29 atacando el vértice de la horquilla al límite de adherencia con la rueda delantera interior en el aire.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "rally clásico",
@@ -1254,7 +1254,7 @@ export const WORKS: Photo[] = [
     "description": "Detalle manual de la colocación de vinilos sobre la carrocería antes de las verificaciones técnicas.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "rotulación de competición",
@@ -1299,7 +1299,7 @@ export const WORKS: Photo[] = [
     "description": "Perfil de tres cuartos del dorsal #5 con llantas desplazadas rojas en la jornada previa a la prueba.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "coche clásico competición",
@@ -1344,7 +1344,7 @@ export const WORKS: Photo[] = [
     "description": "Un Volkswagen Golf GTI MK1 clásico apoyando con firmeza en el interior de la curva con su batería de faros supletorios.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "volkswagen golf mk1",
@@ -1392,7 +1392,7 @@ export const WORKS: Photo[] = [
     "description": "El dorsal #77 comprimiendo el tren delantero en plena entrada al viraje sobre el asfalto pintado del tramo.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "frenada en horquilla",
@@ -1439,7 +1439,7 @@ export const WORKS: Photo[] = [
     "description": "Detalle del puesto de mando, volante desplazado e instrumentación interior a través de la ventanilla.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "habitáculo de rally",
@@ -1484,7 +1484,7 @@ export const WORKS: Photo[] = [
     "description": "Piloto y copiloto revisando la documentación y el carnet de ruta sobre el capó amarillo antes de tomar la salida.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "notas de rally",
@@ -1530,7 +1530,7 @@ export const WORKS: Photo[] = [
     "description": "Un icónico compacto de rally con decoración histórica rodando sobre el asfalto de montaña.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "librea martini",
@@ -1578,7 +1578,7 @@ export const WORKS: Photo[] = [
     "description": "Paso rápido del dorsal #35 por una intersección de asfalto con la suspensión comprimida en pleno viraje.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "dorsal 35",
@@ -1624,7 +1624,7 @@ export const WORKS: Photo[] = [
     "year": 2026,
     "featured": true,
     "featuredOrder": 3,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "derrape rally",
@@ -1676,7 +1676,7 @@ export const WORKS: Photo[] = [
     "year": 2026,
     "featured": true,
     "featuredOrder": 8,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "600mm motorsport",
@@ -1724,7 +1724,7 @@ export const WORKS: Photo[] = [
     "description": "Luz cálida de alumbrado público revelando la textura cerámica de una fachada histórica y su balcón de forja en plena noche.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "azulejería",
@@ -1770,7 +1770,7 @@ export const WORKS: Photo[] = [
     "year": 2026,
     "featured": true,
     "featuredOrder": 5,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "fotografía urbana nocturna",
@@ -1817,7 +1817,7 @@ export const WORKS: Photo[] = [
     "year": 2026,
     "featured": true,
     "featuredOrder": 9,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "arquitectura y naturaleza",
@@ -1963,7 +1963,7 @@ export const WORKS: Photo[] = [
     "description": "Enmarcado simétrico a través de una reja tradicional en un muro de ladrillo hacia el follaje dorado de los árboles.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "celosía de hierro",
@@ -2009,7 +2009,7 @@ export const WORKS: Photo[] = [
     "description": "Perspectiva nocturna de un paseo arbolado iluminado bajo la fina silueta de la luna creciente.",
     "year": 2025,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "luna creciente",
@@ -2054,7 +2054,7 @@ export const WORKS: Photo[] = [
     "description": "Escena cotidiana de comercio local frente al colorido escaparate de una frutería tradicional.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "comercio de barrio",
@@ -2101,7 +2101,7 @@ export const WORKS: Photo[] = [
     "description": "Luz lateral de tarde en una calle estrecha donde un vecino contempla el paso del tiempo junto al portal.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "vida de pueblo",
@@ -2146,7 +2146,7 @@ export const WORKS: Photo[] = [
     "description": "Recogimiento en el interior de un templo iluminado cálidamente sobre el altar mayor dorado.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "retablo",
@@ -2191,7 +2191,7 @@ export const WORKS: Photo[] = [
     "description": "Celebración popular nocturna donde el paso engalanado avanza entre la multitud bajo el estallido de la pirotecnia.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "procesión nocturna",
@@ -2236,7 +2236,7 @@ export const WORKS: Photo[] = [
     "description": "Ambiente vespertino en los puestos de comida tradicional con el humo de las brasas a contraluz y el alminar al fondo.",
     "year": 2025,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "jemaa el-fna",
@@ -2285,7 +2285,7 @@ export const WORKS: Photo[] = [
     "description": "Retrato de aproximación de un cisne vulgar en el instante en que una gota de agua se desprende de su pico anaranjado.",
     "year": 2025,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "cisne vulgar",
@@ -2335,7 +2335,7 @@ export const WORKS: Photo[] = [
     "description": "Composición minimalista en clave alta de un carbonero común posado sobre una rama cubierta de líquenes.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "carbonero común",
@@ -2386,7 +2386,7 @@ export const WORKS: Photo[] = [
     "description": "Retrato lateral a 600mm de una cigüeña blanca sobre un fondo aterciopelado de pradera verde.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "cigüeña blanca",
@@ -2435,7 +2435,7 @@ export const WORKS: Photo[] = [
     "description": "Un artesano concentrado en su labor sobre un pequeño taburete de madera en un pasaje de la Medina tapizado de telas.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "artesano marrakech",
@@ -2484,7 +2484,7 @@ export const WORKS: Photo[] = [
     "description": "Primer plano de una rana común asomando sobre la lámina de agua cristalina y el fondo pedregoso del arroyo.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "rana común",
@@ -2532,7 +2532,7 @@ export const WORKS: Photo[] = [
     "description": "Dos jóvenes comparten una bandeja tradicional en el umbral de un taller de la Medina durante la pausa del mediodía.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "medina de marrakech",
@@ -2580,7 +2580,7 @@ export const WORKS: Photo[] = [
     "description": "Venado macho de gran cuerna detenido en lo alto de la ladera observando de frente con porte regio.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "ciervo ibérico",
@@ -2631,7 +2631,7 @@ export const WORKS: Photo[] = [
     "description": "Retrato cerrado de perfil a 600mm destacando la arquitectura de las astas y la nobleza del ciervo bajo luz cálida.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "venado",
@@ -2684,7 +2684,7 @@ export const WORKS: Photo[] = [
     "year": 2025,
     "featured": true,
     "featuredOrder": 11,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "contraluz urbano",
@@ -2730,7 +2730,7 @@ export const WORKS: Photo[] = [
     "description": "Pimientos rojos secándose al sol al aire libre según la tradición verata en Villanueva de la Vera.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "secadero de pimientos",
@@ -2779,7 +2779,7 @@ export const WORKS: Photo[] = [
     "description": "Simetría arquitectónica de columnas labradas, zócalos de zellij y arcos de mocárabes en el patio interior de una madrasa.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "madrasa marrakech",
@@ -2828,7 +2828,7 @@ export const WORKS: Photo[] = [
     "description": "Aproximación macro de perfil revelando el detalle milimétrico de la anatomía del insecto sobre la piedra.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "macrofotografía",
@@ -2876,7 +2876,7 @@ export const WORKS: Photo[] = [
     "description": "Juego geométrico de luz dura y sombra proyectada sobre un muro encalado tradicional de Villanueva de la Vera.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "arquitectura verata",
@@ -2924,7 +2924,7 @@ export const WORKS: Photo[] = [
     "description": "Camino tradicional delimitado por mampostería de granito y vegetación en el entorno de Villanueva de la Vera.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "mampostería de granito",
@@ -2970,7 +2970,7 @@ export const WORKS: Photo[] = [
     "description": "Calle empedrada en sombra flanqueada por arquitectura verata que dirige la mirada hacia la torre parroquial de Villanueva de la Vera.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "campanario",
@@ -3018,7 +3018,7 @@ export const WORKS: Photo[] = [
     "description": "Luz rasante sobre la sillería de granito y la puerta de madera de una casa tradicional en Villanueva de la Vera.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "sillería de granito",
@@ -3066,7 +3066,7 @@ export const WORKS: Photo[] = [
     "description": "Fachada de piedra decorada con recipientes tradicionales de barro y plantas al sol en Villanueva de la Vera.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "alfarería tradicional",
@@ -3114,7 +3114,7 @@ export const WORKS: Photo[] = [
     "description": "Trazado sinuoso de calzada empedrada flanqueada por balconadas, adobe y entramados de madera declarados Conjunto Histórico.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "entramado de madera",
@@ -3162,7 +3162,7 @@ export const WORKS: Photo[] = [
     "description": "Luz cálida de última hora bañando las fachadas de piedra y madera de Villanueva de la Vera mientras una figura se aleja.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "luz dorada",
@@ -3210,7 +3210,7 @@ export const WORKS: Photo[] = [
     "description": "Retrato ambiental entre cestos de mimbre colmados de especias, pétalos secos y hierbas aromáticas en el mercado tradicional.",
     "year": 2025,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "zoco de especias",
@@ -3258,7 +3258,7 @@ export const WORKS: Photo[] = [
     "description": "Capas sedimentarias y volcánicas esculpidas por la erosión marina bañadas por la luz dorada de la tarde.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "estratos volcánicos",
@@ -3306,7 +3306,7 @@ export const WORKS: Photo[] = [
     "description": "Contrapicado arquitectónico en Villanueva de la Vera que destaca el diálogo entre los grandes aleros de madera, la cal y el cielo.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "aleros de madera",
@@ -3354,7 +3354,7 @@ export const WORKS: Photo[] = [
     "description": "Transición desde la penumbra de un soportal de madera hacia la calle engalanada de Villanueva de la Vera.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "soportal de granito",
@@ -3402,7 +3402,7 @@ export const WORKS: Photo[] = [
     "description": "Detalle arquitectónico de pilares revestidos en mosaico cerámico tradicional y yesería tallada bajo la luz del patio.",
     "year": 2025,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "zellij",
@@ -3450,7 +3450,7 @@ export const WORKS: Photo[] = [
     "description": "Arquitectura verata de piedra, adobe y madera decorada con flores y banderines bajo la luz del mediodía en Villanueva de la Vera.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "calle real",
@@ -3498,7 +3498,7 @@ export const WORKS: Photo[] = [
     "description": "Secado tradicional colgado junto a un balcón de forja sobre el muro encalado en Villanueva de la Vera.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "ristras de pimientos",
@@ -3546,7 +3546,7 @@ export const WORKS: Photo[] = [
     "description": "El pequeño Autobianchi A112 Abarth (#78) levantando la rueda trasera interior en un paso por curva de máxima entrega.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "autobianchi a112 abarth",
@@ -3594,7 +3594,7 @@ export const WORKS: Photo[] = [
     "description": "Vista general de la plaza porticada con soportales de granito y arquitectura tradicional verata bajo el cielo de Gredos.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "plaza porticada",
@@ -3643,7 +3643,7 @@ export const WORKS: Photo[] = [
     "description": "Contraste entre el frescor en sombra del callejón empedrado y el sol que ilumina las fachadas altas en Villanueva de la Vera.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "claroscuro arquitectónico",
@@ -3689,7 +3689,7 @@ export const WORKS: Photo[] = [
     "description": "Profundidad de campo a lo largo de una vía histórica empedrada de Villanueva de la Vera en las horas tranquilas de la tarde.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "casco histórico",
@@ -3735,7 +3735,7 @@ export const WORKS: Photo[] = [
     "description": "Composición simétrica donde una figura solitaria sobre la gran escalinata enfatiza la escala monumental de la arquitectura.",
     "year": 2025,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "kasbah",
@@ -3783,7 +3783,7 @@ export const WORKS: Photo[] = [
     "description": "Estrecho pasaje vecinal en Villanueva de la Vera donde las plantas domésticas suavizan la austeridad del granito.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "muros de granito",
@@ -4126,7 +4126,7 @@ export const WORKS: Photo[] = [
     "country": "Marruecos",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "arco de herradura",
@@ -4174,7 +4174,7 @@ export const WORKS: Photo[] = [
     "country": "Marruecos",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "patio marroquí",
@@ -4222,7 +4222,7 @@ export const WORKS: Photo[] = [
     "country": "Marruecos",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "arco polilobulado",
@@ -4319,7 +4319,7 @@ export const WORKS: Photo[] = [
     "country": "Marruecos",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "tornero de madera",
@@ -4367,7 +4367,7 @@ export const WORKS: Photo[] = [
     "country": "Marruecos",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "callejón del zoco",
@@ -4415,7 +4415,7 @@ export const WORKS: Photo[] = [
     "country": "Marruecos",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "alto atlas",
@@ -4464,7 +4464,7 @@ export const WORKS: Photo[] = [
     "country": "Marruecos",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "oasis y atlas",
@@ -4559,7 +4559,7 @@ export const WORKS: Photo[] = [
     "description": "Paso pausado de una cigüeña blanca sobre la pradera húmeda mientras las gotas de lluvia quedan congeladas en el aire a 600mm.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "cigüeña bajo la lluvia",
@@ -4661,7 +4661,7 @@ export const WORKS: Photo[] = [
     "country": "España",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "cuervo canario",
@@ -4711,7 +4711,7 @@ export const WORKS: Photo[] = [
     "country": "España",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "carabela portuguesa",
@@ -4761,7 +4761,7 @@ export const WORKS: Photo[] = [
     "country": "España",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "cangrejo moro",
@@ -4810,7 +4810,7 @@ export const WORKS: Photo[] = [
     "description": "Luz solar atravesando las alas naranjas de una mariposa monarca como si fuera una vidriera natural.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "mariposa monarca",
@@ -4860,7 +4860,7 @@ export const WORKS: Photo[] = [
     "description": "Retrato minimalista de perfil de una gaviota patiamarilla recortada sobre el azul profundo del cielo.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "gaviota patiamarilla",
@@ -4910,7 +4910,7 @@ export const WORKS: Photo[] = [
     "description": "Un vuelvepiedras común posado sobre el basalto negro costero frente al desenfoque plateado del mar.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "vuelvepiedras común",
@@ -4961,7 +4961,7 @@ export const WORKS: Photo[] = [
     "description": "Ejemplar joven de gamo deteniendo su marcha entre las encinas y dirigiendo la mirada hacia la cámara.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "gamo",
@@ -5057,7 +5057,7 @@ export const WORKS: Photo[] = [
     "description": "Claroscuro dramático de rostro y expresión durante el esfuerzo de una procesión nocturna.",
     "year": 2026,
     "featured": false,
-    "prints": false,
+    "prints": true,
     "licensing": true,
     "keywords": [
       "portador",

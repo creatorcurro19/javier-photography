@@ -22,9 +22,7 @@ export default function DirectPrintsCatalog({
   const paymentRef = searchParams.get("ref");
   const obraParam = searchParams.get("obra") ?? "";
 
-  const [scope, setScope] = useState<"curated" | "all">(
-    obraParam ? "all" : "curated"
-  );
+  const [scope, setScope] = useState<"curated" | "all">("all");
   const [activeCategory, setActiveCategory] = useState<PhotoCategory | "all">(
     "all"
   );
@@ -214,17 +212,19 @@ export default function DirectPrintsCatalog({
                 <p className="mt-2 line-clamp-2 text-xs font-light leading-relaxed text-[#8E8A80]">
                   {photo.description}
                 </p>
-                <div className="mt-4 flex items-center justify-between border-t border-white/[0.06] pt-3 font-mono text-[11px] text-[#8E8A80]">
-                  <span>
-                    {photo.pricing
-                      ? `${photo.pricing.dimensions.estudio.replace(/ cm$/, "")} · ${photo.pricing.dimensions.galeria.replace(/ cm$/, "")} · ${photo.pricing.dimensions.coleccion}`
-                      : "30×45 · 50×70 · 70×100 cm"}
-                  </span>
-                  <span className="font-serif text-sm text-[#EBE7DF]">
-                    {photo.pricing
-                      ? `${photo.pricing.estudio} € · ${photo.pricing.galeria} € · ${photo.pricing.coleccion} €`
-                      : "Desde 120 €"}
-                  </span>
+                <div className="mt-4 border-t border-white/[0.06] pt-3 flex flex-col gap-1.5">
+                  <div className="flex items-center justify-between font-mono text-[11px]">
+                    <span className="text-[#A39E93]">Estudio ({photo.pricing?.dimensions.estudio ?? "30 × 45 cm"}):</span>
+                    <span className="font-serif text-sm text-[#C5A880] font-normal">{photo.pricing?.estudio ?? 100} €</span>
+                  </div>
+                  <div className="flex items-center justify-between font-mono text-[11px]">
+                    <span className="text-[#A39E93]">Galería ({photo.pricing?.dimensions.galeria ?? "50 × 70 cm"}):</span>
+                    <span className="font-serif text-sm text-[#EBE7DF] font-light">{photo.pricing?.galeria ?? 190} €</span>
+                  </div>
+                  <div className="flex items-center justify-between font-mono text-[11px]">
+                    <span className="text-[#A39E93]">Colección ({photo.pricing?.dimensions.coleccion ?? "70 × 100 cm"}):</span>
+                    <span className="font-serif text-sm text-[#EBE7DF] font-light">{photo.pricing?.coleccion ?? 320} €</span>
+                  </div>
                 </div>
               </div>
             </div>

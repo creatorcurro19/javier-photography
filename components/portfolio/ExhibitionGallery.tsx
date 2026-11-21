@@ -309,8 +309,8 @@ export default function ExhibitionGallery({
                   <td className="py-2.5 px-4 font-serif text-base text-[#EBE7DF]">
                     {photo.title}
                     {photo.prints && (
-                      <span className="ml-2 rounded border border-white/20 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-[#8E8A80]">
-                        Fine Art
+                      <span className="ml-2 rounded border border-[#C5A880]/30 bg-[#0B0C0E] px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-[#C5A880]">
+                        Desde {photo.pricing?.estudio ?? 100} €
                       </span>
                     )}
                   </td>
@@ -436,7 +436,15 @@ export default function ExhibitionGallery({
                       </Link>
                     </div>
 
-                    <div className="shrink-0" onClick={(e) => e.stopPropagation()}>
+                    <div className="shrink-0 flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+                      <div className="text-right hidden sm:block">
+                        <span className="font-serif text-sm font-light text-[#C5A880] block leading-tight">
+                          {photo.pricing?.estudio ?? 100} €
+                        </span>
+                        <span className="font-mono text-[8px] uppercase tracking-wider text-[#A39E93]">
+                          Desde ({photo.pricing?.dimensions?.estudio?.replace(/ cm$/, "") ?? "30×45"})
+                        </span>
+                      </div>
                       <PrintCardAction photo={photo} />
                     </div>
                   </figcaption>

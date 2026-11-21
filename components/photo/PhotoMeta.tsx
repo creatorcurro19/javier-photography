@@ -35,6 +35,30 @@ export default function PhotoMeta({ photo }: PhotoMetaProps) {
         {photo.title}
       </h1>
 
+      {/* Prominent Price & Acquisition Banner */}
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border border-[#C5A880]/30 bg-[#15171A] p-4 sm:p-5">
+        <div>
+          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#C5A880] block">
+            Copia Fine Art · {photo.pricing?.paper.includes("Baritado") ? "Papel Baritado 340g" : "Algodón 100% 308g"} (Ed. {photo.pricing?.editionTotal ?? 25} ej.)
+          </span>
+          <div className="mt-1 flex flex-wrap items-baseline gap-3">
+            <span className="font-serif text-2xl sm:text-3xl font-light text-[#EBE7DF]">
+              Desde {photo.pricing?.estudio ?? 100} €
+            </span>
+            <span className="font-mono text-xs text-[#A39E93]">
+              (Estudio {photo.pricing?.estudio ?? 100} € · Galería {photo.pricing?.galeria ?? 190} € · Colección {photo.pricing?.coleccion ?? 320} €)
+            </span>
+          </div>
+        </div>
+        <a
+          href="#adquirir-copia"
+          className="inline-flex min-h-[44px] items-center gap-2 border border-[#C5A880] bg-[#C5A880] px-5 py-2.5 font-mono text-xs uppercase tracking-[0.2em] text-[#0B0C0E] font-semibold transition hover:bg-white hover:border-white shadow"
+        >
+          <span>Elegir Formato y Comprar</span>
+          <span>↓</span>
+        </a>
+      </div>
+
       <dl className="mt-8 grid grid-cols-2 gap-6 text-sm sm:grid-cols-4 border-y border-[#202226] py-6">
         <div>
           <dt className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#8E8A80]">

@@ -203,13 +203,12 @@ export default function LightboxModal({
             <button
               type="button"
               onClick={() => setAddCartOpen(true)}
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-[#EBE7DF] bg-[#EBE7DF] px-3.5 py-1.5 text-xs font-mono tracking-wider text-[#0B0C0E] font-medium transition hover:bg-transparent hover:text-white"
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-[#C5A880] bg-[#C5A880] px-3.5 py-1.5 text-xs font-mono tracking-wider text-[#0B0C0E] font-medium transition hover:bg-white hover:border-white shadow"
               title="Adquirir copia Fine Art certificada"
             >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-              </svg>
-              + Cesta
+              <span>{photo.pricing ? `${photo.pricing.estudio} €` : "+ Cesta"}</span>
+              <span className="opacity-60">·</span>
+              <span>Copia Fine Art</span>
             </button>
           )}
 
@@ -376,9 +375,9 @@ export default function LightboxModal({
                 <button
                   type="button"
                   onClick={() => setAddCartOpen(true)}
-                  className="border border-[#EBE7DF] bg-[#EBE7DF] px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-[#0B0C0E] font-medium transition hover:bg-transparent hover:text-white"
+                  className="border border-[#C5A880] bg-[#C5A880] px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-wider text-[#0B0C0E] font-medium transition hover:bg-white hover:border-white shadow"
                 >
-                  + Cesta Fine Art
+                  Copia Fine Art · Desde {photo.pricing?.estudio ?? 100} €
                 </button>
               )}
               <Link
