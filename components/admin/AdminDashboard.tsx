@@ -2,8 +2,8 @@
 
 import React, { useState, useMemo } from "react";
 import Image from "next/image";
-import type { Photo, PhotoCategory, Project } from "@/types/photo";
-import { PHOTO_CATEGORIES, CATEGORY_METADATA } from "@/types/photo";
+import type { Photo, PhotoCategory, Project, PhotoColorLabel } from "@/types/photo";
+import { PHOTO_CATEGORIES, CATEGORY_METADATA, COLOR_LABEL_METADATA } from "@/types/photo";
 import WorkEditorModal from "./WorkEditorModal";
 import BatchUploadModal from "./BatchUploadModal";
 import BulkPricesModal from "./BulkPricesModal";
@@ -71,7 +71,9 @@ export default function AdminDashboard({
   const [filterFeaturedOnly, setFilterFeaturedOnly] = useState(false);
   const [filterCoversOnly, setFilterCoversOnly] = useState(false);
   const [filterStoryOnly, setFilterStoryOnly] = useState(false);
-  const [sortBy, setSortBy] = useState<"id" | "title" | "price" | "year" | "featuredOrder">("id");
+  const [filterRating, setFilterRating] = useState<number | "all">("all");
+  const [filterColorLabel, setFilterColorLabel] = useState<PhotoColorLabel | "all">("all");
+  const [sortBy, setSortBy] = useState<"id" | "title" | "price" | "year" | "featuredOrder" | "rating" | "score">("rating");
 
   // Modales de edición, subida en lote, precios en bloque y borrado
   const [editingPhoto, setEditingPhoto] = useState<Photo | null>(null);
@@ -209,6 +211,8 @@ export default function AdminDashboard({
         }
         if (filterPrintsOnly && !w.prints) return false;
         if (filterFeaturedOnly && !w.featured) return false;
+        if (filterRating !== "all" && (w.rating || 3) !== filterRating) return false;
+        if (filterColorLabel !== "all" && w.colorLabel !== filterColorLabel) return false;
         if (
           filterCoversOnly &&
           !w.heroOrder &&
@@ -235,6 +239,14 @@ export default function AdminDashboard({
         return true;
       })
       .sort((a, b) => {
+        if (sortBy === "rating") {
+          const diff = (b.rating || 3) - (a.rating || 3);
+          if (diff !== 0) return diff;
+          return (b.pricing?.score || 0) - (a.pricing?.score || 0);
+        }
+        if (sortBy === "score") {
+          return (b.pricing?.score || 0) - (a.pricing?.score || 0);
+        }
         if (sortBy === "title") return a.title.localeCompare(b.title);
         if (sortBy === "year") return b.year - a.year;
         if (sortBy === "featuredOrder") {
@@ -256,6 +268,8 @@ export default function AdminDashboard({
     selectedCategory,
     filterPrintsOnly,
     filterFeaturedOnly,
+    filterRating,
+    filterColorLabel,
     filterCoversOnly,
     filterStoryOnly,
     searchTerm,
@@ -943,6 +957,8 @@ export default function AdminDashboard({
                     onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
                     className="rounded-lg border border-[#2A2C34] bg-[#18191F] px-3 py-2 text-xs text-[#EBE7DF] focus:border-[#C5A880] focus:outline-none"
                   >
+                    <option value="rating">★ Puntuación (5★ a 3★)</option>
+                    <option value="score">Calidad de Edición (Score 100..0)</option>
                     <option value="id">Catálogo (ID)</option>
                     <option value="featuredOrder">Orden en Portada (1º, 2º…)</option>
                     <option value="title">Título (A-Z)</option>
@@ -1025,6 +1041,60 @@ export default function AdminDashboard({
                   />
                   <span>Solo con Historia</span>
                 </label>
+
+                {/* Filtro por Puntuación (Estrellas Lightroom) */}
+                <div className="flex items-center gap-1 border-l border-[#262830] pl-2.5">
+                  <span className="font-mono text-[10px] text-[#716C62] uppercase">Puntuación:</span>
+                  {(["all", 5, 4, 3] as const).map((r) => (
+                    <button
+                      key={String(r)}
+                      type="button"
+                      onClick={() => setFilterRating(r)}
+                      className={`rounded px-2 py-0.5 font-mono text-[10px] transition cursor-pointer ${
+                        filterRating === r
+                          ? "bg-[#C5A880] text-[#0B0C0E] font-semibold"
+                          : "border border-[#282A31] bg-[#16171C] text-[#8E8A81] hover:text-[#EBE7DF]"
+                      }`}
+                    >
+                      {r === "all" ? "Todas" : `${"★".repeat(r)}`}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Filtro por Color Lightroom (Nicho) */}
+                <div className="flex items-center gap-1 border-l border-[#262830] pl-2.5">
+                  <span className="font-mono text-[10px] text-[#716C62] uppercase">Color:</span>
+                  <button
+                    type="button"
+                    onClick={() => setFilterColorLabel("all")}
+                    className={`rounded px-2 py-0.5 font-mono text-[10px] transition cursor-pointer ${
+                      filterColorLabel === "all"
+                        ? "bg-[#C5A880] text-[#0B0C0E] font-semibold"
+                        : "border border-[#282A31] bg-[#16171C] text-[#8E8A81] hover:text-[#EBE7DF]"
+                    }`}
+                  >
+                    Todos
+                  </button>
+                  {(Object.keys(COLOR_LABEL_METADATA) as PhotoColorLabel[]).map((lbl) => {
+                    const meta = COLOR_LABEL_METADATA[lbl];
+                    return (
+                      <button
+                        key={lbl}
+                        type="button"
+                        onClick={() => setFilterColorLabel(lbl)}
+                        className={`flex items-center gap-1 rounded px-2 py-0.5 font-mono text-[10px] transition cursor-pointer ${
+                          filterColorLabel === lbl
+                            ? `${meta.bgClass} ${meta.textClass} ring-1 ring-current font-semibold`
+                            : "border border-[#282A31] bg-[#16171C] text-[#8E8A81] hover:text-[#EBE7DF]"
+                        }`}
+                        title={meta.meaning}
+                      >
+                        <span className={`h-1.5 w-1.5 rounded-full ${meta.dotClass}`} />
+                        <span>{meta.spanish}</span>
+                      </button>
+                    );
+                  })}
+                </div>
 
                 <span className="ml-auto font-mono text-[11px] text-[#8E8A81]">
                   Mostrando {filteredWorks.length} de {works.length} obras
@@ -1109,6 +1179,9 @@ export default function AdminDashboard({
                   const seriesCover = isSeriesCoverPhoto(photo);
                   const isSelected = selectedPhotoIds.includes(photo.id);
                   const photoSeriesList = seriesForPhoto(photo.id);
+                  const colorMeta = photo.colorLabel ? COLOR_LABEL_METADATA[photo.colorLabel] : null;
+                  const ratingStars = photo.rating || 3;
+                  const curatorialScore = photo.pricing?.score || 78;
 
                   return (
                     <div
@@ -1171,8 +1244,21 @@ export default function AdminDashboard({
                               <span className="font-mono text-[10px] text-[#C5A880] bg-[#C5A880]/10 px-1.5 py-0.5 rounded">
                                 {photo.id}
                               </span>
-                              <span className="truncate text-[10px] text-[#8E8A81] uppercase tracking-wider">
-                                {CATEGORY_METADATA[photo.category]?.title || photo.category}
+                              {colorMeta && (
+                                <span
+                                  className={`inline-flex items-center gap-1 rounded border px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider font-semibold ${colorMeta.bgClass} ${colorMeta.textClass} ${colorMeta.borderClass}`}
+                                  title={`Etiqueta Lightroom: ${colorMeta.name} (${colorMeta.meaning})`}
+                                >
+                                  <span className={`h-1.5 w-1.5 rounded-full ${colorMeta.dotClass}`} />
+                                  <span>{colorMeta.spanish}</span>
+                                </span>
+                              )}
+                              <span
+                                className="ml-auto font-mono text-[10px] text-amber-400 font-semibold"
+                                title={`Puntuación curatorial: ${curatorialScore}/100`}
+                              >
+                                {"★".repeat(ratingStars)}{"☆".repeat(5 - ratingStars)}
+                                <span className="ml-1 text-[9px] text-[#8E8A81]">({curatorialScore}p)</span>
                               </span>
                             </div>
 

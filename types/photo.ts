@@ -5,6 +5,81 @@ export type PhotoCategory =
   | "arquitectura-urbana"
   | "viajes-cultura";
 
+export type PhotoColorLabel = "green" | "blue" | "red" | "yellow" | "purple";
+
+export const CATEGORY_COLOR_LABEL: Record<PhotoCategory, PhotoColorLabel> = {
+  "fauna-naturaleza": "green",
+  "paisajes-documental": "blue",
+  "coches-rally": "red",
+  "arquitectura-urbana": "yellow",
+  "viajes-cultura": "purple",
+};
+
+export const COLOR_LABEL_METADATA: Record<
+  PhotoColorLabel,
+  {
+    name: string;
+    spanish: string;
+    hex: string;
+    bgClass: string;
+    textClass: string;
+    borderClass: string;
+    dotClass: string;
+    meaning: string;
+  }
+> = {
+  green: {
+    name: "Green",
+    spanish: "Verde",
+    hex: "#22C55E",
+    bgClass: "bg-emerald-500/15",
+    textClass: "text-emerald-400",
+    borderClass: "border-emerald-500/30",
+    dotClass: "bg-emerald-400",
+    meaning: "Fauna & Naturaleza salvaje",
+  },
+  blue: {
+    name: "Blue",
+    spanish: "Azul",
+    hex: "#3B82F6",
+    bgClass: "bg-sky-500/15",
+    textClass: "text-sky-400",
+    borderClass: "border-sky-500/30",
+    dotClass: "bg-sky-400",
+    meaning: "Paisaje, volcanes y documental",
+  },
+  red: {
+    name: "Red",
+    spanish: "Rojo",
+    hex: "#EF4444",
+    bgClass: "bg-rose-500/15",
+    textClass: "text-rose-400",
+    borderClass: "border-rose-500/30",
+    dotClass: "bg-rose-400",
+    meaning: "Motorsport, tramos de rally y competición",
+  },
+  yellow: {
+    name: "Yellow",
+    spanish: "Amarillo",
+    hex: "#EAB308",
+    bgClass: "bg-amber-500/15",
+    textClass: "text-amber-400",
+    borderClass: "border-amber-500/30",
+    dotClass: "bg-amber-400",
+    meaning: "Arquitectura y geometría urbana",
+  },
+  purple: {
+    name: "Purple",
+    spanish: "Púrpura",
+    hex: "#A855F7",
+    bgClass: "bg-purple-500/15",
+    textClass: "text-purple-400",
+    borderClass: "border-purple-500/30",
+    dotClass: "bg-purple-400",
+    meaning: "Viajes, etnografía y tradiciones culturales",
+  },
+};
+
 export interface PhotoCoordinates {
   lat: number;
   lng: number;
@@ -58,6 +133,10 @@ export interface Photo {
   year: number;
   featured: boolean;
   featuredOrder?: number;
+  /** Puntuación curatorial (1 a 5 estrellas, estándar Lightroom) */
+  rating?: number;
+  /** Etiqueta de color por nicho (Lightroom Color Label) */
+  colorLabel?: PhotoColorLabel;
   /** Posición (1 a 5) en el carrusel principal (Hero) de la portada */
   heroOrder?: number;
   /** Si es true, esta foto es la portada de su categoría en la web */

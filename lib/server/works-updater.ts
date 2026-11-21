@@ -8,7 +8,14 @@ import {
   type SiteSettings,
   type CuadernoPost,
 } from "@/data/site-config";
-import { CATEGORY_METADATA, PHOTO_CATEGORIES, type Photo, type PhotoCategory, type Project } from "@/types/photo";
+import {
+  CATEGORY_COLOR_LABEL,
+  CATEGORY_METADATA,
+  PHOTO_CATEGORIES,
+  type Photo,
+  type PhotoCategory,
+  type Project,
+} from "@/types/photo";
 
 const DEFAULT_HERO_SLUGS = [
   "ocaso-sobre-el-erg",
@@ -37,6 +44,27 @@ function initWorks(): Photo[] {
       if (found) found.categoryCover = true;
     }
   }
+
+  // Inicializar colorLabel y rating curatorial
+  for (const w of list) {
+    if (!w.colorLabel) {
+      w.colorLabel = CATEGORY_COLOR_LABEL[w.category] || "green";
+    }
+    if (typeof w.rating !== "number") {
+      const isHero = DEFAULT_HERO_SLUGS.includes(w.slug);
+      const isCategoryCover = Boolean(w.categoryCover);
+      const isFeatured = Boolean(w.featured);
+      const hasStory = Boolean(w.story && w.story.trim().length > 25);
+      if (isHero || isCategoryCover) {
+        w.rating = 5;
+      } else if (isFeatured || hasStory || Boolean(w.series)) {
+        w.rating = 4;
+      } else {
+        w.rating = 3;
+      }
+    }
+  }
+
   return list;
 }
 

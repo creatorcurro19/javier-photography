@@ -5,7 +5,6 @@ import type { Photo, Project } from "@/types/photo";
  * Contiene las obras verificadas y las 8 series monográficas.
  * Todas las páginas, componentes, sitemaps, schemas JSON-LD y validadores de pedido leen de este módulo.
  */
-
 export const SERIES: Project[] = [
   {
     "id": "custodios",
@@ -272,14 +271,16 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 25,
-      "score": 76
+      "score": 88
     },
     "series": "Macaronesia: Fauna y Costa Volcánica",
     "seriesSlug": "biodiversidad-canaria",
     "realLocation": "Tenerife, Islas Canarias (medianías y zonas arboladas)",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Captura nocturna o en penumbra a ISO 6400: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm."
+    "maxFormatReason": "Captura nocturna o en penumbra a ISO 6400: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm.",
+    "colorLabel": "green",
+    "rating": 4
   },
   {
     "id": "fn-02",
@@ -326,14 +327,16 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 25,
-      "score": 77
+      "score": 89
     },
     "series": "Macaronesia: Fauna y Costa Volcánica",
     "seriesSlug": "biodiversidad-canaria",
     "realLocation": "Tenerife, Islas Canarias (costas y zonas arboladas)",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1600) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1600) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "green",
+    "rating": 4
   },
   {
     "id": "fn-03",
@@ -379,14 +382,16 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 20,
-      "score": 83
+      "score": 90
     },
     "series": "Miradas de Fauna: Observación a 600mm",
     "seriesSlug": "miradas-en-libertad",
     "realLocation": "Humedal acuático en medio natural",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Sensor de origen Canon EOS 750D (24,2 MP): formato máximo recomendado Galería (50 × 70 cm) para garantizar densidad óptica ≥ 240 ppp. Formato 70 × 100 cm no disponible para esta obra."
+    "maxFormatReason": "Sensor de origen Canon EOS 750D (24,2 MP): formato máximo recomendado Galería (50 × 70 cm) para garantizar densidad óptica ≥ 240 ppp. Formato 70 × 100 cm no disponible para esta obra.",
+    "colorLabel": "green",
+    "rating": 4
   },
   {
     "id": "fn-04",
@@ -432,7 +437,7 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 12,
-      "score": 92
+      "score": 97
     },
     "series": "Miradas de Fauna: Observación a 600mm",
     "seriesSlug": "miradas-en-libertad",
@@ -440,7 +445,10 @@ export const WORKS: Photo[] = [
     "wildlifeCondition": "centro",
     "exifWarning": "{{VERIFICAR: Focal contradictoria entre ficha (600mm), simulador previo (400mm) y visor /about (232mm f/5.0); confirmar focal exacta desde RAW}}",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 105 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 105 cm).",
+    "colorLabel": "green",
+    "rating": 5,
+    "heroOrder": 2
   },
   {
     "id": "fn-05",
@@ -484,14 +492,16 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 30,
-      "score": 75
+      "score": 86
     },
     "series": "Miradas de Fauna: Observación a 600mm",
     "seriesSlug": "miradas-en-libertad",
     "realLocation": "Parque Nacional de Monfragüe, Cáceres (Salto del Gitano)",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 500) apto para ampliación hasta Gran Colección (70 × 88 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 500) apto para ampliación hasta Gran Colección (70 × 88 cm).",
+    "colorLabel": "green",
+    "rating": 4
   },
   {
     "id": "fn-06",
@@ -537,14 +547,16 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 18,
-      "score": 84
+      "score": 89
     },
     "series": "Miradas de Fauna: Observación a 600mm",
     "seriesSlug": "miradas-en-libertad",
     "realLocation": "Sierra de Gredos, Ávila / Cáceres",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "green",
+    "rating": 4
   },
   {
     "id": "fn-07",
@@ -587,12 +599,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 30,
-      "score": 74
+      "score": 82
     },
     "realLocation": "Sierra de Gredos, Ávila / Cáceres",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1000) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1000) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "green",
+    "rating": 3
   },
   {
     "id": "fn-08",
@@ -638,7 +652,7 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 12,
-      "score": 90
+      "score": 91
     },
     "series": "Miradas de Fauna: Observación a 600mm",
     "seriesSlug": "miradas-en-libertad",
@@ -646,7 +660,9 @@ export const WORKS: Photo[] = [
     "wildlifeCondition": "centro",
     "exifWarning": "{{VERIFICAR: apertura f/5.6 a 600mm incompatible con apertura máxima física f/6.3 de Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary entre 400–600mm; confirmar desde RAW}} · {{VERIFICAR: Apertura f/5.6 imposible a 600mm en Sigma 150-600mm f/5-6.3 (máx. física f/6.3) + focal 300mm en simulador previo; confirmar focal exacta desde RAW}}",
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Captura nocturna o en penumbra a ISO 6400: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm."
+    "maxFormatReason": "Captura nocturna o en penumbra a ISO 6400: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm.",
+    "colorLabel": "green",
+    "rating": 4
   },
   {
     "id": "pd-01",
@@ -691,12 +707,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 20,
-      "score": 84
+      "score": 87
     },
     "series": "Entre la Bruma y el Volcán: Paisaje Insular",
     "seriesSlug": "entre-la-bruma-y-el-volcan",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 200) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 200) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "blue",
+    "rating": 4
   },
   {
     "id": "pd-02",
@@ -744,13 +762,16 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 12,
-      "score": 95
+      "score": 96
     },
     "series": "Entre la Bruma y el Volcán: Paisaje Insular",
     "seriesSlug": "entre-la-bruma-y-el-volcan",
     "exifWarning": "{{VERIFICAR: Focal contradictoria entre ficha (115mm) y simulador/estudio previos (24mm); confirmar focal exacta desde RAW}}",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 320) apto para ampliación hasta Gran Colección (60 × 105 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 320) apto para ampliación hasta Gran Colección (60 × 105 cm).",
+    "colorLabel": "blue",
+    "rating": 5,
+    "heroOrder": 3
   },
   {
     "id": "pd-03",
@@ -796,7 +817,9 @@ export const WORKS: Photo[] = [
       "score": 79
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 100) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 100) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "blue",
+    "rating": 3
   },
   {
     "id": "pd-04",
@@ -845,7 +868,9 @@ export const WORKS: Photo[] = [
     "series": "Entre la Bruma y el Volcán: Paisaje Insular",
     "seriesSlug": "entre-la-bruma-y-el-volcan",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 250) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 250) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "blue",
+    "rating": 4
   },
   {
     "id": "pd-05",
@@ -889,12 +914,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 25,
-      "score": 79
+      "score": 81
     },
     "realLocation": "Puerto de la Cruz / Norte de Tenerife, Islas Canarias",
     "wildlifeCondition": "parque",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 200) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 200) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "green",
+    "rating": 3
   },
   {
     "id": "pd-06",
@@ -938,12 +965,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 25,
-      "score": 83
+      "score": 86
     },
     "series": "Entre la Bruma y el Volcán: Paisaje Insular",
     "seriesSlug": "entre-la-bruma-y-el-volcan",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "blue",
+    "rating": 4
   },
   {
     "id": "pd-07",
@@ -987,12 +1016,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 18,
-      "score": 85
+      "score": 87
     },
     "series": "El Silencio del Desierto",
     "seriesSlug": "silencio-del-desierto",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "blue",
+    "rating": 4
   },
   {
     "id": "pd-08",
@@ -1037,10 +1068,12 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 25,
-      "score": 78
+      "score": 91
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "blue",
+    "rating": 4
   },
   {
     "id": "cr-01",
@@ -1086,7 +1119,9 @@ export const WORKS: Photo[] = [
       "score": 78
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 640) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 640) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "red",
+    "rating": 3
   },
   {
     "id": "cr-02",
@@ -1132,12 +1167,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 18,
-      "score": 86
+      "score": 89
     },
     "series": "Trazadas y Paddock: Rally Histórico",
     "seriesSlug": "trazadas-rally",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "red",
+    "rating": 4
   },
   {
     "id": "cr-03",
@@ -1180,10 +1217,12 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 25,
-      "score": 79
+      "score": 80
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 320) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 320) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "red",
+    "rating": 3
   },
   {
     "id": "cr-04",
@@ -1227,12 +1266,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 18,
-      "score": 87
+      "score": 86
     },
     "series": "Trazadas y Paddock: Rally Histórico",
     "seriesSlug": "trazadas-rally",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "red",
+    "rating": 4
   },
   {
     "id": "cr-05",
@@ -1274,10 +1315,12 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 30,
-      "score": 75
+      "score": 82
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "red",
+    "rating": 3
   },
   {
     "id": "cr-06",
@@ -1319,10 +1362,12 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 25,
-      "score": 77
+      "score": 76
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "red",
+    "rating": 3
   },
   {
     "id": "cr-07",
@@ -1365,12 +1410,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 18,
-      "score": 87
+      "score": 86
     },
     "series": "Trazadas y Paddock: Rally Histórico",
     "seriesSlug": "trazadas-rally",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "red",
+    "rating": 4
   },
   {
     "id": "cr-08",
@@ -1412,12 +1459,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 20,
-      "score": 84
+      "score": 87
     },
     "series": "Trazadas y Paddock: Rally Histórico",
     "seriesSlug": "trazadas-rally",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "red",
+    "rating": 4
   },
   {
     "id": "cr-09",
@@ -1462,7 +1511,9 @@ export const WORKS: Photo[] = [
       "score": 79
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1000) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1000) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "red",
+    "rating": 3
   },
   {
     "id": "cr-10",
@@ -1505,10 +1556,12 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 25,
-      "score": 79
+      "score": 80
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "red",
+    "rating": 3
   },
   {
     "id": "cr-11",
@@ -1551,12 +1604,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 15,
-      "score": 90
+      "score": 87
     },
     "series": "Trazadas y Paddock: Rally Histórico",
     "seriesSlug": "trazadas-rally",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 125) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 125) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "red",
+    "rating": 4
   },
   {
     "id": "cr-12",
@@ -1598,10 +1653,12 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 25,
-      "score": 81
+      "score": 82
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1000) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1000) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "red",
+    "rating": 3
   },
   {
     "id": "cr-13",
@@ -1647,13 +1704,16 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 12,
-      "score": 93
+      "score": 95
     },
     "series": "Trazadas y Paddock: Rally Histórico",
     "seriesSlug": "trazadas-rally",
     "exifWarning": "{{VERIFICAR: Focal contradictoria entre ficha (200mm) y simulador previo (135mm); confirmar focal exacta desde RAW}}",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "red",
+    "rating": 5,
+    "heroOrder": 4
   },
   {
     "id": "cr-14",
@@ -1697,12 +1757,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 15,
-      "score": 88
+      "score": 89
     },
     "series": "Trazadas y Paddock: Rally Histórico",
     "seriesSlug": "trazadas-rally",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "red",
+    "rating": 4
   },
   {
     "id": "au-01",
@@ -1744,10 +1806,12 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 25,
-      "score": 81
+      "score": 78
     },
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Captura nocturna o en penumbra a ISO 5000: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm."
+    "maxFormatReason": "Captura nocturna o en penumbra a ISO 5000: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm.",
+    "colorLabel": "yellow",
+    "rating": 3
   },
   {
     "id": "au-02",
@@ -1791,10 +1855,12 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 25,
-      "score": 81
+      "score": 91
     },
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Captura nocturna o en penumbra a ISO 6400: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm."
+    "maxFormatReason": "Captura nocturna o en penumbra a ISO 6400: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm.",
+    "colorLabel": "yellow",
+    "rating": 4
   },
   {
     "id": "au-03",
@@ -1842,7 +1908,9 @@ export const WORKS: Photo[] = [
       "score": 88
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 200) apto para ampliación hasta Gran Colección (70 × 88 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 200) apto para ampliación hasta Gran Colección (70 × 88 cm).",
+    "colorLabel": "yellow",
+    "rating": 4
   },
   {
     "id": "au-04",
@@ -1887,12 +1955,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 12,
-      "score": 92
+      "score": 85
     },
     "series": "Entre la Bruma y el Volcán: Paisaje Insular",
     "seriesSlug": "entre-la-bruma-y-el-volcan",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 640) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 640) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "blue",
+    "rating": 4
   },
   {
     "id": "au-05",
@@ -1936,12 +2006,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 18,
-      "score": 89
+      "score": 86
     },
     "series": "Entre la Bruma y el Volcán: Paisaje Insular",
     "seriesSlug": "entre-la-bruma-y-el-volcan",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 250) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 250) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "blue",
+    "rating": 4
   },
   {
     "id": "au-06",
@@ -1984,10 +2056,12 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 25,
-      "score": 79
+      "score": 76
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 640) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 640) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "yellow",
+    "rating": 3
   },
   {
     "id": "au-07",
@@ -2029,10 +2103,12 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 25,
-      "score": 79
+      "score": 77
     },
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Captura nocturna o en penumbra a ISO 6400: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm."
+    "maxFormatReason": "Captura nocturna o en penumbra a ISO 6400: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm.",
+    "colorLabel": "yellow",
+    "rating": 3
   },
   {
     "id": "vc-01",
@@ -2074,12 +2150,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 30,
-      "score": 75
+      "score": 86
     },
     "series": "Custodios: Oficios y Costumbres",
     "seriesSlug": "custodios",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 500) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 500) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "purple",
+    "rating": 4
   },
   {
     "id": "vc-02",
@@ -2124,7 +2202,9 @@ export const WORKS: Photo[] = [
       "score": 79
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "purple",
+    "rating": 3
   },
   {
     "id": "vc-03",
@@ -2166,10 +2246,12 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 25,
-      "score": 79
+      "score": 80
     },
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Captura nocturna o en penumbra a ISO 5000: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm."
+    "maxFormatReason": "Captura nocturna o en penumbra a ISO 5000: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm.",
+    "colorLabel": "purple",
+    "rating": 3
   },
   {
     "id": "vc-04",
@@ -2211,10 +2293,12 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 25,
-      "score": 82
+      "score": 81
     },
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Captura nocturna o en penumbra a ISO 4000: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm."
+    "maxFormatReason": "Captura nocturna o en penumbra a ISO 4000: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm.",
+    "colorLabel": "purple",
+    "rating": 3
   },
   {
     "id": "vc-05",
@@ -2258,12 +2342,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 20,
-      "score": 84
+      "score": 87
     },
     "series": "Custodios: Oficios y Costumbres",
     "seriesSlug": "custodios",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 100) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 100) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "purple",
+    "rating": 4
   },
   {
     "id": "vc-06",
@@ -2307,13 +2393,15 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 25,
-      "score": 79
+      "score": 76
     },
     "realLocation": "Estanque y humedal natural, Península Ibérica",
     "wildlifeCondition": "parque",
     "exifWarning": "{{VERIFICAR: apertura f/6.0 a 403mm incompatible con apertura máxima física f/6.3 de Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary entre 400–600mm; confirmar desde RAW}} · {{VERIFICAR: cuerpo declarado Canon EOS 750D distinto al cuerpo principal Canon EOS R7; confirmar desde RAW}}",
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Sensor de origen Canon EOS 750D (24 MP): formato máximo recomendado Galería (50 × 70 cm) para garantizar densidad óptica ≥ 240 ppp. Formato 70 × 100 cm deshabilitado."
+    "maxFormatReason": "Sensor de origen Canon EOS 750D (24 MP): formato máximo recomendado Galería (50 × 70 cm) para garantizar densidad óptica ≥ 240 ppp. Formato 70 × 100 cm deshabilitado.",
+    "colorLabel": "green",
+    "rating": 3
   },
   {
     "id": "vc-07",
@@ -2356,7 +2444,7 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 20,
-      "score": 83
+      "score": 86
     },
     "series": "Miradas de Fauna: Observación a 600mm",
     "seriesSlug": "miradas-en-libertad",
@@ -2364,7 +2452,9 @@ export const WORKS: Photo[] = [
     "wildlifeCondition": "libre",
     "exifWarning": "{{VERIFICAR: apertura f/5.6 a 562mm incompatible con apertura máxima física f/6.3 de Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary entre 400–600mm; confirmar desde RAW}}",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (60 × 105 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (60 × 105 cm).",
+    "colorLabel": "green",
+    "rating": 4
   },
   {
     "id": "vc-08",
@@ -2407,13 +2497,15 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 25,
-      "score": 77
+      "score": 78
     },
     "realLocation": "Dehesa de Extremadura, Cáceres",
     "wildlifeCondition": "libre",
     "exifWarning": "{{VERIFICAR: apertura f/5.6 a 600mm incompatible con apertura máxima física f/6.3 de Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary entre 400–600mm; confirmar desde RAW}}",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1250) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1250) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "green",
+    "rating": 3
   },
   {
     "id": "vc-09",
@@ -2457,12 +2549,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 20,
-      "score": 83
+      "score": 89
     },
     "series": "Custodios: Oficios y Costumbres",
     "seriesSlug": "custodios",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 100) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 100) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "purple",
+    "rating": 4
   },
   {
     "id": "vc-10",
@@ -2505,12 +2599,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 30,
-      "score": 76
+      "score": 80
     },
     "realLocation": "Garganta de la Sierra de Gredos, Cáceres / Ávila",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Captura nocturna o en penumbra a ISO 6400: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm."
+    "maxFormatReason": "Captura nocturna o en penumbra a ISO 6400: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm.",
+    "colorLabel": "green",
+    "rating": 3
   },
   {
     "id": "vc-11",
@@ -2553,12 +2649,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 25,
-      "score": 81
+      "score": 87
     },
     "series": "Custodios: Oficios y Costumbres",
     "seriesSlug": "custodios",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "purple",
+    "rating": 4
   },
   {
     "id": "vc-12",
@@ -2609,7 +2707,9 @@ export const WORKS: Photo[] = [
     "realLocation": "Dehesa de Extremadura",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 320) apto para ampliación hasta Gran Colección (60 × 105 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 320) apto para ampliación hasta Gran Colección (60 × 105 cm).",
+    "colorLabel": "green",
+    "rating": 4
   },
   {
     "id": "vc-13",
@@ -2653,7 +2753,7 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 20,
-      "score": 84
+      "score": 86
     },
     "series": "Miradas de Fauna: Observación a 600mm",
     "seriesSlug": "miradas-en-libertad",
@@ -2661,7 +2761,9 @@ export const WORKS: Photo[] = [
     "wildlifeCondition": "libre",
     "exifWarning": "{{VERIFICAR: apertura f/5.6 a 600mm incompatible con apertura máxima física f/6.3 de Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary entre 400–600mm; confirmar desde RAW}}",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 250) apto para ampliación hasta Gran Colección (60 × 105 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 250) apto para ampliación hasta Gran Colección (60 × 105 cm).",
+    "colorLabel": "green",
+    "rating": 4
   },
   {
     "id": "vc-14",
@@ -2705,10 +2807,12 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 25,
-      "score": 81
+      "score": 90
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 250) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 250) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "purple",
+    "rating": 4
   },
   {
     "id": "vc-15",
@@ -2752,12 +2856,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 20,
-      "score": 84
+      "score": 91
     },
     "series": "Custodios: Oficios y Costumbres",
     "seriesSlug": "custodios",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 640) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 640) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "purple",
+    "rating": 4
   },
   {
     "id": "vc-16",
@@ -2801,12 +2907,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 12,
-      "score": 90
+      "score": 79
     },
     "series": "Medina, Atlas y Kasbah",
     "seriesSlug": "medina-y-kasbah",
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Captura nocturna o en penumbra a ISO 4000: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm."
+    "maxFormatReason": "Captura nocturna o en penumbra a ISO 4000: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm.",
+    "colorLabel": "yellow",
+    "rating": 3
   },
   {
     "id": "vc-17",
@@ -2849,12 +2957,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 30,
-      "score": 76
+      "score": 80
     },
     "realLocation": "Sierra de Gredos / La Vera, Cáceres",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "green",
+    "rating": 3
   },
   {
     "id": "vc-18",
@@ -2897,12 +3007,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 25,
-      "score": 80
+      "score": 85
     },
     "series": "Villanueva de la Vera: Piedra, Adobe y Madera",
     "seriesSlug": "villanueva-de-la-vera",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 200) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 200) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "yellow",
+    "rating": 4
   },
   {
     "id": "vc-19",
@@ -2945,10 +3057,12 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 30,
-      "score": 75
+      "score": 82
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1000) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1000) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "yellow",
+    "rating": 3
   },
   {
     "id": "vc-20",
@@ -2991,12 +3105,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 25,
-      "score": 80
+      "score": 87
     },
     "series": "Villanueva de la Vera: Piedra, Adobe y Madera",
     "seriesSlug": "villanueva-de-la-vera",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1250) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1250) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "yellow",
+    "rating": 4
   },
   {
     "id": "vc-21",
@@ -3039,12 +3155,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 30,
-      "score": 76
+      "score": 85
     },
     "series": "Villanueva de la Vera: Piedra, Adobe y Madera",
     "seriesSlug": "villanueva-de-la-vera",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "yellow",
+    "rating": 4
   },
   {
     "id": "vc-22",
@@ -3087,12 +3205,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 30,
-      "score": 76
+      "score": 86
     },
     "series": "Villanueva de la Vera: Piedra, Adobe y Madera",
     "seriesSlug": "villanueva-de-la-vera",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "purple",
+    "rating": 4
   },
   {
     "id": "vc-23",
@@ -3135,12 +3255,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 18,
-      "score": 85
+      "score": 87
     },
     "series": "Villanueva de la Vera: Piedra, Adobe y Madera",
     "seriesSlug": "villanueva-de-la-vera",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1250) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1250) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "yellow",
+    "rating": 4
   },
   {
     "id": "vc-24",
@@ -3183,12 +3305,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 25,
-      "score": 82
+      "score": 85
     },
     "series": "Villanueva de la Vera: Piedra, Adobe y Madera",
     "seriesSlug": "villanueva-de-la-vera",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "purple",
+    "rating": 4
   },
   {
     "id": "vc-25",
@@ -3231,12 +3355,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 20,
-      "score": 83
+      "score": 86
     },
     "series": "Custodios: Oficios y Costumbres",
     "seriesSlug": "custodios",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2500) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2500) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "purple",
+    "rating": 4
   },
   {
     "id": "vc-26",
@@ -3279,12 +3405,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 25,
-      "score": 83
+      "score": 87
     },
     "series": "Entre la Bruma y el Volcán: Paisaje Insular",
     "seriesSlug": "entre-la-bruma-y-el-volcan",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 250) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 250) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "blue",
+    "rating": 4
   },
   {
     "id": "vc-27",
@@ -3327,12 +3455,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 18,
-      "score": 84
+      "score": 85
     },
     "series": "Villanueva de la Vera: Piedra, Adobe y Madera",
     "seriesSlug": "villanueva-de-la-vera",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1000) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1000) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "yellow",
+    "rating": 4
   },
   {
     "id": "vc-28",
@@ -3375,12 +3505,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 25,
-      "score": 79
+      "score": 77
     },
     "series": "Villanueva de la Vera: Piedra, Adobe y Madera",
     "seriesSlug": "villanueva-de-la-vera",
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Captura nocturna o en penumbra a ISO 4000: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm."
+    "maxFormatReason": "Captura nocturna o en penumbra a ISO 4000: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm.",
+    "colorLabel": "purple",
+    "rating": 3
   },
   {
     "id": "vc-29",
@@ -3423,12 +3555,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 18,
-      "score": 85
+      "score": 87
     },
     "series": "Medina, Atlas y Kasbah",
     "seriesSlug": "medina-y-kasbah",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 100) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 100) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "yellow",
+    "rating": 4
   },
   {
     "id": "vc-30",
@@ -3471,12 +3605,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 25,
-      "score": 79
+      "score": 85
     },
     "series": "Villanueva de la Vera: Piedra, Adobe y Madera",
     "seriesSlug": "villanueva-de-la-vera",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1000) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1000) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "purple",
+    "rating": 4
   },
   {
     "id": "vc-31",
@@ -3519,12 +3655,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 25,
-      "score": 81
+      "score": 86
     },
     "series": "Custodios: Oficios y Costumbres",
     "seriesSlug": "custodios",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 125) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 125) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "purple",
+    "rating": 4
   },
   {
     "id": "cr-15",
@@ -3567,12 +3705,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 18,
-      "score": 88
+      "score": 87
     },
     "series": "Trazadas y Paddock: Rally Histórico",
     "seriesSlug": "trazadas-rally",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "red",
+    "rating": 4
   },
   {
     "id": "vc-33",
@@ -3616,12 +3756,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 20,
-      "score": 84
+      "score": 95
     },
     "series": "Villanueva de la Vera: Piedra, Adobe y Madera",
     "seriesSlug": "villanueva-de-la-vera",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 500) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 500) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "purple",
+    "rating": 5
   },
   {
     "id": "vc-34",
@@ -3664,10 +3806,12 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 25,
-      "score": 79
+      "score": 76
     },
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Captura nocturna o en penumbra a ISO 6400: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm."
+    "maxFormatReason": "Captura nocturna o en penumbra a ISO 6400: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm.",
+    "colorLabel": "purple",
+    "rating": 3
   },
   {
     "id": "vc-35",
@@ -3710,10 +3854,12 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 25,
-      "score": 78
+      "score": 77
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 500) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 500) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "purple",
+    "rating": 3
   },
   {
     "id": "vc-36",
@@ -3761,7 +3907,9 @@ export const WORKS: Photo[] = [
     "series": "Medina, Atlas y Kasbah",
     "seriesSlug": "medina-y-kasbah",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 125) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 125) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "yellow",
+    "rating": 4
   },
   {
     "id": "vc-37",
@@ -3804,10 +3952,12 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 30,
-      "score": 76
+      "score": 79
     },
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Captura nocturna o en penumbra a ISO 3200: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm."
+    "maxFormatReason": "Captura nocturna o en penumbra a ISO 3200: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm.",
+    "colorLabel": "purple",
+    "rating": 3
   },
   {
     "id": "vc-38",
@@ -3855,7 +4005,9 @@ export const WORKS: Photo[] = [
     "series": "El Silencio del Desierto",
     "seriesSlug": "silencio-del-desierto",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 100) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 100) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "blue",
+    "rating": 4
   },
   {
     "id": "vc-39",
@@ -3898,12 +4050,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 12,
-      "score": 92
+      "score": 95
     },
     "series": "El Silencio del Desierto",
     "seriesSlug": "silencio-del-desierto",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 100) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 100) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "blue",
+    "rating": 5
   },
   {
     "id": "vc-40",
@@ -3948,12 +4102,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 18,
-      "score": 87
+      "score": 88
     },
     "series": "El Silencio del Desierto",
     "seriesSlug": "silencio-del-desierto",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 100) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 100) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "blue",
+    "rating": 4
   },
   {
     "id": "vc-41",
@@ -3996,12 +4152,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 18,
-      "score": 86
+      "score": 87
     },
     "series": "El Silencio del Desierto",
     "seriesSlug": "silencio-del-desierto",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "blue",
+    "rating": 4
   },
   {
     "id": "vc-42",
@@ -4044,13 +4202,16 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 12,
-      "score": 92
+      "score": 98
     },
     "series": "El Silencio del Desierto",
     "seriesSlug": "silencio-del-desierto",
     "exifWarning": "{{VERIFICAR: Focal contradictoria entre ficha (150mm) y simulador previo (200mm); confirmar focal exacta desde RAW}}",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 320) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 320) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "blue",
+    "rating": 5,
+    "heroOrder": 1
   },
   {
     "id": "vc-44",
@@ -4096,13 +4257,16 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 12,
-      "score": 92
+      "score": 94
     },
     "series": "Custodios: Oficios y Costumbres",
     "seriesSlug": "custodios",
     "exifWarning": "{{VERIFICAR: Focal contradictoria entre ficha (18mm) y simulador previo (50mm); confirmar focal exacta desde RAW}}",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "purple",
+    "rating": 5,
+    "heroOrder": 5
   },
   {
     "id": "au-08",
@@ -4145,12 +4309,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 20,
-      "score": 83
+      "score": 87
     },
     "series": "Medina, Atlas y Kasbah",
     "seriesSlug": "medina-y-kasbah",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "yellow",
+    "rating": 4
   },
   {
     "id": "au-11",
@@ -4193,12 +4359,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 18,
-      "score": 87
+      "score": 85
     },
     "series": "Medina, Atlas y Kasbah",
     "seriesSlug": "medina-y-kasbah",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "yellow",
+    "rating": 4
   },
   {
     "id": "vc-45",
@@ -4242,12 +4410,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 18,
-      "score": 86
+      "score": 90
     },
     "series": "Medina, Atlas y Kasbah",
     "seriesSlug": "medina-y-kasbah",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2500) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2500) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "purple",
+    "rating": 4
   },
   {
     "id": "vc-46",
@@ -4290,12 +4460,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 20,
-      "score": 84
+      "score": 87
     },
     "series": "Medina, Atlas y Kasbah",
     "seriesSlug": "medina-y-kasbah",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1250) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1250) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "purple",
+    "rating": 4
   },
   {
     "id": "pd-10",
@@ -4339,12 +4511,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 18,
-      "score": 86
+      "score": 85
     },
     "series": "Medina, Atlas y Kasbah",
     "seriesSlug": "medina-y-kasbah",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "blue",
+    "rating": 4
   },
   {
     "id": "pd-11",
@@ -4387,12 +4561,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 18,
-      "score": 87
+      "score": 94
     },
     "series": "Medina, Atlas y Kasbah",
     "seriesSlug": "medina-y-kasbah",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 500) apto para ampliación hasta Gran Colección (60 × 105 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 500) apto para ampliación hasta Gran Colección (60 × 105 cm).",
+    "colorLabel": "blue",
+    "rating": 5
   },
   {
     "id": "pd-12",
@@ -4436,12 +4612,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 12,
-      "score": 90
+      "score": 87
     },
     "series": "Medina, Atlas y Kasbah",
     "seriesSlug": "medina-y-kasbah",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 250) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 250) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "blue",
+    "rating": 4
   },
   {
     "id": "fn-14",
@@ -4484,13 +4662,15 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 20,
-      "score": 81
+      "score": 79
     },
     "realLocation": "Dehesa de Extremadura, Cáceres",
     "wildlifeCondition": "libre",
     "exifWarning": "{{VERIFICAR: apertura f/5.6 a 600mm incompatible con apertura máxima física f/6.3 de Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary entre 400–600mm; confirmar desde RAW}}",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 105 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 105 cm).",
+    "colorLabel": "green",
+    "rating": 3
   },
   {
     "id": "fn-15",
@@ -4534,14 +4714,16 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 15,
-      "score": 92
+      "score": 94
     },
     "series": "Macaronesia: Fauna y Costa Volcánica",
     "seriesSlug": "biodiversidad-canaria",
     "realLocation": "Parque Rural de Anaga, Tenerife",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (60 × 105 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (60 × 105 cm).",
+    "colorLabel": "green",
+    "rating": 5
   },
   {
     "id": "fn-16",
@@ -4584,14 +4766,16 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 15,
-      "score": 89
+      "score": 87
     },
     "series": "Macaronesia: Fauna y Costa Volcánica",
     "seriesSlug": "biodiversidad-canaria",
     "realLocation": "Parque Rural de Anaga, Tenerife",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "green",
+    "rating": 4
   },
   {
     "id": "fn-17",
@@ -4634,14 +4818,16 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 20,
-      "score": 86
+      "score": 85
     },
     "series": "Macaronesia: Fauna y Costa Volcánica",
     "seriesSlug": "biodiversidad-canaria",
     "realLocation": "Costa Norte de Tenerife, Islas Canarias",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "green",
+    "rating": 4
   },
   {
     "id": "fn-18",
@@ -4685,14 +4871,16 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 18,
-      "score": 87
+      "score": 86
     },
     "series": "Macaronesia: Fauna y Costa Volcánica",
     "seriesSlug": "biodiversidad-canaria",
     "realLocation": "Costa Volcánica de Tenerife, Islas Canarias",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "green",
+    "rating": 4
   },
   {
     "id": "fn-19",
@@ -4735,14 +4923,16 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 25,
-      "score": 82
+      "score": 87
     },
     "series": "Macaronesia: Fauna y Costa Volcánica",
     "seriesSlug": "biodiversidad-canaria",
     "realLocation": "Tenerife, Islas Canarias",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "colorLabel": "green",
+    "rating": 4
   },
   {
     "id": "fn-20",
@@ -4785,14 +4975,16 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 25,
-      "score": 80
+      "score": 85
     },
     "series": "Macaronesia: Fauna y Costa Volcánica",
     "seriesSlug": "biodiversidad-canaria",
     "realLocation": "Litoral Atlántico de Tenerife, Islas Canarias",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 320) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 320) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "colorLabel": "green",
+    "rating": 4
   },
   {
     "id": "fn-21",
@@ -4836,14 +5028,16 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 25,
-      "score": 82
+      "score": 86
     },
     "series": "Macaronesia: Fauna y Costa Volcánica",
     "seriesSlug": "biodiversidad-canaria",
     "realLocation": "Costa Volcánica de Tenerife, Islas Canarias",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 88 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 88 cm).",
+    "colorLabel": "green",
+    "rating": 4
   },
   {
     "id": "fn-22",
@@ -4887,12 +5081,14 @@ export const WORKS: Photo[] = [
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 25,
-      "score": 81
+      "score": 80
     },
     "realLocation": "Encinar y dehesa ibérica",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1600) apto para ampliación hasta Gran Colección (70 × 88 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1600) apto para ampliación hasta Gran Colección (70 × 88 cm).",
+    "colorLabel": "green",
+    "rating": 3
   },
   {
     "id": "cr-16",
@@ -4936,10 +5132,12 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 18,
-      "score": 87
+      "score": 81
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (70 × 88 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (70 × 88 cm).",
+    "colorLabel": "red",
+    "rating": 3
   },
   {
     "id": "vc-47",
@@ -4982,10 +5180,12 @@ export const WORKS: Photo[] = [
       },
       "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
       "editionTotal": 20,
-      "score": 84
+      "score": 82
     },
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Captura nocturna o en penumbra a ISO 3200: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm."
+    "maxFormatReason": "Captura nocturna o en penumbra a ISO 3200: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm.",
+    "colorLabel": "purple",
+    "rating": 3
   }
 ];
 
