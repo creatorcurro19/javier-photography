@@ -41,7 +41,7 @@ const SIZES = [
     name: "Formato Estudio",
     dims: "30 × 45 cm (o según proporción)",
     imageSize: "Con margen blanco de conservación",
-    price: "95 € — 175 €",
+    price: "95\u00A0€ — 175\u00A0€",
     framedNote: "Valoración individual según la obra · Envío en tubo rígido",
     idealFor: "Estudios, despachos, librerías y composiciones murales combinadas.",
     edition: "Edición limitada (12 a 30 ej. totales por obra)",
@@ -51,7 +51,7 @@ const SIZES = [
     name: "Formato Galería",
     dims: "50 × 70 cm (o según proporción)",
     imageSize: "Con margen blanco de conservación",
-    price: "165 € — 310 €",
+    price: "165\u00A0€ — 310\u00A0€",
     framedNote: "Valoración individual según la obra · Envío en tubo rígido",
     idealFor: "Salones, recepciones y espacios expositivos principales.",
     edition: "Edición limitada (12 a 30 ej. totales por obra)",
@@ -61,7 +61,7 @@ const SIZES = [
     name: "Gran Colección",
     dims: "70 × 100 cm (o 60 × 90 cm)",
     imageSize: "Con margen blanco de conservación",
-    price: "280 € — 510 €",
+    price: "280\u00A0€ — 510\u00A0€",
     framedNote: "Valoración individual según la obra · Envío en tubo rígido",
     idealFor: "Piezas centrales de interiorismo y coleccionismo.",
     edition: "Edición limitada (12 a 30 ej. totales por obra)",
@@ -199,9 +199,9 @@ export default function PrintsPage() {
                   <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#8E8A80]">
                     {item.edition}
                   </span>
-                  <div className="mt-2 flex items-baseline justify-between gap-2">
+                  <div className="mt-2 flex flex-wrap items-baseline justify-between gap-2">
                     <h3 className="font-serif text-2xl font-light text-[#EBE7DF]">{item.name}</h3>
-                    <span className="font-serif text-xl text-[#EBE7DF]">{item.price}</span>
+                    <span className="shrink-0 whitespace-nowrap font-serif text-xl text-[#C5A880]">{item.price}</span>
                   </div>
                   <p className="mt-1 font-mono text-sm text-[#8E8A80]">
                     {item.dims} <span className="text-[#8E8A80]/70">({item.imageSize})</span>
@@ -244,28 +244,28 @@ export default function PrintsPage() {
               </thead>
               <tbody className="divide-y divide-white/[0.06] font-mono text-xs text-[#EBE7DF]">
                 <tr>
-                  <td className="py-3.5 px-4 font-serif text-base">Formato Estudio</td>
-                  <td className="py-3.5 px-4">30 × 45 cm (o 30 × 40 cm)</td>
+                  <td className="py-3.5 px-4 font-serif text-base whitespace-nowrap">Formato Estudio</td>
+                  <td className="py-3.5 px-4 whitespace-nowrap">30 × 45 cm (o 30 × 40 cm)</td>
                   <td className="py-3.5 px-4 text-[#A39E93]">24 × 36 cm (o 24 × 32 cm) · Margen blanco 3–4,5 cm</td>
-                  <td className="py-3.5 px-4 text-[#C5A880] font-semibold">95 € — 175 €</td>
+                  <td className="py-3.5 px-4 text-[#C5A880] font-semibold whitespace-nowrap">95&nbsp;€ — 175&nbsp;€</td>
                   <td className="py-3.5 px-4 text-[#A39E93]">Sin enmarcar · Tubo rígido de alta densidad</td>
-                  <td className="py-3.5 px-4 text-[#A39E93]">5–7 días laborables</td>
+                  <td className="py-3.5 px-4 text-[#A39E93] whitespace-nowrap">5–7 días laborables</td>
                 </tr>
                 <tr>
-                  <td className="py-3.5 px-4 font-serif text-base">Formato Galería</td>
-                  <td className="py-3.5 px-4">50 × 70 cm (o 45 × 60 cm)</td>
+                  <td className="py-3.5 px-4 font-serif text-base whitespace-nowrap">Formato Galería</td>
+                  <td className="py-3.5 px-4 whitespace-nowrap">50 × 70 cm (o 45 × 60 cm)</td>
                   <td className="py-3.5 px-4 text-[#A39E93]">40 × 60 cm (o 36 × 48 cm) · Margen blanco 4,5–6 cm</td>
-                  <td className="py-3.5 px-4 text-[#C5A880] font-semibold">165 € — 310 €</td>
+                  <td className="py-3.5 px-4 text-[#C5A880] font-semibold whitespace-nowrap">165&nbsp;€ — 310&nbsp;€</td>
                   <td className="py-3.5 px-4 text-[#A39E93]">Sin enmarcar · Tubo rígido de alta densidad</td>
-                  <td className="py-3.5 px-4 text-[#A39E93]">5–7 días laborables</td>
+                  <td className="py-3.5 px-4 text-[#A39E93] whitespace-nowrap">5–7 días laborables</td>
                 </tr>
                 <tr>
-                  <td className="py-3.5 px-4 font-serif text-base">Gran Colección*</td>
-                  <td className="py-3.5 px-4">70 × 100 cm (o 60 × 90 cm)</td>
+                  <td className="py-3.5 px-4 font-serif text-base whitespace-nowrap">Gran Colección*</td>
+                  <td className="py-3.5 px-4 whitespace-nowrap">70 × 100 cm (o 60 × 90 cm)</td>
                   <td className="py-3.5 px-4 text-[#A39E93]">60 × 90 cm (o 50 × 75 cm) · Margen blanco 5–7,5 cm</td>
-                  <td className="py-3.5 px-4 text-[#C5A880] font-semibold">280 € — 510 €</td>
+                  <td className="py-3.5 px-4 text-[#C5A880] font-semibold whitespace-nowrap">280&nbsp;€ — 510&nbsp;€</td>
                   <td className="py-3.5 px-4 text-[#A39E93]">Sin enmarcar · Tubo rígido de gran formato</td>
-                  <td className="py-3.5 px-4 text-[#A39E93]">5–7 días laborables</td>
+                  <td className="py-3.5 px-4 text-[#A39E93] whitespace-nowrap">5–7 días laborables</td>
                 </tr>
               </tbody>
             </table>

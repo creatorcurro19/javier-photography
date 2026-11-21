@@ -29,7 +29,7 @@ export const metadata = buildPageMetadata({
 const TIERS = [
   {
     name: "Editorial y Prensa",
-    priceFrom: "Desde 60 €",
+    priceFrom: "Desde\u00A060\u00A0€",
     scope: "Publicaciones impresas y digitales",
     uses: "Artículos de prensa, revistas de naturaleza y motor, monográficos de viaje, libros temáticos y divulgación.",
     specs: "Archivos TIFF 16-bit y JPEG máxima calidad a 300 DPI, perfil Adobe RGB con metadatos IPTC completos.",
@@ -37,7 +37,7 @@ const TIERS = [
   },
   {
     name: "Comercial y Publicidad",
-    priceFrom: "Desde 150 €",
+    priceFrom: "Desde\u00A0150\u00A0€",
     scope: "Campañas de marca y producto",
     uses: "Publicidad exterior, catálogos comerciales, comunicación corporativa para automoción, arquitectura o turismo.",
     specs: "Archivos TIFF 16-bit máster sin compresión ni recorte destructivo.",
@@ -45,7 +45,7 @@ const TIERS = [
   },
   {
     name: "Digital y Audiovisual",
-    priceFrom: "Desde 45 €",
+    priceFrom: "Desde\u00A045\u00A0€",
     scope: "Plataformas web, redes y vídeo",
     uses: "Cabeceras web, piezas audiovisuales, documentales y campañas en entornos digitales de alta exigencia.",
     specs: "Máster TIFF 16-bit + entregas en sRGB optimizadas para pantallas de alta densidad.",
@@ -53,7 +53,7 @@ const TIERS = [
   },
   {
     name: "Espacios Corporativos",
-    priceFrom: "Desde 250 €",
+    priceFrom: "Desde\u00A0250\u00A0€",
     scope: "Decoración interior y sedes",
     uses: "Murales de gran formato para recepciones empresariales, hoteles boutique y estudios de arquitectura.",
     specs: "Archivos TIFF 16-bit optimizados para gran formato y soportes expositivos.",
@@ -184,11 +184,11 @@ export default function LicensingPage() {
                 className="flex flex-col justify-between rounded-lg border border-[#202226] bg-[#202226]/40 p-8 sm:p-10 transition hover:border-[#8E8A80]/60"
               >
                 <div>
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-[10px] uppercase tracking-[0.3em] text-[#A39E93] font-mono">
+                  <div className="flex items-start sm:items-center justify-between gap-3">
+                    <span className="min-w-0 text-[10px] uppercase tracking-[0.22em] sm:tracking-[0.3em] leading-snug text-[#A39E93] font-mono">
                       {tier.scope}
                     </span>
-                    <span className="border border-[#C5A880]/35 bg-[#0B0C0E] px-2.5 py-0.5 font-mono text-[10px] text-[#C5A880]">
+                    <span className="shrink-0 whitespace-nowrap border border-[#C5A880]/35 bg-[#0B0C0E] px-2.5 py-1 font-mono text-[10px] font-semibold text-[#C5A880]">
                       {tier.priceFrom}
                     </span>
                   </div>

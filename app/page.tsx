@@ -54,7 +54,7 @@ const HOME_SERVICES = [
     id: "copias",
     kicker: "01 · Obra Impresa Certificada",
     title: "Copias Fine Art en Papel de Algodón y Baritado",
-    priceFrom: `Desde ${SITE_SETTINGS.basePrintPrice} €`,
+    priceFrom: `Desde\u00A0${SITE_SETTINGS.basePrintPrice}\u00A0€`,
     description:
       "Ediciones limitadas (12 a 30 ejemplares) impresas en Hahnemühle Photo Rag® 308g o Canson Baryta II 340g. Firmadas a mano y enviadas en tubo rígido de alta densidad desde Tenerife.",
     ctaLabel: "Explorar Catálogo de Copias",
@@ -64,7 +64,7 @@ const HOME_SERVICES = [
     id: "encargos",
     kicker: "02 · Producción por Encargo",
     title: "Encargos de Rally, Arquitectura y Documental",
-    priceFrom: `Desde ${SITE_SETTINGS.baseCommissionPrice} €`,
+    priceFrom: `Desde\u00A0${SITE_SETTINGS.baseCommissionPrice}\u00A0€`,
     description:
       "Coberturas de tramo y asistencia en rally histórico, documentación arquitectónica con luz natural y reportajes editoriales en Canarias y Península.",
     ctaLabel: "Ver Servicios y Solicitar Propuesta",
@@ -74,7 +74,7 @@ const HOME_SERVICES = [
     id: "licencias",
     kicker: "03 · Derechos de Reproducción",
     title: "Licencias Editoriales y Comerciales (TIFF 16-bit)",
-    priceFrom: `Desde ${SITE_SETTINGS.baseLicensePrice} €`,
+    priceFrom: `Desde\u00A0${SITE_SETTINGS.baseLicensePrice}\u00A0€`,
     description: `Cesión de derechos Rights-Managed del archivo de ${getAllPhotos().length} obras en máxima resolución (32,5 MP · TIFF 16-bit) para editoriales, revistas, libros y campañas.`,
     ctaLabel: "Configurar Licencia Directa",
     href: "/licensing",
@@ -115,11 +115,11 @@ export default function Home() {
                 className="flex flex-col justify-between border border-white/[0.08] bg-[#151618] p-7 sm:p-8 transition hover:border-[#C5A880]/50"
               >
                 <div>
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#A39E93]">
+                  <div className="flex items-start sm:items-center justify-between gap-3">
+                    <span className="min-w-0 font-mono text-[10px] uppercase tracking-[0.22em] sm:tracking-[0.25em] leading-snug text-[#A39E93]">
                       {svc.kicker}
                     </span>
-                    <span className="border border-[#C5A880]/35 bg-[#0B0C0E] px-2.5 py-1 font-mono text-[11px] font-semibold text-[#C5A880]">
+                    <span className="shrink-0 whitespace-nowrap border border-[#C5A880]/35 bg-[#0B0C0E] px-2.5 py-1 font-mono text-[11px] font-semibold text-[#C5A880]">
                       {svc.priceFrom}
                     </span>
                   </div>

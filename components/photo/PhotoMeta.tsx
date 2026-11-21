@@ -42,11 +42,11 @@ export default function PhotoMeta({ photo }: PhotoMetaProps) {
             Copia Fine Art · {photo.pricing?.paper.includes("Baritado") ? "Papel Baritado 340g" : "Algodón 100% 308g"} (Ed. {photo.pricing?.editionTotal ?? 25} ej.)
           </span>
           <div className="mt-1 flex flex-wrap items-baseline gap-3">
-            <span className="font-serif text-2xl sm:text-3xl font-light text-[#EBE7DF]">
-              Desde {photo.pricing?.estudio ?? 100} €
+            <span className="whitespace-nowrap font-serif text-2xl sm:text-3xl font-light text-[#EBE7DF]">
+              Desde {photo.pricing?.estudio ?? 100}&nbsp;€
             </span>
             <span className="font-mono text-xs text-[#A39E93]">
-              (Estudio {photo.pricing?.estudio ?? 100} € · Galería {photo.pricing?.galeria ?? 190} € · Colección {photo.pricing?.coleccion ?? 320} €)
+              (<span className="whitespace-nowrap">Estudio {photo.pricing?.estudio ?? 100}&nbsp;€</span> · <span className="whitespace-nowrap">Galería {photo.pricing?.galeria ?? 190}&nbsp;€</span> · <span className="whitespace-nowrap">Colección {photo.pricing?.coleccion ?? 320}&nbsp;€</span>)
             </span>
           </div>
         </div>

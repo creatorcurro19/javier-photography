@@ -213,23 +213,23 @@ export default function DirectPrintsCatalog({
                   {photo.description}
                 </p>
                 <div className="mt-4 border-t border-white/[0.06] pt-3 flex flex-col gap-1.5">
-                  <div className="flex items-center justify-between font-mono text-[11px]">
+                  <div className="flex items-center justify-between gap-2 font-mono text-[11px]">
                     <span className="text-[#A39E93]">Estudio ({photo.pricing?.dimensions.estudio ?? "30 × 45 cm"}):</span>
-                    <span className="font-serif text-sm text-[#C5A880] font-normal">{photo.pricing?.estudio ?? 100} €</span>
+                    <span className="shrink-0 whitespace-nowrap font-serif text-sm text-[#C5A880] font-normal">{photo.pricing?.estudio ?? 100}&nbsp;€</span>
                   </div>
-                  <div className="flex items-center justify-between font-mono text-[11px]">
+                  <div className="flex items-center justify-between gap-2 font-mono text-[11px]">
                     <span className="text-[#A39E93]">Galería ({photo.pricing?.dimensions.galeria ?? "50 × 70 cm"}):</span>
-                    <span className="font-serif text-sm text-[#EBE7DF] font-light">{photo.pricing?.galeria ?? 190} €</span>
+                    <span className="shrink-0 whitespace-nowrap font-serif text-sm text-[#EBE7DF] font-light">{photo.pricing?.galeria ?? 190}&nbsp;€</span>
                   </div>
-                  <div className="flex items-center justify-between font-mono text-[11px]">
+                  <div className="flex items-center justify-between gap-2 font-mono text-[11px]">
                     <span className="text-[#A39E93]">Colección ({photo.pricing?.dimensions.coleccion ?? "70 × 100 cm"}):</span>
-                    <span className="font-serif text-sm text-[#EBE7DF] font-light">{photo.pricing?.coleccion ?? 320} €</span>
+                    <span className="shrink-0 whitespace-nowrap font-serif text-sm text-[#EBE7DF] font-light">{photo.pricing?.coleccion ?? 320}&nbsp;€</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center justify-between border-t border-white/[0.08] bg-[#0B0C0E]/40 p-6 pt-4">
+            <div className="flex items-center justify-between gap-3 border-t border-white/[0.08] bg-[#0B0C0E]/40 p-6 pt-4">
               <Link
                 href={`/portfolio/${photo.slug}#adquirir-copia`}
                 className="font-mono text-xs uppercase tracking-[0.22em] text-[#8E8A80] transition hover:text-[#EBE7DF]"

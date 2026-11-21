@@ -148,8 +148,8 @@ export default function AddToCartModal({
                   <span className="font-mono text-[9px] uppercase tracking-wider text-[#C5A880]">
                     {fmt.name.replace("Formato ", "")} {isDisabled ? "(No disp.)" : ""}
                   </span>
-                  <span className="mt-1 font-serif text-lg font-light text-[#EBE7DF]">
-                    {fmt.price} €
+                  <span className="mt-1 whitespace-nowrap font-serif text-lg font-light text-[#EBE7DF]">
+                    {fmt.price}&nbsp;€
                   </span>
                   <span className="mt-0.5 font-mono text-[9px] text-[#A39E93]">
                     Papel: {fmt.dimensions}
@@ -216,8 +216,8 @@ export default function AddToCartModal({
               <span className="font-mono text-[9px] uppercase tracking-wider text-[#8E8A80] block">
                 {t("Total Selección", "Total Selection")}
               </span>
-              <span className="font-serif text-2xl font-light text-[#EBE7DF]">
-                {totalPrice} €
+              <span className="whitespace-nowrap font-serif text-2xl font-light text-[#EBE7DF]">
+                {totalPrice}&nbsp;€
               </span>
             </div>
           </div>

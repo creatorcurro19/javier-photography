@@ -119,16 +119,16 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
                     : "border-white/[0.08] bg-[#0B0C0E]/50 text-[#A39E93] hover:border-white/30"
                 }`}
               >
-                <div className="flex items-center justify-between w-full">
+                <div className="flex items-center justify-between gap-2 w-full">
                   <span className="font-mono text-[10px] uppercase tracking-wider text-[#A39E93]">
                     {fmt.name}
                   </span>
-                  <span className="font-mono text-[9px] text-[#C5A880]">
+                  <span className="shrink-0 whitespace-nowrap font-mono text-[9px] text-[#C5A880]">
                     {isDisabled ? "No disp." : `Ed. ${editionTotal}`}
                   </span>
                 </div>
-                <span className="mt-2 font-serif text-xl font-light text-[#EBE7DF]">
-                  {fmt.price} €
+                <span className="mt-2 whitespace-nowrap font-serif text-xl font-light text-[#EBE7DF]">
+                  {fmt.price}&nbsp;€
                 </span>
                 <span className="mt-1 font-mono text-[10px] text-[#A39E93]">
                   Papel: {fmt.dimensions}
@@ -169,9 +169,9 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
           <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#A39E93] block">
             Precio de la Copia ({currentFormat.dimensions})
           </span>
-          <div className="flex items-baseline gap-2">
-            <span className="font-serif text-3xl font-light text-[#EBE7DF]">
-              {unitPrice} €
+          <div className="flex flex-wrap items-baseline gap-2">
+            <span className="whitespace-nowrap font-serif text-3xl font-light text-[#EBE7DF]">
+              {unitPrice}&nbsp;€
             </span>
             <span className="font-mono text-[11px] text-[#A39E93]">
               (Lámina + Tubo Rígido + Certificado)

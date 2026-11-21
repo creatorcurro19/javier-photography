@@ -129,7 +129,7 @@ export default function SelectedWork({ photos, totalCount }: SelectedWorkProps) 
                       {categoryInfo?.title ?? photo.category} · {photo.year}
                     </p>
                     <p className="mt-1 font-mono text-[11px] text-[#C5A880]">
-                      Copia Fine Art · Desde {photo.pricing?.estudio ?? 100} €
+                      Copia Fine Art · <span className="whitespace-nowrap">Desde {photo.pricing?.estudio ?? 100}&nbsp;€</span>
                     </p>
                   </div>
 

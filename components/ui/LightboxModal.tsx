@@ -206,12 +206,12 @@ export default function LightboxModal({
             <button
               type="button"
               onClick={() => setAddCartOpen(true)}
-              className="hidden sm:inline-flex min-h-[38px] items-center gap-1.5 rounded-full border border-[#C5A880] bg-[#C5A880] px-3.5 py-1.5 text-xs font-mono tracking-wider text-[#0B0C0E] font-medium transition hover:bg-white hover:border-white shadow"
+              className="hidden sm:inline-flex min-h-[38px] shrink-0 whitespace-nowrap items-center gap-1.5 rounded-full border border-[#C5A880] bg-[#C5A880] px-3.5 py-1.5 text-xs font-mono tracking-wider text-[#0B0C0E] font-medium transition hover:bg-white hover:border-white shadow"
               title="Adquirir copia Fine Art certificada"
             >
-              <span>{photo.pricing ? `${photo.pricing.estudio} €` : "+ Cesta"}</span>
+              <span className="whitespace-nowrap">{photo.pricing ? `${photo.pricing.estudio}\u00A0€` : "+ Cesta"}</span>
               <span className="opacity-60">·</span>
-              <span>Copia Fine Art</span>
+              <span className="whitespace-nowrap">Copia Fine Art</span>
             </button>
           )}
 
@@ -378,9 +378,9 @@ export default function LightboxModal({
                 <button
                   type="button"
                   onClick={() => setAddCartOpen(true)}
-                  className="border border-[#C5A880] bg-[#C5A880] px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-wider text-[#0B0C0E] font-medium transition hover:bg-white hover:border-white shadow"
+                  className="whitespace-nowrap border border-[#C5A880] bg-[#C5A880] px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-wider text-[#0B0C0E] font-medium transition hover:bg-white hover:border-white shadow"
                 >
-                  Copia Fine Art · Desde {photo.pricing?.estudio ?? 100} €
+                  Copia Fine Art · Desde {photo.pricing?.estudio ?? 100}&nbsp;€
                 </button>
               )}
               <Link

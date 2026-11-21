@@ -1025,17 +1025,17 @@ export default function AdminDashboard({
                         <div className="mt-3 flex items-center justify-between rounded-lg border border-[#202228] bg-[#17181E] px-2.5 py-1.5 font-mono text-[11px]">
                           <div className="text-center">
                             <span className="block text-[9px] text-[#716C62] uppercase">Estudio</span>
-                            <span className="font-semibold text-[#EBE7DF]">{estudioPrice} €</span>
+                            <span className="whitespace-nowrap font-semibold text-[#EBE7DF]">{estudioPrice}&nbsp;€</span>
                           </div>
                           <div className="h-6 w-px bg-[#262830]" />
                           <div className="text-center">
                             <span className="block text-[9px] text-[#716C62] uppercase">Galería</span>
-                            <span className="font-semibold text-[#C5A880]">{galeriaPrice} €</span>
+                            <span className="whitespace-nowrap font-semibold text-[#C5A880]">{galeriaPrice}&nbsp;€</span>
                           </div>
                           <div className="h-6 w-px bg-[#262830]" />
                           <div className="text-center">
                             <span className="block text-[9px] text-[#716C62] uppercase">Colección</span>
-                            <span className="font-semibold text-[#EBE7DF]">{coleccionPrice} €</span>
+                            <span className="whitespace-nowrap font-semibold text-[#EBE7DF]">{coleccionPrice}&nbsp;€</span>
                           </div>
                         </div>
                       </div>

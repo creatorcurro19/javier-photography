@@ -97,9 +97,9 @@ export default function MobilePhotoActionBar({ photo }: { photo: Photo }) {
         <button
           type="button"
           onClick={() => setBuyModalOpen(true)}
-          className="flex h-11 flex-1 items-center justify-center gap-1 rounded-lg border border-[#C5A880] bg-[#C5A880] px-3 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0B0C0E] transition hover:bg-white hover:border-white shadow"
+          className="flex h-11 flex-1 items-center justify-center gap-1 whitespace-nowrap rounded-lg border border-[#C5A880] bg-[#C5A880] px-2.5 sm:px-3 font-mono text-[10px] font-semibold uppercase tracking-[0.08em] sm:tracking-[0.18em] text-[#0B0C0E] transition hover:bg-white hover:border-white shadow"
         >
-          <span>Copia Fine Art · Desde {photo.pricing?.estudio ?? 100} € →</span>
+          <span className="whitespace-nowrap">Copia Fine Art · Desde {photo.pricing?.estudio ?? 100}&nbsp;€ →</span>
         </button>
       </div>
 
