@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import type { Photo } from "@/types/photo";
 import AdminLogin from "./AdminLogin";
 import AdminDashboard from "./AdminDashboard";
@@ -14,6 +14,23 @@ export default function AdminPortal({ initialWorks }: AdminPortalProps) {
   const [user, setUser] = useState<string>("Admin");
   const [works, setWorks] = useState<Photo[]>(initialWorks);
   const [loadingWorks, setLoadingWorks] = useState(false);
+
+  const loadWorks = useCallback(async () => {
+    setLoadingWorks(true);
+    try {
+      const res = await fetch("/api/admin/works");
+      if (res.ok) {
+        const data = await res.json();
+        if (data.works && Array.isArray(data.works)) {
+          setWorks(data.works);
+        }
+      }
+    } catch {
+      // Si falla, se usan initialWorks pasados por servidor
+    } finally {
+      setLoadingWorks(false);
+    }
+  }, []);
 
   // Comprobar estado de sesión al montar el componente
   useEffect(() => {
@@ -36,24 +53,7 @@ export default function AdminPortal({ initialWorks }: AdminPortalProps) {
     }
 
     checkAuth();
-  }, []);
-
-  const loadWorks = async () => {
-    setLoadingWorks(true);
-    try {
-      const res = await fetch("/api/admin/works");
-      if (res.ok) {
-        const data = await res.json();
-        if (data.works && Array.isArray(data.works)) {
-          setWorks(data.works);
-        }
-      }
-    } catch {
-      // Si falla, se usan initialWorks pasados por servidor
-    } finally {
-      setLoadingWorks(false);
-    }
-  };
+  }, [loadWorks]);
 
   const handleLoginSuccess = async (userName: string) => {
     setUser(userName);

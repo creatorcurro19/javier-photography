@@ -5,7 +5,7 @@ import { WORKS, SERIES } from "@/data/works";
 import type { Photo } from "@/types/photo";
 
 // Memoria de sesión para reflejar cambios inmediatos en el runtime del servidor
-let inMemoryWorks: Photo[] = [...WORKS];
+const inMemoryWorks: Photo[] = [...WORKS];
 
 export function getCurrentWorks(): Photo[] {
   return inMemoryWorks;

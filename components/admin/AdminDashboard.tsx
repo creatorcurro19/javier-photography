@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import Image from "next/image";
-import type { Photo, PhotoCategory } from "@/types/photo";
+import type { Photo } from "@/types/photo";
 import { PHOTO_CATEGORIES, CATEGORY_METADATA } from "@/types/photo";
 import WorkEditorModal from "./WorkEditorModal";
 import {
