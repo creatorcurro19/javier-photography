@@ -51,27 +51,40 @@ export default function LegalPage() {
                 <h2>Identificación del Titular (LSSI-CE)</h2>
               </div>
               <p>
-                En cumplimiento de la Ley 34/2002, de 11 de julio, de Servicios
+                En cumplimiento del artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios
                 de la Sociedad de la Información y de Comercio Electrónico
-                (LSSI-CE), se informa que este sitio web y el archivo
-                fotográfico que alberga son titularidad de{" "}
-                <strong className="font-medium text-[#EBE7DF]">
-                  Javier Espinosa Martínez
-                </strong>
-                , fotógrafo de autor y documental con residencia en España.
+                (LSSI-CE), se informa de los datos identificativos del titular de este sitio web:
               </p>
-              <p>
-                Para cualquier comunicación directa, solicitud de licencia
-                comercial, adquisición de obra gráfica o ejercicio de derechos
-                legales, puede dirigirse por escrito a la dirección electrónica{" "}
-                <a
-                  href="mailto:javierespinosa1995@hotmail.com"
-                  className="font-mono text-[#EBE7DF] underline decoration-[#8E8A80] underline-offset-4"
-                >
-                  javierespinosa1995@hotmail.com
-                </a>
-                .
-              </p>
+              <div className="grid grid-cols-1 gap-4 border border-[#202226] bg-[#151618]/50 p-6 sm:grid-cols-2 font-mono text-xs">
+                <div>
+                  <span className="block text-[10px] uppercase tracking-wider text-[#A39E93]">
+                    Titular / Autor
+                  </span>
+                  <span className="mt-1 block text-[#EBE7DF]">Javier Espinosa Martínez</span>
+                </div>
+                <div>
+                  <span className="block text-[10px] uppercase tracking-wider text-[#A39E93]">
+                    NIF / Documento Fiscal
+                  </span>
+                  <span className="mt-1 block text-[#C5A880]">{"{{DATO_PENDIENTE: NIF}}"}</span>
+                </div>
+                <div>
+                  <span className="block text-[10px] uppercase tracking-wider text-[#A39E93]">
+                    Domicilio Fiscal / Estudio
+                  </span>
+                  <span className="mt-1 block text-[#C5A880]">
+                    {"{{DATO_PENDIENTE: DOMICILIO_FISCAL}}"} (Tenerife, Islas Canarias, España)
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-[10px] uppercase tracking-wider text-[#A39E93]">
+                    Correo Electrónico de Contacto
+                  </span>
+                  <span className="mt-1 block text-[#EBE7DF]">
+                    contacto@{"{{DATO_PENDIENTE: DOMINIO_PROPIO}}"} / javierespinosa1995@hotmail.com
+                  </span>
+                </div>
+              </div>
             </section>
 
             {/* 2. Propiedad Intelectual y ReservaTDM / IA */}
@@ -169,50 +182,81 @@ export default function LegalPage() {
                   </p>
                 </div>
                 <div>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
-                    Derechos del Usuario
+                  <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#A39E93]">
+                    Derechos del Usuario y Reclamación ante la AEPD
                   </p>
                   <p className="mt-1 text-xs text-[#EBE7DF]">
-                    Acceso, rectificación, supresión, oposición y portabilidad
-                    escribiendo a javierespinosa1995@hotmail.com.
+                    Acceso, rectificación, supresión, limitación, oposición y portabilidad
+                    escribiendo a javierespinosa1995@hotmail.com. Asimismo, tiene derecho a presentar una reclamación ante la{" "}
+                    <a
+                      href="https://www.aepd.es"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline decoration-[#C5A880] underline-offset-4 hover:text-[#C5A880]"
+                    >
+                      Agencia Española de Protección de Datos (AEPD · www.aepd.es)
+                    </a>
+                    .
+                  </p>
+                </div>
+                <div className="sm:col-span-2 border-t border-white/[0.06] pt-4">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#A39E93]">
+                    Encargados del Tratamiento y Destinatarios Técnicos
+                  </p>
+                  <p className="mt-1 text-xs text-[#EBE7DF]">
+                    No se ceden datos a terceros salvo obligación legal. Actúan como encargados técnicos del tratamiento: <strong className="text-white">Vercel Inc.</strong> (alojamiento e infraestructura de servidor web) y <strong className="text-white">Resend / FormSubmit ({"{{DATO_PENDIENTE: confirmar proveedor definitivo de correo transaccional}}"})</strong> para la recepción y confirmación de mensajes enviados por los formularios de contacto y reserva.
                   </p>
                 </div>
               </div>
-              <p className="text-xs text-neutral-400">
+              <p className="text-xs text-[#A39E93]">
                 Este sitio web no utiliza cookies publicitarias ni rastreadores
                 de terceros con fines de perfilado comercial. Solo se emplea
                 almacenamiento local técnico (`localStorage`) en el navegador del
-                propio usuario cuando guarda voluntariamente sus obras favoritas.
+                propio usuario cuando guarda voluntariamente sus obras favoritas o su cesta.
               </p>
             </section>
 
-            {/* 4. Condiciones de Obra Gráfica */}
+            {/* 4. Derechos de Imagen de Personas y Marcas/Libreas de Vehículos */}
+            <section
+              id="derechos-imagen-marcas"
+              className="space-y-4 border-t border-[#202226] pt-12"
+            >
+              <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.28em] text-[#C5A880]">
+                <span>04</span>
+                <span>/</span>
+                <h2>Derechos de Imagen de Personas y Marcas / Libreas de Automóviles</h2>
+              </div>
+              <p>
+                Las fotografías de corte documental, etnográfico, urbano y de competición automovilística (rally histórico, parque de asistencia y vehículos clásicos) han sido capturadas en contextos públicos, culturales o deportivos con finalidad artística, documental e informativa.
+              </p>
+              <ul className="list-disc space-y-2 pl-5 text-[#EBE7DF]/85">
+                <li>
+                  <strong className="font-medium text-[#EBE7DF]">Derechos de imagen de personas (LO 1/1982):</strong> Las obras en las que aparecen personas reconocibles trabajando en oficios tradicionales o escenas públicas se comercializan como obra artística de colección privada o para uso estrictamente editorial/documental. Para cualquier uso publicitario o promocional comercial (<em>Commercial Advertising</em>), el licenciatario deberá verificar previamente con el autor la existencia de autorización expresa de imagen (<em>Model Release</em>).
+                </li>
+                <li>
+                  <strong className="font-medium text-[#EBE7DF]">Marcas, logotipos, dorsales y libreas de automóviles (Ley 17/2001 de Marcas):</strong> Las fotografías de vehículos clásicos y de rally muestran marcas de fabricantes, libreas históricas y patrocinadores tal como participan en la prueba deportiva. La adquisición de una copia Fine Art o de una licencia editorial no otorga derecho alguno sobre las marcas registradas de los fabricantes o patrocinadores reproducidos; para campañas publicitarias comerciales de terceros se requiere autorización de marca o eliminación previa de signos distintivos bajo encargo.
+                </li>
+              </ul>
+            </section>
+
+            {/* 5. Condiciones de Obra Gráfica */}
             <section
               id="condiciones-prints"
               className="space-y-4 border-t border-[#202226] pt-12"
             >
-              <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.28em] text-[#8E8A80]">
-                <span>04</span>
+              <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.28em] text-[#A39E93]">
+                <span>05</span>
                 <span>/</span>
-                <h2>Condiciones de Obra Gráfica Fine Art</h2>
+                <h2>Condiciones de Compra, Envío, Desistimiento y Licencias</h2>
               </div>
               <p>
-                Las copias Fine Art solicitadas directamente al autor se
-                producen bajo pedido en laboratorio especializado sobre papel de
-                algodón 100% libre de ácido (estándar de conservación museística
-                ISO 9706, Hahnemühle Photo Rag 308 g/m² o Baryta). Cada pieza se
-                entrega revisada personalmente, firmada y acompañada de su
-                Certificado de Autenticidad. Alternativamente, el coleccionista
-                puede adquirir impresiones a través de la plataforma oficial{" "}
-                <a
-                  href="https://www.saatchiart.com/javier-espinosa-photography"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline decoration-[#8E8A80] underline-offset-4"
+                Consulta el detalle completo de plazos de producción, envío en tubo rígido, impuestos (IGIC / REPEP / DUA), derecho de desistimiento (y excepción en personalizados), devoluciones y términos de licencia en la página específica de{" "}
+                <Link
+                  href="/condiciones"
+                  className="text-[#C5A880] underline underline-offset-4 hover:text-white"
                 >
-                  Saatchi Art
-                </a>
-                .
+                  Condiciones de Contratación y Licencias (/condiciones) →
+                </Link>
               </p>
             </section>
           </div>

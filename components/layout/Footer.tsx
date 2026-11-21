@@ -194,7 +194,9 @@ export default function Footer() {
             <span>·</span>
             <Link href="/contact" className="hover:text-[#EBE7DF] transition">{t("Contacto", "Contact")}</Link>
             <span>·</span>
-            <Link href="/legal" className="hover:text-[#EBE7DF] transition">{t("Aviso Legal & Privacidad", "Legal Notice & Privacy")}</Link>
+            <Link href="/legal" className="hover:text-[#EBE7DF] transition">{t("Aviso Legal y Privacidad", "Legal Notice & Privacy")}</Link>
+            <span>·</span>
+            <Link href="/condiciones" className="hover:text-[#EBE7DF] transition">{t("Condiciones de Compra y Licencia", "Terms & Conditions")}</Link>
           </div>
         </div>
       </div>
