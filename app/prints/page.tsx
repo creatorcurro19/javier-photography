@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Suspense } from "react";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import {
@@ -8,10 +8,10 @@ import {
 import PrintScaleVisualizer from "@/components/prints/PrintScaleVisualizer";
 import OpticalLoupeInspector from "@/components/prints/OpticalLoupeInspector";
 import CertificateOfAuthenticityModal from "@/components/prints/CertificateOfAuthenticityModal";
-import PrintCardAction from "@/components/cart/PrintCardAction";
+import DirectPrintsCatalog from "@/components/prints/DirectPrintsCatalog";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/metadata";
-import { getPrintablePhotos } from "@/lib/photos";
+import { getAllPhotos, getPrintablePhotos } from "@/lib/photos";
 import { generateBreadcrumbSchema, generateFAQSchema } from "@/lib/schema";
 
 export const metadata = buildPageMetadata({
@@ -84,6 +84,7 @@ const SPECS = [
 
 export default function PrintsPage() {
   const printable = getPrintablePhotos();
+  const allPhotos = getAllPhotos();
   const printFaqs = [
     {
       q: "¿Cómo se entrega y protege cada copia Fine Art?",
@@ -137,26 +138,24 @@ export default function PrintsPage() {
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <a
-              href="https://www.saatchiart.com/javier-espinosa-photography"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border border-[#EBE7DF] bg-[#EBE7DF] px-6 py-3 font-mono text-xs uppercase tracking-[0.25em] text-[#0B0C0E] font-medium transition-all duration-300 hover:bg-transparent hover:text-white"
+              href="#catalogo-fine-art"
+              className="inline-flex items-center gap-2 border border-[#C5A880] bg-[#C5A880] px-6 py-3 font-mono text-xs uppercase tracking-[0.25em] text-[#0B0C0E] font-semibold transition-all duration-300 hover:bg-white hover:border-white"
             >
-              <span>Galería Oficial en Saatchi Art</span>
-              <span>↗</span>
+              <span>Comprar Directamente en la Web</span>
+              <span>↓</span>
             </a>
-            <Link
-              href="/contact?motivo=print"
-              className="inline-flex items-center gap-2 border border-white/20 bg-[#151618] px-6 py-3 font-mono text-xs uppercase tracking-[0.25em] text-[#EBE7DF] transition hover:border-white/40 hover:text-white"
-            >
-              Encargo Directo al Autor
-            </Link>
             {printable.length > 0 && (
               <CertificateOfAuthenticityModal
                 photo={printable[0]}
                 buttonLabel="Inspeccionar Certificado de Autenticidad (ISO 9706)"
               />
             )}
+            <Link
+              href="/contact?motivo=print"
+              className="inline-flex items-center gap-2 border border-white/20 bg-[#151618] px-6 py-3 font-mono text-xs uppercase tracking-[0.25em] text-[#EBE7DF] transition hover:border-white/40 hover:text-white"
+            >
+              Formato Especial o Interiorismo
+            </Link>
           </div>
         </div>
 
@@ -215,12 +214,12 @@ export default function PrintsPage() {
                   <p className="text-[11px] text-[#8E8A80]">
                     <strong className="text-[#EBE7DF]">Embalaje:</strong> {item.packaging}
                   </p>
-                  <Link
-                    href={`/contact?motivo=print&formato=${encodeURIComponent(item.name)}`}
-                    className="mt-6 inline-flex w-full items-center justify-center border border-white/[0.08] bg-[#0B0C0E] py-3 font-mono text-xs uppercase tracking-[0.3em] text-[#EBE7DF] transition hover:border-white/30 hover:text-white"
+                  <a
+                    href="#catalogo-fine-art"
+                    className="mt-6 inline-flex w-full items-center justify-center border border-[#C5A880]/40 bg-[#0B0C0E] py-3 font-mono text-xs uppercase tracking-[0.26em] text-[#EBE7DF] transition hover:border-[#C5A880] hover:bg-[#C5A880] hover:text-[#0B0C0E]"
                   >
-                    Consultar disponibilidad
-                  </Link>
+                    Elegir Obra en este Formato ↓
+                  </a>
                 </div>
               </div>
             ))}
@@ -322,78 +321,10 @@ export default function PrintsPage() {
           className="mt-24 text-[#C5A880]/32"
         />
 
-        {/* Visual Catalog */}
-        <div className="mt-14">
-          <div className="flex flex-col justify-between gap-4 border-b border-white/[0.08] pb-6 sm:flex-row sm:items-end">
-            <div>
-              <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
-                Catálogo de Obras Disponibles
-              </p>
-              <h2 className="mt-2 font-serif text-3xl font-light text-[#EBE7DF]">
-                Obras seleccionadas para impresión ({printable.length} fotografías)
-              </h2>
-            </div>
-            <p className="font-mono text-xs text-[#8E8A80]">
-              Todas las copias incluyen margen blanco de seguridad y firma manuscrita.
-            </p>
-          </div>
-
-          <div className="mt-12 columns-1 gap-8 sm:columns-2 lg:columns-3">
-            {printable.map((photo) => (
-              <div
-                key={photo.id}
-                className="group mb-8 flex break-inside-avoid flex-col justify-between border border-white/[0.08] bg-[#151618] transition hover:border-white/30 overflow-hidden"
-              >
-                <div>
-                  <div className="relative w-full overflow-hidden bg-[#0B0C0E]">
-                    <Image
-                      src={photo.image}
-                      alt={photo.alt}
-                      width={photo.width}
-                      height={photo.height}
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="h-auto w-full transition duration-500 group-hover:scale-[1.02] brightness-[0.92] group-hover:brightness-100"
-                    />
-                    <div className="absolute left-3 top-3">
-                      <span className="bg-[#0B0C0E]/90 border border-white/[0.08] px-2.5 py-1 text-[9px] uppercase tracking-[0.25em] text-[#EBE7DF] backdrop-blur-sm font-mono">
-                        {photo.category.replace("-", " ")}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="p-6 sm:p-7">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#8E8A80]">
-                      {photo.location ? `${photo.location} · ` : ""}{photo.year} · Edición Fine Art
-                    </p>
-                    <h3 className="mt-2 font-serif text-xl font-light text-[#EBE7DF] transition group-hover:text-white">
-                      {photo.title}
-                    </h3>
-                    <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-[#8E8A80] font-light">
-                      {photo.description}
-                    </p>
-                    <div className="mt-4 flex items-center gap-3 font-mono text-[11px] text-[#8E8A80]">
-                      <span>{photo.camera}</span>
-                      <span>·</span>
-                      <span>{photo.focalLength}</span>
-                      <span>·</span>
-                      <span>{photo.aperture}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between border-t border-white/[0.08] p-6 pt-4 bg-[#0B0C0E]/40">
-                  <Link
-                    href={`/portfolio/${photo.slug}`}
-                    className="font-mono text-xs uppercase tracking-[0.25em] text-[#8E8A80] hover:text-[#EBE7DF] transition"
-                  >
-                    Ficha de Obra →
-                  </Link>
-                  <PrintCardAction photo={photo} />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Visual Catalog with Direct Purchase for All 100 Artworks */}
+        <Suspense fallback={null}>
+          <DirectPrintsCatalog allPhotos={allPhotos} featuredPrints={printable} />
+        </Suspense>
 
         {/* Framing & Shipping Guarantee */}
         <div className="mt-28 border border-white/[0.08] bg-[#151618] p-8 sm:p-12 lg:p-14">

@@ -1,15 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import type { Photo } from "@/types/photo";
 import { getSavedWorks } from "@/components/photo/FavoriteButton";
+import AddToCartModal from "@/components/cart/AddToCartModal";
 
 const STORAGE_KEY = "javier_selected_works";
 
 export default function MobilePhotoActionBar({ photo }: { photo: Photo }) {
   const [saved, setSaved] = useState(() => getSavedWorks().includes(photo.title));
   const [copied, setCopied] = useState(false);
+  const [buyModalOpen, setBuyModalOpen] = useState(false);
 
   const toggleFavorite = () => {
     const current = getSavedWorks();
@@ -92,18 +93,21 @@ export default function MobilePhotoActionBar({ photo }: { photo: Photo }) {
           )}
         </button>
 
-        {/* Primary Action: Direct Print / License CTA */}
-        <Link
-          href={
-            photo.prints
-              ? `/prints?obra=${encodeURIComponent(photo.title)}`
-              : `/contact?motivo=licencia&obra=${encodeURIComponent(photo.title)}`
-          }
-          className="flex h-11 flex-1 items-center justify-center rounded-lg border border-[#EBE7DF] bg-[#EBE7DF] px-4 font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
+        {/* Primary Action: Direct In-Page Print Purchase Modal */}
+        <button
+          type="button"
+          onClick={() => setBuyModalOpen(true)}
+          className="flex h-11 flex-1 items-center justify-center rounded-lg border border-[#C5A880] bg-[#C5A880] px-4 font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-[#0B0C0E] transition hover:bg-white hover:border-white"
         >
-          <span>{photo.prints ? "Adquirir Print Fine Art" : "Solicitar Licencia"}</span>
-        </Link>
+          <span>Adquirir Copia Fine Art →</span>
+        </button>
       </div>
+
+      <AddToCartModal
+        photo={photo}
+        isOpen={buyModalOpen}
+        onClose={() => setBuyModalOpen(false)}
+      />
     </aside>
   );
 }

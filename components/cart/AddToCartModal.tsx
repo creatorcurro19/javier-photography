@@ -51,6 +51,21 @@ export default function AddToCartModal({
     }, 600);
   };
 
+  const handleBuyNow = () => {
+    addToCart({
+      photoId: photo.id,
+      slug: photo.slug,
+      title: photo.title,
+      image: photo.image,
+      category: photo.category,
+      format: currentFormat,
+      framed,
+      quantity,
+    });
+    onClose();
+    window.dispatchEvent(new Event("open-checkout-direct"));
+  };
+
   return (
     <div
       role="dialog"
@@ -198,20 +213,29 @@ export default function AddToCartModal({
           </div>
 
           <div className="mt-4 flex flex-col gap-2">
-            <button
-              type="button"
-              onClick={handleAdd}
-              disabled={added}
-              className="w-full rounded-lg border border-[#C5A880] bg-[#C5A880] py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-[#0B0C0E] font-semibold transition hover:bg-white hover:border-white disabled:opacity-50"
-            >
-              {added
-                ? t("✓ Añadido a la Cesta", "✓ Added to Bag")
-                : t("Añadir a la Cesta →", "Add to Bag →")}
-            </button>
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              <button
+                type="button"
+                onClick={handleBuyNow}
+                className="w-full rounded-lg border border-[#EBE7DF] bg-[#EBE7DF] py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-[#0B0C0E] font-semibold transition hover:bg-transparent hover:text-white"
+              >
+                {t("Comprar Ahora →", "Buy Directly →")}
+              </button>
+              <button
+                type="button"
+                onClick={handleAdd}
+                disabled={added}
+                className="w-full rounded-lg border border-[#C5A880] bg-[#C5A880]/15 py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-[#EBE7DF] font-semibold transition hover:bg-[#C5A880] hover:text-[#0B0C0E] disabled:opacity-50"
+              >
+                {added
+                  ? t("✓ En la Cesta", "✓ In Bag")
+                  : t("+ Añadir a Cesta", "+ Add to Bag")}
+              </button>
+            </div>
             <p className="text-center font-mono text-[9px] text-[#8E8A80]">
               {t(
-                "Incluye Certificado de Autenticidad con holograma y envío asegurado",
-                "Includes signed Certificate of Authenticity with hologram & insured shipping"
+                "Venta directa del estudio · Certificado firmado ISO 9706 y envío asegurado",
+                "Direct studio acquisition · Signed ISO 9706 Certificate & insured shipping"
               )}
             </p>
           </div>

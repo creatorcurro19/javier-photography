@@ -26,8 +26,16 @@ export default function CartDrawer() {
 
   useEffect(() => {
     const handleOpen = () => setIsOpen(true);
+    const handleDirectCheckout = () => {
+      setIsOpen(true);
+      setCheckoutOpen(true);
+    };
     window.addEventListener("open-cart-drawer", handleOpen);
-    return () => window.removeEventListener("open-cart-drawer", handleOpen);
+    window.addEventListener("open-checkout-direct", handleDirectCheckout);
+    return () => {
+      window.removeEventListener("open-cart-drawer", handleOpen);
+      window.removeEventListener("open-checkout-direct", handleDirectCheckout);
+    };
   }, []);
 
   useEffect(() => {

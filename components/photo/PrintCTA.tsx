@@ -17,10 +17,6 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
   const [framed, setFramed] = useState(false);
   const [added, setAdded] = useState(false);
 
-  if (!photo.prints) {
-    return null;
-  }
-
   const currentFormat = PRINT_FORMATS[selectedFormatId];
   const unitPrice =
     currentFormat.price + (framed ? currentFormat.framePrice : 0);
@@ -41,18 +37,33 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
     setTimeout(() => setAdded(false), 2000);
   };
 
+  const handleBuyDirectly = () => {
+    addToCart({
+      photoId: photo.id,
+      slug: photo.slug,
+      title: photo.title,
+      image: photo.image,
+      category: photo.category,
+      format: currentFormat,
+      framed,
+      quantity: 1,
+    });
+    window.dispatchEvent(new Event("open-checkout-direct"));
+  };
+
   return (
     <section
+      id="adquirir-copia"
       aria-labelledby="print-heading"
-      className="relative border border-[#C5A880]/25 bg-[#151618]/95 p-8 sm:p-10 transition-colors"
+      className="relative border border-[#C5A880]/25 bg-[#151618]/95 p-8 sm:p-10 transition-colors scroll-mt-24"
     >
       <AndalusianCornerOrnaments className="text-[#C5A880]/50" />
       <div className="flex items-center justify-between">
-        <span className="text-[10px] font-mono uppercase tracking-[0.35em] text-[#8E8A80]">
-          Edición de Autor · Obra Gráfica
+        <span className="text-[10px] font-mono uppercase tracking-[0.35em] text-[#C5A880]">
+          Adquisición Directa en el Estudio · Sin Intermediarios
         </span>
         <span className="font-mono text-[10px] uppercase tracking-wider text-[#EBE7DF] border border-white/20 px-2 py-0.5">
-          Tirada Limitada
+          {photo.prints ? "Edición Principal Numerada" : "Edición Bajo Demanda"}
         </span>
       </div>
 
@@ -148,28 +159,29 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
         <div className="flex flex-wrap items-center gap-3">
           <button
             type="button"
-            onClick={handleAddToCart}
-            className="inline-flex items-center justify-center gap-2 border border-[#EBE7DF] bg-[#EBE7DF] px-8 py-3.5 font-mono text-xs uppercase tracking-[0.25em] text-[#0B0C0E] font-semibold transition hover:bg-transparent hover:text-white"
+            onClick={handleBuyDirectly}
+            className="inline-flex items-center justify-center gap-2 border border-[#EBE7DF] bg-[#EBE7DF] px-7 py-3.5 font-mono text-xs uppercase tracking-[0.25em] text-[#0B0C0E] font-semibold transition hover:bg-transparent hover:text-white"
           >
-            <span>{added ? "✓ Añadido a la Cesta" : "Añadir a la Cesta"}</span>
+            <span>Comprar Ahora</span>
             <span>→</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={handleAddToCart}
+            className="inline-flex items-center justify-center gap-2 border border-[#C5A880] bg-[#C5A880]/15 px-6 py-3.5 font-mono text-xs uppercase tracking-[0.25em] text-[#EBE7DF] font-medium transition hover:bg-[#C5A880] hover:text-[#0B0C0E]"
+          >
+            <span>{added ? "✓ En la Cesta" : "+ Añadir a la Cesta"}</span>
           </button>
 
           <CertificateOfAuthenticityModal photo={photo} />
         </div>
       </div>
 
-      {/* Sello de Conservación y Enlace Externo */}
+      {/* Sello de Conservación Directa */}
       <div className="mt-6 pt-4 border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono text-[#8E8A80]">
-        <span>✓ Certificado numerado, holograma y firma incluidos</span>
-        <a
-          href="https://www.saatchiart.com/javier-espinosa-photography"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-[#EBE7DF] underline underline-offset-4 decoration-white/30 hover:text-white"
-        >
-          Adquirir también en Saatchi Art ↗
-        </a>
+        <span>✓ Compra 100% directa al autor · Certificado numerado, holograma y envío asegurado</span>
+        <span className="text-[#C5A880]">Hahnemühle Photo Rag® 308g · ISO 9706</span>
       </div>
     </section>
   );

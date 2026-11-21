@@ -6,6 +6,7 @@ import Link from "next/link";
 import type { Photo } from "@/types/photo";
 import LightboxModal from "@/components/ui/LightboxModal";
 import ZenGalleryModal from "@/components/portfolio/ZenGalleryModal";
+import PrintCardAction from "@/components/cart/PrintCardAction";
 
 type ExhibitionGalleryProps = {
   photos: Photo[];
@@ -403,24 +404,29 @@ export default function ExhibitionGallery({
                 </div>
 
                 {showMeta && viewMode !== "grid" && (
-                  <figcaption className="flex items-baseline justify-between gap-3 border-t border-white/[0.06] bg-[#151618] px-5 py-3.5">
-                    <h3 className="font-serif text-base font-light text-[#EBE7DF] group-hover:text-white transition-colors">
+                  <figcaption className="flex items-center justify-between gap-3 border-t border-white/[0.06] bg-[#151618] px-5 py-3.5">
+                    <div className="min-w-0">
+                      <h3 className="truncate font-serif text-base font-light text-[#EBE7DF] group-hover:text-white transition-colors">
+                        <Link
+                          href={`/portfolio/${photo.slug}`}
+                          className="hover:underline underline-offset-4"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {photo.title}
+                        </Link>
+                      </h3>
                       <Link
                         href={`/portfolio/${photo.slug}`}
-                        className="hover:underline underline-offset-4"
+                        className="mt-0.5 block font-mono text-[10px] uppercase tracking-[0.2em] text-[#8E8A80] hover:text-[#EBE7DF] transition-colors"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        {photo.title}
+                        {photo.location ? `${photo.location.split(",")[0]} · ` : ""}{photo.focalLength} · Ficha →
                       </Link>
-                    </h3>
+                    </div>
 
-                    <Link
-                      href={`/portfolio/${photo.slug}`}
-                      className="shrink-0 font-mono text-[10px] uppercase tracking-[0.2em] text-[#8E8A80] group-hover:text-[#EBE7DF] transition-colors"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      {photo.focalLength} →
-                    </Link>
+                    <div className="shrink-0" onClick={(e) => e.stopPropagation()}>
+                      <PrintCardAction photo={photo} />
+                    </div>
                   </figcaption>
                 )}
               </figure>
