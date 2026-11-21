@@ -7,9 +7,10 @@ import BwToggle from "@/components/ui/BwToggle";
 import LanguageToggle from "@/components/layout/LanguageToggle";
 import { useLanguage } from "@/lib/i18n";
 import { WORKS, SERIES } from "@/data/works";
+import { SITE_SETTINGS } from "@/data/site-config";
 import { PHOTO_CATEGORIES } from "@/types/photo";
 
-// 7 enlaces principales unificados con Header y Footer
+// Enlaces principales unificados con Header y Footer
 const primaryLinks = [
   {
     href: "/portfolio",
@@ -39,6 +40,17 @@ const primaryLinks = [
     noteEs: "Proyectos y presupuestos",
     noteEn: "Projects & assignments",
   },
+  ...(SITE_SETTINGS.showCuaderno
+    ? [
+        {
+          href: "/cuaderno",
+          es: "Cuaderno",
+          en: "Journal",
+          noteEs: "Notas de campo y proceso",
+          noteEn: "Field notes & process",
+        },
+      ]
+    : []),
   {
     href: "/about",
     es: "Sobre mí",

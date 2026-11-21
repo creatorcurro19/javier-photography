@@ -8,7 +8,9 @@ import WorkEditorModal from "./WorkEditorModal";
 import BatchUploadModal from "./BatchUploadModal";
 import BulkPricesModal from "./BulkPricesModal";
 import SeriesManagerSection from "./SeriesManagerSection";
+import SiteSettingsSection from "./SiteSettingsSection";
 import { createBlankPhoto, type AdminSeries } from "./categoryEditorConfig";
+import type { CuadernoPost, SiteSettings } from "@/data/site-config";
 import {
   SearchIcon,
   CloseIcon,
@@ -34,6 +36,8 @@ interface UndoSnapshot {
 interface AdminDashboardProps {
   initialWorks: Photo[];
   initialSeries: AdminSeries[];
+  initialSiteSettings: SiteSettings;
+  initialCuadernoPosts: CuadernoPost[];
   githubConfigured: boolean;
   user: string;
   onLogout: () => void;
@@ -42,13 +46,17 @@ interface AdminDashboardProps {
 export default function AdminDashboard({
   initialWorks,
   initialSeries,
+  initialSiteSettings,
+  initialCuadernoPosts,
   githubConfigured,
   user,
   onLogout,
 }: AdminDashboardProps) {
   const [works, setWorks] = useState<Photo[]>(initialWorks);
   const [series, setSeries] = useState<AdminSeries[]>(initialSeries);
-  const [activeSection, setActiveSection] = useState<"photos" | "series">("photos");
+  const [siteSettings, setSiteSettings] = useState<SiteSettings>(initialSiteSettings);
+  const [cuadernoPosts, setCuadernoPosts] = useState<CuadernoPost[]>(initialCuadernoPosts);
+  const [activeSection, setActiveSection] = useState<"photos" | "series" | "settings">("photos");
 
   // Búsqueda y filtros
   const [searchTerm, setSearchTerm] = useState("");
@@ -363,6 +371,78 @@ export default function AdminDashboard({
     }
   };
 
+  // Eliminar Serie Monográfica (#1)
+  const handleDeleteSeries = async (slug: string) => {
+    setIsSaving(true);
+    const target = series.find((s) => s.slug === slug);
+    pushUndoSnapshot(`eliminar serie "${target?.title || slug}"`);
+    try {
+      const res = await fetch("/api/admin/works", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "delete-series",
+          slug,
+          githubToken: githubToken.trim() || undefined,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.ok) {
+        if (Array.isArray(data.works)) setWorks(data.works);
+        if (Array.isArray(data.series)) setSeries(data.series);
+        showToast(
+          data.message || "Serie eliminada.",
+          data.published ? "success" : "warning"
+        );
+      } else {
+        setUndoHistory((prev) => prev.slice(1));
+        showToast(data.error || "No se pudo eliminar la serie.", "error");
+      }
+    } catch {
+      setUndoHistory((prev) => prev.slice(1));
+      showToast("Error de conexión al eliminar la serie.", "error");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  // Guardar Ajustes de la Web, Retrato y Cuaderno (#4)
+  const handleSaveSiteConfig = async (
+    nextSettings: SiteSettings,
+    nextPosts: CuadernoPost[],
+    portraitBase64?: string
+  ) => {
+    setIsSaving(true);
+    try {
+      const res = await fetch("/api/admin/works", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "save-site-config",
+          siteSettings: nextSettings,
+          cuadernoPosts: nextPosts,
+          portraitBase64,
+          githubToken: githubToken.trim() || undefined,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.ok) {
+        if (data.siteSettings) setSiteSettings(data.siteSettings);
+        if (Array.isArray(data.cuadernoPosts)) setCuadernoPosts(data.cuadernoPosts);
+        showToast(
+          data.message || "Ajustes de la web guardados.",
+          data.published ? "success" : "warning"
+        );
+      } else {
+        showToast(data.error || "No se pudieron guardar los ajustes.", "error");
+      }
+    } catch {
+      showToast("Error de conexión al guardar los ajustes.", "error");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   // Eliminar una obra del catálogo
   const handleConfirmDelete = async () => {
     if (!deletingPhoto) return;
@@ -615,8 +695,8 @@ export default function AdminDashboard({
           </button>
         </div>
 
-        {/* Conmutador principal: Fotografías vs Series Monográficas (#4) */}
-        <div className="mb-6 flex items-center gap-2 border-b border-[#22242B] pb-3">
+        {/* Conmutador principal: Fotografías vs Series Monográficas vs Ajustes de la Web (#1, #4) */}
+        <div className="mb-6 flex flex-wrap items-center gap-2 border-b border-[#22242B] pb-3">
           <button
             type="button"
             onClick={() => setActiveSection("photos")}
@@ -639,6 +719,17 @@ export default function AdminDashboard({
           >
             Series Monográficas ({series.length})
           </button>
+          <button
+            type="button"
+            onClick={() => setActiveSection("settings")}
+            className={`rounded-xl px-4 py-2.5 text-xs sm:text-sm font-medium transition cursor-pointer ${
+              activeSection === "settings"
+                ? "bg-[#C5A880] text-[#0B0C0E] font-semibold"
+                : "border border-[#262830] bg-[#141519] text-[#A39E93] hover:text-[#EBE7DF]"
+            }`}
+          >
+            Ajustes de la Web (Retrato, Cuaderno y Contacto)
+          </button>
         </div>
 
         {activeSection === "series" ? (
@@ -648,6 +739,15 @@ export default function AdminDashboard({
             previewMap={previewMap}
             isSaving={isSaving}
             onSaveSeries={handleSaveSeries}
+            onDeleteSeries={handleDeleteSeries}
+          />
+        ) : activeSection === "settings" ? (
+          <SiteSettingsSection
+            initialSettings={siteSettings}
+            initialPosts={cuadernoPosts}
+            works={works}
+            isSaving={isSaving}
+            onSaveConfig={handleSaveSiteConfig}
           />
         ) : (
           <>

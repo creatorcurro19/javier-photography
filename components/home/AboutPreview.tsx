@@ -1,8 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
+import { SITE_SETTINGS } from "@/data/site-config";
 
 export default function AboutPreview() {
+  const portraitSrc =
+    SITE_SETTINGS.showAuthorPortrait && SITE_SETTINGS.authorPortraitUrl
+      ? SITE_SETTINGS.authorPortraitUrl
+      : "/images/portfolio/hero/hero.jpg";
+
   return (
     <section
       id="sobre-mi"
@@ -15,7 +21,7 @@ export default function AboutPreview() {
           <div className="lg:col-span-5">
             <div className="relative aspect-[4/5] w-full overflow-hidden border border-white/[0.12] bg-[#151618] shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
               <Image
-                src="/images/portfolio/hero/hero.jpg"
+                src={portraitSrc}
                 alt="Retrato y trabajo de campo de Javier Espinosa Martínez en Tenerife"
                 fill
                 sizes="(max-width: 1024px) 100vw, 42vw"

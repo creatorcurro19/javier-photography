@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getAllPhotos } from "@/lib/photos";
 import { WORKS, SERIES } from "@/data/works";
+import { SITE_SETTINGS } from "@/data/site-config";
 
 const VIEWFINDER_SLIDES = [
   {
@@ -13,7 +14,10 @@ const VIEWFINDER_SLIDES = [
     label: "Observar en Campo",
     title: "Detenerse a mirar",
     location: "Tenerife, Islas Canarias",
-    image: "/images/portfolio/hero/hero.jpg",
+    image:
+      SITE_SETTINGS.showAuthorPortrait && SITE_SETTINGS.authorPortraitUrl
+        ? SITE_SETTINGS.authorPortraitUrl
+        : "/images/portfolio/hero/hero.jpg",
     secondaryImage: "/images/portfolio/paisajes-documental/cumbre-nevada-al-alba.jpg",
     secondaryCaption: "Cumbre Nevada al Alba · 115mm · f/6.3",
     exif: "EOS R7 · 115mm · f/6.3 · 1/400s · ISO 320",

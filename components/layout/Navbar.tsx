@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/AndalusianMotif";
 import { useLanguage } from "@/lib/i18n";
 import { WORKS, SERIES } from "@/data/works";
+import { SITE_SETTINGS } from "@/data/site-config";
 import { PHOTO_CATEGORIES } from "@/types/photo";
 
 // Submenú curatorial de "Obra": unifica Colecciones, Series y Obras Seleccionadas
@@ -232,7 +233,24 @@ export default function Navbar() {
             )}
           </Link>
 
-          {/* 5. Sobre mí */}
+          {/* 5. Cuaderno (condicionado a SITE_SETTINGS.showCuaderno) */}
+          {SITE_SETTINGS.showCuaderno && (
+            <Link
+              href="/cuaderno"
+              className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
+                pathname === "/cuaderno" || pathname.startsWith("/cuaderno/")
+                  ? "text-[#EBE7DF] font-medium"
+                  : "text-[#EBE7DF]/85 hover:text-white"
+              }`}
+            >
+              {t("Cuaderno", "Journal")}
+              {(pathname === "/cuaderno" || pathname.startsWith("/cuaderno/")) && (
+                <span className="absolute bottom-1 left-0 right-0 h-px bg-[#C5A880]" />
+              )}
+            </Link>
+          )}
+
+          {/* 6. Sobre mí */}
           <Link
             href="/about"
             className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${

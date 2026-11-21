@@ -3,14 +3,19 @@ import { isAuthenticatedRequest } from "@/lib/server/admin-auth";
 import {
   getCurrentWorks,
   getCurrentSeries,
+  getCurrentSiteSettings,
+  getCurrentCuadernoPosts,
   saveWork,
   deleteWork,
   batchCreateWorks,
   bulkUpdatePrices,
   saveSeriesItem,
+  deleteSeriesItem,
+  saveSiteConfig,
   restoreCatalogSnapshot,
 } from "@/lib/server/works-updater";
 import type { Photo, PhotoCategory, Project } from "@/types/photo";
+import type { SiteSettings, CuadernoPost } from "@/data/site-config";
 
 function serializeSeries(): Project[] {
   return getCurrentSeries().map((s) => ({
@@ -35,6 +40,8 @@ export async function GET(request: Request) {
     total: works.length,
     works,
     series: serializeSeries(),
+    siteSettings: getCurrentSiteSettings(),
+    cuadernoPosts: getCurrentCuadernoPosts(),
     githubConfigured: Boolean(process.env.GITHUB_TOKEN?.trim()),
   });
 }
@@ -132,7 +139,7 @@ export async function POST(request: Request) {
       });
     }
 
-    // 4. Guardar una Serie Monográfica (#4)
+    // 4. Guardar una Serie Monográfica (#4 / #1)
     if (body.action === "save-series" && body.seriesItem) {
       const seriesItem = body.seriesItem as Project;
       if (!seriesItem.slug || !seriesItem.title?.trim()) {
@@ -149,6 +156,42 @@ export async function POST(request: Request) {
         seriesItem: sRes.seriesItem,
         works: getCurrentWorks(),
         series: serializeSeries(),
+      });
+    }
+
+    // 4b. Eliminar una Serie Monográfica (#1)
+    if (body.action === "delete-series" && typeof body.slug === "string") {
+      const dRes = await deleteSeriesItem(body.slug.trim(), customGithubToken);
+      if (!dRes.ok) {
+        return NextResponse.json({ ok: false, error: dRes.message }, { status: 404 });
+      }
+      return NextResponse.json({
+        ok: true,
+        message: dRes.message,
+        published: dRes.persistedToGit || dRes.persistedToDisk,
+        deletedSlug: dRes.deletedSlug,
+        works: getCurrentWorks(),
+        series: serializeSeries(),
+      });
+    }
+
+    // 4c. Guardar Ajustes de la Web, Retrato y Cuaderno de Campo (#4)
+    if (body.action === "save-site-config" && body.siteSettings) {
+      const settings = body.siteSettings as SiteSettings;
+      const posts = Array.isArray(body.cuadernoPosts)
+        ? (body.cuadernoPosts as CuadernoPost[])
+        : getCurrentCuadernoPosts();
+      const portraitBase64 =
+        typeof body.portraitBase64 === "string" && body.portraitBase64.trim().length > 0
+          ? body.portraitBase64.trim()
+          : undefined;
+      const cRes = await saveSiteConfig(settings, posts, portraitBase64, customGithubToken);
+      return NextResponse.json({
+        ok: cRes.ok,
+        message: cRes.message,
+        published: cRes.persistedToGit || cRes.persistedToDisk,
+        siteSettings: cRes.siteSettings,
+        cuadernoPosts: cRes.cuadernoPosts,
       });
     }
 

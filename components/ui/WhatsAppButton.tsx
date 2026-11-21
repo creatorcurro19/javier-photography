@@ -2,11 +2,12 @@
 
 import { useLanguage } from "@/lib/i18n";
 import { trackEvent } from "@/lib/analytics";
+import { SITE_SETTINGS } from "@/data/site-config";
 
 export default function WhatsAppButton() {
   const { lang, t } = useLanguage();
-  // El número de teléfono se lee exclusivamente de la variable de entorno NEXT_PUBLIC_WHATSAPP
-  const rawPhone = process.env.NEXT_PUBLIC_WHATSAPP;
+  // El número de teléfono se lee de SITE_SETTINGS (configurable desde /admin) o de NEXT_PUBLIC_WHATSAPP
+  const rawPhone = SITE_SETTINGS.whatsappNumber || process.env.NEXT_PUBLIC_WHATSAPP;
 
   // Si no está configurada la variable de entorno, NO se renderiza (REGLA: no inventar números)
   if (!rawPhone || rawPhone.trim() === "") {

@@ -8,6 +8,7 @@ import {
 import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/metadata";
 import { generateBreadcrumbSchema } from "@/lib/schema";
+import { SITE_SETTINGS } from "@/data/site-config";
 
 export const metadata = buildPageMetadata({
   title: "Sobre mí · Biografía y Equipo",
@@ -54,25 +55,27 @@ export default function AboutPage() {
         </div>
 
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <Link
-            href="/cuaderno"
-            className="group flex flex-col justify-between rounded-xl border border-white/[0.08] bg-[#121417] p-6 hover:border-[#C5A880]/50 transition"
-          >
-            <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#C5A880]">
-                Diario Óptico &amp; Proceso
-              </p>
-              <h3 className="mt-1 font-serif text-lg font-light text-[#EBE7DF] group-hover:text-white">
-                Cuaderno de Campo
-              </h3>
-              <p className="mt-2 text-xs font-light text-[#8E8A80]">
-                Notas de campo sobre luz natural disponible, calibración óptica y técnica de espera en fauna y territorio.
-              </p>
-            </div>
-            <span className="mt-4 font-mono text-[10px] uppercase tracking-wider text-[#C5A880] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
-              Leer Cuaderno →
-            </span>
-          </Link>
+          {SITE_SETTINGS.showCuaderno && (
+            <Link
+              href="/cuaderno"
+              className="group flex flex-col justify-between rounded-xl border border-white/[0.08] bg-[#121417] p-6 hover:border-[#C5A880]/50 transition"
+            >
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#C5A880]">
+                  Diario Óptico &amp; Proceso
+                </p>
+                <h3 className="mt-1 font-serif text-lg font-light text-[#EBE7DF] group-hover:text-white">
+                  Cuaderno de Campo
+                </h3>
+                <p className="mt-2 text-xs font-light text-[#8E8A80]">
+                  Notas de campo sobre luz natural disponible, calibración óptica y técnica de espera en fauna y territorio.
+                </p>
+              </div>
+              <span className="mt-4 font-mono text-[10px] uppercase tracking-wider text-[#C5A880] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+                Leer Cuaderno →
+              </span>
+            </Link>
+          )}
 
           <Link
             href="/licensing"

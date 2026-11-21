@@ -10,6 +10,7 @@ import Container from "@/components/ui/Container";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getAllPhotos, getFeaturedPhotos } from "@/lib/photos";
+import { SITE_SETTINGS } from "@/data/site-config";
 import { generateWebSiteSchema } from "@/lib/schema";
 import type { Photo } from "@/types/photo";
 
@@ -53,7 +54,7 @@ const HOME_SERVICES = [
     id: "copias",
     kicker: "01 · Obra Impresa Certificada",
     title: "Copias Fine Art en Papel de Algodón y Baritado",
-    priceFrom: "Desde 95 €",
+    priceFrom: `Desde ${SITE_SETTINGS.basePrintPrice} €`,
     description:
       "Ediciones limitadas (12 a 30 ejemplares) impresas en Hahnemühle Photo Rag® 308g o Canson Baryta II 340g. Firmadas a mano y enviadas en tubo rígido de alta densidad desde Tenerife.",
     ctaLabel: "Explorar Catálogo de Copias",
@@ -63,7 +64,7 @@ const HOME_SERVICES = [
     id: "encargos",
     kicker: "02 · Producción por Encargo",
     title: "Encargos de Rally, Arquitectura y Documental",
-    priceFrom: "Desde 150 €",
+    priceFrom: `Desde ${SITE_SETTINGS.baseCommissionPrice} €`,
     description:
       "Coberturas de tramo y asistencia en rally histórico, documentación arquitectónica con luz natural y reportajes editoriales en Canarias y Península.",
     ctaLabel: "Ver Servicios y Solicitar Propuesta",
@@ -73,7 +74,7 @@ const HOME_SERVICES = [
     id: "licencias",
     kicker: "03 · Derechos de Reproducción",
     title: "Licencias Editoriales y Comerciales (TIFF 16-bit)",
-    priceFrom: "Desde 45 €",
+    priceFrom: `Desde ${SITE_SETTINGS.baseLicensePrice} €`,
     description: `Cesión de derechos Rights-Managed del archivo de ${getAllPhotos().length} obras en máxima resolución (32,5 MP · TIFF 16-bit) para editoriales, revistas, libros y campañas.`,
     ctaLabel: "Configurar Licencia Directa",
     href: "/licensing",

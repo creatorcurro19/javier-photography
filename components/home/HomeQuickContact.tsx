@@ -4,10 +4,11 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 import { AndalusianStarMark } from "@/components/ui/AndalusianMotif";
 import { useLanguage } from "@/lib/i18n";
+import { SITE_SETTINGS } from "@/data/site-config";
 
 export default function HomeQuickContact() {
   const { lang, t } = useLanguage();
-  const phone = process.env.NEXT_PUBLIC_WHATSAPP;
+  const phone = SITE_SETTINGS.whatsappNumber || process.env.NEXT_PUBLIC_WHATSAPP;
 
   return (
     <section

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import type { Photo } from "@/types/photo";
+import type { CuadernoPost, SiteSettings } from "@/data/site-config";
 import AdminLogin from "./AdminLogin";
 import AdminDashboard from "./AdminDashboard";
 import type { AdminSeries } from "./categoryEditorConfig";
@@ -9,13 +10,22 @@ import type { AdminSeries } from "./categoryEditorConfig";
 interface AdminPortalProps {
   initialWorks: Photo[];
   initialSeries: AdminSeries[];
+  initialSiteSettings: SiteSettings;
+  initialCuadernoPosts: CuadernoPost[];
 }
 
-export default function AdminPortal({ initialWorks, initialSeries }: AdminPortalProps) {
+export default function AdminPortal({
+  initialWorks,
+  initialSeries,
+  initialSiteSettings,
+  initialCuadernoPosts,
+}: AdminPortalProps) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [user, setUser] = useState<string>("Javier");
   const [works, setWorks] = useState<Photo[]>(initialWorks);
   const [series, setSeries] = useState<AdminSeries[]>(initialSeries);
+  const [siteSettings, setSiteSettings] = useState<SiteSettings>(initialSiteSettings);
+  const [cuadernoPosts, setCuadernoPosts] = useState<CuadernoPost[]>(initialCuadernoPosts);
   const [githubConfigured, setGithubConfigured] = useState(false);
   const [loadingWorks, setLoadingWorks] = useState(false);
   const [dataVersion, setDataVersion] = useState(0);
@@ -30,6 +40,8 @@ export default function AdminPortal({ initialWorks, initialSeries }: AdminPortal
           setWorks(data.works);
         }
         if (Array.isArray(data.series)) setSeries(data.series);
+        if (data.siteSettings) setSiteSettings(data.siteSettings);
+        if (Array.isArray(data.cuadernoPosts)) setCuadernoPosts(data.cuadernoPosts);
         setGithubConfigured(Boolean(data.githubConfigured));
         setDataVersion((v) => v + 1);
       }
@@ -40,7 +52,6 @@ export default function AdminPortal({ initialWorks, initialSeries }: AdminPortal
     }
   }, []);
 
-  // Comprobar estado de sesión al montar el componente
   useEffect(() => {
     async function checkAuth() {
       try {
@@ -55,7 +66,7 @@ export default function AdminPortal({ initialWorks, initialSeries }: AdminPortal
           }
         }
       } catch {
-        // Fallback a no autenticado si hay error
+        // Fallback a no autenticado
       }
       setIsAuthenticated(false);
     }
@@ -83,7 +94,6 @@ export default function AdminPortal({ initialWorks, initialSeries }: AdminPortal
     setIsAuthenticated(false);
   };
 
-  // Pantalla de carga mientras se verifica la cookie de sesión
   if (isAuthenticated === null) {
     return (
       <div className="flex min-h-[70vh] items-center justify-center">
@@ -112,6 +122,8 @@ export default function AdminPortal({ initialWorks, initialSeries }: AdminPortal
         key={dataVersion}
         initialWorks={works}
         initialSeries={series}
+        initialSiteSettings={siteSettings}
+        initialCuadernoPosts={cuadernoPosts}
         githubConfigured={githubConfigured}
         user={user}
         onLogout={handleLogout}

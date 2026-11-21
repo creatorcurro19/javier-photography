@@ -7,6 +7,7 @@ import {
   AndalusianCenefa,
 } from "@/components/ui/AndalusianMotif";
 import { SERIES } from "@/data/works";
+import { SITE_SETTINGS } from "@/data/site-config";
 import { useLanguage } from "@/lib/i18n";
 
 const collections = [
@@ -28,6 +29,9 @@ const commercialLinks = [
   { href: "/prints", es: "Copias", en: "Prints" },
   { href: "/servicios", es: "Encargos", en: "Commissions" },
   { href: "/about", es: "Sobre mí", en: "About" },
+  ...(SITE_SETTINGS.showCuaderno
+    ? [{ href: "/cuaderno", es: "Cuaderno de Campo", en: "Field Journal" }]
+    : []),
   { href: "/contact", es: "Contacto", en: "Contact" },
   { href: "/licensing", es: "Licencias Editoriales y Comerciales", en: "Editorial & Commercial Licensing" },
   { href: "/dossier", es: "Dossier de Autor (PDF)", en: "Author Dossier (PDF)" },
@@ -176,10 +180,10 @@ export default function Footer() {
             </ul>
             <div className="mt-6 border-t border-white/[0.08] pt-4 text-xs">
               <a
-                href="mailto:javierespinosa1995@hotmail.com"
+                href={`mailto:${SITE_SETTINGS.contactEmail}`}
                 className="text-[#8E8A80] transition hover:text-[#EBE7DF] font-mono break-all"
               >
-                javierespinosa1995@hotmail.com
+                {SITE_SETTINGS.contactEmail}
               </a>
             </div>
           </div>

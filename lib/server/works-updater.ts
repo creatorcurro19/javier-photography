@@ -2,6 +2,12 @@ import "server-only";
 import fs from "fs";
 import path from "path";
 import { WORKS, SERIES } from "@/data/works";
+import {
+  SITE_SETTINGS,
+  CUADERNO_POSTS,
+  type SiteSettings,
+  type CuadernoPost,
+} from "@/data/site-config";
 import { CATEGORY_METADATA, PHOTO_CATEGORIES, type Photo, type PhotoCategory, type Project } from "@/types/photo";
 
 const DEFAULT_HERO_SLUGS = [
@@ -41,6 +47,12 @@ const inMemorySeries: Project[] = SERIES.map((s) => ({
   statement: [...s.statement],
   photoIds: [...s.photoIds],
 }));
+let inMemorySiteSettings: SiteSettings = { ...SITE_SETTINGS };
+const inMemoryCuadernoPosts: CuadernoPost[] = CUADERNO_POSTS.map((p) => ({
+  ...p,
+  body: [...p.body],
+  cta: { ...p.cta },
+}));
 
 export function getCurrentWorks(): Photo[] {
   return inMemoryWorks;
@@ -48,6 +60,14 @@ export function getCurrentWorks(): Photo[] {
 
 export function getCurrentSeries(): Project[] {
   return inMemorySeries;
+}
+
+export function getCurrentSiteSettings(): SiteSettings {
+  return inMemorySiteSettings;
+}
+
+export function getCurrentCuadernoPosts(): CuadernoPost[] {
+  return inMemoryCuadernoPosts;
 }
 
 const FILE_HEADER = `import type { Photo, Project } from "@/types/photo";
@@ -670,6 +690,191 @@ export async function saveSeriesItem(
     persistedToGit: gitResult.ok,
     seriesItem: cleanSeries,
     message: `Serie "${cleanSeries.title}" actualizada y publicada.`,
+  };
+}
+
+/**
+ * Eliminación de una Serie Monográfica (#1): elimina la serie sin borrar las fotografías del catálogo general.
+ */
+export async function deleteSeriesItem(
+  seriesSlug: string,
+  customGithubToken?: string
+): Promise<{
+  ok: boolean;
+  persistedToDisk: boolean;
+  persistedToGit: boolean;
+  deletedSlug: string;
+  message: string;
+}> {
+  const idx = inMemorySeries.findIndex(
+    (s) => s.slug === seriesSlug || s.id === seriesSlug
+  );
+  if (idx === -1) {
+    return {
+      ok: false,
+      persistedToDisk: false,
+      persistedToGit: false,
+      deletedSlug: seriesSlug,
+      message: "La serie ya no existe.",
+    };
+  }
+  const [removed] = inMemorySeries.splice(idx, 1);
+  syncAllPhotosSeriesTags();
+
+  const fullSource = generateWorksTsSource();
+  const diskRes = writeWorksToLocalDisk(fullSource);
+  const gitResult = await commitFilesToGithub(
+    `Editorial: eliminación de serie "${removed.title}"`,
+    [{ path: "data/works.ts", content: fullSource, encoding: "utf-8" }],
+    customGithubToken
+  );
+
+  return {
+    ok: true,
+    persistedToDisk: diskRes.ok,
+    persistedToGit: gitResult.ok,
+    deletedSlug: seriesSlug,
+    message: `Serie "${removed.title}" eliminada (sus fotos se conservan en el archivo general).`,
+  };
+}
+
+export function generateSiteConfigTsSource(
+  settings: SiteSettings = inMemorySiteSettings,
+  posts: CuadernoPost[] = inMemoryCuadernoPosts
+): string {
+  return `export interface CuadernoPost {
+  slug: string;
+  number: string;
+  title: string;
+  subtitle: string;
+  date: string;
+  author: string;
+  categoryLabel: string;
+  relatedWorkSlug: string;
+  status: "borrador" | "publicado";
+  body: string[];
+  cta: {
+    label: string;
+    href: string;
+  };
+}
+
+export interface SiteSettings {
+  authorPortraitUrl: string;
+  showAuthorPortrait: boolean;
+  showCuaderno: boolean;
+  contactEmail: string;
+  whatsappNumber: string;
+  instagramUrl: string;
+  locationLabel: string;
+  basePrintPrice: number;
+  baseCommissionPrice: number;
+  baseLicensePrice: number;
+}
+
+export const SITE_SETTINGS: SiteSettings = ${JSON.stringify(settings, null, 2)};
+
+export const CUADERNO_POSTS: CuadernoPost[] = ${JSON.stringify(posts, null, 2)};
+`;
+}
+
+/**
+ * Guarda los Ajustes de la Web (retrato de Sobre mí, visibilidad y artículos del Cuaderno, contacto/WhatsApp y tarifas base).
+ */
+export async function saveSiteConfig(
+  incomingSettings: SiteSettings,
+  incomingPosts: CuadernoPost[],
+  portraitBase64?: string,
+  customGithubToken?: string
+): Promise<{
+  ok: boolean;
+  persistedToDisk: boolean;
+  persistedToGit: boolean;
+  siteSettings: SiteSettings;
+  cuadernoPosts: CuadernoPost[];
+  message: string;
+}> {
+  let nextSettings: SiteSettings = {
+    ...inMemorySiteSettings,
+    ...incomingSettings,
+  };
+
+  let cleanPortraitBase64: string | undefined;
+  const repoPortraitPath = "public/images/portfolio/hero/retrato-javier-espinosa.jpg";
+  if (portraitBase64 && portraitBase64.trim().length > 0) {
+    cleanPortraitBase64 = portraitBase64
+      .replace(/^data:image\/[a-zA-Z0-9.+-]+;base64,/, "")
+      .trim();
+    nextSettings = {
+      ...nextSettings,
+      authorPortraitUrl: "/images/portfolio/hero/retrato-javier-espinosa.jpg",
+      showAuthorPortrait: true,
+    };
+  }
+
+  inMemorySiteSettings = nextSettings;
+  inMemoryCuadernoPosts.length = 0;
+  for (const p of incomingPosts) {
+    inMemoryCuadernoPosts.push({
+      ...p,
+      body: p.body.map((b) => b.trim()).filter((b) => b.length > 0),
+      cta: { ...p.cta },
+    });
+  }
+
+  const configSource = generateSiteConfigTsSource();
+  let persistedToDisk = false;
+
+  if (process.env.VERCEL !== "1") {
+    try {
+      if (cleanPortraitBase64) {
+        const absPortrait = path.join(
+          process.cwd(),
+          "public",
+          "images",
+          "portfolio",
+          "hero",
+          "retrato-javier-espinosa.jpg"
+        );
+        fs.mkdirSync(path.dirname(absPortrait), { recursive: true });
+        fs.writeFileSync(absPortrait, Buffer.from(cleanPortraitBase64, "base64"));
+      }
+      const configPath = path.join(process.cwd(), "data", "site-config.ts");
+      fs.writeFileSync(configPath, configSource, "utf8");
+      persistedToDisk = true;
+    } catch (err) {
+      console.warn("[works-updater] No se pudo guardar data/site-config.ts en disco:", err);
+    }
+  }
+
+  const filesToCommit: GithubFileEntry[] = [
+    { path: "data/site-config.ts", content: configSource, encoding: "utf-8" },
+  ];
+  if (cleanPortraitBase64) {
+    filesToCommit.push({
+      path: repoPortraitPath,
+      content: cleanPortraitBase64,
+      encoding: "base64",
+    });
+  }
+
+  const gitResult = await commitFilesToGithub(
+    "Editorial: actualización de Ajustes de la Web y Cuaderno de Campo",
+    filesToCommit,
+    customGithubToken
+  );
+
+  return {
+    ok: true,
+    persistedToDisk,
+    persistedToGit: gitResult.ok,
+    siteSettings: inMemorySiteSettings,
+    cuadernoPosts: inMemoryCuadernoPosts,
+    message: gitResult.ok
+      ? "Ajustes de la web y Cuaderno guardados y publicados."
+      : persistedToDisk
+      ? "Ajustes guardados en entorno local."
+      : "Ajustes guardados solo en sesión.",
   };
 }
 

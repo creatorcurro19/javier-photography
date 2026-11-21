@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { WORKS, SERIES } from "@/data/works";
+import { SITE_SETTINGS, CUADERNO_POSTS } from "@/data/site-config";
 import AdminPortal from "@/components/admin/AdminPortal";
 import { AndalusianPageBackdrop } from "@/components/ui/AndalusianMotif";
 
@@ -19,7 +20,12 @@ export default function AdminPage() {
     <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] text-[#EBE7DF] pt-24 sm:pt-28">
       <AndalusianPageBackdrop variant="laceria" />
       <div className="relative z-10">
-        <AdminPortal initialWorks={WORKS} initialSeries={SERIES} />
+        <AdminPortal
+          initialWorks={WORKS}
+          initialSeries={SERIES}
+          initialSiteSettings={SITE_SETTINGS}
+          initialCuadernoPosts={CUADERNO_POSTS}
+        />
       </div>
     </div>
   );
