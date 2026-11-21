@@ -1,12 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import type { Photo } from "@/types/photo";
-import LightboxModal from "@/components/ui/LightboxModal";
-import ZenGalleryModal from "@/components/portfolio/ZenGalleryModal";
 import PrintCardAction from "@/components/cart/PrintCardAction";
+
+const LightboxModal = dynamic(() => import("@/components/ui/LightboxModal"), {
+  ssr: false,
+});
+const ZenGalleryModal = dynamic(
+  () => import("@/components/portfolio/ZenGalleryModal"),
+  { ssr: false }
+);
+
+const DARK_BLUR_DATA_URL =
+  "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxNicgaGVpZ2h0PScxMCc+PHJlY3Qgd2lkdGg9JzE2JyBoZWlnaHQ9JzEwJyBmaWxsPSclMjMxNTE2MTgnLz48L3N2Zz4=";
 
 type ExhibitionGalleryProps = {
   photos: Photo[];
@@ -367,12 +377,14 @@ export default function ExhibitionGallery({
                     alt={photo.alt}
                     width={photo.width}
                     height={photo.height}
+                    placeholder="blur"
+                    blurDataURL={DARK_BLUR_DATA_URL}
                     sizes={
                       viewMode === "immersive"
                         ? "(max-width: 1024px) 100vw, 1120px"
                         : viewMode === "grid"
-                        ? "(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 260px"
-                        : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1440px) 33vw, 420px"
+                        ? "(max-width: 640px) 46vw, (max-width: 1024px) 30vw, 260px"
+                        : "(max-width: 640px) 92vw, (max-width: 1024px) 45vw, 420px"
                     }
                     loading="lazy"
                     className={`transition-transform duration-700 ease-out group-hover:scale-[1.02] brightness-[0.92] group-hover:brightness-100 ${

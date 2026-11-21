@@ -1,14 +1,20 @@
 import { Suspense } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import {
   AndalusianCollectionBackdrop,
   AndalusianCenefa,
 } from "@/components/ui/AndalusianMotif";
-import PrintScaleVisualizer from "@/components/prints/PrintScaleVisualizer";
-import OpticalLoupeInspector from "@/components/prints/OpticalLoupeInspector";
 import CertificateOfAuthenticityModal from "@/components/prints/CertificateOfAuthenticityModal";
 import DirectPrintsCatalog from "@/components/prints/DirectPrintsCatalog";
+
+const PrintScaleVisualizer = dynamic(
+  () => import("@/components/prints/PrintScaleVisualizer")
+);
+const OpticalLoupeInspector = dynamic(
+  () => import("@/components/prints/OpticalLoupeInspector")
+);
 import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getAllPhotos, getPrintablePhotos } from "@/lib/photos";

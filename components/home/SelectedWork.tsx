@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
-import LightboxModal from "@/components/ui/LightboxModal";
 import {
   AndalusianPageBackdrop,
   AndalusianStarMark,
@@ -12,6 +12,13 @@ import {
 import { useLanguage } from "@/lib/i18n";
 import type { Photo } from "@/types/photo";
 import { CATEGORY_METADATA } from "@/types/photo";
+
+const LightboxModal = dynamic(() => import("@/components/ui/LightboxModal"), {
+  ssr: false,
+});
+
+const DARK_BLUR_DATA_URL =
+  "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxNicgaGVpZ2h0PScxMCc+PHJlY3Qgd2lkdGg9JzE2JyBoZWlnaHQ9JzEwJyBmaWxsPSclMjMxNTE2MTgnLz48L3N2Zz4=";
 
 interface SelectedWorkProps {
   photos: Photo[];
@@ -92,7 +99,9 @@ export default function SelectedWork({ photos, totalCount }: SelectedWorkProps) 
                     src={photo.image}
                     alt={photo.alt}
                     fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1440px) 33vw, 420px"
+                    placeholder="blur"
+                    blurDataURL={DARK_BLUR_DATA_URL}
+                    sizes="(max-width: 640px) 92vw, (max-width: 1024px) 45vw, 420px"
                     loading="lazy"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] brightness-[0.92] group-hover:brightness-100"
                   />

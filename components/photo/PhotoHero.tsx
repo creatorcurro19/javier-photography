@@ -1,9 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import type { Photo } from "@/types/photo";
-import LightboxModal from "@/components/ui/LightboxModal";
+
+const LightboxModal = dynamic(() => import("@/components/ui/LightboxModal"), {
+  ssr: false,
+});
+
+const DARK_BLUR_DATA_URL =
+  "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxNicgaGVpZ2h0PScxMCc+PHJlY3Qgd2lkdGg9JzE2JyBoZWlnaHQ9JzEwJyBmaWxsPSclMjMxNTE2MTgnLz48L3N2Zz4=";
 
 type PhotoHeroProps = {
   photo: Photo;
@@ -55,7 +62,9 @@ export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
                 width={photo.width}
                 height={photo.height}
                 priority
-                sizes="(max-width: 1024px) 100vw, 85vw"
+                placeholder="blur"
+                blurDataURL={DARK_BLUR_DATA_URL}
+                sizes="(max-width: 640px) 640px, (max-width: 1200px) 1200px, 1600px"
                 className="max-h-[82vh] w-auto max-w-full rounded-sm object-contain shadow-2xl transition duration-500 group-hover:brightness-105"
               />
             </div>

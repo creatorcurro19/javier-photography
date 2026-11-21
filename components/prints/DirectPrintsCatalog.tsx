@@ -185,7 +185,10 @@ export default function DirectPrintsCatalog({
                   alt={photo.alt}
                   width={photo.width}
                   height={photo.height}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  loading="lazy"
+                  placeholder="blur"
+                  blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxNicgaGVpZ2h0PScxMCc+PHJlY3Qgd2lkdGg9JzE2JyBoZWlnaHQ9JzEwJyBmaWxsPSclMjMxNTE2MTgnLz48L3N2Zz4="
+                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 45vw, 420px"
                   className="h-auto w-full brightness-[0.92] transition duration-500 group-hover:scale-[1.02] group-hover:brightness-100"
                 />
                 <div className="absolute left-3 top-3 flex items-center gap-2">

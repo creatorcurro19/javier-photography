@@ -72,6 +72,9 @@ const HERO_SLIDES: HeroSlide[] = HERO_SLIDE_CONFIG.map((cfg) => {
   };
 });
 
+const DARK_BLUR_DATA_URL =
+  "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxNicgaGVpZ2h0PScxMCc+PHJlY3Qgd2lkdGg9JzE2JyBoZWlnaHQ9JzEwJyBmaWxsPSclMjMxNTE2MTgnLz48L3N2Zz4=";
+
 const SLIDE_DURATION = 6500;
 
 export default function Hero() {
@@ -143,7 +146,9 @@ export default function Hero() {
                   fill
                   priority={idx === 0}
                   loading={idx === 0 ? "eager" : "lazy"}
-                  sizes="100vw"
+                  placeholder="blur"
+                  blurDataURL={DARK_BLUR_DATA_URL}
+                  sizes="(max-width: 640px) 640px, (max-width: 1200px) 1200px, 1920px"
                   className={`object-cover ${slide.position} brightness-[0.94] contrast-[1.03] md:brightness-[0.88]`}
                 />
               </div>
