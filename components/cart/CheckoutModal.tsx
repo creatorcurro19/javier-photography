@@ -35,6 +35,7 @@ export default function CheckoutModal({
   });
 
   const [shippingZone, setShippingZone] = useState<ShippingZoneId>("canarias");
+  const [paymentMethod, setPaymentMethod] = useState<"stripe" | "transferencia">("stripe");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [privacyAccepted, setPrivacyAccepted] = useState(true);
@@ -95,25 +96,27 @@ export default function CheckoutModal({
         return;
       }
 
-      // 2. Si Stripe está configurado en el servidor, redirigir a pasarela de pago segura
-      const checkoutRes = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(orderPayload),
-      }).catch(() => null);
+      // 2. Si el cliente eligió pago seguro con tarjeta/Apple Pay, solicitar sesión Stripe
+      if (paymentMethod === "stripe") {
+        const checkoutRes = await fetch("/api/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(orderPayload),
+        }).catch(() => null);
 
-      const checkoutData = checkoutRes
-        ? await checkoutRes.json().catch(() => null)
-        : null;
+        const checkoutData = checkoutRes
+          ? await checkoutRes.json().catch(() => null)
+          : null;
 
-      if (checkoutData?.mode === "stripe" && checkoutData?.url) {
-        trackEvent("checkout_iniciado", { modo: "stripe", importe: subtotal });
-        clearCart();
-        window.location.href = checkoutData.url;
-        return;
+        if (checkoutData?.mode === "stripe" && checkoutData?.url) {
+          trackEvent("checkout_iniciado", { modo: "stripe", importe: totalAmount });
+          clearCart();
+          window.location.href = checkoutData.url;
+          return;
+        }
       }
 
-      // Sin pago online: solo confirmamos si el pedido ha llegado de verdad a Javier.
+      // Si se eligió transferencia o no hay pasarela Stripe activa
       if (!orderData?.ok) {
         const mail = orderData?.destinationEmail ?? "javierespinosa1995@hotmail.com";
         setError(
@@ -122,7 +125,7 @@ export default function CheckoutModal({
         return;
       }
 
-      trackEvent("checkout_iniciado", { modo: "reserva", importe: subtotal });
+      trackEvent("checkout_iniciado", { modo: "reserva", importe: totalAmount });
       clearCart();
       onSuccess(orderId);
     } catch {
@@ -366,6 +369,68 @@ export default function CheckoutModal({
             />
           </div>
 
+          {/* Modalidad de Pago */}
+          <div className="border border-white/[0.08] bg-[#121316] p-4 space-y-3">
+            <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#C5A880]">
+              Modalidad de Pago
+            </p>
+
+            <label
+              className={`flex items-start gap-3 p-3 border cursor-pointer transition ${
+                paymentMethod === "stripe"
+                  ? "border-[#C5A880] bg-[#C5A880]/10 text-white"
+                  : "border-white/[0.08] bg-[#151618] text-[#8E8A80] hover:border-white/20"
+              }`}
+            >
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="stripe"
+                checked={paymentMethod === "stripe"}
+                onChange={() => setPaymentMethod("stripe")}
+                className="mt-1 accent-[#C5A880]"
+              />
+              <div className="flex-1 text-xs">
+                <div className="flex flex-wrap items-center justify-between gap-1">
+                  <span className="font-medium text-[#EBE7DF]">
+                    Tarjeta de crédito / débito, Apple Pay, Google Pay
+                  </span>
+                  <span className="text-[10px] font-mono text-[#C5A880] border border-[#C5A880]/30 px-1.5 py-0.5">
+                    Stripe 100% Cifrado
+                  </span>
+                </div>
+                <p className="mt-1 text-[11px] text-[#A39E93] leading-relaxed">
+                  Pago seguro instantáneo a través de la pasarela Stripe. Sin recargos adicionales.
+                </p>
+              </div>
+            </label>
+
+            <label
+              className={`flex items-start gap-3 p-3 border cursor-pointer transition ${
+                paymentMethod === "transferencia"
+                  ? "border-[#C5A880] bg-[#C5A880]/10 text-white"
+                  : "border-white/[0.08] bg-[#151618] text-[#8E8A80] hover:border-white/20"
+              }`}
+            >
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="transferencia"
+                checked={paymentMethod === "transferencia"}
+                onChange={() => setPaymentMethod("transferencia")}
+                className="mt-1 accent-[#C5A880]"
+              />
+              <div className="flex-1 text-xs">
+                <span className="font-medium text-[#EBE7DF]">
+                  Transferencia bancaria / Factura proforma
+                </span>
+                <p className="mt-1 text-[11px] text-[#A39E93] leading-relaxed">
+                  Te remitiremos los datos bancarios (IBAN) por correo electrónico tras validar la disponibilidad de la tirada.
+                </p>
+              </div>
+            </label>
+          </div>
+
           <div className="flex items-start gap-2.5 pt-1">
             <input
               id="checkout-privacidad"
@@ -386,16 +451,22 @@ export default function CheckoutModal({
 
           <div className="mt-6 pt-4 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="text-[11px] text-[#8E8A80] font-mono text-center sm:text-left">
-              <span>Pago seguro tras confirmación de serie</span>
-              <span className="block text-[10px] text-white/40">Transferencia / Factura proforma</span>
+              <span>{paymentMethod === "stripe" ? "Pasarela cifrada SSL 256 bits" : "Pago seguro tras confirmación"}</span>
+              <span className="block text-[10px] text-white/40">
+                {paymentMethod === "stripe" ? "Stripe · Apple Pay · Google Pay · Visa · MC" : "Transferencia bancaria / Factura proforma"}
+              </span>
             </div>
 
             <button
               type="submit"
               disabled={loading || !privacyAccepted}
-              className="w-full sm:w-auto inline-flex items-center justify-center border border-[#EBE7DF] bg-[#EBE7DF] px-8 py-3.5 font-mono text-xs uppercase tracking-[0.25em] text-[#0B0C0E] font-medium transition hover:bg-transparent hover:text-white disabled:opacity-50"
+              className="w-full sm:w-auto inline-flex items-center justify-center border border-[#EBE7DF] bg-[#EBE7DF] px-8 py-3.5 font-mono text-xs uppercase tracking-[0.25em] text-[#0B0C0E] font-medium transition hover:bg-transparent hover:text-white disabled:opacity-50 cursor-pointer"
             >
-              {loading ? "Registrando pedido..." : `Confirmar Reserva (${subtotal} €) →`}
+              {loading
+                ? "Procesando adquisición..."
+                : paymentMethod === "stripe"
+                ? `Pagar con Tarjeta (${totalAmount} €) →`
+                : `Confirmar Reserva (${totalAmount} €) →`}
             </button>
           </div>
         </form>

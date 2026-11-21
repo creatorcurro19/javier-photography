@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { SITE_URL } from "@/lib/metadata";
 import { normalizeOrder } from "@/lib/server/order";
+import { SHIPPING_ZONES } from "@/types/cart";
 
 export async function POST(request: Request) {
   try {
@@ -40,7 +41,10 @@ export async function POST(request: Request) {
       "metadata[shippingAddress]",
       `${order.customer.direccion}, ${order.customer.codigoPostal} ${order.customer.ciudad} (${order.customer.pais})`.slice(0, 500)
     );
-    params.append("metadata[expectedTotalEur]", String(order.subtotal));
+    params.append("metadata[shippingZone]", order.shippingZone || "canarias");
+    params.append("metadata[shippingCostEur]", String(order.shippingCost ?? 0));
+    params.append("metadata[subtotalEur]", String(order.subtotal));
+    params.append("metadata[expectedTotalEur]", String(order.total ?? order.subtotal));
 
     order.items.forEach((item, index) => {
       const description = `${item.format.name} (${item.format.dimensions}) · ${
@@ -67,6 +71,26 @@ export async function POST(request: Request) {
         );
       }
     });
+
+    // Envío en tubo rígido si aplica coste
+    if (order.shippingCost && order.shippingCost > 0) {
+      const shippingIdx = order.items.length;
+      const zoneInfo = order.shippingZone ? SHIPPING_ZONES[order.shippingZone] : null;
+      params.append(`line_items[${shippingIdx}][quantity]`, "1");
+      params.append(`line_items[${shippingIdx}][price_data][currency]`, "eur");
+      params.append(
+        `line_items[${shippingIdx}][price_data][unit_amount]`,
+        String(Math.round(order.shippingCost * 100))
+      );
+      params.append(
+        `line_items[${shippingIdx}][price_data][product_data][name]`,
+        `Envío asegurado en tubo rígido (${zoneInfo?.label || "Península"})`
+      );
+      params.append(
+        `line_items[${shippingIdx}][price_data][product_data][description]`,
+        zoneInfo?.deliveryDays || "Entrega certificada en tubo rígido cilíndrico de alta densidad"
+      );
+    }
 
     const stripeRes = await fetch("https://api.stripe.com/v1/checkout/sessions", {
       method: "POST",

@@ -8,7 +8,7 @@ let inMemoryInbox: InboxItem[] = INITIAL_INBOX_ITEMS.map((item) => ({ ...item })
 
 export function serializeInboxFile(items: InboxItem[]): string {
   return `export type InboxType = "pedido" | "consulta" | "rally" | "licencia";
-export type InboxStatus = "pendiente" | "atendido" | "enviado" | "archivado";
+export type InboxStatus = "pendiente" | "pagado" | "atendido" | "enviado" | "archivado";
 
 export interface InboxItem {
   id: string;

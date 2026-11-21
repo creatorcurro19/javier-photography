@@ -1,5 +1,5 @@
 export type InboxType = "pedido" | "consulta" | "rally" | "licencia";
-export type InboxStatus = "pendiente" | "atendido" | "enviado" | "archivado";
+export type InboxStatus = "pendiente" | "pagado" | "atendido" | "enviado" | "archivado";
 
 export interface InboxItem {
   id: string;

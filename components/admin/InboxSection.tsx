@@ -37,6 +37,11 @@ const STATUS_CONFIG: Record<
     badgeClass: "border-amber-500/50 bg-amber-500/20 text-amber-300",
     actionLabel: "Marcar Pendiente",
   },
+  pagado: {
+    label: "Pagado (Stripe)",
+    badgeClass: "border-emerald-500/60 bg-emerald-500/25 text-emerald-200 font-medium",
+    actionLabel: "Marcar Pagado",
+  },
   atendido: {
     label: "Atendido / En contacto",
     badgeClass: "border-sky-500/50 bg-sky-500/20 text-sky-300",
@@ -76,6 +81,7 @@ export default function InboxSection({
   const [notesDraft, setNotesDraft] = useState("");
 
   const pendingCount = items.filter((it) => it.status === "pendiente").length;
+  const paidCount = items.filter((it) => it.status === "pagado").length;
   const attendedCount = items.filter((it) => it.status === "atendido").length;
   const completedCount = items.filter((it) => it.status === "enviado").length;
 
@@ -175,7 +181,7 @@ export default function InboxSection({
   return (
     <div className="space-y-6">
       {/* Resumen Superior de Estado */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
         <button
           type="button"
           onClick={() => setActiveStatus("pendiente")}
@@ -186,13 +192,33 @@ export default function InboxSection({
           }`}
         >
           <span className="font-mono text-[10px] uppercase tracking-wider text-amber-400">
-            Pendientes de atender
+            Pendientes
           </span>
           <span className="mt-1 font-serif text-3xl font-light text-[#EBE7DF]">
             {pendingCount}
           </span>
           <span className="mt-1 text-[11px] text-amber-400/90 font-mono">
             {pendingCount > 0 ? "Requieren respuesta rápida" : "Al día"}
+          </span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveStatus("pagado")}
+          className={`flex flex-col items-start rounded-xl border p-4 text-left transition cursor-pointer ${
+            activeStatus === "pagado"
+              ? "border-emerald-500/80 bg-emerald-500/15 text-emerald-200 ring-1 ring-emerald-500"
+              : "border-[#25272F] bg-[#15161B] text-[#A39E93] hover:border-emerald-500/40"
+          }`}
+        >
+          <span className="font-mono text-[10px] uppercase tracking-wider text-emerald-400">
+            Pagados (Stripe)
+          </span>
+          <span className="mt-1 font-serif text-3xl font-light text-[#EBE7DF]">
+            {paidCount}
+          </span>
+          <span className="mt-1 text-[11px] text-emerald-400/90 font-mono">
+            {paidCount > 0 ? "Cobro Stripe verificado" : "Al día"}
           </span>
         </button>
 

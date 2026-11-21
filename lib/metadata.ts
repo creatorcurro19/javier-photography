@@ -80,7 +80,9 @@ export function buildPageMetadata({
   const seoDescription = formatSeoDescription(description);
   const ogImage =
     image === DEFAULT_OG
-      ? `${SITE_URL}/opengraph-image?p=${encodeURIComponent(path)}`
+      ? `${SITE_URL}/api/og?title=${encodeURIComponent(
+          seoTitle.replace(/\s*\|\s*Javier Espinosa.*$/i, "")
+        )}&subtitle=${encodeURIComponent(seoDescription.slice(0, 100))}&badge=FINE%20ART`
       : absoluteUrl(image);
 
   return {

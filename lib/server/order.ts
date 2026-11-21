@@ -2,10 +2,12 @@ import "server-only";
 
 import {
   getFormatsForPhoto,
+  SHIPPING_ZONES,
   type CartItem,
   type CartOrder,
   type OrderCustomer,
   type PrintFormat,
+  type ShippingZoneId,
 } from "@/types/cart";
 import { getAllPhotos } from "@/lib/photos";
 import type { Photo } from "@/types/photo";
@@ -108,13 +110,23 @@ export function normalizeOrder(raw: unknown): OrderValidationResult {
       ? input.orderId
       : `JE-${new Date().getFullYear()}-${Math.floor(10000 + Math.random() * 90000)}`;
 
+  const rawZone = typeof input.shippingZone === "string" ? input.shippingZone : "canarias";
+  const shippingZone: ShippingZoneId =
+    rawZone in SHIPPING_ZONES ? (rawZone as ShippingZoneId) : "canarias";
+  const shippingCost = SHIPPING_ZONES[shippingZone].cost;
+  const subtotal = items.reduce((acc, it) => acc + it.totalPrice, 0);
+  const total = subtotal + shippingCost;
+
   return {
     ok: true,
     order: {
       orderId,
       customer,
       items,
-      subtotal: items.reduce((acc, it) => acc + it.totalPrice, 0),
+      subtotal,
+      shippingZone,
+      shippingCost,
+      total,
       createdAt: new Date().toISOString(),
     },
   };

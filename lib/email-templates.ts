@@ -77,7 +77,7 @@ function buildItemsTableHtml(order: CartOrder): string {
           <div style="font-family:Georgia,serif;font-size:15px;color:#F7F4EE;">${escapeHtml(item.title)}</div>
           <div style="font-size:12px;color:#8E8A80;margin-top:3px;">
             ${escapeHtml(item.format.name)} (${escapeHtml(item.format.dimensions)}) · ${
-              item.framed ? "Con Marco Museo UV 99%" : "Lámina suelta"
+              item.framed ? "Con Marco Museo UV 99%" : "Lámina suelta Hahnemühle"
             } · Cantidad: ${item.quantity}
           </div>
         </td>
@@ -88,15 +88,31 @@ function buildItemsTableHtml(order: CartOrder): string {
     )
     .join("");
 
+  const shippingRow =
+    order.shippingCost !== undefined
+      ? `
+      <tr>
+        <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);font-size:12px;color:#8E8A80;">
+          Envío asegurado en tubo rígido (${order.shippingZone === "canarias" ? "Canarias" : order.shippingZone === "peninsula" ? "Península y Baleares" : "Internacional"})
+        </td>
+        <td align="right" style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);font-family:monospace;font-size:13px;color:#EBE7DF;">
+          ${order.shippingCost === 0 ? "Gratis (incluido)" : `${order.shippingCost} €`}
+        </td>
+      </tr>`
+      : "";
+
+  const finalTotal = order.total ?? order.subtotal + (order.shippingCost ?? 0);
+
   return `
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin:20px 0;border-top:1px solid rgba(197,168,128,0.25);">
       ${rows}
+      ${shippingRow}
       <tr>
         <td style="padding:16px 0 0 0;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#C5A880;">
           Importe Total
         </td>
         <td align="right" style="padding:16px 0 0 0;font-family:Georgia,serif;font-size:22px;color:#F7F4EE;">
-          ${order.subtotal} €
+          ${finalTotal} €
         </td>
       </tr>
     </table>`;

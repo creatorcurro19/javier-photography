@@ -29,7 +29,7 @@ export function generateWebSiteSchema() {
 export function generatePersonSchema() {
   return {
     "@context": "https://schema.org",
-    "@type": ["Person", "Photographer"],
+    "@type": ["Person", "Photographer", "VisualArtist"],
     "@id": absoluteUrl("/#author"),
     name: "Javier Espinosa Martínez",
     alternateName: [
@@ -62,6 +62,27 @@ export function generatePersonSchema() {
       "Documentary: Fotografía documental, oficios y tradición (Documentary Photography)",
       "Impresión Fine Art Hahnemühle Photo Rag 308g ISO 9706",
     ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Catálogo de Obras y Servicios de Autor",
+      itemListElement: [
+        {
+          "@type": "OfferCatalog",
+          name: "Copias Fine Art Hahnemühle Photo Rag 308g",
+          url: absoluteUrl("/prints"),
+        },
+        {
+          "@type": "OfferCatalog",
+          name: "Servicios de Fotografía y Cobertura de Rally",
+          url: absoluteUrl("/servicios"),
+        },
+        {
+          "@type": "OfferCatalog",
+          name: "Licencias de Imagen en Alta Resolución",
+          url: absoluteUrl("/licensing"),
+        },
+      ],
+    },
     sameAs: [
       "https://www.instagram.com/Javier.espinosa19/",
       "https://www.saatchiart.com/javier-espinosa-photography",
@@ -181,6 +202,73 @@ export function generatePhotoSchema(photo: Photo) {
   schema.surface = "Papel Fine Art Certificado ISO 9706 (entrega en tubo rígido sin marco)";
   schema.artEdition = `Edición limitada numerada y firmada de ${editionTotal} ejemplares`;
   if (photo.prints) {
+    const shippingDetails = [
+      {
+        "@type": "OfferShippingDetails",
+        shippingRate: {
+          "@type": "MonetaryAmount",
+          value: "0.00",
+          currency: "EUR",
+        },
+        shippingDestination: {
+          "@type": "DefinedRegion",
+          addressRegion: "Canarias",
+          addressCountry: "ES",
+        },
+        deliveryTime: {
+          "@type": "ShippingDeliveryTime",
+          handlingTime: {
+            "@type": "QuantitativeValue",
+            minValue: 1,
+            maxValue: 3,
+            unitCode: "d",
+          },
+          transitTime: {
+            "@type": "QuantitativeValue",
+            minValue: 3,
+            maxValue: 7,
+            unitCode: "d",
+          },
+        },
+      },
+      {
+        "@type": "OfferShippingDetails",
+        shippingRate: {
+          "@type": "MonetaryAmount",
+          value: "15.00",
+          currency: "EUR",
+        },
+        shippingDestination: {
+          "@type": "DefinedRegion",
+          addressCountry: "ES",
+        },
+        deliveryTime: {
+          "@type": "ShippingDeliveryTime",
+          handlingTime: {
+            "@type": "QuantitativeValue",
+            minValue: 1,
+            maxValue: 3,
+            unitCode: "d",
+          },
+          transitTime: {
+            "@type": "QuantitativeValue",
+            minValue: 4,
+            maxValue: 8,
+            unitCode: "d",
+          },
+        },
+      },
+    ];
+
+    const merchantReturnPolicy = {
+      "@type": "MerchantReturnPolicy",
+      applicableCountry: "ES",
+      returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+      merchantReturnDays: 14,
+      returnMethod: "https://schema.org/ReturnByMail",
+      returnFees: "https://schema.org/FreeReturn",
+    };
+
     schema.offers = {
       "@type": "AggregateOffer",
       priceCurrency: "EUR",
@@ -195,30 +283,41 @@ export function generatePhotoSchema(photo: Photo) {
         "@id": absoluteUrl("/#author"),
         name: "Javier Espinosa Martínez",
       },
+      shippingDetails,
+      hasMerchantReturnPolicy: merchantReturnPolicy,
       offers: [
         {
           "@type": "Offer",
           name: `${photo.title} — Formato Estudio (${dims.estudio} · Ed. ${editionTotal} · Tubo rígido)`,
           price: lowPrice,
           priceCurrency: "EUR",
+          priceValidUntil: "2027-12-31",
           availability: "https://schema.org/InStock",
           url: absoluteUrl(`/portfolio/${photo.slug}#adquirir-copia`),
+          shippingDetails,
+          hasMerchantReturnPolicy: merchantReturnPolicy,
         },
         {
           "@type": "Offer",
           name: `${photo.title} — Formato Galería (${dims.galeria} · Ed. ${editionTotal} · Tubo rígido)`,
           price: midPrice,
           priceCurrency: "EUR",
+          priceValidUntil: "2027-12-31",
           availability: "https://schema.org/InStock",
           url: absoluteUrl(`/portfolio/${photo.slug}#adquirir-copia`),
+          shippingDetails,
+          hasMerchantReturnPolicy: merchantReturnPolicy,
         },
         {
           "@type": "Offer",
           name: `${photo.title} — Gran Colección (${dims.coleccion} · Ed. ${editionTotal} · Tubo rígido)`,
           price: highPrice,
           priceCurrency: "EUR",
+          priceValidUntil: "2027-12-31",
           availability: "https://schema.org/InStock",
           url: absoluteUrl(`/portfolio/${photo.slug}#adquirir-copia`),
+          shippingDetails,
+          hasMerchantReturnPolicy: merchantReturnPolicy,
         },
       ],
     };

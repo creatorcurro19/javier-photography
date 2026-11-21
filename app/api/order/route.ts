@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     }
     // Importes recalculados en servidor a partir del catálogo.
     const order = result.order;
-    const { customer, items, subtotal, orderId } = order;
+    const { customer, items, subtotal, shippingCost = 0, total = subtotal, shippingZone = "canarias", orderId } = order;
 
     const itemsSummary = items
       .map(
@@ -27,14 +27,16 @@ export async function POST(request: Request) {
       )
       .join("\n");
 
-    const subject = `[NUEVO PEDIDO FINE ART · REF: ${orderId}] ${customer.nombre} — ${subtotal} €`;
+    const subject = `[NUEVO PEDIDO FINE ART · REF: ${orderId}] ${customer.nombre} — ${total} €`;
 
     const textBody = [
       `SOLICITUD DE PEDIDO FINE ART — JAVIER ESPINOSA PHOTOGRAPHY`,
       `============================================================`,
       `Referencia de Pedido: ${orderId}`,
       `Fecha: ${new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" })}`,
-      `Importe Total: ${subtotal} €`,
+      `Subtotal Obras: ${subtotal} €`,
+      `Gastos de Envío (${shippingZone}): ${shippingCost} €`,
+      `Total del Pedido: ${total} €`,
       `Estado del pago: pendiente (si el comprador paga con Stripe recibirás un aviso aparte de "PAGO CONFIRMADO").`,
       ``,
       `DATOS DEL COLECCIONISTA / COMPRADOR:`,
@@ -63,10 +65,10 @@ export async function POST(request: Request) {
         customerName: customer.nombre,
         customerEmail: customer.email,
         customerPhone: customer.telefono || undefined,
-        subject: `Pedido Fine Art (${orderId}) — ${subtotal} €`,
+        subject: `Pedido Fine Art (${orderId}) — ${total} €`,
         message: customer.notas || "Sin notas adicionales del cliente.",
         status: "pendiente",
-        orderTotal: subtotal,
+        orderTotal: total,
         items: items.map((it) => ({
           title: it.title,
           format: `${it.format.name} (${it.format.dimensions})`,
@@ -74,7 +76,7 @@ export async function POST(request: Request) {
           price: it.totalPrice,
         })),
         shippingAddress: `${customer.direccion}, ${customer.codigoPostal} ${customer.ciudad} (${customer.pais})`,
-        notes: `Envío a: ${customer.ciudad} (${customer.pais}). Total a cobrar: ${subtotal} €`,
+        notes: `Zona: ${shippingZone} (Envío: ${shippingCost} €). Total a cobrar: ${total} €`,
       });
     } catch (err) {
       console.warn("[order] Error guardando en bandeja de admin:", err);

@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/AndalusianMotif";
 import CertificateOfAuthenticityModal from "@/components/prints/CertificateOfAuthenticityModal";
 import DirectPrintsCatalog from "@/components/prints/DirectPrintsCatalog";
+import PaymentFeedback from "@/components/prints/PaymentFeedback";
 
 const PrintScaleVisualizer = dynamic(
   () => import("@/components/prints/PrintScaleVisualizer")
@@ -18,7 +19,11 @@ const OpticalLoupeInspector = dynamic(
 import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getPrintablePhotos } from "@/lib/photos";
-import { generateBreadcrumbSchema, generateFAQSchema } from "@/lib/schema";
+import {
+  generateBreadcrumbSchema,
+  generateFAQSchema,
+  generatePersonSchema,
+} from "@/lib/schema";
 
 export const metadata = buildPageMetadata({
   title: "Copias Fine Art Hahnemühle & Ediciones Limitadas (Fine Art Prints) | Javier Espinosa",
@@ -118,6 +123,7 @@ export default function PrintsPage() {
       <JsonLd
         data={[
           generateFAQSchema(printFaqs),
+          generatePersonSchema(),
           generateBreadcrumbSchema([
             { name: "Inicio", path: "/" },
             { name: "Copias Fine Art", path: "/prints" },
@@ -125,6 +131,10 @@ export default function PrintsPage() {
         ]}
       />
       <Container className="relative z-10">
+        <Suspense fallback={null}>
+          <PaymentFeedback />
+        </Suspense>
+
         {/* Header Section */}
         <div className="max-w-3xl">
           <div className="flex items-center gap-3">

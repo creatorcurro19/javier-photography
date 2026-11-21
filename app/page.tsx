@@ -11,7 +11,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getAllPhotos, getFeaturedPhotos } from "@/lib/photos";
 import { SITE_SETTINGS } from "@/data/site-config";
-import { generateWebSiteSchema } from "@/lib/schema";
+import { generatePersonSchema, generateWebSiteSchema } from "@/lib/schema";
 import type { Photo } from "@/types/photo";
 
 export const metadata = buildPageMetadata({
@@ -87,7 +87,7 @@ export default function Home() {
 
   return (
     <>
-      <JsonLd data={generateWebSiteSchema()} />
+      <JsonLd data={[generateWebSiteSchema(), generatePersonSchema()]} />
       <Hero />
       <TrustBadgeStrip />
       <SelectedWork photos={homePreview} totalCount={featuredPhotos.length} />

@@ -136,7 +136,7 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
     expect(homeRes.status()).toBe(200);
     const homeHtml = await homeRes.text();
     expect(homeHtml).toContain("google-site-verification");
-    expect(homeHtml).toContain('"@type":["Person","Photographer"]');
+    expect(homeHtml).toContain('"@type":["Person","Photographer"');
     expect(homeHtml).toContain('"@type":["WebSite","ArtGallery"]');
 
     const portfolioRes = await request.get("/portfolio");
@@ -146,5 +146,36 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
     expect(portfolioHtml).toContain("/portfolio/cuervo-canario-ante-las-cumbres");
     expect(portfolioHtml).toContain("/portfolio/frontal-clasico-bmw-e30");
     expect(portfolioHtml).toContain("/portfolio/el-esfuerzo-del-portador");
+  });
+
+  test("Generador dinámico OpenGraph /api/og y Webhook de Stripe responden con éxito", async ({
+    request,
+  }) => {
+    const ogRes = await request.get(
+      "/api/og?title=Mirada+del+lince+boreal&badge=FAUNA+SALVAJE&subtitle=Sierra+de+Andújar"
+    );
+    expect(ogRes.status()).toBe(200);
+    expect(ogRes.headers()["content-type"]).toContain("image/png");
+
+    const webhookRes = await request.post("/api/webhooks/stripe", {
+      data: {
+        type: "checkout.session.completed",
+        data: {
+          object: {
+            id: "cs_test_mock_123",
+            amount_total: 25500,
+            currency: "eur",
+            customer_details: { email: "test-buyer@example.com" },
+            metadata: {
+              orderId: "JE-2026-TEST",
+              customerName: "Coleccionista E2E",
+            },
+          },
+        },
+      },
+    });
+    expect(webhookRes.status()).toBe(200);
+    const webhookData = await webhookRes.json();
+    expect(webhookData.received).toBe(true);
   });
 });
