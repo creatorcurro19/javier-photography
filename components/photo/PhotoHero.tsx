@@ -86,21 +86,21 @@ export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
             </div>
           )}
 
-          <div className="absolute bottom-6 right-6 hidden rounded-full border border-white/[0.08] bg-[#0B0C0E]/80 px-4 py-2 text-xs font-mono tracking-wider text-[#EBE7DF] backdrop-blur-md transition group-hover:border-white/30 group-hover:text-white sm:block">
+          <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 inline-flex min-h-[44px] items-center rounded-full border border-white/[0.15] bg-[#0B0C0E]/85 px-4 py-2 text-xs font-mono tracking-wider text-[#EBE7DF] backdrop-blur-md transition group-hover:border-white/40 group-hover:text-white">
             Ver a pantalla completa
           </div>
         </div>
 
         {/* Selector interactivo de visualización y enmarcado */}
         <div className="mx-auto mt-6 flex items-center justify-start sm:justify-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1 px-4 text-[11px] font-mono uppercase tracking-[0.2em] sm:flex-wrap">
-          <span className="shrink-0 mr-1 text-[#8E8A80]">Simulador:</span>
+          <span className="shrink-0 mr-1 text-[#A39E93]">Simulador:</span>
           <button
             type="button"
             onClick={() => setFrameStyle("clean")}
-            className={`shrink-0 rounded-full px-3.5 py-1.5 transition ${
+            className={`shrink-0 inline-flex min-h-[44px] items-center rounded-full px-4 py-2 transition ${
               frameStyle === "clean"
                 ? "bg-[#EBE7DF] text-[#0B0C0E] font-medium"
-                : "border border-white/[0.08] bg-[#151618] text-[#8E8A80] hover:border-white/30 hover:text-[#EBE7DF]"
+                : "border border-white/[0.12] bg-[#151618] text-[#A39E93] hover:border-white/30 hover:text-[#EBE7DF]"
             }`}
           >
             Vista Limpia
@@ -108,10 +108,10 @@ export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
           <button
             type="button"
             onClick={() => setFrameStyle("black")}
-            className={`shrink-0 rounded-full px-3.5 py-1.5 transition ${
+            className={`shrink-0 inline-flex min-h-[44px] items-center rounded-full px-4 py-2 transition ${
               frameStyle === "black"
                 ? "bg-[#EBE7DF] text-[#0B0C0E] font-medium"
-                : "border border-white/[0.08] bg-[#151618] text-[#8E8A80] hover:border-white/30 hover:text-[#EBE7DF]"
+                : "border border-white/[0.12] bg-[#151618] text-[#A39E93] hover:border-white/30 hover:text-[#EBE7DF]"
             }`}
           >
             Marco Negro + Paspartú
@@ -119,10 +119,10 @@ export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
           <button
             type="button"
             onClick={() => setFrameStyle("oak")}
-            className={`shrink-0 rounded-full px-3.5 py-1.5 transition ${
+            className={`shrink-0 inline-flex min-h-[44px] items-center rounded-full px-4 py-2 transition ${
               frameStyle === "oak"
                 ? "bg-[#EBE7DF] text-[#0B0C0E] font-medium"
-                : "border border-white/[0.08] bg-[#151618] text-[#8E8A80] hover:border-white/30 hover:text-[#EBE7DF]"
+                : "border border-white/[0.12] bg-[#151618] text-[#A39E93] hover:border-white/30 hover:text-[#EBE7DF]"
             }`}
           >
             Marco Roble + Paspartú

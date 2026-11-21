@@ -55,10 +55,10 @@ export default function BwToggle() {
       title={titleDescription}
       aria-label={ariaDescription}
       aria-pressed={isBw}
-      className={`group relative flex items-center gap-1.5 border px-2.5 py-1.5 font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.22em] transition-all duration-300 ${
+      className={`group relative flex min-h-[44px] min-w-[44px] items-center justify-center gap-1.5 border px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.22em] transition-all duration-300 ${
         isBw
           ? "border-[#EBE7DF] bg-[#EBE7DF] text-[#0B0C0E] font-semibold"
-          : "border-[#202226] bg-[#151618]/70 text-neutral-300 hover:border-[#8E8A80]/70 hover:text-white"
+          : "border-[#202226] bg-[#151618]/80 text-[#EBE7DF] hover:border-[#A39E93] hover:text-white"
       }`}
     >
       {/* Indicador óptico de filtro de película */}

@@ -108,7 +108,7 @@ export default function SearchModal() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Buscar fotografías o colecciones"
-        className="group flex items-center gap-2 border border-white/[0.1] bg-[#151618] px-2.5 py-1.5 sm:px-3 text-[#EBE7DF] transition hover:border-white/30 hover:bg-[#202226] focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+        className="group flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 border border-white/[0.12] bg-[#151618] px-3 py-2 text-[#EBE7DF] transition hover:border-white/30 hover:bg-[#202226] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#C5A880]"
       >
         <svg
           className="h-4 w-4 text-[#EBE7DF] transition-transform duration-300 group-hover:scale-105"

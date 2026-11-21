@@ -84,6 +84,12 @@ export default function Hero() {
 
   useEffect(() => {
     if (isPaused) return;
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
     const interval = window.setInterval(nextSlide, SLIDE_DURATION);
     return () => window.clearInterval(interval);
   }, [isPaused, nextSlide]);
@@ -198,7 +204,7 @@ export default function Hero() {
             )}{" "}
             <Link
               href="/about"
-              className="text-[#C5A880] underline underline-offset-4 hover:text-white transition whitespace-nowrap"
+              className="inline-flex min-h-[44px] items-center px-1 text-[#C5A880] underline underline-offset-4 hover:text-white transition whitespace-nowrap"
             >
               {t("Sobre mi trabajo →", "About my work →")}
             </Link>
@@ -208,31 +214,31 @@ export default function Hero() {
           <div className="mt-6 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4 md:mt-7">
             <Link
               href="/prints"
-              className="group inline-flex items-center justify-center gap-2 border border-[#C5A880] bg-[#C5A880] px-7 py-3 text-[11px] uppercase tracking-[0.24em] text-[#0B0C0E] font-semibold transition-all duration-300 hover:bg-white hover:border-white shadow-lg"
+              className="group inline-flex min-h-[44px] items-center justify-center gap-2 border border-[#C5A880] bg-[#C5A880] px-7 py-3 text-[11px] uppercase tracking-[0.24em] text-[#0B0C0E] font-semibold transition-all duration-300 hover:bg-white hover:border-white shadow-lg"
             >
               <span>{t("Encargar una copia", "Order a Print")}</span>
               <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
             </Link>
             <Link
               href="/servicios"
-              className="inline-flex items-center justify-center gap-2 border border-white/30 bg-[#0B0C0E]/80 px-7 py-3 text-[11px] uppercase tracking-[0.24em] text-[#F7F4EE] font-medium transition-all duration-300 hover:border-[#C5A880] hover:text-white hover:bg-[#151618]"
+              className="inline-flex min-h-[44px] items-center justify-center gap-2 border border-white/30 bg-[#0B0C0E]/80 px-7 py-3 text-[11px] uppercase tracking-[0.24em] text-[#F7F4EE] font-medium transition-all duration-300 hover:border-[#C5A880] hover:text-white hover:bg-[#151618]"
             >
               <span>{t("Pedir presupuesto", "Request a Quote")}</span>
             </Link>
           </div>
 
           {/* Enlaces terciarios de exploración del archivo */}
-          <div className="mt-3.5 flex items-center justify-center gap-4 text-[10px] font-mono uppercase tracking-[0.22em] text-[#8E8A80]">
+          <div className="mt-3.5 flex items-center justify-center gap-4 text-[10px] font-mono uppercase tracking-[0.22em] text-[#A39E93]">
             <Link
               href="/portfolio"
-              className="transition-colors hover:text-[#EBE7DF] hover:underline underline-offset-4"
+              className="inline-flex min-h-[44px] items-center px-2 transition-colors hover:text-[#EBE7DF] hover:underline underline-offset-4"
             >
               {t("Explorar Obras", "Explore Works")} →
             </Link>
-            <span className="text-white/20">·</span>
+            <span className="text-white/25">·</span>
             <Link
               href="/projects"
-              className="transition-colors hover:text-[#EBE7DF] hover:underline underline-offset-4"
+              className="inline-flex min-h-[44px] items-center px-2 transition-colors hover:text-[#EBE7DF] hover:underline underline-offset-4"
             >
               {t("Series Monográficas", "Monograph Series")} →
             </Link>
@@ -245,12 +251,12 @@ export default function Hero() {
             <p className="font-serif text-sm sm:text-base font-light text-[#F7F4EE] tracking-wide">
               {currentSlide.title}
             </p>
-            <p className="font-mono text-[10px] text-[#C5A880]/90 tracking-wider mt-0.5">
+            <p className="font-mono text-[10px] text-[#C5A880] tracking-wider mt-0.5">
               {currentSlide.location}
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             {HERO_SLIDES.map((slide, idx) => {
               const isSelected = idx === activeSlide;
               return (
@@ -259,12 +265,12 @@ export default function Hero() {
                   type="button"
                   onClick={() => setActiveSlide(idx)}
                   aria-label={`Entrar a ${slide.room}: ${slide.title}`}
-                  className="group relative py-1.5 px-1.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+                  className="group relative flex min-h-[44px] min-w-[44px] items-center justify-center py-2 px-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#C5A880]"
                 >
                   <div className="flex flex-col items-center">
                     <span
-                      className={`font-mono text-[9px] uppercase tracking-widest transition-colors duration-300 ${
-                        isSelected ? "text-[#F7F4EE] font-medium" : "text-[#EBE7DF]/55 group-hover:text-[#EBE7DF]"
+                      className={`font-mono text-[10px] uppercase tracking-widest transition-colors duration-300 ${
+                        isSelected ? "text-[#F7F4EE] font-medium" : "text-[#A39E93] group-hover:text-[#EBE7DF]"
                       }`}
                     >
                       0{idx + 1}
@@ -273,7 +279,7 @@ export default function Hero() {
                       className={`mt-1.5 h-[2px] transition-all duration-500 rounded-full ${
                         isSelected
                           ? "w-7 sm:w-10 bg-[#C5A880]"
-                          : "w-3 sm:w-4 bg-white/25 group-hover:bg-[#C5A880]/60"
+                          : "w-4 sm:w-5 bg-white/35 group-hover:bg-[#C5A880]/75"
                       }`}
                     />
                   </div>
@@ -284,7 +290,7 @@ export default function Hero() {
 
           <a
             href="#selected-work"
-            className="hidden md:flex items-center gap-2 text-right font-mono text-[10px] uppercase tracking-[0.25em] text-[#EBE7DF]/80 transition hover:text-[#C5A880]"
+            className="hidden md:inline-flex min-h-[44px] items-center gap-2 text-right font-mono text-[10px] uppercase tracking-[0.25em] text-[#EBE7DF]/90 transition hover:text-[#C5A880]"
           >
             <span>Descubrir</span>
             <span>↓</span>

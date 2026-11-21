@@ -93,7 +93,7 @@ export default function MobileNav() {
         aria-controls="mobile-menu"
         aria-label={open ? (lang === "en" ? "Close menu" : "Cerrar menú") : (lang === "en" ? "Open navigation menu" : "Abrir menú de navegación")}
         onClick={() => setOpen((value) => !value)}
-        className="flex items-center justify-center gap-2 border border-white/[0.1] bg-[#151618] px-2.5 py-1.5 sm:px-3.5 text-[11px] uppercase tracking-[0.26em] text-[#EBE7DF] transition hover:border-white/30 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white font-mono"
+        className="flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 border border-white/[0.12] bg-[#151618] px-3 py-2 sm:px-3.5 text-[11px] uppercase tracking-[0.26em] text-[#EBE7DF] transition hover:border-white/30 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] font-mono"
       >
         {open ? (
           <svg className="h-4 w-4 sm:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">

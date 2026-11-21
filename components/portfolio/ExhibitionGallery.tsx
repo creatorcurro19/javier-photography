@@ -143,10 +143,10 @@ export default function ExhibitionGallery({
                     setSelectedIndex(0);
                     setVisibleCount(INITIAL_BATCH);
                   }}
-                  className={`shrink-0 rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-wider transition ${
+                  className={`shrink-0 inline-flex min-h-[44px] items-center rounded-full px-3.5 py-2 font-mono text-[10px] uppercase tracking-wider transition ${
                     filterMode === item.id
                       ? "bg-[#EBE7DF] text-[#0B0C0E] font-medium"
-                      : "border border-white/[0.08] bg-[#151618] text-[#8E8A80] hover:border-white/30 hover:text-[#EBE7DF]"
+                      : "border border-white/[0.12] bg-[#151618] text-[#A39E93] hover:border-white/30 hover:text-[#EBE7DF]"
                   }`}
                 >
                   {item.label}
@@ -156,60 +156,60 @@ export default function ExhibitionGallery({
           )}
         </div>
 
-        <div className="flex items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-[#8E8A80] overflow-x-auto no-scrollbar scroll-smooth py-1 -mx-4 px-4 sm:mx-0 sm:px-0 shrink-0">
-          <span className="hidden sm:inline mr-2 text-[#8E8A80]/70">Presentación:</span>
+        <div className="flex items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-[#A39E93] overflow-x-auto no-scrollbar scroll-smooth py-1 -mx-4 px-4 sm:mx-0 sm:px-0 shrink-0">
+          <span className="hidden sm:inline mr-2 text-[#A39E93]">Presentación:</span>
           <button
             type="button"
             onClick={() => setViewMode("masonry")}
-            className={`rounded px-2.5 py-1 transition ${
+            className={`inline-flex min-h-[44px] items-center rounded px-3 py-2 transition ${
               viewMode === "masonry"
-                ? "bg-white/[0.1] text-[#EBE7DF] font-medium"
+                ? "bg-white/[0.12] text-[#EBE7DF] font-medium"
                 : "hover:text-[#EBE7DF]"
             }`}
           >
             Editorial
           </button>
-          <span className="text-white/20">·</span>
+          <span className="text-white/25">·</span>
           <button
             type="button"
             onClick={() => setViewMode("immersive")}
-            className={`rounded px-2.5 py-1 transition ${
+            className={`inline-flex min-h-[44px] items-center rounded px-3 py-2 transition ${
               viewMode === "immersive"
-                ? "bg-white/[0.1] text-[#EBE7DF] font-medium"
+                ? "bg-white/[0.12] text-[#EBE7DF] font-medium"
                 : "hover:text-[#EBE7DF]"
             }`}
           >
             Inmersiva
           </button>
-          <span className="text-white/20">·</span>
+          <span className="text-white/25">·</span>
           <button
             type="button"
             onClick={() => setViewMode("grid")}
-            className={`rounded px-2.5 py-1 transition ${
+            className={`inline-flex min-h-[44px] items-center rounded px-3 py-2 transition ${
               viewMode === "grid"
-                ? "bg-white/[0.1] text-[#EBE7DF] font-medium"
+                ? "bg-white/[0.12] text-[#EBE7DF] font-medium"
                 : "hover:text-[#EBE7DF]"
             }`}
           >
             Índice
           </button>
-          <span className="text-white/20">·</span>
+          <span className="text-white/25">·</span>
           <button
             type="button"
             onClick={() => setViewMode("archive")}
-            className={`rounded px-2.5 py-1 transition ${
+            className={`inline-flex min-h-[44px] items-center rounded px-3 py-2 transition ${
               viewMode === "archive"
-                ? "bg-white/[0.1] text-[#EBE7DF] font-medium"
+                ? "bg-white/[0.12] text-[#EBE7DF] font-medium"
                 : "hover:text-[#EBE7DF]"
             }`}
           >
             Archivo
           </button>
-          <span className="text-white/20">|</span>
+          <span className="text-white/25">|</span>
           <button
             type="button"
             onClick={() => setZenOpen(true)}
-            className="flex items-center gap-1.5 rounded border border-white/20 bg-white/[0.05] px-2.5 py-1 text-[#EBE7DF] transition hover:border-white/40 hover:bg-white/[0.1]"
+            className="inline-flex min-h-[44px] items-center gap-1.5 rounded border border-white/20 bg-white/[0.05] px-3 py-2 text-[#EBE7DF] transition hover:border-white/40 hover:bg-white/[0.1]"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-[#EBE7DF]" />
             <span>Pase Zen</span>

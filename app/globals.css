@@ -8,14 +8,14 @@
   --color-carbon: #0B0C0E;
   --color-charcoal: #151618;
   --color-ivory: #EBE7DF;
-  --color-earth: #8E8A80;
+  --color-earth: #A39E93;
 }
 
 :root {
   --background: #0B0C0E;
   --surface: #151618;
   --text: #EBE7DF;
-  --muted: #8E8A80;
+  --muted: #A39E93;
   --accent: #EBE7DF;
 }
 
@@ -30,15 +30,28 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    max-width: 100vw;
+    overflow-x: clip;
   }
 
   body {
     background: var(--background);
     color: var(--text);
-    overflow-x: hidden;
+    max-width: 100vw;
+    overflow-x: clip;
     line-height: 1.75;
     letter-spacing: 0.015em;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [role="button"]:focus-visible {
+    outline: 2px solid #C5A880;
+    outline-offset: 2px;
   }
 
   h1,

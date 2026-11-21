@@ -80,7 +80,7 @@ export default function Navbar() {
         {/* Logotipo y Título de Autor */}
         <Link
           href="/"
-          className="group flex shrink-0 items-center gap-2.5 sm:gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+          className="group flex min-h-[44px] shrink-0 items-center gap-2.5 sm:gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880]"
         >
           <Image
             src="/icon.svg"
@@ -93,7 +93,7 @@ export default function Navbar() {
             <span className="whitespace-nowrap font-sans font-medium text-xs tracking-[0.18em] text-[#EBE7DF] transition group-hover:text-white sm:text-sm sm:tracking-[0.26em]">
               JAVIER ESPINOSA
             </span>
-            <span className="whitespace-nowrap text-[7.5px] tracking-[0.24em] text-[#C5A880]/85 uppercase transition group-hover:text-[#EBE7DF] sm:text-[8.5px] sm:tracking-[0.38em]">
+            <span className="whitespace-nowrap text-[8px] tracking-[0.24em] text-[#C5A880] uppercase transition group-hover:text-[#EBE7DF] sm:text-[9px] sm:tracking-[0.38em]">
               The Art of Seeing
             </span>
           </div>
@@ -107,22 +107,33 @@ export default function Navbar() {
           {/* 1. Obra (con submenú curatorial para Colecciones, Series y Seleccionadas) */}
           <div
             ref={obraMenuRef}
-            className="relative"
+            className="relative flex items-center"
             onMouseEnter={() => setObraMenuOpen(true)}
             onMouseLeave={() => setObraMenuOpen(false)}
           >
             <Link
               href="/portfolio"
               onClick={() => setObraMenuOpen(false)}
-              className={`group inline-flex items-center gap-1.5 py-1 whitespace-nowrap transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${
+              className={`group inline-flex min-h-[44px] items-center gap-1.5 py-2 whitespace-nowrap transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
                 isObraActive
                   ? "text-[#EBE7DF] font-medium"
-                  : "text-[#EBE7DF]/75 hover:text-white"
+                  : "text-[#EBE7DF]/85 hover:text-white"
               }`}
             >
               <span>{t("Obra", "Works")}</span>
+              {isObraActive && (
+                <span className="absolute bottom-1 left-0 right-0 h-px bg-[#C5A880]" />
+              )}
+            </Link>
+            <button
+              type="button"
+              aria-expanded={obraMenuOpen}
+              aria-label={t("Abrir submenú de Obra", "Toggle Works submenu")}
+              onClick={() => setObraMenuOpen((v) => !v)}
+              className="inline-flex min-h-[44px] min-w-[32px] items-center justify-center px-1 text-[#C5A880] hover:text-white"
+            >
               <svg
-                className={`h-3 w-3 text-[#C5A880] transition-transform duration-200 ${
+                className={`h-3.5 w-3.5 transition-transform duration-200 ${
                   obraMenuOpen ? "rotate-180" : ""
                 }`}
                 fill="none"
@@ -136,10 +147,7 @@ export default function Navbar() {
                   d="M19 9l-7 7-7-7"
                 />
               </svg>
-              {isObraActive && (
-                <span className="absolute bottom-0 left-0 right-0 h-px bg-[#C5A880]" />
-              )}
-            </Link>
+            </button>
 
             {/* Submenú desplegable de Obra */}
             {obraMenuOpen && (
@@ -187,60 +195,60 @@ export default function Navbar() {
           {/* 2. Copias (Fine Art Prints) */}
           <Link
             href="/prints"
-            className={`relative whitespace-nowrap py-1 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${
+            className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
               pathname === "/prints"
                 ? "text-[#EBE7DF] font-medium"
-                : "text-[#EBE7DF]/75 hover:text-white"
+                : "text-[#EBE7DF]/85 hover:text-white"
             }`}
           >
             {t("Copias", "Prints")}
             {pathname === "/prints" && (
-              <span className="absolute bottom-0 left-0 right-0 h-px bg-[#C5A880]" />
+              <span className="absolute bottom-1 left-0 right-0 h-px bg-[#C5A880]" />
             )}
           </Link>
 
           {/* 3. Encargos (Commissions & Projects) */}
           <Link
             href="/servicios"
-            className={`relative whitespace-nowrap py-1 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${
+            className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
               pathname === "/servicios"
                 ? "text-[#EBE7DF] font-medium"
-                : "text-[#EBE7DF]/75 hover:text-white"
+                : "text-[#EBE7DF]/85 hover:text-white"
             }`}
           >
             {t("Encargos", "Commissions")}
             {pathname === "/servicios" && (
-              <span className="absolute bottom-0 left-0 right-0 h-px bg-[#C5A880]" />
+              <span className="absolute bottom-1 left-0 right-0 h-px bg-[#C5A880]" />
             )}
           </Link>
 
           {/* 4. Sobre mí (About) */}
           <Link
             href="/about"
-            className={`relative whitespace-nowrap py-1 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${
+            className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
               pathname === "/about"
                 ? "text-[#EBE7DF] font-medium"
-                : "text-[#EBE7DF]/75 hover:text-white"
+                : "text-[#EBE7DF]/85 hover:text-white"
             }`}
           >
             {t("Sobre mí", "About")}
             {pathname === "/about" && (
-              <span className="absolute bottom-0 left-0 right-0 h-px bg-[#C5A880]" />
+              <span className="absolute bottom-1 left-0 right-0 h-px bg-[#C5A880]" />
             )}
           </Link>
 
           {/* 5. Contacto (Contact) */}
           <Link
             href="/contact"
-            className={`relative whitespace-nowrap py-1 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${
+            className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
               pathname === "/contact"
                 ? "text-[#EBE7DF] font-medium"
-                : "text-[#EBE7DF]/75 hover:text-white"
+                : "text-[#EBE7DF]/85 hover:text-white"
             }`}
           >
             {t("Contacto", "Contact")}
             {pathname === "/contact" && (
-              <span className="absolute bottom-0 left-0 right-0 h-px bg-[#C5A880]" />
+              <span className="absolute bottom-1 left-0 right-0 h-px bg-[#C5A880]" />
             )}
           </Link>
         </nav>
