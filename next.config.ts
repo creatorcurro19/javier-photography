@@ -49,6 +49,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
     {
+        "source": "/projects/ecos-del-sahara",
+        "destination": "/projects/silencio-del-desierto",
+        "permanent": true
+    },
+    {
         "source": "/portfolio/posado-en-la-rama-fn-1",
         "destination": "/portfolio/cotorra-en-reposo",
         "permanent": true

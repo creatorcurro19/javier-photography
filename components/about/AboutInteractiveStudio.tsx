@@ -288,7 +288,7 @@ export default function AboutInteractiveStudio() {
                 </Link>{" "}
                 y las dunas del{" "}
                 <Link
-                  href="/projects/ecos-del-sahara"
+                  href="/projects/silencio-del-desierto"
                   className="underline decoration-[#8E8A80]/60 underline-offset-4 transition hover:text-white"
                 >
                   Sahara

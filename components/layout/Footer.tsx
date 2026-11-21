@@ -21,6 +21,7 @@ const projectLinks = [
   { href: "/projects/medina-y-kasbah", label: "Medina, Atlas y Kasbah" },
   { href: "/projects/custodios", label: "Custodios: Memoria y Oficios" },
   { href: "/projects/la-gomera", label: "Entre la Bruma y el Volcán" },
+  { href: "/projects/biodiversidad-canaria", label: "Macaronesia: Fauna y Costa Volcánica" },
   { href: "/projects/trazadas-rally", label: "Trazadas: Rally Histórico" },
   { href: "/projects/silencio-del-desierto", label: "El Silencio del Desierto" },
   { href: "/projects/miradas-en-libertad", label: "Miradas en Libertad: Fauna" },

@@ -120,5 +120,31 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
     const xml = await sitemapRes.text();
     expect(xml).toContain("/servicios/fotografo-rally-motorsport");
     expect(xml).toContain("/servicios/copias-fine-art-coleccionismo");
+    expect(xml).toContain("/dossier");
+
+    const imageSitemapRes = await request.get("/image-sitemap.xml");
+    expect(imageSitemapRes.status()).toBe(200);
+    const imageXml = await imageSitemapRes.text();
+    expect(imageXml).toContain("http://www.google.com/schemas/sitemap-image/1.1");
+    expect(imageXml).toContain("/images/portfolio/fauna-naturaleza/mirada-del-lince-boreal.jpg");
+  });
+
+  test("Identidad de autor, índice curatorial de 100 obras y verificación de Google Search Console están presentes en SSR", async ({
+    request,
+  }) => {
+    const homeRes = await request.get("/");
+    expect(homeRes.status()).toBe(200);
+    const homeHtml = await homeRes.text();
+    expect(homeHtml).toContain("google-site-verification");
+    expect(homeHtml).toContain('"@type":["Person","Photographer"]');
+    expect(homeHtml).toContain('"@type":["WebSite","ArtGallery"]');
+
+    const portfolioRes = await request.get("/portfolio");
+    expect(portfolioRes.status()).toBe(200);
+    const portfolioHtml = await portfolioRes.text();
+    // Verifica que obras del final del archivo (más allá de las primeras 24) tengan enlace real en el HTML SSR
+    expect(portfolioHtml).toContain("/portfolio/cuervo-canario-ante-las-cumbres");
+    expect(portfolioHtml).toContain("/portfolio/frontal-clasico-bmw-e30");
+    expect(portfolioHtml).toContain("/portfolio/el-esfuerzo-del-portador");
   });
 });

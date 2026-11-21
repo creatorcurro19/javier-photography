@@ -51,7 +51,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
 
   verification: {
-    google: "mlxi0QGeNLmXxCnVUMclZhd9jt85PqqVvK9TFIkEDgo",
+    google:
+      process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ||
+      "mlxi0QGeNLmXxCnVUMclZhd9jt85PqqVvK9TFIkEDgo",
   },
 
   title: {
