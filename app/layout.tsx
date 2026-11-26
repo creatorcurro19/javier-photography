@@ -117,6 +117,12 @@ export const metadata: Metadata = {
     card: "summary_large_image",
   },
 
+  alternates: {
+    types: {
+      "application/rss+xml": `${SITE_URL}/feed.xml`,
+    },
+  },
+
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
