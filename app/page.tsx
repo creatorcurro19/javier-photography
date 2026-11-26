@@ -91,11 +91,11 @@ export default function Home() {
       <JsonLd data={[generateWebSiteSchema(), generatePersonSchema()]} />
       <Hero />
       <CollectionsOverview />
-      <SelectedWork photos={homePreview} totalCount={featuredPhotos.length} />
-      <AboutPreview />
 
-      {/* Secciones secundarias ocultas en la versión minimalista (sin eliminar nada) */}
+      {/* Secciones secundarias ocultas en la versión minimalista para no repetir fotos ni alargar el inicio (sin eliminar nada) */}
       <div className="hidden">
+        <SelectedWork photos={homePreview} totalCount={featuredPhotos.length} />
+        <AboutPreview />
         <TrustBadgeStrip />
 
         {/* Bloque de 3 Servicios con "desde X €" */}

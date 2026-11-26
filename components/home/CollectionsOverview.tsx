@@ -56,11 +56,19 @@ const WINGS_CONFIG: CuratedWing[] = [
   },
 ];
 
+const HERO_SLUGS = new Set([
+  "ocaso-sobre-el-erg",
+  "mirada-del-lince-boreal",
+  "cumbre-nevada-al-alba",
+  "cruzada-sobre-el-asfalto",
+  "el-oficio-y-la-chispa",
+]);
+
 export default function CollectionsOverview() {
   return (
     <section
       id="colecciones"
-      className="relative overflow-hidden bg-[#0B0C0E] py-20 sm:py-24 border-t border-white/[0.08] scroll-mt-20"
+      className="relative overflow-hidden bg-[#0B0C0E] py-12 sm:py-16 border-t border-white/[0.08] scroll-mt-20"
       aria-label="Salas de Exposición Permanente"
     >
       {/* Fondo y cenefas (ocultos en versión minimalista) */}
@@ -122,10 +130,13 @@ export default function CollectionsOverview() {
             const catPhotos = getPhotosByCategory(wing.category);
             const count = catPhotos.length;
             const customCoverPhoto = catPhotos.find((p) => p.categoryCover);
+            const nonHeroCover =
+              catPhotos.find((p) => p.featured && !p.heroOrder && !HERO_SLUGS.has(p.slug)) ??
+              catPhotos.find((p) => !p.heroOrder && !HERO_SLUGS.has(p.slug));
             const validCover = customCoverPhoto
               ? customCoverPhoto.image
-              : catPhotos.some((p) => p.image === info.coverImage)
-              ? info.coverImage
+              : nonHeroCover
+              ? nonHeroCover.image
               : catPhotos[0]?.image ?? info.coverImage;
 
             return (
