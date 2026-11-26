@@ -154,8 +154,25 @@ export default function ExhibitionGallery({
 
   return (
     <>
-      {/* Gallery Filter & View Controls */}
-      <div className="mb-10 flex flex-col gap-4 border-b border-white/[0.08] pb-5 lg:flex-row lg:items-center lg:justify-between">
+      {/* Barra minimalista: Contador + Botón Pantalla Completa (filtros avanzados ocultos sin eliminar) */}
+      <div className="mb-8 flex items-center justify-between gap-4 border-b border-white/[0.08] pb-4">
+        <p className="font-mono text-xs text-[#A39E93]">
+          <strong className="text-[#EBE7DF] font-normal">{filteredPhotos.length}</strong>{" "}
+          {filteredPhotos.length === 1 ? "foto" : "fotos"} ·{" "}
+          <span className="text-[#8E8A80]">Toca cualquier foto para verla en grande</span>
+        </p>
+
+        <button
+          type="button"
+          onClick={() => openLightbox(0)}
+          className="shrink-0 inline-flex min-h-[42px] items-center gap-2 rounded-full border border-[#C5A880]/50 bg-[#151618] px-4 py-2 font-mono text-xs uppercase tracking-wider text-[#EBE7DF] transition hover:border-[#C5A880] hover:bg-[#C5A880] hover:text-[#0B0C0E] cursor-pointer"
+        >
+          <span>⛶ Pantalla completa</span>
+        </button>
+      </div>
+
+      {/* Controles avanzados de orientación y modo de vista (ocultos en versión minimalista) */}
+      <div className="hidden mb-10 flex-col gap-4 border-b border-white/[0.08] pb-5 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap text-[11px] uppercase tracking-wider">
           <span className="shrink-0 mr-1 font-mono text-xs text-[#8E8A80]">
             {filteredPhotos.length} {filteredPhotos.length === 1 ? "foto" : "fotos"}
@@ -246,9 +263,9 @@ export default function ExhibitionGallery({
         </div>
       </div>
 
-      {/* Selector de Armonía Cromática para Interiorismo */}
+      {/* Selector de Armonía Cromática para Interiorismo (oculto en versión minimalista) */}
       {photos.length > 6 && availablePalettes.length > 2 && (
-        <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border border-white/[0.08] bg-[#151618] px-4 py-2.5">
+        <div className="hidden mb-8 flex-col sm:flex-row sm:items-center justify-between gap-3 border border-white/[0.08] bg-[#151618] px-4 py-2.5">
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1 -mx-2 px-2 sm:mx-0 sm:px-0 sm:flex-wrap">
             <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
               Armonía Cromática:

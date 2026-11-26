@@ -173,7 +173,7 @@ export default function Hero() {
     >
       {/* Escenario fotográfico: en móvil con controles integrados directamente sobre la foto; en escritorio a pantalla completa */}
       <div
-        className="relative mt-[71px] h-[48svh] min-h-[300px] w-full overflow-hidden md:mt-0 md:absolute md:inset-0 md:h-full"
+        className="relative mt-[64px] h-[62svh] min-h-[360px] w-full overflow-hidden md:mt-0 md:absolute md:inset-0 md:h-full"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
@@ -213,19 +213,19 @@ export default function Hero() {
           );
         })}
 
-        {/* Degradado sutil solo en el borde inferior en móvil, y cinematográfico en el tercio inferior en escritorio */}
+        {/* Degradado sutil solo en el borde inferior para que la fotografía se vea limpia */}
         <div
-          className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-[#0B0C0E]/25 via-transparent to-[#0B0C0E]/90 md:from-[#0B0C0E]/55 md:via-[#0B0C0E]/15 md:via-45% md:to-[#0B0C0E]"
+          className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-[#0B0C0E]/20 via-transparent to-[#0B0C0E]/85 md:from-[#0B0C0E]/40 md:via-transparent md:to-[#0B0C0E]/95"
           aria-hidden="true"
         />
-        {/* Segundo velo inferior suave en escritorio para garantizar lectura perfecta sin tapar la foto */}
+        {/* Segundo velo inferior compacto en escritorio */}
         <div
-          className="pointer-events-none hidden md:block absolute inset-x-0 bottom-0 z-10 h-[56%] bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/75 to-transparent"
+          className="pointer-events-none hidden md:block absolute inset-x-0 bottom-0 z-10 h-[38%] bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/65 to-transparent"
           aria-hidden="true"
         />
 
-        {/* Etiqueta discreta de sala en esquina superior (sin tapar el sujeto) */}
-        <div className="absolute top-3.5 left-3.5 z-20 md:top-24 md:left-1/2 md:-translate-x-1/2">
+        {/* Etiqueta discreta de sala en esquina superior (oculta en versión minimalista) */}
+        <div className="hidden absolute top-3.5 left-3.5 z-20 md:top-24 md:left-1/2 md:-translate-x-1/2">
           <div className="inline-flex items-center gap-2 border border-[#C5A880]/30 bg-[#0B0C0E]/75 px-3 py-1 backdrop-blur-md sm:px-4 sm:py-1.5">
             <AndalusianStarMark className="h-2.5 w-2.5 text-[#C5A880] sm:h-3 sm:w-3" />
             <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.28em] sm:tracking-[0.36em] text-[#E5D3B3] whitespace-nowrap">
@@ -280,17 +280,17 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Bloque Editorial: debajo de la foto en móvil, y anclado limpiamente al tercio inferior en escritorio */}
-      <div className="relative z-20 mx-auto w-full max-w-6xl px-5 pt-6 pb-12 text-center text-[#F7F4EE] sm:px-8 md:pt-0 md:pb-14">
-        <div className="mx-auto max-w-3xl">
-          <h1 className="font-sans text-2xl sm:text-4xl md:text-6xl font-light tracking-[0.18em] sm:tracking-[0.22em] uppercase text-[#F7F4EE] leading-tight [text-shadow:0_2px_24px_rgba(0,0,0,0.9)]">
+      {/* Bloque Minimalista: Título claro y 2 botones directos (textos largos ocultos sin eliminar) */}
+      <div className="relative z-20 mx-auto w-full max-w-5xl px-5 pt-6 pb-10 text-center text-[#F7F4EE] sm:px-8 md:pt-0 md:pb-12">
+        <div className="mx-auto max-w-2xl">
+          <h1 className="font-sans text-2xl sm:text-4xl md:text-5xl font-light tracking-[0.18em] sm:tracking-[0.22em] uppercase text-[#F7F4EE] leading-tight [text-shadow:0_2px_24px_rgba(0,0,0,0.9)]">
             Javier Espinosa
-            <span className="block mt-1.5 font-mono text-[10px] sm:text-xs md:text-sm font-normal tracking-[0.32em] text-[#C5A880] uppercase">
-              {t("Fotografía de Autor en Tenerife", "Fine Art Photography in Tenerife")}
+            <span className="block mt-1.5 font-mono text-[11px] sm:text-xs font-normal tracking-[0.26em] text-[#C5A880] uppercase">
+              {t("Fotografía en Tenerife · Naturaleza, paisaje y motor", "Photography in Tenerife · Wildlife, landscape & motorsport")}
             </span>
           </h1>
 
-          <div className="mt-3 flex items-center justify-center gap-2.5 sm:gap-3">
+          <div className="hidden mt-3 items-center justify-center gap-2.5 sm:gap-3">
             <span className="h-px w-6 bg-[#C5A880]/55 sm:w-12" />
             <AndalusianStarMark className="h-3 w-3 text-[#C5A880] sm:h-3.5 sm:w-3.5" />
             <h2 className="font-serif italic text-base sm:text-xl md:text-2xl font-normal tracking-wide text-[#E5D3B3] [text-shadow:0_2px_12px_rgba(0,0,0,0.85)]">
@@ -300,16 +300,16 @@ export default function Hero() {
             <span className="h-px w-6 bg-[#C5A880]/55 sm:w-12" />
           </div>
 
-          {/* Propuesta de Valor Concreta */}
-          <p className="mx-auto mt-3.5 max-w-2xl text-xs sm:text-sm font-light tracking-wide text-[#EBE7DF]/90 leading-relaxed">
+          {/* Propuesta de Valor Larga (oculta en versión minimalista) */}
+          <p className="hidden mx-auto mt-3.5 max-w-2xl text-xs sm:text-sm font-light tracking-wide text-[#EBE7DF]/90 leading-relaxed">
             {t(
               "Fotografía de naturaleza, paisaje, arquitectura, motor y vida cotidiana desde Tenerife. Me interesan los lugares con carácter, la huella del tiempo y los detalles que suelen pasar desapercibidos. Todas las imágenes están tomadas con luz natural y están disponibles como copia en papel de algodón Hahnemühle o para encargos y proyectos.",
               "Nature, landscape, architecture, motorsport, and documentary photography based in Tenerife. I am drawn to places with character, the trace of time, and the details that often go unnoticed. Every image is shot in natural light and available as a Hahnemühle cotton print or for editorial and commercial projects."
             )}
           </p>
 
-          {/* Bio Breve de 2 Líneas con Enlace a /about */}
-          <p className="mx-auto mt-2 max-w-xl text-[11px] sm:text-xs font-light text-[#8E8A80] leading-relaxed">
+          {/* Bio Breve (oculta en versión minimalista) */}
+          <p className="hidden mx-auto mt-2 max-w-xl text-[11px] sm:text-xs font-light text-[#8E8A80] leading-relaxed">
             {t(
               "Distintos temas —del silencio del bosque al ruido de un tramo o la sombra de una calle antigua—, unidos por una misma forma de mirar.",
               "Different subjects—from the quiet of the forest to a mountain rally stage or a shaded street—connected by the same way of looking."
@@ -322,19 +322,25 @@ export default function Hero() {
             </Link>
           </p>
 
-          {/* CTA Primario Único en Hero + Enlaces secundarios de exploración */}
-          <div className="mt-6 flex flex-col items-center justify-center gap-3 md:mt-7">
+          {/* 2 Botones Grandes y Claros: Ver Fotos / Comprar Láminas */}
+          <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Link
+              href="/portfolio"
+              className="w-full sm:w-auto group inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg border border-[#C5A880] bg-[#C5A880] px-8 py-3.5 text-xs uppercase tracking-[0.2em] text-[#0B0C0E] font-semibold transition-all duration-300 hover:bg-white hover:border-white shadow-lg"
+            >
+              <span>{t("Ver todas las fotos", "View all photos")}</span>
+              <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+            </Link>
             <Link
               href="/prints"
-              className="group inline-flex min-h-[44px] items-center justify-center gap-2 border border-[#C5A880] bg-[#C5A880] px-8 py-3.5 text-[11px] uppercase tracking-[0.24em] text-[#0B0C0E] font-semibold transition-all duration-300 hover:bg-white hover:border-white shadow-lg"
+              className="w-full sm:w-auto inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg border border-white/25 bg-[#0B0C0E]/80 px-7 py-3.5 text-xs uppercase tracking-[0.2em] text-[#F7F4EE] font-medium backdrop-blur-md transition-all duration-300 hover:border-white hover:bg-white/10"
             >
-              <span>{t("Encargar una copia Fine Art", "Order a Fine Art Print")}</span>
-              <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+              <span>{t("Comprar láminas", "Buy prints")}</span>
             </Link>
           </div>
 
-          {/* Enlaces secundarios limpios */}
-          <div className="mt-3 flex flex-wrap items-center justify-center gap-3 text-[10px] font-mono uppercase tracking-[0.22em] text-[#A39E93]">
+          {/* Enlaces secundarios múltiples (ocultos en versión minimalista) */}
+          <div className="hidden mt-3 flex-wrap items-center justify-center gap-3 text-[10px] font-mono uppercase tracking-[0.22em] text-[#A39E93]">
             <Link
               href="/portfolio"
               className="inline-flex min-h-[44px] items-center px-2 transition-colors hover:text-[#EBE7DF] hover:underline underline-offset-4"
@@ -358,8 +364,8 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Barra de obra activa y selector de salas (visible en escritorio) */}
-        <div className="hidden md:flex mt-8 items-center justify-between gap-4 border-t border-[#C5A880]/20 pt-5 md:mt-10">
+        {/* Barra de obra activa y selector de portada en escritorio */}
+        <div className="hidden md:flex mt-6 items-center justify-between gap-4 border-t border-white/15 pt-4">
           <div className="text-center sm:text-left">
             <p className="font-serif text-sm sm:text-base font-light text-[#F7F4EE] tracking-wide">
               {currentSlide.title}
@@ -411,8 +417,8 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Cenefa andalusí marcando la entrada a las salas */}
-      <div className="pointer-events-none relative z-20 md:absolute md:inset-x-0 md:bottom-0">
+      {/* Cenefa andalusí (oculta en versión minimalista) */}
+      <div className="hidden pointer-events-none relative z-20 md:absolute md:inset-x-0 md:bottom-0">
         <AndalusianCenefa variant="estrella" className="text-[#C5A880]/45" />
       </div>
     </section>

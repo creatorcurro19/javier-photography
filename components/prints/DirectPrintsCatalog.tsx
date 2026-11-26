@@ -42,7 +42,7 @@ export default function DirectPrintsCatalog({
   }, [allPhotos, featuredPrints, scope, activeCategory, searchQuery]);
 
   return (
-    <div id="catalogo-fine-art" className="mt-14 scroll-mt-24">
+    <div id="catalogo-fine-art" className="mt-8 scroll-mt-24">
       {/* Banner de Pago Confirmado si vuelve de Stripe */}
       {paymentStatus === "confirmado" && (
         <div className="mb-10 border border-[#C5A880] bg-[#151618] p-6 sm:p-8 shadow-2xl">
@@ -69,8 +69,8 @@ export default function DirectPrintsCatalog({
         </div>
       )}
 
-      {/* Cabecera y Controles de Selección Directa */}
-      <div className="flex flex-col justify-between gap-4 border-b border-white/[0.08] pb-6 lg:flex-row lg:items-end">
+      {/* Cabecera y Controles de Selección Directa (ocultos en versión minimalista) */}
+      <div className="hidden flex-col justify-between gap-4 border-b border-white/[0.08] pb-6 lg:flex-row lg:items-end">
         <div>
           <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#C5A880]">
             Adquisición Online Directa · Sin Intermediarios ni Comisiones de Galería Externa

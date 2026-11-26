@@ -42,51 +42,53 @@ export default function PortfolioPage() {
   ]);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
+    <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-28 pb-24 text-[#EBE7DF]">
       <JsonLd data={breadcrumb} />
-      {/* Filigrana andalusí y cenefas laterales discretas en el fondo */}
-      <AndalusianCollectionBackdrop variant="laceria" />
+      {/* Filigrana andalusí (oculta en versión minimalista) */}
+      <div className="hidden">
+        <AndalusianCollectionBackdrop variant="laceria" />
+      </div>
 
       <Container className="relative z-10">
-        <header className="max-w-3xl">
-          <div className="flex items-center gap-3">
-            <span className="h-px w-6 bg-white/30" />
-            <p className="font-mono text-xs uppercase tracking-[0.4em] text-[#8E8A80]">
-              The Art of Seeing · Archivo Permanente / Permanent Archive
-            </p>
-          </div>
-          <h1 className="mt-4 font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-tight leading-[1.12] text-[#EBE7DF]">
-            Archivo Fotográfico
+        <header className="max-w-2xl">
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#C5A880]">
+            Galería Fotográfica · {photos.length} fotos
+          </p>
+          <h1 className="mt-2 font-serif text-3xl sm:text-5xl font-light tracking-tight text-[#EBE7DF]">
+            Todas las Fotos
           </h1>
-          <p className="mt-6 text-base sm:text-lg leading-relaxed text-[#8E8A80] font-light">
-            {photos.length} fotografías organizadas en cinco ámbitos: fauna en libertad, paisajes, coches y rally, arquitectura y fotografía documental. Son temas muy distintos entre sí —del silencio de un monte al ruido de un parque de asistencia—, pero todos parten de la misma idea: mirar sin prisa y trabajar con la luz que hay.
+          <p className="mt-3 text-sm sm:text-base leading-relaxed text-[#A39E93] font-light">
+            Elige un tema arriba para filtrar o toca cualquier foto para abrirla a pantalla completa.
           </p>
         </header>
 
-        <AndalusianCenefa
-          variant="estrella"
-          className="mt-10 text-[#C5A880]/32"
-        />
+        <div className="hidden">
+          <AndalusianCenefa
+            variant="estrella"
+            className="mt-10 text-[#C5A880]/32"
+          />
+        </div>
 
-        <div className="mt-8">
+        <div className="mt-6">
           <CategoryNav />
         </div>
 
-        <div className="mt-16">
+        <div className="mt-8">
           <ExhibitionGallery photos={photos} />
         </div>
 
-        <AndalusianCenefa
-          variant="sebka"
-          className="mt-20 text-[#C5A880]/28"
-        />
+        <div className="hidden">
+          <AndalusianCenefa
+            variant="sebka"
+            className="mt-20 text-[#C5A880]/28"
+          />
+          <ExpeditionMap />
+        </div>
 
-        <ExpeditionMap />
-
-        {/* Índice Curatorial Completo de las 100 Obras (garantiza rastreabilidad SSR total a 1 clic) */}
+        {/* Índice Curatorial Completo de las 100 Obras (oculto visualmente con sr-only para conservar SEO SSR al 100%) */}
         <section
           aria-label="Índice completo del archivo catalogado"
-          className="mt-20 border border-white/[0.08] bg-[#151618]/90 p-6 sm:p-10"
+          className="sr-only"
         >
           <details className="group">
             <summary className="flex cursor-pointer list-none flex-col justify-between gap-3 sm:flex-row sm:items-center">

@@ -41,30 +41,30 @@ export default function SelectedWork({ photos, totalCount }: SelectedWorkProps) 
       className="relative overflow-hidden bg-[#0B0C0E] py-20 sm:py-24 scroll-mt-20"
       aria-label={t("Obras Seleccionadas — Exposición Permanente", "Selected Works — Permanent Exhibition")}
     >
-      <AndalusianPageBackdrop variant="sebka" />
+      <div className="hidden">
+        <AndalusianPageBackdrop variant="sebka" />
+        <AndalusianStarMark className="h-3.5 w-3.5" />
+        <span>{totalCount}</span>
+      </div>
 
       <Container className="relative z-10">
-        {/* Curatorial Header */}
-        <div className="flex flex-col justify-between gap-4 pb-8 border-b border-[#C5A880]/20 md:flex-row md:items-end">
+        {/* Cabecera Simple */}
+        <div className="flex flex-col justify-between gap-4 pb-6 border-b border-white/[0.08] md:flex-row md:items-end">
           <div className="max-w-xl">
-            <div className="flex items-center gap-2.5">
-              <AndalusianStarMark className="h-3.5 w-3.5 text-[#C5A880]/75" />
-              <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-[#C5A880]/85">
-                {t("Exposición Permanente", "Permanent Exhibition")}
-              </p>
-            </div>
-            <h2 className="mt-2.5 font-serif text-3xl sm:text-4xl font-light text-[#EBE7DF] tracking-tight">
-              {t("Obras Seleccionadas", "Selected Works")}
+            <p className="font-mono text-xs uppercase tracking-[0.28em] text-[#C5A880]">
+              {t("Selección destacada", "Featured selection")}
+            </p>
+            <h2 className="mt-2 font-serif text-3xl sm:text-4xl font-light text-[#EBE7DF] tracking-tight">
+              {t("Fotos Destacadas", "Featured Photos")}
             </h2>
           </div>
 
           <Link
-            href="/selected-work"
-            className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.26em] text-[#8E8A80] transition-colors hover:text-[#EBE7DF]"
+            href="/portfolio"
+            className="group inline-flex min-h-[44px] items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-[#EBE7DF] transition-colors hover:text-[#C5A880]"
           >
             <span>
-              {t("Ver selección completa", "View full selection")}
-              {totalCount ? ` (${totalCount})` : ""}
+              {t("Ver todas las fotos", "View all photos")}
             </span>
             <span className="transition-transform duration-300 group-hover:translate-x-1">
               →

@@ -48,57 +48,63 @@ const CONTACT_INFO = [
 
 export default function ContactPage() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
-      <AndalusianPageBackdrop variant="laceria" />
+    <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-28 pb-24 text-[#EBE7DF]">
+      <div className="hidden">
+        <AndalusianPageBackdrop variant="laceria" />
+      </div>
 
       <Container className="relative z-10">
         {/* Header */}
-        <div className="max-w-3xl">
-          <div className="flex items-center gap-2.5">
+        <div className="max-w-2xl">
+          <div className="hidden items-center gap-2.5">
             <AndalusianStarMark className="h-3.5 w-3.5 text-[#C5A880]/75" />
             <p className="font-mono text-xs uppercase tracking-[0.4em] text-[#C5A880]/85">
               The Art of Seeing · Contacto Directo
             </p>
           </div>
-          <h1 className="mt-4 font-serif text-4xl font-light tracking-wide text-[#EBE7DF] sm:text-5xl lg:text-6xl">
+          <p className="font-mono text-xs uppercase tracking-[0.28em] text-[#C5A880]">
+            Respuesta en 24–48 h
+          </p>
+          <h1 className="mt-2 font-serif text-3xl font-light tracking-wide text-[#EBE7DF] sm:text-5xl">
             Contacto
           </h1>
-          <p className="mt-6 text-base sm:text-lg leading-relaxed text-[#8E8A80] font-light">
-            Si quieres encargar una copia en un tamaño concreto, consultar una licencia para una publicación o proponer un reportaje de motor, arquitectura o territorio, escríbeme con los detalles y te responderé personalmente.
+          <p className="mt-3 text-sm sm:text-base leading-relaxed text-[#A39E93] font-light">
+            Escríbeme para encargar una lámina, pedir presupuesto para una sesión o hacer cualquier consulta.
           </p>
         </div>
 
-        <AndalusianCenefa
-          variant="estrella"
-          className="mt-10 text-[#C5A880]/38"
-        />
+        <div className="hidden">
+          <AndalusianCenefa
+            variant="estrella"
+            className="mt-10 text-[#C5A880]/38"
+          />
+        </div>
 
         {/* Content Layout */}
-        <div className="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-12">
+        <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-12">
           {/* Main Form (8 cols) */}
-          <div className="relative border border-[#C5A880]/25 bg-[#151618]/95 p-8 sm:p-12 lg:col-span-8">
-            <AndalusianCornerOrnaments className="text-[#C5A880]/50" />
-            <h2 className="font-mono text-xs uppercase tracking-[0.3em] text-[#8E8A80]">
-              Formulario de Consulta
+          <div className="relative border border-white/[0.1] bg-[#151618] p-6 sm:p-10 lg:col-span-8">
+            <div className="hidden">
+              <AndalusianCornerOrnaments className="text-[#C5A880]/50" />
+            </div>
+            <h2 className="font-serif text-xl sm:text-2xl font-light text-[#EBE7DF]">
+              Envíame un mensaje
             </h2>
-            <p className="mt-1 font-serif text-2xl font-light text-[#EBE7DF]">
-              Especifique los detalles de su proyecto
-            </p>
 
-            <div className="mt-8">
+            <div className="mt-6">
               <ContactForm />
             </div>
           </div>
 
           {/* Sidebar Info (4 cols) */}
-          <div className="flex flex-col gap-8 lg:col-span-4">
-            <div className="border border-white/[0.08] bg-[#151618] p-8 sm:p-10">
-              <h2 className="font-mono text-xs uppercase tracking-[0.3em] text-[#8E8A80]">
-                Información Directa
+          <div className="flex flex-col gap-6 lg:col-span-4">
+            <div className="border border-white/[0.08] bg-[#151618] p-6 sm:p-8">
+              <h2 className="font-mono text-xs uppercase tracking-[0.25em] text-[#C5A880]">
+                Contacto Directo
               </h2>
-              <div className="mt-6 space-y-6">
-                {CONTACT_INFO.map((item) => (
-                  <div key={item.label} className="border-b border-white/[0.06] pb-5">
+              <div className="mt-5 space-y-5">
+                {CONTACT_INFO.map((item, idx) => (
+                  <div key={item.label} className={idx >= 2 ? "hidden" : "border-b border-white/[0.06] pb-4"}>
                     <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
                       {item.label}
                     </p>

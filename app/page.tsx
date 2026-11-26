@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Hero from "@/components/home/Hero";
+import CollectionsOverview from "@/components/home/CollectionsOverview";
 import TrustBadgeStrip from "@/components/home/TrustBadgeStrip";
 import SelectedWork from "@/components/home/SelectedWork";
 import AboutPreview from "@/components/home/AboutPreview";
@@ -89,67 +90,72 @@ export default function Home() {
     <>
       <JsonLd data={[generateWebSiteSchema(), generatePersonSchema()]} />
       <Hero />
-      <TrustBadgeStrip />
+      <CollectionsOverview />
       <SelectedWork photos={homePreview} totalCount={featuredPhotos.length} />
-
-      {/* Bloque de 3 Servicios con "desde X €" */}
-      <section
-        id="servicios-principales"
-        aria-label="Servicios y Tarifas Base"
-        className="border-t border-white/[0.08] bg-[#0B0C0E] py-24"
-      >
-        <Container>
-          <div className="max-w-2xl">
-            <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#C5A880]">
-              Adquisición, Encargos y Licencias
-            </p>
-            <h2 className="mt-3 font-serif text-3xl sm:text-4xl font-light text-[#EBE7DF]">
-              Tres formas de trabajar con el archivo
-            </h2>
-          </div>
-
-          <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
-            {HOME_SERVICES.map((svc) => (
-              <article
-                key={svc.id}
-                className="flex flex-col justify-between border border-white/[0.08] bg-[#151618] p-7 sm:p-8 transition hover:border-[#C5A880]/50"
-              >
-                <div>
-                  <div className="flex items-start sm:items-center justify-between gap-3">
-                    <span className="min-w-0 font-mono text-[10px] uppercase tracking-[0.22em] sm:tracking-[0.25em] leading-snug text-[#A39E93]">
-                      {svc.kicker}
-                    </span>
-                    <span className="shrink-0 whitespace-nowrap border border-[#C5A880]/35 bg-[#0B0C0E] px-2.5 py-1 font-mono text-[11px] font-semibold text-[#C5A880]">
-                      {svc.priceFrom}
-                    </span>
-                  </div>
-                  <h3 className="mt-4 font-serif text-2xl font-light text-[#EBE7DF]">
-                    {svc.title}
-                  </h3>
-                  <p className="mt-3 text-xs sm:text-sm font-light leading-relaxed text-[#A39E93]">
-                    {svc.description}
-                  </p>
-                </div>
-
-                <div className="mt-8 pt-4 border-t border-white/[0.06]">
-                  <Link
-                    href={svc.href}
-                    className="inline-flex min-h-[44px] items-center gap-2 font-mono text-xs uppercase tracking-[0.22em] text-[#EBE7DF] hover:text-[#C5A880] transition"
-                  >
-                    <span>{svc.ctaLabel}</span>
-                    <span>→</span>
-                  </Link>
-                </div>
-              </article>
-            ))}
-          </div>
-        </Container>
-      </section>
-
       <AboutPreview />
-      <SocialProofSection />
-      <PrintAlertsForm />
-      <HomeQuickContact />
+
+      {/* Secciones secundarias ocultas en la versión minimalista (sin eliminar nada) */}
+      <div className="hidden">
+        <TrustBadgeStrip />
+
+        {/* Bloque de 3 Servicios con "desde X €" */}
+        <section
+          id="servicios-principales"
+          aria-label="Servicios y Tarifas Base"
+          className="border-t border-white/[0.08] bg-[#0B0C0E] py-24"
+        >
+          <Container>
+            <div className="max-w-2xl">
+              <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#C5A880]">
+                Adquisición, Encargos y Licencias
+              </p>
+              <h2 className="mt-3 font-serif text-3xl sm:text-4xl font-light text-[#EBE7DF]">
+                Tres formas de trabajar con el archivo
+              </h2>
+            </div>
+
+            <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
+              {HOME_SERVICES.map((svc) => (
+                <article
+                  key={svc.id}
+                  className="flex flex-col justify-between border border-white/[0.08] bg-[#151618] p-7 sm:p-8 transition hover:border-[#C5A880]/50"
+                >
+                  <div>
+                    <div className="flex items-start sm:items-center justify-between gap-3">
+                      <span className="min-w-0 font-mono text-[10px] uppercase tracking-[0.22em] sm:tracking-[0.25em] leading-snug text-[#A39E93]">
+                        {svc.kicker}
+                      </span>
+                      <span className="shrink-0 whitespace-nowrap border border-[#C5A880]/35 bg-[#0B0C0E] px-2.5 py-1 font-mono text-[11px] font-semibold text-[#C5A880]">
+                        {svc.priceFrom}
+                      </span>
+                    </div>
+                    <h3 className="mt-4 font-serif text-2xl font-light text-[#EBE7DF]">
+                      {svc.title}
+                    </h3>
+                    <p className="mt-3 text-xs sm:text-sm font-light leading-relaxed text-[#A39E93]">
+                      {svc.description}
+                    </p>
+                  </div>
+
+                  <div className="mt-8 pt-4 border-t border-white/[0.06]">
+                    <Link
+                      href={svc.href}
+                      className="inline-flex min-h-[44px] items-center gap-2 font-mono text-xs uppercase tracking-[0.22em] text-[#EBE7DF] hover:text-[#C5A880] transition"
+                    >
+                      <span>{svc.ctaLabel}</span>
+                      <span>→</span>
+                    </Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </Container>
+        </section>
+
+        <SocialProofSection />
+        <PrintAlertsForm />
+        <HomeQuickContact />
+      </div>
     </>
   );
 }

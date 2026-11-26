@@ -41,23 +41,63 @@ export default function Footer() {
   const { lang, t } = useLanguage();
 
   return (
-    <footer className="relative overflow-hidden border-t border-[#C5A880]/20 bg-[#0B0C0E] text-[#8E8A80] print:hidden">
-      {/* Filigrana geométrica andalusí de fondo */}
-      <AndalusianBackgroundPattern
-        variant="laceria"
-        mask="radial"
-        className="text-[#C5A880]/[0.075]"
-      />
+    <footer className="relative overflow-hidden border-t border-white/[0.08] bg-[#0B0C0E] text-[#8E8A80] print:hidden">
+      {/* Filigrana geométrica andalusí de fondo (oculta en versión minimalista) */}
+      <div className="hidden">
+        <AndalusianBackgroundPattern
+          variant="laceria"
+          mask="radial"
+          className="text-[#C5A880]/[0.075]"
+        />
+        <AndalusianCenefa
+          variant="estrella"
+          fadeEdges={false}
+          className="relative z-10 text-[#C5A880]/38"
+        />
+      </div>
 
-      {/* Cenefa coronando el pie de página */}
-      <AndalusianCenefa
-        variant="estrella"
-        fadeEdges={false}
-        className="relative z-10 text-[#C5A880]/38"
-      />
+      <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24 py-12 lg:py-16">
+        {/* Vista minimalista principal */}
+        <div className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-center">
+          <Link
+            href="/"
+            className="group inline-flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+          >
+            <Image
+              src="/icon.svg"
+              alt="Monograma JE"
+              width={36}
+              height={36}
+              className="h-9 w-9 rounded-lg ring-1 ring-[#C5A880]/35"
+            />
+            <div className="flex flex-col">
+              <span className="font-sans font-medium text-sm tracking-[0.24em] text-[#EBE7DF]">
+                JAVIER ESPINOSA
+              </span>
+              <span className="text-[10px] tracking-[0.2em] text-[#C5A880] uppercase">
+                Tenerife · Fotografía
+              </span>
+            </div>
+          </Link>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24 py-16 lg:py-24">
-        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-5">
+          <nav aria-label="Enlaces del pie" className="flex flex-wrap items-center gap-6 text-xs uppercase tracking-[0.2em] text-[#EBE7DF]">
+            <Link href="/portfolio" className="hover:text-[#C5A880] transition">Fotos</Link>
+            <Link href="/prints" className="hover:text-[#C5A880] transition">Comprar Láminas</Link>
+            <Link href="/about" className="hover:text-[#C5A880] transition">Sobre mí</Link>
+            <Link href="/contact" className="hover:text-[#C5A880] transition">Contacto</Link>
+            <a
+              href="https://www.instagram.com/Javier.espinosa19/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#C5A880] hover:text-white transition"
+            >
+              Instagram ↗
+            </a>
+          </nav>
+        </div>
+
+        {/* Columnas extendidas (ocultas en versión minimalista, sin eliminar nada) */}
+        <div className="hidden grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-5">
           {/* Columna de Autor & Marca */}
           <div className="lg:col-span-2">
             <Link

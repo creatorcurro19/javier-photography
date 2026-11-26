@@ -99,13 +99,13 @@ export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
             </div>
           )}
 
-          <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 inline-flex min-h-[44px] items-center rounded-full border border-white/[0.15] bg-[#0B0C0E]/85 px-4 py-2 text-xs font-mono tracking-wider text-[#EBE7DF] backdrop-blur-md transition group-hover:border-white/40 group-hover:text-white">
-            Ver a pantalla completa
+          <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 inline-flex min-h-[44px] items-center gap-2 rounded-full border border-[#C5A880]/40 bg-[#0B0C0E]/90 px-4 py-2 text-xs font-mono tracking-wider text-[#EBE7DF] backdrop-blur-md transition group-hover:border-[#C5A880] group-hover:text-white shadow-lg">
+            <span>⛶ Ver a pantalla completa</span>
           </div>
         </div>
 
-        {/* Selector interactivo de visualización y enmarcado */}
-        <div className="mx-auto mt-6 flex items-center justify-start sm:justify-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1 px-4 text-[11px] font-mono uppercase tracking-[0.2em] sm:flex-wrap">
+        {/* Selector interactivo de visualización y enmarcado (oculto en versión minimalista) */}
+        <div className="hidden mx-auto mt-6 items-center justify-start sm:justify-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1 px-4 text-[11px] font-mono uppercase tracking-[0.2em] sm:flex-wrap">
           <span className="shrink-0 mr-1 text-[#A39E93]">Simulador:</span>
           <button
             type="button"

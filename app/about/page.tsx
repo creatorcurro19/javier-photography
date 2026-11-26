@@ -32,10 +32,13 @@ export default function AboutPage() {
           { name: "Sobre el Autor", path: "/about" },
         ])}
       />
-      <AndalusianPageBackdrop variant="sebka" />
+      <div className="hidden">
+        <AndalusianPageBackdrop variant="sebka" />
+      </div>
       <Container className="relative z-10">
         <AboutInteractiveStudio />
 
+        <div className="hidden">
         <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border border-[#C5A880]/25 bg-[#151618]/90 px-6 py-5 sm:px-8">
           <div>
             <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#C5A880]">
@@ -102,6 +105,7 @@ export default function AboutPage() {
           variant="estrella"
           className="mt-16 text-[#C5A880]/36"
         />
+        </div>
       </Container>
     </div>
   );

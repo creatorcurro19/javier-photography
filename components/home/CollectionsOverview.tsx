@@ -63,51 +63,52 @@ export default function CollectionsOverview() {
       className="relative overflow-hidden bg-[#0B0C0E] py-20 sm:py-24 border-t border-white/[0.08] scroll-mt-20"
       aria-label="Salas de Exposición Permanente"
     >
-      {/* Fondo discreto de lacería andalusí */}
-      <AndalusianBackgroundPattern
-        variant="laceria"
-        mask="none"
-        className="text-[#C5A880]/[0.055]"
-      />
-      <AndalusianBackgroundPattern
-        variant="laceria"
-        mask="radial"
-        className="text-[#C5A880]/[0.09]"
-      />
-
-      {/* Cenefa superior */}
-      <div className="absolute inset-x-0 top-0">
-        <AndalusianCenefa variant="estrella" className="text-[#C5A880]/40" />
-      </div>
-
-      {/* Cenefas verticales laterales (alfiz) */}
-      <div className="pointer-events-none absolute inset-y-8 left-2.5 hidden lg:block">
-        <AndalusianVerticalCenefa className="text-[#C5A880]/28" />
-      </div>
-      <div className="pointer-events-none absolute inset-y-8 right-2.5 hidden lg:block">
-        <AndalusianVerticalCenefa className="text-[#C5A880]/28" />
+      {/* Fondo y cenefas (ocultos en versión minimalista) */}
+      <div className="hidden">
+        <AndalusianBackgroundPattern
+          variant="laceria"
+          mask="none"
+          className="text-[#C5A880]/[0.055]"
+        />
+        <AndalusianBackgroundPattern
+          variant="laceria"
+          mask="radial"
+          className="text-[#C5A880]/[0.09]"
+        />
+        <div className="absolute inset-x-0 top-0">
+          <AndalusianCenefa variant="estrella" className="text-[#C5A880]/40" />
+        </div>
+        <div className="pointer-events-none absolute inset-y-8 left-2.5 hidden lg:block">
+          <AndalusianVerticalCenefa className="text-[#C5A880]/28" />
+        </div>
+        <div className="pointer-events-none absolute inset-y-8 right-2.5 hidden lg:block">
+          <AndalusianVerticalCenefa className="text-[#C5A880]/28" />
+        </div>
       </div>
 
       <Container className="relative z-10">
-        {/* Curatorial Header */}
-        <div className="flex flex-col justify-between gap-4 pb-8 border-b border-[#C5A880]/20 md:flex-row md:items-end">
+        {/* Cabecera Simple y Directa */}
+        <div className="flex flex-col justify-between gap-4 pb-6 border-b border-white/[0.08] md:flex-row md:items-end">
           <div className="max-w-xl">
-            <div className="flex items-center gap-2.5">
+            <div className="hidden items-center gap-2.5">
               <AndalusianStarMark className="h-3.5 w-3.5 text-[#C5A880]/75" />
               <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-[#C5A880]/85">
                 Colección Permanente
               </p>
             </div>
-            <h2 className="mt-2.5 font-serif text-3xl sm:text-4xl font-light text-[#EBE7DF] tracking-tight">
-              Cinco Disciplinas
+            <p className="font-mono text-xs uppercase tracking-[0.28em] text-[#C5A880]">
+              Explorar por tema
+            </p>
+            <h2 className="mt-2 font-serif text-3xl sm:text-4xl font-light text-[#EBE7DF] tracking-tight">
+              Elige qué fotos quieres ver
             </h2>
           </div>
 
           <Link
             href="/portfolio"
-            className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.26em] text-[#8E8A80] transition-colors hover:text-[#EBE7DF]"
+            className="group inline-flex min-h-[44px] items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-[#EBE7DF] transition-colors hover:text-[#C5A880]"
           >
-            <span>Ver archivo completo ({getAllPhotos().length})</span>
+            <span>Ver las {getAllPhotos().length} fotos</span>
             <span className="transition-transform duration-300 group-hover:translate-x-1">
               →
             </span>
@@ -151,18 +152,18 @@ export default function CollectionsOverview() {
                   <div className="hidden sm:block absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/65 via-40% to-transparent" />
                 </div>
 
-                {/* Cartela: debajo de la foto en móvil (cero obstrucción), superpuesta abajo en sm+ */}
-                <div className="flex items-end justify-between gap-4 border-t border-[#C5A880]/15 bg-[#151618] px-5 py-4 sm:absolute sm:inset-x-0 sm:bottom-0 sm:bg-[#0B0C0E]/70 sm:px-6 sm:py-5 sm:backdrop-blur-sm">
+                {/* Cartela simple y clara */}
+                <div className="flex items-end justify-between gap-4 border-t border-white/[0.08] bg-[#151618] px-5 py-4 sm:absolute sm:inset-x-0 sm:bottom-0 sm:bg-[#0B0C0E]/75 sm:px-6 sm:py-5 sm:backdrop-blur-sm">
                   <div className="min-w-0">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.26em] text-[#E5D3B3]">
-                      {wing.roomRoman} · {count} Obras
+                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#C5A880]">
+                      {count} fotos
                     </p>
                     <h3 className="mt-1 truncate font-serif text-lg sm:text-2xl font-light text-[#F7F4EE] sm:[text-shadow:0_2px_12px_rgba(0,0,0,0.85)] transition-colors group-hover:text-white">
                       {info.title}
                     </h3>
                   </div>
-                  <span className="shrink-0 font-mono text-sm text-[#C5A880] transition-transform duration-300 group-hover:translate-x-1 group-hover:text-[#F7F4EE]">
-                    →
+                  <span className="shrink-0 font-mono text-xs uppercase tracking-wider text-[#C5A880] transition-transform duration-300 group-hover:translate-x-1 group-hover:text-[#F7F4EE]">
+                    Ver →
                   </span>
                 </div>
               </Link>
@@ -171,8 +172,8 @@ export default function CollectionsOverview() {
         </div>
       </Container>
 
-      {/* Cenefa inferior discreta */}
-      <div className="absolute inset-x-0 bottom-0">
+      {/* Cenefa inferior discreta (oculta en versión minimalista) */}
+      <div className="hidden absolute inset-x-0 bottom-0">
         <AndalusianCenefa variant="estrella" className="text-[#C5A880]/30" />
       </div>
     </section>

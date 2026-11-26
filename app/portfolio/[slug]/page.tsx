@@ -89,61 +89,58 @@ function CategoryGallery({ category }: { category: PhotoCategory }) {
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pb-28 text-[#EBE7DF]">
       <JsonLd data={[generateCategoryCollectionSchema(category, photos), breadcrumb]} />
-      {/* Filigrana andalusí y cenefas laterales discretas en el fondo de la colección */}
-      <AndalusianCollectionBackdrop variant={isSebka ? "sebka" : "laceria"} />
+      <div className="hidden">
+        <AndalusianCollectionBackdrop variant={isSebka ? "sebka" : "laceria"} />
+      </div>
 
       {/* Breadcrumb Bar */}
-      <div className="relative z-10 pt-24 border-b border-[#C5A880]/15 bg-[#0B0C0E]/80 backdrop-blur-md">
-        <Container className="py-4">
+      <div className="relative z-10 pt-20 border-b border-white/[0.08] bg-[#0B0C0E]/80 backdrop-blur-md">
+        <Container className="py-3.5">
           <nav aria-label="Miga de pan" className="flex items-center gap-2 text-xs font-mono text-[#A39E93]">
             <Link href="/" className="hover:text-[#EBE7DF] transition">Inicio</Link>
             <span className="text-white/25">/</span>
-            <Link href="/portfolio" className="hover:text-[#EBE7DF] transition">Obra</Link>
+            <Link href="/portfolio" className="hover:text-[#EBE7DF] transition">Fotos</Link>
             <span className="text-white/25">/</span>
             <span className="text-[#EBE7DF] truncate">{info.title}</span>
           </nav>
         </Container>
       </div>
 
-      <Container className="relative z-10 mt-12">
-        <header className="max-w-3xl">
-          <div className="flex items-center gap-3">
-            <span className="h-px w-6 bg-white/30" />
-            <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#C5A880]">
-              {info.code} · {info.codeEn}
-            </p>
-          </div>
-          <h1 className="mt-4 font-serif text-5xl font-light md:text-6xl text-[#EBE7DF]">
+      <Container className="relative z-10 mt-10">
+        <header className="max-w-2xl">
+          <p className="font-mono text-xs uppercase tracking-[0.28em] text-[#C5A880]">
+            {photos.length} fotos
+          </p>
+          <h1 className="mt-2 font-serif text-3xl sm:text-5xl font-light text-[#EBE7DF]">
             {info.title}
           </h1>
-          <p className="mt-2 font-mono text-xs uppercase tracking-[0.22em] text-[#8E8A80]">
-            {info.titleEn} — {info.subtitle}
-          </p>
-          <p className="mt-6 text-base sm:text-lg leading-relaxed text-[#EBE7DF]/85 font-light">
+          <p className="mt-3 text-sm sm:text-base leading-relaxed text-[#A39E93] font-light">
             {info.description}
           </p>
-          <p className="mt-3 text-sm leading-relaxed text-[#8E8A80] font-light italic font-serif">
+          <p className="hidden mt-3 text-sm leading-relaxed text-[#8E8A80] font-light italic font-serif">
             {info.descriptionEn}
           </p>
         </header>
 
-        <AndalusianCenefa
-          variant={isSebka ? "sebka" : "estrella"}
-          className="mt-10 text-[#C5A880]/32"
-        />
+        <div className="hidden">
+          <AndalusianCenefa
+            variant={isSebka ? "sebka" : "estrella"}
+            className="mt-10 text-[#C5A880]/32"
+          />
+        </div>
 
-        <div className="mt-8">
+        <div className="mt-6">
           <CategoryNav activeCategory={category} />
         </div>
 
-        <div className="mt-16">
+        <div className="mt-8">
           <ExhibitionGallery photos={photos} />
         </div>
 
-        {/* Conexión Semántica con Series Monográficas y Servicios de la Disciplina */}
+        {/* Conexión Semántica con Series Monográficas y Servicios (oculta en versión minimalista) */}
         <section
           aria-label={`Ensayos monográficos y adquisiciones de ${info.title}`}
-          className="mt-20 grid grid-cols-1 gap-6 border-t border-[#C5A880]/20 pt-14 lg:grid-cols-12"
+          className="hidden mt-20 grid-cols-1 gap-6 border-t border-[#C5A880]/20 pt-14 lg:grid-cols-12"
         >
           <div className="lg:col-span-7 border border-white/[0.08] bg-[#151618] p-7 sm:p-9">
             <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#C5A880]">
@@ -252,18 +249,20 @@ function PhotoDetail({ slug }: { slug: string }) {
 
   return (
     <article className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pb-36 lg:pb-28 text-[#EBE7DF]">
-      <AndalusianCollectionBackdrop variant={isSebka ? "sebka" : "laceria"} />
+      <div className="hidden">
+        <AndalusianCollectionBackdrop variant={isSebka ? "sebka" : "laceria"} />
+      </div>
       <JsonLd data={[generatePhotoSchema(photo), breadcrumb]} />
       <PhotoKeyboardNav prevSlug={prev?.slug} nextSlug={next?.slug} />
       <MobilePhotoActionBar photo={photo} />
       
       {/* Breadcrumb Bar */}
-      <div className="relative z-10 pt-24 border-b border-[#C5A880]/15 bg-[#0B0C0E]/80 backdrop-blur-md">
-        <Container className="py-4">
+      <div className="relative z-10 pt-20 border-b border-white/[0.08] bg-[#0B0C0E]/80 backdrop-blur-md">
+        <Container className="py-3.5">
           <nav aria-label="Miga de pan" className="flex items-center gap-2 text-xs font-mono text-[#A39E93]">
             <Link href="/" className="hover:text-[#EBE7DF] transition">Inicio</Link>
             <span className="text-white/25">/</span>
-            <Link href="/portfolio" className="hover:text-[#EBE7DF] transition">Obra</Link>
+            <Link href="/portfolio" className="hover:text-[#EBE7DF] transition">Fotos</Link>
             <span className="text-white/25">/</span>
             <Link href={`/portfolio/${photo.category}`} className="hover:text-[#EBE7DF] transition">
               {categoryInfo?.title ?? photo.category}
@@ -274,29 +273,33 @@ function PhotoDetail({ slug }: { slug: string }) {
         </Container>
       </div>
 
-      <div className="relative z-10 pt-6">
+      <div className="relative z-10 pt-4">
         <PhotoHero photo={photo} categoryPhotos={getPhotosByCategory(photo.category)} />
       </div>
 
-      <Container className="relative z-10 mt-14 space-y-16">
-        <AndalusianCenefa
-          variant={isSebka ? "sebka" : "estrella"}
-          className="text-[#C5A880]/36"
-        />
+      <Container className="relative z-10 mt-10 space-y-12">
         <PhotoMeta photo={photo} />
-        <div className="grid gap-12 border-t border-[#C5A880]/15 pt-12 lg:grid-cols-2">
-          <ExifPanel photo={photo} />
-          <EquipmentPanel photo={photo} />
-        </div>
-        <StorySection photo={photo} />
-        <AwardsList photo={photo} />
-        <LocationMap photo={photo} />
-        <div className="grid gap-12 lg:grid-cols-2">
-          <LicensingLinks photo={photo} />
+
+        <div>
           <PrintCTA photo={photo} />
         </div>
 
-        <AndalusianDivider />
+        {/* Paneles técnicos avanzados ocultos en versión minimalista (sin eliminar nada) */}
+        <div className="hidden">
+          <AndalusianCenefa
+            variant={isSebka ? "sebka" : "estrella"}
+            className="text-[#C5A880]/36"
+          />
+          <div className="grid gap-12 border-t border-[#C5A880]/15 pt-12 lg:grid-cols-2">
+            <ExifPanel photo={photo} />
+            <EquipmentPanel photo={photo} />
+          </div>
+          <StorySection photo={photo} />
+          <AwardsList photo={photo} />
+          <LocationMap photo={photo} />
+          <LicensingLinks photo={photo} />
+          <AndalusianDivider />
+        </div>
 
         {/* Adjacent Photo Navigation */}
         <nav aria-label="Navegación entre obras de la misma colección" className="pt-2">

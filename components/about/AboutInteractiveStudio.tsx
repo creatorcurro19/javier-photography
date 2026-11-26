@@ -470,8 +470,9 @@ export default function AboutInteractiveStudio() {
       </section>
 
       {/* =====================================================================
-          2. ARCHITECTURAL ARCHIVE METRICS STRIP
+          2–4. SECCIONES TÉCNICAS INTERACTIVAS (ocultas en versión minimalista sin eliminar)
       ===================================================================== */}
+      <div className="hidden">
       <section className="grid grid-cols-2 border-y border-[#202226] bg-[#0D0E0F]/80 sm:grid-cols-5">
         {[
           { value: String(WORKS.length), label: "Obras Catalogadas", sub: "Edición Verificada" },
@@ -784,6 +785,7 @@ export default function AboutInteractiveStudio() {
           </div>
         </div>
       </section>
+      </div>
 
       {/* =====================================================================
           5. OFFICIAL INTERNATIONAL PLATFORMS & ETHICAL PILLARS

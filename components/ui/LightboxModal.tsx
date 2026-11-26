@@ -25,11 +25,27 @@ export default function LightboxModal({
 }: LightboxModalProps) {
   const [showExif, setShowExif] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [showFilmstrip, setShowFilmstrip] = useState(true);
+  const [showFilmstrip, setShowFilmstrip] = useState(false);
   const [isZoomed, setIsZoomed] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const [zoomOrigin, setZoomOrigin] = useState({ x: 50, y: 50 });
   const [addCartOpen, setAddCartOpen] = useState(false);
   const touchStartX = useRef<number | null>(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
+
+  const toggleBrowserFullscreen = useCallback(async () => {
+    try {
+      if (!document.fullscreenElement) {
+        await (dialogRef.current ?? document.documentElement).requestFullscreen();
+        setIsFullscreen(true);
+      } else {
+        await document.exitFullscreen();
+        setIsFullscreen(false);
+      }
+    } catch {
+      // Algunos navegadores móviles no soportan Fullscreen API
+    }
+  }, []);
 
   const photo = photos[currentIndex];
 
@@ -120,14 +136,15 @@ export default function LightboxModal({
 
   return createPortal(
     <div
+      ref={dialogRef}
       role="dialog"
       aria-modal="true"
       aria-label={`Visor de fotografía: ${photo.title}`}
-      className="fixed inset-0 z-[110] flex flex-col bg-[#0B0C0E]/98 backdrop-blur-2xl select-none"
+      className="fixed inset-0 z-[110] flex flex-col bg-[#0B0C0E] select-none"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Top Bar: Discreet Museum Telemetry */}
+      {/* Top Bar: Minimalist & Intuitive Controls */}
       <header className="flex h-16 shrink-0 items-center justify-between border-b border-white/[0.08] px-3 sm:px-6 md:px-8 gap-2 sm:gap-4">
         <div className="flex shrink-0 items-center gap-2 sm:gap-4 text-xs font-mono">
           <span className="text-[#EBE7DF]">
@@ -139,13 +156,13 @@ export default function LightboxModal({
           </span>
         </div>
 
-        <h2 className="hidden truncate text-sm font-light tracking-wide text-[#EBE7DF] md:block min-w-0 flex-1 text-center font-serif px-2">
+        <h2 className="truncate text-sm font-light tracking-wide text-[#EBE7DF] min-w-0 flex-1 text-center font-serif px-2">
           {photo.title}
         </h2>
 
-        <div className="flex shrink-0 items-center gap-1 sm:gap-2">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           {photos.length > 1 && (
-            <>
+            <div className="hidden">
               <button
                 type="button"
                 onClick={() => setIsPlaying((prev) => !prev)}
@@ -171,32 +188,37 @@ export default function LightboxModal({
               >
                  Tira ({photos.length})
               </button>
-            </>
+            </div>
           )}
 
           {/* Optical Zoom Toggle Button */}
           <button
             type="button"
             onClick={() => setIsZoomed((prev) => !prev)}
-            className={`inline-flex min-h-[38px] items-center rounded-full px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-mono tracking-wider transition ${
+            className={`inline-flex min-h-[40px] items-center rounded-full px-3 py-1.5 text-xs font-mono tracking-wider transition cursor-pointer ${
               isZoomed
                 ? "bg-[#EBE7DF] text-[#0B0C0E] font-medium"
-                : "border border-white/[0.08] bg-[#151618] text-[#8E8A80] hover:border-white/30 hover:text-white"
+                : "border border-white/15 bg-[#151618] text-[#EBE7DF] hover:border-white/40 hover:text-white"
             }`}
-            title="Lupa óptica de detalle al 200% (Tecla Z o clic en imagen)"
+            title="Zoom 2× (o toca la foto)"
           >
-            <span className="sm:hidden">{isZoomed ? "1×" : "2×"}</span>
-            <span className="hidden sm:inline">{isZoomed ? "1× Normal" : "2× Lupa"}</span>
+            <span>{isZoomed ? "1× Normal" : "🔍 Zoom"}</span>
+          </button>
+
+          {/* Browser Native Fullscreen Toggle */}
+          <button
+            type="button"
+            onClick={toggleBrowserFullscreen}
+            className="hidden sm:inline-flex min-h-[40px] items-center rounded-full border border-white/15 bg-[#151618] px-3 py-1.5 text-xs font-mono tracking-wider text-[#EBE7DF] transition hover:border-white/40 hover:text-white cursor-pointer"
+            title="Pantalla completa total"
+          >
+            <span>{isFullscreen ? "Salir pantalla completa" : "⛶ Pantalla completa"}</span>
           </button>
 
           <button
             type="button"
             onClick={() => setShowExif(!showExif)}
-            className={`inline-flex min-h-[38px] items-center rounded-full px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-mono tracking-wider transition ${
-              showExif
-                ? "bg-[#EBE7DF] text-[#0B0C0E] font-medium"
-                : "border border-white/[0.08] bg-[#151618] text-[#8E8A80] hover:border-white/30 hover:text-white"
-            }`}
+            className="hidden min-h-[38px] items-center rounded-full px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-mono tracking-wider transition"
             title="Ficha técnica y EXIF (Tecla I)"
           >
             EXIF
@@ -206,19 +228,17 @@ export default function LightboxModal({
             <button
               type="button"
               onClick={() => setAddCartOpen(true)}
-              className="hidden sm:inline-flex min-h-[38px] shrink-0 whitespace-nowrap items-center gap-1.5 rounded-full border border-[#C5A880] bg-[#C5A880] px-3.5 py-1.5 text-xs font-mono tracking-wider text-[#0B0C0E] font-medium transition hover:bg-white hover:border-white shadow"
-              title="Adquirir copia Fine Art certificada"
+              className="inline-flex min-h-[40px] shrink-0 whitespace-nowrap items-center gap-1.5 rounded-full border border-[#C5A880] bg-[#C5A880] px-3.5 py-1.5 text-xs font-mono tracking-wider text-[#0B0C0E] font-semibold transition hover:bg-white hover:border-white shadow cursor-pointer"
+              title="Comprar lámina de esta foto"
             >
-              <span className="whitespace-nowrap">{photo.pricing ? `${photo.pricing.estudio}\u00A0€` : "+ Cesta"}</span>
-              <span className="opacity-60">·</span>
-              <span className="whitespace-nowrap">Copia Fine Art</span>
+              <span className="whitespace-nowrap">Comprar · {photo.pricing ? `${photo.pricing.estudio}\u00A0€` : ""}</span>
             </button>
           )}
 
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-[#EBE7DF] transition hover:bg-white/[0.12] hover:text-white"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-[#151618] text-[#EBE7DF] transition hover:bg-white/20 hover:text-white cursor-pointer"
             aria-label="Cerrar visor (Esc)"
           >
             <svg

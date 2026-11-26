@@ -95,17 +95,15 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Menú Principal Unificado: Obra, Series, Copias, Encargos, Cuaderno, Sobre mí, Contacto */}
+        {/* Menú Principal Minimalista: Fotos, Comprar Láminas, Sobre mí, Contacto (resto oculto) */}
         <nav
           aria-label="Navegación principal"
-          className="hidden items-center gap-4 xl:gap-6 text-[11px] xl:text-[12px] uppercase tracking-[0.18em] xl:tracking-[0.22em] lg:flex shrink-0"
+          className="hidden items-center gap-6 xl:gap-8 text-xs uppercase tracking-[0.2em] lg:flex shrink-0"
         >
-          {/* 1. Obra */}
+          {/* 1. Fotos (antes Obra con submenú; submenú oculto) */}
           <div
             ref={obraMenuRef}
             className="relative flex items-center"
-            onMouseEnter={() => setObraMenuOpen(true)}
-            onMouseLeave={() => setObraMenuOpen(false)}
           >
             <Link
               href="/portfolio"
@@ -116,7 +114,7 @@ export default function Navbar() {
                   : "text-[#EBE7DF]/85 hover:text-white"
               }`}
             >
-              <span>{t("Obra", "Works")}</span>
+              <span>{t("Fotos", "Photos")}</span>
               {(pathname === "/portfolio" || pathname.startsWith("/portfolio/") || pathname === "/selected-work") && (
                 <span className="absolute bottom-1 left-0 right-0 h-px bg-[#C5A880]" />
               )}
@@ -126,7 +124,7 @@ export default function Navbar() {
               aria-expanded={obraMenuOpen}
               aria-label={t("Abrir submenú de Obra", "Toggle Works submenu")}
               onClick={() => setObraMenuOpen((v) => !v)}
-              className="inline-flex min-h-[44px] min-w-[28px] items-center justify-center px-1 text-[#C5A880] hover:text-white"
+              className="hidden min-h-[44px] min-w-[28px] items-center justify-center px-1 text-[#C5A880] hover:text-white"
             >
               <svg
                 className={`h-3.5 w-3.5 transition-transform duration-200 ${
@@ -145,9 +143,9 @@ export default function Navbar() {
               </svg>
             </button>
 
-            {/* Submenú desplegable de Obra */}
+            {/* Submenú desplegable de Obra (oculto en versión minimalista) */}
             {obraMenuOpen && (
-              <div className="absolute left-0 top-full pt-2.5 z-50">
+              <div className="hidden absolute left-0 top-full pt-2.5 z-50">
                 <div className="w-64 rounded-xl border border-[#C5A880]/25 bg-[#0E1012]/96 p-2 shadow-2xl backdrop-blur-2xl ring-1 ring-black/50">
                   <div className="px-3 py-1.5 border-b border-white/[0.06] flex items-center gap-2">
                     <AndalusianStarMark className="h-2.5 w-2.5 text-[#C5A880]" />
@@ -188,10 +186,10 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* 2. Series */}
+          {/* 2. Series (oculto en versión minimalista) */}
           <Link
             href="/projects"
-            className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
+            className={`hidden relative min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
               pathname === "/projects" || pathname.startsWith("/projects/")
                 ? "text-[#EBE7DF] font-medium"
                 : "text-[#EBE7DF]/85 hover:text-white"
@@ -203,7 +201,7 @@ export default function Navbar() {
             )}
           </Link>
 
-          {/* 3. Copias */}
+          {/* 3. Comprar Láminas */}
           <Link
             href="/prints"
             className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
@@ -212,16 +210,16 @@ export default function Navbar() {
                 : "text-[#EBE7DF]/85 hover:text-white"
             }`}
           >
-            {t("Copias", "Prints")}
+            {t("Comprar Láminas", "Buy Prints")}
             {pathname === "/prints" && (
               <span className="absolute bottom-1 left-0 right-0 h-px bg-[#C5A880]" />
             )}
           </Link>
 
-          {/* 4. Encargos */}
+          {/* 4. Encargos (oculto en versión minimalista) */}
           <Link
             href="/servicios"
-            className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
+            className={`hidden relative min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
               pathname === "/servicios" || pathname.startsWith("/servicios/")
                 ? "text-[#EBE7DF] font-medium"
                 : "text-[#EBE7DF]/85 hover:text-white"
@@ -233,11 +231,11 @@ export default function Navbar() {
             )}
           </Link>
 
-          {/* 5. Cuaderno (condicionado a SITE_SETTINGS.showCuaderno) */}
+          {/* 5. Cuaderno (oculto en versión minimalista) */}
           {SITE_SETTINGS.showCuaderno && (
             <Link
               href="/cuaderno"
-              className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
+              className={`hidden relative min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
                 pathname === "/cuaderno" || pathname.startsWith("/cuaderno/")
                   ? "text-[#EBE7DF] font-medium"
                   : "text-[#EBE7DF]/85 hover:text-white"
@@ -281,24 +279,27 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        {/* Acciones del encabezado: Idioma, B/N, Búsqueda, Cesta y Menú Móvil */}
-        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2.5">
-          <div className="hidden md:block">
+        {/* Acciones del encabezado: solo Cesta y Menú Móvil visibles (Idioma, B/N y Búsqueda ocultos) */}
+        <div className="flex shrink-0 items-center gap-2">
+          <div className="hidden">
             <LanguageToggle />
           </div>
-          <div className="hidden sm:block">
+          <div className="hidden">
             <BwToggle />
           </div>
-          <SearchModal />
+          <div className="hidden">
+            <SearchModal />
+          </div>
           <CartButton />
           <MobileNav />
         </div>
       </div>
 
-      {/* Micro-cenefa arquitectónica andalusí bajo la cabecera */}
-      <div className="relative">
+      {/* Micro-cenefa arquitectónica andalusí bajo la cabecera (oculta en versión minimalista) */}
+      <div className="hidden relative">
         <AndalusianMicroCenefa className="text-[#C5A880]/30" />
       </div>
+      <div className="border-b border-white/[0.08]" />
     </header>
   );
 }

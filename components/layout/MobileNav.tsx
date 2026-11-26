@@ -10,14 +10,16 @@ import { WORKS, SERIES } from "@/data/works";
 import { SITE_SETTINGS } from "@/data/site-config";
 import { PHOTO_CATEGORIES } from "@/types/photo";
 
+const MINIMAL_HREFS = new Set(["/portfolio", "/prints", "/about", "/contact"]);
+
 // Enlaces principales unificados con Header y Footer
 const primaryLinks = [
   {
     href: "/portfolio",
-    es: "Obra",
-    en: "Works",
-    noteEs: `${WORKS.length} fotografías en ${PHOTO_CATEGORIES.length} ámbitos`,
-    noteEn: `${WORKS.length} photographs across ${PHOTO_CATEGORIES.length} fields`,
+    es: "Fotos",
+    en: "Photos",
+    noteEs: `${WORKS.length} fotos (${PHOTO_CATEGORIES.length} temas)`,
+    noteEn: `${WORKS.length} photos (${PHOTO_CATEGORIES.length} topics)`,
   },
   {
     href: "/projects",
@@ -28,9 +30,9 @@ const primaryLinks = [
   },
   {
     href: "/prints",
-    es: "Copias",
-    en: "Prints",
-    noteEs: "Ediciones en papel de algodón",
+    es: "Comprar Láminas",
+    en: "Buy Prints",
+    noteEs: "Copias en papel de algodón",
     noteEn: "Hahnemühle cotton paper editions",
   },
   {
@@ -132,8 +134,8 @@ export default function MobileNav() {
           className="fixed inset-x-0 top-[71px] sm:top-[87px] bottom-0 z-50 flex flex-col justify-between border-b border-white/[0.08] bg-[#0B0C0E]/98 px-5 py-6 shadow-2xl backdrop-blur-2xl overflow-y-auto no-scrollbar sm:px-8 sm:py-8"
         >
           <div>
-            {/* Idioma y Modo Monocromo en móvil */}
-            <div className="mb-3 flex items-center justify-between gap-3 border border-white/[0.08] bg-[#151618] px-4 py-2.5">
+            {/* Idioma y Modo Monocromo en móvil (oculto en versión minimalista) */}
+            <div className="hidden mb-3 items-center justify-between gap-3 border border-white/[0.08] bg-[#151618] px-4 py-2.5">
               <span className="font-mono text-xs text-[#8E8A80]">
                 {t("Idioma & Visión", "Language & View")}
               </span>
@@ -154,26 +156,26 @@ export default function MobileNav() {
                   window.dispatchEvent(new Event("open-cart-drawer"));
                 }, 120);
               }}
-              className="mb-3 flex w-full items-center justify-between border border-white/[0.08] bg-[#151618] px-4 py-2.5 text-left transition hover:border-white/30"
+              className="mb-6 flex w-full items-center justify-between rounded-lg border border-[#C5A880]/30 bg-[#151618] px-4 py-3.5 text-left transition hover:border-[#C5A880]"
             >
               <div className="flex items-center gap-3">
-                <svg className="h-4 w-4 text-[#EBE7DF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-4 w-4 text-[#C5A880]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
-                <span className="font-mono text-xs text-[#EBE7DF]">
-                  {t("Cesta de Compra", "Collector's Bag")}
+                <span className="font-mono text-xs uppercase tracking-wider text-[#EBE7DF]">
+                  {t("Ver Cesta de Compra", "View Shopping Bag")}
                 </span>
               </div>
-              <span className="font-mono text-[9px] uppercase tracking-widest text-[#C5A880] border border-[#C5A880]/30 px-2 py-0.5">
-                {t("Copias", "Prints")}
+              <span className="font-mono text-xs text-[#C5A880]">
+                →
               </span>
             </button>
 
-            {/* Búsqueda Rápida */}
+            {/* Búsqueda Rápida (oculta en versión minimalista) */}
             <button
               type="button"
               onClick={triggerSearch}
-              className="mb-6 flex w-full items-center justify-between border border-white/[0.08] bg-[#151618] px-4 py-3 text-left transition hover:border-white/30"
+              className="hidden mb-6 w-full items-center justify-between border border-white/[0.08] bg-[#151618] px-4 py-3 text-left transition hover:border-white/30"
             >
               <div className="flex items-center gap-3">
                 <svg
@@ -198,29 +200,30 @@ export default function MobileNav() {
               </span>
             </button>
 
-            {/* 5 Enlaces Principales */}
-            <ul className="flex flex-col gap-4">
+            {/* 4 Enlaces Principales Claros (resto oculto) */}
+            <ul className="flex flex-col gap-2">
               {primaryLinks.map((link) => {
                 const isActive =
                   pathname === link.href ||
                   (link.href !== "/" && pathname.startsWith(link.href));
+                const isMinimalVisible = MINIMAL_HREFS.has(link.href);
 
                 return (
-                  <li key={link.href}>
+                  <li key={link.href} className={isMinimalVisible ? "" : "hidden"}>
                     <Link
                       href={link.href}
                       onClick={() => setOpen(false)}
-                      className={`group flex items-baseline justify-between py-1 transition ${
+                      className={`group flex min-h-[54px] items-center justify-between rounded-lg border px-4 py-3 transition ${
                         isActive
-                          ? "text-[#EBE7DF] font-medium border-l-2 border-[#C5A880] pl-3"
-                          : "text-[#8E8A80] hover:text-[#EBE7DF]"
+                          ? "border-[#C5A880] bg-[#C5A880]/10 text-[#EBE7DF] font-medium"
+                          : "border-white/[0.08] bg-[#151618]/60 text-[#EBE7DF] hover:border-white/25"
                       }`}
                     >
-                      <span className="text-base uppercase tracking-[0.22em]">
+                      <span className="text-base uppercase tracking-[0.18em]">
                         {lang === "en" ? link.en : link.es}
                       </span>
-                      <span className="font-mono text-[10px] tracking-wider text-[#8E8A80]/70 transition group-hover:text-[#EBE7DF]">
-                        {lang === "en" ? link.noteEn : link.noteEs}
+                      <span className="font-mono text-[11px] text-[#A39E93] transition group-hover:text-[#EBE7DF]">
+                        {lang === "en" ? link.noteEn : link.noteEs} →
                       </span>
                     </Link>
                   </li>
@@ -228,8 +231,8 @@ export default function MobileNav() {
               })}
             </ul>
 
-            {/* Enlaces Secundarios de Archivo y Servicios */}
-            <div className="mt-6 pt-5 border-t border-white/[0.08]">
+            {/* Enlaces Secundarios de Archivo y Servicios (ocultos en versión minimalista) */}
+            <div className="hidden mt-6 pt-5 border-t border-white/[0.08]">
               <p className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#C5A880] mb-3">
                 {t("Archivo & Recursos", "Archive & Resources")}
               </p>
