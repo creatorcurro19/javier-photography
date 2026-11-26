@@ -57,10 +57,10 @@ const WINGS_CONFIG: CuratedWing[] = [
 ];
 
 const HERO_SLUGS = new Set([
-  "ocaso-sobre-el-erg",
-  "mirada-del-lince-boreal",
+  "mar-de-dunas-al-ocaso",
   "cumbre-nevada-al-alba",
-  "cruzada-sobre-el-asfalto",
+  "mirada-del-lince-boreal",
+  "cuervo-canario-ante-las-cumbres",
   "el-oficio-y-la-chispa",
 ]);
 
