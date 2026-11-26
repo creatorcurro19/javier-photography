@@ -145,6 +145,7 @@ export default function DossierPage() {
                       alt={photo.alt}
                       fill
                       sizes="(max-width: 640px) 50vw, 33vw"
+                      quality={85}
                       className="object-cover"
                     />
                   </div>

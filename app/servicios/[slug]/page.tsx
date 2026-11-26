@@ -135,6 +135,7 @@ export default async function ServiceLandingPage({ params }: PageProps) {
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 42vw"
+                quality={85}
                 className="object-cover"
               />
             </div>
@@ -230,6 +231,7 @@ export default async function ServiceLandingPage({ params }: PageProps) {
                       alt={photo.alt}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      quality={85}
                       className="object-cover transition duration-500 group-hover:scale-[1.03]"
                     />
                   </div>

@@ -135,8 +135,12 @@ export default function RootLayout({
         <WhatsAppButton />
         <PhotoProtection />
         <Footer />
-        <Analytics />
-        <SpeedInsights />
+        {process.env.VERCEL === "1" && (
+          <>
+            <Analytics />
+            <SpeedInsights />
+          </>
+        )}
       </body>
     </html>
   );

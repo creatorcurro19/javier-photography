@@ -103,6 +103,7 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
                     width={photo.width}
                     height={photo.height}
                     sizes="(max-width: 1024px) 100vw, 60vw"
+                    quality={85}
                     className="h-auto max-h-[76vh] w-auto max-w-full transition duration-700 group-hover:scale-[1.02]"
                   />
                   <div className="absolute top-4 left-4">
@@ -215,6 +216,7 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
                       alt={photo.alt}
                       fill
                       sizes="(max-width: 768px) 100vw, 33vw"
+                      quality={85}
                       className="object-contain transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>

@@ -80,6 +80,7 @@ export default function CuadernoPage() {
                         alt={post.relatedWork.alt}
                         fill
                         sizes="(max-width: 1024px) 100vw, 33vw"
+                        quality={85}
                         className="object-cover"
                       />
                       <span className="absolute top-3 left-3 border border-[#C5A880]/40 bg-[#0B0C0E]/90 px-2.5 py-1 font-mono text-[9px] uppercase tracking-widest text-[#C5A880]">

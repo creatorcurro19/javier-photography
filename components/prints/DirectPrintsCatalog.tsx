@@ -13,6 +13,8 @@ interface DirectPrintsCatalogProps {
   featuredPrints: Photo[];
 }
 
+const INITIAL_BATCH = 24;
+
 export default function DirectPrintsCatalog({
   allPhotos,
   featuredPrints,
@@ -27,8 +29,9 @@ export default function DirectPrintsCatalog({
     "all"
   );
   const [searchQuery, setSearchQuery] = useState(obraParam);
+  const [visibleCount, setVisibleCount] = useState(INITIAL_BATCH);
 
-  const visiblePhotos = useMemo(() => {
+  const filteredPhotos = useMemo(() => {
     const base = scope === "all" || searchQuery.trim() ? allPhotos : featuredPrints;
     return base.filter((p) => {
       if (activeCategory !== "all" && p.category !== activeCategory) return false;
@@ -40,6 +43,11 @@ export default function DirectPrintsCatalog({
       return true;
     });
   }, [allPhotos, featuredPrints, scope, activeCategory, searchQuery]);
+
+  const visiblePhotos = useMemo(
+    () => filteredPhotos.slice(0, visibleCount),
+    [filteredPhotos, visibleCount]
+  );
 
   return (
     <div id="catalogo-fine-art" className="mt-8 scroll-mt-24">
@@ -292,6 +300,30 @@ export default function DirectPrintsCatalog({
           </div>
         ))}
       </div>
+      )}
+
+      {filteredPhotos.length > visibleCount && (
+        <div className="mt-12 flex flex-col items-center justify-center gap-3">
+          <p className="font-mono text-xs text-[#8E8A80]">
+            Mostrando {visiblePhotos.length} de {filteredPhotos.length} láminas disponibles
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <button
+              type="button"
+              onClick={() => setVisibleCount((prev) => prev + INITIAL_BATCH)}
+              className="border border-[#C5A880] bg-[#C5A880] px-8 py-3 text-xs uppercase font-mono tracking-[0.22em] text-[#0B0C0E] font-semibold transition-all duration-300 hover:bg-white hover:border-white cursor-pointer"
+            >
+              Ver más láminas
+            </button>
+            <button
+              type="button"
+              onClick={() => setVisibleCount(filteredPhotos.length)}
+              className="border border-white/20 bg-white/[0.05] px-6 py-3 text-xs uppercase font-mono tracking-[0.22em] text-[#EBE7DF] transition-all duration-300 hover:border-white/40 hover:text-white cursor-pointer"
+            >
+              Ver las {filteredPhotos.length} láminas
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );

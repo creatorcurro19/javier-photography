@@ -121,6 +121,7 @@ export default async function CuadernoPostPage({ params }: PageProps) {
                 alt={post.relatedWork.alt}
                 fill
                 sizes="(max-width: 1024px) 100vw, 860px"
+                quality={85}
                 className="object-contain"
               />
             </div>

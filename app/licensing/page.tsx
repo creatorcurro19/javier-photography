@@ -247,6 +247,7 @@ export default function LicensingPage() {
                       width={photo.width}
                       height={photo.height}
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      quality={85}
                       className="h-auto w-full transition duration-500 group-hover:scale-[1.02]"
                     />
                     <div className="absolute left-3 top-3">

@@ -96,6 +96,7 @@ export default function ProjectsInteractiveIndex({
                     alt={stageTitle}
                     fill
                     sizes="(max-width: 1024px) 100vw, 60vw"
+                    quality={85}
                     className="object-cover transition duration-700 group-hover:scale-[1.03]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-transparent to-transparent" />
