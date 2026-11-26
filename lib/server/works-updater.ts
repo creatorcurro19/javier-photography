@@ -9,12 +9,13 @@ import {
   type CuadernoPost,
 } from "@/data/site-config";
 import { CATEGORY_METADATA, PHOTO_CATEGORIES, type Photo, type PhotoCategory, type Project } from "@/types/photo";
+import { embedAuthorMetadataInBase64Jpeg } from "@/lib/server/jpeg-metadata";
 
 const DEFAULT_HERO_SLUGS = [
-  "ocaso-sobre-el-erg",
-  "mirada-del-lince-boreal",
+  "mar-de-dunas-al-ocaso",
   "cumbre-nevada-al-alba",
-  "cruzada-sobre-el-asfalto",
+  "mirada-del-lince-boreal",
+  "cuervo-canario-ante-las-cumbres",
   "el-oficio-y-la-chispa",
 ];
 
@@ -380,13 +381,14 @@ export async function saveWork(
   let cleanBase64: string | undefined;
   let repoImagePath: string | undefined;
   if (imageBase64 && imageBase64.trim().length > 0) {
-    cleanBase64 = imageBase64.replace(/^data:image\/[a-zA-Z0-9.+-]+;base64,/, "").trim();
+    const rawBase64 = imageBase64.replace(/^data:image\/[a-zA-Z0-9.+-]+;base64,/, "").trim();
     const safeSlug = updatedPhoto.slug.replace(/[^a-z0-9-]/gi, "-").toLowerCase() || updatedPhoto.id;
     updatedPhoto = {
       ...updatedPhoto,
       slug: safeSlug,
       image: `/images/portfolio/${updatedPhoto.category}/${safeSlug}.jpg`,
     };
+    cleanBase64 = embedAuthorMetadataInBase64Jpeg(rawBase64, updatedPhoto);
     repoImagePath = `public/images/portfolio/${updatedPhoto.category}/${safeSlug}.jpg`;
   }
 
@@ -488,7 +490,7 @@ export async function batchCreateWorks(
 
   for (const item of items) {
     let cleanPhoto = sanitizePhotoForCategory(item.photo);
-    const cleanBase64 = item.imageBase64.replace(/^data:image\/[a-zA-Z0-9.+-]+;base64,/, "").trim();
+    const rawBase64 = item.imageBase64.replace(/^data:image\/[a-zA-Z0-9.+-]+;base64,/, "").trim();
     const safeSlug = cleanPhoto.slug.replace(/[^a-z0-9-]/gi, "-").toLowerCase() || cleanPhoto.id;
     cleanPhoto = {
       ...cleanPhoto,
@@ -496,6 +498,7 @@ export async function batchCreateWorks(
       image: `/images/portfolio/${cleanPhoto.category}/${safeSlug}.jpg`,
     };
     cleanPhoto = applySeriesMembership(cleanPhoto, seriesSlugs);
+    const cleanBase64 = embedAuthorMetadataInBase64Jpeg(rawBase64, cleanPhoto);
     inMemoryWorks.unshift(cleanPhoto);
     createdPhotos.push(cleanPhoto);
 

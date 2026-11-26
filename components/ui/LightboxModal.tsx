@@ -7,6 +7,7 @@ import Link from "next/link";
 import type { Photo } from "@/types/photo";
 import { CATEGORY_METADATA } from "@/types/photo";
 import AddToCartModal from "@/components/cart/AddToCartModal";
+import ShareButton from "@/components/photo/ShareButton";
 
 interface LightboxModalProps {
   photos: Photo[];
@@ -462,7 +463,13 @@ export default function LightboxModal({
           <span>{photo.location ? photo.location : `${photo.focalLength} · ${photo.camera}`}</span>
         </div>
 
-        <div className="flex shrink-0 items-center gap-4">
+        <div className="flex shrink-0 items-center gap-3">
+          <ShareButton
+            title={photo.title}
+            slug={photo.slug}
+            location={photo.location}
+            variant="lightbox"
+          />
           <Link
             href={`/portfolio/${photo.slug}`}
             onClick={onClose}

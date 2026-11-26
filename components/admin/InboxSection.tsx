@@ -329,19 +329,23 @@ export default function InboxSection({
       {filteredItems.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-[#2C2F38] bg-[#121316] p-12 text-center">
           <p className="font-mono text-xs uppercase tracking-wider text-[#A39E93]">
-            No hay registros con los filtros seleccionados
+            {items.length === 0
+              ? "Aún no hay pedidos ni mensajes reales recibidos"
+              : "No hay registros con los filtros seleccionados"}
           </p>
-          <button
-            type="button"
-            onClick={() => {
-              setActiveFilter("all");
-              setActiveStatus("all");
-              setSearchQuery("");
-            }}
-            className="mt-4 inline-flex items-center gap-2 rounded-lg border border-[#C5A880]/50 bg-[#C5A880]/15 px-4 py-2 font-mono text-xs uppercase tracking-wider text-[#C5A880] hover:bg-[#C5A880] hover:text-[#0B0C0E] transition cursor-pointer"
-          >
-            Limpiar filtros
-          </button>
+          {items.length > 0 && (
+            <button
+              type="button"
+              onClick={() => {
+                setActiveFilter("all");
+                setActiveStatus("all");
+                setSearchQuery("");
+              }}
+              className="mt-4 inline-flex items-center gap-2 rounded-lg border border-[#C5A880]/50 bg-[#C5A880]/15 px-4 py-2 font-mono text-xs uppercase tracking-wider text-[#C5A880] hover:bg-[#C5A880] hover:text-[#0B0C0E] transition cursor-pointer"
+            >
+              Limpiar filtros
+            </button>
+          )}
         </div>
       ) : (
         <div className="space-y-4">

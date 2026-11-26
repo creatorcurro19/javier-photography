@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import { isAuthenticatedRequest } from "@/lib/server/admin-auth";
 import {
   getCurrentWorks,
@@ -18,6 +18,16 @@ import {
 } from "@/lib/server/works-updater";
 import type { Photo, PhotoCategory, Project } from "@/types/photo";
 import type { SiteSettings, CuadernoPost } from "@/data/site-config";
+import { notifySearchEngines } from "@/lib/server/search-ping";
+
+function pingSearchIfPublished(persistedToGit: boolean, paths: string[]) {
+  if (!persistedToGit && process.env.VERCEL !== "1") return;
+  try {
+    after(() => notifySearchEngines(paths));
+  } catch {
+    void notifySearchEngines(paths);
+  }
+}
 
 function serializeSeries(): Project[] {
   return getCurrentSeries().map((s) => ({
@@ -77,6 +87,7 @@ export async function POST(request: Request) {
           { status: 404 }
         );
       }
+      pingSearchIfPublished(delRes.persistedToGit, ["/"]);
       return NextResponse.json({
         ok: true,
         message: delRes.message,
@@ -104,6 +115,13 @@ export async function POST(request: Request) {
         ? (body.seriesSlugs as unknown[]).filter((s): s is string => typeof s === "string")
         : undefined;
       const batchRes = await batchCreateWorks(items, seriesSlugs, customGithubToken);
+      pingSearchIfPublished(
+        batchRes.persistedToGit,
+        batchRes.createdPhotos.flatMap((p) => [
+          `/portfolio/${p.slug}`,
+          `/portfolio/${p.category}`,
+        ])
+      );
       return NextResponse.json({
         ok: batchRes.ok,
         message: batchRes.message,
@@ -176,6 +194,7 @@ export async function POST(request: Request) {
         );
       }
       const sRes = await saveSeriesItem(seriesItem, customGithubToken);
+      pingSearchIfPublished(sRes.persistedToGit, [`/projects/${seriesItem.slug}`]);
       return NextResponse.json({
         ok: sRes.ok,
         message: sRes.message,
@@ -278,6 +297,10 @@ export async function POST(request: Request) {
       imageBase64,
       seriesCoverSlugs
     );
+    pingSearchIfPublished(result.persistedToGit, [
+      `/portfolio/${result.photo.slug}`,
+      `/portfolio/${result.photo.category}`,
+    ]);
 
     return NextResponse.json({
       ok: result.ok,
@@ -327,6 +350,7 @@ export async function DELETE(request: Request) {
         { status: 404 }
       );
     }
+    pingSearchIfPublished(delRes.persistedToGit, ["/"]);
 
     return NextResponse.json({
       ok: true,

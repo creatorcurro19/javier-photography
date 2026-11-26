@@ -3,6 +3,7 @@ import type { Photo } from "@/types/photo";
 import { CATEGORY_METADATA } from "@/types/photo";
 import { getProjectsForPhoto } from "@/lib/photos";
 import FavoriteButton from "@/components/photo/FavoriteButton";
+import ShareButton from "@/components/photo/ShareButton";
 
 type PhotoMetaProps = {
   photo: Photo;
@@ -30,7 +31,10 @@ export default function PhotoMeta({ photo }: PhotoMetaProps) {
           )}
         </div>
 
-        <FavoriteButton title={photo.title} />
+        <div className="flex flex-wrap items-center gap-2.5">
+          <ShareButton title={photo.title} slug={photo.slug} location={photo.location} />
+          <FavoriteButton title={photo.title} />
+        </div>
       </div>
 
       <h1 className="mt-3 font-serif text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-[#EBE7DF] leading-[1.12]">
