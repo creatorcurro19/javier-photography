@@ -75,8 +75,12 @@ export const metadata: Metadata = {
     "Fotografía de autor",
     "Fine Art Photography",
     "Javier Espinosa Martínez",
+    "Fotógrafo en Tenerife",
+    "Puerto de la Cruz Tenerife",
     "Fotografía de fauna salvaje",
-    "Fotografía de rally y coches",
+    "Rallye Orvecame Isla Tenerife Histórico",
+    "Cruces de Mayo Los Realejos",
+    "Fotografía de paisaje Canarias y Sahara",
     "Fotografía de arquitectura",
     "Fotografía documental y viajes",
     "Canon EOS R7",
@@ -86,13 +90,27 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 
   openGraph: {
     type: "website",
     locale: "es_ES",
     siteName: "Javier Espinosa Fotografía",
-    images: [{ url: "/images/portfolio/hero/hero.jpg", width: 1920, height: 1080, alt: "Javier Espinosa Fotografía" }],
+    images: [
+      {
+        url: "/images/portfolio/paisajes-documental/mar-de-dunas-al-ocaso.jpg",
+        width: 3840,
+        height: 2560,
+        alt: "Mar de Silencio y Arena — Javier Espinosa Fotografía",
+      },
+    ],
   },
 
   twitter: {

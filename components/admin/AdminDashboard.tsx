@@ -756,7 +756,7 @@ export default function AdminDashboard({
           </button>
         </div>
 
-        {/* Conmutador principal: Fotografías vs Series Monográficas vs Ajustes de la Web (#1, #4) */}
+        {/* Conmutador principal: Fotos vs Pedidos y Mensajes vs Ajustes */}
         <div className="mb-6 flex flex-wrap items-center gap-2 border-b border-[#22242B] pb-3">
           <button
             type="button"
@@ -767,29 +767,18 @@ export default function AdminDashboard({
                 : "border border-[#262830] bg-[#141519] text-[#A39E93] hover:text-[#EBE7DF]"
             }`}
           >
-            Fotografías ({works.length})
+            Fotos ({works.length})
           </button>
           <button
             type="button"
             onClick={() => setActiveSection("series")}
-            className={`rounded-xl px-4 py-2.5 text-xs sm:text-sm font-medium transition cursor-pointer ${
+            className={`hidden rounded-xl px-4 py-2.5 text-xs sm:text-sm font-medium transition cursor-pointer ${
               activeSection === "series"
                 ? "bg-[#C5A880] text-[#0B0C0E] font-semibold"
                 : "border border-[#262830] bg-[#141519] text-[#A39E93] hover:text-[#EBE7DF]"
             }`}
           >
             Colecciones y Series ({series.length})
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveSection("settings")}
-            className={`rounded-xl px-4 py-2.5 text-xs sm:text-sm font-medium transition cursor-pointer ${
-              activeSection === "settings"
-                ? "bg-[#C5A880] text-[#0B0C0E] font-semibold"
-                : "border border-[#262830] bg-[#141519] text-[#A39E93] hover:text-[#EBE7DF]"
-            }`}
-          >
-            Ajustes de la Web (Retrato, Cuaderno y Contacto)
           </button>
           <button
             type="button"
@@ -800,7 +789,7 @@ export default function AdminDashboard({
                 : "border border-[#262830] bg-[#141519] text-[#A39E93] hover:text-[#EBE7DF]"
             }`}
           >
-            <span>Mensajes y Reservas</span>
+            <span>Pedidos y Mensajes</span>
             <span
               className={`rounded-full px-2 py-0.5 text-[10px] font-mono font-semibold ${
                 activeSection === "inbox"
@@ -810,8 +799,19 @@ export default function AdminDashboard({
                   : "bg-[#22242B] text-[#8E8A81]"
               }`}
             >
-              {inboxItems.filter((i) => i.status === "pendiente").length} pendientes
+              {inboxItems.filter((i) => i.status === "pendiente").length}
             </span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveSection("settings")}
+            className={`rounded-xl px-4 py-2.5 text-xs sm:text-sm font-medium transition cursor-pointer ${
+              activeSection === "settings"
+                ? "bg-[#C5A880] text-[#0B0C0E] font-semibold"
+                : "border border-[#262830] bg-[#141519] text-[#A39E93] hover:text-[#EBE7DF]"
+            }`}
+          >
+            Ajustes
           </button>
         </div>
 
@@ -840,8 +840,8 @@ export default function AdminDashboard({
           />
         ) : (
           <>
-            {/* Banner de Métricas Rápidas */}
-            <section className="grid grid-cols-2 gap-3 sm:grid-cols-4 mb-6">
+            {/* Banner de Métricas Rápidas (oculto en versión minimalista) */}
+            <section className="hidden grid-cols-2 gap-3 sm:grid-cols-4 mb-6">
               <div className="rounded-xl border border-[#22242B] bg-[#141519] p-3.5 sm:p-4">
                 <span className="font-mono text-[10px] text-[#8E8A81] uppercase tracking-wider">
                   Total Archivo
@@ -905,7 +905,7 @@ export default function AdminDashboard({
                   )}
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="hidden items-center gap-2">
                   <label className="text-[11px] font-mono uppercase text-[#8E8A81] whitespace-nowrap">
                     Ordenar:
                   </label>
@@ -956,7 +956,7 @@ export default function AdminDashboard({
               </div>
 
               {/* Filtros rápidos secundarios */}
-              <div className="flex flex-wrap items-center gap-3 pt-1 border-t border-[#1F2126] text-xs">
+              <div className="flex flex-wrap items-center gap-4 pt-1 border-t border-[#1F2126] text-xs">
                 <label className="flex items-center gap-2 cursor-pointer text-[#A39E93] hover:text-[#EBE7DF]">
                   <input
                     type="checkbox"
@@ -964,10 +964,10 @@ export default function AdminDashboard({
                     onChange={(e) => setFilterPrintsOnly(e.target.checked)}
                     className="h-3.5 w-3.5 rounded border-[#383A43] bg-[#1A1C22] text-[#C5A880]"
                   />
-                  <span>Solo Venta Activa</span>
+                  <span>En venta</span>
                 </label>
 
-                <label className="flex items-center gap-2 cursor-pointer text-[#A39E93] hover:text-[#EBE7DF]">
+                <label className="hidden items-center gap-2 cursor-pointer text-[#A39E93] hover:text-[#EBE7DF]">
                   <input
                     type="checkbox"
                     checked={filterFeaturedOnly}
@@ -984,10 +984,10 @@ export default function AdminDashboard({
                     onChange={(e) => setFilterCoversOnly(e.target.checked)}
                     className="h-3.5 w-3.5 rounded border-[#383A43] bg-[#1A1C22] text-[#C5A880]"
                   />
-                  <span>Solo Hero / Portadas</span>
+                  <span>Solo Portadas (Hero)</span>
                 </label>
 
-                <label className="flex items-center gap-2 cursor-pointer text-[#A39E93] hover:text-[#EBE7DF]">
+                <label className="hidden items-center gap-2 cursor-pointer text-[#A39E93] hover:text-[#EBE7DF]">
                   <input
                     type="checkbox"
                     checked={filterStoryOnly}
@@ -998,13 +998,13 @@ export default function AdminDashboard({
                 </label>
 
                 <span className="ml-auto font-mono text-[11px] text-[#8E8A81]">
-                  Mostrando {filteredWorks.length} de {works.length} obras
+                  {filteredWorks.length} de {works.length} fotos
                 </span>
               </div>
             </section>
 
-            {/* Barra de Gestión por Lote y Selección Rápida */}
-            <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#23252D] bg-[#15161B] px-4 py-2.5">
+            {/* Barra de Gestión por Lote (oculta en versión minimalista cuando no hay selección) */}
+            <div className="hidden mb-4 flex-wrap items-center justify-between gap-3 rounded-xl border border-[#23252D] bg-[#15161B] px-4 py-2.5">
               <div className="flex items-center gap-2.5">
                 <button
                   type="button"
@@ -1155,8 +1155,8 @@ export default function AdminDashboard({
                               {photo.location || photo.country || "España"} &middot; {photo.year}
                             </p>
 
-                            {/* Colecciones / Series a las que pertenece */}
-                            <div className="mt-1.5 flex flex-wrap items-center gap-1">
+                            {/* Colecciones / Series a las que pertenece (oculto en versión minimalista) */}
+                            <div className="hidden mt-1.5 flex-wrap items-center gap-1">
                               {photoSeriesList.length > 0 ? (
                                 photoSeriesList.map((s) => (
                                   <span
@@ -1179,7 +1179,7 @@ export default function AdminDashboard({
                               <div className="mt-1.5 flex flex-wrap gap-1">
                                 {photo.heroOrder && (
                                   <span className="rounded bg-[#C5A880] px-1.5 py-0.5 font-mono text-[9px] font-semibold uppercase text-[#0B0C0E]">
-                                    Hero Sala {photo.heroOrder}
+                                    Portada 0{photo.heroOrder}
                                   </span>
                                 )}
                                 {photo.categoryCover && (
@@ -1188,7 +1188,7 @@ export default function AdminDashboard({
                                   </span>
                                 )}
                                 {seriesCover && (
-                                  <span className="rounded border border-white/20 bg-white/10 px-1.5 py-0.5 font-mono text-[9px] uppercase text-[#EBE7DF]">
+                                  <span className="hidden rounded border border-white/20 bg-white/10 px-1.5 py-0.5 font-mono text-[9px] uppercase text-[#EBE7DF]">
                                     Portada Serie
                                   </span>
                                 )}
@@ -1197,8 +1197,8 @@ export default function AdminDashboard({
                           </div>
                         </div>
 
-                        {/* Descripción */}
-                        <p className="mt-3 line-clamp-2 text-xs text-[#A39E93] leading-relaxed">
+                        {/* Descripción (oculta en tarjeta minimalista) */}
+                        <p className="hidden mt-3 line-clamp-2 text-xs text-[#A39E93] leading-relaxed">
                           {photo.description}
                         </p>
 
@@ -1223,17 +1223,15 @@ export default function AdminDashboard({
                         ) : (
                           <div className="mt-3 flex items-center justify-between rounded-lg border border-[#202228] bg-[#131418] px-2.5 py-1.5 font-mono text-[10px] text-[#8E8A81]">
                             <span className="truncate">
-                              {photo.category === "coches-rally"
-                                ? "🏎️ Archivo Motorsport (Solicitud directa)"
-                                : "📁 Archivo documental (Sin cesta)"}
+                              Sin venta directa
                             </span>
-                            <span className="shrink-0 ml-1 rounded bg-[#1F2128] px-1.5 py-0.5 text-[#A39E93]">Venta pausada</span>
+                            <span className="shrink-0 ml-1 rounded bg-[#1F2128] px-1.5 py-0.5 text-[#A39E93]">Venta OFF</span>
                           </div>
                         )}
                       </div>
 
                       {/* Acciones y Toggles Rápidos */}
-                      <div className="mt-4 pt-3 border-t border-[#1E2026] flex flex-wrap items-center justify-between gap-2">
+                      <div className="mt-3.5 pt-3 border-t border-[#1E2026] flex flex-wrap items-center justify-between gap-2">
                         <div className="flex items-center gap-1.5">
                           <button
                             type="button"
@@ -1251,7 +1249,7 @@ export default function AdminDashboard({
                           <button
                             type="button"
                             onClick={(e) => handleQuickToggleFeatured(photo, e)}
-                            className={`inline-flex min-h-[38px] items-center rounded-lg px-2.5 py-1.5 text-[10px] font-mono transition cursor-pointer ${
+                            className={`hidden min-h-[38px] items-center rounded-lg px-2.5 py-1.5 text-[10px] font-mono transition cursor-pointer ${
                               photo.featured
                                 ? "bg-[#C5A880]/20 text-[#C5A880] border border-[#C5A880]/40"
                                 : "bg-[#202228] text-[#716C62] border border-transparent"
@@ -1264,12 +1262,12 @@ export default function AdminDashboard({
                           </button>
                         </div>
 
-                        {/* Botones Colecciones, Editar y Papelera */}
+                        {/* Botones Editar y Papelera */}
                         <div className="flex items-center gap-1.5">
                           <button
                             type="button"
                             onClick={() => setQuickAssignPhoto(photo)}
-                            className="inline-flex min-h-[38px] items-center gap-1 rounded-lg border border-[#2B2D36] bg-[#16171E] px-2.5 py-1.5 text-xs font-mono text-[#A39E93] hover:border-[#C5A880] hover:text-[#C5A880] transition cursor-pointer"
+                            className="hidden min-h-[38px] items-center gap-1 rounded-lg border border-[#2B2D36] bg-[#16171E] px-2.5 py-1.5 text-xs font-mono text-[#A39E93] hover:border-[#C5A880] hover:text-[#C5A880] transition cursor-pointer"
                             title="Gestionar colecciones de esta obra"
                           >
                             <span>📁 Colecciones</span>

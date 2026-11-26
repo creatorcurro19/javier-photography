@@ -158,10 +158,12 @@ export const CATEGORY_METADATA: Record<
       "There is more to a rally than the racing line. There are classic cars braking late into a hairpin or lifting an inside wheel, but also mechanics working under the tent, pacenotes spread across a hood, and the worn details of bodywork with decades of history.",
     seoTitle: "Fotografía de Rally Histórico y Automovilismo (Motorsport Photography) | Javier Espinosa",
     seoDescription:
-      "Archivo y encargos de fotografía de automovilismo, rally histórico, clásicos de competición y parque de asistencia en Tenerife y España. Láminas Fine Art de motor y cobertura para equipos.",
+      "Fotografía de rally histórico en Tenerife (52º Rallye Orvecame Isla Tenerife Histórico, Tramo de El Tanque), clásicos de competición y parque de asistencia.",
     seoKeywords: [
       "fotografía de rally",
-      "fotógrafo de automovilismo",
+      "52 rallye orvecame isla tenerife histórico",
+      "tramo de el tanque rally",
+      "fotógrafo de automovilismo tenerife",
       "historic rally photography",
       "motorsport fine art prints",
       "coches clásicos competición",
@@ -183,12 +185,13 @@ export const CATEGORY_METADATA: Record<
       "I am drawn to buildings that show the passage of time: granite and timber houses in old villages, tiled courtyards, ruins slowly reclaimed by vegetation, or the warm glow of a streetlamp against a facade late at night.",
     seoTitle: "Fotografía de Arquitectura, Patrimonio y Espacio Urbano | Javier Espinosa",
     seoDescription:
-      "Fotografía de arquitectura tradicional, patrimonio histórico, lugares con huella del tiempo y espacio urbano nocturno por Javier Espinosa Martínez. Reportajes y copias Fine Art.",
+      "Fotografía de arquitectura tradicional y espacio urbano en Villanueva de la Vera, El Puerto de Santa María (Cádiz), Tenerife y Marrakech por Javier Espinosa.",
     seoKeywords: [
       "fotografía de arquitectura",
       "fotógrafo de arquitectura y patrimonio",
       "architectural photography spain",
-      "arquitectura vernácula",
+      "arquitectura vernácula villanueva de la vera",
+      "el puerto de santa maría fotografía nocturna",
       "urban night photography",
       "fine art architectural prints",
     ],
@@ -205,11 +208,12 @@ export const CATEGORY_METADATA: Record<
       "Talleres donde se sigue trabajando el hierro o la madera a mano, secaderos de pimientos al sol, mercados de barrio y escenas de calle sin posar. Fotografías que buscan registrar cómo son los lugares y quienes los habitan sin interrumpir lo que está pasando.",
     descriptionEn:
       "Workshops where iron and cedar are still shaped by hand, peppers drying in the sun, neighborhood markets, and unposed street scenes. Photographs meant to record places and the people in them without interrupting what is happening.",
-    seoTitle: "Fotografía Documental, Oficios y Vida Cotidiana (Documentary Photography) | Javier Espinosa",
+    seoTitle: "Fotografía Documental, Oficios y Tradición (Documentary Photography) | Javier Espinosa",
     seoDescription:
-      "Series de fotografía documental sobre oficios tradicionales, vida rural, tradiciones en España y zocos históricos de Marruecos. Fotografías tomadas con luz natural sin posados.",
+      "Fotografía documental sobre oficios tradicionales, Cruces de Mayo en Los Realejos (Tenerife), vida rural en La Vera y talleres de la Medina de Marrakech.",
     seoKeywords: [
       "fotografía documental",
+      "cruces de mayo los realejos tenerife",
       "documentary photography spain",
       "fotografía etnográfica y oficios",
       "travel documentary photography",

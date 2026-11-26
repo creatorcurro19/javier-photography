@@ -74,17 +74,17 @@ export default function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
       <div className="w-full max-w-md rounded-2xl border border-[#26282D] bg-[#121316] p-6 shadow-2xl backdrop-blur-md sm:p-8">
         {/* Encabezado de Autor */}
         <div className="text-center">
-          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full border border-[#C5A880]/30 bg-[#1A1C20] text-[#C5A880] shadow-inner">
-            <LockIcon className="h-6 w-6 text-[#C5A880]" />
+          <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-[#C5A880]/30 bg-[#1A1C20] text-[#C5A880]">
+            <LockIcon className="h-5 w-5 text-[#C5A880]" />
           </div>
-          <span className="font-mono text-xs tracking-widest text-[#C5A880] uppercase">
+          <span className="hidden font-mono text-xs tracking-widest text-[#C5A880] uppercase">
             Acceso Creador &middot; Estudio Privado
           </span>
-          <h1 className="mt-2 font-serif text-2xl font-light tracking-wide text-[#EBE7DF] sm:text-3xl">
-            Javier Espinosa
+          <h1 className="font-serif text-2xl font-light tracking-wide text-[#EBE7DF]">
+            Panel de Control
           </h1>
           <p className="mt-1 text-xs text-[#A39E93]">
-            Gestión editorial de obras, títulos, descripciones y precios Fine Art.
+            Introduce tu PIN de 5 dígitos
           </p>
         </div>
 
@@ -97,7 +97,7 @@ export default function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
 
         {/* Formulario */}
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-          <div>
+          <div className="hidden">
             <label className="block text-xs font-medium text-[#A39E93] uppercase tracking-wider mb-1.5">
               Usuario
             </label>
@@ -112,7 +112,7 @@ export default function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-[#A39E93] uppercase tracking-wider mb-1.5">
+            <label className="sr-only">
               Clave de Acceso (PIN)
             </label>
             <div className="relative">
@@ -125,7 +125,7 @@ export default function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
                 onChange={(e) => setPin(e.target.value)}
                 placeholder="&bull;&bull;&bull;&bull;&bull;"
                 autoFocus
-                className="w-full rounded-lg border border-[#2D3036] bg-[#181A1F] px-4 py-3 font-mono text-base tracking-widest text-[#EBE7DF] placeholder-[#605C55] transition focus:border-[#C5A880] focus:outline-none focus:ring-1 focus:ring-[#C5A880]"
+                className="w-full rounded-lg border border-[#2D3036] bg-[#181A1F] px-4 py-3.5 text-center font-mono text-lg tracking-[0.4em] text-[#EBE7DF] placeholder-[#605C55] transition focus:border-[#C5A880] focus:outline-none focus:ring-1 focus:ring-[#C5A880]"
               />
               <button
                 type="button"
@@ -138,8 +138,8 @@ export default function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
             </div>
           </div>
 
-          {/* Teclado numérico táctil rápido para móvil */}
-          <div className="pt-2">
+          {/* Teclado numérico táctil rápido (oculto en versión minimalista) */}
+          <div className="hidden pt-2">
             <div className="mb-2 flex items-center justify-between">
               <span className="font-mono text-[10px] text-[#A39E93] uppercase tracking-wider">
                 Teclado rápido táctil
@@ -171,13 +171,13 @@ export default function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-lg bg-gradient-to-r from-[#C5A880] to-[#A88C64] py-3.5 px-4 font-sans text-sm font-semibold tracking-wider text-[#0B0C0E] uppercase shadow-lg shadow-[#C5A880]/10 transition hover:opacity-90 active:scale-[0.99] disabled:opacity-50 mt-4 cursor-pointer"
+            className="w-full rounded-lg bg-[#C5A880] py-3.5 px-4 font-sans text-xs font-semibold tracking-[0.2em] text-[#0B0C0E] uppercase transition hover:bg-white disabled:opacity-50 mt-2 cursor-pointer"
           >
-            {loading ? "Verificando clave..." : "Entrar al Panel de Control"}
+            {loading ? "Entrando..." : "Entrar"}
           </button>
         </form>
 
-        <div className="mt-6 border-t border-[#202227] pt-4 text-center">
+        <div className="hidden mt-6 border-t border-[#202227] pt-4 text-center">
           <p className="font-mono text-[11px] text-[#716C62]">
             Clave autorizada configurada para Javier Espinosa
           </p>

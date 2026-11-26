@@ -122,20 +122,31 @@ export function buildPhotoMetadata(photo: Photo): Metadata {
   const path = `/portfolio/${photo.slug}`;
   const url = absoluteUrl(path);
   const imageUrl = absoluteUrl(photo.image);
+  const ogCardUrl = `${SITE_URL}/api/og?title=${encodeURIComponent(
+    photo.title
+  )}&subtitle=${encodeURIComponent(
+    photo.location || catMeta?.title || "Fotografía de Autor"
+  )}&badge=${encodeURIComponent(catMeta?.code || "FINE ART")}`;
+
+  const uniqueKeywords = Array.from(
+    new Set([
+      ...photo.keywords,
+      photo.title,
+      ...(photo.location ? [photo.location] : []),
+      ...(photo.country ? [photo.country] : []),
+      catMeta?.title ?? photo.category,
+      catMeta?.titleEn ?? "Fine Art Photography",
+      "Javier Espinosa Martínez",
+      "Fotografía en Tenerife",
+    ])
+  );
 
   return {
     title: {
       absolute: seoTitle,
     },
     description: seoDescription,
-    keywords: [
-      ...photo.keywords,
-      photo.title,
-      ...(photo.location ? [photo.location] : []),
-      catMeta?.title ?? photo.category,
-      catMeta?.titleEn ?? "Fine Art Photography",
-      "Javier Espinosa Martínez",
-    ],
+    keywords: uniqueKeywords,
     alternates: buildLanguageAlternates(path),
     openGraph: {
       title: seoTitle,
@@ -148,10 +159,17 @@ export function buildPhotoMetadata(photo: Photo): Metadata {
       images: [
         {
           url: imageUrl,
-          width: 1200,
-          height: 630,
+          width: photo.width,
+          height: photo.height,
           alt: photo.alt,
           type: "image/jpeg",
+        },
+        {
+          url: ogCardUrl,
+          width: 1200,
+          height: 630,
+          alt: `${photo.title} — Javier Espinosa Fotografía`,
+          type: "image/png",
         },
       ],
     },

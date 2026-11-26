@@ -223,8 +223,8 @@ export default function SiteSettingsSection({
           </div>
         </section>
 
-        {/* 2. CUADERNO DE CAMPO (OCULTAR / MOSTRAR Y ESCRIBIR ARTÍCULOS) */}
-        <section className="rounded-2xl border border-[#22242B] bg-[#131418] p-5 sm:p-6 space-y-4">
+        {/* 2. CUADERNO DE CAMPO (oculto en versión minimalista) */}
+        <section className="hidden rounded-2xl border border-[#22242B] bg-[#131418] p-5 sm:p-6 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#202228] pb-3">
             <div>
               <span className="font-mono text-[10px] uppercase tracking-wider text-[#C5A880]">
@@ -305,14 +305,11 @@ export default function SiteSettingsSection({
           </button>
         </section>
 
-        {/* 3. CONTACTO, WHATSAPP Y TARIFAS BASE */}
+        {/* 3. CONTACTO Y PRECIO BASE */}
         <section className="rounded-2xl border border-[#22242B] bg-[#131418] p-5 sm:p-6 space-y-4">
           <div className="border-b border-[#202228] pb-3">
-            <span className="font-mono text-[10px] uppercase tracking-wider text-[#C5A880]">
-              3 · Contacto, WhatsApp Opcional y Tarifas Base
-            </span>
             <h3 className="font-serif text-lg font-medium text-[#EBE7DF]">
-              Datos públicos de contacto y precios «Desde X €»
+              Contacto y precio base de láminas
             </h3>
           </div>
 
@@ -329,6 +326,19 @@ export default function SiteSettingsSection({
             </div>
 
             <div>
+              <label className={labelClass}>Láminas «Desde €»</label>
+              <input
+                type="number"
+                inputMode="numeric"
+                value={settings.basePrintPrice}
+                onChange={(e) => setSetting("basePrintPrice", parseInt(e.target.value, 10) || 95)}
+                className={`${inputClass} font-mono`}
+              />
+            </div>
+          </div>
+
+          <div className="hidden grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
+            <div>
               <label className={labelClass}>
                 Teléfono / WhatsApp (déjalo vacío para ocultarlo)
               </label>
@@ -337,19 +347,6 @@ export default function SiteSettingsSection({
                 value={settings.whatsappNumber}
                 onChange={(e) => setSetting("whatsappNumber", e.target.value)}
                 placeholder="Vacío = solo email (ej. 34600000000 para activar)"
-                className={`${inputClass} font-mono`}
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
-            <div>
-              <label className={labelClass}>Copias Fine Art «Desde €»</label>
-              <input
-                type="number"
-                inputMode="numeric"
-                value={settings.basePrintPrice}
-                onChange={(e) => setSetting("basePrintPrice", parseInt(e.target.value, 10) || 95)}
                 className={`${inputClass} font-mono`}
               />
             </div>

@@ -248,11 +248,11 @@ export default function WorkEditorModal({
     await onSave(finalPhoto, validSeries, uploadedDataUrl ?? undefined, validCovers);
   };
 
-  const tabs: { id: TabId; label: string }[] = [
-    { id: "general", label: "General y Portadas" },
-    { id: "textos", label: "Textos" },
+  const tabs: { id: TabId; label: string; hidden?: boolean }[] = [
+    { id: "general", label: "Datos y Portada" },
     { id: "precios", label: "Precios" },
-    { id: "ubicacion", label: config.showWildlife ? "Lugar, fauna y EXIF" : "Lugar y EXIF" },
+    { id: "textos", label: "Textos avanzados", hidden: true },
+    { id: "ubicacion", label: config.showWildlife ? "Lugar, fauna y EXIF" : "Lugar y EXIF", hidden: true },
   ];
 
   const previewSrc = uploadedDataUrl || formData.image;
@@ -319,7 +319,7 @@ export default function WorkEditorModal({
               key={tab.id}
               type="button"
               onClick={() => setActiveTab(tab.id)}
-              className={`min-h-[44px] whitespace-nowrap px-3 text-xs font-medium uppercase tracking-wider transition-colors border-b-2 cursor-pointer ${
+              className={`${tab.hidden ? "hidden " : ""}min-h-[44px] whitespace-nowrap px-4 text-xs font-medium uppercase tracking-wider transition-colors border-b-2 cursor-pointer ${
                 activeTab === tab.id
                   ? "border-[#C5A880] text-[#C5A880]"
                   : "border-transparent text-[#8E8A81] hover:text-[#EBE7DF]"
@@ -441,6 +441,17 @@ export default function WorkEditorModal({
                 </div>
 
                 <div>
+                  <label className={labelClass}>Lugar</label>
+                  <input
+                    type="text"
+                    value={formData.location || ""}
+                    onChange={(e) => setField("location", e.target.value)}
+                    placeholder={config.locationPlaceholder}
+                    className={inputClass}
+                  />
+                </div>
+
+                <div className="hidden">
                   <label className={labelClass}>Año</label>
                   <input
                     type="number"
@@ -452,16 +463,27 @@ export default function WorkEditorModal({
                 </div>
               </div>
 
-              {/* Control de Portadas, Carrusel Hero y Orden de Destacadas (#3) */}
+              <div>
+                <label className={labelClass}>Descripción breve</label>
+                <textarea
+                  rows={2}
+                  value={formData.description}
+                  onChange={(e) => setField("description", e.target.value)}
+                  placeholder={config.descriptionPlaceholder}
+                  className={`${inputClass} leading-relaxed`}
+                />
+              </div>
+
+              {/* Control de Portadas, Carrusel Hero y Visibilidad (#3) */}
               <div className="rounded-xl border border-[#C5A880]/25 bg-[#16171C] p-4 space-y-3">
                 <span className="text-xs font-mono uppercase tracking-wider text-[#C5A880]">
-                  Portadas, Carrusel Principal (Hero) y Visibilidad
+                  Portada y Venta
                 </span>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                <div className="grid grid-cols-1 gap-3 pt-1">
                   <div>
                     <label className={labelClass}>
-                      Carrusel grande de entrada (Hero · 5 salas)
+                      Portada principal de inicio (Hero · 01 a 05)
                     </label>
                     <select
                       value={formData.heroOrder || ""}
@@ -471,10 +493,10 @@ export default function WorkEditorModal({
                       }}
                       className={inputClass}
                     >
-                      <option value="">No mostrar en el carrusel Hero</option>
+                      <option value="">No mostrar en el Hero de inicio</option>
                       {[1, 2, 3, 4, 5].map((slot) => (
                         <option key={slot} value={slot}>
-                          Sala {slot} del Hero{" "}
+                          Portada 0{slot} del Hero{" "}
                           {heroOccupants[slot]
                             ? `(reemplaza a: ${heroOccupants[slot]})`
                             : "(actual)"}
@@ -483,7 +505,7 @@ export default function WorkEditorModal({
                     </select>
                   </div>
 
-                  <div>
+                  <div className="hidden">
                     <label className={labelClass}>
                       Orden en «Obras Seleccionadas» (1º, 2º, 3º…)
                     </label>
@@ -509,7 +531,7 @@ export default function WorkEditorModal({
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-                  <label className="flex min-h-[42px] items-center gap-3 rounded-lg border border-[#25272F] bg-[#191B21] px-3 cursor-pointer">
+                  <label className="hidden min-h-[42px] items-center gap-3 rounded-lg border border-[#25272F] bg-[#191B21] px-3 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={formData.featured}
@@ -529,7 +551,7 @@ export default function WorkEditorModal({
                       className="h-4 w-4 accent-[#C5A880]"
                     />
                     <span className="text-xs text-[#EBE7DF]">
-                      Usar como portada de «{CATEGORY_METADATA[formData.category]?.title}»
+                      Portada de «{CATEGORY_METADATA[formData.category]?.title}»
                     </span>
                   </label>
 
@@ -542,17 +564,17 @@ export default function WorkEditorModal({
                         className="h-4 w-4 accent-[#C5A880]"
                       />
                       <span className="text-xs text-[#EBE7DF]">
-                        A la venta como copia Fine Art
+                        A la venta como lámina
                       </span>
                     </label>
                     {formData.category === "coches-rally" && (
-                      <p className="mt-1.5 text-[10px] leading-relaxed text-[#8E8A81]">
+                      <p className="hidden mt-1.5 text-[10px] leading-relaxed text-[#8E8A81]">
                         <strong className="text-[#C5A880]">Motorsport / Rally:</strong> Desactivado por defecto. Se muestra en el portfolio como archivo documental con botón de solicitud directa para pilotos, equipos y prensa. Actívalo solo si dispones de autorización expresa de la escudería o es un plano detalle sin marcas identificables.
                       </p>
                     )}
                   </div>
 
-                  <label className="flex min-h-[42px] items-center gap-3 rounded-lg border border-[#25272F] bg-[#191B21] px-3 cursor-pointer">
+                  <label className="hidden min-h-[42px] items-center gap-3 rounded-lg border border-[#25272F] bg-[#191B21] px-3 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={Boolean(formData.licensing)}
@@ -566,8 +588,8 @@ export default function WorkEditorModal({
                 </div>
               </div>
 
-              {/* Series de la categoría + botón para usar como portada de serie */}
-              <div className="rounded-xl border border-[#24262E] bg-[#16171C] p-4">
+              {/* Series de la categoría (oculto en versión minimalista) */}
+              <div className="hidden rounded-xl border border-[#24262E] bg-[#16171C] p-4">
                 <span className="text-xs font-mono uppercase tracking-wider text-[#C5A880]">
                   Series en las que aparece (y portada de serie)
                 </span>
@@ -613,7 +635,7 @@ export default function WorkEditorModal({
                 )}
               </div>
 
-              <details className="rounded-xl border border-[#22242B] bg-[#141519] p-4">
+              <details className="hidden rounded-xl border border-[#22242B] bg-[#141519] p-4">
                 <summary className="cursor-pointer text-xs font-mono uppercase tracking-wider text-[#8E8A81]">
                   Avanzado (URL e imagen)
                 </summary>
@@ -734,7 +756,7 @@ export default function WorkEditorModal({
                 })}
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="hidden grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className={labelClass}>Tamaño máximo recomendado</label>
                   <select
@@ -760,7 +782,7 @@ export default function WorkEditorModal({
                 </div>
               </div>
 
-              <div>
+              <div className="hidden">
                 <label className={labelClass}>Motivo del tamaño máximo (se muestra al comprar)</label>
                 <textarea
                   rows={2}
@@ -771,7 +793,7 @@ export default function WorkEditorModal({
                 />
               </div>
 
-              <div>
+              <div className="hidden">
                 <label className={labelClass}>Papel</label>
                 <input
                   type="text"
