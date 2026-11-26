@@ -225,7 +225,7 @@ export async function processImageFileClient(file: File): Promise<{
     el.src = objectUrl;
   });
 
-  const maxEdge = 2200;
+  const maxEdge = 3200;
   const scale = Math.min(1, maxEdge / Math.max(img.naturalWidth, img.naturalHeight));
   const width = Math.max(1, Math.round(img.naturalWidth * scale));
   const height = Math.max(1, Math.round(img.naturalHeight * scale));
@@ -238,10 +238,12 @@ export async function processImageFileClient(file: File): Promise<{
     URL.revokeObjectURL(objectUrl);
     throw new Error("No se pudo procesar la imagen.");
   }
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = "high";
   ctx.drawImage(img, 0, 0, width, height);
   URL.revokeObjectURL(objectUrl);
 
-  const dataUrl = canvas.toDataURL("image/jpeg", 0.88);
+  const dataUrl = canvas.toDataURL("image/jpeg", 0.9);
   const suggestedTitle = titleFromFilename(file.name);
 
   return {

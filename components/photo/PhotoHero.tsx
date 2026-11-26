@@ -66,6 +66,7 @@ export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
                 placeholder="blur"
                 blurDataURL={DARK_BLUR_DATA_URL}
                 sizes="(max-width: 640px) 640px, (max-width: 1200px) 1200px, 1600px"
+                quality={90}
                 className="max-h-[82vh] w-auto max-w-full rounded-sm object-contain shadow-2xl transition duration-500 group-hover:brightness-105 pointer-events-none select-none"
               />
             </div>
@@ -87,6 +88,7 @@ export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
                   priority
                   draggable={false}
                   sizes="(max-width: 1024px) 90vw, 70vw"
+                  quality={90}
                   className="max-h-[64vh] w-auto max-w-full object-contain pointer-events-none select-none"
                 />
               </div>

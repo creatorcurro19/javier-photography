@@ -5,8 +5,12 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 31536000,
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    // Hasta 3840 px para pantallas retina/4K a pantalla completa.
+    // Next no amplía por encima del original: hoy el techo real es 2200 px.
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 2560, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 512],
+    // 75 para miniaturas; 85 para galerías y tarjetas; 90 para portada, ficha de obra y visores a pantalla completa.
+    qualities: [75, 85, 90],
   },
   async headers() {
     return [

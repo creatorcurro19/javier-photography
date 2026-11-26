@@ -375,7 +375,8 @@ export default function ExpeditionMap() {
                   alt={s.title}
                   fill
                   sizes="220px"
-                  className="object-cover transition duration-500 group-hover:scale-105 brightness-[0.92] group-hover:brightness-100"
+                  quality={85}
+                  className="object-cover transition duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E]/90 via-transparent to-transparent" />
                 <span className="absolute bottom-2 left-2 right-2 truncate font-serif text-xs text-[#EBE7DF]">

@@ -405,9 +405,10 @@ export default function ExhibitionGallery({
                         ? "(max-width: 640px) 46vw, (max-width: 1024px) 30vw, 260px"
                         : "(max-width: 640px) 92vw, (max-width: 1024px) 45vw, 420px"
                     }
+                    quality={viewMode === "immersive" ? 90 : 85}
                     loading="lazy"
                     draggable={false}
-                    className={`transition-transform duration-700 ease-out group-hover:scale-[1.02] brightness-[0.92] group-hover:brightness-100 pointer-events-none select-none ${
+                    className={`transition-transform duration-700 ease-out group-hover:scale-[1.02] pointer-events-none select-none ${
                       viewMode === "immersive"
                         ? "h-auto max-h-[85vh] w-auto max-w-full"
                         : "h-auto w-full"

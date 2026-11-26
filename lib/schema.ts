@@ -220,13 +220,13 @@ export function generatePhotoSchema(photo: Photo) {
           handlingTime: {
             "@type": "QuantitativeValue",
             minValue: 1,
-            maxValue: 3,
+            maxValue: 2,
             unitCode: "d",
           },
           transitTime: {
             "@type": "QuantitativeValue",
-            minValue: 3,
-            maxValue: 7,
+            minValue: 4,
+            maxValue: 5,
             unitCode: "d",
           },
         },
@@ -247,13 +247,13 @@ export function generatePhotoSchema(photo: Photo) {
           handlingTime: {
             "@type": "QuantitativeValue",
             minValue: 1,
-            maxValue: 3,
+            maxValue: 2,
             unitCode: "d",
           },
           transitTime: {
             "@type": "QuantitativeValue",
-            minValue: 4,
-            maxValue: 8,
+            minValue: 5,
+            maxValue: 7,
             unitCode: "d",
           },
         },
@@ -266,7 +266,7 @@ export function generatePhotoSchema(photo: Photo) {
       returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
       merchantReturnDays: 14,
       returnMethod: "https://schema.org/ReturnByMail",
-      returnFees: "https://schema.org/FreeReturn",
+      // Coste de devolución no especificado en /condiciones: no se declara returnFees.
     };
 
     schema.offers = {

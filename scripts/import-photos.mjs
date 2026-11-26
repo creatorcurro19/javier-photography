@@ -28,7 +28,7 @@ const CATEGORY_PREFIX = {
 
 const VALID_CATEGORIES = Object.keys(CATEGORY_PREFIX);
 const IMAGE_EXTENSIONS = new Set([".jpg", ".jpeg", ".png", ".webp", ".tif", ".tiff"]);
-const MAX_LONG_EDGE = 2200;
+const MAX_LONG_EDGE = 3200;
 
 function parseArgs(argv) {
   const args = {
@@ -240,7 +240,7 @@ async function main() {
         fit: "inside",
         withoutEnlargement: true,
       })
-      .jpeg({ quality: 85, mozjpeg: true });
+      .jpeg({ quality: 88, mozjpeg: true });
 
     const { data: jpegBuffer, info } = await pipeline.toBuffer({ resolveWithObject: true });
     const outFile = path.join(outDir, `${baseSlug}.jpg`);

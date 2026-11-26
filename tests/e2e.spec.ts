@@ -1,4 +1,6 @@
+import { createHmac } from "crypto";
 import { test, expect } from "@playwright/test";
+import { E2E_WEBHOOK_SECRET } from "../playwright.config";
 
 test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
   test("GET /api/health devuelve estado de integraciones sin exponer secretos", async ({
@@ -157,25 +159,43 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
     expect(ogRes.status()).toBe(200);
     expect(ogRes.headers()["content-type"]).toContain("image/png");
 
-    const webhookRes = await request.post("/api/webhooks/stripe", {
+    const event = JSON.stringify({
+      type: "checkout.session.completed",
       data: {
-        type: "checkout.session.completed",
-        data: {
-          object: {
-            id: "cs_test_mock_123",
-            amount_total: 25500,
-            currency: "eur",
-            customer_details: { email: "test-buyer@example.com" },
-            metadata: {
-              orderId: "JE-2026-TEST",
-              customerName: "Coleccionista E2E",
-            },
+        object: {
+          id: "cs_test_mock_123",
+          payment_status: "paid",
+          amount_total: 25500,
+          currency: "eur",
+          customer_details: { email: "test-buyer@example.com" },
+          metadata: {
+            orderId: "JE-2026-TEST",
+            customerName: "Coleccionista E2E",
           },
         },
       },
     });
-    expect(webhookRes.status()).toBe(200);
-    const webhookData = await webhookRes.json();
-    expect(webhookData.received).toBe(true);
+    const headers = { "Content-Type": "application/json" };
+
+    // Sin firma: un tercero no puede marcar pedidos como pagados
+    const unsignedRes = await request.post("/api/webhooks/stripe", { data: event, headers });
+    expect(unsignedRes.status()).toBe(400);
+
+    // Firma falsa
+    const forgedRes = await request.post("/api/webhooks/stripe", {
+      data: event,
+      headers: { ...headers, "Stripe-Signature": `t=${Math.floor(Date.now() / 1000)},v1=${"0".repeat(64)}` },
+    });
+    expect(forgedRes.status()).toBe(400);
+
+    // Firma válida (secreto de prueba inyectado en playwright.config.ts)
+    const t = Math.floor(Date.now() / 1000);
+    const sig = createHmac("sha256", E2E_WEBHOOK_SECRET).update(`${t}.${event}`).digest("hex");
+    const signedRes = await request.post("/api/webhooks/stripe", {
+      data: event,
+      headers: { ...headers, "Stripe-Signature": `t=${t},v1=${sig}` },
+    });
+    expect(signedRes.status()).toBe(200);
+    expect((await signedRes.json()).received).toBe(true);
   });
 });

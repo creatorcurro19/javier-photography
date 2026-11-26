@@ -2,6 +2,9 @@ import { defineConfig } from "@playwright/test";
 
 const PORT = process.env.PORT ? Number(process.env.PORT) : 3105;
 
+/** Secreto ficticio solo para firmar eventos de prueba del webhook de Stripe en local. */
+export const E2E_WEBHOOK_SECRET = "whsec_e2e_local_only";
+
 export default defineConfig({
   testDir: "./tests",
   timeout: 30_000,
@@ -15,5 +18,6 @@ export default defineConfig({
     port: PORT,
     reuseExistingServer: !process.env.CI,
     timeout: 60_000,
+    env: { STRIPE_WEBHOOK_SECRET: E2E_WEBHOOK_SECRET },
   },
 });

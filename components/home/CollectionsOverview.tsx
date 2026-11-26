@@ -144,7 +144,8 @@ export default function CollectionsOverview() {
                         ? "(max-width: 1024px) 100vw, 50vw"
                         : "(max-width: 1024px) 100vw, 33vw"
                     }
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] brightness-[0.9] sm:brightness-[0.84] group-hover:brightness-95"
+                    quality={85}
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                   />
                   {/* Veladura inferior solo en pantallas sm+ donde la cartela se superpone */}
                   <div className="hidden sm:block absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/65 via-40% to-transparent" />

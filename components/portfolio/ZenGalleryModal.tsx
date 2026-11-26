@@ -202,6 +202,7 @@ export default function ZenGalleryModal({
                 fill
                 priority
                 sizes="100vw"
+                quality={90}
                 className="object-contain transition-opacity duration-1000 ease-in-out"
               />
             </div>

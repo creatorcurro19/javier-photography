@@ -1,20 +1,62 @@
+import { createHmac, timingSafeEqual } from "crypto";
 import { NextResponse } from "next/server";
 import { updateInboxItem } from "@/lib/server/inbox-store";
 import { DESTINATION_EMAIL, sendWithResend } from "@/lib/server/email";
 
+export const runtime = "nodejs";
+
+/** Tolerancia de 5 minutos para evitar ataques de repetición (igual que la librería oficial de Stripe). */
+const SIGNATURE_TOLERANCE_SECONDS = 300;
+
+/**
+ * Verifica la cabecera `Stripe-Signature` (esquema v1: HMAC-SHA256 de `${t}.${body}`).
+ * https://docs.stripe.com/webhooks#verify-manually
+ */
+function verifyStripeSignature(rawBody: string, header: string | null, secret: string): boolean {
+  if (!header) return false;
+  const parts = header.split(",").map((p) => p.trim().split("=") as [string, string]);
+  const timestamp = parts.find(([k]) => k === "t")?.[1];
+  const signatures = parts.filter(([k]) => k === "v1").map(([, v]) => v);
+  if (!timestamp || signatures.length === 0) return false;
+
+  const age = Math.abs(Math.floor(Date.now() / 1000) - Number(timestamp));
+  if (!Number.isFinite(age) || age > SIGNATURE_TOLERANCE_SECONDS) return false;
+
+  const expected = createHmac("sha256", secret).update(`${timestamp}.${rawBody}`, "utf8").digest();
+  return signatures.some((sig) => {
+    const received = Buffer.from(sig, "hex");
+    return received.length === expected.length && timingSafeEqual(received, expected);
+  });
+}
+
 export async function POST(request: Request) {
+  const secret = process.env.STRIPE_WEBHOOK_SECRET;
+  if (!secret) {
+    // Sin secreto no hay forma de comprobar que el aviso viene de Stripe: no se procesa nada.
+    console.error("[stripe-webhook] STRIPE_WEBHOOK_SECRET no configurado; evento rechazado.");
+    return NextResponse.json({ error: "Webhook no configurado" }, { status: 503 });
+  }
+
+  const rawBody = await request.text();
+  if (!verifyStripeSignature(rawBody, request.headers.get("stripe-signature"), secret)) {
+    return NextResponse.json({ error: "Firma de Stripe no válida" }, { status: 400 });
+  }
+
+  let event: { type?: string; data?: { object?: Record<string, unknown> } };
   try {
-    const rawBody = await request.text();
-    let event: { type?: string; data?: { object?: Record<string, unknown> } };
+    event = JSON.parse(rawBody);
+  } catch {
+    return NextResponse.json({ error: "Payload JSON inválido" }, { status: 400 });
+  }
 
-    try {
-      event = JSON.parse(rawBody);
-    } catch {
-      return NextResponse.json({ error: "Payload JSON inválido" }, { status: 400 });
-    }
-
+  try {
     if (event.type === "checkout.session.completed") {
       const session = event.data?.object || {};
+      // Con métodos de pago diferidos la sesión puede completarse sin cobro todavía.
+      if (session.payment_status !== "paid") {
+        return NextResponse.json({ received: true, ignored: "payment_status != paid" });
+      }
+
       const metadata = (session.metadata as Record<string, string>) || {};
       const orderId =
         metadata.orderId ||
@@ -22,9 +64,7 @@ export async function POST(request: Request) {
         (session.id as string);
 
       const amountTotal =
-        typeof session.amount_total === "number"
-          ? session.amount_total / 100
-          : undefined;
+        typeof session.amount_total === "number" ? session.amount_total / 100 : undefined;
       const currency = ((session.currency as string) || "eur").toUpperCase();
       const customerEmail =
         (session.customer_details as { email?: string })?.email ||

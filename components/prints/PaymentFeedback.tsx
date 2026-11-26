@@ -10,19 +10,17 @@ export default function PaymentFeedback() {
   const pago = searchParams.get("pago");
   const ref = searchParams.get("ref");
 
-  const [visible, setVisible] = useState(false);
+  // El aviso se deriva de la URL; solo guardamos si el usuario lo ha cerrado.
+  const [dismissed, setDismissed] = useState(false);
+  const visible = !dismissed && (pago === "confirmado" || pago === "cancelado");
 
+  // Efecto con sistema externo (localStorage del carrito): vaciar la cesta tras pago confirmado.
   useEffect(() => {
-    if (pago === "confirmado") {
-      clearCart();
-      setVisible(true);
-    } else if (pago === "cancelado") {
-      setVisible(true);
-    }
+    if (pago === "confirmado") clearCart();
   }, [pago]);
 
   const handleDismiss = () => {
-    setVisible(false);
+    setDismissed(true);
     // Limpiar searchParams de la URL de forma limpia
     router.replace("/prints", { scroll: false });
   };

@@ -310,6 +310,7 @@ export default function LightboxModal({
               alt={photo.alt}
               fill
               sizes="95vw"
+              quality={90}
               priority
               draggable={false}
               className="object-contain pointer-events-none"

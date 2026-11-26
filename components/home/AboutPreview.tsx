@@ -25,7 +25,8 @@ export default function AboutPreview() {
                 alt="Retrato y trabajo de campo de Javier Espinosa Martínez en Tenerife"
                 fill
                 sizes="(max-width: 1024px) 100vw, 42vw"
-                className="object-cover brightness-[0.92] contrast-[1.04]"
+                quality={85}
+                className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E]/85 via-transparent to-transparent pointer-events-none" />
 

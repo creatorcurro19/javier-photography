@@ -142,6 +142,7 @@ export default function OpticalLoupeInspector() {
             width={selected.width}
             height={selected.height}
             sizes="(max-width: 1024px) 100vw, 896px"
+            quality={90}
             className="block h-auto max-h-[65vh] w-auto max-w-full"
           />
 
