@@ -126,7 +126,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="border border-white/[0.08] bg-[#151618] p-8 sm:p-10">
+            <div className="hidden border border-white/[0.08] bg-[#151618] p-8 sm:p-10">
               <h3 className="font-mono text-xs uppercase tracking-[0.3em] text-[#8E8A80]">
                 Compromiso de Trabajo
               </h3>

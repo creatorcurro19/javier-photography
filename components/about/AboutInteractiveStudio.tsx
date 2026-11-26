@@ -237,13 +237,13 @@ export default function AboutInteractiveStudio() {
   };
 
   return (
-    <div className="space-y-28 sm:space-y-36">
+    <div className="space-y-16 sm:space-y-20">
       {/* =====================================================================
           1. HERO EDITORIAL MONOGRAPH & INTERACTIVE OPTICAL VIEWFINDER
       ===================================================================== */}
       <section className="relative">
-        {/* Top Monograph Header Bar */}
-        <div className="mb-10 flex flex-wrap items-center justify-between gap-4 border-b border-[#202226] pb-4 font-mono text-[10px] uppercase tracking-[0.32em] text-[#8E8A80]">
+        {/* Top Monograph Header Bar (oculta en versión minimalista) */}
+        <div className="hidden mb-10 flex-wrap items-center justify-between gap-4 border-b border-[#202226] pb-4 font-mono text-[10px] uppercase tracking-[0.32em] text-[#8E8A80]">
           <div className="flex items-center gap-3">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#8E8A80]" />
             <span>Monografía de Autor · N.º 01</span>
@@ -253,28 +253,31 @@ export default function AboutInteractiveStudio() {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-14">
+        <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-14">
           {/* Left Column: Editorial Statement & Interactive Perspective Selector */}
           <div className="lg:col-span-7 lg:pr-4">
-            <p className="font-mono text-xs uppercase tracking-[0.38em] text-[#8E8A80]">
-              Sobre mí y mi forma de mirar
+            <p className="font-mono text-xs uppercase tracking-[0.28em] text-[#C5A880]">
+              Sobre mí
             </p>
-            <h1 className="mt-4 font-serif text-4xl font-light leading-[1.08] tracking-wide text-[#EBE7DF] sm:text-6xl lg:text-[4.25rem]">
+            <h1 className="mt-3 font-serif text-3xl font-light leading-[1.1] tracking-wide text-[#EBE7DF] sm:text-5xl">
               Observar antes de{" "}
-              <span className="italic text-[#8E8A80]">disparar</span>
+              <span className="italic text-[#C5A880]">disparar</span>
             </h1>
 
             {/* Editorial Pull Quote */}
-            <blockquote className="mt-8 border-l-2 border-[#8E8A80] pl-6 font-serif text-xl italic leading-relaxed text-[#EBE7DF]/90 sm:text-2xl">
+            <blockquote className="mt-6 border-l-2 border-[#C5A880] pl-5 font-serif text-lg italic leading-relaxed text-[#EBE7DF]/90 sm:text-xl">
               «La fotografía no tiene que demostrar constantemente lo impresionante que es el mundo. A veces basta con detenerse a observarlo.»
             </blockquote>
 
-            <div className="mt-8 space-y-5 text-base font-light leading-relaxed text-[#EBE7DF]/80 sm:text-[17px] sm:leading-8">
+            <div className="mt-6 space-y-4 text-sm font-light leading-relaxed text-[#EBE7DF]/80 sm:text-base sm:leading-7">
               <p>
                 Soy <strong className="font-medium text-[#EBE7DF]">Javier Espinosa Martínez</strong>,
-                fotógrafo afincado en Tenerife (Islas Canarias). Me interesa salir con la cámara a observar lo que tengo delante y encontrar carácter en cosas muy distintas: un animal en mitad del monte, la niebla entrando en un bosque, una fachada antigua o el paso de un coche clásico en un tramo de montaña.
+                fotógrafo afincado en Tenerife (Islas Canarias). Me gusta salir con la cámara a observar con calma: fauna en libertad, paisajes de montaña y costa, arquitectura con historia o el ambiente de un rally clásico.
               </p>
               <p>
+                Trabajo siempre con luz natural y sin artificios, buscando que cada imagen transmita la atmósfera real del lugar tanto en pantalla como impresa en papel de algodón.
+              </p>
+              <p className="hidden">
                 Nunca me ha interesado encasillarme en una sola disciplina. Paso con naturalidad de esperar en silencio con el 600mm a recorrer los soportales de piedra y madera de{" "}
                 <Link
                   href="/projects/villanueva-de-la-vera"
@@ -291,13 +294,13 @@ export default function AboutInteractiveStudio() {
                 </Link>
                 . Son temas diferentes, pero todos parten de la misma curiosidad por la luz real, la huella del tiempo y los detalles que normalmente pasan desapercibidos.
               </p>
-              <p>
+              <p className="hidden">
                 Prefiero la autenticidad a la espectacularidad forzada. Cuando aparece una persona en mis fotografías —un herrero en su fragua, un vecino en la sombra de una calleja o un mecánico bajo la carpa de asistencia—, forma parte del lugar y del momento, sin necesidad de posados ni de convertirlo todo en espectáculo.
               </p>
             </div>
 
-            {/* Interactive Viewfinder Perspective Switcher */}
-            <div className="mt-10 border border-[#202226] bg-[#151618]/50 p-5 sm:p-6">
+            {/* Interactive Viewfinder Perspective Switcher (oculto en versión minimalista) */}
+            <div className="hidden mt-10 border border-[#202226] bg-[#151618]/50 p-5 sm:p-6">
               <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#202226] pb-3.5">
                 <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#8E8A80]">
                   Explorar Facetas en el Visor →
@@ -347,24 +350,30 @@ export default function AboutInteractiveStudio() {
             </div>
 
             {/* Primary Actions */}
-            <div className="mt-9 flex flex-wrap items-center gap-4 print:hidden">
+            <div className="mt-8 flex flex-wrap items-center gap-3 print:hidden">
               <Link
                 href="/portfolio"
-                className="inline-flex items-center gap-3 border border-[#EBE7DF] bg-[#EBE7DF] px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.28em] text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
+                className="inline-flex min-h-[46px] items-center gap-2 rounded-lg border border-[#C5A880] bg-[#C5A880] px-7 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-[#0B0C0E] transition hover:bg-white hover:border-white"
               >
-                <span>Explorar Archivo ({WORKS.length} Obras)</span>
+                <span>Ver todas las fotos</span>
                 <span>→</span>
               </Link>
               <Link
+                href="/contact"
+                className="inline-flex min-h-[46px] items-center gap-2 rounded-lg border border-white/20 bg-[#151618] px-6 py-3 text-xs uppercase tracking-[0.22em] text-[#EBE7DF] transition hover:border-white/40 hover:text-white"
+              >
+                <span>Contacto</span>
+              </Link>
+              <Link
                 href="/projects"
-                className="inline-flex items-center gap-2 border border-[#202226] bg-[#202226]/60 px-7 py-3.5 text-xs uppercase tracking-[0.28em] text-[#EBE7DF] transition hover:border-[#8E8A80] hover:text-white"
+                className="hidden items-center gap-2 border border-[#202226] bg-[#202226]/60 px-7 py-3.5 text-xs uppercase tracking-[0.28em] text-[#EBE7DF] transition hover:border-[#8E8A80] hover:text-white"
               >
                 <span>{SERIES.length} Series Documentales</span>
               </Link>
               <button
                 type="button"
                 onClick={() => window.print()}
-                className="inline-flex items-center gap-2 border border-[#8E8A80]/60 bg-[#0B0C0E] px-5 py-3.5 font-mono text-[10px] uppercase tracking-[0.24em] text-[#EBE7DF] transition hover:border-[#EBE7DF] hover:text-white"
+                className="hidden items-center gap-2 border border-[#8E8A80]/60 bg-[#0B0C0E] px-5 py-3.5 font-mono text-[10px] uppercase tracking-[0.24em] text-[#EBE7DF] transition hover:border-[#EBE7DF] hover:text-white"
               >
                 <span>Dossier Curatorial (PDF)</span>
                 <span>↓</span>
@@ -372,7 +381,7 @@ export default function AboutInteractiveStudio() {
             </div>
           </div>
 
-          {/* Right Column: Interactive Optical Viewfinder & Diptych Stage */}
+          {/* Right Column: Clean Photograph (HUD & secondary diptych hidden in minimalist version) */}
           <div className="lg:col-span-5">
             <div
               onMouseMove={handleMouseMove}
@@ -383,7 +392,7 @@ export default function AboutInteractiveStudio() {
               className="relative transition-transform duration-200 ease-out"
             >
               {/* Main Optical Frame */}
-              <div className="relative aspect-[4/5] w-full overflow-hidden border border-[#202226] bg-[#151618] shadow-[0_25px_70px_rgba(0,0,0,0.75)]">
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg border border-white/[0.08] bg-[#151618] shadow-2xl">
                 <Image
                   key={currentSlide.image}
                   src={currentSlide.image}
@@ -393,13 +402,13 @@ export default function AboutInteractiveStudio() {
                   sizes="(max-width: 1024px) 100vw, 42vw"
                   className="object-cover transition-all duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/20 to-transparent" />
+                <div className="hidden absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/20 to-transparent" />
 
-                {/* Optional Canon EOS R7 Optical Viewfinder HUD Overlay */}
+                {/* Optional Canon EOS R7 Optical Viewfinder HUD Overlay (oculto en versión minimalista) */}
                 {hudEnabled && (
                   <div
                     aria-hidden="true"
-                    className="pointer-events-none absolute inset-5 flex flex-col justify-between border border-[#EBE7DF]/15 p-4 transition-opacity duration-500"
+                    className="hidden pointer-events-none absolute inset-5 flex-col justify-between border border-[#EBE7DF]/15 p-4 transition-opacity duration-500"
                   >
                     {/* Top Viewfinder Telemetry */}
                     <div className="flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.25em] text-[#EBE7DF]/80">
@@ -438,8 +447,8 @@ export default function AboutInteractiveStudio() {
                 )}
               </div>
 
-              {/* Floating Secondary Diptych Detail Card */}
-              <div className="mt-4 flex items-center justify-between gap-4 border border-[#202226] bg-[#151618]/90 p-3.5 backdrop-blur-md">
+              {/* Floating Secondary Diptych Detail Card (oculto en versión minimalista) */}
+              <div className="hidden mt-4 items-center justify-between gap-4 border border-[#202226] bg-[#151618]/90 p-3.5 backdrop-blur-md">
                 <div className="flex items-center gap-3.5">
                   <div className="relative h-14 w-20 shrink-0 overflow-hidden border border-[#202226] bg-[#0B0C0E]">
                     <Image
@@ -788,45 +797,42 @@ export default function AboutInteractiveStudio() {
       </div>
 
       {/* =====================================================================
-          5. OFFICIAL INTERNATIONAL PLATFORMS & ETHICAL PILLARS
+          5. OFFICIAL INTERNATIONAL PLATFORMS & ETHICAL PILLARS (minimalista)
       ===================================================================== */}
-      <section className="grid grid-cols-1 gap-12 border-t border-[#202226] pt-20 lg:grid-cols-12">
+      <section className="grid grid-cols-1 gap-8 border-t border-white/[0.08] pt-12 lg:grid-cols-12">
         {/* Left: Ethical Manifesto in Numbered Editorial Format */}
         <div className="lg:col-span-6">
-          <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
-            Manera de Trabajar
+          <p className="font-mono text-xs uppercase tracking-[0.28em] text-[#C5A880]">
+            Cómo trabajo
           </p>
-          <h2 className="mt-2 font-serif text-3xl font-light text-[#EBE7DF] sm:text-4xl">
-            Tres criterios sencillos
-          </h2>
 
-          <div className="mt-8 divide-y divide-[#202226] border-y border-[#202226]">
+          <div className="mt-4 divide-y divide-white/[0.08] border-y border-white/[0.08]">
             {[
               {
                 num: "01",
-                title: "Trabajar con la luz que hay",
+                title: "Luz natural",
                 desc: "Prefiero adaptarme a la luz real de cada hora: la penumbra antes del amanecer, el sol filtrado en un callejón, la niebla del monte o las farolas de una calle de noche.",
               },
               {
                 num: "02",
-                title: "Fotografía real, sin elementos inventados",
+                title: "Fotografía real, sin nada inventado",
                 desc: "Lo que aparece en la imagen estaba delante del objetivo. El revelado se limita a cuidar el tono, el contraste y la limpieza del archivo para impresión, sin añadir ni generar nada artificialmente.",
               },
               {
                 num: "03",
-                title: "Respeto por el lugar y por lo fotografiado",
+                title: "Respeto por el lugar y la escena",
                 desc: "Tanto en la naturaleza como en un taller o en la calle, procuro interferir lo mínimo posible: mantener la distancia con la fauna y dejar que las escenas ocurran a su propio ritmo.",
               },
             ].map((pillar) => (
-              <div key={pillar.num} className="flex gap-5 py-6">
-                <span className="font-mono text-xs text-[#8E8A80]">
-                  /{pillar.num}
+              <div key={pillar.num} className="flex items-center gap-4 py-4">
+                <span className="font-mono text-xs text-[#C5A880]">
+                  {pillar.num}
                 </span>
                 <div>
-                  <h3 className="font-serif text-xl text-[#EBE7DF]">
+                  <h3 className="font-serif text-lg text-[#EBE7DF]">
                     {pillar.title}
                   </h3>
-                  <p className="mt-2 text-xs font-light leading-relaxed text-[#EBE7DF]/75 sm:text-sm">
+                  <p className="hidden mt-2 text-xs font-light leading-relaxed text-[#EBE7DF]/75 sm:text-sm">
                     {pillar.desc}
                   </p>
                 </div>
@@ -837,17 +843,22 @@ export default function AboutInteractiveStudio() {
 
         {/* Right: Official International Representation Cards */}
         <div className="lg:col-span-6">
-          <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
-            Presencia & Adquisición Global
+          <p className="font-mono text-xs uppercase tracking-[0.28em] text-[#C5A880]">
+            Perfiles oficiales
           </p>
-          <h2 className="mt-2 font-serif text-3xl font-light text-[#EBE7DF] sm:text-4xl">
-            Plataformas oficiales verificadas
-          </h2>
 
-          <div className="mt-8 space-y-4">
+          <div className="mt-4 space-y-2.5">
             {[
               {
-                badge: "COLECCIONISMO & OBRA GRÁFICA",
+                badge: "DIARIO VISUAL",
+                title: "Instagram · @Javier.espinosa19",
+                subtitle: "instagram.com/Javier.espinosa19",
+                desc: "Crónica activa de salidas de campo, nuevas series fotográficas, sesiones de rally y contacto directo con el autor.",
+                href: "https://www.instagram.com/Javier.espinosa19/",
+                cta: "Seguir @Javier.espinosa19 ↗",
+              },
+              {
+                badge: "GALERÍA INTERNACIONAL",
                 title: "Saatchi Art",
                 subtitle: "saatchiart.com/javier-espinosa-photography",
                 desc: "Adquisición internacional de obra Fine Art y ediciones para coleccionistas, interioristas y galerías con envío global asegurado.",
@@ -855,20 +866,12 @@ export default function AboutInteractiveStudio() {
                 cta: "Visitar Galería en Saatchi Art ↗",
               },
               {
-                badge: "LICENCIAS COMERCIALES & EDITORIALES",
+                badge: "BANCO DE IMÁGENES",
                 title: "Getty Images / iStock",
                 subtitle: "istockphoto.com/portfolio/JavierEspinosa",
                 desc: "Catálogo oficial de licencias de derechos para agencias de publicidad, grupos editoriales, prensa, documentales y diseño corporativo.",
                 href: "https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image",
                 cta: "Explorar Portfolio en Getty / iStock ↗",
-              },
-              {
-                badge: "DIARIO VISUAL & EXPEDICIONES",
-                title: "Instagram · @Javier.espinosa19",
-                subtitle: "instagram.com/Javier.espinosa19",
-                desc: "Crónica activa de salidas de campo, nuevas series fotográficas, sesiones de rally y contacto directo con el autor.",
-                href: "https://www.instagram.com/Javier.espinosa19/",
-                cta: "Seguir @Javier.espinosa19 ↗",
               },
             ].map((plat) => (
               <a
@@ -876,27 +879,21 @@ export default function AboutInteractiveStudio() {
                 href={plat.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative block overflow-hidden border border-[#202226] bg-[#151618]/50 p-6 transition-all duration-300 hover:border-[#8E8A80] hover:bg-[#202226]/60"
+                className="group flex items-center justify-between gap-4 rounded-lg border border-white/[0.08] bg-[#151618]/60 px-5 py-3.5 transition-all duration-300 hover:border-[#C5A880]/60 hover:bg-[#151618]"
               >
-                <div className="flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.26em] text-[#8E8A80]">
-                  <span>{plat.badge}</span>
-                  <span className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5">
-                    ↗
+                <div>
+                  <span className="font-mono text-[9px] uppercase tracking-[0.24em] text-[#C5A880]">
+                    {plat.badge}
                   </span>
-                </div>
-                <div className="mt-2 flex flex-wrap items-baseline justify-between gap-2">
-                  <h3 className="font-serif text-2xl text-[#EBE7DF] group-hover:text-white">
+                  <h3 className="mt-0.5 font-serif text-lg text-[#EBE7DF] group-hover:text-white">
                     {plat.title}
                   </h3>
-                  <span className="font-mono text-[10px] text-neutral-500">
-                    {plat.subtitle}
-                  </span>
+                  <p className="hidden mt-2.5 text-xs font-light leading-relaxed text-[#EBE7DF]/75">
+                    {plat.desc}
+                  </p>
                 </div>
-                <p className="mt-2.5 text-xs font-light leading-relaxed text-[#EBE7DF]/75">
-                  {plat.desc}
-                </p>
-                <span className="mt-4 inline-block font-mono text-[10px] uppercase tracking-[0.22em] text-[#EBE7DF] underline decoration-[#8E8A80]/60 underline-offset-4 group-hover:text-white">
-                  {plat.cta}
+                <span className="font-mono text-xs text-[#C5A880] transition-transform duration-300 group-hover:translate-x-1">
+                  ↗
                 </span>
               </a>
             ))}
@@ -905,9 +902,9 @@ export default function AboutInteractiveStudio() {
       </section>
 
       {/* =====================================================================
-          6. CLOSING COMMISSION & COLLECTOR BANNER
+          6. CLOSING COMMISSION & COLLECTOR BANNER (oculto en versión minimalista)
       ===================================================================== */}
-      <section className="relative overflow-hidden border border-[#202226] bg-[#151618]/40 p-8 sm:p-14">
+      <section className="hidden relative overflow-hidden border border-[#202226] bg-[#151618]/40 p-8 sm:p-14">
         <div className="relative z-10 flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
           <div className="max-w-2xl">
             <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#8E8A80]">

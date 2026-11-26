@@ -255,23 +255,33 @@ export default function DirectPrintsCatalog({
                 </div>
               </Link>
 
-              <div className="p-6 sm:p-7">
-                <p className="font-mono text-[10px] uppercase tracking-[0.26em] text-[#8E8A80]">
+              <div className="p-5">
+                <p className="hidden font-mono text-[10px] uppercase tracking-[0.26em] text-[#8E8A80]">
                   {photo.location ? `${photo.location} · ` : ""}
                   Ed. Limitada {photo.pricing?.editionTotal ?? 25} ej. ·{" "}
                   {photo.pricing?.paper.includes("Baritado")
                     ? "Baritado 340g"
                     : "Algodón Mate 308g"}
                 </p>
-                <h3 className="mt-2 font-serif text-xl font-light text-[#EBE7DF] transition group-hover:text-white">
-                  <Link href={`/portfolio/${photo.slug}`} className="hover:underline underline-offset-4">
-                    {photo.title}
-                  </Link>
-                </h3>
-                <p className="mt-2 line-clamp-2 text-xs font-light leading-relaxed text-[#8E8A80]">
+                <div className="flex items-baseline justify-between gap-3">
+                  <h3 className="font-serif text-lg sm:text-xl font-light text-[#EBE7DF] transition group-hover:text-white">
+                    <Link href={`/portfolio/${photo.slug}`} className="hover:underline underline-offset-4">
+                      {photo.title}
+                    </Link>
+                  </h3>
+                  <span className="shrink-0 whitespace-nowrap font-serif text-base text-[#C5A880]">
+                    Desde {photo.pricing?.estudio ?? 100}&nbsp;€
+                  </span>
+                </div>
+                {photo.location && (
+                  <p className="mt-1 font-mono text-[10px] text-[#A39E93]">
+                    {photo.location}
+                  </p>
+                )}
+                <p className="hidden mt-2 line-clamp-2 text-xs font-light leading-relaxed text-[#8E8A80]">
                   {photo.description}
                 </p>
-                <div className="mt-4 border-t border-white/[0.06] pt-3 flex flex-col gap-1.5">
+                <div className="hidden mt-4 border-t border-white/[0.06] pt-3 flex-col gap-1.5">
                   <div className="flex items-center justify-between gap-2 font-mono text-[11px]">
                     <span className="text-[#A39E93]">Estudio ({photo.pricing?.dimensions.estudio ?? "30 × 45 cm"}):</span>
                     <span className="shrink-0 whitespace-nowrap font-serif text-sm text-[#C5A880] font-normal">{photo.pricing?.estudio ?? 100}&nbsp;€</span>
@@ -288,12 +298,12 @@ export default function DirectPrintsCatalog({
               </div>
             </div>
 
-            <div className="flex items-center justify-between gap-3 border-t border-white/[0.08] bg-[#0B0C0E]/40 p-6 pt-4">
+            <div className="flex items-center justify-between gap-3 border-t border-white/[0.08] bg-[#0B0C0E]/40 px-5 py-3.5">
               <Link
                 href={`/portfolio/${photo.slug}#adquirir-copia`}
-                className="font-mono text-xs uppercase tracking-[0.22em] text-[#8E8A80] transition hover:text-[#EBE7DF]"
+                className="font-mono text-xs uppercase tracking-[0.2em] text-[#A39E93] transition hover:text-[#EBE7DF]"
               >
-                Ficha y Tamaños →
+                Elegir tamaño →
               </Link>
               <PrintCardAction photo={photo} />
             </div>

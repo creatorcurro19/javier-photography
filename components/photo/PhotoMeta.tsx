@@ -13,28 +13,36 @@ export default function PhotoMeta({ photo }: PhotoMetaProps) {
   const relatedProjects = getProjectsForPhoto(photo.id);
 
   return (
-    <header className="border-b border-[#202226] pb-10">
+    <header className="border-b border-white/[0.08] pb-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2.5 text-xs font-mono uppercase tracking-[0.2em] text-[#C5A880]">
           <Link
             href={`/portfolio/${photo.category}`}
-            className="rounded-full border border-[#202226] bg-[#202226]/50 px-3.5 py-1 text-xs font-mono uppercase tracking-[0.2em] text-[#8E8A80] hover:border-[#8E8A80]/60 hover:text-[#EBE7DF] transition"
+            className="hover:text-[#EBE7DF] transition"
           >
-            {categoryInfo?.title ?? photo.category} · {categoryInfo?.codeEn}
+            {categoryInfo?.title ?? photo.category}
           </Link>
-          <span className="text-xs font-mono text-neutral-600">·</span>
-          <span className="text-xs font-mono uppercase tracking-wider text-[#8E8A80]">
-            {photo.year}
-          </span>
+          {photo.location && (
+            <>
+              <span className="text-white/25">·</span>
+              <span className="text-[#A39E93]">{photo.location}</span>
+            </>
+          )}
         </div>
 
         <FavoriteButton title={photo.title} />
       </div>
 
-      <h1 className="mt-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-[#EBE7DF] leading-[1.12]">
+      <h1 className="mt-3 font-serif text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-[#EBE7DF] leading-[1.12]">
         {photo.title}
       </h1>
 
+      <p className="mt-4 max-w-2xl text-base sm:text-lg leading-relaxed text-[#EBE7DF]/80 font-light">
+        {photo.description}
+      </p>
+
+      {/* Bloques técnicos y banner duplicado ocultos en versión minimalista (sin eliminar nada) */}
+      <div className="hidden">
       {/* Prominent Price & Acquisition Banner */}
       {photo.prints ? (
         <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border border-[#C5A880]/30 bg-[#15171A] p-4 sm:p-5">
@@ -185,6 +193,7 @@ export default function PhotoMeta({ photo }: PhotoMetaProps) {
       <p className="mt-8 max-w-3xl text-base sm:text-lg leading-relaxed text-[#EBE7DF]/80 font-light">
         {photo.description}
       </p>
+      </div>
     </header>
   );
 }
