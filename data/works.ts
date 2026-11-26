@@ -64,11 +64,11 @@ export const SERIES: Project[] = [
     "id": "trazadas-rally",
     "slug": "trazadas-rally",
     "title": "Trazadas y Paddock: Rally Histórico",
-    "subtitle": "Tramos de montaña, parque de asistencia y coches clásicos de competición",
+    "subtitle": "Tramo de El Tanque, parque de asistencia y clásicos del 52º Rallye Orvecame Isla Tenerife Histórico",
     "discipline": "MOTOR",
     "category": "coches-rally",
     "year": "2024 — 2026",
-    "location": "Tramos de Montaña y Parque de Asistencia",
+    "location": "52º Rallye Orvecame Isla Tenerife Histórico · El Tanque, Tenerife",
     "coverImage": "/images/portfolio/coches-rally/cruzada-sobre-el-asfalto.jpg",
     "description": "Dos caras de un rally de clásicos: la acción en pleno tramo —frenadas, cruzadas y apoyos a tres ruedas— y las horas previas en las carpas de asistencia.",
     "statement": [
@@ -1070,9 +1070,11 @@ export const WORKS: Photo[] = [
       "paddock",
       "automovilismo clásico",
       "historic rally",
-      "motorsport paddock"
+      "motorsport paddock",
+      "tenerife",
+      "rallye orvecame isla tenerife histórico"
     ],
-    "location": "Parque de Asistencia",
+    "location": "52º Rallye Orvecame Isla Tenerife Histórico · Tenerife",
     "country": "España",
     "pricing": {
       "estudio": 120,
@@ -1118,10 +1120,12 @@ export const WORKS: Photo[] = [
       "óptica clásica",
       "paddock",
       "classic porsche rally",
-      "historic motorsport"
+      "historic motorsport",
+      "tenerife",
+      "rallye orvecame isla tenerife histórico"
     ],
     "story": "En el silencio concentrado de la asistencia, la curva de la aleta y el faro redondo bastaban para evocar toda una época del motor.",
-    "location": "Tramo de Rally Histórico",
+    "location": "52º Rallye Orvecame Isla Tenerife Histórico · Tenerife",
     "country": "España",
     "pricing": {
       "estudio": 150,
@@ -1167,9 +1171,11 @@ export const WORKS: Photo[] = [
       "dorsal 30",
       "preparación mecánica",
       "automovilismo",
-      "motorsport photography"
+      "motorsport photography",
+      "tenerife",
+      "rallye orvecame isla tenerife histórico"
     ],
-    "location": "Parque de Asistencia",
+    "location": "52º Rallye Orvecame Isla Tenerife Histórico · Tenerife",
     "country": "España",
     "pricing": {
       "estudio": 125,
@@ -1214,9 +1220,12 @@ export const WORKS: Photo[] = [
       "horquilla",
       "tramo cronometrado",
       "tarmac rally",
-      "motorsport action"
+      "motorsport action",
+      "el tanque",
+      "tenerife",
+      "rallye orvecame isla tenerife histórico"
     ],
-    "location": "Tramo Cronometrado de Montaña",
+    "location": "Tramo de El Tanque · 52º Rallye Orvecame Isla Tenerife Histórico",
     "country": "España",
     "pricing": {
       "estudio": 155,
@@ -1261,9 +1270,11 @@ export const WORKS: Photo[] = [
       "verificaciones técnicas",
       "rally histórico",
       "cultura del motor",
-      "racing livery"
+      "racing livery",
+      "tenerife",
+      "rallye orvecame isla tenerife histórico"
     ],
-    "location": "Parque de Trabajo",
+    "location": "52º Rallye Orvecame Isla Tenerife Histórico · Tenerife",
     "country": "España",
     "pricing": {
       "estudio": 105,
@@ -1306,9 +1317,11 @@ export const WORKS: Photo[] = [
       "dorsal 5",
       "parque cerrado",
       "llantas competición",
-      "classic racing car"
+      "classic racing car",
+      "tenerife",
+      "rallye orvecame isla tenerife histórico"
     ],
-    "location": "Parque Cerrado",
+    "location": "52º Rallye Orvecame Isla Tenerife Histórico · Tenerife",
     "country": "España",
     "pricing": {
       "estudio": 120,
@@ -1352,9 +1365,12 @@ export const WORKS: Photo[] = [
       "rally histórico",
       "faros supletorios",
       "trazada",
-      "classic rally golf"
+      "classic rally golf",
+      "el tanque",
+      "tenerife",
+      "rallye orvecame isla tenerife histórico"
     ],
-    "location": "Tramo de Montaña",
+    "location": "Tramo de El Tanque · 52º Rallye Orvecame Isla Tenerife Histórico",
     "country": "España",
     "pricing": {
       "estudio": 155,
@@ -1399,9 +1415,12 @@ export const WORKS: Photo[] = [
       "dorsal 77",
       "rally de asfalto",
       "suspensión comprimida",
-      "rally stage photography"
+      "rally stage photography",
+      "el tanque",
+      "tenerife",
+      "rallye orvecame isla tenerife histórico"
     ],
-    "location": "Tramo Cronometrado",
+    "location": "Tramo de El Tanque · 52º Rallye Orvecame Isla Tenerife Histórico",
     "country": "España",
     "pricing": {
       "estudio": 145,
@@ -1446,9 +1465,11 @@ export const WORKS: Photo[] = [
       "volante desplazado",
       "cockpit clásico",
       "automovilismo",
-      "racing cockpit"
+      "racing cockpit",
+      "tenerife",
+      "rallye orvecame isla tenerife histórico"
     ],
-    "location": "Parque de Asistencia",
+    "location": "52º Rallye Orvecame Isla Tenerife Histórico · Tenerife",
     "country": "España",
     "pricing": {
       "estudio": 125,
@@ -1492,9 +1513,11 @@ export const WORKS: Photo[] = [
       "rutómetro",
       "rally histórico",
       "motorsport storytelling",
-      "pacenotes"
+      "pacenotes",
+      "tenerife",
+      "rallye orvecame isla tenerife histórico"
     ],
-    "location": "Control Horario",
+    "location": "52º Rallye Orvecame Isla Tenerife Histórico · Tenerife",
     "country": "España",
     "pricing": {
       "estudio": 120,
@@ -1538,9 +1561,12 @@ export const WORKS: Photo[] = [
       "rally histórico",
       "clásico de competición",
       "historic rally car",
-      "fine art motorsport"
+      "fine art motorsport",
+      "el tanque",
+      "tenerife",
+      "rallye orvecame isla tenerife histórico"
     ],
-    "location": "Tramo de Montaña",
+    "location": "Tramo de El Tanque · 52º Rallye Orvecame Isla Tenerife Histórico",
     "country": "España",
     "pricing": {
       "estudio": 165,
@@ -1585,9 +1611,12 @@ export const WORKS: Photo[] = [
       "cruce de tramo",
       "apoyo lateral",
       "rally de velocidad",
-      "tarmac rally action"
+      "tarmac rally action",
+      "el tanque",
+      "tenerife",
+      "rallye orvecame isla tenerife histórico"
     ],
-    "location": "Tramo Cronometrado",
+    "location": "Tramo de El Tanque · 52º Rallye Orvecame Isla Tenerife Histórico",
     "country": "España",
     "pricing": {
       "estudio": 135,
@@ -1633,10 +1662,13 @@ export const WORKS: Photo[] = [
       "rally histórico",
       "drift",
       "motorsport fine art",
-      "rally photography"
+      "rally photography",
+      "el tanque",
+      "tenerife",
+      "rallye orvecame isla tenerife histórico"
     ],
     "story": "En el instante de abrir gas sobre las marcas de pintura del tramo, la trasera deslizó con nobleza dejando en el aire el olor y la niebla de la goma.",
-    "location": "Tramo Cronometrado de Montaña",
+    "location": "Tramo de El Tanque · 52º Rallye Orvecame Isla Tenerife Histórico",
     "country": "España",
     "pricing": {
       "estudio": 180,
@@ -1683,10 +1715,13 @@ export const WORKS: Photo[] = [
       "rueda en el aire",
       "teleobjetivo rally",
       "compresión óptica",
-      "historic rally action"
+      "historic rally action",
+      "el tanque",
+      "tenerife",
+      "rallye orvecame isla tenerife histórico"
     ],
     "story": "Desde la distancia, el cambio brusco de pendiente dejó el neumático suspendido sobre el asfalto en un equilibrio fugaz.",
-    "location": "Tramo Cronometrado",
+    "location": "Tramo de El Tanque · 52º Rallye Orvecame Isla Tenerife Histórico",
     "country": "España",
     "pricing": {
       "estudio": 160,
@@ -1714,7 +1749,7 @@ export const WORKS: Photo[] = [
     "image": "/images/portfolio/arquitectura-urbana/farola-y-azulejeria-nocturna.jpg",
     "width": 2133,
     "height": 3200,
-    "alt": "Farola clásica iluminando en la noche los azulejos históricos y el balcón de forja de una fachada tradicional",
+    "alt": "Farola clásica iluminando en la noche los azulejos históricos y el balcón de forja de una fachada en El Puerto de Santa María, Cádiz",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 5000,
@@ -1731,9 +1766,12 @@ export const WORKS: Photo[] = [
       "fotografía nocturna",
       "arquitectura histórica",
       "forja tradicional",
-      "urban night architecture"
+      "urban night architecture",
+      "el puerto de santa maría",
+      "cádiz",
+      "andalucía"
     ],
-    "location": "Casco Histórico",
+    "location": "El Puerto de Santa María, Cádiz",
     "country": "España",
     "pricing": {
       "estudio": 135,
@@ -1759,7 +1797,7 @@ export const WORKS: Photo[] = [
     "image": "/images/portfolio/arquitectura-urbana/paseo-nocturno-bajo-las-farolas.jpg",
     "width": 2133,
     "height": 3200,
-    "alt": "Siluetas de dos caminantes junto a una bicicleta bajo la luz cálida de las farolas en una calle empedrada nocturna",
+    "alt": "Siluetas de dos caminantes junto a una bicicleta bajo la luz cálida de las farolas en una calle nocturna de El Puerto de Santa María, Cádiz",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 6400,
@@ -1777,10 +1815,13 @@ export const WORKS: Photo[] = [
       "calle histórica",
       "siluetas",
       "alumbrado clásico",
-      "street photography night"
+      "street photography night",
+      "el puerto de santa maría",
+      "cádiz",
+      "andalucía"
     ],
     "story": "La luz ambarina de la calle convirtió la piedra húmeda en un escenario íntimo donde las figuras se recortaron a contraluz.",
-    "location": "Casco Histórico",
+    "location": "El Puerto de Santa María, Cádiz",
     "country": "España",
     "pricing": {
       "estudio": 135,
@@ -2061,9 +2102,11 @@ export const WORKS: Photo[] = [
       "frutería tradicional",
       "vida cotidiana",
       "fotografía documental",
-      "street documentary"
+      "street documentary",
+      "el puerto de santa maría",
+      "cádiz"
     ],
-    "location": "Comercio Tradicional",
+    "location": "El Puerto de Santa María, Cádiz",
     "country": "España",
     "pricing": {
       "estudio": 105,
@@ -2108,9 +2151,11 @@ export const WORKS: Photo[] = [
       "calleja histórica",
       "luz lateral",
       "crónica documental",
-      "spanish street photography"
+      "spanish street photography",
+      "el puerto de santa maría",
+      "cádiz"
     ],
-    "location": "Casco Antiguo",
+    "location": "El Puerto de Santa María, Cádiz",
     "country": "España",
     "pricing": {
       "estudio": 120,
@@ -2136,7 +2181,7 @@ export const WORKS: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/devocion-ante-el-retablo.jpg",
     "width": 2134,
     "height": 3200,
-    "alt": "Interior en penumbra de una iglesia histórica con fieles en recogimiento frente al retablo barroco iluminado",
+    "alt": "Interior en penumbra de la iglesia con fieles en recogimiento frente al retablo iluminado durante las Cruces de Mayo en Los Realejos, Tenerife",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 5000,
@@ -2149,13 +2194,15 @@ export const WORKS: Photo[] = [
     "prints": true,
     "licensing": true,
     "keywords": [
+      "cruces de mayo",
+      "los realejos",
+      "tenerife",
       "retablo",
-      "patrimonio sacro",
       "devoción popular",
       "claroscuro",
-      "documentary heritage"
+      "tradición canaria"
     ],
-    "location": "Templo Histórico",
+    "location": "Cruces de Mayo · Los Realejos, Tenerife",
     "country": "España",
     "pricing": {
       "estudio": 125,
@@ -2181,26 +2228,28 @@ export const WORKS: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/procesion-y-fuegos-nocturnos.jpg",
     "width": 2560,
     "height": 3200,
-    "alt": "Paso procesional avanzando en la noche entre la multitud bajo el resplandor de fuegos artificiales",
+    "alt": "Procesión nocturna bajo el resplandor de la exhibición pirotécnica de las Cruces de Mayo en Los Realejos, Tenerife",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 4000,
     "aperture": "f/3.5",
     "shutter": "1/50s",
     "focalLength": "18mm",
-    "description": "Entre el humo y el estallido de la pólvora en el cielo oscuro, la fe popular avanza mecida por la multitud.",
+    "description": "El trono avanza sobre un mar de cabezas mientras la noche de mayo estalla en fuego y humo sobre Los Realejos.",
     "year": 2026,
     "featured": false,
     "prints": true,
     "licensing": true,
     "keywords": [
+      "cruces de mayo",
+      "los realejos",
+      "tenerife",
       "procesión nocturna",
-      "tradición popular",
+      "fuegos artificiales",
       "pirotecnia",
-      "cultura española",
-      "cultural documentary"
+      "tradición canaria"
     ],
-    "location": "Celebración Popular",
+    "location": "Cruces de Mayo · Los Realejos, Tenerife",
     "country": "España",
     "pricing": {
       "estudio": 135,
@@ -2216,7 +2265,8 @@ export const WORKS: Photo[] = [
       "score": 82
     },
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Captura nocturna o en penumbra a ISO 4000: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm."
+    "maxFormatReason": "Captura nocturna o en penumbra a ISO 4000: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm.",
+    "story": "Cada mes de mayo en Los Realejos, el silencio recogido de la procesión y el estruendo luminoso de los fuegos artificiales se funden en una sola emoción."
   },
   {
     "id": "vc-05",
@@ -2691,10 +2741,12 @@ export const WORKS: Photo[] = [
       "silueta caminante",
       "adoquines",
       "fotografía de calle",
-      "street photography shadows"
+      "street photography shadows",
+      "el puerto de santa maría",
+      "cádiz"
     ],
     "story": "Cuando el sol tocó el final de la calle, los adoquines brillaron como bronce y la sombra del caminante se alargó hasta mis pies.",
-    "location": "Casco Histórico",
+    "location": "El Puerto de Santa María, Cádiz",
     "country": "España",
     "pricing": {
       "estudio": 135,
@@ -3554,9 +3606,12 @@ export const WORKS: Photo[] = [
       "rally histórico",
       "coche clásico competición",
       "rueda en el aire",
-      "historic rally a112"
+      "historic rally a112",
+      "el tanque",
+      "tenerife",
+      "rallye orvecame isla tenerife histórico"
     ],
-    "location": "Tramo de Rally Histórico",
+    "location": "Tramo de El Tanque · 52º Rallye Orvecame Isla Tenerife Histórico",
     "country": "España",
     "pricing": {
       "estudio": 160,
@@ -4062,7 +4117,7 @@ export const WORKS: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/el-oficio-y-la-chispa.jpg",
     "width": 3840,
     "height": 2880,
-    "alt": "Herrero trabajando el hierro candente en la penumbra de su fragua mientras una lluvia de chispas ilumina el taller",
+    "alt": "Artesano del hierro trabajando el metal candente en la penumbra de su fragua tradicional en Marrakech mientras una lluvia de chispas ilumina el taller",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 800,
@@ -4076,17 +4131,18 @@ export const WORKS: Photo[] = [
     "prints": true,
     "licensing": true,
     "keywords": [
-      "herrero tradicional",
       "fragua",
-      "forja artesanal",
-      "oficios en extinción",
+      "herrero",
+      "marrakech",
+      "marruecos",
+      "oficios tradicionales",
+      "chispas",
       "fotografía documental",
-      "blacksmith documentary",
-      "fine art documentary"
+      "blacksmith fine art"
     ],
     "story": "Dentro del taller oscuro solo se oía el golpe sobre el metal; cada chispazo encendía el humo y las herramientas de toda una vida.",
-    "location": "Fragua Tradicional",
-    "country": "España",
+    "location": "Medina de Marrakech",
+    "country": "Marruecos",
     "pricing": {
       "estudio": 175,
       "galeria": 305,
@@ -4925,9 +4981,12 @@ export const WORKS: Photo[] = [
       "automovilismo clásico",
       "rally histórico",
       "classic bmw e30",
-      "automotive fine art"
+      "automotive fine art",
+      "el tanque",
+      "tenerife",
+      "rallye orvecame isla tenerife histórico"
     ],
-    "location": "Tramo de Asfalto",
+    "location": "Tramo de El Tanque · 52º Rallye Orvecame Isla Tenerife Histórico",
     "country": "España",
     "pricing": {
       "estudio": 155,
@@ -4953,7 +5012,7 @@ export const WORKS: Photo[] = [
     "image": "/images/portfolio/viajes-cultura/el-esfuerzo-del-portador.jpg",
     "width": 3200,
     "height": 2560,
-    "alt": "Retrato en claroscuro del rostro de un portador bajo el varal durante el esfuerzo de una procesión nocturna",
+    "alt": "Retrato en claroscuro del rostro de un cargador bajo las andas durante la procesión nocturna de las Cruces de Mayo en Los Realejos, Tenerife",
     "camera": "Canon EOS R7",
     "lens": "Canon RF-S 18-150mm f/3.5-6.3 IS STM",
     "iso": 3200,
@@ -4966,14 +5025,15 @@ export const WORKS: Photo[] = [
     "prints": true,
     "licensing": true,
     "keywords": [
+      "cruces de mayo",
+      "los realejos",
+      "tenerife",
       "portador",
-      "semana santa",
       "claroscuro documental",
       "retrato nocturno",
-      "tradición española",
-      "documentary portrait"
+      "tradición canaria"
     ],
-    "location": "Semana Santa",
+    "location": "Cruces de Mayo · Los Realejos, Tenerife",
     "country": "España",
     "pricing": {
       "estudio": 145,
@@ -5134,7 +5194,7 @@ export const WORKS: Photo[] = [
     "slug": "plenilunio-entre-la-bruma",
     "title": "Corona de Plenilunio",
     "category": "paisajes-documental",
-    "location": "Cielo Nocturno",
+    "location": "Puerto de la Cruz, Tenerife",
     "country": "España",
     "year": 2026,
     "camera": "Canon EOS R7",
@@ -5148,7 +5208,7 @@ export const WORKS: Photo[] = [
     "image": "/images/portfolio/paisajes-documental/plenilunio-entre-la-bruma.jpg",
     "width": 3840,
     "height": 2560,
-    "alt": "Luna llena a 600mm rodeada por un halo plateado entre brumas nocturnas sobre cielo azul profundo — fotografía de Javier Espinosa",
+    "alt": "Luna llena a 600mm rodeada por un halo plateado entre brumas nocturnas sobre el cielo de Puerto de la Cruz, Tenerife — fotografía de Javier Espinosa",
     "description": "La luna llena abre un halo de plata entre las nubes nocturnas, suspendida en el silencio azul de la noche.",
     "story": "A 600mm de focal, el paso de una fina capa de nubes altas no ocultó los cráteres lunares, sino que encendió a su alrededor una corona luminosa.",
     "keywords": [
@@ -5157,7 +5217,9 @@ export const WORKS: Photo[] = [
       "astrofotografía",
       "noche",
       "600mm",
-      "bruma"
+      "bruma",
+      "puerto de la cruz",
+      "tenerife"
     ],
     "pricing": {
       "estudio": 145,
