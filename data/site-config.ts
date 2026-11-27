@@ -1,3 +1,5 @@
+import { PLAZOS } from "@/data/plazos";
+
 export interface CuadernoPost {
   slug: string;
   number: string;
@@ -60,13 +62,7 @@ export const SITE_CONFIG = {
     getty:
       "https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image",
   },
-  plazos: {
-    copias: "El plazo de producción y entrega se confirma al aceptar el pedido.",
-    reportajes: "Los plazos de entrega se acuerdan en el presupuesto.",
-    rallyPrensa: "Entrega prioritaria para prensa, a convenir.",
-    respuesta: "Respondo personalmente a cada consulta lo antes posible.",
-    tabla: "A confirmar",
-  },
+  plazos: PLAZOS,
 } as const;
 
 export const CUADERNO_POSTS: CuadernoPost[] = [

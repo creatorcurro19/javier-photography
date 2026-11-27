@@ -9,6 +9,7 @@ import {
   AndalusianStarMark,
 } from "@/components/ui/AndalusianMotif";
 import JsonLd from "@/components/seo/JsonLd";
+import { PLAZOS } from "@/data/plazos";
 import { buildPageMetadata } from "@/lib/metadata";
 import { generateFAQSchema, generateServiceSchema } from "@/lib/schema";
 
@@ -90,7 +91,7 @@ export default function ServiciosPage() {
     },
     {
       q: "¿En qué formato y plazo se entregan los reportajes?",
-      a: "Se entrega una galería privada en alta resolución (archivos máster de 32,5 MP revelados individualmente y versiones optimizadas para prensa/web). Para eventos de automoción y cobertura de prensa se proporciona un adelanto urgente prioritario en 24 horas, mientras que la galería completa calibrada se entrega de forma orientativa en un plazo de 3 a 5 días laborables según el volumen de tomas.",
+      a: `Se entrega una galería privada en alta resolución (archivos máster de 32,5 MP revelados individualmente y versiones optimizadas para prensa/web). ${PLAZOS.rallyPrensa} ${PLAZOS.reportajes}`,
     },
     {
       q: "¿Realizas desplazamientos fuera de tu provincia o a las islas?",
@@ -215,7 +216,7 @@ export default function ServiciosPage() {
           <SectionHeader
             label="Metodología de Trabajo"
             title="Cómo Desarrollamos Cada Encargo"
-            description="Un proceso estructurado para garantizar resultados excepcionales y cumplimiento riguroso de plazos."
+            description="Un proceso estructurado para garantizar resultados excepcionales y entrega cuidada en cada proyecto."
           />
 
           <div className="mt-12 grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -259,7 +260,7 @@ export default function ServiciosPage() {
             Conversemos sobre tu proyecto
           </h2>
           <p className="mt-4 max-w-xl mx-auto text-sm font-light text-[#EBE7DF]/80">
-            Cuéntame las fechas, la localización y el objetivo de tu encargo. Recibirás una respuesta o propuesta inicial orientativa habitualmente en un plazo de 24 a 48 horas laborables.
+            Cuéntame las fechas, la localización y el objetivo de tu encargo. {PLAZOS.respuesta}
           </p>
           <div className="mt-8 flex justify-center gap-4">
             <Link

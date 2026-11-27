@@ -5,6 +5,7 @@ import {
   AndalusianPageBackdrop,
 } from "@/components/ui/AndalusianMotif";
 import JsonLd from "@/components/seo/JsonLd";
+import { PLAZOS } from "@/data/plazos";
 import { SITE_CONFIG } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/metadata";
 import { generateBreadcrumbSchema } from "@/lib/schema";
@@ -56,7 +57,7 @@ export default function CondicionesPage() {
                   <strong className="text-[#EBE7DF]">Modalidad exclusiva sin enmarcar:</strong> Las obras se entregan únicamente como lámina con margen blanco perimetral de conservación (3 a 7,5 cm según formato), protegidas con papel tisú libre de ácido dentro de un tubo rígido cilíndrico de alta densidad (3–4 mm de grosor) junto a su Certificado de Autenticidad firmado y numerado.
                 </li>
                 <li>
-                  <strong className="text-[#EBE7DF]">Plazos y tarifas de envío por zona:</strong> Producción y firma en 5–7 días laborables. Coste de envío en tubo rígido: <strong className="text-[#EBE7DF]">Canarias: 0 € (incluido)</strong> · <strong className="text-[#EBE7DF]">España Peninsular y Baleares: 15 €</strong> · <strong className="text-[#EBE7DF]">Unión Europea e Internacional: 28 €</strong>.
+                  <strong className="text-[#EBE7DF]">Plazos y tarifas de envío por zona:</strong> {PLAZOS.copias} Coste de envío en tubo rígido: <strong className="text-[#EBE7DF]">Canarias: 0 € (incluido)</strong> · <strong className="text-[#EBE7DF]">España Peninsular y Baleares: 15 €</strong> · <strong className="text-[#EBE7DF]">Unión Europea e Internacional: 28 €</strong>.
                 </li>
               </ul>
             </section>

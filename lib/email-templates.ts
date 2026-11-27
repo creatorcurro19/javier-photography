@@ -1,3 +1,4 @@
+import { PLAZOS } from "@/data/plazos";
 import type { CartOrder } from "@/types/cart";
 
 function escapeHtml(text: string): string {
@@ -161,7 +162,7 @@ export function buildOrderCustomerEmailHtml(order: CartOrder): string {
     </p>
     ${buildItemsTableHtml(order)}
     <p style="margin:20px 0 0 0;font-size:13px;color:#8E8A80;">
-      Cada ejemplar se produce bajo demanda con supervisión de color sobre papel 100% algodón Hahnemühle Photo Rag® 308 g/m², numerado y firmado a mano por el autor. Recibirás respuesta directa en menos de 24 horas laborables con la confirmación del número de edición y seguimiento de laboratorio.
+      Cada ejemplar se produce bajo demanda con supervisión de color sobre papel 100% algodón Hahnemühle Photo Rag® 308 g/m², numerado y firmado a mano por el autor. ${PLAZOS.copias}
     </p>
   `;
 

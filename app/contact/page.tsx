@@ -1,5 +1,6 @@
 import Container from "@/components/ui/Container";
 import ContactForm from "@/components/contact/ContactForm";
+import { PLAZOS } from "@/data/plazos";
 import { SITE_CONFIG } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/metadata";
 
@@ -15,7 +16,7 @@ const CONTACT_INFO = [
     label: "Correo Electrónico de Contacto",
     value: SITE_CONFIG.contactEmail,
     href: `mailto:${SITE_CONFIG.contactEmail}`,
-    note: "Atención directa por el autor · Plazo de respuesta: 24–48 h laborables",
+    note: `Atención directa por el autor · ${PLAZOS.respuesta}`,
   },
   {
     label: "Base de Operaciones",
@@ -31,7 +32,7 @@ export default function ContactPage() {
         {/* Header */}
         <div className="max-w-2xl">
           <p className="font-mono text-xs uppercase tracking-[0.28em] text-[#C5A880]">
-            Respuesta en 24–48 h
+            Atención Personalizada
           </p>
           <h1 className="mt-2 font-serif text-3xl font-light tracking-wide text-[#EBE7DF] sm:text-5xl">
             Contacto

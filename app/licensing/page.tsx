@@ -7,6 +7,7 @@ import {
   AndalusianPageBackdrop,
 } from "@/components/ui/AndalusianMotif";
 import JsonLd from "@/components/seo/JsonLd";
+import { PLAZOS } from "@/data/plazos";
 import { SITE_CONFIG } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getLicensedPhotos } from "@/lib/photos";
@@ -85,7 +86,7 @@ const TECHNICAL_SPECS = [
   },
   {
     label: "Tiempo de Respuesta",
-    value: "Entrega electrónica estimada en 24 horas laborables",
+    value: PLAZOS.respuesta,
   },
 ];
 

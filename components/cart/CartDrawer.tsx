@@ -278,7 +278,7 @@ export default function CartDrawer() {
                   <span className="text-white/60">Calculado por destino</span>
                 </div>
                 <div className="border-t border-white/[0.08] pt-2 flex items-center justify-between text-sm">
-                  <span className="text-[#EBE7DF] uppercase tracking-wider font-serif">Total Estimado:</span>
+                  <span className="text-[#EBE7DF] uppercase tracking-wider font-serif">Total de obra:</span>
                   <span className="text-base font-semibold text-[#EBE7DF]">{subtotal} €</span>
                 </div>
               </div>

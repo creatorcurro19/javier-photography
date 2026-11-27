@@ -3,6 +3,7 @@ import Container from "@/components/ui/Container";
 import DirectPrintsCatalog from "@/components/prints/DirectPrintsCatalog";
 import PaymentFeedback from "@/components/prints/PaymentFeedback";
 import JsonLd from "@/components/seo/JsonLd";
+import { PLAZOS } from "@/data/plazos";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getPrintablePhotos } from "@/lib/photos";
 import {
@@ -44,7 +45,7 @@ export default function PrintsPage() {
     },
     {
       q: "¿Cuál es el plazo habitual de producción y entrega?",
-      a: "Dado que cada copia se imprime bajo demanda en laboratorio Fine Art en Tenerife con revisión directa de prueba de color y firma manuscrita, el plazo habitual de expedición en tubo rígido es de 5 a 8 días laborables.",
+      a: `Cada copia se imprime bajo demanda en laboratorio Fine Art con revisión directa de prueba de color y firma manuscrita. ${PLAZOS.copias}`,
     },
   ];
 

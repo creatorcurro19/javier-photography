@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { PLAZOS } from "@/data/plazos";
 import { buildContactOwnerEmailHtml } from "@/lib/email-templates";
 import { DESTINATION_EMAIL, relayWithFormSubmit, sendWithResend } from "@/lib/server/email";
 import { getClientIp, rateLimit } from "@/lib/server/rate-limit";
@@ -134,7 +135,7 @@ export async function POST(request: Request) {
     );
 
     if (resendOk) {
-      // Enviar correo de confirmación automática al remitente (promesa única: 24–48 h laborables)
+      // Enviar correo de confirmación automática al remitente
       await sendWithResend(
         {
           to: [cleanEmail],
@@ -143,9 +144,9 @@ export async function POST(request: Request) {
           html: `<div style="font-family:sans-serif;background:#0B0C0E;color:#EBE7DF;padding:32px;max-width:560px">
             <p style="font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:#C5A880">Javier Espinosa · Fotografía de Autor (Tenerife)</p>
             <h2 style="font-weight:300;margin-top:12px">Hemos recibido tu consulta, ${cleanNombre}</h2>
-            <p style="color:#A39E93;font-size:14px;line-height:1.6">Tu solicitud sobre <strong>${cleanMotivo}</strong> (${cleanReferencia || "Consulta general"}) ha quedado registrada. Javier Espinosa te responderá personalmente en un plazo de <strong>24 a 48 horas laborables</strong>.</p>
+            <p style="color:#A39E93;font-size:14px;line-height:1.6">Tu solicitud sobre <strong>${cleanMotivo}</strong> (${cleanReferencia || "Consulta general"}) ha quedado registrada. ${PLAZOS.respuesta}</p>
           </div>`,
-          text: `Hola ${cleanNombre},\n\nHemos recibido tu consulta (${cleanMotivo} · ${cleanReferencia || "General"}).\nTe responderemos personalmente en un plazo de 24 a 48 horas laborables.\n\nJavier Espinosa Martínez\nTenerife, Islas Canarias`,
+          text: `Hola ${cleanNombre},\n\nHemos recibido tu consulta (${cleanMotivo} · ${cleanReferencia || "General"}).\n${PLAZOS.respuesta}\n\nJavier Espinosa Martínez\nTenerife, Islas Canarias`,
         },
         "contact"
       ).catch(() => null);

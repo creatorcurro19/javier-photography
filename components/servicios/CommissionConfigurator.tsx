@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { PLAZOS } from "@/data/plazos";
 
 const SCOPES = [
   {
     id: "rally-motor",
     label: "Rally & Automovilismo",
     opticalKit: "Canon EOS R7 + Sigma 150–600mm + RF-S 18–150mm",
-    turnaround: "Selección urgente para prensa (estimada 24h) · Galería revelada (estimada 3–5 días)",
+    turnaround: `${PLAZOS.rallyPrensa} · ${PLAZOS.reportajes}`,
     summary:
       "Cobertura en tramos cerrados, horquillas técnicas, asistencia mecánica y presentaciones de vehículos clásicos o de competición.",
   },
@@ -16,7 +17,7 @@ const SCOPES = [
     id: "arquitectura-territorio",
     label: "Arquitectura & Patrimonio",
     opticalKit: "Canon EOS R7 + EF-S 10–18mm + RF-S 18–150mm",
-    turnaround: "Entrega revelada orientativa en 3 a 5 días laborables",
+    turnaround: PLAZOS.reportajes,
     summary:
       "Estudio lumínico diurno/crepuscular, control de fugas geométricas y texturas constructivas para estudios, hoteles y patrimonio.",
   },
@@ -24,7 +25,7 @@ const SCOPES = [
     id: "documental-editorial",
     label: "Documental & Editorial",
     opticalKit: "Canon EOS R7 + RF-S 18–150mm + Teleobjetivo 600mm",
-    turnaround: "Según extensión del reportaje (estimación 5 a 8 días)",
+    turnaround: PLAZOS.reportajes,
     summary:
       "Crónica visual en localización sobre territorio, naturaleza, oficios y reportajes para revistas, editoriales e instituciones.",
   },
@@ -32,21 +33,21 @@ const SCOPES = [
     id: "prints-interiorismo",
     label: "Fine Art & Interiorismo",
     opticalKit: "Impresión Giclée 12 tintas · Hahnemühle Photo Rag 308g",
-    turnaround: "Producción de laboratorio y envío estimado en 6–10 días",
+    turnaround: PLAZOS.copias,
     summary:
       "Comisariado a medida de obra gráfica firmada y seriada para proyectos de interiorismo residencial, corporativo u hotelero.",
   },
 ];
 
 const DURATIONS = [
-  { id: "Media jornada (4h)", label: "Media Jornada", detail: "Sesión focalizada (4 horas)" },
-  { id: "Jornada completa (1 día)", label: "Jornada Completa", detail: "Luz de mañana a crepúsculo (1 día)" },
-  { id: "Evento / Expedición (2-4 días)", label: "Múltiples Jornadas", detail: "Cobertura integral (2 a 4 días)" },
+  { id: "Media jornada", label: "Media Jornada", detail: "Sesión focalizada de medio día" },
+  { id: "Jornada completa", label: "Jornada Completa", detail: "Luz de mañana a crepúsculo" },
+  { id: "Múltiples jornadas", label: "Múltiples Jornadas", detail: "Cobertura integral en varias jornadas" },
 ];
 
 const DELIVERABLES = [
   "Galería Privada Máster 32.5 MP (TIFF/JPEG)",
-  "Selección urgente para notas de prensa (estimada 24h)",
+  "Selección prioritaria para prensa (a convenir)",
   "Licencia de Uso Comercial / Editorial",
   "Copias Físicas Fine Art Hahnemühle 308g",
 ];
@@ -227,7 +228,7 @@ export default function CommissionConfigurator() {
               </div>
               <div>
                 <span className="block text-[9px] uppercase tracking-[0.22em] text-[#8E8A80]">
-                  Plazo de Entrega Estimado
+                  Plazo de Entrega
                 </span>
                 <span className="text-[#EBE7DF]">{currentScope.turnaround}</span>
               </div>

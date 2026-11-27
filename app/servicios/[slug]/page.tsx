@@ -10,6 +10,7 @@ import {
   AndalusianPageBackdrop,
   AndalusianStarMark,
 } from "@/components/ui/AndalusianMotif";
+import { PLAZOS } from "@/data/plazos";
 import {
   getServiceLandingBySlug,
   SERVICE_AREA,
@@ -313,7 +314,7 @@ export default async function ServiceLandingPage({ params }: PageProps) {
             ¿Planificamos tu próximo proyecto o cobertura?
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-sm font-light text-[#8E8A80]">
-            Indica las fechas, localización y alcance requerido. Recibirás una propuesta personalizada en un plazo habitual de 24 a 48 horas laborables.
+            Indica las fechas, localización y alcance requerido. {PLAZOS.respuesta}
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-4">
             <Link

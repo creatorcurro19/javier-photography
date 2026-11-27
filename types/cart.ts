@@ -1,3 +1,4 @@
+import { PLAZOS } from "@/data/plazos";
 import type { Photo } from "@/types/photo";
 
 export type ShippingZoneId = "canarias" | "peninsula" | "internacional";
@@ -16,21 +17,21 @@ export const SHIPPING_ZONES: Record<ShippingZoneId, ShippingZone> = {
     label: "Tenerife e Islas Canarias",
     cost: 0,
     taxNote: "Precio final · Venta de autor sin recargo de IGIC (envío en tubo incluido)",
-    deliveryDays: "5–7 días laborables (entrega en tubo rígido)",
+    deliveryDays: `Envío en tubo rígido · ${PLAZOS.tabla}`,
   },
   peninsula: {
     id: "peninsula",
     label: "España Peninsular y Baleares",
     cost: 15,
     taxNote: "Precio final + 15 € envío en tubo rígido certificado",
-    deliveryDays: "6–9 días laborables (correo certificado en tubo rígido)",
+    deliveryDays: `Correo certificado en tubo rígido · ${PLAZOS.tabla}`,
   },
   internacional: {
     id: "internacional",
     label: "Unión Europea e Internacional",
     cost: 28,
     taxNote: "Precio final + 28 € envío internacional certificado en tubo rígido",
-    deliveryDays: "8–12 días laborables (envío internacional en tubo rígido)",
+    deliveryDays: `Envío internacional en tubo rígido · ${PLAZOS.tabla}`,
   },
 };
 

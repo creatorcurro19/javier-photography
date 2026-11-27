@@ -1,4 +1,5 @@
 import type { PhotoCategory } from "@/types/photo";
+import { PLAZOS } from "@/data/plazos";
 import { WORKS } from "@/data/works";
 
 /**
@@ -71,7 +72,7 @@ export const SERVICE_LANDINGS: ServiceLanding[] = [
     deliverables: [
       "Cobertura en múltiples ubicaciones de tramo (horquillas, apoyos, rasantes y salidas)",
       "Reportaje documental en parque de asistencia, verificaciones técnicas y briefing",
-      "Adelanto urgente en 24 horas para notas de prensa, patrocinadores y redes del equipo",
+      PLAZOS.rallyPrensa,
       "Entrega en Sala Privada (/cliente) con archivos máster calibrados de 32,5 MP (TIFF/JPEG 300 DPI)",
       "Opción de ampliación Fine Art certificada en papel algodón Hahnemühle Photo Rag 308g",
     ],
@@ -99,8 +100,7 @@ export const SERVICE_LANDINGS: ServiceLanding[] = [
       {
         step: "03",
         title: "Adelanto Rápido para Prensa",
-        description:
-          "Selección prioritaria editada en las primeras 24 horas para comunicación con patrocinadores y medios.",
+        description: `${PLAZOS.rallyPrensa} Selección prioritaria para comunicación con patrocinadores y medios.`,
       },
       {
         step: "04",
@@ -116,7 +116,7 @@ export const SERVICE_LANDINGS: ServiceLanding[] = [
       },
       {
         q: "¿En cuánto tiempo recibimos las fotos para nuestros patrocinadores?",
-        a: "Se entrega un adelanto urgente en las primeras 24 horas tras la prueba para notas de prensa y redes sociales, y la galería completa revelada en un plazo orientativo de 3 a 5 días laborables a través del Portal Privado de Clientes.",
+        a: `${PLAZOS.rallyPrensa} ${PLAZOS.reportajes} Acceso mediante el Portal Privado de Clientes.`,
       },
       {
         q: "¿Realizas coberturas fuera de Tenerife?",
@@ -340,7 +340,7 @@ export const SERVICE_LANDINGS: ServiceLanding[] = [
       },
       {
         q: "¿Cómo puedo solicitar una licencia urgente para una revista o libro?",
-        a: "Puedes indicar el título o código de la obra desde la página de Licencias (/licensing) o el formulario de contacto; los archivos de catálogo disponibles se entregan en menos de 24 horas tras formalizar la licencia.",
+        a: "Puedes indicar el título o código de la obra desde la página de Licencias (/licensing) o el formulario de contacto. La disponibilidad y envío de los archivos se coordinan directamente al formalizar la licencia.",
       },
     ],
     primaryCta: {

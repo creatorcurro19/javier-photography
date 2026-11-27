@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState, Suspense, useCallback } from "react";
 import { getSavedWorks } from "@/components/photo/FavoriteButton";
+import { PLAZOS } from "@/data/plazos";
 import { SITE_CONFIG } from "@/data/site-config";
 import { trackEvent } from "@/lib/analytics";
 
@@ -263,8 +264,8 @@ export default function ContactForm() {
           Gracias por contactar, {formData.nombre}. Su mensaje ha sido registrado para{" "}
           <strong className="text-[#EBE7DF] font-medium">Javier Espinosa Martínez</strong> en{" "}
           <span className="font-mono text-[#EBE7DF]">{SITE_CONFIG.contactEmail}</span>.
-          Recibirá respuesta orientativa en su correo{" "}
-          <span className="font-mono text-[#EBE7DF]">{formData.email}</span> en un plazo estimado de 24 a 48 horas laborables.
+          Recibirá confirmación en su correo{" "}
+          <span className="font-mono text-[#EBE7DF]">{formData.email}</span>. {PLAZOS.respuesta}
         </p>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
@@ -521,7 +522,7 @@ export default function ContactForm() {
             >
               Política de Privacidad (RGPD)
             </Link>
-            . Los datos facilitados se emplearán exclusivamente para responder a esta solicitud en un plazo de 24–48 h laborables.
+            . Los datos facilitados se emplearán exclusivamente para responder a esta solicitud.
           </label>
         </div>
 
@@ -535,7 +536,7 @@ export default function ContactForm() {
           </button>
 
           <p className="font-mono text-[11px] text-[#A39E93]">
-            Respuesta en 24–48 h laborables ·{" "}
+            {PLAZOS.respuesta} ·{" "}
             <span className="text-[#EBE7DF]">
               {SITE_CONFIG.contactEmail}
             </span>
