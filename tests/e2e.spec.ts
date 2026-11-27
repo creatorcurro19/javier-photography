@@ -12,8 +12,11 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
     expect(body.ok).toBe(true);
     expect(body.status).toBe("healthy");
     expect(typeof body.integrations.stripe.configured).toBe("boolean");
+    expect(typeof body.integrations.stripe.webhookConfigured).toBe("boolean");
     expect(typeof body.integrations.stripe.flagActive).toBe("boolean");
     expect(typeof body.integrations.stripe.ready).toBe("boolean");
+    expect(typeof body.integrations.stripe.adaptivePricingEnabled).toBe("boolean");
+    expect(typeof body.integrations.stripe.automaticTaxEnabled).toBe("boolean");
     expect(typeof body.integrations.email.resendConfigured).toBe("boolean");
     expect(typeof body.integrations.whatsapp.configured).toBe("boolean");
     expect(typeof body.integrations.mobilePush.ntfyConfigured).toBe("boolean");
@@ -233,6 +236,48 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
     });
     expect(signedRes.status()).toBe(200);
     expect((await signedRes.json()).received).toBe(true);
+
+    // Eventos diferidos (async_payment_succeeded / async_payment_failed) y deduplicación por event.id
+    for (const [idx, type] of [
+      "checkout.session.async_payment_succeeded",
+      "checkout.session.async_payment_failed",
+    ].entries()) {
+      const asyncEvent = JSON.stringify({
+        id: `evt_e2e_async_${idx}`,
+        type,
+        data: {
+          object: {
+            id: `cs_test_mock_async_${idx}`,
+            payment_status: type.endsWith("succeeded") ? "paid" : "unpaid",
+            amount_total: 21700,
+            currency: "eur",
+            customer_details: { email: "test-buyer@example.com" },
+            metadata: {
+              orderId: `JE-2026-ASYNC-${idx}`,
+              customerName: "Coleccionista UE",
+              lang: "en",
+            },
+          },
+        },
+      });
+      const asyncSig = createHmac("sha256", E2E_WEBHOOK_SECRET)
+        .update(`${t}.${asyncEvent}`)
+        .digest("hex");
+      const asyncRes = await request.post("/api/webhooks/stripe", {
+        data: asyncEvent,
+        headers: { ...headers, "Stripe-Signature": `t=${t},v1=${asyncSig}` },
+      });
+      expect(asyncRes.status()).toBe(200);
+      expect((await asyncRes.json()).received).toBe(true);
+
+      // Reenvío del mismo event.id debe responder duplicate: true
+      const dupRes = await request.post("/api/webhooks/stripe", {
+        data: asyncEvent,
+        headers: { ...headers, "Stripe-Signature": `t=${t},v1=${asyncSig}` },
+      });
+      expect(dupRes.status()).toBe(200);
+      expect((await dupRes.json()).duplicate).toBe(true);
+    }
   });
 
   test("Tipo de cambio /api/fx, estimación USD solo en /en y checkout bilingüe", async ({

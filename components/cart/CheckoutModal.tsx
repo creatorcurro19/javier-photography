@@ -110,7 +110,33 @@ export default function CheckoutModal({
     };
 
     try {
-      // 1. Registrar pedido y enviar notificación al autor (importes recalculados en servidor)
+      // 1. Si el cliente eligió pago online con tarjeta/Apple Pay/Link, solicitar sesión Stripe primero
+      if (paymentMethod === "stripe") {
+        const checkoutRes = await fetch("/api/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...orderPayload, lang }),
+        }).catch(() => null);
+
+        const checkoutData = checkoutRes
+          ? await checkoutRes.json().catch(() => null)
+          : null;
+
+        if (checkoutRes?.status === 400) {
+          setError(checkoutData?.error ?? t("Revisa los datos del pedido.", "Please check your order details."));
+          return;
+        }
+
+        if (checkoutData?.mode === "stripe" && checkoutData?.url) {
+          trackEvent("checkout_iniciado", { modo: "stripe", importe: totalAmount });
+          // No vaciamos la cesta aquí: si el comprador vuelve desde Stripe sin pagar (?pago=cancelado), conserva sus obras;
+          // PaymentFeedback la vacía al volver tras pago confirmado (?pago=confirmado).
+          window.location.href = checkoutData.url;
+          return;
+        }
+      }
+
+      // 2. Modo transferencia bancaria o respaldo en reserva cuando Stripe no está activo
       const orderRes = await fetch("/api/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -123,27 +149,6 @@ export default function CheckoutModal({
         return;
       }
 
-      // 2. Si el cliente eligió pago seguro con tarjeta/Apple Pay, solicitar sesión Stripe
-      if (paymentMethod === "stripe") {
-        const checkoutRes = await fetch("/api/checkout", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...orderPayload, lang }),
-        }).catch(() => null);
-
-        const checkoutData = checkoutRes
-          ? await checkoutRes.json().catch(() => null)
-          : null;
-
-        if (checkoutData?.mode === "stripe" && checkoutData?.url) {
-          trackEvent("checkout_iniciado", { modo: "stripe", importe: totalAmount });
-          clearCart();
-          window.location.href = checkoutData.url;
-          return;
-        }
-      }
-
-      // Si se eligió transferencia o no hay pasarela Stripe activa
       if (!orderData?.ok) {
         const mail = orderData?.destinationEmail ?? SITE_CONFIG.contactEmail;
         setError(

@@ -198,3 +198,53 @@ export function buildContactOwnerEmailHtml(payload: {
     body
   );
 }
+
+export function buildStripePaymentCustomerEmailHtml(params: {
+  orderId: string;
+  customerName: string;
+  amountLabel: string;
+  itemsSummary?: string;
+  shippingAddress?: string;
+  lang?: "es" | "en";
+}): string {
+  const isEn = params.lang === "en";
+  const body = `
+    <p style="margin:0 0 16px 0;">
+      ${isEn ? "Dear" : "Estimado/a"} <strong style="color:#F7F4EE;">${escapeHtml(params.customerName)}</strong>,
+    </p>
+    <p style="margin:0 0 16px 0;">
+      ${
+        isEn
+          ? `We have safely received your Stripe payment of <strong style="color:#C5A880;">${escapeHtml(params.amountLabel)}</strong> for Fine Art order`
+          : `Hemos recibido correctamente tu pago vía Stripe por importe de <strong style="color:#C5A880;">${escapeHtml(params.amountLabel)}</strong> correspondiente al pedido`
+      }
+      <strong style="color:#C5A880;">${escapeHtml(params.orderId)}</strong>.
+    </p>
+    <div style="background-color:#0E0F11;border:1px solid rgba(255,255,255,0.08);padding:16px 20px;margin-bottom:20px;">
+      ${
+        params.itemsSummary
+          ? `<p style="margin:4px 0;"><strong style="color:#F7F4EE;">${isEn ? "Works:" : "Obras:"}</strong> ${escapeHtml(params.itemsSummary)}</p>`
+          : ""
+      }
+      ${
+        params.shippingAddress
+          ? `<p style="margin:4px 0;"><strong style="color:#F7F4EE;">${isEn ? "Shipping address:" : "Envío:"}</strong> ${escapeHtml(params.shippingAddress)}</p>`
+          : ""
+      }
+      <p style="margin:4px 0;"><strong style="color:#F7F4EE;">${isEn ? "Paper & Certificate:" : "Soporte y Certificado:"}</strong> Hahnemühle Photo Rag® 308 g/m² · ISO 9706</p>
+    </div>
+    <p style="margin:16px 0 0 0;font-size:13px;color:#8E8A80;">
+      ${
+        isEn
+          ? "Each edition print is produced to museum standard, hand-signed and sequentially numbered in graphite pencil before dispatch in a high-density rigid tube."
+          : `Cada ejemplar se produce bajo demanda con supervisión de color sobre papel 100% algodón Hahnemühle Photo Rag® 308 g/m², numerado y firmado a mano por el autor. ${PLAZOS.copias}`
+      }
+    </p>
+  `;
+
+  return wrapEmailShell(
+    isEn ? `Payment Confirmed · ${params.orderId}` : `Pago Confirmado · ${params.orderId}`,
+    isEn ? "Fine Art Collection · Javier Espinosa" : "Colección Fine Art · Javier Espinosa",
+    body
+  );
+}

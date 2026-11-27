@@ -21,8 +21,11 @@ export async function GET() {
   const integrations = {
     stripe: {
       configured: Boolean(stripeKey),
+      webhookConfigured: Boolean(process.env.STRIPE_WEBHOOK_SECRET),
       flagActive: stripeFlagActive,
       ready: Boolean(stripeKey) && stripeFlagActive,
+      adaptivePricingEnabled: process.env.STRIPE_ADAPTIVE_PRICING !== "false",
+      automaticTaxEnabled: process.env.STRIPE_AUTOMATIC_TAX === "true",
       mode: stripeKey.startsWith("sk_live_")
         ? "live"
         : stripeKey.startsWith("sk_test_")
