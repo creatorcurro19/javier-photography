@@ -15,35 +15,35 @@ interface CuratedWing {
 const WINGS_CONFIG: CuratedWing[] = [
   {
     category: "paisajes-documental",
-    roomRoman: "SALA I",
+    roomRoman: "Colección 01",
     aspectClass: "aspect-[16/9]",
     colSpanClass: "lg:col-span-6",
     subtitle: "Territorio & Silencio Mineral",
   },
   {
     category: "fauna-naturaleza",
-    roomRoman: "SALA II",
+    roomRoman: "Colección 02",
     aspectClass: "aspect-[16/9]",
     colSpanClass: "lg:col-span-6",
     subtitle: "Observación & Fauna",
   },
   {
     category: "coches-rally",
-    roomRoman: "SALA III",
+    roomRoman: "Colección 03",
     aspectClass: "aspect-[16/10]",
     colSpanClass: "lg:col-span-4",
     subtitle: "Geometría de la Velocidad",
   },
   {
     category: "arquitectura-urbana",
-    roomRoman: "SALA IV",
+    roomRoman: "Colección 04",
     aspectClass: "aspect-[16/10]",
     colSpanClass: "lg:col-span-4",
     subtitle: "Entramados & Patrimonio",
   },
   {
     category: "viajes-cultura",
-    roomRoman: "SALA V",
+    roomRoman: "Colección 05",
     aspectClass: "aspect-[16/10]",
     colSpanClass: "lg:col-span-4",
     subtitle: "Crónica & Oficios Tradicionales",
@@ -63,7 +63,7 @@ export default function CollectionsOverview() {
     <section
       id="colecciones"
       className="relative overflow-hidden bg-[#0B0C0E] py-12 sm:py-16 border-t border-white/[0.08] scroll-mt-20"
-      aria-label="Salas de Exposición Permanente"
+      aria-label="Colecciones de fotografía"
     >
       <Container className="relative z-10">
         {/* Cabecera Simple y Directa */}

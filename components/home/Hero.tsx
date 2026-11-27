@@ -35,7 +35,7 @@ const HERO_SLIDE_CONFIG: {
     id: "landscapes",
     slug: "mar-de-dunas-al-ocaso",
     category: "paisajes-documental",
-    room: "SALA I",
+    room: "Colección 1",
     discipline: "TERRITORIO",
     position: "object-[center_48%]",
   },
@@ -43,7 +43,7 @@ const HERO_SLIDE_CONFIG: {
     id: "peaks",
     slug: "cumbre-nevada-al-alba",
     category: "paisajes-documental",
-    room: "SALA II",
+    room: "Colección 2",
     discipline: "PAISAJE MINERAL",
     position: "object-[center_36%]",
   },
@@ -51,7 +51,7 @@ const HERO_SLIDE_CONFIG: {
     id: "wildlife",
     slug: "mirada-del-lince-boreal",
     category: "fauna-naturaleza",
-    room: "SALA III",
+    room: "Colección 3",
     discipline: "FAUNA Y NATURALEZA",
     position: "object-[center_30%]",
   },
@@ -59,7 +59,7 @@ const HERO_SLIDE_CONFIG: {
     id: "anaga-wildlife",
     slug: "cuervo-canario-ante-las-cumbres",
     category: "fauna-naturaleza",
-    room: "SALA IV",
+    room: "Colección 4",
     discipline: "FAUNA Y TERRITORIO",
     position: "object-[center_45%]",
   },
@@ -67,7 +67,7 @@ const HERO_SLIDE_CONFIG: {
     id: "documentary",
     slug: "el-oficio-y-la-chispa",
     category: "viajes-cultura",
-    room: "SALA V",
+    room: "Colección 5",
     discipline: "DOCUMENTAL",
     position: "object-[center_38%]",
   },
@@ -313,7 +313,7 @@ export default function Hero() {
                   key={slide.id}
                   type="button"
                   onClick={() => setActiveSlide(idx)}
-                  aria-label={`Entrar a ${slide.room}: ${slide.title}`}
+                  aria-label={`Ver portada 0${idx + 1}: ${slide.title}`}
                   className="group relative flex min-h-[44px] min-w-[44px] items-center justify-center py-2 px-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#C5A880]"
                 >
                   <div className="flex flex-col items-center">

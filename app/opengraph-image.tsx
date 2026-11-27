@@ -178,15 +178,15 @@ export default function OpenGraphImage() {
             fontFamily: "monospace",
           }}
         >
-          <span>LANDSCAPES</span>
+          <span>PAISAJES</span>
           <span style={{ color: "#C5A880" }}>·</span>
-          <span>WILDLIFE</span>
+          <span>FAUNA</span>
           <span style={{ color: "#C5A880" }}>·</span>
-          <span>MOTORSPORT</span>
+          <span>MOTOR</span>
           <span style={{ color: "#C5A880" }}>·</span>
-          <span>ARCHITECTURE</span>
+          <span>ARQUITECTURA</span>
           <span style={{ color: "#C5A880" }}>·</span>
-          <span>DOCUMENTARY</span>
+          <span>DOCUMENTAL</span>
         </div>
 
         {/* Pie discreto */}
@@ -201,7 +201,7 @@ export default function OpenGraphImage() {
             fontFamily: "monospace",
           }}
         >
-          FINE ART EDITIONS · HAHNEMÜHLE 308G · ISO 9706
+          COPIAS FINE ART · HAHNEMÜHLE 308G · ISO 9706
         </div>
       </div>
     ),

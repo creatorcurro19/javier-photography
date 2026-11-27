@@ -4,7 +4,6 @@ import { CATEGORY_METADATA, type Photo } from "@/types/photo";
 
 export const SITE_URL = SITE_CONFIG.siteUrl;
 const SITE_NAME = SITE_CONFIG.siteName;
-const DEFAULT_OG = "/opengraph-image";
 
 export function absoluteUrl(path: string): string {
   return new URL(path, SITE_URL).toString();

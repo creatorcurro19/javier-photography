@@ -59,7 +59,7 @@ export default function PortfolioPage() {
             <summary className="flex cursor-pointer list-none flex-col justify-between gap-3 sm:flex-row sm:items-center">
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-[#C5A880]">
-                  Catalogación Museística · Full Archival Index ({photos.length} Works)
+                  Archivo Fotográfico Completo ({photos.length} Obras)
                 </p>
                 <h2 className="mt-1 font-serif text-2xl font-light text-[#EBE7DF]">
                   Índice Completo del Archivo por Disciplina
