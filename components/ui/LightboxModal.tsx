@@ -382,7 +382,7 @@ export default function LightboxModal({
                 <h3 className="mt-1 font-serif text-lg font-light text-[#EBE7DF]">{photo.title}</h3>
                 <p className="mt-0.5 text-xs text-[#8E8A80]">
                   {photo.location
-                    ? `${photo.location}${photo.country ? `, ${photo.country}` : ""} (${photo.year})`
+                    ? `${photo.location}${photo.country && !photo.location.includes(photo.country) ? `, ${photo.country}` : ""} (${photo.year})`
                     : `${photo.year} · Fotografía de Autor`}
                 </p>
               </div>

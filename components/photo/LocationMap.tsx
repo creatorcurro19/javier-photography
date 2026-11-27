@@ -11,7 +11,7 @@ export default function LocationMap({ photo }: LocationMapProps) {
 
   const { lat, lng } = photo.coordinates;
   const placeName = photo.location
-    ? `${photo.location}${photo.country ? `, ${photo.country}` : ""}`
+    ? `${photo.location}${photo.country && !photo.location.includes(photo.country) ? `, ${photo.country}` : ""}`
     : `${lat.toFixed(4)}°, ${lng.toFixed(4)}°`;
 
   const query = encodeURIComponent(placeName);

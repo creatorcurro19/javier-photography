@@ -2426,7 +2426,7 @@ export const WORKS: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/ciguena-entre-la-hierba.jpg",
     "width": 2560,
     "height": 3200,
-    "alt": "Cigüeña blanca fotografiada de perfil a 600mm sobre el desenfoque verde intenso de una pradera húmeda",
+    "alt": "Cigüeña blanca fotografiada de perfil a 600mm sobre el desenfoque verde intenso de una pradera húmeda en la Selva Negra, Alemania",
     "camera": "Canon EOS R7",
     "lens": "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary",
     "iso": 1250,
@@ -2442,12 +2442,13 @@ export const WORKS: Photo[] = [
       "cigüeña blanca",
       "white stork",
       "600mm",
-      "fauna ibérica",
+      "selva negra",
+      "alemania",
       "pradera",
-      "bird wildlife spain"
+      "black forest wildlife"
     ],
-    "location": "Dehesa Extremeña",
-    "country": "España",
+    "location": "Selva Negra, Alemania",
+    "country": "Alemania",
     "pricing": {
       "estudio": 115,
       "galeria": 200,
@@ -2461,7 +2462,7 @@ export const WORKS: Photo[] = [
       "editionTotal": 25,
       "score": 77
     },
-    "realLocation": "Dehesa de Extremadura, Cáceres",
+    "realLocation": "Selva Negra (Schwarzwald), Alemania",
     "wildlifeCondition": "libre",
     "exifWarning": "{{VERIFICAR: apertura f/5.6 a 600mm incompatible con apertura máxima física f/6.3 de Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary entre 400–600mm; confirmar desde RAW}}",
     "maxRecommendedFormat": "coleccion",
@@ -4510,7 +4511,7 @@ export const WORKS: Photo[] = [
     "image": "/images/portfolio/fauna-naturaleza/ciguena-bajo-la-lluvia.jpg",
     "width": 3200,
     "height": 1800,
-    "alt": "Cigüeña blanca caminando sobre una pradera verde bajo una cortina de gotas de lluvia congeladas a 600mm",
+    "alt": "Cigüeña blanca caminando sobre una pradera verde bajo una cortina de gotas de lluvia congeladas a 600mm en la Selva Negra, Alemania",
     "camera": "Canon EOS R7",
     "lens": "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary",
     "iso": 2000,
@@ -4526,12 +4527,14 @@ export const WORKS: Photo[] = [
       "cigüeña bajo la lluvia",
       "white stork rain",
       "600mm",
-      "fauna ibérica",
+      "selva negra",
+      "alemania",
       "aves en libertad",
-      "wildlife in rain"
+      "wildlife in rain",
+      "black forest wildlife"
     ],
-    "location": "Dehesa Ibérica",
-    "country": "España",
+    "location": "Selva Negra, Alemania",
+    "country": "Alemania",
     "pricing": {
       "estudio": 130,
       "galeria": 225,
@@ -4545,7 +4548,7 @@ export const WORKS: Photo[] = [
       "editionTotal": 20,
       "score": 81
     },
-    "realLocation": "Dehesa de Extremadura, Cáceres",
+    "realLocation": "Selva Negra (Schwarzwald), Alemania",
     "wildlifeCondition": "libre",
     "exifWarning": "{{VERIFICAR: apertura f/5.6 a 600mm incompatible con apertura máxima física f/6.3 de Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary entre 400–600mm; confirmar desde RAW}}",
     "maxRecommendedFormat": "coleccion",
