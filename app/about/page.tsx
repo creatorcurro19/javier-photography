@@ -13,7 +13,7 @@ import { SITE_SETTINGS } from "@/data/site-config";
 export const metadata = buildPageMetadata({
   title: "Sobre mí · Biografía y Equipo",
   description:
-    "Trayectoria y forma de trabajar de Javier Espinosa Martínez en Tenerife: fauna, paisaje, rally histórico, arquitectura y documental con Canon EOS R7.",
+    "Soy Javier Espinosa, fotógrafo independiente en Tenerife. Naturaleza, paisajes, arquitectura y cultura buscando nuevas maneras de mirar.",
   path: "/about",
   keywords: [
     "Javier Espinosa Martínez",

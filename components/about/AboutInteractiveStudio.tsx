@@ -271,11 +271,13 @@ export default function AboutInteractiveStudio() {
 
             <div className="mt-6 space-y-4 text-sm font-light leading-relaxed text-[#EBE7DF]/80 sm:text-base sm:leading-7">
               <p>
-                Soy <strong className="font-medium text-[#EBE7DF]">Javier Espinosa Martínez</strong>,
-                fotógrafo afincado en Tenerife (Islas Canarias). Me gusta salir con la cámara a observar con calma: fauna en libertad, paisajes de montaña y costa, arquitectura con historia o el ambiente de un rally clásico.
+                Soy <strong className="font-medium text-[#EBE7DF]">Javier Espinosa</strong>, fotógrafo independiente, actualmente residiendo en Tenerife.
               </p>
               <p>
-                Trabajo siempre con luz natural y sin artificios, buscando que cada imagen transmita la atmósfera real del lugar tanto en pantalla como impresa en papel de algodón.
+                Me gusta perderme en lugares nuevos, observar lo que normalmente pasa desapercibido y encontrar imágenes en situaciones cotidianas. Mi fotografía se mueve entre la naturaleza, los paisajes, la arquitectura y la cultura, sin demasiadas etiquetas ni límites.
+              </p>
+              <p>
+                Más que especializarme en una sola forma de fotografiar, me interesa seguir descubriendo nuevas maneras de mirar.
               </p>
               <p className="hidden">
                 Nunca me ha interesado encasillarme en una sola disciplina. Paso con naturalidad de esperar en silencio con el 600mm a recorrer los soportales de piedra y madera de{" "}
