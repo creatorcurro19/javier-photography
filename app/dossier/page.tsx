@@ -16,9 +16,9 @@ import { getFeaturedPhotos } from "@/lib/photos";
 import { CATEGORY_METADATA } from "@/types/photo";
 
 export const metadata = buildPageMetadata({
-  title: "Dossier de Autor y Prensa (PDF)",
+  title: "Dossier de Autor y Prensa | Javier Espinosa",
   description:
-    "Dossier editorial de Javier Espinosa Martínez: biografía, cinco disciplinas, selección de obra Fine Art, equipo óptico y contacto para prensa y galerías.",
+    "Dossier editorial de Javier Espinosa Martínez: enfoque, colecciones, selección de obra Fine Art, equipo y contacto para prensa y galerías.",
   path: "/dossier",
 });
 

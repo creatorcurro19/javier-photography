@@ -112,9 +112,9 @@ export const CATEGORY_METADATA: Record<
       "Fotografiar animales exige paciencia y distancia. Con el teleobjetivo de 600mm trabajo en distintos entornos: lugar y condiciones se indican en cada ficha.",
     descriptionEn:
       "Photographing wildlife takes patience and distance. Location and conditions are indicated on each work's sheet.",
-    seoTitle: "Fotografía de Fauna y Naturaleza | Javier Espinosa",
+    seoTitle: "Fauna y Naturaleza | Javier Espinosa",
     seoDescription:
-      "Colección de fotografía de fauna, aves y naturaleza en Tenerife, Península Ibérica y reservas europeas. Capturas a 600mm con luz natural, copias Hahnemühle y licencias.",
+      "Fotografía de fauna, aves y naturaleza a 600mm con luz natural. Lugar y condiciones indicados en cada ficha. Copias Fine Art y licencias.",
     seoKeywords: [
       "fotografía de fauna salvaje",
       "fotógrafo de naturaleza españa",
@@ -137,9 +137,9 @@ export const CATEGORY_METADATA: Record<
       "Un paisaje no necesita grandes artificios cuando la luz acompaña. Desde el Teide al amanecer o la niebla cerrada en los montes de Anaga hasta las dunas del Sahara y el relieve del Atlas, son lugares donde apetece detenerse a mirar.",
     descriptionEn:
       "A landscape needs very little when the light is right. From Mount Teide at dawn and the mist in Anaga's laurel forests to the dunes of the Sahara and the ridges of the High Atlas—places that invite you to stop and look.",
-    seoTitle: "Fotografía de Paisaje y Territorio (Fine Art Landscape Photography) | Javier Espinosa",
+    seoTitle: "Paisajes y Territorio | Javier Espinosa",
     seoDescription:
-      "Fotografía de paisaje en Tenerife (Teide, Anaga), Desierto del Sahara, Alto Atlas y Península Ibérica. Copias Fine Art sobre papel de algodón Hahnemühle Photo Rag 308g.",
+      "Fotografía de paisaje en Tenerife (Teide, Anaga), Sahara, Alto Atlas y Península. Copias Fine Art en papel Hahnemühle Photo Rag 308g.",
     seoKeywords: [
       "fotografía de paisaje",
       "fine art landscape photography",
@@ -161,9 +161,9 @@ export const CATEGORY_METADATA: Record<
       "En un rally pasan muchas cosas fuera de la trazada. Están los coches clásicos apurando una frenada o levantando rueda en una horquilla, pero también los mecánicos bajo la carpa, las notas sobre el capó y los detalles de carrocerías con décadas de historia.",
     descriptionEn:
       "There is more to a rally than the racing line. There are classic cars braking late into a hairpin or lifting an inside wheel, but also mechanics working under the tent, pacenotes spread across a hood, and the worn details of bodywork with decades of history.",
-    seoTitle: "Fotografía de Rally Histórico y Automovilismo (Motorsport Photography) | Javier Espinosa",
+    seoTitle: "Coches y Rally Histórico | Javier Espinosa",
     seoDescription:
-      "Fotografía de rally histórico en Tenerife (52º Rallye Orvecame Isla Tenerife Histórico, Tramo de El Tanque), clásicos de competición y parque de asistencia.",
+      "Fotografía de rally histórico en Tenerife (52º Rallye Orvecame Isla Tenerife Histórico, El Tanque), vehículos clásicos y asistencia.",
     seoKeywords: [
       "fotografía de rally",
       "52 rallye orvecame isla tenerife histórico",
@@ -188,9 +188,9 @@ export const CATEGORY_METADATA: Record<
       "Me atraen los edificios que guardan la huella del tiempo: casas de granito y entramado de madera en pueblos antiguos, patios de azulejo y yeso, ruinas tomadas por la vegetación o la luz de una farola sobre una fachada a medianoche.",
     descriptionEn:
       "I am drawn to buildings that show the passage of time: granite and timber houses in old villages, tiled courtyards, ruins slowly reclaimed by vegetation, or the warm glow of a streetlamp against a facade late at night.",
-    seoTitle: "Fotografía de Arquitectura, Patrimonio y Espacio Urbano | Javier Espinosa",
+    seoTitle: "Arquitectura y Espacio Urbano | Javier Espinosa",
     seoDescription:
-      "Fotografía de arquitectura tradicional y espacio urbano en Villanueva de la Vera, El Puerto de Santa María (Cádiz), Tenerife y Marrakech por Javier Espinosa.",
+      "Fotografía de arquitectura tradicional y espacio urbano en Villanueva de la Vera, Cádiz, Tenerife y Marrakech por Javier Espinosa.",
     seoKeywords: [
       "fotografía de arquitectura",
       "fotógrafo de arquitectura y patrimonio",
@@ -213,9 +213,9 @@ export const CATEGORY_METADATA: Record<
       "Talleres donde se sigue trabajando el hierro o la madera a mano, secaderos de pimientos al sol, mercados de barrio y escenas de calle sin posar. Fotografías que buscan registrar cómo son los lugares y quienes los habitan sin interrumpir lo que está pasando.",
     descriptionEn:
       "Workshops where iron and cedar are still shaped by hand, peppers drying in the sun, neighborhood markets, and unposed street scenes. Photographs meant to record places and the people in them without interrupting what is happening.",
-    seoTitle: "Fotografía Documental, Oficios y Tradición (Documentary Photography) | Javier Espinosa",
+    seoTitle: "Documental y Tradición | Javier Espinosa",
     seoDescription:
-      "Fotografía documental sobre oficios tradicionales, Cruces de Mayo en Los Realejos (Tenerife), vida rural en La Vera y talleres de la Medina de Marrakech.",
+      "Fotografía documental sobre oficios manuales, Cruces de Mayo en Los Realejos, vida rural en La Vera y talleres de Marrakech.",
     seoKeywords: [
       "fotografía documental",
       "cruces de mayo los realejos tenerife",

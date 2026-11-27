@@ -29,34 +29,61 @@ const MAX_TITLE_LEN = 60;
 const MAX_DESC_LEN = 155;
 
 /**
- * Formatea cualquier título bajo la plantilla "{Página} | Javier Espinosa"
- * sin duplicar la marca y garantizando longitud total <= 60 caracteres.
+ * Formatea cualquier título garantizando longitud < 60 caracteres sin cortes con "…".
  */
 export function formatSeoTitle(rawTitle: string): string {
   const cleaned = rawTitle
     .replace(/\s*\|\s*Javier Espinosa(\s+Fotograf[íi]a|\s+Photography)?/gi, "")
     .replace(/^Javier Espinosa\s*\|\s*/i, "")
+    .replace(/\s+/g, " ")
     .trim();
 
-  const maxPageLen = MAX_TITLE_LEN - BRAND_SUFFIX.length; // 42 chars
-  let pagePart = cleaned || "Fotografía de Autor en Tenerife";
-  if (pagePart.length > maxPageLen) {
-    const sliced = pagePart.slice(0, maxPageLen - 1);
-    const lastSpace = sliced.lastIndexOf(" ");
-    pagePart = (lastSpace > 20 ? sliced.slice(0, lastSpace) : sliced).trim() + "…";
+  if (!cleaned) {
+    return `Fotografía de Autor${BRAND_SUFFIX}`;
   }
-  return `${pagePart}${BRAND_SUFFIX}`;
+
+  const withBrand = `${cleaned}${BRAND_SUFFIX}`;
+  if (withBrand.length < MAX_TITLE_LEN) {
+    return withBrand;
+  }
+
+  // Si la parte de página cabe íntegra (< 60 chars) sin la marca, se devuelve sin cortar ni truncar.
+  if (cleaned.length < MAX_TITLE_LEN) {
+    return cleaned;
+  }
+
+  const words = cleaned.split(" ");
+  let out = "";
+  for (const word of words) {
+    const next = out ? `${out} ${word}` : word;
+    if (next.length >= MAX_TITLE_LEN) break;
+    out = next;
+  }
+  return out || cleaned.slice(0, MAX_TITLE_LEN - 1);
 }
 
 /**
- * Trunca la metadescripción sin cortar palabras, garantizando <= 155 caracteres.
+ * Ajusta la metadescripción sin cortes ni puntos suspensivos ("…"), <= 155 caracteres.
  */
 export function formatSeoDescription(rawDesc: string): string {
   const clean = rawDesc.replace(/\s+/g, " ").trim();
   if (clean.length <= MAX_DESC_LEN) return clean;
-  const sliced = clean.slice(0, MAX_DESC_LEN - 1);
-  const lastSpace = sliced.lastIndexOf(" ");
-  return (lastSpace > 80 ? sliced.slice(0, lastSpace) : sliced).trim() + "…";
+
+  // Buscar un final de frase completo dentro de [90, 155]
+  const sentenceEnd = clean.lastIndexOf(". ", MAX_DESC_LEN);
+  if (sentenceEnd >= 90) {
+    return clean.slice(0, sentenceEnd + 1);
+  }
+
+  const words = clean.split(" ");
+  let acc = "";
+  for (const word of words) {
+    const next = acc ? `${acc} ${word}` : word;
+    if (next.length >= MAX_DESC_LEN) break;
+    acc = next;
+  }
+  const trimmed = (acc || clean.slice(0, MAX_DESC_LEN - 1)).replace(/[,;:\s—-]+$/, "");
+  return trimmed.endsWith(".") ? trimmed : `${trimmed}.`;
 }
 
 export function buildPageMetadata({
@@ -64,13 +91,13 @@ export function buildPageMetadata({
   description,
   path,
   image = DEFAULT_OG,
-  keywords = [],
+  robots,
 }: {
   title: string;
   description: string;
   path: string;
   image?: string;
-  keywords?: string[];
+  robots?: Metadata["robots"];
 }): Metadata {
   const url = absoluteUrl(path);
   const seoTitle = formatSeoTitle(title);
@@ -79,7 +106,7 @@ export function buildPageMetadata({
     image === DEFAULT_OG
       ? `${SITE_URL}/api/og?title=${encodeURIComponent(
           seoTitle.replace(/\s*\|\s*Javier Espinosa.*$/i, "")
-        )}&subtitle=${encodeURIComponent(seoDescription.slice(0, 100))}&badge=FINE%20ART`
+        )}&subtitle=${encodeURIComponent(formatSeoDescription(seoDescription))}&badge=FINE%20ART`
       : absoluteUrl(image);
 
   return {
@@ -87,7 +114,7 @@ export function buildPageMetadata({
       absolute: seoTitle,
     },
     description: seoDescription,
-    keywords,
+    ...(robots ? { robots } : {}),
     alternates: buildLanguageAlternates(path),
     openGraph: {
       title: seoTitle,
@@ -111,10 +138,21 @@ export function buildPageMetadata({
 export function buildPhotoMetadata(photo: Photo): Metadata {
   const catMeta = CATEGORY_METADATA[photo.category];
   const seoTitle = formatSeoTitle(photo.title);
-  const locPart = photo.location
-    ? `${photo.location}${photo.country && !photo.location.includes(photo.country) ? `, ${photo.country}` : ""}. `
+  const locText = photo.location
+    ? `${photo.location}${photo.country && !photo.location.includes(photo.country) ? `, ${photo.country}` : ""}`
     : "";
-  const rawDescription = `${photo.description} ${locPart}${photo.camera} · ${photo.focalLength}. Copia Fine Art y licencia.`;
+  const baseDesc = photo.description.replace(/\s+/g, " ").trim();
+  const baseWithDot = baseDesc.endsWith(".") ? baseDesc : `${baseDesc}.`;
+  const locAddition = locText && !baseDesc.toLowerCase().includes(locText.toLowerCase())
+    ? ` ${locText}.`
+    : "";
+  const rawCandidate = `${baseWithDot}${locAddition}`;
+  const rawDescription =
+    rawCandidate.length <= MAX_DESC_LEN
+      ? rawCandidate
+      : baseWithDot.length <= MAX_DESC_LEN
+        ? baseWithDot
+        : `${photo.title}${locText ? ` (${locText})` : ""}. ${catMeta?.title ?? "Fotografía de autor"} con ${photo.focalLength}.`;
   const seoDescription = formatSeoDescription(rawDescription);
   const path = `/portfolio/${photo.slug}`;
   const url = absoluteUrl(path);
@@ -125,25 +163,11 @@ export function buildPhotoMetadata(photo: Photo): Metadata {
     photo.location || catMeta?.title || "Fotografía de Autor"
   )}&badge=${encodeURIComponent(catMeta?.code || "FINE ART")}`;
 
-  const uniqueKeywords = Array.from(
-    new Set([
-      ...photo.keywords,
-      photo.title,
-      ...(photo.location ? [photo.location] : []),
-      ...(photo.country ? [photo.country] : []),
-      catMeta?.title ?? photo.category,
-      catMeta?.titleEn ?? "Fine Art Photography",
-      "Javier Espinosa Martínez",
-      "Fotografía en Tenerife",
-    ])
-  );
-
   return {
     title: {
       absolute: seoTitle,
     },
     description: seoDescription,
-    keywords: uniqueKeywords,
     alternates: buildLanguageAlternates(path),
     openGraph: {
       title: seoTitle,

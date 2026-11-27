@@ -5,23 +5,10 @@ import { buildPageMetadata } from "@/lib/metadata";
 import { generatePersonSchema, generateWebSiteSchema } from "@/lib/schema";
 
 export const metadata = buildPageMetadata({
-  title: "Javier Espinosa | Fotografía de Autor & Fine Art Photography (Tenerife · España)",
+  title: "Fotógrafo en Tenerife | Javier Espinosa",
   description:
-    "Soy Javier Espinosa, fotógrafo independiente afincado en Tenerife. Naturaleza, paisajes, arquitectura y cultura con luz natural y copias Fine Art.",
+    "Fotografía de fauna, paisaje, rally histórico, arquitectura y documental desde Tenerife. Copias Fine Art, encargos y licencias.",
   path: "/",
-  keywords: [
-    "Javier Espinosa Photography",
-    "Javier Espinosa Martínez",
-    "fotógrafo en Tenerife",
-    "fotografía de autor",
-    "Fine Art Photography",
-    "Wildlife Photography",
-    "Landscape Photography",
-    "Motorsport Photography",
-    "Architectural Photography",
-    "Documentary Photography",
-    "copias Fine Art Hahnemühle",
-  ],
 });
 
 export default function Home() {

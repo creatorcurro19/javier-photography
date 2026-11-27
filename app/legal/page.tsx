@@ -8,9 +8,9 @@ import { SITE_CONFIG } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/metadata";
 
 export const metadata = buildPageMetadata({
-  title: "Aviso Legal, Privacidad y Propiedad Intelectual | Javier Espinosa",
+  title: "Aviso Legal y Privacidad | Javier Espinosa",
   description:
-    "Información legal, política de privacidad RGPD, protección de derechos de autor y condiciones de adquisición de obra gráfica Fine Art de Javier Espinosa Martínez.",
+    "Información legal, política de privacidad RGPD y protección de derechos de autor sobre el archivo fotográfico de Javier Espinosa Martínez.",
   path: "/legal",
 });
 

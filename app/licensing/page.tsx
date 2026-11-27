@@ -14,18 +14,10 @@ import { getLicensedPhotos } from "@/lib/photos";
 import { generateBreadcrumbSchema } from "@/lib/schema";
 
 export const metadata = buildPageMetadata({
-  title: "Licencias de Imagen Editorial y Comercial (Image Licensing) | Javier Espinosa",
+  title: "Licencias de Imagen Editorial | Javier Espinosa",
   description:
-    "Cesión de derechos y licencias Rights-Managed de fotografía en alta resolución (32,5 MP TIFF/JPEG) para usos editoriales, prensa, campañas comerciales y decoración corporativa.",
+    "Cesión de derechos y licencias Rights-Managed en alta resolución (TIFF y JPEG) para editoriales, prensa, campañas e interiorismo.",
   path: "/licensing",
-  keywords: [
-    "licencias de fotografía",
-    "image licensing spain",
-    "cesión de derechos fotográficos",
-    "editorial photography licensing",
-    "rights managed photography",
-    "banco de imágenes autor",
-  ],
 });
 
 const TIERS = [

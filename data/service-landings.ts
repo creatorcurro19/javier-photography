@@ -62,9 +62,9 @@ export const SERVICE_LANDINGS: ServiceLanding[] = [
     serviceId: "rally-motor",
     kicker: "Motorsport · Rally Histórico & Competición",
     title: "Fotografía de Rally, Motorsport y Automovilismo Clásico",
-    seoTitle: "Fotógrafo de Rally y Motorsport en Tenerife, Canarias y España",
+    seoTitle: "Fotógrafo de Rally y Motorsport | Javier Espinosa",
     seoDescription:
-      "Cobertura fotográfica profesional de rallyes, tramos cronometrados, parques de asistencia y vehículos clásicos en Tenerife, Islas Canarias y Península Ibérica. Sistema Canon EOS R7 + 150-600mm.",
+      "Cobertura fotográfica de rallyes, tramos cronometrados, parques de asistencia y vehículos clásicos en Tenerife y bajo encargo.",
     subtitle: `Cobertura integral de tramo cronometrado, asistencia y paddock para escuderías, pilotos y organizadores desde ${SERVICE_AREA.base} con desplazamientos a toda España.`,
     category: "coches-rally",
     heroImage: "/images/portfolio/coches-rally/parque-de-trabajo.jpg",
@@ -140,9 +140,9 @@ export const SERVICE_LANDINGS: ServiceLanding[] = [
     serviceId: "arquitectura-territorio",
     kicker: "Arquitectura · Patrimonio & Geometría Urbana",
     title: "Fotografía de Arquitectura, Patrimonio e Interiorismo",
-    seoTitle: "Fotógrafo de Arquitectura y Patrimonio en Canarias, Madrid y España",
+    seoTitle: "Fotógrafo de Arquitectura | Javier Espinosa",
     seoDescription:
-      "Documentación fotográfica de arquitectura contemporánea, patrimonio histórico, hoteles y espacio urbano por Javier Espinosa Martínez. Control riguroso de luz natural y geometría.",
+      "Documentación fotográfica de arquitectura contemporánea, patrimonio histórico, hoteles y espacio urbano por Javier Espinosa Martínez.",
     subtitle:
       "Documentación visual rigurosa de obra construida, rehabilitación patrimonial y proyectos de interiorismo con respeto absoluto por la geometría, la escala y la luz natural.",
     category: "arquitectura-urbana",
@@ -216,7 +216,7 @@ export const SERVICE_LANDINGS: ServiceLanding[] = [
     serviceId: "documental-editorial",
     kicker: "Documental · Oficios, Territorio y Editorial",
     title: "Proyectos Documentales y Fotografía Editorial",
-    seoTitle: "Proyectos Documentales y Fotografía Editorial | Javier Espinosa",
+    seoTitle: "Proyectos Documentales | Javier Espinosa",
     seoDescription:
       "Encargos de fotografía documental, reportajes de oficios tradicionales, memoria rural y cobertura editorial por Javier Espinosa Martínez desde Tenerife.",
     subtitle:
@@ -291,7 +291,7 @@ export const SERVICE_LANDINGS: ServiceLanding[] = [
     serviceId: "licencias-fauna",
     kicker: "Fauna y Naturaleza · Archivo a 600mm",
     title: "Fotografía de Fauna y Licencias Editoriales de Naturaleza",
-    seoTitle: "Fotografía de Fauna y Licencias Editoriales | Javier Espinosa",
+    seoTitle: "Fauna y Licencias Editoriales | Javier Espinosa",
     seoDescription:
       "Archivo fotográfico y licencias editoriales de fauna, aves y espacios naturales (Tenerife, Monfragüe, Sierra de Gredos) capturados a 600mm con luz natural.",
     subtitle:
@@ -360,9 +360,9 @@ export const SERVICE_LANDINGS: ServiceLanding[] = [
     serviceId: "prints-interiorismo",
     kicker: "Ediciones Limitadas · Hahnemühle Photo Rag® 308g",
     title: "Obra Gráfica Fine Art para Coleccionismo e Interiorismo",
-    seoTitle: "Copias Fine Art Hahnemühle y Fotografía de Autor para Interiorismo",
+    seoTitle: "Copias Fine Art e Interiorismo | Javier Espinosa",
     seoDescription:
-      "Impresiones Fine Art de edición limitada sobre papel 100% algodón Hahnemühle Photo Rag 308 g/m² (ISO 9706). Asesoramiento para coleccionistas, estudios de interiorismo y hoteles boutique.",
+      "Impresiones Fine Art de edición limitada en papel 100% algodón Hahnemühle Photo Rag 308g para coleccionistas, interioristas y hoteles.",
     subtitle:
       "Series numeradas y firmadas sobre papel 100% algodón de calidad museo (norma ISO 9706), producidas para coleccionistas privados, estudios de interiorismo y espacios corporativos.",
     category: "paisajes-documental",

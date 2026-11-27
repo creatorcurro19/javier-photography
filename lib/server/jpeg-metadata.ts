@@ -174,10 +174,16 @@ export function embedAuthorMetadataInBase64Jpeg(
       title: photo.title,
       description: `${photo.title} — ${photo.description} (${loc}) · Fotografía de ${SITE_CONFIG.authorName}`,
       webUrl: `${SITE_CONFIG.siteUrl}/portfolio/${photo.slug}`,
-      location: photo.location || "Tenerife",
+      location: photo.location || "España",
       country: photo.country || "España",
       keywords: Array.from(
-        new Set([...(photo.keywords || []), "Javier Espinosa Martínez", "Fotografía en Tenerife"])
+        new Set([
+          ...(photo.keywords || []),
+          "Javier Espinosa Martínez",
+          ...(((photo.location ?? photo.lugar ?? "").toLowerCase().includes("tenerife"))
+            ? ["Fotografía en Tenerife"]
+            : []),
+        ])
       ),
     });
     return stamped.toString("base64");

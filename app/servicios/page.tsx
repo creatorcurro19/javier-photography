@@ -14,9 +14,9 @@ import { buildPageMetadata } from "@/lib/metadata";
 import { generateFAQSchema, generateServiceSchema } from "@/lib/schema";
 
 export const metadata = buildPageMetadata({
-  title: "Servicios y Encargos Fotográficos",
+  title: "Servicios y Encargos | Javier Espinosa",
   description:
-    "Encargos profesionales de fotografía por Javier Espinosa Martínez: automovilismo y rally histórico, arquitectura y patrimonio, proyectos documentales y fotografía editorial.",
+    "Encargos fotográficos de Javier Espinosa Martínez: rally histórico, arquitectura y patrimonio, proyectos documentales y copias Fine Art.",
   path: "/servicios",
 });
 

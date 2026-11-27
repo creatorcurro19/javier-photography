@@ -11,7 +11,7 @@ import { buildPageMetadata } from "@/lib/metadata";
 import { generateBreadcrumbSchema } from "@/lib/schema";
 
 export const metadata = buildPageMetadata({
-  title: "Condiciones de Compra, Envío y Licencias | Javier Espinosa",
+  title: "Condiciones de Compra y Licencias | Javier Espinosa",
   description:
     "Condiciones generales de venta de copias Fine Art en tubo rígido, impuestos aplicables, envío, derecho de desistimiento, devoluciones y licencias.",
   path: "/condiciones",

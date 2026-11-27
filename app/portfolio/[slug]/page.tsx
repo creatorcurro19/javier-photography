@@ -50,7 +50,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: meta.seoDescription,
       path: `/portfolio/${slug}`,
       image: meta.coverImage,
-      keywords: meta.seoKeywords,
     });
   }
 

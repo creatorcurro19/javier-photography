@@ -11,15 +11,10 @@ import { getAllPhotos, getFeaturedPhotos } from "@/lib/photos";
 import { generateBreadcrumbSchema } from "@/lib/schema";
 
 export const metadata = buildPageMetadata({
-  title: "Obras Seleccionadas",
+  title: "Obras Seleccionadas | Javier Espinosa",
   description:
     "Fotografías seleccionadas del archivo de Javier Espinosa Martínez: fauna, paisaje, automovilismo, arquitectura y fotografía documental.",
   path: "/selected-work",
-  keywords: [
-    "obras seleccionadas fotografía",
-    "fotografía de autor",
-    "Javier Espinosa Martínez",
-  ],
 });
 
 export default function SelectedWorkPage() {

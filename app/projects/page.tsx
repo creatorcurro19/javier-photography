@@ -11,20 +11,10 @@ import { getAllProjects, getProjectPhotos } from "@/lib/photos";
 import { generateBreadcrumbSchema } from "@/lib/schema";
 
 export const metadata = buildPageMetadata({
-  title: "Series Monográficas & Ensayos Documentales (Monograph Photo Essays) | Javier Espinosa",
+  title: "Series Fotográficas Documentales | Javier Espinosa",
   description:
-    "Series fotográficas y ensayos documentales por Javier Espinosa Martínez: Villanueva de la Vera, Medina y Alto Atlas, Paisaje Volcánico de Canarias, Rally Histórico, Desierto del Sahara y Fauna Silvestre.",
+    "Series fotográficas y ensayos documentales de Javier Espinosa: La Vera, paisaje volcánico de Canarias, rally histórico, Marrakech, Sahara y fauna.",
   path: "/projects",
-  keywords: [
-    "series fotográficas documentales",
-    "ensayos fotográficos",
-    "documentary photo essays",
-    "monograph photography series",
-    "Villanueva de la Vera fotografía",
-    "Medina Marrakech documental",
-    "paisaje volcánico Tenerife",
-    "rally histórico España",
-  ],
 });
 
 export default function ProjectsPage() {

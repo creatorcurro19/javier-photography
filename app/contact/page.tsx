@@ -5,9 +5,9 @@ import { SITE_CONFIG } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/metadata";
 
 export const metadata = buildPageMetadata({
-  title: "Contacto Privado & Consultas | Javier Espinosa",
+  title: "Contacto y Consultas | Javier Espinosa",
   description:
-    "Contacta con Javier Espinosa en Tenerife para encargar una lámina Fine Art, consultar sesiones o resolver cualquier duda.",
+    "Contacta con Javier Espinosa en Tenerife para solicitar una copia Fine Art, pedir presupuesto para un reportaje o resolver cualquier duda.",
   path: "/contact",
 });
 

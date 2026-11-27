@@ -216,21 +216,6 @@ export function generatePhotoSchema(photo: Photo) {
           addressRegion: "Canarias",
           addressCountry: "ES",
         },
-        deliveryTime: {
-          "@type": "ShippingDeliveryTime",
-          handlingTime: {
-            "@type": "QuantitativeValue",
-            minValue: 1,
-            maxValue: 2,
-            unitCode: "d",
-          },
-          transitTime: {
-            "@type": "QuantitativeValue",
-            minValue: 4,
-            maxValue: 5,
-            unitCode: "d",
-          },
-        },
       },
       {
         "@type": "OfferShippingDetails",
@@ -242,21 +227,6 @@ export function generatePhotoSchema(photo: Photo) {
         shippingDestination: {
           "@type": "DefinedRegion",
           addressCountry: "ES",
-        },
-        deliveryTime: {
-          "@type": "ShippingDeliveryTime",
-          handlingTime: {
-            "@type": "QuantitativeValue",
-            minValue: 1,
-            maxValue: 2,
-            unitCode: "d",
-          },
-          transitTime: {
-            "@type": "QuantitativeValue",
-            minValue: 5,
-            maxValue: 7,
-            unitCode: "d",
-          },
         },
       },
     ];
@@ -404,6 +374,17 @@ export function generateServiceSchema() {
     image: absoluteUrl("/images/portfolio/coches-rally/cruzada-sobre-el-asfalto.jpg"),
     email: SITE_CONFIG.contactEmail,
     priceRange: "€€",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Tenerife",
+      addressRegion: "Canarias",
+      addressCountry: "ES",
+    },
+    sameAs: [
+      SITE_CONFIG.social.instagram,
+      SITE_CONFIG.social.saatchi,
+      SITE_CONFIG.social.getty,
+    ],
     areaServed: [
       { "@type": "Place", name: "Tenerife y Canarias" },
       { "@type": "Country", name: "España" },

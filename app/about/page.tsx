@@ -5,16 +5,10 @@ import { buildPageMetadata } from "@/lib/metadata";
 import { generateBreadcrumbSchema } from "@/lib/schema";
 
 export const metadata = buildPageMetadata({
-  title: "Sobre mí · Biografía y Equipo",
+  title: "Sobre mí | Javier Espinosa",
   description:
     "Soy Javier Espinosa, fotógrafo independiente en Tenerife. Naturaleza, paisajes, arquitectura y cultura buscando nuevas maneras de mirar.",
   path: "/about",
-  keywords: [
-    "Javier Espinosa Martínez",
-    "Javier Espinosa biografía",
-    "fotógrafo de autor Tenerife",
-    "Canon EOS R7 fotógrafo",
-  ],
 });
 
 export default function AboutPage() {

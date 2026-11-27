@@ -13,20 +13,9 @@ import { generateBreadcrumbSchema } from "@/lib/schema";
 import { CATEGORY_METADATA } from "@/types/photo";
 
 export const metadata = buildPageMetadata({
-  title: `Colecciones Fotográficas & Archivo de Autor (${getAllPhotos().length} Obras) | Javier Espinosa`,
-  description: `Archivo fotográfico de autor por Javier Espinosa Martínez — ${getAllPhotos().length} obras en ${PHOTO_CATEGORIES.length} disciplinas: Fauna Salvaje (Wildlife), Paisajes (Landscapes), Rally Histórico (Motorsport), Arquitectura y Documental.`,
+  title: `Colecciones y Archivo (${getAllPhotos().length} obras) | Javier Espinosa`,
+  description: `Archivo fotográfico de Javier Espinosa Martínez: ${getAllPhotos().length} obras en ${PHOTO_CATEGORIES.length} colecciones de fauna, paisajes, rally, arquitectura y documental.`,
   path: "/portfolio",
-  keywords: [
-    "portfolio fotográfico",
-    "archivo fotográfico de autor",
-    "fine art photography portfolio",
-    "wildlife photography",
-    "landscape photography",
-    "motorsport rally photography",
-    "architectural photography",
-    "documentary photography",
-    "Javier Espinosa Martínez",
-  ],
 });
 
 export default function PortfolioPage() {

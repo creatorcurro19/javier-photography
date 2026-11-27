@@ -11,9 +11,9 @@ import { buildPageMetadata } from "@/lib/metadata";
 import { getAllPhotos, getPhotosWithStory } from "@/lib/photos";
 
 export const metadata = buildPageMetadata({
-  title: "Cuaderno de Campo & Diario Visual | Javier Espinosa",
+  title: "Cuaderno de Campo y Relatos | Javier Espinosa",
   description:
-    "Detrás de la lente: notas de campo, contexto técnico y relatos sobre fauna salvaje, tramos de rally y viajes por Javier Espinosa.",
+    "Notas de campo, contexto técnico y relatos detrás de cada fotografía: fauna, paisaje, tramos de rally y cultura local por Javier Espinosa.",
   path: "/stories",
 });
 

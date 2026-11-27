@@ -20,19 +20,10 @@ import {
 } from "@/lib/schema";
 
 export const metadata = buildPageMetadata({
-  title: "Copias Fine Art Hahnemühle & Ediciones Limitadas (Fine Art Prints) | Javier Espinosa",
+  title: "Comprar Láminas Fine Art | Javier Espinosa",
   description:
-    "Adquisición de copias Fine Art de edición limitada sobre papel 100% algodón Hahnemühle Photo Rag 308g (ISO 9706). Obra fotográfica de autor numerada y firmada para coleccionismo e interiorismo.",
+    "Copias Fine Art de edición limitada sobre papel 100% algodón Hahnemühle Photo Rag 308g (ISO 9706). Obra numerada y firmada, enviada sin marco.",
   path: "/prints",
-  keywords: [
-    "copias Fine Art",
-    "Fine Art photography prints",
-    "Hahnemühle Photo Rag 308g",
-    "ediciones limitadas fotografía",
-    "limited edition photography prints",
-    "fotografía de autor para interiorismo",
-    "museum grade archival prints",
-  ],
 });
 
 export default function PrintsPage() {

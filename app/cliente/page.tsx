@@ -4,10 +4,14 @@ import { AndalusianPageBackdrop } from "@/components/ui/AndalusianMotif";
 import { buildPageMetadata } from "@/lib/metadata";
 
 export const metadata = buildPageMetadata({
-  title: "Acceso Clientes · Galerías Privadas | Javier Espinosa",
+  title: "Acceso Clientes | Javier Espinosa",
   description:
-    "Portal privado de entrega y selección de reportajes fotográficos de autor para clientes, equipos de motorsport y estudios de arquitectura.",
+    "Portal privado de entrega y selección de reportajes fotográficos de autor para clientes y medios.",
   path: "/cliente",
+  robots: {
+    index: false,
+    follow: false,
+  },
 });
 
 export default function ClientePage() {

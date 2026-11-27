@@ -19,6 +19,14 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: ["Googlebot-Image", "Googlebot"],
         allow: ["/images/portfolio/", "/portfolio/", "/projects/", "/prints", "/selected-work"],
+        disallow: [
+          "/api/admin/",
+          "/api/checkout",
+          "/api/order",
+          "/api/webhooks/",
+          "/cliente",
+          "/admin",
+        ],
       },
       {
         userAgent: ["GPTBot", "CCBot", "Google-Extended"],

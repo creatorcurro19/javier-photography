@@ -58,34 +58,18 @@ export const metadata: Metadata = {
   },
 
   title: {
-    default: "Fotografía de Autor en Tenerife | Javier Espinosa",
+    default: "Fotógrafo en Tenerife | Javier Espinosa",
     template: "%s | Javier Espinosa",
   },
 
   description:
-    "Fotógrafo independiente en Tenerife. Naturaleza, paisajes, arquitectura y cultura buscando nuevas maneras de mirar. Copias Fine Art en papel de algodón.",
+    "Fotografía de fauna, paisaje, rally histórico, arquitectura y documental desde Tenerife. Copias Fine Art, encargos y licencias.",
 
   applicationName: "Javier Espinosa Fotografía",
 
   authors: [{ name: "Javier Espinosa Martínez" }],
 
   creator: "Javier Espinosa Martínez",
-
-  keywords: [
-    "Fotografía de autor",
-    "Fine Art Photography",
-    "Javier Espinosa Martínez",
-    "Fotógrafo en Tenerife",
-    "Puerto de la Cruz Tenerife",
-    "Fotografía de fauna salvaje",
-    "Rallye Orvecame Isla Tenerife Histórico",
-    "Cruces de Mayo Los Realejos",
-    "Fotografía de paisaje Canarias y Sahara",
-    "Fotografía de arquitectura",
-    "Fotografía documental y viajes",
-    "Canon EOS R7",
-    "Copias Fine Art Hahnemühle",
-  ],
 
   robots: {
     index: true,
