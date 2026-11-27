@@ -11,6 +11,7 @@ import type { PrintFormat } from "@/types/cart";
 import { useLanguage } from "@/lib/i18n";
 import { getLocalizedPhoto } from "@/lib/i18n-works";
 import { AndalusianStarMark } from "@/components/ui/AndalusianMotif";
+import { formatApproxUsd, formatApproxUsdShort, useUsdRate } from "@/lib/currency";
 
 interface AddToCartModalProps {
   photo: Photo;
@@ -24,6 +25,7 @@ export default function AddToCartModal({
   onClose,
 }: AddToCartModalProps) {
   const { lang, t } = useLanguage();
+  const usdRate = useUsdRate(lang === "en");
   const photo = getLocalizedPhoto(rawPhoto, lang);
   const [selectedFormatId, setSelectedFormatId] =
     useState<PrintFormat["id"]>("galeria");
@@ -158,6 +160,11 @@ export default function AddToCartModal({
                   <span className="mt-1 whitespace-nowrap font-serif text-lg font-light text-[#EBE7DF]">
                     {fmt.price}&nbsp;€
                   </span>
+                  {lang === "en" && (
+                    <span className="font-mono text-[9.5px] text-[#C5A880]">
+                      ({formatApproxUsdShort(fmt.price, usdRate)})
+                    </span>
+                  )}
                   <span className="mt-0.5 font-mono text-[9px] text-[#A39E93]">
                     {t("Papel:", "Paper:")} {fmt.dimensions}
                   </span>
@@ -226,6 +233,11 @@ export default function AddToCartModal({
               <span className="whitespace-nowrap font-serif text-2xl font-light text-[#EBE7DF]">
                 {totalPrice}&nbsp;€
               </span>
+              {lang === "en" && (
+                <span className="block font-mono text-[10px] text-[#C5A880]">
+                  {formatApproxUsd(totalPrice, usdRate)}
+                </span>
+              )}
             </div>
           </div>
 

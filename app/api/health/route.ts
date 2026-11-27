@@ -14,9 +14,13 @@ export async function GET() {
   const newsletterWebhook = process.env.NEWSLETTER_WEBHOOK_URL ?? "";
   const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP ?? "";
 
+  const stripeFlagActive = process.env.NEXT_PUBLIC_STRIPE_ACTIVE === "true";
+
   const integrations = {
     stripe: {
       configured: Boolean(stripeKey),
+      flagActive: stripeFlagActive,
+      ready: Boolean(stripeKey) && stripeFlagActive,
       mode: stripeKey.startsWith("sk_live_")
         ? "live"
         : stripeKey.startsWith("sk_test_")

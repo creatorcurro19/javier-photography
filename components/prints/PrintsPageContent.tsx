@@ -14,6 +14,11 @@ import {
 } from "@/data/formatos";
 import { PAGOS_ACTIVOS } from "@/data/site-config";
 import { useLanguage } from "@/lib/i18n";
+import {
+  formatApproxUsd,
+  formatApproxUsdRange,
+  useUsdRate,
+} from "@/lib/currency";
 import type { Photo } from "@/types/photo";
 
 interface PrintsPageContentProps {
@@ -27,6 +32,7 @@ export default function PrintsPageContent({
 }: PrintsPageContentProps) {
   const { lang, t } = useLanguage();
   const plazos = getPlazos(lang);
+  const usdRate = useUsdRate(lang === "en");
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-28 pb-24 text-[#EBE7DF]">
@@ -92,7 +98,7 @@ export default function PrintsPageContent({
                 {plazos.copias}{" "}
                 {t(
                   "Envío en tubo rígido sin marco (Canarias 0 € · Península 15 € · UE 28 €).",
-                  "Unframed rigid tube shipping (Canary Islands €0 · Mainland Spain €15 · US, EU & Worldwide €28)."
+                  `Unframed rigid tube shipping (Canary Islands €0 · Mainland Spain €15 · US, EU & Worldwide €28 / ${formatApproxUsd(28, usdRate)}).`
                 )}
               </p>
             </div>
@@ -137,6 +143,11 @@ export default function PrintsPageContent({
                       {range.min === range.max
                         ? `${range.min} €`
                         : `${range.min}–${range.max} €`}
+                      {lang === "en" && (
+                        <span className="block text-[10px] text-[#8E8A80]">
+                          ({formatApproxUsdRange(range.min, range.max, usdRate)})
+                        </span>
+                      )}
                     </td>
                     <td className="px-4 py-2.5 text-[#8E8A80]">{plazos.tabla}</td>
                   </tr>
@@ -145,6 +156,11 @@ export default function PrintsPageContent({
             </tbody>
           </table>
         </div>
+        {lang === "en" && (
+          <p className="mt-2 font-mono text-[10px] text-[#8E8A80]">
+            Approximate USD equivalents use the European Central Bank reference rate; final checkout is billed in EUR.
+          </p>
+        )}
 
         {/* Catálogo de Compra Directa inmediatamente visible arriba */}
         <Suspense fallback={null}>

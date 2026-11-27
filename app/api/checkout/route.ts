@@ -1,11 +1,18 @@
 import { NextResponse } from "next/server";
+import { BASE_PRINT_FORMATS, formatPaperDimensions } from "@/data/formatos";
+import { WORKS_EN } from "@/data/works-en";
+import { localizeHref } from "@/lib/i18n-helpers";
 import { SITE_URL } from "@/lib/metadata";
 import { normalizeOrder } from "@/lib/server/order";
-import { SHIPPING_ZONES } from "@/types/cart";
+import { getShippingZones } from "@/types/cart";
 
 export async function POST(request: Request) {
   try {
     const raw = await request.json().catch(() => null);
+    const checkoutLang =
+      raw && typeof raw === "object" && (raw as Record<string, unknown>).lang === "en"
+        ? "en"
+        : "es";
     const result = normalizeOrder(raw);
     if (!result.ok) {
       return NextResponse.json({ ok: false, error: result.error }, { status: 400 });
@@ -22,17 +29,19 @@ export async function POST(request: Request) {
       });
     }
 
+    const printsPath = localizeHref("/prints", checkoutLang);
     const params = new URLSearchParams();
     params.append("mode", "payment");
+    params.append("locale", checkoutLang);
     params.append("customer_email", order.customer.email);
     params.append("client_reference_id", order.orderId);
     params.append(
       "success_url",
-      `${SITE_URL}/prints?pago=confirmado&ref=${encodeURIComponent(order.orderId)}`
+      `${SITE_URL}${printsPath}?pago=confirmado&ref=${encodeURIComponent(order.orderId)}`
     );
     params.append(
       "cancel_url",
-      `${SITE_URL}/prints?pago=cancelado&ref=${encodeURIComponent(order.orderId)}`
+      `${SITE_URL}${printsPath}?pago=cancelado&ref=${encodeURIComponent(order.orderId)}`
     );
     params.append("metadata[orderId]", order.orderId);
     params.append("metadata[customerName]", order.customer.nombre);
@@ -47,9 +56,24 @@ export async function POST(request: Request) {
     params.append("metadata[expectedTotalEur]", String(order.total ?? order.subtotal));
 
     order.items.forEach((item, index) => {
-      const description = `${item.format.name} (${item.format.dimensions}) · ${
-        item.framed ? "Con Marco Museo UV 99%" : "Lámina Hahnemühle Photo Rag 308g"
-      }`;
+      const spec = BASE_PRINT_FORMATS[item.format.id];
+      const localizedTitle =
+        checkoutLang === "en" ? WORKS_EN[item.slug]?.title || item.title : item.title;
+      const formatLabel =
+        checkoutLang === "en" ? spec?.nameEn || item.format.name : item.format.name;
+      const dimsLabel = formatPaperDimensions(
+        spec?.dimensions || item.format.dimensions,
+        checkoutLang
+      );
+      const finishLabel =
+        checkoutLang === "en"
+          ? item.framed
+            ? "With Museum UV 99% Frame"
+            : "Unframed Hahnemühle Photo Rag 308g print"
+          : item.framed
+            ? "Con Marco Museo UV 99%"
+            : "Lámina Hahnemühle Photo Rag 308g";
+      const description = `${formatLabel} (${dimsLabel}) · ${finishLabel}`;
       params.append(`line_items[${index}][quantity]`, String(item.quantity));
       params.append(`line_items[${index}][price_data][currency]`, "eur");
       params.append(
@@ -58,7 +82,7 @@ export async function POST(request: Request) {
       );
       params.append(
         `line_items[${index}][price_data][product_data][name]`,
-        `Fine Art: ${item.title}`
+        `Fine Art: ${localizedTitle}`
       );
       params.append(
         `line_items[${index}][price_data][product_data][description]`,
@@ -75,7 +99,8 @@ export async function POST(request: Request) {
     // Envío en tubo rígido si aplica coste
     if (order.shippingCost && order.shippingCost > 0) {
       const shippingIdx = order.items.length;
-      const zoneInfo = order.shippingZone ? SHIPPING_ZONES[order.shippingZone] : null;
+      const localizedZones = getShippingZones(checkoutLang);
+      const zoneInfo = order.shippingZone ? localizedZones[order.shippingZone] : null;
       params.append(`line_items[${shippingIdx}][quantity]`, "1");
       params.append(`line_items[${shippingIdx}][price_data][currency]`, "eur");
       params.append(
@@ -84,11 +109,16 @@ export async function POST(request: Request) {
       );
       params.append(
         `line_items[${shippingIdx}][price_data][product_data][name]`,
-        `Envío asegurado en tubo rígido (${zoneInfo?.label || "Península"})`
+        checkoutLang === "en"
+          ? `Insured rigid tube shipping (${zoneInfo?.label || "International"})`
+          : `Envío asegurado en tubo rígido (${zoneInfo?.label || "Península"})`
       );
       params.append(
         `line_items[${shippingIdx}][price_data][product_data][description]`,
-        zoneInfo?.deliveryDays || "Entrega certificada en tubo rígido cilíndrico de alta densidad"
+        zoneInfo?.deliveryDays ||
+          (checkoutLang === "en"
+            ? "Certified delivery in high-density rigid cylindrical tube"
+            : "Entrega certificada en tubo rígido cilíndrico de alta densidad")
       );
     }
 

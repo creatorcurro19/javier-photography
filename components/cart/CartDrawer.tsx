@@ -20,9 +20,11 @@ import {
 import { BASE_PRINT_FORMATS } from "@/data/formatos";
 import { WORKS_EN } from "@/data/works-en";
 import { useLanguage } from "@/lib/i18n";
+import { formatApproxUsd, formatApproxUsdShort, useUsdRate } from "@/lib/currency";
 
 export default function CartDrawer() {
   const { lang, t } = useLanguage();
+  const usdRate = useUsdRate(lang === "en");
   const items = useSyncExternalStore(subscribeCart, getCartSnapshot, getCartServerSnapshot);
   const [isOpen, setIsOpen] = useState(false);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
@@ -261,9 +263,16 @@ export default function CartDrawer() {
                         </button>
                       </div>
 
-                      <span className="font-mono text-xs font-semibold text-[#EBE7DF]">
-                        {item.totalPrice} €
-                      </span>
+                      <div className="text-right font-mono text-xs">
+                        <span className="block font-semibold text-[#EBE7DF]">
+                          {item.totalPrice} €
+                        </span>
+                        {lang === "en" && (
+                          <span className="block text-[10px] text-[#A39E93]">
+                            ({formatApproxUsdShort(item.totalPrice, usdRate)})
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -301,7 +310,9 @@ export default function CartDrawer() {
               <div className="space-y-1.5 text-xs font-mono">
                 <div className="flex items-center justify-between text-[#8E8A80]">
                   <span>{t("Subtotal de obra:", "Prints subtotal:")}</span>
-                  <span>{subtotal} €</span>
+                  <span>
+                    {subtotal} €{lang === "en" ? ` (${formatApproxUsdShort(subtotal, usdRate)})` : ""}
+                  </span>
                 </div>
                 <div className="flex items-center justify-between text-[#8E8A80]">
                   <span>{t("Certificación y embalaje:", "Certificate & tube packaging:")}</span>
@@ -313,7 +324,14 @@ export default function CartDrawer() {
                 </div>
                 <div className="border-t border-white/[0.08] pt-2 flex items-center justify-between text-sm">
                   <span className="text-[#EBE7DF] uppercase tracking-wider font-serif">{t("Total de obra:", "Prints total:")}</span>
-                  <span className="text-base font-semibold text-[#EBE7DF]">{subtotal} €</span>
+                  <div className="text-right">
+                    <span className="text-base font-semibold text-[#EBE7DF]">{subtotal} €</span>
+                    {lang === "en" && (
+                      <span className="block font-mono text-[10px] text-[#C5A880]">
+                        {formatApproxUsd(subtotal, usdRate)} · billed in EUR
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
 
@@ -350,6 +368,7 @@ export default function CartDrawer() {
 
       {/* Checkout Modal */}
       <CheckoutModal
+        key={checkoutOpen ? `open-${lang}` : "closed"}
         items={items}
         subtotal={subtotal}
         isOpen={checkoutOpen}

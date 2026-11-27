@@ -10,6 +10,7 @@ import { BASE_PRINT_FORMATS } from "@/data/formatos";
 import PrintCardAction from "@/components/cart/PrintCardAction";
 import { useLanguage } from "@/lib/i18n";
 import { getLocalizedPhoto } from "@/lib/i18n-works";
+import { formatApproxUsdShort, useUsdRate } from "@/lib/currency";
 
 interface DirectPrintsCatalogProps {
   allPhotos: Photo[];
@@ -21,6 +22,7 @@ export default function DirectPrintsCatalog({
   allPhotos,
 }: DirectPrintsCatalogProps) {
   const { lang, t } = useLanguage();
+  const usdRate = useUsdRate(lang === "en");
   const searchParams = useSearchParams();
   const paymentStatus = searchParams.get("pago");
   const paymentRef = searchParams.get("ref");
@@ -249,9 +251,16 @@ export default function DirectPrintsCatalog({
                       {photo.title}
                     </Link>
                   </h3>
-                  <span className="shrink-0 whitespace-nowrap font-serif text-base text-[#C5A880]">
-                    {t("Desde", "From")} {photo.pricing?.estudio ?? BASE_PRINT_FORMATS.estudio.defaultPrice}&nbsp;€
-                  </span>
+                  <div className="shrink-0 text-right">
+                    <span className="block whitespace-nowrap font-serif text-base text-[#C5A880]">
+                      {t("Desde", "From")} {photo.pricing?.estudio ?? BASE_PRINT_FORMATS.estudio.defaultPrice}&nbsp;€
+                    </span>
+                    {lang === "en" && (
+                      <span className="block whitespace-nowrap font-mono text-[10px] text-[#A39E93]">
+                        ({formatApproxUsdShort(photo.pricing?.estudio ?? BASE_PRINT_FORMATS.estudio.defaultPrice, usdRate)} USD)
+                      </span>
+                    )}
+                  </div>
                 </div>
                 {photo.location && (
                   <p className="mt-1 font-mono text-[10px] text-[#A39E93]">

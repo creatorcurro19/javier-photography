@@ -12,6 +12,8 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
     expect(body.ok).toBe(true);
     expect(body.status).toBe("healthy");
     expect(typeof body.integrations.stripe.configured).toBe("boolean");
+    expect(typeof body.integrations.stripe.flagActive).toBe("boolean");
+    expect(typeof body.integrations.stripe.ready).toBe("boolean");
     expect(typeof body.integrations.email.resendConfigured).toBe("boolean");
     expect(typeof body.integrations.whatsapp.configured).toBe("boolean");
   });
@@ -197,5 +199,88 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
     });
     expect(signedRes.status()).toBe(200);
     expect((await signedRes.json()).received).toBe(true);
+  });
+
+  test("Tipo de cambio /api/fx, estimación USD solo en /en y checkout bilingüe", async ({
+    request,
+  }) => {
+    const fxRes = await request.get("/api/fx");
+    expect(fxRes.status()).toBe(200);
+    const fx = await fxRes.json();
+    expect(fx.base).toBe("EUR");
+    expect(fx.quote).toBe("USD");
+    expect(typeof fx.rate).toBe("number");
+    expect(fx.rate).toBeGreaterThan(0.5);
+    expect(fx.rate).toBeLessThan(2);
+
+    const printsEs = await request.get("/prints");
+    expect(printsEs.status()).toBe(200);
+    const printsEsHtml = await printsEs.text();
+    expect(printsEsHtml).toContain("€");
+    expect(printsEsHtml).not.toContain("~$");
+
+    const printsEn = await request.get("/en/prints");
+    expect(printsEn.status()).toBe(200);
+    const printsEnHtml = await printsEn.text();
+    expect(printsEnHtml).toContain("€");
+    expect(printsEnHtml).toContain("~$");
+    expect(printsEnHtml).toContain("USD");
+
+    const workEs = await request.get("/portfolio/mirada-del-lince-boreal");
+    expect(workEs.status()).toBe(200);
+    expect(await workEs.text()).not.toContain("~$");
+
+    const workEn = await request.get("/en/portfolio/mirada-del-lince-boreal");
+    expect(workEn.status()).toBe(200);
+    const workEnHtml = await workEn.text();
+    expect(workEnHtml).toContain("~$");
+    expect(workEnHtml).toContain("USD");
+
+    const checkoutEnRes = await request.post("/api/checkout", {
+      data: {
+        lang: "en",
+        orderId: "JE-2026-8888",
+        customer: {
+          nombre: "US Collector",
+          email: "collector@example.com",
+          telefono: "+1 555 0100",
+          direccion: "350 5th Ave",
+          ciudad: "New York",
+          codigoPostal: "10118",
+          pais: "United States",
+        },
+        shippingZone: "internacional",
+        items: [
+          {
+            id: "mirada-del-lince-boreal-galeria-print",
+            photoId: "fn-02",
+            slug: "mirada-del-lince-boreal",
+            title: "Mirada del lince boreal",
+            image: "/images/portfolio/fauna-naturaleza/mirada-del-lince-boreal.jpg",
+            category: "fauna-naturaleza",
+            format: {
+              id: "galeria",
+              name: "Gallery Format",
+              dimensions: "50 × 70 cm",
+              imageDimensions: "40 × 60 cm",
+              price: 185,
+              framePrice: 0,
+              editionLimit: 25,
+            },
+            framed: false,
+            quantity: 1,
+            unitPrice: 185,
+            totalPrice: 185,
+          },
+        ],
+        subtotal: 185,
+        shippingCost: 28,
+        total: 213,
+      },
+    });
+    expect(checkoutEnRes.status()).toBe(200);
+    const checkoutEn = await checkoutEnRes.json();
+    expect(checkoutEn.ok).toBe(true);
+    expect(checkoutEn.orderId).toBe("JE-2026-8888");
   });
 });

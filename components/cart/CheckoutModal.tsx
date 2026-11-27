@@ -11,6 +11,7 @@ import { BASE_PRINT_FORMATS } from "@/data/formatos";
 import { WORKS_EN } from "@/data/works-en";
 import { trackEvent } from "@/lib/analytics";
 import { useLanguage } from "@/lib/i18n";
+import { formatApproxUsd, formatApproxUsdShort, useUsdRate } from "@/lib/currency";
 
 interface CheckoutModalProps {
   items: CartItem[];
@@ -28,6 +29,7 @@ export default function CheckoutModal({
   onSuccess,
 }: CheckoutModalProps) {
   const { lang, t } = useLanguage();
+  const usdRate = useUsdRate(lang === "en");
   const [customer, setCustomer] = useState<OrderCustomer>({
     nombre: "",
     email: "",
@@ -35,11 +37,13 @@ export default function CheckoutModal({
     direccion: "",
     ciudad: "",
     codigoPostal: "",
-    pais: "España",
+    pais: lang === "en" ? "United States" : "España",
     notas: "",
   });
 
-  const [shippingZone, setShippingZone] = useState<ShippingZoneId>("canarias");
+  const [shippingZone, setShippingZone] = useState<ShippingZoneId>(
+    lang === "en" ? "internacional" : "canarias"
+  );
   const [paymentMethod, setPaymentMethod] = useState<"stripe" | "transferencia">(
     PAGOS_ACTIVOS ? "stripe" : "transferencia"
   );
@@ -110,7 +114,7 @@ export default function CheckoutModal({
       const orderRes = await fetch("/api/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(orderPayload),
+        body: JSON.stringify({ ...orderPayload, lang }),
       }).catch(() => null);
       const orderData = orderRes ? await orderRes.json().catch(() => null) : null;
 
@@ -124,7 +128,7 @@ export default function CheckoutModal({
         const checkoutRes = await fetch("/api/checkout", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(orderPayload),
+          body: JSON.stringify({ ...orderPayload, lang }),
         }).catch(() => null);
 
         const checkoutData = checkoutRes
@@ -219,7 +223,9 @@ export default function CheckoutModal({
                     </p>
                   </div>
                 </div>
-                <span className="font-mono text-xs text-[#EBE7DF] shrink-0">{item.totalPrice} €</span>
+                <span className="font-mono text-xs text-[#EBE7DF] shrink-0">
+                  {item.totalPrice} €{lang === "en" ? ` (${formatApproxUsdShort(item.totalPrice, usdRate)})` : ""}
+                </span>
               </div>
               );
             })}
@@ -247,7 +253,10 @@ export default function CheckoutModal({
                   >
                     <span className="block font-semibold text-[#EBE7DF]">{z.label}</span>
                     <span className="block mt-0.5 text-[#C5A880]">
-                      {t("Envío:", "Shipping:")} {z.cost === 0 ? t("0 € (Incluido)", "€0 (Included)") : `+${z.cost} €`}
+                      {t("Envío:", "Shipping:")}{" "}
+                      {z.cost === 0
+                        ? t("0 € (Incluido)", "€0 (Included)")
+                        : `+${z.cost} €${lang === "en" ? ` (${formatApproxUsdShort(z.cost, usdRate)})` : ""}`}
                     </span>
                     <span className="block mt-0.5 text-[9px] text-[#A39E93]">{z.deliveryDays}</span>
                   </button>
@@ -262,16 +271,29 @@ export default function CheckoutModal({
           <div className="mt-4 pt-3 border-t border-white/[0.08] space-y-1 font-mono text-xs">
             <div className="flex items-center justify-between text-[#A39E93]">
               <span>{t("Subtotal copias Fine Art:", "Fine Art prints subtotal:")}</span>
-              <span>{subtotal} €</span>
+              <span>
+                {subtotal} €{lang === "en" ? ` (${formatApproxUsdShort(subtotal, usdRate)})` : ""}
+              </span>
             </div>
             <div className="flex items-center justify-between text-[#A39E93]">
               <span>{t(`Envío asegurado en tubo rígido (${currentZone.label}):`, `Insured rigid tube shipping (${currentZone.label}):`)}</span>
-              <span>{shippingCost === 0 ? t("0 € (Incluido)", "€0 (Included)") : `${shippingCost} €`}</span>
+              <span>
+                {shippingCost === 0
+                  ? t("0 € (Incluido)", "€0 (Included)")
+                  : `${shippingCost} €${lang === "en" ? ` (${formatApproxUsdShort(shippingCost, usdRate)})` : ""}`}
+              </span>
             </div>
             <div className="flex items-center justify-between pt-1 text-sm">
               <span className="text-[#EBE7DF] uppercase tracking-wider">{t("Total a tramitar:", "Order total:")}</span>
-              <span className="text-[#EBE7DF] font-semibold">{totalAmount} €</span>
+              <span className="text-[#EBE7DF] font-semibold">
+                {totalAmount} €{lang === "en" ? ` (${formatApproxUsd(totalAmount, usdRate)})` : ""}
+              </span>
             </div>
+            {lang === "en" && (
+              <p className="pt-1 text-[10px] text-[#8E8A80]">
+                Charged in Euros (EUR) at checkout. USD figures use the daily ECB reference rate.
+              </p>
+            )}
           </div>
         </div>
 
@@ -520,8 +542,14 @@ export default function CheckoutModal({
               {loading
                 ? t("Procesando adquisición...", "Processing order...")
                 : paymentMethod === "stripe"
-                ? t(`Pagar con Tarjeta (${totalAmount} €) →`, `Pay by Card (€${totalAmount}) →`)
-                : t(`Confirmar Reserva (${totalAmount} €) →`, `Confirm Reservation (€${totalAmount}) →`)}
+                ? t(
+                    `Pagar con Tarjeta (${totalAmount} €) →`,
+                    `Pay by Card (€${totalAmount} / ${formatApproxUsd(totalAmount, usdRate)}) →`
+                  )
+                : t(
+                    `Confirmar Reserva (${totalAmount} €) →`,
+                    `Confirm Reservation (€${totalAmount} / ${formatApproxUsd(totalAmount, usdRate)}) →`
+                  )}
             </button>
           </div>
         </form>

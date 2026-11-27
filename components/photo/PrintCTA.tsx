@@ -9,6 +9,7 @@ import { getFormatsForPhoto, addToCart } from "@/lib/cart";
 import type { PrintFormat } from "@/types/cart";
 import { useLanguage } from "@/lib/i18n";
 import { getLocalizedPhoto } from "@/lib/i18n-works";
+import { formatApproxUsd, formatApproxUsdShort, useUsdRate } from "@/lib/currency";
 
 type PrintCTAProps = {
   photo: Photo;
@@ -16,6 +17,7 @@ type PrintCTAProps = {
 
 export default function PrintCTA({ photo: rawPhoto }: PrintCTAProps) {
   const { lang, t } = useLanguage();
+  const usdRate = useUsdRate(lang === "en");
   const photo = getLocalizedPhoto(rawPhoto, lang);
   const [selectedFormatId, setSelectedFormatId] =
     useState<PrintFormat["id"]>("galeria");
@@ -190,6 +192,11 @@ export default function PrintCTA({ photo: rawPhoto }: PrintCTAProps) {
                 </div>
                 <span className="mt-2 whitespace-nowrap font-serif text-2xl font-light text-[#EBE7DF]">
                   {fmt.price}&nbsp;€
+                  {lang === "en" && (
+                    <span className="ml-1.5 font-mono text-xs text-[#C5A880]">
+                      ({formatApproxUsdShort(fmt.price, usdRate)})
+                    </span>
+                  )}
                 </span>
                 <span className="mt-1 font-mono text-[10px] text-[#8E8A80]">
                   {fmt.imageDimensions}
@@ -211,7 +218,17 @@ export default function PrintCTA({ photo: rawPhoto }: PrintCTAProps) {
           </span>
           <span className="whitespace-nowrap font-serif text-3xl font-light text-[#EBE7DF]">
             {unitPrice}&nbsp;€
+            {lang === "en" && (
+              <span className="ml-2 font-mono text-xs text-[#C5A880]">
+                ({formatApproxUsd(unitPrice, usdRate)})
+              </span>
+            )}
           </span>
+          {lang === "en" && (
+            <span className="mt-0.5 block font-mono text-[10px] text-[#8E8A80]">
+              ECB reference estimate · card checkout settled in EUR
+            </span>
+          )}
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
