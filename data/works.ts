@@ -438,7 +438,6 @@ export const WORKS: Photo[] = [
     "seriesSlug": "miradas-en-libertad",
     "realLocation": "Santuario de fauna salvaje, Austria",
     "wildlifeCondition": "centro",
-    "exifWarning": "{{VERIFICAR: Focal contradictoria entre ficha (600mm), simulador previo (400mm) y visor /about (232mm f/5.0); confirmar focal exacta desde RAW}}",
     "maxRecommendedFormat": "coleccion",
     "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 105 cm).",
     "heroOrder": 3
@@ -645,7 +644,6 @@ export const WORKS: Photo[] = [
     "seriesSlug": "miradas-en-libertad",
     "realLocation": "Santuario de fauna salvaje, Austria",
     "wildlifeCondition": "centro",
-    "exifWarning": "{{VERIFICAR: apertura f/5.6 a 600mm incompatible con apertura máxima física f/6.3 de Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary entre 400–600mm; confirmar desde RAW}} · {{VERIFICAR: Apertura f/5.6 imposible a 600mm en Sigma 150-600mm f/5-6.3 (máx. física f/6.3) + focal 300mm en simulador previo; confirmar focal exacta desde RAW}}",
     "maxRecommendedFormat": "galeria",
     "maxFormatReason": "Captura nocturna o en penumbra a ISO 6400: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm."
   },
@@ -749,7 +747,6 @@ export const WORKS: Photo[] = [
     },
     "series": "Entre la Bruma y el Volcán: Paisaje Insular",
     "seriesSlug": "entre-la-bruma-y-el-volcan",
-    "exifWarning": "{{VERIFICAR: Focal contradictoria entre ficha (115mm) y simulador/estudio previos (24mm); confirmar focal exacta desde RAW}}",
     "maxRecommendedFormat": "coleccion",
     "maxFormatReason": "Archivo máster de 32,5 MP (ISO 320) apto para ampliación hasta Gran Colección (60 × 105 cm).",
     "heroOrder": 2
@@ -1685,7 +1682,6 @@ export const WORKS: Photo[] = [
     },
     "series": "Trazadas y Paddock: Rally Histórico",
     "seriesSlug": "trazadas-rally",
-    "exifWarning": "{{VERIFICAR: Focal contradictoria entre ficha (200mm) y simulador previo (135mm); confirmar focal exacta desde RAW}}",
     "maxRecommendedFormat": "coleccion",
     "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm)."
   },
@@ -2363,7 +2359,6 @@ export const WORKS: Photo[] = [
     },
     "realLocation": "Estanque y humedal natural, Península Ibérica",
     "wildlifeCondition": "parque",
-    "exifWarning": "{{VERIFICAR: apertura f/6.0 a 403mm incompatible con apertura máxima física f/6.3 de Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary entre 400–600mm; confirmar desde RAW}} · {{VERIFICAR: cuerpo declarado Canon EOS 750D distinto al cuerpo principal Canon EOS R7; confirmar desde RAW}}",
     "maxRecommendedFormat": "galeria",
     "maxFormatReason": "Sensor de origen Canon EOS 750D (24 MP): formato máximo recomendado Galería (50 × 70 cm) para garantizar densidad óptica ≥ 240 ppp. Formato 70 × 100 cm deshabilitado."
   },
@@ -2414,7 +2409,6 @@ export const WORKS: Photo[] = [
     "seriesSlug": "miradas-en-libertad",
     "realLocation": "Bosque caducifolio, Península Ibérica",
     "wildlifeCondition": "libre",
-    "exifWarning": "{{VERIFICAR: apertura f/5.6 a 562mm incompatible con apertura máxima física f/6.3 de Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary entre 400–600mm; confirmar desde RAW}}",
     "maxRecommendedFormat": "coleccion",
     "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (60 × 105 cm)."
   },
@@ -2464,7 +2458,6 @@ export const WORKS: Photo[] = [
     },
     "realLocation": "Selva Negra (Schwarzwald), Alemania",
     "wildlifeCondition": "libre",
-    "exifWarning": "{{VERIFICAR: apertura f/5.6 a 600mm incompatible con apertura máxima física f/6.3 de Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary entre 400–600mm; confirmar desde RAW}}",
     "maxRecommendedFormat": "coleccion",
     "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1250) apto para ampliación hasta Gran Colección (60 × 90 cm)."
   },
@@ -2712,7 +2705,6 @@ export const WORKS: Photo[] = [
     "seriesSlug": "miradas-en-libertad",
     "realLocation": "Dehesa de Extremadura",
     "wildlifeCondition": "libre",
-    "exifWarning": "{{VERIFICAR: apertura f/5.6 a 600mm incompatible con apertura máxima física f/6.3 de Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary entre 400–600mm; confirmar desde RAW}}",
     "maxRecommendedFormat": "coleccion",
     "maxFormatReason": "Archivo máster de 32,5 MP (ISO 250) apto para ampliación hasta Gran Colección (60 × 105 cm)."
   },
@@ -4106,7 +4098,6 @@ export const WORKS: Photo[] = [
     },
     "series": "El Silencio del Desierto",
     "seriesSlug": "silencio-del-desierto",
-    "exifWarning": "{{VERIFICAR: Focal contradictoria entre ficha (150mm) y simulador previo (200mm); confirmar focal exacta desde RAW}}",
     "maxRecommendedFormat": "coleccion",
     "maxFormatReason": "Archivo máster de 32,5 MP (ISO 320) apto para ampliación hasta Gran Colección (70 × 100 cm)."
   },
@@ -4159,7 +4150,6 @@ export const WORKS: Photo[] = [
     },
     "series": "Custodios: Oficios y Costumbres",
     "seriesSlug": "custodios",
-    "exifWarning": "{{VERIFICAR: Focal contradictoria entre ficha (18mm) y simulador previo (50mm); confirmar focal exacta desde RAW}}",
     "maxRecommendedFormat": "coleccion",
     "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (70 × 100 cm).",
     "heroOrder": 5

@@ -17,5 +17,5 @@ export interface SocialProofItem {
   url?: string;
 }
 
-// TODO: Añadir aquí testimonios de coleccionistas o publicaciones reales cuando estén disponibles
+/** Espacio reservado para testimonios o publicaciones reales verificadas cuando existan. */
 export const socialProofItems: SocialProofItem[] = [];

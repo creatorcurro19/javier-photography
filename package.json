@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "rm -rf .next && next build",
+    "build": "node scripts/check-content.mjs && rm -rf .next && next build",
     "start": "next start",
     "lint": "eslint",
+    "check:content": "node scripts/check-content.mjs",
     "check:env": "node scripts/check-env.mjs",
     "photos:import": "node scripts/import-photos.mjs",
     "test:e2e": "playwright test"
