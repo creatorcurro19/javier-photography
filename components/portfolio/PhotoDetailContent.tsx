@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "@/components/ui/LocalizedLink";
+import ChillReveal from "@/components/ui/ChillReveal";
 import Container from "@/components/ui/Container";
 import PhotoHero from "@/components/photo/PhotoHero";
 import PhotoKeyboardNav from "@/components/photo/PhotoKeyboardNav";
@@ -75,11 +76,13 @@ export default function PhotoDetailContent({
       </div>
 
       <Container className="relative z-10 mt-10 space-y-12">
-        <PhotoMeta photo={rawPhoto} />
+        <ChillReveal>
+          <PhotoMeta photo={rawPhoto} />
+        </ChillReveal>
 
-        <div>
+        <ChillReveal delayMs={80}>
           <PrintCTA photo={rawPhoto} />
-        </div>
+        </ChillReveal>
 
         {/* Adjacent Photo Navigation */}
         <nav
@@ -136,7 +139,9 @@ export default function PhotoDetailContent({
           </div>
         </nav>
 
-        <RelatedPhotos photo={rawPhoto} />
+        <ChillReveal delayMs={100}>
+          <RelatedPhotos photo={rawPhoto} />
+        </ChillReveal>
       </Container>
     </article>
   );

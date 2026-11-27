@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "@/components/ui/LocalizedLink";
 import { usePathname } from "next/navigation";
@@ -13,12 +14,47 @@ import { normalizeRoutePath } from "@/lib/i18n-helpers";
 export default function Navbar() {
   const pathname = normalizeRoutePath(usePathname() || "/");
   const { t } = useLanguage();
+  const progressRef = useRef<HTMLDivElement | null>(null);
+  const backdropRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    let frame = 0;
+
+    const updateScrollUi = () => {
+      frame = 0;
+      const doc = document.documentElement;
+      const maxScroll = Math.max(0, doc.scrollHeight - window.innerHeight);
+      const ratio = maxScroll > 0 ? Math.min(1, Math.max(0, window.scrollY / maxScroll)) : 0;
+      if (progressRef.current) {
+        progressRef.current.style.transform = `scaleX(${ratio.toFixed(4)})`;
+      }
+      if (backdropRef.current) {
+        backdropRef.current.style.opacity = window.scrollY > 32 ? "0.96" : "0.86";
+      }
+    };
+
+    const onScroll = () => {
+      if (!frame) {
+        frame = window.requestAnimationFrame(updateScrollUi);
+      }
+    };
+
+    updateScrollUi();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [pathname]);
 
   return (
     <header className="fixed left-0 top-0 z-50 w-full transition-all duration-300 print:hidden">
       <div
+        ref={backdropRef}
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[#0B0C0E]/90 backdrop-blur-2xl"
+        className="pointer-events-none absolute inset-0 bg-[#0B0C0E] opacity-[0.86] backdrop-blur-2xl transition-opacity duration-500"
       />
       <div className="relative mx-auto flex h-16 sm:h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         {/* Logotipo y Título de Autor */}
@@ -83,7 +119,14 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div className="border-b border-white/[0.08]" />
+      <div className="relative border-b border-white/[0.08]">
+        <div
+          ref={progressRef}
+          aria-hidden="true"
+          style={{ transform: "scaleX(0)" }}
+          className="pointer-events-none absolute bottom-0 left-0 h-[1.5px] w-full origin-left bg-gradient-to-r from-[#C5A880]/60 via-[#C5A880] to-[#E5CCA8]"
+        />
+      </div>
     </header>
   );
 }

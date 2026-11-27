@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import Link from "@/components/ui/LocalizedLink";
 import { useLanguage } from "@/lib/i18n";
@@ -110,6 +110,7 @@ export default function Hero() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const parallaxRef = useRef<HTMLDivElement | null>(null);
   const { lang, t } = useLanguage();
 
   const resolveSlideMeta = (slide: HeroSlide) => {
@@ -173,6 +174,40 @@ export default function Hero() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [nextSlide, prevSlide]);
 
+  useEffect(() => {
+    const el = parallaxRef.current;
+    if (!el || typeof window === "undefined") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let frame = 0;
+    const syncParallax = () => {
+      frame = 0;
+      if (window.innerWidth < 768) {
+        el.style.transform = "";
+        el.style.opacity = "";
+        return;
+      }
+      const vh = window.innerHeight || 900;
+      const y = Math.min(Math.max(window.scrollY, 0), vh);
+      const ratio = y / vh;
+      el.style.transform = `translate3d(0, ${(y * 0.16).toFixed(1)}px, 0)`;
+      el.style.opacity = String(Math.max(0.42, 1 - ratio * 0.5).toFixed(3));
+    };
+
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(syncParallax);
+    };
+
+    syncParallax();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
   const currentSlide = HERO_SLIDES[activeSlide];
   const currentMeta = resolveSlideMeta(currentSlide);
 
@@ -192,6 +227,7 @@ export default function Hero() {
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
+        <div ref={parallaxRef} className="relative h-full w-full will-change-transform">
         {HERO_SLIDES.map((slide, idx) => {
           const isCurrent = idx === activeSlide;
           const isNext = idx === (activeSlide + 1) % HERO_SLIDES.length;
@@ -228,6 +264,7 @@ export default function Hero() {
             </div>
           );
         })}
+        </div>
 
         {/* Degradado sutil solo en el borde inferior para que la fotografía se vea limpia */}
         <div

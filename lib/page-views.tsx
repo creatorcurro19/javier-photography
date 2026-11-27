@@ -22,6 +22,7 @@ import CuadernoPostContent from "@/components/stories/CuadernoPostContent";
 import StoriesPageContent from "@/components/stories/StoriesPageContent";
 import Hero from "@/components/home/Hero";
 import CollectionsOverview from "@/components/home/CollectionsOverview";
+import SelectedFilmstrip from "@/components/home/SelectedFilmstrip";
 import Container from "@/components/ui/Container";
 import { AndalusianPageBackdrop } from "@/components/ui/AndalusianMotif";
 import { getAllCuadernoPosts, getCuadernoPostBySlug } from "@/data/cuaderno";
@@ -86,6 +87,7 @@ export function HomeView({ lang }: { lang: SiteLang }) {
       <JsonLd data={[generateWebSiteSchema(lang), generatePersonSchema(lang)]} />
       <Hero />
       <CollectionsOverview />
+      <SelectedFilmstrip />
     </>
   );
 }

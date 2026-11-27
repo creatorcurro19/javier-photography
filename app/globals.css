@@ -169,3 +169,33 @@ html.fine-art-bw img:not([src*="svg"]) {
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
 }
+
+/* Transiciones chill de aparición y cinta curatorial */
+.chill-reveal-pending {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0) scale(0.992);
+}
+.chill-reveal-active {
+  transition: opacity 900ms cubic-bezier(0.22, 1, 0.36, 1), transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.chill-reveal-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+@keyframes gallery-drift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chill-reveal-pending {
+    opacity: 1;
+    transform: none;
+  }
+}

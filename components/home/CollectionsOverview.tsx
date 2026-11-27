@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "@/components/ui/LocalizedLink";
+import ChillReveal from "@/components/ui/ChillReveal";
 import Container from "@/components/ui/Container";
 import { PHOTO_CATEGORIES, CATEGORY_METADATA } from "@/types/photo";
 import { getAllPhotos, getPhotosByCategory } from "@/lib/photos";
@@ -85,7 +86,7 @@ export default function CollectionsOverview() {
     >
       <Container className="relative z-10">
         {/* Cabecera Simple y Directa */}
-        <div className="flex flex-col justify-between gap-4 pb-6 border-b border-white/[0.08] md:flex-row md:items-end">
+        <ChillReveal className="flex flex-col justify-between gap-4 pb-6 border-b border-white/[0.08] md:flex-row md:items-end">
           <div className="max-w-xl">
             <p className="font-mono text-xs uppercase tracking-[0.28em] text-[#C5A880]">
               {t("Explorar por tema", "Browse by theme")}
@@ -104,11 +105,11 @@ export default function CollectionsOverview() {
               →
             </span>
           </Link>
-        </div>
+        </ChillReveal>
 
         {/* Compact Architectural 5-Room Grid */}
         <div className="mt-10 grid grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-12">
-          {WINGS_CONFIG.map((wing) => {
+          {WINGS_CONFIG.map((wing, index) => {
             const info = CATEGORY_METADATA[wing.category];
             const catPhotos = getPhotosByCategory(wing.category);
             const count = catPhotos.length;
@@ -126,12 +127,16 @@ export default function CollectionsOverview() {
             const roomLabel = lang === "en" ? wing.roomRomanEn : wing.roomRoman;
 
             return (
-              <Link
+              <ChillReveal
                 key={wing.category}
-                href={`/portfolio/${wing.category}`}
-                className={`group relative block overflow-hidden border border-[#C5A880]/18 bg-[#151618] transition-all duration-500 hover:border-[#C5A880]/55 ${wing.colSpanClass}`}
-                aria-label={t(`${roomLabel}: ${title} (${count} obras)`, `${roomLabel}: ${title} (${count} works)`)}
+                delayMs={(index % 3) * 85}
+                className={wing.colSpanClass}
               >
+                <Link
+                  href={`/portfolio/${wing.category}`}
+                  className="group relative block overflow-hidden border border-[#C5A880]/18 bg-[#151618] transition-all duration-500 hover:border-[#C5A880]/60 hover:shadow-[0_14px_40px_-20px_rgba(197,168,128,0.28)]"
+                  aria-label={t(`${roomLabel}: ${title} (${count} obras)`, `${roomLabel}: ${title} (${count} works)`)}
+                >
                 <div className={`relative w-full overflow-hidden ${wing.aspectClass}`}>
                   <Image
                     src={validCover}
@@ -164,6 +169,7 @@ export default function CollectionsOverview() {
                   </span>
                 </div>
               </Link>
+              </ChillReveal>
             );
           })}
         </div>
