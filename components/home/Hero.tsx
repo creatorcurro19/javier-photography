@@ -3,17 +3,12 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  AndalusianCenefa,
-  AndalusianStarMark,
-} from "@/components/ui/AndalusianMotif";
 import { useLanguage } from "@/lib/i18n";
 
 import {
   getAllPhotos,
   getPhotoBySlug,
   getPhotosByCategory,
-  getAllProjects,
 } from "@/lib/photos";
 import { CATEGORY_METADATA, type PhotoCategory } from "@/types/photo";
 
@@ -102,8 +97,6 @@ const HERO_SLIDES: HeroSlide[] = HERO_SLIDE_CONFIG.map((cfg, idx) => {
     image: work?.image ?? "/images/portfolio/hero/hero.jpg",
   };
 });
-
-const TOTAL_SERIES_COUNT = getAllProjects().length;
 
 const DARK_BLUR_DATA_URL =
   "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxNicgaGVpZ2h0PScxMCc+PHJlY3Qgd2lkdGg9JzE2JyBoZWlnaHQ9JzEwJyBmaWxsPSclMjMxNTE2MTgnLz48L3N2Zz4=";
@@ -224,16 +217,6 @@ export default function Hero() {
           aria-hidden="true"
         />
 
-        {/* Etiqueta discreta de sala en esquina superior (oculta en versión minimalista) */}
-        <div className="hidden absolute top-3.5 left-3.5 z-20 md:top-24 md:left-1/2 md:-translate-x-1/2">
-          <div className="inline-flex items-center gap-2 border border-[#C5A880]/30 bg-[#0B0C0E]/75 px-3 py-1 backdrop-blur-md sm:px-4 sm:py-1.5">
-            <AndalusianStarMark className="h-2.5 w-2.5 text-[#C5A880] sm:h-3 sm:w-3" />
-            <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.28em] sm:tracking-[0.36em] text-[#E5D3B3] whitespace-nowrap">
-              {currentSlide.room} · {currentSlide.discipline}
-            </p>
-          </div>
-        </div>
-
         {/* EN MÓVIL: Selector de portada y datos de la obra situados directamente sobre la fotografía */}
         <div className="absolute inset-x-3 bottom-3 z-20 flex items-center justify-between gap-3 rounded-lg border border-[#C5A880]/30 bg-[#0B0C0E]/85 px-3.5 py-2 backdrop-blur-md md:hidden shadow-xl">
           <Link href={`/portfolio/${currentSlide.slug}`} className="min-w-0 flex-1 group/title">
@@ -290,38 +273,6 @@ export default function Hero() {
             </span>
           </h1>
 
-          <div className="hidden mt-3 items-center justify-center gap-2.5 sm:gap-3">
-            <span className="h-px w-6 bg-[#C5A880]/55 sm:w-12" />
-            <AndalusianStarMark className="h-3 w-3 text-[#C5A880] sm:h-3.5 sm:w-3.5" />
-            <h2 className="font-serif italic text-base sm:text-xl md:text-2xl font-normal tracking-wide text-[#E5D3B3] [text-shadow:0_2px_12px_rgba(0,0,0,0.85)]">
-              The Art of Seeing
-            </h2>
-            <AndalusianStarMark className="h-3 w-3 text-[#C5A880] sm:h-3.5 sm:w-3.5" />
-            <span className="h-px w-6 bg-[#C5A880]/55 sm:w-12" />
-          </div>
-
-          {/* Propuesta de Valor Larga (oculta en versión minimalista) */}
-          <p className="hidden mx-auto mt-3.5 max-w-2xl text-xs sm:text-sm font-light tracking-wide text-[#EBE7DF]/90 leading-relaxed">
-            {t(
-              "Fotografía de naturaleza, paisaje, arquitectura, motor y vida cotidiana desde Tenerife. Me interesan los lugares con carácter, la huella del tiempo y los detalles que suelen pasar desapercibidos. Todas las imágenes están tomadas con luz natural y están disponibles como copia en papel de algodón Hahnemühle o para encargos y proyectos.",
-              "Nature, landscape, architecture, motorsport, and documentary photography based in Tenerife. I am drawn to places with character, the trace of time, and the details that often go unnoticed. Every image is shot in natural light and available as a Hahnemühle cotton print or for editorial and commercial projects."
-            )}
-          </p>
-
-          {/* Bio Breve (oculta en versión minimalista) */}
-          <p className="hidden mx-auto mt-2 max-w-xl text-[11px] sm:text-xs font-light text-[#8E8A80] leading-relaxed">
-            {t(
-              "Distintos temas —del silencio del bosque al ruido de un tramo o la sombra de una calle antigua—, unidos por una misma forma de mirar.",
-              "Different subjects—from the quiet of the forest to a mountain rally stage or a shaded street—connected by the same way of looking."
-            )}{" "}
-            <Link
-              href="/about"
-              className="inline-flex min-h-[44px] items-center px-1 text-[#C5A880] underline underline-offset-4 hover:text-white transition whitespace-nowrap"
-            >
-              {t("Sobre mi trabajo →", "About my work →")}
-            </Link>
-          </p>
-
           {/* 2 Botones Grandes y Claros: Ver Fotos / Comprar Láminas */}
           <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
@@ -336,30 +287,6 @@ export default function Hero() {
               className="w-full sm:w-auto inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg border border-white/25 bg-[#0B0C0E]/80 px-7 py-3.5 text-xs uppercase tracking-[0.2em] text-[#F7F4EE] font-medium backdrop-blur-md transition-all duration-300 hover:border-white hover:bg-white/10"
             >
               <span>{t("Comprar láminas", "Buy prints")}</span>
-            </Link>
-          </div>
-
-          {/* Enlaces secundarios múltiples (ocultos en versión minimalista) */}
-          <div className="hidden mt-3 flex-wrap items-center justify-center gap-3 text-[10px] font-mono uppercase tracking-[0.22em] text-[#A39E93]">
-            <Link
-              href="/portfolio"
-              className="inline-flex min-h-[44px] items-center px-2 transition-colors hover:text-[#EBE7DF] hover:underline underline-offset-4"
-            >
-              {t("Explorar Obra", "Explore Works")} →
-            </Link>
-            <span className="text-white/25">·</span>
-            <Link
-              href="/servicios"
-              className="inline-flex min-h-[44px] items-center px-2 transition-colors hover:text-[#EBE7DF] hover:underline underline-offset-4"
-            >
-              {t("Encargos y Presupuestos", "Commissions & Quotes")} →
-            </Link>
-            <span className="text-white/25">·</span>
-            <Link
-              href="/projects"
-              className="inline-flex min-h-[44px] items-center px-2 transition-colors hover:text-[#EBE7DF] hover:underline underline-offset-4"
-            >
-              {t(`${TOTAL_SERIES_COUNT} Series`, `${TOTAL_SERIES_COUNT} Series`)} →
             </Link>
           </div>
         </div>
@@ -411,18 +338,13 @@ export default function Hero() {
           </div>
 
           <a
-            href="#selected-work"
+            href="#colecciones"
             className="hidden md:inline-flex min-h-[44px] items-center gap-2 text-right font-mono text-[10px] uppercase tracking-[0.25em] text-[#EBE7DF]/90 transition hover:text-[#C5A880]"
           >
             <span>Descubrir</span>
             <span>↓</span>
           </a>
         </div>
-      </div>
-
-      {/* Cenefa andalusí (oculta en versión minimalista) */}
-      <div className="hidden pointer-events-none relative z-20 md:absolute md:inset-x-0 md:bottom-0">
-        <AndalusianCenefa variant="estrella" className="text-[#C5A880]/45" />
       </div>
     </section>
   );

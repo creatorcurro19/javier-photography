@@ -4510,16 +4510,16 @@ export const WORKS: Photo[] = [
     "category": "fauna-naturaleza",
     "image": "/images/portfolio/fauna-naturaleza/ciguena-bajo-la-lluvia.jpg",
     "width": 3200,
-    "height": 1800,
+    "height": 2133,
     "alt": "Cigüeña blanca caminando sobre una pradera verde bajo una cortina de gotas de lluvia congeladas a 600mm en la Selva Negra, Alemania",
     "camera": "Canon EOS R7",
     "lens": "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary",
     "iso": 2000,
-    "aperture": "f/5.6",
-    "shutter": "1/1000s",
+    "aperture": "f/6.3",
+    "shutter": "1/1250s",
     "focalLength": "600mm",
     "description": "Entre cortinas de agua suspendidas en el aire, un paso blanco y pausado atraviesa la pradera mojada.",
-    "year": 2026,
+    "year": 2025,
     "featured": false,
     "prints": true,
     "licensing": true,
@@ -4540,19 +4540,18 @@ export const WORKS: Photo[] = [
       "galeria": 225,
       "coleccion": 375,
       "dimensions": {
-        "estudio": "30 × 53 cm",
-        "galeria": "45 × 80 cm",
-        "coleccion": "60 × 105 cm"
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 75 cm",
+        "coleccion": "70 × 105 cm"
       },
       "paper": "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)",
       "editionTotal": 20,
-      "score": 81
+      "score": 85
     },
     "realLocation": "Selva Negra (Schwarzwald), Alemania",
     "wildlifeCondition": "libre",
-    "exifWarning": "{{VERIFICAR: apertura f/5.6 a 600mm incompatible con apertura máxima física f/6.3 de Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary entre 400–600mm; confirmar desde RAW}}",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 105 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP con reducción de ruido AI (ISO 2000) apto para ampliación hasta Gran Colección (70 × 105 cm)."
   },
   {
     "id": "fn-15",
@@ -5284,6 +5283,108 @@ export const WORKS: Photo[] = [
     },
     "maxRecommendedFormat": "galeria",
     "maxFormatReason": "Captura en sombra densa a ISO 6400: formato máximo recomendado Galería (50 × 75 cm) para preservar la textura fina del plumaje."
+  },
+  {
+    "id": "fn-24",
+    "slug": "garza-blanca-en-la-orilla",
+    "title": "Calma Dorada",
+    "category": "fauna-naturaleza",
+    "location": "Humedal Ibérico",
+    "country": "España",
+    "year": 2025,
+    "camera": "Canon EOS 750D",
+    "lens": "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary",
+    "focalLength": "600mm",
+    "aperture": "f/8.0",
+    "shutter": "1/500s",
+    "iso": 1600,
+    "featured": false,
+    "prints": true,
+    "licensing": true,
+    "wildlifeCondition": "libre",
+    "realLocation": "Humedal acuático en medio natural",
+    "image": "/images/portfolio/fauna-naturaleza/garza-blanca-en-la-orilla.jpg",
+    "width": 3200,
+    "height": 2133,
+    "alt": "Garza blanca de perfil inmóvil en la orilla sobre aguas tranquilas y reflejos dorados capturada a 600mm",
+    "description": "Inmóvil junto a la orilla, la silueta blanca de la garza espera en silencio sobre los reflejos dorados del agua.",
+    "keywords": [
+      "garza blanca",
+      "great egret",
+      "aves acuáticas",
+      "fauna salvaje",
+      "600mm",
+      "fine art wildlife",
+      "reflejos en el agua"
+    ],
+    "series": "Miradas de Fauna: Observación a 600mm",
+    "seriesSlug": "miradas-en-libertad",
+    "pricing": {
+      "estudio": 125,
+      "galeria": 225,
+      "coleccion": 370,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 75 cm",
+        "coleccion": "60 × 90 cm"
+      },
+      "paper": "Canson Infinity Baryta Prestige II 340g / Hahnemühle Photo Rag Baryta 315g (Baritado)",
+      "editionTotal": 20,
+      "score": 84
+    },
+    "maxRecommendedFormat": "galeria",
+    "maxFormatReason": "Captura con Canon EOS 750D (24,2 MP) a ISO 1600: formato máximo recomendado Galería (50 × 75 cm) para garantizar nitidez de galería."
+  },
+  {
+    "id": "fn-25",
+    "slug": "cotorra-en-la-palmera",
+    "title": "Vigía entre Palmas",
+    "category": "fauna-naturaleza",
+    "location": "Tenerife, Islas Canarias",
+    "country": "España",
+    "year": 2026,
+    "camera": "Canon EOS R7",
+    "lens": "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary",
+    "focalLength": "600mm",
+    "aperture": "f/6.3",
+    "shutter": "1/500s",
+    "iso": 6400,
+    "featured": false,
+    "prints": true,
+    "licensing": true,
+    "wildlifeCondition": "libre",
+    "realLocation": "Tenerife, Islas Canarias (zonas arboladas)",
+    "image": "/images/portfolio/fauna-naturaleza/cotorra-en-la-palmera.jpg",
+    "width": 3200,
+    "height": 2133,
+    "alt": "Cotorra de Kramer macho posada de frente sobre una rama de palmera con su collar negro característico y fondo verde suavizado a 600mm",
+    "description": "Posada sobre una rama seca de palmera, la cotorra observa en calma recortada contra la densidad verde del follaje.",
+    "keywords": [
+      "cotorra de kramer",
+      "aves",
+      "fauna",
+      "tenerife",
+      "palmera",
+      "600mm",
+      "ring-necked parakeet"
+    ],
+    "series": "Macaronesia: Fauna y Costa Volcánica",
+    "seriesSlug": "biodiversidad-canaria",
+    "pricing": {
+      "estudio": 115,
+      "galeria": 205,
+      "coleccion": 340,
+      "dimensions": {
+        "estudio": "30 × 45 cm",
+        "galeria": "50 × 75 cm",
+        "coleccion": "70 × 105 cm"
+      },
+      "paper": "Hahnemühle Photo Rag® 308g (100% Algodón Mate)",
+      "editionTotal": 25,
+      "score": 82
+    },
+    "maxRecommendedFormat": "galeria",
+    "maxFormatReason": "Captura en sombra densa a ISO 6400: formato máximo recomendado Galería (50 × 75 cm) para conservar el detalle natural del plumaje."
   }
 ];
 

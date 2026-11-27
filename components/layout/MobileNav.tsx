@@ -3,16 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import BwToggle from "@/components/ui/BwToggle";
-import LanguageToggle from "@/components/layout/LanguageToggle";
 import { useLanguage } from "@/lib/i18n";
-import { WORKS, SERIES } from "@/data/works";
-import { SITE_SETTINGS } from "@/data/site-config";
+import { WORKS } from "@/data/works";
 import { PHOTO_CATEGORIES } from "@/types/photo";
 
-const MINIMAL_HREFS = new Set(["/portfolio", "/prints", "/about", "/contact"]);
-
-// Enlaces principales unificados con Header y Footer
 const primaryLinks = [
   {
     href: "/portfolio",
@@ -22,37 +16,12 @@ const primaryLinks = [
     noteEn: `${WORKS.length} photos (${PHOTO_CATEGORIES.length} topics)`,
   },
   {
-    href: "/projects",
-    es: "Series",
-    en: "Series",
-    noteEs: `${SERIES.length} series monográficas`,
-    noteEn: `${SERIES.length} monograph series`,
-  },
-  {
     href: "/prints",
     es: "Comprar Láminas",
     en: "Buy Prints",
     noteEs: "Copias en papel de algodón",
     noteEn: "Hahnemühle cotton paper editions",
   },
-  {
-    href: "/servicios",
-    es: "Encargos",
-    en: "Commissions",
-    noteEs: "Proyectos y presupuestos",
-    noteEn: "Projects & assignments",
-  },
-  ...(SITE_SETTINGS.showCuaderno
-    ? [
-        {
-          href: "/cuaderno",
-          es: "Cuaderno",
-          en: "Journal",
-          noteEs: "Notas de campo y proceso",
-          noteEn: "Field notes & process",
-        },
-      ]
-    : []),
   {
     href: "/about",
     es: "Sobre mí",
@@ -67,14 +36,6 @@ const primaryLinks = [
     noteEs: "Tenerife e Internacional",
     noteEn: "Tenerife & Worldwide",
   },
-];
-
-// Enlaces secundarios de archivo y servicios editoriales
-const secondaryLinks = [
-  { href: "/selected-work", es: "Obras Seleccionadas", en: "Selected Works" },
-  { href: "/licensing", es: "Licencias Editoriales", en: "Licensing" },
-  { href: "/cliente", es: "Acceso Clientes", en: "Client Portal" },
-  { href: "/dossier", es: "Dossier de Autor (PDF)", en: "Press Kit (PDF)" },
 ];
 
 export default function MobileNav() {
@@ -98,13 +59,6 @@ export default function MobileNav() {
       document.body.style.overflow = "";
     };
   }, [open]);
-
-  const triggerSearch = () => {
-    setOpen(false);
-    setTimeout(() => {
-      window.dispatchEvent(new Event("open-visual-search"));
-    }, 120);
-  };
 
   return (
     <div className="lg:hidden">
@@ -134,19 +88,6 @@ export default function MobileNav() {
           className="fixed inset-x-0 top-[71px] sm:top-[87px] bottom-0 z-50 flex flex-col justify-between border-b border-white/[0.08] bg-[#0B0C0E]/98 px-5 py-6 shadow-2xl backdrop-blur-2xl overflow-y-auto no-scrollbar sm:px-8 sm:py-8"
         >
           <div>
-            {/* Idioma y Modo Monocromo en móvil (oculto en versión minimalista) */}
-            <div className="hidden mb-3 items-center justify-between gap-3 border border-white/[0.08] bg-[#151618] px-4 py-2.5">
-              <span className="font-mono text-xs text-[#8E8A80]">
-                {t("Idioma & Visión", "Language & View")}
-              </span>
-              <div className="flex items-center gap-2">
-                <LanguageToggle />
-                <div className="sm:hidden">
-                  <BwToggle />
-                </div>
-              </div>
-            </div>
-
             {/* Acceso a Cesta */}
             <button
               type="button"
@@ -171,45 +112,15 @@ export default function MobileNav() {
               </span>
             </button>
 
-            {/* Búsqueda Rápida (oculta en versión minimalista) */}
-            <button
-              type="button"
-              onClick={triggerSearch}
-              className="hidden mb-6 w-full items-center justify-between border border-white/[0.08] bg-[#151618] px-4 py-3 text-left transition hover:border-white/30"
-            >
-              <div className="flex items-center gap-3">
-                <svg
-                  className="h-4 w-4 text-[#8E8A80]"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.6}
-                    d="M21 21l-5.2-5.2m1.7-4.3a6 6 0 11-12 0 6 6 0 0112 0z"
-                  />
-                </svg>
-                <span className="font-mono text-xs text-[#8E8A80]">
-                  {t("Buscar fotografías o colecciones...", "Search photographs or collections...")}
-                </span>
-              </div>
-              <span className="font-mono text-[10px] text-[#8E8A80]">
-                →
-              </span>
-            </button>
-
-            {/* 4 Enlaces Principales Claros (resto oculto) */}
+            {/* 4 Enlaces Principales Claros */}
             <ul className="flex flex-col gap-2">
               {primaryLinks.map((link) => {
                 const isActive =
                   pathname === link.href ||
                   (link.href !== "/" && pathname.startsWith(link.href));
-                const isMinimalVisible = MINIMAL_HREFS.has(link.href);
 
                 return (
-                  <li key={link.href} className={isMinimalVisible ? "" : "hidden"}>
+                  <li key={link.href}>
                     <Link
                       href={link.href}
                       onClick={() => setOpen(false)}
@@ -230,25 +141,6 @@ export default function MobileNav() {
                 );
               })}
             </ul>
-
-            {/* Enlaces Secundarios de Archivo y Servicios (ocultos en versión minimalista) */}
-            <div className="hidden mt-6 pt-5 border-t border-white/[0.08]">
-              <p className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#C5A880] mb-3">
-                {t("Archivo & Recursos", "Archive & Resources")}
-              </p>
-              <div className="grid grid-cols-2 gap-2 text-xs font-mono">
-                {secondaryLinks.map((sub) => (
-                  <Link
-                    key={sub.href}
-                    href={sub.href}
-                    onClick={() => setOpen(false)}
-                    className="rounded border border-white/[0.06] bg-[#151719] px-2.5 py-2 text-[10px] uppercase tracking-wider text-[#8E8A80] hover:text-[#EBE7DF] hover:border-white/20 transition"
-                  >
-                    {lang === "en" ? sub.en : sub.es}
-                  </Link>
-                ))}
-              </div>
-            </div>
           </div>
 
           {/* Bloque de Contacto Directo al Pie */}

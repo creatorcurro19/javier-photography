@@ -80,7 +80,7 @@ export default function DossierPage() {
               The Art of Seeing · Fotografía de Autor
             </p>
             <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.22em] text-[#8E8A80] print:text-neutral-600">
-              Raíces Andaluzas · Base en Tenerife, Canarias · Movilidad Internacional
+              Residiendo en Tenerife, Canarias · Movilidad Internacional
             </p>
           </header>
 
@@ -94,7 +94,7 @@ export default function DossierPage() {
                 «La fotografía no tiene que demostrar constantemente lo impresionante que es el mundo. A veces basta con detenerse a observarlo.»
               </blockquote>
               <p className="text-sm font-light leading-relaxed text-[#D4CEC3] print:text-neutral-700">
-                Fotógrafo español con raíces andaluzas y base en Tenerife (Islas Canarias). Su archivo abarca cinco ámbitos —<strong>Paisaje, Fauna salvaje, Automovilismo clásico, Arquitectura y Fotografía documental</strong>— unidos por una misma forma de mirar: atención a los detalles cotidianos, respeto por la huella del tiempo y trabajo exclusivo con luz natural, sin alteraciones generativas.
+                Soy Javier Espinosa, fotógrafo independiente, actualmente residiendo en Tenerife. Me gusta perderme en lugares nuevos, observar lo que normalmente pasa desapercibido y encontrar imágenes en situaciones cotidianas. Mi fotografía se mueve entre la naturaleza, los paisajes, la arquitectura y la cultura, sin demasiadas etiquetas ni límites; más que especializarme en una sola forma de fotografiar, me interesa seguir descubriendo nuevas maneras de mirar.
               </p>
             </div>
 

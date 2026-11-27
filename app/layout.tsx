@@ -63,7 +63,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Archivo fotográfico de Javier Espinosa en Tenerife: fauna, paisaje, rally histórico, arquitectura y documental. Copias Fine Art Hahnemühle y encargos.",
+    "Fotógrafo independiente en Tenerife. Naturaleza, paisajes, arquitectura y cultura buscando nuevas maneras de mirar. Copias Fine Art en papel de algodón.",
 
   applicationName: "Javier Espinosa Fotografía",
 

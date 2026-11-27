@@ -10,21 +10,18 @@ import PrintCardAction from "@/components/cart/PrintCardAction";
 
 interface DirectPrintsCatalogProps {
   allPhotos: Photo[];
-  featuredPrints: Photo[];
 }
 
 const INITIAL_BATCH = 24;
 
 export default function DirectPrintsCatalog({
   allPhotos,
-  featuredPrints,
 }: DirectPrintsCatalogProps) {
   const searchParams = useSearchParams();
   const paymentStatus = searchParams.get("pago");
   const paymentRef = searchParams.get("ref");
   const obraParam = searchParams.get("obra") ?? "";
 
-  const [scope, setScope] = useState<"curated" | "all">("all");
   const [activeCategory, setActiveCategory] = useState<PhotoCategory | "all">(
     "all"
   );
@@ -32,8 +29,7 @@ export default function DirectPrintsCatalog({
   const [visibleCount, setVisibleCount] = useState(INITIAL_BATCH);
 
   const filteredPhotos = useMemo(() => {
-    const base = scope === "all" || searchQuery.trim() ? allPhotos : featuredPrints;
-    return base.filter((p) => {
+    return allPhotos.filter((p) => {
       if (activeCategory !== "all" && p.category !== activeCategory) return false;
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
@@ -42,7 +38,7 @@ export default function DirectPrintsCatalog({
       }
       return true;
     });
-  }, [allPhotos, featuredPrints, scope, activeCategory, searchQuery]);
+  }, [allPhotos, activeCategory, searchQuery]);
 
   const visiblePhotos = useMemo(
     () => filteredPhotos.slice(0, visibleCount),
@@ -76,48 +72,6 @@ export default function DirectPrintsCatalog({
           </div>
         </div>
       )}
-
-      {/* Cabecera y Controles de Selección Directa (ocultos en versión minimalista) */}
-      <div className="hidden flex-col justify-between gap-4 border-b border-white/[0.08] pb-6 lg:flex-row lg:items-end">
-        <div>
-          <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#C5A880]">
-            Adquisición Online Directa · Sin Intermediarios ni Comisiones de Galería Externa
-          </p>
-          <h2 className="mt-2 font-serif text-3xl font-light text-[#EBE7DF]">
-            Catálogo Fine Art ({visiblePhotos.length}{" "}
-            {visiblePhotos.length === 1 ? "obra disponible" : "obras disponibles"})
-          </h2>
-        </div>
-
-        {/* Conmutador entre las 20 Obras Principales y las 100 Obras del Archivo */}
-        <div className="flex flex-wrap items-center gap-2">
-          <button
-            type="button"
-            onClick={() => {
-              setScope("curated");
-              setSearchQuery("");
-            }}
-            className={`border px-4 py-2 font-mono text-[10px] uppercase tracking-[0.22em] transition ${
-              scope === "curated" && !searchQuery.trim()
-                ? "border-[#C5A880] bg-[#C5A880] text-[#0B0C0E] font-semibold"
-                : "border-white/15 bg-[#151618] text-[#EBE7DF] hover:border-[#C5A880]"
-            }`}
-          >
-            Edición Principal ({featuredPrints.length})
-          </button>
-          <button
-            type="button"
-            onClick={() => setScope("all")}
-            className={`border px-4 py-2 font-mono text-[10px] uppercase tracking-[0.22em] transition ${
-              scope === "all" || Boolean(searchQuery.trim())
-                ? "border-[#C5A880] bg-[#C5A880] text-[#0B0C0E] font-semibold"
-                : "border-white/15 bg-[#151618] text-[#EBE7DF] hover:border-[#C5A880]"
-            }`}
-          >
-            Colección Disponible ({allPhotos.length} Obras)
-          </button>
-        </div>
-      </div>
 
       {/* Barra de Filtro por Disciplina y Buscador por Título/Lugar */}
       <div className="mt-6 flex flex-col justify-between gap-4 border border-white/[0.08] bg-[#151618]/80 p-4 lg:flex-row lg:items-center">
@@ -153,10 +107,7 @@ export default function DirectPrintsCatalog({
           <input
             type="search"
             value={searchQuery}
-            onChange={(e) => {
-              setSearchQuery(e.target.value);
-              if (e.target.value.trim()) setScope("all");
-            }}
+            onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Buscar obra, lugar o especie..."
             aria-label="Buscar obra para comprar copia Fine Art"
             className="w-full border border-white/15 bg-[#0B0C0E] px-3.5 py-2 font-mono text-xs text-[#EBE7DF] placeholder-[#8E8A80]/60 focus:border-[#C5A880] focus:outline-none"

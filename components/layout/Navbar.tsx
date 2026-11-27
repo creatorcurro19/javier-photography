@@ -1,70 +1,15 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MobileNav from "@/components/layout/MobileNav";
-import SearchModal from "@/components/layout/SearchModal";
-import LanguageToggle from "@/components/layout/LanguageToggle";
 import CartButton from "@/components/cart/CartButton";
-import BwToggle from "@/components/ui/BwToggle";
-import {
-  AndalusianMicroCenefa,
-  AndalusianStarMark,
-} from "@/components/ui/AndalusianMotif";
 import { useLanguage } from "@/lib/i18n";
-import { WORKS, SERIES } from "@/data/works";
-import { SITE_SETTINGS } from "@/data/site-config";
-import { PHOTO_CATEGORIES } from "@/types/photo";
-
-// Submenú curatorial de "Obra": unifica Colecciones, Series y Obras Seleccionadas
-const obraSublinks = [
-  {
-    href: "/portfolio",
-    es: "Archivo por Disciplinas",
-    en: "Archive by Discipline",
-    descEs: `${WORKS.length} fotografías en ${PHOTO_CATEGORIES.length} ámbitos`,
-    descEn: `${WORKS.length} photographs across ${PHOTO_CATEGORIES.length} fields`,
-  },
-  {
-    href: "/projects",
-    es: "Series y Proyectos",
-    en: "Series & Projects",
-    descEs: `${SERIES.length} reportajes y ensayos visuales`,
-    descEn: `${SERIES.length} visual series and essays`,
-  },
-  {
-    href: "/selected-work",
-    es: "Obras Seleccionadas",
-    en: "Selected Works",
-    descEs: "Selección de 15 fotografías",
-    descEn: "A selection of 15 photographs",
-  },
-];
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { lang, t } = useLanguage();
-  const [obraMenuOpen, setObraMenuOpen] = useState(false);
-  const obraMenuRef = useRef<HTMLDivElement>(null);
-
-  // Cerrar submenú al hacer clic fuera
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        obraMenuRef.current &&
-        !obraMenuRef.current.contains(event.target as Node)
-      ) {
-        setObraMenuOpen(false);
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  const { t } = useLanguage();
 
   return (
     <header className="fixed left-0 top-0 z-50 w-full transition-all duration-300 print:hidden">
@@ -95,113 +40,27 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Menú Principal Minimalista: Fotos, Comprar Láminas, Sobre mí, Contacto (resto oculto) */}
+        {/* Menú Principal Minimalista: Fotos, Comprar Láminas, Sobre mí, Contacto */}
         <nav
           aria-label="Navegación principal"
           className="hidden items-center gap-6 xl:gap-8 text-xs uppercase tracking-[0.2em] lg:flex shrink-0"
         >
-          {/* 1. Fotos (antes Obra con submenú; submenú oculto) */}
-          <div
-            ref={obraMenuRef}
-            className="relative flex items-center"
-          >
-            <Link
-              href="/portfolio"
-              onClick={() => setObraMenuOpen(false)}
-              className={`group inline-flex min-h-[44px] items-center gap-1 py-2 whitespace-nowrap transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
-                pathname === "/portfolio" || pathname.startsWith("/portfolio/") || pathname === "/selected-work"
-                  ? "text-[#EBE7DF] font-medium"
-                  : "text-[#EBE7DF]/85 hover:text-white"
-              }`}
-            >
-              <span>{t("Fotos", "Photos")}</span>
-              {(pathname === "/portfolio" || pathname.startsWith("/portfolio/") || pathname === "/selected-work") && (
-                <span className="absolute bottom-1 left-0 right-0 h-px bg-[#C5A880]" />
-              )}
-            </Link>
-            <button
-              type="button"
-              aria-expanded={obraMenuOpen}
-              aria-label={t("Abrir submenú de Obra", "Toggle Works submenu")}
-              onClick={() => setObraMenuOpen((v) => !v)}
-              className="hidden min-h-[44px] min-w-[28px] items-center justify-center px-1 text-[#C5A880] hover:text-white"
-            >
-              <svg
-                className={`h-3.5 w-3.5 transition-transform duration-200 ${
-                  obraMenuOpen ? "rotate-180" : ""
-                }`}
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
-
-            {/* Submenú desplegable de Obra (oculto en versión minimalista) */}
-            {obraMenuOpen && (
-              <div className="hidden absolute left-0 top-full pt-2.5 z-50">
-                <div className="w-64 rounded-xl border border-[#C5A880]/25 bg-[#0E1012]/96 p-2 shadow-2xl backdrop-blur-2xl ring-1 ring-black/50">
-                  <div className="px-3 py-1.5 border-b border-white/[0.06] flex items-center gap-2">
-                    <AndalusianStarMark className="h-2.5 w-2.5 text-[#C5A880]" />
-                    <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#C5A880]">
-                      {t("Archivo y Series", "Archive & Series")}
-                    </span>
-                  </div>
-
-                  <div className="mt-1 flex flex-col gap-1">
-                    {obraSublinks.map((sub) => {
-                      const active =
-                        pathname === sub.href ||
-                        (sub.href !== "/" && pathname.startsWith(sub.href));
-
-                      return (
-                        <Link
-                          key={sub.href}
-                          href={sub.href}
-                          onClick={() => setObraMenuOpen(false)}
-                          className={`group/item flex flex-col rounded-lg px-3 py-2 text-left transition-colors ${
-                            active
-                              ? "bg-[#C5A880]/15 text-[#EBE7DF]"
-                              : "text-[#EBE7DF]/80 hover:bg-white/[0.06] hover:text-white"
-                          }`}
-                        >
-                          <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#EBE7DF] group-hover/item:text-white">
-                            {lang === "en" ? sub.en : sub.es}
-                          </span>
-                          <span className="font-mono text-[9px] text-[#A39E93] transition group-hover/item:text-[#C5A880]">
-                            {lang === "en" ? sub.descEn : sub.descEs}
-                          </span>
-                        </Link>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* 2. Series (oculto en versión minimalista) */}
+          {/* 1. Fotos */}
           <Link
-            href="/projects"
-            className={`hidden relative min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
-              pathname === "/projects" || pathname.startsWith("/projects/")
+            href="/portfolio"
+            className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
+              pathname === "/portfolio" || pathname.startsWith("/portfolio/") || pathname === "/selected-work"
                 ? "text-[#EBE7DF] font-medium"
                 : "text-[#EBE7DF]/85 hover:text-white"
             }`}
           >
-            {t("Series", "Series")}
-            {(pathname === "/projects" || pathname.startsWith("/projects/")) && (
+            <span>{t("Fotos", "Photos")}</span>
+            {(pathname === "/portfolio" || pathname.startsWith("/portfolio/") || pathname === "/selected-work") && (
               <span className="absolute bottom-1 left-0 right-0 h-px bg-[#C5A880]" />
             )}
           </Link>
 
-          {/* 3. Comprar Láminas */}
+          {/* 2. Comprar Láminas */}
           <Link
             href="/prints"
             className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
@@ -216,39 +75,7 @@ export default function Navbar() {
             )}
           </Link>
 
-          {/* 4. Encargos (oculto en versión minimalista) */}
-          <Link
-            href="/servicios"
-            className={`hidden relative min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
-              pathname === "/servicios" || pathname.startsWith("/servicios/")
-                ? "text-[#EBE7DF] font-medium"
-                : "text-[#EBE7DF]/85 hover:text-white"
-            }`}
-          >
-            {t("Encargos", "Commissions")}
-            {(pathname === "/servicios" || pathname.startsWith("/servicios/")) && (
-              <span className="absolute bottom-1 left-0 right-0 h-px bg-[#C5A880]" />
-            )}
-          </Link>
-
-          {/* 5. Cuaderno (oculto en versión minimalista) */}
-          {SITE_SETTINGS.showCuaderno && (
-            <Link
-              href="/cuaderno"
-              className={`hidden relative min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
-                pathname === "/cuaderno" || pathname.startsWith("/cuaderno/")
-                  ? "text-[#EBE7DF] font-medium"
-                  : "text-[#EBE7DF]/85 hover:text-white"
-              }`}
-            >
-              {t("Cuaderno", "Journal")}
-              {(pathname === "/cuaderno" || pathname.startsWith("/cuaderno/")) && (
-                <span className="absolute bottom-1 left-0 right-0 h-px bg-[#C5A880]" />
-              )}
-            </Link>
-          )}
-
-          {/* 6. Sobre mí */}
+          {/* 3. Sobre mí */}
           <Link
             href="/about"
             className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
@@ -263,7 +90,7 @@ export default function Navbar() {
             )}
           </Link>
 
-          {/* 7. Contacto */}
+          {/* 4. Contacto */}
           <Link
             href="/contact"
             className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
@@ -279,26 +106,13 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        {/* Acciones del encabezado: solo Cesta y Menú Móvil visibles (Idioma, B/N y Búsqueda ocultos) */}
+        {/* Acciones del encabezado */}
         <div className="flex shrink-0 items-center gap-2">
-          <div className="hidden">
-            <LanguageToggle />
-          </div>
-          <div className="hidden">
-            <BwToggle />
-          </div>
-          <div className="hidden">
-            <SearchModal />
-          </div>
           <CartButton />
           <MobileNav />
         </div>
       </div>
 
-      {/* Micro-cenefa arquitectónica andalusí bajo la cabecera (oculta en versión minimalista) */}
-      <div className="hidden relative">
-        <AndalusianMicroCenefa className="text-[#C5A880]/30" />
-      </div>
       <div className="border-b border-white/[0.08]" />
     </header>
   );

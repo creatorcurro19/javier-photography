@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import CertificateOfAuthenticityModal from "@/components/prints/CertificateOfAuthenticityModal";
 import { AndalusianCornerOrnaments } from "@/components/ui/AndalusianMotif";
 import type { Photo } from "@/types/photo";
 import { getFormatsForPhoto, addToCart } from "@/lib/cart";
@@ -20,10 +19,6 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
   const formats = getFormatsForPhoto(photo);
   const currentFormat = formats[selectedFormatId];
   const unitPrice = currentFormat.price;
-  const recommendedPaper =
-    photo.pricing?.paper ??
-    "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Algodón Mate)";
-  const editionTotal = photo.pricing?.editionTotal ?? 25;
 
   const handleAddToCart = () => {
     addToCart({
@@ -120,10 +115,6 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
       aria-labelledby="print-heading"
       className="relative rounded-xl border border-white/[0.1] bg-[#151618] p-6 sm:p-8 transition-colors scroll-mt-24"
     >
-      <div className="hidden">
-        <AndalusianCornerOrnaments className="text-[#C5A880]/50" />
-        <span>Edición Limitada ({editionTotal} ej.)</span>
-      </div>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h2
           id="print-heading"
@@ -135,26 +126,12 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
           Envío en tubo rígido · Gratis en Canarias
         </span>
       </div>
-      <p className="hidden mt-3 text-sm leading-relaxed text-[#8E8A80] font-light">
-        Impresión Giclée de 12 tintas pigmentadas bajo norma ISO 9706 sobre soporte asignado a esta obra:{" "}
-        <strong className="text-[#EBE7DF] font-normal">{recommendedPaper}</strong>. Se entrega como lámina sin enmarcar, con margen blanco de conservación, envuelta en papel seda libre de ácido dentro de un tubo rígido de alta densidad junto a su Certificado de Autenticidad firmado y numerado.
-      </p>
 
       {/* Selector Interactivo de Formatos con Precios Individuales de esta Obra */}
       <div className="mt-6 space-y-3">
         <label className="block font-mono text-xs uppercase tracking-[0.2em] text-[#A39E93]">
           Elige el tamaño:
         </label>
-        {photo.camera === "Canon EOS 750D" && (
-          <div className="hidden mb-4 border-l-2 border-[#C5A880] bg-[#15171A] p-3 text-xs">
-            <span className="font-mono text-[10px] uppercase tracking-wider text-[#C5A880] block">
-              Nota técnica de adquisición:
-            </span>
-            <p className="mt-1 font-light text-[#EBE7DF] leading-relaxed">
-              Obra original capturada con cuerpo <strong className="text-white">Canon EOS 750D</strong> (sensor APS-C 24,2 MP). Formato máximo recomendado de copia: <strong className="text-white">Formato Galería (50 × 70 cm)</strong> para garantizar la máxima nitidez y densidad óptica de grano.
-            </p>
-          </div>
-        )}
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {(
@@ -192,27 +169,6 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
             );
           })}
         </div>
-
-        {formats.coleccion.disabled && (
-          <p className="hidden mt-2 border border-[#C5A880]/35 bg-[#0B0C0E]/80 px-3.5 py-2.5 font-mono text-[11px] leading-relaxed text-[#E5D3B3]">
-            Aviso de formato máximo recomendado: {formats.coleccion.disabledReason}
-          </p>
-        )}
-      </div>
-
-      {/* Especificación de Entrega en Tubo Rígido (oculta en versión minimalista) */}
-      <div className="hidden mt-5 border border-white/[0.08] bg-[#0B0C0E]/60 p-4">
-        <div className="flex items-start gap-3 text-xs">
-          <span className="mt-0.5 text-[#C5A880] font-mono">✓</span>
-          <div>
-            <span className="font-medium text-[#EBE7DF]">
-              Lámina Fine Art sin enmarcar · Envío en tubo rígido (plazo: 5–7 días laborables)
-            </span>
-            <p className="mt-0.5 text-[11px] text-[#A39E93] font-light leading-relaxed">
-              Papel total {currentFormat.dimensions} ({currentFormat.imageDimensions}). Envío en tubo rígido por zona: Canarias 0 € · Península y Baleares 15 € · Internacional 28 €. Precios finales de venta de autor sin recargo de IGIC.
-            </p>
-          </div>
-        </div>
       </div>
 
       {/* Total & Acciones de Compra Directa / Solicitud */}
@@ -243,24 +199,7 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
           >
             <span>{added ? "✓ En la Cesta" : "+ Añadir a la Cesta"}</span>
           </button>
-
-          <div className="hidden">
-            <Link
-              href={`/contact?motivo=print&obra=${encodeURIComponent(photo.title)}&formato=${encodeURIComponent(`${currentFormat.name} (${currentFormat.dimensions} · ${unitPrice} €)`)}`}
-              className="inline-flex min-h-[44px] items-center justify-center border border-white/20 bg-[#0B0C0E] px-5 py-3 font-mono text-xs uppercase tracking-[0.2em] text-[#EBE7DF] transition hover:border-[#C5A880] hover:text-white"
-            >
-              Solicitar esta copia
-            </Link>
-
-            <CertificateOfAuthenticityModal photo={photo} />
-          </div>
         </div>
-      </div>
-
-      {/* Sello de Conservación Directa (oculto en versión minimalista) */}
-      <div className="hidden mt-6 pt-4 border-t border-white/[0.06] flex-wrap items-center justify-between gap-3 text-[11px] font-mono text-[#A39E93]">
-        <span>✓ Compra 100% directa al autor · Certificado firmado y numerado · Envío en tubo rígido</span>
-        <span className="text-[#C5A880]">Hahnemühle Photo Rag® 308g · ISO 9706</span>
       </div>
     </section>
   );

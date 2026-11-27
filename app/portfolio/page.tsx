@@ -2,12 +2,7 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 import CategoryNav from "@/components/portfolio/CategoryNav";
 import ExhibitionGallery from "@/components/portfolio/ExhibitionGallery";
-import ExpeditionMap from "@/components/portfolio/ExpeditionMap";
 import JsonLd from "@/components/seo/JsonLd";
-import {
-  AndalusianCollectionBackdrop,
-  AndalusianCenefa,
-} from "@/components/ui/AndalusianMotif";
 import { buildPageMetadata } from "@/lib/metadata";
 import {
   getAllPhotos,
@@ -44,10 +39,6 @@ export default function PortfolioPage() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-28 pb-24 text-[#EBE7DF]">
       <JsonLd data={breadcrumb} />
-      {/* Filigrana andalusí (oculta en versión minimalista) */}
-      <div className="hidden">
-        <AndalusianCollectionBackdrop variant="laceria" />
-      </div>
 
       <Container className="relative z-10">
         <header className="max-w-2xl">
@@ -62,13 +53,6 @@ export default function PortfolioPage() {
           </p>
         </header>
 
-        <div className="hidden">
-          <AndalusianCenefa
-            variant="estrella"
-            className="mt-10 text-[#C5A880]/32"
-          />
-        </div>
-
         <div className="mt-6">
           <CategoryNav />
         </div>
@@ -77,15 +61,7 @@ export default function PortfolioPage() {
           <ExhibitionGallery photos={photos} />
         </div>
 
-        <div className="hidden">
-          <AndalusianCenefa
-            variant="sebka"
-            className="mt-20 text-[#C5A880]/28"
-          />
-          <ExpeditionMap />
-        </div>
-
-        {/* Índice Curatorial Completo de las 100 Obras (oculto visualmente con sr-only para conservar SEO SSR al 100%) */}
+        {/* Índice Curatorial Completo de las Obras (oculto visualmente con sr-only para conservar SEO SSR al 100%) */}
         <section
           aria-label="Índice completo del archivo catalogado"
           className="sr-only"

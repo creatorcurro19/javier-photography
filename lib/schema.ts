@@ -16,7 +16,7 @@ export function generateWebSiteSchema() {
     url: absoluteUrl("/"),
     inLanguage: ["es-ES", "en"],
     description:
-      "Galería oficial y archivo fotográfico de Javier Espinosa Martínez. Fotografía de autor en Tenerife y España: fauna salvaje (Wildlife), paisajes (Landscapes), automovilismo (Motorsport), arquitectura (Architecture) y documental (Documentary). Ediciones limitadas Fine Art en papel Hahnemühle Photo Rag 308g.",
+      "Galería oficial y archivo fotográfico de Javier Espinosa, fotógrafo independiente afincado en Tenerife: naturaleza, paisajes, arquitectura, motor clásico y cultura con luz natural. Copias Fine Art en papel Hahnemühle Photo Rag 308g.",
     publisher: {
       "@id": absoluteUrl("/#author"),
     },
@@ -40,9 +40,9 @@ export function generatePersonSchema() {
     image: absoluteUrl("/images/portfolio/hero/hero.jpg"),
     email: "mailto:javierespinosa1995@hotmail.com",
     jobTitle:
-      "Fotógrafo de Autor & Fine Art Photographer — Landscapes, Wildlife, Motorsport, Architecture & Documentary",
+      "Fotógrafo Independiente & Fine Art Photographer — Naturaleza, Paisajes, Arquitectura y Cultura",
     description:
-      "Fotógrafo español afincado en Tenerife (Canarias), especializado en cinco disciplinas fundamentales: Landscapes, Wildlife, Motorsport, Urban & Architecture y Documentary. Sistema óptico de precisión Canon EOS R7 (10-600mm) y obra gráfica Fine Art en papel Hahnemühle Photo Rag 308g bajo norma ISO 9706.",
+      "Soy Javier Espinosa, fotógrafo independiente afincado en Tenerife. Mi fotografía se mueve entre la naturaleza, los paisajes, la arquitectura y la cultura buscando nuevas maneras de mirar, con luz natural y copias Fine Art en papel Hahnemühle Photo Rag 308g.",
     knowsLanguage: ["es", "en"],
     nationality: {
       "@type": "Country",

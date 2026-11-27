@@ -1,12 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
-import {
-  AndalusianBackgroundPattern,
-  AndalusianCenefa,
-  AndalusianStarMark,
-  AndalusianVerticalCenefa,
-} from "@/components/ui/AndalusianMotif";
 import { PHOTO_CATEGORIES, CATEGORY_METADATA } from "@/types/photo";
 import { getAllPhotos, getPhotosByCategory } from "@/lib/photos";
 
@@ -71,39 +65,10 @@ export default function CollectionsOverview() {
       className="relative overflow-hidden bg-[#0B0C0E] py-12 sm:py-16 border-t border-white/[0.08] scroll-mt-20"
       aria-label="Salas de Exposición Permanente"
     >
-      {/* Fondo y cenefas (ocultos en versión minimalista) */}
-      <div className="hidden">
-        <AndalusianBackgroundPattern
-          variant="laceria"
-          mask="none"
-          className="text-[#C5A880]/[0.055]"
-        />
-        <AndalusianBackgroundPattern
-          variant="laceria"
-          mask="radial"
-          className="text-[#C5A880]/[0.09]"
-        />
-        <div className="absolute inset-x-0 top-0">
-          <AndalusianCenefa variant="estrella" className="text-[#C5A880]/40" />
-        </div>
-        <div className="pointer-events-none absolute inset-y-8 left-2.5 hidden lg:block">
-          <AndalusianVerticalCenefa className="text-[#C5A880]/28" />
-        </div>
-        <div className="pointer-events-none absolute inset-y-8 right-2.5 hidden lg:block">
-          <AndalusianVerticalCenefa className="text-[#C5A880]/28" />
-        </div>
-      </div>
-
       <Container className="relative z-10">
         {/* Cabecera Simple y Directa */}
         <div className="flex flex-col justify-between gap-4 pb-6 border-b border-white/[0.08] md:flex-row md:items-end">
           <div className="max-w-xl">
-            <div className="hidden items-center gap-2.5">
-              <AndalusianStarMark className="h-3.5 w-3.5 text-[#C5A880]/75" />
-              <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-[#C5A880]/85">
-                Colección Permanente
-              </p>
-            </div>
             <p className="font-mono text-xs uppercase tracking-[0.28em] text-[#C5A880]">
               Explorar por tema
             </p>
@@ -182,11 +147,6 @@ export default function CollectionsOverview() {
           })}
         </div>
       </Container>
-
-      {/* Cenefa inferior discreta (oculta en versión minimalista) */}
-      <div className="hidden absolute inset-x-0 bottom-0">
-        <AndalusianCenefa variant="estrella" className="text-[#C5A880]/30" />
-      </div>
     </section>
   );
 }
