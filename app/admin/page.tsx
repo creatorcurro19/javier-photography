@@ -10,7 +10,9 @@ import { AndalusianPageBackdrop } from "@/components/ui/AndalusianMotif";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Estudio de Autor · Panel de Gestión | Javier Espinosa",
+  title: {
+    absolute: "Panel de Gestión | Javier Espinosa",
+  },
   description: "Portal privado de gestión editorial, obras, títulos, descripciones y precios Fine Art.",
   robots: {
     index: false,
