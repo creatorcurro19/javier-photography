@@ -2,44 +2,27 @@ import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/metadata";
 
 export default function robots(): MetadataRoute.Robots {
+  const disallowed = [
+    "/api/admin/",
+    "/api/checkout",
+    "/api/order",
+    "/api/webhooks/",
+    "/cliente",
+    "/en/cliente",
+    "/admin",
+  ];
+
   return {
     rules: [
       {
         userAgent: "*",
         allow: ["/", "/en/", "/api/og"],
-        disallow: [
-          "/api/admin/",
-          "/api/checkout",
-          "/api/order",
-          "/api/webhooks/",
-          "/cliente",
-          "/en/cliente",
-          "/admin",
-        ],
+        disallow: disallowed,
       },
       {
         userAgent: ["Googlebot-Image", "Googlebot"],
-        allow: [
-          "/images/portfolio/",
-          "/portfolio/",
-          "/projects/",
-          "/prints",
-          "/selected-work",
-          "/en/",
-          "/en/portfolio/",
-          "/en/projects/",
-          "/en/prints",
-          "/en/selected-work",
-        ],
-        disallow: [
-          "/api/admin/",
-          "/api/checkout",
-          "/api/order",
-          "/api/webhooks/",
-          "/cliente",
-          "/en/cliente",
-          "/admin",
-        ],
+        allow: ["/", "/images/portfolio/", "/en/"],
+        disallow: disallowed,
       },
       {
         userAgent: ["GPTBot", "CCBot", "Google-Extended"],
@@ -49,7 +32,6 @@ export default function robots(): MetadataRoute.Robots {
     sitemap: [
       `${SITE_URL}/sitemap.xml`,
       `${SITE_URL}/image-sitemap.xml`,
-      `${SITE_URL}/feed.xml`,
     ],
   };
 }

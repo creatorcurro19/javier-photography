@@ -55,7 +55,7 @@ export function buildRootMetadata(lang: SiteLang): Metadata {
     },
 
     description: isEn
-      ? "Limited edition wildlife, landscape, classic rally & architecture Fine Art prints on cotton rag paper. Museum quality, shipped in rigid tubes to the US."
+      ? "Limited edition wildlife, landscape, rally & architecture Fine Art prints on cotton rag paper, shipped worldwide from Tenerife."
       : "Fotografía de fauna, paisaje, rally histórico, arquitectura y documental desde Tenerife. Copias Fine Art, encargos y licencias.",
 
     applicationName: isEn

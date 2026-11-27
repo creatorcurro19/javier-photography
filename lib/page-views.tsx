@@ -30,10 +30,10 @@ import { getFormatPriceRanges } from "@/data/formatos";
 import { getPlazos } from "@/data/plazos";
 import { getServiceLandingBySlug, SERVICE_AREA } from "@/data/service-landings";
 import { getLocalizedServiceLanding, SERVICE_AREA_EN } from "@/data/service-landings-en";
-import { getLocalizedCuadernoPost } from "@/data/site-config";
+import { getLocalizedCuadernoPost, SITE_SETTINGS } from "@/data/site-config";
 import { WORKS } from "@/data/works";
 import type { SiteLang } from "@/lib/i18n-helpers";
-import { getLocalizedProject } from "@/lib/i18n-works";
+import { getLocalizedPhoto, getLocalizedProject } from "@/lib/i18n-works";
 import { absoluteUrl, buildPageMetadata, buildPhotoMetadata } from "@/lib/metadata";
 import {
   getAdjacentPhotos,
@@ -51,10 +51,11 @@ import {
   PHOTO_CATEGORIES,
 } from "@/lib/photos";
 import {
+  generateArticleSchema,
   generateBreadcrumbSchema,
   generateCategoryCollectionSchema,
+  generateCollectionListSchema,
   generateFAQSchema,
-  generatePersonSchema,
   generatePhotoSchema,
   generateProjectSchema,
   generateServiceSchema,
@@ -75,16 +76,17 @@ export function getHomeMetadata(lang: SiteLang): Metadata {
         : "Fotógrafo en Tenerife | Javier Espinosa",
     description:
       lang === "en"
-        ? "Limited edition wildlife, landscape, classic rally & architecture Fine Art prints on cotton rag paper. Museum quality, shipped in rigid tubes to the US."
+        ? "Limited edition wildlife, landscape, rally & architecture Fine Art prints on cotton rag paper, shipped worldwide from Tenerife."
         : "Fotografía de fauna, paisaje, rally histórico, arquitectura y documental desde Tenerife. Copias Fine Art, encargos y licencias.",
     path: "/",
+    image: "/images/portfolio/paisajes-documental/mar-de-dunas-al-ocaso.jpg",
   });
 }
 
 export function HomeView({ lang }: { lang: SiteLang }) {
   return (
     <>
-      <JsonLd data={[generateWebSiteSchema(lang), generatePersonSchema(lang)]} />
+      <JsonLd data={generateWebSiteSchema(lang)} />
       <Hero />
       <CollectionsOverview />
       <SelectedFilmstrip />
@@ -109,6 +111,7 @@ export function getPortfolioMetadata(lang: SiteLang): Metadata {
         ? `Explore ${total} Fine Art photographs across ${PHOTO_CATEGORIES.length} themes: wildlife, volcanic landscapes, classic rally, architecture, and crafts. Prints shipped to the US.`
         : `Archivo fotográfico de Javier Espinosa Martínez: ${total} obras en ${PHOTO_CATEGORIES.length} colecciones de fauna, paisajes, rally, arquitectura y documental.`,
     path: "/portfolio",
+    image: "/images/portfolio/fauna-naturaleza/mirada-del-lince-boreal.jpg",
   });
 }
 
@@ -256,26 +259,47 @@ export function getSelectedWorkMetadata(lang: SiteLang): Metadata {
         ? "Curated Fine Art highlights across wildlife, volcanic landscapes, classic rally, architecture, and documentary craft. Archival prints shipped worldwide."
         : "Fotografías seleccionadas del archivo de Javier Espinosa Martínez: fauna, paisaje, automovilismo, arquitectura y fotografía documental.",
     path: "/selected-work",
+    image: "/images/portfolio/paisajes-documental/cumbre-nevada-al-alba.jpg",
   });
 }
 
 export function SelectedWorkView({ lang }: { lang: SiteLang }) {
   const featuredPhotos = getFeaturedPhotos();
   const totalArchiveCount = getAllPhotos().length;
+  const collectionSchema = generateCollectionListSchema({
+    name: lang === "en" ? "Selected Fine Art Works" : "Obras Seleccionadas Fine Art",
+    description:
+      lang === "en"
+        ? "Curated Fine Art photography highlights by Javier Espinosa Martínez."
+        : "Selección curatorial de fotografía Fine Art y documental por Javier Espinosa Martínez.",
+    path: "/selected-work",
+    lang,
+    items: featuredPhotos.slice(0, 24).map((raw) => {
+      const p = getLocalizedPhoto(raw, lang);
+      return {
+        name: p.title,
+        path: `/portfolio/${p.slug}`,
+        image: p.image,
+      };
+    }),
+  });
 
   return (
     <>
       <JsonLd
-        data={generateBreadcrumbSchema(
-          [
-            { name: lang === "en" ? "Home" : "Inicio", path: "/" },
-            {
-              name: lang === "en" ? "Selected Works" : "Obras Seleccionadas",
-              path: "/selected-work",
-            },
-          ],
-          lang
-        )}
+        data={[
+          collectionSchema,
+          generateBreadcrumbSchema(
+            [
+              { name: lang === "en" ? "Home" : "Inicio", path: "/" },
+              {
+                name: lang === "en" ? "Selected Works" : "Obras Seleccionadas",
+                path: "/selected-work",
+              },
+            ],
+            lang
+          ),
+        ]}
       />
       <SelectedWorkContent
         featuredPhotos={featuredPhotos}
@@ -301,6 +325,7 @@ export function getProjectsMetadata(lang: SiteLang): Metadata {
         ? "Monographic documentary series from Tenerife volcanic peaks, the Sahara Desert, rural Spanish villages, classic historic rallies, wildlife, and craftsmen."
         : "Series fotográficas y ensayos documentales de Javier Espinosa: La Vera, paisaje volcánico de Canarias, rally histórico, Marrakech, Sahara y fauna.",
     path: "/projects",
+    image: "/images/portfolio/viajes-cultura/el-oficio-y-la-chispa.jpg",
   });
 }
 
@@ -309,20 +334,40 @@ export function ProjectsView({ lang }: { lang: SiteLang }) {
     ...proj,
     resolvedPhotos: getProjectPhotos(proj),
   }));
+  const seriesCollection = generateCollectionListSchema({
+    name: lang === "en" ? "Documentary Photo Series" : "Series Fotográficas Documentales",
+    description:
+      lang === "en"
+        ? "Monographic documentary series and visual essays by Javier Espinosa Martínez."
+        : "Ensayos visuales y series documentales monográficas de Javier Espinosa Martínez.",
+    path: "/projects",
+    lang,
+    items: projects.map((raw) => {
+      const p = getLocalizedProject(raw, lang);
+      return {
+        name: p.title,
+        path: `/projects/${p.slug}`,
+        image: raw.coverImage,
+      };
+    }),
+  });
 
   return (
     <>
       <JsonLd
-        data={generateBreadcrumbSchema(
-          [
-            { name: lang === "en" ? "Home" : "Inicio", path: "/" },
-            {
-              name: lang === "en" ? "Photo Series" : "Series Monográficas",
-              path: "/projects",
-            },
-          ],
-          lang
-        )}
+        data={[
+          seriesCollection,
+          generateBreadcrumbSchema(
+            [
+              { name: lang === "en" ? "Home" : "Inicio", path: "/" },
+              {
+                name: lang === "en" ? "Photo Series" : "Series Monográficas",
+                path: "/projects",
+              },
+            ],
+            lang
+          ),
+        ]}
       />
       <ProjectsPageContent projects={projects} />
     </>
@@ -400,6 +445,7 @@ export function getPrintsMetadata(lang: SiteLang): Metadata {
         ? "Signed limited edition Fine Art photography prints on 100% cotton Hahnemuhle Photo Rag 308g paper. Shipped unframed in rigid tubes to the US & worldwide."
         : "Copias Fine Art de edición limitada sobre papel 100% algodón Hahnemühle Photo Rag 308g (ISO 9706). Obra numerada y firmada, enviada sin marco.",
     path: "/prints",
+    image: "/images/portfolio/fauna-naturaleza/despliegue-de-alas-en-la-cresta.jpg",
   });
 }
 
@@ -407,6 +453,23 @@ export function PrintsView({ lang }: { lang: SiteLang }) {
   const printable = getPrintablePhotos();
   const priceRanges = getFormatPriceRanges(printable);
   const plazos = getPlazos(lang);
+  const printsCatalogSchema = generateCollectionListSchema({
+    name: lang === "en" ? "Limited Edition Fine Art Prints" : "Catálogo de Láminas Fine Art",
+    description:
+      lang === "en"
+        ? "Signed limited edition Fine Art photography prints on 100% cotton Hahnemühle Photo Rag 308g."
+        : "Ediciones limitadas numeradas y firmadas en papel de algodón Hahnemühle Photo Rag 308g.",
+    path: "/prints",
+    lang,
+    items: printable.slice(0, 24).map((raw) => {
+      const p = getLocalizedPhoto(raw, lang);
+      return {
+        name: p.title,
+        path: `/portfolio/${p.slug}`,
+        image: p.image,
+      };
+    }),
+  });
 
   const printFaqs =
     lang === "en"
@@ -451,8 +514,8 @@ export function PrintsView({ lang }: { lang: SiteLang }) {
     <>
       <JsonLd
         data={[
+          printsCatalogSchema,
           generateFAQSchema(printFaqs),
-          generatePersonSchema(lang),
           generateBreadcrumbSchema(
             [
               { name: lang === "en" ? "Home" : "Inicio", path: "/" },
@@ -486,6 +549,7 @@ export function getServiciosMetadata(lang: SiteLang): Metadata {
         ? "Commission photography across historic rally, architecture, documentary projects, and curated Fine Art interior prints from Javier Espinosa."
         : "Encargos fotográficos de Javier Espinosa Martínez: rally histórico, arquitectura y patrimonio, proyectos documentales y copias Fine Art.",
     path: "/servicios",
+    image: "/images/portfolio/coches-rally/cruzada-sobre-el-asfalto.jpg",
   });
 }
 
@@ -534,6 +598,15 @@ export function ServiciosView({ lang }: { lang: SiteLang }) {
     <>
       <JsonLd data={generateServiceSchema(lang)} />
       <JsonLd data={generateFAQSchema(faqItems)} />
+      <JsonLd
+        data={generateBreadcrumbSchema(
+          [
+            { name: lang === "en" ? "Home" : "Inicio", path: "/" },
+            { name: lang === "en" ? "Services" : "Servicios", path: "/servicios" },
+          ],
+          lang
+        )}
+      />
       <ServiciosPageContent />
     </>
   );
@@ -624,6 +697,7 @@ export function getLicensingMetadata(lang: SiteLang): Metadata {
         ? "Rights-Managed editorial, book, and commercial image licensing. 32.5 MP uncompressed 16-bit TIFF and 300 DPI masters available worldwide."
         : "Cesión de derechos y licencias Rights-Managed en alta resolución (TIFF y JPEG) para editoriales, prensa, campañas e interiorismo.",
     path: "/licensing",
+    image: "/images/portfolio/arquitectura-urbana/paseo-nocturno-bajo-las-farolas.jpg",
   });
 }
 
@@ -669,6 +743,10 @@ export function getAboutMetadata(lang: SiteLang): Metadata {
         ? "Javier Espinosa Martinez is an independent Fine Art and documentary photographer based in Tenerife capturing wildlife, landscapes, historic rallies, and crafts."
         : "Soy Javier Espinosa, fotógrafo independiente en Tenerife. Naturaleza, paisajes, arquitectura y cultura buscando nuevas maneras de mirar.",
     path: "/about",
+    image:
+      SITE_SETTINGS.showAuthorPortrait && SITE_SETTINGS.authorPortraitUrl
+        ? SITE_SETTINGS.authorPortraitUrl
+        : "/images/portfolio/hero/hero.jpg",
   });
 }
 
@@ -709,8 +787,21 @@ export function getContactMetadata(lang: SiteLang): Metadata {
   });
 }
 
-export function ContactView() {
-  return <ContactPageContent />;
+export function ContactView({ lang = "es" }: { lang?: SiteLang }) {
+  return (
+    <>
+      <JsonLd
+        data={generateBreadcrumbSchema(
+          [
+            { name: lang === "en" ? "Home" : "Inicio", path: "/" },
+            { name: lang === "en" ? "Contact" : "Contacto", path: "/contact" },
+          ],
+          lang
+        )}
+      />
+      <ContactPageContent />
+    </>
+  );
 }
 
 export function getDossierMetadata(lang: SiteLang): Metadata {
@@ -725,13 +816,30 @@ export function getDossierMetadata(lang: SiteLang): Metadata {
         ? "Printable A4 author dossier featuring selected Fine Art works, gear specifications, edition sizes, and direct contact for galleries and press."
         : "Dossier editorial de Javier Espinosa Martínez: enfoque, colecciones, selección de obra Fine Art, equipo y contacto para prensa y galerías.",
     path: "/dossier",
+    image: "/images/portfolio/paisajes-documental/cumbre-nevada-al-alba.jpg",
   });
 }
 
-export function DossierView() {
+export function DossierView({ lang = "es" }: { lang?: SiteLang }) {
   const plates = getFeaturedPhotos().slice(0, 6);
   const priceRanges = getFormatPriceRanges(WORKS);
-  return <DossierPageContent plates={plates} priceRanges={priceRanges} />;
+  return (
+    <>
+      <JsonLd
+        data={generateBreadcrumbSchema(
+          [
+            { name: lang === "en" ? "Home" : "Inicio", path: "/" },
+            {
+              name: lang === "en" ? "Press Dossier" : "Dossier de Prensa",
+              path: "/dossier",
+            },
+          ],
+          lang
+        )}
+      />
+      <DossierPageContent plates={plates} priceRanges={priceRanges} />
+    </>
+  );
 }
 
 export function getCondicionesMetadata(lang: SiteLang): Metadata {
@@ -787,8 +895,24 @@ export function getLegalMetadata(lang: SiteLang): Metadata {
   });
 }
 
-export function LegalView() {
-  return <LegalPageContent />;
+export function LegalView({ lang = "es" }: { lang?: SiteLang }) {
+  return (
+    <>
+      <JsonLd
+        data={generateBreadcrumbSchema(
+          [
+            { name: lang === "en" ? "Home" : "Inicio", path: "/" },
+            {
+              name: lang === "en" ? "Legal Notice" : "Aviso Legal",
+              path: "/legal",
+            },
+          ],
+          lang
+        )}
+      />
+      <LegalPageContent />
+    </>
+  );
 }
 
 export function getClienteMetadata(lang: SiteLang): Metadata {
@@ -837,6 +961,7 @@ export function getCuadernoMetadata(lang: SiteLang): Metadata {
         ? "Field notes and stories behind 600mm wildlife encounters, Tenerife mountain light, and classic rally service parks by Javier Espinosa."
         : "Cuaderno y artículos de Javier Espinosa Martínez: notas de campo sobre fotografía de naturaleza, paisaje en Tenerife, rally histórico y oficios.",
     path: "/cuaderno",
+    image: "/images/portfolio/fauna-naturaleza/cuervo-canario-ante-las-cumbres.jpg",
   });
 }
 
@@ -864,15 +989,17 @@ export function getCuadernoPostMetadata(slug: string, lang: SiteLang): Metadata 
   const raw = getCuadernoPostBySlug(slug);
   if (!raw) return {};
   const post = getLocalizedCuadernoPost(raw, lang);
+  const isDraft =
+    raw.status !== "publicado" ||
+    raw.body.join(" ").replace(/\s+/g, " ").trim().length < 160;
   return buildPageMetadata({
     lang,
-    title:
-      lang === "en"
-        ? `Journal #${post.number} | Javier Espinosa`
-        : `Cuaderno #${post.number} | Javier Espinosa`,
+    title: post.title,
     description: post.subtitle,
     path: `/cuaderno/${post.slug}`,
     image: raw.relatedWork?.image,
+    type: "article",
+    ...(isDraft ? { robots: { index: false, follow: true } } : {}),
   });
 }
 
@@ -892,17 +1019,26 @@ export function CuadernoPostView({
       { name: lang === "en" ? "Home" : "Inicio", path: "/" },
       { name: lang === "en" ? "Journal" : "Cuaderno", path: "/cuaderno" },
       {
-        name:
-          lang === "en" ? `Draft ${post.number}` : `Borrador ${post.number}`,
+        name: post.title,
         path: `/cuaderno/${post.slug}`,
       },
     ],
     lang
   );
+  const articleSchema = generateArticleSchema({
+    headline: post.title,
+    description: post.subtitle,
+    path: `/cuaderno/${post.slug}`,
+    image: raw.relatedWork?.image,
+    articleSection: post.categoryLabel,
+    author: post.author,
+    datePublished: post.date,
+    lang,
+  });
 
   return (
     <>
-      <JsonLd data={breadcrumb} />
+      <JsonLd data={[articleSchema, breadcrumb]} />
       <CuadernoPostContent rawPost={raw} />
     </>
   );
@@ -920,13 +1056,48 @@ export function getStoriesMetadata(lang: SiteLang): Metadata {
         ? "Technical context and field stories behind wildlife, landscape, historic rally, and cultural photographs by Javier Espinosa."
         : "Notas de campo, contexto técnico y relatos detrás de cada fotografía: fauna, paisaje, tramos de rally y cultura local por Javier Espinosa.",
     path: "/stories",
+    image: "/images/portfolio/fauna-naturaleza/cuervo-canario-ante-las-cumbres.jpg",
   });
 }
 
-export function StoriesView() {
+export function StoriesView({ lang = "es" }: { lang?: SiteLang }) {
   const stories = getPhotosWithStory();
   const totalWorksCount = getAllPhotos().length;
+  const collectionSchema = generateCollectionListSchema({
+    name: lang === "en" ? "Field Stories & Technical Notes" : "Relatos y Notas Técnicas de Campo",
+    description:
+      lang === "en"
+        ? "Documentary context and camera notes behind selected wildlife, landscape, and rally photographs."
+        : "Contexto documental y técnica fotográfica detrás de las obras de campo del archivo.",
+    path: "/stories",
+    lang,
+    items: stories.slice(0, 24).map((raw) => {
+      const p = getLocalizedPhoto(raw, lang);
+      return {
+        name: p.title,
+        path: `/portfolio/${p.slug}`,
+        image: p.image,
+      };
+    }),
+  });
   return (
-    <StoriesPageContent stories={stories} totalWorksCount={totalWorksCount} />
+    <>
+      <JsonLd
+        data={[
+          collectionSchema,
+          generateBreadcrumbSchema(
+            [
+              { name: lang === "en" ? "Home" : "Inicio", path: "/" },
+              {
+                name: lang === "en" ? "Field Stories" : "Relatos de Campo",
+                path: "/stories",
+              },
+            ],
+            lang
+          ),
+        ]}
+      />
+      <StoriesPageContent stories={stories} totalWorksCount={totalWorksCount} />
+    </>
   );
 }

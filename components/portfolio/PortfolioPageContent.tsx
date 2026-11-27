@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo, useSyncExternalStore } from "react";
 import Link from "@/components/ui/LocalizedLink";
 import Container from "@/components/ui/Container";
 import CategoryNav from "@/components/portfolio/CategoryNav";
@@ -7,6 +8,23 @@ import ExhibitionGallery from "@/components/portfolio/ExhibitionGallery";
 import { useLanguage } from "@/lib/i18n";
 import { getLocalizedPhoto } from "@/lib/i18n-works";
 import { CATEGORY_METADATA, type Photo, type PhotoCategory } from "@/types/photo";
+
+function subscribeToSearchQuery(callback: () => void) {
+  window.addEventListener("popstate", callback);
+  window.addEventListener("je-search-query-change", callback);
+  return () => {
+    window.removeEventListener("popstate", callback);
+    window.removeEventListener("je-search-query-change", callback);
+  };
+}
+
+function getSearchQuerySnapshot() {
+  return new URLSearchParams(window.location.search).get("q")?.trim() ?? "";
+}
+
+function getServerSearchQuerySnapshot() {
+  return "";
+}
 
 interface CategoryBucket {
   category: PhotoCategory;
@@ -23,6 +41,32 @@ export default function PortfolioPageContent({
   buckets,
 }: PortfolioPageContentProps) {
   const { lang, t } = useLanguage();
+  const searchQuery = useSyncExternalStore(
+    subscribeToSearchQuery,
+    getSearchQuerySnapshot,
+    getServerSearchQuerySnapshot
+  );
+
+  const displayedPhotos = useMemo(() => {
+    const needle = searchQuery.trim().toLowerCase();
+    if (!needle) return photos;
+    return photos.filter((raw) => {
+      const p = getLocalizedPhoto(raw, lang);
+      const haystack = [
+        p.title,
+        p.description,
+        p.alt,
+        p.location,
+        p.country,
+        p.category,
+        ...(p.keywords ?? []),
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+      return haystack.includes(needle);
+    });
+  }, [photos, searchQuery, lang]);
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-28 pb-24 text-[#EBE7DF]">
@@ -41,6 +85,27 @@ export default function PortfolioPageContent({
               "Choose a theme above to filter or select any photograph to open its full sheet."
             )}
           </p>
+          {searchQuery && (
+            <div className="mt-4 inline-flex items-center gap-3 rounded-lg border border-[#C5A880]/40 bg-[#151618] px-3.5 py-2 font-mono text-xs text-[#EBE7DF]">
+              <span>
+                {t("Filtro:", "Search:")}{" "}
+                <strong className="text-[#C5A880] font-normal">
+                  &ldquo;{searchQuery}&rdquo;
+                </strong>{" "}
+                ({displayedPhotos.length})
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  window.history.replaceState(null, "", window.location.pathname);
+                  window.dispatchEvent(new Event("je-search-query-change"));
+                }}
+                className="text-[#A39E93] hover:text-white underline underline-offset-2 cursor-pointer"
+              >
+                {t("Limpiar", "Clear")}
+              </button>
+            </div>
+          )}
         </header>
 
         <div className="mt-6">
@@ -48,7 +113,7 @@ export default function PortfolioPageContent({
         </div>
 
         <div className="mt-8">
-          <ExhibitionGallery photos={photos} />
+          <ExhibitionGallery photos={displayedPhotos} />
         </div>
 
         {/* Índice Curatorial Completo de las Obras (oculto visualmente con sr-only para conservar SEO SSR al 100%) */}

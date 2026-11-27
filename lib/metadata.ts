@@ -95,6 +95,8 @@ export function buildPageMetadata({
   title,
   description,
   path,
+  image,
+  type = "website",
   robots,
   lang = "es",
 }: {
@@ -102,6 +104,7 @@ export function buildPageMetadata({
   description: string;
   path: string;
   image?: string;
+  type?: "website" | "article";
   robots?: Metadata["robots"];
   lang?: SiteLang;
 }): Metadata {
@@ -109,11 +112,18 @@ export function buildPageMetadata({
   const url = absoluteUrl(localizedPath);
   const seoTitle = formatSeoTitle(title, lang);
   const seoDescription = formatSeoDescription(description);
-  const ogImage = `${SITE_URL}/api/og?title=${encodeURIComponent(
+  const fallbackOgCard = `${SITE_URL}/api/og?title=${encodeURIComponent(
     seoTitle.replace(/\s*\|\s*Javier Espinosa.*$/i, "")
   )}&subtitle=${encodeURIComponent(formatSeoDescription(seoDescription))}&badge=${
     lang === "en" ? "FINE%20ART%20PRINTS" : "FINE%20ART"
   }&lang=${lang}`;
+  const resolvedImage = image ? absoluteUrl(image) : fallbackOgCard;
+  const ogImages = image
+    ? [
+        { url: resolvedImage, alt: seoTitle },
+        { url: fallbackOgCard, width: 1200, height: 630, alt: seoTitle },
+      ]
+    : [{ url: fallbackOgCard, width: 1200, height: 630, alt: seoTitle }];
 
   const siteName =
     lang === "en" ? "Javier Espinosa Photography" : SITE_CONFIG.siteName;
@@ -130,16 +140,16 @@ export function buildPageMetadata({
       description: seoDescription,
       url,
       siteName,
-      type: "website",
+      type,
       locale: lang === "en" ? "en_US" : "es_ES",
       alternateLocale: lang === "en" ? ["es_ES", "en_GB"] : ["en_US", "en_GB"],
-      images: [{ url: ogImage, width: 1200, height: 630, alt: seoTitle }],
+      images: ogImages,
     },
     twitter: {
       card: "summary_large_image",
       title: seoTitle,
       description: seoDescription,
-      images: [ogImage],
+      images: [resolvedImage],
     },
   };
 }
@@ -196,6 +206,7 @@ export function buildPhotoMetadata(
   const seoDescription = formatSeoDescription(rawDescription);
   const basePath = `/portfolio/${photo.slug}`;
   const url = absoluteUrl(localizeHref(basePath, lang));
+  const photoImageUrl = absoluteUrl(photo.image);
   const ogCardUrl = `${SITE_URL}/api/og?title=${encodeURIComponent(
     photo.title
   )}&subtitle=${encodeURIComponent(
@@ -225,6 +236,13 @@ export function buildPhotoMetadata(
       alternateLocale: lang === "en" ? ["es_ES", "en_GB"] : ["en_US", "en_GB"],
       images: [
         {
+          url: photoImageUrl,
+          width: photo.width,
+          height: photo.height,
+          alt: photo.alt || `${photo.title} — ${siteName}`,
+          type: "image/jpeg",
+        },
+        {
           url: ogCardUrl,
           width: 1200,
           height: 630,
@@ -237,7 +255,7 @@ export function buildPhotoMetadata(
       card: "summary_large_image",
       title: seoTitle,
       description: seoDescription,
-      images: [ogCardUrl],
+      images: [photoImageUrl],
     },
   };
 }

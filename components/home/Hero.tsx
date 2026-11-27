@@ -334,6 +334,7 @@ export default function Hero() {
         <div className="mx-auto max-w-2xl">
           <h1 className="font-sans text-2xl sm:text-4xl md:text-5xl font-light tracking-[0.18em] sm:tracking-[0.22em] uppercase text-[#F7F4EE] leading-tight [text-shadow:0_2px_24px_rgba(0,0,0,0.9)]">
             Javier Espinosa
+            <span className="sr-only"> — </span>
             <span className="block mt-1.5 font-mono text-[11px] sm:text-xs font-normal tracking-[0.26em] text-[#C5A880] uppercase">
               {t("Fotografía en Tenerife · Naturaleza, paisaje y motor", "Photography in Tenerife · Wildlife, landscape & motorsport")}
             </span>

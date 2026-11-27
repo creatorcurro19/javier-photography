@@ -181,6 +181,7 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
     expect(xml).toContain("/servicios/fotografo-rally-motorsport");
     expect(xml).toContain("/servicios/copias-fine-art-coleccionismo");
     expect(xml).toContain("/dossier");
+    expect(xml).not.toContain("/cuaderno/borrador-01-observacion-fauna-600mm");
 
     const imageSitemapRes = await request.get("/image-sitemap.xml");
     expect(imageSitemapRes.status()).toBe(200);
@@ -198,6 +199,24 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
     expect(homeHtml).toContain("google-site-verification");
     expect(homeHtml).toContain('"@type":["Person","Photographer"');
     expect(homeHtml).toContain('"@type":["WebSite","ArtGallery"]');
+    expect(homeHtml).toContain('"SearchAction"');
+    // Verifica que el esquema Person no esté duplicado en el HTML de portada
+    expect(homeHtml.split('"@type":["Person","Photographer"').length - 1).toBe(1);
+
+    const photoRes = await request.get("/portfolio/vuelvepiedras-en-la-orilla-volcanica");
+    expect(photoRes.status()).toBe(200);
+    const photoHtml = await photoRes.text();
+    expect(photoHtml).toContain(
+      '<meta property="og:image" content="https://javier-photography.vercel.app/images/portfolio/fauna-naturaleza/vuelvepiedras-en-la-orilla-volcanica.jpg"'
+    );
+    expect(photoHtml).toContain('"sku":"JE-');
+    expect(photoHtml).toContain('"ShippingDeliveryTime"');
+
+    const draftRes = await request.get("/cuaderno/borrador-01-observacion-fauna-600mm");
+    expect(draftRes.status()).toBe(200);
+    const draftHtml = await draftRes.text();
+    expect(draftHtml).toContain('<meta name="robots" content="noindex, follow"');
+    expect(draftHtml).toContain('"@type":"BlogPosting"');
 
     const portfolioRes = await request.get("/portfolio");
     expect(portfolioRes.status()).toBe(200);

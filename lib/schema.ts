@@ -12,6 +12,7 @@ import {
 
 export function generateWebSiteSchema(lang: SiteLang = "es") {
   const isEn = lang === "en";
+  const searchTarget = `${absoluteUrl(localizeHref("/portfolio", lang))}?q={search_term_string}`;
   return {
     "@context": "https://schema.org",
     "@type": ["WebSite", "ArtGallery"],
@@ -19,15 +20,36 @@ export function generateWebSiteSchema(lang: SiteLang = "es") {
     name: isEn ? "Javier Espinosa Photography" : "Javier Espinosa Fotografía",
     alternateName: "Javier Espinosa — Fine Art & Documentary Photography",
     url: absoluteUrl(localizeHref("/", lang)),
+    image: absoluteUrl("/images/portfolio/paisajes-documental/mar-de-dunas-al-ocaso.jpg"),
     inLanguage: isEn ? "en-US" : "es-ES",
+    priceRange: "€€–€€€",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Puerto de la Cruz, Tenerife",
+      addressRegion: isEn ? "Canary Islands" : "Canarias",
+      addressCountry: "ES",
+    },
+    sameAs: [
+      SITE_CONFIG.social.instagram,
+      SITE_CONFIG.social.saatchi,
+      SITE_CONFIG.social.getty,
+    ],
     description: isEn
-      ? "Official gallery and Fine Art print archive of independent photographer Javier Espinosa: wildlife at 600mm, volcanic landscapes, classic rally, architecture, and documentary photography on Hahnemühle Photo Rag 308g cotton paper with worldwide & US shipping."
+      ? "Official gallery and Fine Art print archive of independent photographer Javier Espinosa: wildlife at 600mm, volcanic landscapes, classic rally, architecture, and documentary photography on Hahnemühle Photo Rag 308g cotton paper shipped worldwide."
       : "Galería oficial y archivo fotográfico de Javier Espinosa, fotógrafo independiente afincado en Tenerife: naturaleza, paisajes, arquitectura, motor clásico y cultura con luz natural. Copias Fine Art en papel Hahnemühle Photo Rag 308g.",
     publisher: {
       "@id": absoluteUrl("/#author"),
     },
     creator: {
       "@id": absoluteUrl("/#author"),
+    },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: searchTarget,
+      },
+      "query-input": "required name=search_term_string",
     },
   };
 }
@@ -127,6 +149,8 @@ export function generatePhotoSchema(rawPhoto: Photo, lang: SiteLang = "es") {
     caption: photo.description,
     description: photo.description,
     alternateName: photo.alt,
+    image: imgUrl,
+    thumbnailUrl: imgUrl,
     contentUrl: imgUrl,
     url: pageUrl,
     mainEntityOfPage: pageUrl,
@@ -230,6 +254,34 @@ export function generatePhotoSchema(rawPhoto: Photo, lang: SiteLang = "es") {
     : `Edición limitada numerada y firmada de ${editionTotal} ejemplares`;
 
   if (photo.prints) {
+    const makeDeliveryTime = (minTransit: number, maxTransit: number) => ({
+      "@type": "ShippingDeliveryTime",
+      handlingTime: {
+        "@type": "QuantitativeValue",
+        minValue: 2,
+        maxValue: 4,
+        unitCode: "DAY",
+      },
+      transitTime: {
+        "@type": "QuantitativeValue",
+        minValue: minTransit,
+        maxValue: maxTransit,
+        unitCode: "DAY",
+      },
+    });
+
+    schema.sku = `JE-${photo.id.toUpperCase()}`;
+    schema.mpn = photo.id;
+    schema.brand = {
+      "@type": "Brand",
+      name: "Javier Espinosa",
+    };
+    schema.category = catMeta
+      ? isEn
+        ? catMeta.titleEn
+        : catMeta.title
+      : photo.category;
+
     const shippingDetails = [
       {
         "@type": "OfferShippingDetails",
@@ -242,6 +294,7 @@ export function generatePhotoSchema(rawPhoto: Photo, lang: SiteLang = "es") {
           "@type": "DefinedRegion",
           addressCountry: ["US", "CA", "AU", "JP", "MX"],
         },
+        deliveryTime: makeDeliveryTime(5, 10),
       },
       {
         "@type": "OfferShippingDetails",
@@ -254,6 +307,7 @@ export function generatePhotoSchema(rawPhoto: Photo, lang: SiteLang = "es") {
           "@type": "DefinedRegion",
           addressCountry: ["GB", "DE", "FR", "IT", "NL", "PT", "BE", "AT", "SE", "IE"],
         },
+        deliveryTime: makeDeliveryTime(4, 7),
       },
       {
         "@type": "OfferShippingDetails",
@@ -267,6 +321,7 @@ export function generatePhotoSchema(rawPhoto: Photo, lang: SiteLang = "es") {
           addressRegion: "Canarias",
           addressCountry: "ES",
         },
+        deliveryTime: makeDeliveryTime(1, 3),
       },
       {
         "@type": "OfferShippingDetails",
@@ -279,6 +334,7 @@ export function generatePhotoSchema(rawPhoto: Photo, lang: SiteLang = "es") {
           "@type": "DefinedRegion",
           addressCountry: "ES",
         },
+        deliveryTime: makeDeliveryTime(2, 5),
       },
     ];
 
@@ -532,5 +588,95 @@ export function generateBreadcrumbSchema(
       name: item.name,
       item: absoluteUrl(localizeHref(item.path, lang)),
     })),
+  };
+}
+
+export function generateCollectionListSchema({
+  name,
+  description,
+  path,
+  items,
+  lang = "es",
+}: {
+  name: string;
+  description: string;
+  path: string;
+  items: { name: string; path: string; image?: string }[];
+  lang?: SiteLang;
+}) {
+  const pageUrl = absoluteUrl(localizeHref(path, lang));
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": pageUrl,
+    name,
+    description,
+    url: pageUrl,
+    inLanguage: lang === "en" ? "en-US" : "es-ES",
+    isPartOf: { "@id": absoluteUrl("/#website") },
+    author: { "@id": absoluteUrl("/#author") },
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: items.length,
+      itemListElement: items.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        url: absoluteUrl(localizeHref(item.path, lang)),
+        ...(item.image ? { image: absoluteUrl(item.image) } : {}),
+      })),
+    },
+  };
+}
+
+export function generateArticleSchema({
+  headline,
+  description,
+  path,
+  image,
+  articleSection,
+  author = "Javier Espinosa Martínez",
+  datePublished,
+  lang = "es",
+}: {
+  headline: string;
+  description: string;
+  path: string;
+  image?: string;
+  articleSection?: string;
+  author?: string;
+  datePublished?: string;
+  lang?: SiteLang;
+}) {
+  const pageUrl = absoluteUrl(localizeHref(path, lang));
+  const isoDate =
+    datePublished && /^\d{4}-\d{2}-\d{2}/.test(datePublished.trim())
+      ? datePublished.trim()
+      : undefined;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": pageUrl,
+    headline,
+    description,
+    url: pageUrl,
+    mainEntityOfPage: pageUrl,
+    inLanguage: lang === "en" ? "en-US" : "es-ES",
+    ...(articleSection ? { articleSection } : {}),
+    ...(image ? { image: absoluteUrl(image) } : {}),
+    ...(isoDate ? { datePublished: isoDate } : {}),
+    dateModified: "2026-11-27",
+    author: {
+      "@type": "Person",
+      "@id": absoluteUrl("/#author"),
+      name: author,
+      url: absoluteUrl(localizeHref("/about", lang)),
+    },
+    publisher: {
+      "@type": "Person",
+      "@id": absoluteUrl("/#author"),
+      name: "Javier Espinosa Martínez",
+    },
   };
 }

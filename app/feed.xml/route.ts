@@ -11,28 +11,36 @@ function escapeXml(value: string): string {
     .replace(/'/g, "&apos;");
 }
 
+const FEED_BUILD_DATE = "Fri, 27 Nov 2026 23:00:00 GMT";
+
+function getPhotoPubDate(year: number | undefined, index: number): string {
+  const safeYear = year && Number.isFinite(year) ? Math.min(Math.max(Math.trunc(year), 2020), 2026) : 2025;
+  const ts = Date.UTC(safeYear, 10, 27) - index * 3_600_000;
+  return new Date(ts).toUTCString();
+}
+
 /**
  * Canal RSS 2.0 + Media RSS + WebSub (Google PubSubHubbub) con todas las obras del catálogo.
  * Permite la sindicación y descubrimiento automático en agregadores visuales, lectores RSS y buscadores.
  */
 export async function GET() {
   const photos = getAllPhotos();
-  const now = new Date().toUTCString();
 
   const itemsXml = photos
-    .map((photo) => {
+    .map((photo, index) => {
       const url = `${SITE_URL}/portfolio/${photo.slug}`;
       const imgUrl = `${SITE_URL}${photo.image}`;
       const catTitle = CATEGORY_METADATA[photo.category]?.title ?? photo.category;
       const loc = photo.location
         ? `${photo.location}${photo.country && !photo.location.includes(photo.country) ? `, ${photo.country}` : ""}`
         : "Tenerife, España";
+      const pubDate = getPhotoPubDate(photo.year, index);
 
       return `    <item>
       <title>${escapeXml(`${photo.title} — ${loc}`)}</title>
       <link>${escapeXml(url)}</link>
       <guid isPermaLink="true">${escapeXml(url)}</guid>
-      <pubDate>${now}</pubDate>
+      <pubDate>${pubDate}</pubDate>
       <category>${escapeXml(catTitle)}</category>
       <description>${escapeXml(`${photo.description} (${loc} · ${photo.camera} · ${photo.focalLength})`)}</description>
       <enclosure url="${escapeXml(imgUrl)}" type="image/jpeg" length="1500000" />
@@ -54,7 +62,7 @@ export async function GET() {
     <link>${escapeXml(SITE_URL)}</link>
     <description>Archivo fotográfico de Javier Espinosa Martínez en Tenerife: fauna salvaje, paisajes, rally histórico, arquitectura y documental. Láminas Fine Art en papel de algodón.</description>
     <language>es-ES</language>
-    <lastBuildDate>${now}</lastBuildDate>
+    <lastBuildDate>${FEED_BUILD_DATE}</lastBuildDate>
     <atom:link href="${escapeXml(`${SITE_URL}/feed.xml`)}" rel="self" type="application/rss+xml" />
     <atom:link href="https://pubsubhubbub.appspot.com/" rel="hub" />
 ${itemsXml}

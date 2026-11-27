@@ -7,6 +7,7 @@ import {
   getAllPhotos,
   getAllProjects,
   getFeaturedPhotos,
+  getPhotoBySlug,
   getPhotosByCategory,
   getPrintablePhotos,
   getProjectPhotos,
@@ -14,6 +15,15 @@ import {
 } from "@/lib/photos";
 
 const BASE = SITE_URL;
+const CATALOG_LAST_MODIFIED = new Date("2026-11-27T23:00:00.000Z");
+const LEGAL_LAST_MODIFIED = new Date("2026-11-17T00:00:00.000Z");
+
+function getPhotoLastModified(year?: number): Date {
+  if (!year || !Number.isFinite(year)) return CATALOG_LAST_MODIFIED;
+  const clamped = Math.min(Math.max(Math.trunc(year), 2020), 2026);
+  if (clamped >= 2026) return CATALOG_LAST_MODIFIED;
+  return new Date(Date.UTC(clamped, 11, 31));
+}
 
 function withLangAlternates(basePath: string) {
   const esUrl = `${BASE}${basePath === "/" ? "" : basePath}`;
@@ -58,94 +68,109 @@ function buildBilingualEntry(
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
   const featuredImages = getFeaturedPhotos().map((p) => `${BASE}${p.image}`);
   const printableImages = getPrintablePhotos().map((p) => `${BASE}${p.image}`);
+  const projectCoverImages = getAllProjects().map((p) => `${BASE}${p.coverImage}`);
 
   const staticRoutes: MetadataRoute.Sitemap = [
     ...buildBilingualEntry("/", {
-      lastModified,
+      lastModified: CATALOG_LAST_MODIFIED,
       changeFrequency: "weekly",
       priority: 1.0,
       images: featuredImages.slice(0, 6),
     }),
     ...buildBilingualEntry("/selected-work", {
-      lastModified,
+      lastModified: CATALOG_LAST_MODIFIED,
       changeFrequency: "weekly",
       priority: 0.95,
       images: featuredImages,
     }),
     ...buildBilingualEntry("/portfolio", {
-      lastModified,
+      lastModified: CATALOG_LAST_MODIFIED,
       changeFrequency: "weekly",
       priority: 0.95,
       images: featuredImages,
     }),
     ...buildBilingualEntry("/projects", {
-      lastModified,
+      lastModified: CATALOG_LAST_MODIFIED,
       changeFrequency: "weekly",
       priority: 0.9,
+      images: projectCoverImages,
     }),
     ...buildBilingualEntry("/prints", {
-      lastModified,
-      changeFrequency: "monthly",
+      lastModified: CATALOG_LAST_MODIFIED,
+      changeFrequency: "weekly",
       priority: 0.9,
       images: printableImages,
     }),
     ...buildBilingualEntry("/servicios", {
-      lastModified,
+      lastModified: CATALOG_LAST_MODIFIED,
       changeFrequency: "monthly",
       priority: 0.85,
     }),
     ...buildBilingualEntry("/licensing", {
-      lastModified,
+      lastModified: CATALOG_LAST_MODIFIED,
       changeFrequency: "monthly",
       priority: 0.85,
     }),
     ...buildBilingualEntry("/cuaderno", {
-      lastModified,
+      lastModified: CATALOG_LAST_MODIFIED,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    }),
+    ...buildBilingualEntry("/stories", {
+      lastModified: CATALOG_LAST_MODIFIED,
       changeFrequency: "weekly",
       priority: 0.8,
     }),
     ...buildBilingualEntry("/about", {
-      lastModified,
+      lastModified: CATALOG_LAST_MODIFIED,
       changeFrequency: "monthly",
       priority: 0.8,
     }),
     ...buildBilingualEntry("/dossier", {
-      lastModified,
+      lastModified: CATALOG_LAST_MODIFIED,
       changeFrequency: "monthly",
       priority: 0.75,
     }),
     ...buildBilingualEntry("/contact", {
-      lastModified,
+      lastModified: LEGAL_LAST_MODIFIED,
       changeFrequency: "monthly",
       priority: 0.75,
     }),
     ...buildBilingualEntry("/legal", {
-      lastModified,
+      lastModified: LEGAL_LAST_MODIFIED,
       changeFrequency: "yearly",
       priority: 0.3,
     }),
     ...buildBilingualEntry("/condiciones", {
-      lastModified,
+      lastModified: LEGAL_LAST_MODIFIED,
       changeFrequency: "yearly",
       priority: 0.3,
     }),
   ];
 
-  const cuadernoRoutes: MetadataRoute.Sitemap = CUADERNO_POSTS.flatMap((post) =>
-    buildBilingualEntry(`/cuaderno/${post.slug}`, {
-      lastModified,
+  // Solo incluir artículos publicados con contenido sustancial (evitar thin-content drafts)
+  const publishedCuadernoPosts = CUADERNO_POSTS.filter(
+    (post) =>
+      post.status === "publicado" &&
+      post.body.join(" ").replace(/\s+/g, " ").trim().length >= 160
+  );
+
+  const cuadernoRoutes: MetadataRoute.Sitemap = publishedCuadernoPosts.flatMap((post) => {
+    const relatedPhoto = getPhotoBySlug(post.relatedWorkSlug);
+    return buildBilingualEntry(`/cuaderno/${post.slug}`, {
+      lastModified: CATALOG_LAST_MODIFIED,
       changeFrequency: "monthly",
       priority: 0.75,
-    })
-  );
+      ...(relatedPhoto ? { images: [`${BASE}${relatedPhoto.image}`] } : {}),
+    });
+  });
 
   const categoryRoutes: MetadataRoute.Sitemap = PHOTO_CATEGORIES.flatMap((category) => {
     const catPhotos = getPhotosByCategory(category);
     return buildBilingualEntry(`/portfolio/${category}`, {
-      lastModified,
+      lastModified: CATALOG_LAST_MODIFIED,
       changeFrequency: "weekly",
       priority: 0.9,
       images: catPhotos.map((p) => `${BASE}${p.image}`),
@@ -155,7 +180,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const projectRoutes: MetadataRoute.Sitemap = getAllProjects().flatMap((project) => {
     const projPhotos = getProjectPhotos(project);
     return buildBilingualEntry(`/projects/${project.slug}`, {
-      lastModified,
+      lastModified: CATALOG_LAST_MODIFIED,
       changeFrequency: "monthly",
       priority: 0.85,
       images: projPhotos.map((p) => `${BASE}${p.image}`),
@@ -164,7 +189,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const photoRoutes: MetadataRoute.Sitemap = getAllPhotos().flatMap((photo) =>
     buildBilingualEntry(`/portfolio/${photo.slug}`, {
-      lastModified,
+      lastModified: getPhotoLastModified(photo.year),
       changeFrequency: "monthly",
       priority: photo.featured || photo.prints ? 0.8 : 0.7,
       images: [`${BASE}${photo.image}`],
@@ -173,7 +198,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const serviceRoutes: MetadataRoute.Sitemap = SERVICE_LANDINGS.flatMap((service) =>
     buildBilingualEntry(`/servicios/${service.slug}`, {
-      lastModified,
+      lastModified: CATALOG_LAST_MODIFIED,
       changeFrequency: "monthly",
       priority: 0.85,
       images: [`${BASE}${service.heroImage}`],
