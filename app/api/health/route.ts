@@ -26,11 +26,12 @@ export async function GET() {
       ready: Boolean(stripeKey) && stripeFlagActive,
       adaptivePricingEnabled: process.env.STRIPE_ADAPTIVE_PRICING !== "false",
       automaticTaxEnabled: process.env.STRIPE_AUTOMATIC_TAX === "true",
-      mode: stripeKey.startsWith("sk_live_")
-        ? "live"
-        : stripeKey.startsWith("sk_test_")
-          ? "test"
-          : "reservation-only",
+      mode:
+        stripeKey.startsWith("sk_live_") || stripeKey.startsWith("rk_live_")
+          ? "live"
+          : stripeKey.startsWith("sk_test_") || stripeKey.startsWith("rk_test_")
+            ? "test"
+            : "reservation-only",
     },
     email: {
       resendConfigured: Boolean(resendKey),
