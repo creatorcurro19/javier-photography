@@ -45,6 +45,7 @@ export async function POST(request: Request) {
     );
     params.append("metadata[orderId]", order.orderId);
     params.append("metadata[customerName]", order.customer.nombre);
+    params.append("metadata[customerEmail]", order.customer.email);
     params.append("metadata[customerPhone]", order.customer.telefono || "");
     params.append(
       "metadata[shippingAddress]",
@@ -62,7 +63,7 @@ export async function POST(request: Request) {
       const formatLabel =
         checkoutLang === "en" ? spec?.nameEn || item.format.name : item.format.name;
       const dimsLabel = formatPaperDimensions(
-        spec?.dimensions || item.format.dimensions,
+        item.format.dimensions || spec?.dimensions || "50 × 70 cm",
         checkoutLang
       );
       const finishLabel =
