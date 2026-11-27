@@ -66,7 +66,7 @@ export default function PaymentFeedback() {
 
           <div className="mt-6 space-y-3 text-left text-xs sm:text-sm text-[#A39E93] leading-relaxed border-t border-white/10 pt-5">
             <p>
-              Hemos recibido tu abono a través de <strong className="text-white">Stripe</strong> de forma segura. Javier Espinosa Martínez ha recibido los detalles del encargo.
+              Hemos recibido tu abono de forma segura. Javier Espinosa Martínez ha recibido los detalles del encargo.
             </p>
             <div className="space-y-1.5 bg-[#15161B] p-3.5 border border-white/[0.06] text-xs">
               <p className="text-[#C5A880] font-mono uppercase tracking-wider text-[10px]">

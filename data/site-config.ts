@@ -43,6 +43,9 @@ export const SITE_SETTINGS: SiteSettings = {
   "baseLicensePrice": 45
 };
 
+export const PAGOS_ACTIVOS: boolean =
+  process.env.NEXT_PUBLIC_STRIPE_ACTIVE === "true";
+
 const DEFAULT_SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ||
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
@@ -56,6 +59,7 @@ export const SITE_CONFIG = {
   authorName: "Javier Espinosa Martínez",
   contactEmail: SITE_SETTINGS.contactEmail,
   locationLabel: SITE_SETTINGS.locationLabel,
+  pagosActivos: PAGOS_ACTIVOS,
   social: {
     instagram: SITE_SETTINGS.instagramUrl,
     saatchi: "https://www.saatchiart.com/javier-espinosa-photography",

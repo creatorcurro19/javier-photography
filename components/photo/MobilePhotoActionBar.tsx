@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import type { Photo } from "@/types/photo";
+import { BASE_PRINT_FORMATS } from "@/data/formatos";
+import { PAGOS_ACTIVOS } from "@/data/site-config";
 import { getSavedWorks } from "@/components/photo/FavoriteButton";
 import AddToCartModal from "@/components/cart/AddToCartModal";
 
@@ -100,7 +102,7 @@ export default function MobilePhotoActionBar({ photo }: { photo: Photo }) {
             onClick={() => setBuyModalOpen(true)}
             className="flex h-11 flex-1 items-center justify-center gap-1 whitespace-nowrap rounded-lg border border-[#C5A880] bg-[#C5A880] px-2.5 sm:px-3 font-mono text-[10px] font-semibold uppercase tracking-[0.08em] sm:tracking-[0.18em] text-[#0B0C0E] transition hover:bg-white hover:border-white shadow"
           >
-            <span className="whitespace-nowrap">Copia Fine Art · Desde {photo.pricing?.estudio ?? 100}&nbsp;€ →</span>
+            <span className="whitespace-nowrap">{PAGOS_ACTIVOS ? "Copia Fine Art" : "Solicitar copia"} · Desde {photo.pricing?.estudio ?? BASE_PRINT_FORMATS.estudio.defaultPrice}&nbsp;€ →</span>
           </button>
         ) : (
           <a

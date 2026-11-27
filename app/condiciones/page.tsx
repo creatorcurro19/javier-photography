@@ -54,7 +54,7 @@ export default function CondicionesPage() {
               </p>
               <ul className="list-disc space-y-1.5 pl-5 text-[#A39E93]">
                 <li>
-                  <strong className="text-[#EBE7DF]">Modalidad exclusiva sin enmarcar:</strong> Las obras se entregan únicamente como lámina con margen blanco perimetral de conservación (3 a 7,5 cm según formato), protegidas con papel tisú libre de ácido dentro de un tubo rígido cilíndrico de alta densidad (3–4 mm de grosor) junto a su Certificado de Autenticidad firmado y numerado.
+                  <strong className="text-[#EBE7DF]">Modalidad exclusiva sin enmarcar:</strong> Las obras se entregan únicamente como lámina con margen blanco perimetral de conservación (3 a 5 cm según formato), protegidas con papel tisú libre de ácido dentro de un tubo rígido cilíndrico de alta densidad (3–4 mm de grosor) junto a su Certificado de Autenticidad firmado y numerado.
                 </li>
                 <li>
                   <strong className="text-[#EBE7DF]">Plazos y tarifas de envío por zona:</strong> {PLAZOS.copias} Coste de envío en tubo rígido: <strong className="text-[#EBE7DF]">Canarias: 0 € (incluido)</strong> · <strong className="text-[#EBE7DF]">España Peninsular y Baleares: 15 €</strong> · <strong className="text-[#EBE7DF]">Unión Europea e Internacional: 28 €</strong>.
@@ -75,7 +75,7 @@ export default function CondicionesPage() {
                   <strong className="text-[#EBE7DF]">Régimen fiscal y precios:</strong> Venta particular de obra gráfica y artística de autor (creación artística independiente no sujeta a repercusión de IGIC mercantil). Los importes mostrados son precios finales para el adquirente. En envíos fuera de Canarias (Península, Baleares e Internacional), las entregas se realizan mediante correo postal certificado en tubo rígido.
                 </li>
                 <li>
-                  <strong className="text-[#EBE7DF]">Medios de pago:</strong> Reserva directa con confirmación del autor y pago mediante pasarela segura (Stripe, cuando esté activa) o transferencia bancaria / enlace de pago verificado tras confirmar disponibilidad del número de edición.
+                  <strong className="text-[#EBE7DF]">Medios de pago:</strong> Reserva directa con confirmación del autor y pago mediante transferencia bancaria o enlace de pago verificado tras confirmar disponibilidad del número de edición.
                 </li>
               </ul>
             </section>

@@ -6,6 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Photo } from "@/types/photo";
 import { CATEGORY_METADATA } from "@/types/photo";
+import { BASE_PRINT_FORMATS } from "@/data/formatos";
+import { PAGOS_ACTIVOS } from "@/data/site-config";
 import AddToCartModal from "@/components/cart/AddToCartModal";
 import ShareButton from "@/components/photo/ShareButton";
 
@@ -435,7 +437,7 @@ export default function LightboxModal({
                   onClick={() => setAddCartOpen(true)}
                   className="whitespace-nowrap border border-[#C5A880] bg-[#C5A880] px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-wider text-[#0B0C0E] font-medium transition hover:bg-white hover:border-white shadow"
                 >
-                  Copia Fine Art · Desde {photo.pricing?.estudio ?? 100}&nbsp;€
+                  {PAGOS_ACTIVOS ? "Copia Fine Art" : "Solicitar Copia"} · Desde {photo.pricing?.estudio ?? BASE_PRINT_FORMATS.estudio.defaultPrice}&nbsp;€
                 </button>
               )}
               <Link

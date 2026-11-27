@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import type { Photo, PhotoCategory } from "@/types/photo";
 import { CATEGORY_METADATA, PHOTO_CATEGORIES } from "@/types/photo";
+import { BASE_PRINT_FORMATS } from "@/data/formatos";
 import PrintCardAction from "@/components/cart/PrintCardAction";
 
 interface DirectPrintsCatalogProps {
@@ -221,7 +222,7 @@ export default function DirectPrintsCatalog({
                     </Link>
                   </h3>
                   <span className="shrink-0 whitespace-nowrap font-serif text-base text-[#C5A880]">
-                    Desde {photo.pricing?.estudio ?? 100}&nbsp;€
+                    Desde {photo.pricing?.estudio ?? BASE_PRINT_FORMATS.estudio.defaultPrice}&nbsp;€
                   </span>
                 </div>
                 {photo.location && (
@@ -234,16 +235,16 @@ export default function DirectPrintsCatalog({
                 </p>
                 <div className="hidden mt-4 border-t border-white/[0.06] pt-3 flex-col gap-1.5">
                   <div className="flex items-center justify-between gap-2 font-mono text-[11px]">
-                    <span className="text-[#A39E93]">Estudio ({photo.pricing?.dimensions.estudio ?? "30 × 45 cm"}):</span>
-                    <span className="shrink-0 whitespace-nowrap font-serif text-sm text-[#C5A880] font-normal">{photo.pricing?.estudio ?? 100}&nbsp;€</span>
+                    <span className="text-[#A39E93]">Estudio ({photo.pricing?.dimensions.estudio ?? BASE_PRINT_FORMATS.estudio.dimensions}):</span>
+                    <span className="shrink-0 whitespace-nowrap font-serif text-sm text-[#C5A880] font-normal">{photo.pricing?.estudio ?? BASE_PRINT_FORMATS.estudio.defaultPrice}&nbsp;€</span>
                   </div>
                   <div className="flex items-center justify-between gap-2 font-mono text-[11px]">
-                    <span className="text-[#A39E93]">Galería ({photo.pricing?.dimensions.galeria ?? "50 × 70 cm"}):</span>
-                    <span className="shrink-0 whitespace-nowrap font-serif text-sm text-[#EBE7DF] font-light">{photo.pricing?.galeria ?? 190}&nbsp;€</span>
+                    <span className="text-[#A39E93]">Galería ({photo.pricing?.dimensions.galeria ?? BASE_PRINT_FORMATS.galeria.dimensions}):</span>
+                    <span className="shrink-0 whitespace-nowrap font-serif text-sm text-[#EBE7DF] font-light">{photo.pricing?.galeria ?? BASE_PRINT_FORMATS.galeria.defaultPrice}&nbsp;€</span>
                   </div>
                   <div className="flex items-center justify-between gap-2 font-mono text-[11px]">
-                    <span className="text-[#A39E93]">Colección ({photo.pricing?.dimensions.coleccion ?? "70 × 100 cm"}):</span>
-                    <span className="shrink-0 whitespace-nowrap font-serif text-sm text-[#EBE7DF] font-light">{photo.pricing?.coleccion ?? 320}&nbsp;€</span>
+                    <span className="text-[#A39E93]">Colección ({photo.pricing?.dimensions.coleccion ?? BASE_PRINT_FORMATS.coleccion.dimensions}):</span>
+                    <span className="shrink-0 whitespace-nowrap font-serif text-sm text-[#EBE7DF] font-light">{photo.pricing?.coleccion ?? BASE_PRINT_FORMATS.coleccion.defaultPrice}&nbsp;€</span>
                   </div>
                 </div>
               </div>

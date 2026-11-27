@@ -3,6 +3,7 @@ import {
   buildOrderCustomerEmailHtml,
   buildOrderOwnerEmailHtml,
 } from "@/lib/email-templates";
+import { PAGOS_ACTIVOS } from "@/data/site-config";
 import { normalizeOrder } from "@/lib/server/order";
 import { DESTINATION_EMAIL, relayWithFormSubmit, sendWithResend } from "@/lib/server/email";
 import { addInboxItem } from "@/lib/server/inbox-store";
@@ -37,7 +38,7 @@ export async function POST(request: Request) {
       `Subtotal Obras: ${subtotal} €`,
       `Gastos de Envío (${shippingZone}): ${shippingCost} €`,
       `Total del Pedido: ${total} €`,
-      `Estado del pago: pendiente (si el comprador paga con Stripe recibirás un aviso aparte de "PAGO CONFIRMADO").`,
+      `Estado del pago: ${PAGOS_ACTIVOS ? 'pendiente (si el comprador paga online recibirás confirmación automática)' : 'pendiente de confirmación directa'}.`,
       ``,
       `DATOS DEL COLECCIONISTA / COMPRADOR:`,
       `------------------------------------`,

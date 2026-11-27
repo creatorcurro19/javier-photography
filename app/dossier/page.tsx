@@ -8,7 +8,9 @@ import {
   AndalusianPageBackdrop,
   AndalusianStarMark,
 } from "@/components/ui/AndalusianMotif";
+import { BASE_PRINT_FORMATS, getFormatPriceRanges } from "@/data/formatos";
 import { SITE_CONFIG } from "@/data/site-config";
+import { WORKS } from "@/data/works";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getFeaturedPhotos } from "@/lib/photos";
 import { CATEGORY_METADATA } from "@/types/photo";
@@ -22,6 +24,7 @@ export const metadata = buildPageMetadata({
 
 export default function DossierPage() {
   const plates = getFeaturedPhotos().slice(0, 6);
+  const priceRanges = getFormatPriceRanges(WORKS);
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF] print:bg-white print:pt-6 print:pb-6 print:text-neutral-900">
@@ -170,9 +173,15 @@ export default function DossierPage() {
                 04 · Formatos de Colección Fine Art
               </h2>
               <ul className="mt-3 space-y-1.5 font-mono text-xs text-[#D4CEC3] print:text-neutral-800">
-                <li>Estudio (30×45 / 30×40 cm · Ed. 12–30) — 95 a 175 €</li>
-                <li>Galería (50×70 / 45×60 cm · Ed. 12–30) — 165 a 310 €</li>
-                <li>Gran Colección (60×90 / 70×100 cm · Ed. 12–30) — 280 a 510 €</li>
+                <li>
+                  {BASE_PRINT_FORMATS.estudio.shortName} ({BASE_PRINT_FORMATS.estudio.dimensions} · Ed. {priceRanges.estudio.editionMin}–{priceRanges.estudio.editionMax}) — {priceRanges.estudio.min} a {priceRanges.estudio.max} €
+                </li>
+                <li>
+                  {BASE_PRINT_FORMATS.galeria.shortName} ({BASE_PRINT_FORMATS.galeria.dimensions} · Ed. {priceRanges.galeria.editionMin}–{priceRanges.galeria.editionMax}) — {priceRanges.galeria.min} a {priceRanges.galeria.max} €
+                </li>
+                <li>
+                  {BASE_PRINT_FORMATS.coleccion.shortName} ({BASE_PRINT_FORMATS.coleccion.dimensions} · Ed. {priceRanges.coleccion.editionMin}–{priceRanges.coleccion.editionMax}) — {priceRanges.coleccion.min} a {priceRanges.coleccion.max} €
+                </li>
               </ul>
             </div>
 

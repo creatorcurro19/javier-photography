@@ -1,6 +1,9 @@
 import type { PhotoCategory } from "@/types/photo";
+import { getFormatPriceRanges } from "@/data/formatos";
 import { PLAZOS } from "@/data/plazos";
 import { WORKS } from "@/data/works";
+
+const FORMAT_RANGES = getFormatPriceRanges(WORKS);
 
 /**
  * Zonas geográficas verificadas en el archivo y biografía del autor.
@@ -369,7 +372,7 @@ export const SERVICE_LANDINGS: ServiceLanding[] = [
       "Colaboro con estudios de interiorismo, despachos profesionales, hoteles boutique y coleccionistas particulares para comisariar obras individuales, dípticos o series completas adaptadas a la escala arquitectónica y temperatura lumínica de cada estancia.",
     ],
     deliverables: [
-      "Valoración individualizada por obra: Estudio (95–175 €), Galería (165–310 €) y Gran Colección (280–510 €)",
+      `Valoración individualizada por obra: Estudio (${FORMAT_RANGES.estudio.min}–${FORMAT_RANGES.estudio.max} €), Galería (${FORMAT_RANGES.galeria.min}–${FORMAT_RANGES.galeria.max} €) y Gran Colección (${FORMAT_RANGES.coleccion.min}–${FORMAT_RANGES.coleccion.max} €)`,
       "Soporte asignado según la luz de cada captura: Algodón 100% Mate (308g) o Baritado Satinado de Sulfato de Bario (340g)",
       "Certificado de autenticidad numerado y firmado a mano por Javier Espinosa Martínez (máximo 12 a 30 copias por obra)",
       "Asesoramiento visual y simulación a escala real en sala (/prints)",

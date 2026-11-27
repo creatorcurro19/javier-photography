@@ -76,7 +76,7 @@ const servicios = [
     features: [
       "Selección personalizada de obras según la paleta y escala del espacio",
       "Papeles baritados o 100% algodón Hahnemühle con tintas de museo",
-      "Opciones de enmarcado a medida con maderas nobles y paspartú libre de ácido",
+      "Copias sin enmarcar enviadas en tubo rígido protector, listas para el enmarcado que elijas",
       "Certificado de autenticidad y numeración de tirada firmado por el autor",
     ],
     ideal: "Interioristas, despachos profesionales, hoteles boutique y coleccionistas particulares.",

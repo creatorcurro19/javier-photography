@@ -1,3 +1,8 @@
+import {
+  BASE_PRINT_FORMATS,
+  computeManchaDimensions,
+  type PrintFormatId,
+} from "@/data/formatos";
 import { PLAZOS } from "@/data/plazos";
 import type { Photo } from "@/types/photo";
 
@@ -36,7 +41,7 @@ export const SHIPPING_ZONES: Record<ShippingZoneId, ShippingZone> = {
 };
 
 export interface PrintFormat {
-  id: "estudio" | "galeria" | "coleccion";
+  id: PrintFormatId;
   name: string;
   dimensions: string;
   imageDimensions: string;
@@ -50,41 +55,44 @@ export interface PrintFormat {
 export const PRINT_FORMATS: Record<PrintFormat["id"], PrintFormat> = {
   estudio: {
     id: "estudio",
-    name: "Formato Estudio",
-    dimensions: "30 × 45 cm",
-    imageDimensions: "Mancha 24 × 36 cm (margen blanco 3–4,5 cm)",
-    price: 120,
+    name: BASE_PRINT_FORMATS.estudio.name,
+    dimensions: BASE_PRINT_FORMATS.estudio.dimensions,
+    imageDimensions: computeManchaDimensions(
+      BASE_PRINT_FORMATS.estudio.dimensions,
+      "estudio"
+    ).label,
+    price: BASE_PRINT_FORMATS.estudio.defaultPrice,
     framePrice: 0,
-    editionLimit: 25,
+    editionLimit: BASE_PRINT_FORMATS.estudio.defaultEdition,
   },
   galeria: {
     id: "galeria",
-    name: "Formato Galería",
-    dimensions: "50 × 70 cm",
-    imageDimensions: "Mancha 40 × 60 cm (margen blanco 5 cm)",
-    price: 220,
+    name: BASE_PRINT_FORMATS.galeria.name,
+    dimensions: BASE_PRINT_FORMATS.galeria.dimensions,
+    imageDimensions: computeManchaDimensions(
+      BASE_PRINT_FORMATS.galeria.dimensions,
+      "galeria"
+    ).label,
+    price: BASE_PRINT_FORMATS.galeria.defaultPrice,
     framePrice: 0,
-    editionLimit: 25,
+    editionLimit: BASE_PRINT_FORMATS.galeria.defaultEdition,
   },
   coleccion: {
     id: "coleccion",
-    name: "Gran Colección",
-    dimensions: "70 × 100 cm",
-    imageDimensions: "Mancha 60 × 90 cm (margen blanco 5 cm)",
-    price: 380,
+    name: BASE_PRINT_FORMATS.coleccion.name,
+    dimensions: BASE_PRINT_FORMATS.coleccion.dimensions,
+    imageDimensions: computeManchaDimensions(
+      BASE_PRINT_FORMATS.coleccion.dimensions,
+      "coleccion"
+    ).label,
+    price: BASE_PRINT_FORMATS.coleccion.defaultPrice,
     framePrice: 0,
-    editionLimit: 25,
+    editionLimit: BASE_PRINT_FORMATS.coleccion.defaultEdition,
   },
 };
 
 function computeImageArea(paperDims: string, tier: "estudio" | "galeria" | "coleccion"): string {
-  if (paperDims.includes("30 × 40")) return "Mancha 24 × 32 cm (margen blanco 3–4 cm)";
-  if (paperDims.includes("30 × 45")) return "Mancha 24 × 36 cm (margen blanco 3–4,5 cm)";
-  if (paperDims.includes("45 × 60")) return "Mancha 36 × 48 cm (margen blanco 4,5–6 cm)";
-  if (paperDims.includes("50 × 70")) return "Mancha 40 × 60 cm (margen blanco 5 cm)";
-  if (paperDims.includes("60 × 90")) return "Mancha 50 × 75 cm (margen blanco 5–7,5 cm)";
-  if (paperDims.includes("70 × 100")) return "Mancha 60 × 90 cm (margen blanco 5 cm)";
-  return PRINT_FORMATS[tier].imageDimensions;
+  return computeManchaDimensions(paperDims, tier).label;
 }
 
 /**

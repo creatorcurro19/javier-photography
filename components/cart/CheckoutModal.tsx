@@ -6,7 +6,7 @@ import Link from "next/link";
 import type { CartItem, OrderCustomer, CartOrder, ShippingZoneId } from "@/types/cart";
 import { SHIPPING_ZONES } from "@/types/cart";
 import { clearCart } from "@/lib/cart";
-import { SITE_CONFIG } from "@/data/site-config";
+import { PAGOS_ACTIVOS, SITE_CONFIG } from "@/data/site-config";
 import { trackEvent } from "@/lib/analytics";
 
 interface CheckoutModalProps {
@@ -36,7 +36,9 @@ export default function CheckoutModal({
   });
 
   const [shippingZone, setShippingZone] = useState<ShippingZoneId>("canarias");
-  const [paymentMethod, setPaymentMethod] = useState<"stripe" | "transferencia">("stripe");
+  const [paymentMethod, setPaymentMethod] = useState<"stripe" | "transferencia">(
+    PAGOS_ACTIVOS ? "stripe" : "transferencia"
+  );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [privacyAccepted, setPrivacyAccepted] = useState(true);
@@ -365,7 +367,7 @@ export default function CheckoutModal({
               rows={2}
               value={customer.notas}
               onChange={(e) => setCustomer({ ...customer, notas: e.target.value })}
-              placeholder="Instrucciones para la entrega, tono de enmarcado deseado o dedicatoria..."
+              placeholder="Instrucciones para la entrega o dedicatoria..."
               className="mt-1.5 w-full border border-white/[0.1] bg-[#151618] px-3.5 py-2 text-xs text-[#EBE7DF] placeholder-[#8E8A80]/40 focus:border-white/40 focus:outline-none"
             />
           </div>
@@ -376,35 +378,37 @@ export default function CheckoutModal({
               Modalidad de Pago
             </p>
 
-            <label
-              className={`flex items-start gap-3 p-3 border cursor-pointer transition ${
-                paymentMethod === "stripe"
-                  ? "border-[#C5A880] bg-[#C5A880]/10 text-white"
-                  : "border-white/[0.08] bg-[#151618] text-[#8E8A80] hover:border-white/20"
-              }`}
-            >
-              <input
-                type="radio"
-                name="paymentMethod"
-                value="stripe"
-                checked={paymentMethod === "stripe"}
-                onChange={() => setPaymentMethod("stripe")}
-                className="mt-1 accent-[#C5A880]"
-              />
-              <div className="flex-1 text-xs">
-                <div className="flex flex-wrap items-center justify-between gap-1">
-                  <span className="font-medium text-[#EBE7DF]">
-                    Tarjeta de crédito / débito, Apple Pay, Google Pay
-                  </span>
-                  <span className="text-[10px] font-mono text-[#C5A880] border border-[#C5A880]/30 px-1.5 py-0.5">
-                    Stripe 100% Cifrado
-                  </span>
+            {PAGOS_ACTIVOS && (
+              <label
+                className={`flex items-start gap-3 p-3 border cursor-pointer transition ${
+                  paymentMethod === "stripe"
+                    ? "border-[#C5A880] bg-[#C5A880]/10 text-white"
+                    : "border-white/[0.08] bg-[#151618] text-[#8E8A80] hover:border-white/20"
+                }`}
+              >
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="stripe"
+                  checked={paymentMethod === "stripe"}
+                  onChange={() => setPaymentMethod("stripe")}
+                  className="mt-1 accent-[#C5A880]"
+                />
+                <div className="flex-1 text-xs">
+                  <div className="flex flex-wrap items-center justify-between gap-1">
+                    <span className="font-medium text-[#EBE7DF]">
+                      Tarjeta de crédito / débito, Apple Pay, Google Pay
+                    </span>
+                    <span className="text-[10px] font-mono text-[#C5A880] border border-[#C5A880]/30 px-1.5 py-0.5">
+                      Pago Online Cifrado
+                    </span>
+                  </div>
+                  <p className="mt-1 text-[11px] text-[#A39E93] leading-relaxed">
+                    Pago seguro instantáneo con tarjeta. Sin recargos adicionales.
+                  </p>
                 </div>
-                <p className="mt-1 text-[11px] text-[#A39E93] leading-relaxed">
-                  Pago seguro instantáneo a través de la pasarela Stripe. Sin recargos adicionales.
-                </p>
-              </div>
-            </label>
+              </label>
+            )}
 
             <label
               className={`flex items-start gap-3 p-3 border cursor-pointer transition ${
@@ -452,9 +456,9 @@ export default function CheckoutModal({
 
           <div className="mt-6 pt-4 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="text-[11px] text-[#8E8A80] font-mono text-center sm:text-left">
-              <span>{paymentMethod === "stripe" ? "Pasarela cifrada SSL 256 bits" : "Pago seguro tras confirmación"}</span>
+              <span>{PAGOS_ACTIVOS && paymentMethod === "stripe" ? "Pasarela cifrada SSL 256 bits" : "Pago seguro tras confirmación"}</span>
               <span className="block text-[10px] text-white/40">
-                {paymentMethod === "stripe" ? "Stripe · Apple Pay · Google Pay · Visa · MC" : "Transferencia bancaria / Factura proforma"}
+                {PAGOS_ACTIVOS && paymentMethod === "stripe" ? "Apple Pay · Google Pay · Visa · Mastercard" : "Transferencia bancaria / Confirmación directa"}
               </span>
             </div>
 

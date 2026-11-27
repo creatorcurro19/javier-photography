@@ -4,6 +4,7 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
+import { BASE_PRINT_FORMATS } from "@/data/formatos";
 import type { Photo } from "@/types/photo";
 import PrintCardAction from "@/components/cart/PrintCardAction";
 
@@ -123,10 +124,10 @@ export default function ExhibitionGallery({
                     <>
                       <div className="text-right hidden sm:block">
                         <span className="whitespace-nowrap font-serif text-sm font-light text-[#C5A880] block leading-tight">
-                          {photo.pricing?.estudio ?? 100}&nbsp;€
+                          {photo.pricing?.estudio ?? BASE_PRINT_FORMATS.estudio.defaultPrice}&nbsp;€
                         </span>
                         <span className="whitespace-nowrap font-mono text-[8px] uppercase tracking-wider text-[#A39E93]">
-                          Desde ({photo.pricing?.dimensions?.estudio?.replace(/ cm$/, "") ?? "30×45"})
+                          Desde ({(photo.pricing?.dimensions?.estudio ?? BASE_PRINT_FORMATS.estudio.dimensions).replace(/ cm$/, "")})
                         </span>
                       </div>
                       <PrintCardAction photo={photo} />

@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Photo } from "@/types/photo";
 import { getFormatsForPhoto, addToCart } from "@/lib/cart";
+import { PAGOS_ACTIVOS } from "@/data/site-config";
 import type { PrintFormat } from "@/types/cart";
 import { useLanguage } from "@/lib/i18n";
 import { AndalusianStarMark } from "@/components/ui/AndalusianMotif";
@@ -223,36 +224,48 @@ export default function AddToCartModal({
           </div>
 
           <div className="mt-4 flex flex-col gap-2">
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-              <button
-                type="button"
-                onClick={handleBuyNow}
-                className="w-full rounded-lg border border-[#EBE7DF] bg-[#EBE7DF] py-3 font-mono text-xs uppercase tracking-[0.2em] text-[#0B0C0E] font-semibold transition hover:bg-transparent hover:text-white"
+            {PAGOS_ACTIVOS ? (
+              <>
+                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                  <button
+                    type="button"
+                    onClick={handleBuyNow}
+                    className="w-full rounded-lg border border-[#EBE7DF] bg-[#EBE7DF] py-3 font-mono text-xs uppercase tracking-[0.2em] text-[#0B0C0E] font-semibold transition hover:bg-transparent hover:text-white"
+                  >
+                    {t("Tramitar Pedido →", "Proceed to Checkout →")}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleAdd}
+                    disabled={added}
+                    className="w-full rounded-lg border border-[#C5A880] bg-[#C5A880]/15 py-3 font-mono text-xs uppercase tracking-[0.2em] text-[#EBE7DF] font-semibold transition hover:bg-[#C5A880] hover:text-[#0B0C0E] disabled:opacity-50"
+                  >
+                    {added
+                      ? t("✓ En la Cesta", "✓ In Bag")
+                      : t("+ Añadir a Cesta", "+ Add to Bag")}
+                  </button>
+                </div>
+                <Link
+                  href={`/contact?motivo=print&obra=${encodeURIComponent(photo.title)}&formato=${encodeURIComponent(`${currentFormat.name} (${currentFormat.dimensions} · ${unitPrice} €)`)}`}
+                  onClick={onClose}
+                  className="w-full rounded-lg border border-white/15 bg-[#151719] py-2.5 text-center font-mono text-[11px] uppercase tracking-[0.2em] text-[#EBE7DF] transition hover:border-[#C5A880] hover:text-white"
+                >
+                  {t("Solicitar esta copia →", "Request this print →")}
+                </Link>
+              </>
+            ) : (
+              <Link
+                href={`/contact?motivo=print&obra=${encodeURIComponent(photo.title)}&formato=${encodeURIComponent(`${currentFormat.name} (${currentFormat.dimensions} · ${unitPrice} €)`)}`}
+                onClick={onClose}
+                className="w-full rounded-lg border border-[#C5A880] bg-[#C5A880] py-3 text-center font-mono text-xs uppercase tracking-[0.2em] text-[#0B0C0E] font-semibold transition hover:bg-white hover:border-white"
               >
-                {t("Tramitar Pedido →", "Proceed to Checkout →")}
-              </button>
-              <button
-                type="button"
-                onClick={handleAdd}
-                disabled={added}
-                className="w-full rounded-lg border border-[#C5A880] bg-[#C5A880]/15 py-3 font-mono text-xs uppercase tracking-[0.2em] text-[#EBE7DF] font-semibold transition hover:bg-[#C5A880] hover:text-[#0B0C0E] disabled:opacity-50"
-              >
-                {added
-                  ? t("✓ En la Cesta", "✓ In Bag")
-                  : t("+ Añadir a Cesta", "+ Add to Bag")}
-              </button>
-            </div>
-            <Link
-              href={`/contact?motivo=print&obra=${encodeURIComponent(photo.title)}&formato=${encodeURIComponent(`${currentFormat.name} (${currentFormat.dimensions} · ${unitPrice} €)`)}`}
-              onClick={onClose}
-              className="w-full rounded-lg border border-white/15 bg-[#151719] py-2.5 text-center font-mono text-[11px] uppercase tracking-[0.2em] text-[#EBE7DF] transition hover:border-[#C5A880] hover:text-white"
-            >
-              {t("Solicitar esta copia por formulario →", "Request this print via form →")}
-            </Link>
+                {t("Solicitar esta copia →", "Request this print →")}
+              </Link>
+            )}
             <p className="text-center font-mono text-[9px] text-[#A39E93]">
               {t(
-                "Venta directa del estudio · Certificado firmado ISO 9706 y envío en tubo rígido",
-                "Direct studio acquisition · Signed ISO 9706 Certificate & rigid tube shipping"
+                "Copias Fine Art por encargo · Certificado firmado ISO 9706 y envío sin marco en tubo rígido",
+                "Commissioned Fine Art prints · Signed ISO 9706 Certificate & unframed rigid tube shipping"
               )}
             </p>
           </div>

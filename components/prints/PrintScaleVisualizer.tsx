@@ -6,16 +6,17 @@ import Link from "next/link";
 import { useLanguage } from "@/lib/i18n";
 import { AndalusianStarMark } from "@/components/ui/AndalusianMotif";
 import AddToCartModal from "@/components/cart/AddToCartModal";
+import { BASE_PRINT_FORMATS, computeManchaDimensions } from "@/data/formatos";
 import { WORKS } from "@/data/works";
 import type { Photo } from "@/types/photo";
 
-// Formatos normalizados de escala museística
+// Formatos normalizados de escala museística leídos desde data/formatos.ts
 const FORMATS = [
   {
     id: "estudio",
-    label: "Formato Estudio",
-    dims: "30 × 45 cm",
-    outerDims: "Lámina Fine Art con margen blanco (envío en tubo rígido)",
+    label: BASE_PRINT_FORMATS.estudio.name,
+    dims: BASE_PRINT_FORMATS.estudio.dimensions,
+    outerDims: computeManchaDimensions(BASE_PRINT_FORMATS.estudio.dimensions, "estudio").label,
     widthPctSingle: 25,
     widthPctDiptych: 22,
     edition: "Edición limitada numerada (12 a 30 ej.)",
@@ -24,9 +25,9 @@ const FORMATS = [
   },
   {
     id: "galeria",
-    label: "Formato Galería",
-    dims: "50 × 70 cm",
-    outerDims: "Lámina Fine Art con margen blanco (envío en tubo rígido)",
+    label: BASE_PRINT_FORMATS.galeria.name,
+    dims: BASE_PRINT_FORMATS.galeria.dimensions,
+    outerDims: computeManchaDimensions(BASE_PRINT_FORMATS.galeria.dimensions, "galeria").label,
     widthPctSingle: 38,
     widthPctDiptych: 33,
     edition: "Edición limitada numerada (12 a 30 ej.)",
@@ -35,9 +36,9 @@ const FORMATS = [
   },
   {
     id: "coleccion",
-    label: "Gran Colección",
-    dims: "70 × 100 cm",
-    outerDims: "Lámina Fine Art con margen blanco (envío en tubo rígido)",
+    label: BASE_PRINT_FORMATS.coleccion.name,
+    dims: BASE_PRINT_FORMATS.coleccion.dimensions,
+    outerDims: computeManchaDimensions(BASE_PRINT_FORMATS.coleccion.dimensions, "coleccion").label,
     widthPctSingle: 52,
     widthPctDiptych: 44,
     edition: "Edición limitada numerada (12 a 30 ej.)",
@@ -555,10 +556,10 @@ export default function PrintScaleVisualizer() {
 
       {/* Acabado de Marco & Ambiente de Pared */}
       <div className="mt-4 flex flex-col gap-3 rounded-lg border border-white/[0.06] bg-[#0E1012] p-4 text-xs lg:flex-row lg:items-center lg:justify-between">
-        {/* Acabado de Marco */}
+        {/* Acabado de Marco (solo vista previa) */}
         <div className="flex flex-wrap items-center gap-2">
           <span className="font-mono text-[10px] uppercase tracking-wider text-[#C5A880]">
-            {t("Enmarcado:", "Framing:")}
+            {t("Vista previa (marco no incluido):", "Preview (frame not included):")}
           </span>
           {FINISHES.map((f) => (
             <button
@@ -938,7 +939,9 @@ export default function PrintScaleVisualizer() {
             · {selectedFormat.label} ({selectedFormat.dims})
           </p>
           <p className="text-neutral-400 text-xs">
-            {currentFinish.label} · {currentFinish.note}
+            {currentFinish.id === "unframed"
+              ? currentFinish.note
+              : `Vista previa (marco no incluido) · Todas las copias se envían sin enmarcar en tubo rígido`}
           </p>
           <p className="text-[#8E8A80] text-[11px] font-mono">
             {t("Ambiente:", "Environment:")}{" "}

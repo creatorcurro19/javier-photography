@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { AndalusianCornerOrnaments } from "@/components/ui/AndalusianMotif";
+import { PAGOS_ACTIVOS } from "@/data/site-config";
 import type { Photo } from "@/types/photo";
 import { getFormatsForPhoto, addToCart } from "@/lib/cart";
 import type { PrintFormat } from "@/types/cart";
@@ -120,10 +121,10 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
           id="print-heading"
           className="font-serif text-2xl sm:text-3xl font-light text-[#EBE7DF]"
         >
-          Comprar esta lámina
+          {PAGOS_ACTIVOS ? "Comprar esta lámina" : "Solicitar esta copia"}
         </h2>
         <span className="font-mono text-xs text-[#C5A880]">
-          Envío en tubo rígido · Gratis en Canarias
+          Sin enmarcar · Envío en tubo rígido · Gratis en Canarias
         </span>
       </div>
 
@@ -165,6 +166,9 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
                 <span className="mt-2 whitespace-nowrap font-serif text-2xl font-light text-[#EBE7DF]">
                   {fmt.price}&nbsp;€
                 </span>
+                <span className="mt-1 font-mono text-[10px] text-[#8E8A80]">
+                  {fmt.imageDimensions}
+                </span>
               </button>
             );
           })}
@@ -175,7 +179,7 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
       <div className="mt-6 pt-5 border-t border-white/[0.08] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
         <div>
           <span className="font-mono text-xs text-[#A39E93] block">
-            Total ({currentFormat.dimensions})
+            Total ({currentFormat.dimensions} · sin enmarcar)
           </span>
           <span className="whitespace-nowrap font-serif text-3xl font-light text-[#EBE7DF]">
             {unitPrice}&nbsp;€
@@ -183,24 +187,42 @@ export default function PrintCTA({ photo }: PrintCTAProps) {
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
-          <button
-            type="button"
-            onClick={handleBuyDirectly}
-            className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-lg border border-[#C5A880] bg-[#C5A880] px-7 py-3 font-mono text-xs uppercase tracking-[0.2em] text-[#0B0C0E] font-semibold transition hover:bg-white hover:border-white"
-          >
-            <span>Comprar ahora</span>
-            <span>→</span>
-          </button>
+          {PAGOS_ACTIVOS ? (
+            <>
+              <button
+                type="button"
+                onClick={handleBuyDirectly}
+                className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-lg border border-[#C5A880] bg-[#C5A880] px-7 py-3 font-mono text-xs uppercase tracking-[0.2em] text-[#0B0C0E] font-semibold transition hover:bg-white hover:border-white"
+              >
+                <span>Comprar ahora</span>
+                <span>→</span>
+              </button>
 
-          <button
-            type="button"
-            onClick={handleAddToCart}
-            className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-lg border border-white/20 bg-[#0B0C0E] px-5 py-3 font-mono text-xs uppercase tracking-[0.2em] text-[#EBE7DF] font-medium transition hover:border-white/40 hover:text-white"
-          >
-            <span>{added ? "✓ En la Cesta" : "+ Añadir a la Cesta"}</span>
-          </button>
+              <button
+                type="button"
+                onClick={handleAddToCart}
+                className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-lg border border-white/20 bg-[#0B0C0E] px-5 py-3 font-mono text-xs uppercase tracking-[0.2em] text-[#EBE7DF] font-medium transition hover:border-white/40 hover:text-white"
+              >
+                <span>{added ? "✓ En la Cesta" : "+ Añadir a la Cesta"}</span>
+              </button>
+            </>
+          ) : (
+            <Link
+              href={`/contact?motivo=print&obra=${encodeURIComponent(photo.title)}&formato=${encodeURIComponent(`${currentFormat.name} (${currentFormat.dimensions} · ${unitPrice} €)`)}`}
+              className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-lg border border-[#C5A880] bg-[#C5A880] px-7 py-3 font-mono text-xs uppercase tracking-[0.2em] text-[#0B0C0E] font-semibold transition hover:bg-white hover:border-white"
+            >
+              <span>Solicitar esta copia</span>
+              <span>→</span>
+            </Link>
+          )}
         </div>
       </div>
+
+      {!PAGOS_ACTIVOS && (
+        <p className="mt-4 font-mono text-[11px] text-[#8E8A80]">
+          1. Elige tamaño · 2. Solicita la copia · 3. Confirmamos edición, envío y pago por email antes de imprimir.
+        </p>
+      )}
     </section>
   );
 }

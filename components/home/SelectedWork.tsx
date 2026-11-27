@@ -7,6 +7,7 @@ import {
   AndalusianPageBackdrop,
   AndalusianStarMark,
 } from "@/components/ui/AndalusianMotif";
+import { BASE_PRINT_FORMATS } from "@/data/formatos";
 import { useLanguage } from "@/lib/i18n";
 import type { Photo } from "@/types/photo";
 import { CATEGORY_METADATA } from "@/types/photo";
@@ -111,7 +112,7 @@ export default function SelectedWork({ photos, totalCount }: SelectedWorkProps) 
                     </p>
                     {photo.prints ? (
                       <p className="mt-1 font-mono text-[11px] text-[#C5A880]">
-                        Copia Fine Art · <span className="whitespace-nowrap">Desde {photo.pricing?.estudio ?? 100}&nbsp;€</span>
+                        Copia Fine Art · <span className="whitespace-nowrap">Desde {photo.pricing?.estudio ?? BASE_PRINT_FORMATS.estudio.defaultPrice}&nbsp;€</span>
                       </p>
                     ) : (
                       <p className="mt-1 font-mono text-[11px] text-[#8E8A80]">
