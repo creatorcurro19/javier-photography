@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/lib/i18n";
+import { SITE_CONFIG } from "@/data/site-config";
 import { WORKS } from "@/data/works";
 import { PHOTO_CATEGORIES } from "@/types/photo";
 
@@ -149,10 +150,10 @@ export default function MobileNav() {
               <div>
                 <p className="font-serif text-sm text-[#EBE7DF]">Javier Espinosa Martínez</p>
                 <a
-                  href="mailto:javierespinosa1995@hotmail.com"
+                  href={`mailto:${SITE_CONFIG.contactEmail}`}
                   className="mt-0.5 block font-mono text-[11px] text-[#8E8A80] hover:text-[#EBE7DF]"
                 >
-                  javierespinosa1995@hotmail.com
+                  {SITE_CONFIG.contactEmail}
                 </a>
               </div>
               <Link
@@ -166,7 +167,7 @@ export default function MobileNav() {
 
             <div className="flex flex-wrap items-center gap-3 pt-1 text-[11px] uppercase tracking-wider text-[#EBE7DF]">
               <a
-                href="https://www.instagram.com/Javier.espinosa19/"
+                href={SITE_CONFIG.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-white"
@@ -175,7 +176,7 @@ export default function MobileNav() {
               </a>
               <span className="text-white/20">·</span>
               <a
-                href="https://www.saatchiart.com/javier-espinosa-photography"
+                href={SITE_CONFIG.social.saatchi}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-white"
@@ -184,7 +185,7 @@ export default function MobileNav() {
               </a>
               <span className="text-white/20">·</span>
               <a
-                href="https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image"
+                href={SITE_CONFIG.social.getty}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-white"

@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/lib/i18n";
 import { AndalusianStarMark } from "@/components/ui/AndalusianMotif";
+import { SITE_CONFIG } from "@/data/site-config";
 
 export default function TrustBadgeStrip() {
   const { t } = useLanguage();
@@ -21,7 +22,7 @@ export default function TrustBadgeStrip() {
         {/* Enlaces y Sellos de Confianza Oficiales */}
         <div className="flex flex-wrap items-center gap-4 sm:gap-6 font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.18em]">
           <a
-            href="https://www.saatchiart.com/javier-espinosa-photography"
+            href={SITE_CONFIG.social.saatchi}
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-1.5 text-[#EBE7DF]/85 transition hover:text-[#C5A880] focus-visible:outline focus-visible:outline-1 focus-visible:outline-white"
@@ -33,7 +34,7 @@ export default function TrustBadgeStrip() {
           <span className="text-white/20">·</span>
 
           <a
-            href="https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image"
+            href={SITE_CONFIG.social.getty}
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-1.5 text-[#EBE7DF]/85 transition hover:text-[#C5A880] focus-visible:outline focus-visible:outline-1 focus-visible:outline-white"

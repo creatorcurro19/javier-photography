@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { SITE_CONFIG } from "@/data/site-config";
 
 interface ShareButtonProps {
   title: string;
@@ -32,7 +33,7 @@ export default function ShareButton({
     const origin =
       typeof window !== "undefined"
         ? window.location.origin
-        : "https://javier-photography.vercel.app";
+        : SITE_CONFIG.siteUrl;
     const url = `${origin}/portfolio/${slug}`;
     const text = location
       ? `${title} (${location}) — Javier Espinosa Fotografía`

@@ -1,4 +1,5 @@
 import "server-only";
+import { SITE_CONFIG } from "@/data/site-config";
 
 /**
  * Utilidades de envío de correo compartidas por las rutas API.
@@ -7,7 +8,7 @@ import "server-only";
  * Todas devuelven `true` solo si el proveedor confirma la entrega, y registran el fallo en los logs de Vercel.
  */
 
-export const DESTINATION_EMAIL = "javierespinosa1995@hotmail.com";
+export const DESTINATION_EMAIL = SITE_CONFIG.contactEmail;
 
 export const FROM_EMAIL =
   process.env.RESEND_FROM_EMAIL || "Javier Espinosa Fotografía <onboarding@resend.dev>";
@@ -64,8 +65,8 @@ export async function relayWithFormSubmit(
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Referer: "https://javier-photography.vercel.app/",
-        Origin: "https://javier-photography.vercel.app",
+        Referer: `${SITE_CONFIG.siteUrl}/`,
+        Origin: SITE_CONFIG.siteUrl,
       },
       body: JSON.stringify({ _captcha: "false", _template: "table", ...fields }),
     });

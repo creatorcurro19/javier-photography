@@ -7,6 +7,7 @@ import {
   AndalusianPageBackdrop,
 } from "@/components/ui/AndalusianMotif";
 import JsonLd from "@/components/seo/JsonLd";
+import { SITE_CONFIG } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getLicensedPhotos } from "@/lib/photos";
 import { generateBreadcrumbSchema } from "@/lib/schema";
@@ -123,7 +124,7 @@ export default function LicensingPage() {
               <span>→</span>
             </Link>
             <a
-              href="https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image"
+              href={SITE_CONFIG.social.getty}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex min-h-[44px] items-center gap-2 border border-[#202226] bg-[#202226]/60 px-6 py-3 text-xs font-mono uppercase tracking-[0.25em] text-[#EBE7DF] transition hover:border-[#A39E93] hover:text-white"
@@ -318,7 +319,7 @@ export default function LicensingPage() {
                 Iniciar solicitud de derechos
               </Link>
               <a
-                href="mailto:javierespinosa1995@hotmail.com?subject=Solicitud%20de%20Licencia%20de%20Imagen"
+                href={`mailto:${SITE_CONFIG.contactEmail}?subject=Solicitud%20de%20Licencia%20de%20Imagen`}
                 className="inline-flex border border-[#202226] bg-[#202226]/60 px-8 py-3.5 text-xs uppercase tracking-[0.3em] text-[#EBE7DF] transition hover:border-[#8E8A80] hover:text-white"
               >
                 Enviar briefing por email

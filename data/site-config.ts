@@ -41,6 +41,34 @@ export const SITE_SETTINGS: SiteSettings = {
   "baseLicensePrice": 45
 };
 
+const DEFAULT_SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "https://javier-photography.vercel.app");
+
+export const SITE_CONFIG = {
+  siteUrl: DEFAULT_SITE_URL,
+  siteHost: DEFAULT_SITE_URL.replace(/^https?:\/\//, "").replace(/\/$/, ""),
+  siteName: "Javier Espinosa Fotografía",
+  authorName: "Javier Espinosa Martínez",
+  contactEmail: SITE_SETTINGS.contactEmail,
+  locationLabel: SITE_SETTINGS.locationLabel,
+  social: {
+    instagram: SITE_SETTINGS.instagramUrl,
+    saatchi: "https://www.saatchiart.com/javier-espinosa-photography",
+    getty:
+      "https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image",
+  },
+  plazos: {
+    copias: "El plazo de producción y entrega se confirma al aceptar el pedido.",
+    reportajes: "Los plazos de entrega se acuerdan en el presupuesto.",
+    rallyPrensa: "Entrega prioritaria para prensa, a convenir.",
+    respuesta: "Respondo personalmente a cada consulta lo antes posible.",
+    tabla: "A confirmar",
+  },
+} as const;
+
 export const CUADERNO_POSTS: CuadernoPost[] = [
   {
     "slug": "borrador-01-observacion-fauna-600mm",

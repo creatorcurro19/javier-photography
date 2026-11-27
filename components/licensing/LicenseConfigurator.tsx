@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { SITE_CONFIG } from "@/data/site-config";
 import { WORKS } from "@/data/works";
 import { CATEGORY_METADATA } from "@/types/photo";
 
@@ -67,7 +68,7 @@ export default function LicenseConfigurator() {
           </h2>
         </div>
         <a
-          href="https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image"
+          href={SITE_CONFIG.social.getty}
           target="_blank"
           rel="noopener noreferrer"
           className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#8E8A80] underline decoration-[#8E8A80]/50 underline-offset-4 hover:text-white"
@@ -240,7 +241,7 @@ export default function LicenseConfigurator() {
               Solicitar Cotización Directa →
             </button>
             <a
-              href="https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image"
+              href={SITE_CONFIG.social.getty}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full border border-[#202226] bg-[#151618] px-5 py-2.5 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-[#EBE7DF] transition hover:border-[#8E8A80]"

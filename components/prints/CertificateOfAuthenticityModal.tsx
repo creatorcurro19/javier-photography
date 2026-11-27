@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
+import { SITE_CONFIG } from "@/data/site-config";
 import type { Photo } from "@/types/photo";
 
 type CertificateProps = {
@@ -18,7 +19,7 @@ export default function CertificateOfAuthenticityModal({
 }: CertificateProps) {
   const [open, setOpen] = useState(false);
   const certId = `JE-${photo.year}-${photo.id.toUpperCase()}-750`;
-  const canonicalUrl = `https://javier-photography.vercel.app/portfolio/${photo.slug}`;
+  const canonicalUrl = `${SITE_CONFIG.siteUrl}/portfolio/${photo.slug}`;
 
   // Deterministic SVG QR-like code representation
   const qrGrid = [

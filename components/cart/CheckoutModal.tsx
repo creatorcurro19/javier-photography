@@ -6,6 +6,7 @@ import Link from "next/link";
 import type { CartItem, OrderCustomer, CartOrder, ShippingZoneId } from "@/types/cart";
 import { SHIPPING_ZONES } from "@/types/cart";
 import { clearCart } from "@/lib/cart";
+import { SITE_CONFIG } from "@/data/site-config";
 import { trackEvent } from "@/lib/analytics";
 
 interface CheckoutModalProps {
@@ -118,7 +119,7 @@ export default function CheckoutModal({
 
       // Si se eligió transferencia o no hay pasarela Stripe activa
       if (!orderData?.ok) {
-        const mail = orderData?.destinationEmail ?? "javierespinosa1995@hotmail.com";
+        const mail = orderData?.destinationEmail ?? SITE_CONFIG.contactEmail;
         setError(
           `No hemos podido registrar el pedido automáticamente. Tu cesta se conserva: escríbenos a ${mail} indicando la referencia ${orderId} o usa WhatsApp.`
         );

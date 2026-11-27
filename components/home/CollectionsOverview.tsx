@@ -25,7 +25,7 @@ const WINGS_CONFIG: CuratedWing[] = [
     roomRoman: "SALA II",
     aspectClass: "aspect-[16/9]",
     colSpanClass: "lg:col-span-6",
-    subtitle: "Fauna en Libertad",
+    subtitle: "Observación & Fauna",
   },
   {
     category: "coches-rally",

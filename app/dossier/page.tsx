@@ -8,6 +8,7 @@ import {
   AndalusianPageBackdrop,
   AndalusianStarMark,
 } from "@/components/ui/AndalusianMotif";
+import { SITE_CONFIG } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getFeaturedPhotos } from "@/lib/photos";
 import { CATEGORY_METADATA } from "@/types/photo";
@@ -180,8 +181,8 @@ export default function DossierPage() {
                 05 · Representación y Contacto Directo
               </h2>
               <ul className="mt-3 space-y-1.5 font-mono text-xs text-[#D4CEC3] print:text-neutral-800">
-                <li>Email: javierespinosa1995@hotmail.com</li>
-                <li>Web: javier-photography.vercel.app</li>
+                <li>Email: {SITE_CONFIG.contactEmail}</li>
+                <li>Web: {SITE_CONFIG.siteHost}</li>
                 <li>Saatchi Art · Getty Images / iStock · @Javier.espinosa19</li>
               </ul>
             </div>

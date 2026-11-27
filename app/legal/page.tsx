@@ -4,6 +4,7 @@ import {
   AndalusianCenefa,
   AndalusianPageBackdrop,
 } from "@/components/ui/AndalusianMotif";
+import { SITE_CONFIG } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/metadata";
 
 export const metadata = buildPageMetadata({
@@ -29,10 +30,10 @@ export default function LegalPage() {
             <p className="mt-4 font-mono text-xs text-neutral-400">
               Titular: Javier Espinosa Martínez · Contacto oficial:{" "}
               <a
-                href="mailto:javierespinosa1995@hotmail.com"
+                href={`mailto:${SITE_CONFIG.contactEmail}`}
                 className="text-[#EBE7DF] underline decoration-[#C5A880]/50 underline-offset-4"
               >
-                javierespinosa1995@hotmail.com
+                {SITE_CONFIG.contactEmail}
               </a>
             </p>
           </div>
@@ -81,7 +82,7 @@ export default function LegalPage() {
                     Correo Electrónico de Contacto
                   </span>
                   <span className="mt-1 block text-[#EBE7DF]">
-                    javierespinosa1995@hotmail.com
+                    {SITE_CONFIG.contactEmail}
                   </span>
                 </div>
               </div>
@@ -113,7 +114,7 @@ export default function LegalPage() {
                   cualquier fotografía sin licencia escrita previa del autor o
                   adquisición a través de los canales oficiales (
                   <a
-                    href="https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image"
+                    href={SITE_CONFIG.social.getty}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="underline decoration-[#8E8A80] underline-offset-4"
@@ -160,7 +161,7 @@ export default function LegalPage() {
                     Responsable del Tratamiento
                   </p>
                   <p className="mt-1 text-xs text-[#EBE7DF]">
-                    Javier Espinosa Martínez (javierespinosa1995@hotmail.com)
+                    {SITE_CONFIG.authorName} ({SITE_CONFIG.contactEmail})
                   </p>
                 </div>
                 <div>
@@ -187,7 +188,7 @@ export default function LegalPage() {
                   </p>
                   <p className="mt-1 text-xs text-[#EBE7DF]">
                     Acceso, rectificación, supresión, limitación, oposición y portabilidad
-                    escribiendo a javierespinosa1995@hotmail.com. Asimismo, tiene derecho a presentar una reclamación ante la{" "}
+                    escribiendo a {SITE_CONFIG.contactEmail}. Asimismo, tiene derecho a presentar una reclamación ante la{" "}
                     <a
                       href="https://www.aepd.es"
                       target="_blank"

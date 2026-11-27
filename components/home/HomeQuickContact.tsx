@@ -4,7 +4,7 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 import { AndalusianStarMark } from "@/components/ui/AndalusianMotif";
 import { useLanguage } from "@/lib/i18n";
-import { SITE_SETTINGS } from "@/data/site-config";
+import { SITE_CONFIG, SITE_SETTINGS } from "@/data/site-config";
 
 export default function HomeQuickContact() {
   const { lang, t } = useLanguage();
@@ -60,7 +60,7 @@ export default function HomeQuickContact() {
             )}
 
             <a
-              href="mailto:javierespinosa1995@hotmail.com"
+              href={`mailto:${SITE_CONFIG.contactEmail}`}
               className="w-full sm:w-auto rounded-lg border border-white/10 bg-[#151719] px-7 py-3.5 text-[#8E8A80] transition hover:border-white/30 hover:text-[#EBE7DF]"
             >
               Email ↗

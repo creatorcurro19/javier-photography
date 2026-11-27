@@ -1,5 +1,6 @@
 import Container from "@/components/ui/Container";
 import ContactForm from "@/components/contact/ContactForm";
+import { SITE_CONFIG } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/metadata";
 
 export const metadata = buildPageMetadata({
@@ -12,13 +13,13 @@ export const metadata = buildPageMetadata({
 const CONTACT_INFO = [
   {
     label: "Correo Electrónico de Contacto",
-    value: "javierespinosa1995@hotmail.com",
-    href: "mailto:javierespinosa1995@hotmail.com",
+    value: SITE_CONFIG.contactEmail,
+    href: `mailto:${SITE_CONFIG.contactEmail}`,
     note: "Atención directa por el autor · Plazo de respuesta: 24–48 h laborables",
   },
   {
     label: "Base de Operaciones",
-    value: "Puerto de la Cruz (Tenerife, Islas Canarias)",
+    value: SITE_CONFIG.locationLabel,
     note: "Base insular con disponibilidad para desplazamientos a Península e internacionales",
   },
 ];

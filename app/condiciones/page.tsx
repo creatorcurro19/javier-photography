@@ -5,6 +5,7 @@ import {
   AndalusianPageBackdrop,
 } from "@/components/ui/AndalusianMotif";
 import JsonLd from "@/components/seo/JsonLd";
+import { SITE_CONFIG } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/metadata";
 import { generateBreadcrumbSchema } from "@/lib/schema";
 
@@ -94,7 +95,7 @@ export default function CondicionesPage() {
                   <strong className="text-[#EBE7DF]">Excepción legal en encargos personalizados (Art. 103.c TRLGDCU):</strong> El derecho de desistimiento no será aplicable a obras producidas bajo especificaciones personalizadas del cliente (medidas especiales fuera de los tres formatos estándar, recortes a medida, dípticos comisariados bajo encargo o sesiones fotográficas por encargo).
                 </li>
                 <li>
-                  <strong className="text-[#EBE7DF]">Garantía por daños en tránsito:</strong> Si el tubo rígido llegara con daños visibles de transporte que afecten a la lámina, el comprador deberá comunicarlo en un plazo de 48 horas adjuntando fotografías del embalaje y de la obra a <span className="font-mono text-[#EBE7DF]">javierespinosa1995@hotmail.com</span> para proceder a la reposición sin coste de un nuevo ejemplar certificado.
+                  <strong className="text-[#EBE7DF]">Garantía por daños en tránsito:</strong> Si el tubo rígido llegara con daños visibles de transporte que afecten a la lámina, el comprador deberá comunicarlo en un plazo de 48 horas adjuntando fotografías del embalaje y de la obra a <span className="font-mono text-[#EBE7DF]">{SITE_CONFIG.contactEmail}</span> para proceder a la reposición sin coste de un nuevo ejemplar certificado.
                 </li>
               </ul>
             </section>

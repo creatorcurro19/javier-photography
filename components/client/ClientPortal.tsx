@@ -9,6 +9,7 @@ import {
   AndalusianStarMark,
 } from "@/components/ui/AndalusianMotif";
 import LightboxModal from "@/components/ui/LightboxModal";
+import { SITE_CONFIG } from "@/data/site-config";
 import { trackEvent } from "@/lib/analytics";
 
 interface ClientPortalProps {
@@ -100,7 +101,7 @@ export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
       if (!res.ok || !data?.ok) {
         setSendError(
           data?.error ??
-            "No se pudo enviar automáticamente. Escríbenos a javierespinosa1995@hotmail.com con tu selección."
+            `No se pudo enviar automáticamente. Escríbenos a ${SITE_CONFIG.contactEmail} con tu selección.`
         );
         return;
       }

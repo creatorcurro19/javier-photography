@@ -1,4 +1,5 @@
 import type { PhotoCategory } from "@/types/photo";
+import { WORKS } from "@/data/works";
 
 /**
  * Zonas geográficas verificadas en el archivo y biografía del autor.
@@ -418,8 +419,8 @@ export const SERVICE_LANDINGS: ServiceLanding[] = [
         a: "Sí. Para proyectos de interiorismo, hoteles o adquisiciones de 3 o más obras (series y dípticos), se elabora una propuesta a medida con asesoramiento de formatos y papeles.",
       },
       {
-        q: "¿Puedo adquirir cualquiera de las 100 obras directamente online?",
-        a: "Sí. Las 100 obras del archivo cuentan con valoración individual y compra directa inmediata desde su ficha o desde el catálogo Fine Art (/prints).",
+        q: `¿Puedo adquirir cualquiera de las ${WORKS.length} obras directamente online?`,
+        a: `Sí. Las ${WORKS.length} obras del archivo cuentan con valoración individual desde su ficha o desde el catálogo Fine Art (/prints).`,
       },
     ],
     primaryCta: {

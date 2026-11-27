@@ -1,4 +1,5 @@
 import "server-only";
+import { SITE_CONFIG } from "@/data/site-config";
 import type { Photo } from "@/types/photo";
 
 interface JpegAuthorMetadata {
@@ -167,12 +168,12 @@ export function embedAuthorMetadataInBase64Jpeg(
       ? `${photo.location}${photo.country && !photo.location.includes(photo.country) ? `, ${photo.country}` : ""}`
       : "Tenerife, España";
     const stamped = injectLosslessJpegMetadata(rawBuf, {
-      artist: "Javier Espinosa Martínez",
-      creator: "Javier Espinosa Martínez",
-      copyright: `© ${photo.year} Javier Espinosa Martínez. Todos los derechos reservados · https://javier-photography.vercel.app/portfolio/${photo.slug}`,
+      artist: SITE_CONFIG.authorName,
+      creator: SITE_CONFIG.authorName,
+      copyright: `© ${photo.year} ${SITE_CONFIG.authorName}. Todos los derechos reservados · ${SITE_CONFIG.siteUrl}/portfolio/${photo.slug}`,
       title: photo.title,
-      description: `${photo.title} — ${photo.description} (${loc}) · Fotografía de Javier Espinosa Martínez`,
-      webUrl: `https://javier-photography.vercel.app/portfolio/${photo.slug}`,
+      description: `${photo.title} — ${photo.description} (${loc}) · Fotografía de ${SITE_CONFIG.authorName}`,
+      webUrl: `${SITE_CONFIG.siteUrl}/portfolio/${photo.slug}`,
       location: photo.location || "Tenerife",
       country: photo.country || "España",
       keywords: Array.from(

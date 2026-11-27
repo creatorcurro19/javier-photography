@@ -153,7 +153,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: true, provider: "resend", confirmationSent: true });
     }
 
-    // 2. FormSubmit AJAX relay directo a javierespinosa1995@hotmail.com
+    // 2. FormSubmit AJAX relay directo a DESTINATION_EMAIL
     const relay = await relayWithFormSubmit(
       {
         _subject: subject,
@@ -178,7 +178,7 @@ export async function POST(request: Request) {
           ok: false,
           needsActivation: true,
           error:
-            "FormSubmit ha enviado un correo de activación a javierespinosa1995@hotmail.com. Revisa tu bandeja de entrada o correo no deseado y haz clic en 'Activate Form'.",
+            `FormSubmit ha enviado un correo de activación a ${DESTINATION_EMAIL}. Revisa tu bandeja de entrada o correo no deseado y haz clic en 'Activate Form'.`,
           destinationEmail: DESTINATION_EMAIL,
         },
         { status: 200 }

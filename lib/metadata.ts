@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
+import { SITE_CONFIG } from "@/data/site-config";
 import { CATEGORY_METADATA, type Photo } from "@/types/photo";
 
-export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "https://javier-photography.vercel.app");
-const SITE_NAME = "Javier Espinosa Fotografía";
+export const SITE_URL = SITE_CONFIG.siteUrl;
+const SITE_NAME = SITE_CONFIG.siteName;
 const DEFAULT_OG = "/opengraph-image";
 
 export function absoluteUrl(path: string): string {

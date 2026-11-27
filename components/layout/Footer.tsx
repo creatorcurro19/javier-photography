@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { SITE_CONFIG } from "@/data/site-config";
 import { useLanguage } from "@/lib/i18n";
 
 export default function Footer() {
@@ -39,7 +40,7 @@ export default function Footer() {
             <Link href="/about" className="hover:text-[#C5A880] transition">Sobre mí</Link>
             <Link href="/contact" className="hover:text-[#C5A880] transition">Contacto</Link>
             <a
-              href="https://www.instagram.com/Javier.espinosa19/"
+              href={SITE_CONFIG.social.instagram}
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#C5A880] hover:text-white transition"
@@ -54,7 +55,7 @@ export default function Footer() {
           <p>© {new Date().getFullYear()} Javier Espinosa Martínez. {t("Archivo fotográfico original protegido por derechos de autor.", "Original photographic archive protected by copyright.")}</p>
           <div className="flex flex-wrap items-center gap-x-3.5 gap-y-2">
             <a
-              href="https://www.saatchiart.com/javier-espinosa-photography"
+              href={SITE_CONFIG.social.saatchi}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-[#EBE7DF] transition"
@@ -63,7 +64,7 @@ export default function Footer() {
             </a>
             <span aria-hidden="true">·</span>
             <a
-              href="https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image"
+              href={SITE_CONFIG.social.getty}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-[#EBE7DF] transition"

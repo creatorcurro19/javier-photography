@@ -2,7 +2,7 @@ import type { Photo, Project } from "@/types/photo";
 
 /**
  * ÚNICA FUENTE DE VERDAD DEL ARCHIVO FOTOGRÁFICO (/data/works.ts)
- * Contiene las obras verificadas y las 8 series monográficas.
+ * Contiene las obras verificadas y las series monográficas.
  * Todas las páginas, componentes, sitemaps, schemas JSON-LD y validadores de pedido leen de este módulo.
  */
 

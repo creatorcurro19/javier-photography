@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState, Suspense, useCallback } from "react";
 import { getSavedWorks } from "@/components/photo/FavoriteButton";
+import { SITE_CONFIG } from "@/data/site-config";
 import { trackEvent } from "@/lib/analytics";
 
 interface SearchParamsSyncProps {
@@ -140,14 +141,14 @@ export default function ContactForm() {
     []
   );
 
-  const mailtoLink = `mailto:javierespinosa1995@hotmail.com?subject=${encodeURIComponent(
+  const mailtoLink = `mailto:${SITE_CONFIG.contactEmail}?subject=${encodeURIComponent(
     `[WEB · ${formData.motivo.toUpperCase()}] Consulta de ${formData.nombre || "Interesado"}`
   )}&body=${encodeURIComponent(
     `Nombre: ${formData.nombre}\nEmail: ${formData.email}\nTeléfono: ${formData.telefono || "No indicado"}\nMotivo: ${formData.motivo}\nReferencia / Obra: ${formData.referencia || "General"}\n\nMensaje:\n${formData.mensaje}`
   )}`;
 
   const handleCopy = () => {
-    const textToCopy = `Para: javierespinosa1995@hotmail.com\nAsunto: [WEB · ${formData.motivo.toUpperCase()}] Consulta de ${formData.nombre}\n\nNombre: ${formData.nombre}\nEmail: ${formData.email}\nTeléfono: ${formData.telefono || "No indicado"}\nReferencia: ${formData.referencia || "General"}\n\nMensaje:\n${formData.mensaje}`;
+    const textToCopy = `Para: ${SITE_CONFIG.contactEmail}\nAsunto: [WEB · ${formData.motivo.toUpperCase()}] Consulta de ${formData.nombre}\n\nNombre: ${formData.nombre}\nEmail: ${formData.email}\nTeléfono: ${formData.telefono || "No indicado"}\nReferencia: ${formData.referencia || "General"}\n\nMensaje:\n${formData.mensaje}`;
     navigator.clipboard.writeText(textToCopy);
     setCopied(true);
     setTimeout(() => setCopied(false), 3000);
@@ -203,7 +204,7 @@ export default function ContactForm() {
       // 2. Direct client-side relay to FormSubmit as seamless fallback
       try {
         const clientRelay = await fetch(
-          "https://formsubmit.co/ajax/javierespinosa1995@hotmail.com",
+          `https://formsubmit.co/ajax/${SITE_CONFIG.contactEmail}`,
           {
             method: "POST",
             headers: {
@@ -261,7 +262,7 @@ export default function ContactForm() {
         <p className="mt-3 text-sm leading-relaxed text-[#8E8A80] font-light max-w-lg mx-auto">
           Gracias por contactar, {formData.nombre}. Su mensaje ha sido registrado para{" "}
           <strong className="text-[#EBE7DF] font-medium">Javier Espinosa Martínez</strong> en{" "}
-          <span className="font-mono text-[#EBE7DF]">javierespinosa1995@hotmail.com</span>.
+          <span className="font-mono text-[#EBE7DF]">{SITE_CONFIG.contactEmail}</span>.
           Recibirá respuesta orientativa en su correo{" "}
           <span className="font-mono text-[#EBE7DF]">{formData.email}</span> en un plazo estimado de 24 a 48 horas laborables.
         </p>
@@ -308,7 +309,7 @@ export default function ContactForm() {
         </h3>
         <p className="mt-3 text-sm leading-relaxed text-[#8E8A80] font-light max-w-lg mx-auto">
           Los datos de su consulta están listos y organizados. Para garantizar la recepción inmediata sin intermediarios técnicos, puede despacharlo directamente a{" "}
-          <strong className="text-[#EBE7DF] font-medium font-mono">javierespinosa1995@hotmail.com</strong>.
+          <strong className="text-[#EBE7DF] font-medium font-mono">{SITE_CONFIG.contactEmail}</strong>.
         </p>
 
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -536,7 +537,7 @@ export default function ContactForm() {
           <p className="font-mono text-[11px] text-[#A39E93]">
             Respuesta en 24–48 h laborables ·{" "}
             <span className="text-[#EBE7DF]">
-              javierespinosa1995@hotmail.com
+              {SITE_CONFIG.contactEmail}
             </span>
           </p>
         </div>

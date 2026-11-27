@@ -75,7 +75,7 @@ const FILE_HEADER = `import type { Photo, Project } from "@/types/photo";
 
 /**
  * ÚNICA FUENTE DE VERDAD DEL ARCHIVO FOTOGRÁFICO (/data/works.ts)
- * Contiene las obras verificadas y las 8 series monográficas.
+ * Contiene las obras verificadas y las series monográficas.
  * Todas las páginas, componentes, sitemaps, schemas JSON-LD y validadores de pedido leen de este módulo.
  */
 `;
@@ -313,7 +313,7 @@ export async function commitFilesToGithub(
         parents: [latestCommitSha],
         author: {
           name: "Javier Espinosa",
-          email: "javierespinosa1995@hotmail.com",
+          email: inMemorySiteSettings.contactEmail || "javierespinosa1995@hotmail.com",
         },
       }),
     });
@@ -776,6 +776,34 @@ export interface SiteSettings {
 }
 
 export const SITE_SETTINGS: SiteSettings = ${JSON.stringify(settings, null, 2)};
+
+const DEFAULT_SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? "https://" + process.env.VERCEL_PROJECT_PRODUCTION_URL
+    : "https://javier-photography.vercel.app");
+
+export const SITE_CONFIG = {
+  siteUrl: DEFAULT_SITE_URL,
+  siteHost: DEFAULT_SITE_URL.replace(/^https?:\\/\\//, "").replace(/\\/$/, ""),
+  siteName: "Javier Espinosa Fotografía",
+  authorName: "Javier Espinosa Martínez",
+  contactEmail: SITE_SETTINGS.contactEmail,
+  locationLabel: SITE_SETTINGS.locationLabel,
+  social: {
+    instagram: SITE_SETTINGS.instagramUrl,
+    saatchi: "https://www.saatchiart.com/javier-espinosa-photography",
+    getty:
+      "https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image",
+  },
+  plazos: {
+    copias: "El plazo de producción y entrega se confirma al aceptar el pedido.",
+    reportajes: "Los plazos de entrega se acuerdan en el presupuesto.",
+    rallyPrensa: "Entrega prioritaria para prensa, a convenir.",
+    respuesta: "Respondo personalmente a cada consulta lo antes posible.",
+    tabla: "A confirmar",
+  },
+} as const;
 
 export const CUADERNO_POSTS: CuadernoPost[] = ${JSON.stringify(posts, null, 2)};
 `;

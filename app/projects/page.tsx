@@ -57,7 +57,7 @@ export default function ProjectsPage() {
             Series Fotográficas
           </h1>
           <p className="mt-6 text-base sm:text-lg leading-relaxed text-[#8E8A80] font-light">
-            Hay lugares y temas que no caben en una sola foto. Esta sección reúne ocho series trabajadas con más calma: oficios que siguen vivos, pueblos de piedra y madera en La Vera, la niebla y la costa volcánica de Canarias, los talleres de Marrakech, el desierto, la fauna silvestre y los rallies de clásicos.
+            Hay lugares y temas que no caben en una sola foto. Esta sección reúne {projects.length} series trabajadas con más calma: oficios que siguen vivos, pueblos de piedra y madera en La Vera, la niebla y la costa volcánica de Canarias, los talleres de Marrakech, el desierto, la fauna y los rallies de clásicos.
           </p>
         </header>
 

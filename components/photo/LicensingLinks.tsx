@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SITE_CONFIG } from "@/data/site-config";
 import type { Photo } from "@/types/photo";
 
 type LicensingLinksProps = {
@@ -26,7 +27,7 @@ export default function LicensingLinks({ photo }: LicensingLinksProps) {
       </p>
       <div className="mt-8 flex flex-wrap gap-3">
         <a
-          href="https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image"
+          href={SITE_CONFIG.social.getty}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center border border-[#EBE7DF] bg-[#EBE7DF] px-6 py-3 text-xs uppercase tracking-[0.22em] text-[#0B0C0E] font-semibold transition hover:bg-transparent hover:text-white"

@@ -1,3 +1,4 @@
+import { SITE_CONFIG } from "@/data/site-config";
 import { absoluteUrl } from "@/lib/metadata";
 import {
   CATEGORY_METADATA,
@@ -38,7 +39,7 @@ export function generatePersonSchema() {
     ],
     url: absoluteUrl("/"),
     image: absoluteUrl("/images/portfolio/hero/hero.jpg"),
-    email: "mailto:javierespinosa1995@hotmail.com",
+    email: `mailto:${SITE_CONFIG.contactEmail}`,
     jobTitle:
       "Fotógrafo Independiente & Fine Art Photographer — Naturaleza, Paisajes, Arquitectura y Cultura",
     description:
@@ -84,9 +85,9 @@ export function generatePersonSchema() {
       ],
     },
     sameAs: [
-      "https://www.instagram.com/Javier.espinosa19/",
-      "https://www.saatchiart.com/javier-espinosa-photography",
-      "https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image",
+      SITE_CONFIG.social.instagram,
+      SITE_CONFIG.social.saatchi,
+      SITE_CONFIG.social.getty,
     ],
   };
 }
@@ -401,7 +402,7 @@ export function generateServiceSchema() {
     name: "Javier Espinosa Martínez — Servicios Fotográficos y Obra Fine Art",
     url: absoluteUrl("/servicios"),
     image: absoluteUrl("/images/portfolio/coches-rally/cruzada-sobre-el-asfalto.jpg"),
-    email: "javierespinosa1995@hotmail.com",
+    email: SITE_CONFIG.contactEmail,
     priceRange: "€€",
     areaServed: [
       { "@type": "Country", name: "España" },
