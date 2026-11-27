@@ -94,7 +94,7 @@ function buildItemsTableHtml(order: CartOrder): string {
       ? `
       <tr>
         <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);font-size:12px;color:#8E8A80;">
-          Envío asegurado en tubo rígido (${order.shippingZone === "canarias" ? "Canarias" : order.shippingZone === "peninsula" ? "Península y Baleares" : "Internacional"})
+          Envío asegurado en tubo rígido (${order.shippingZone === "canarias" ? "Canarias" : order.shippingZone === "peninsula" ? "Península y Baleares" : order.shippingZone === "europa" ? "Unión Europea y Europa" : "Estados Unidos y Resto del Mundo"})
         </td>
         <td align="right" style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);font-family:monospace;font-size:13px;color:#EBE7DF;">
           ${order.shippingCost === 0 ? "Gratis (incluido)" : `${order.shippingCost} €`}

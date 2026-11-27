@@ -89,15 +89,22 @@ export default function CondicionesPageContent() {
                   ·{" "}
                   <strong className="text-[#EBE7DF]">
                     {t(
-                      "España Peninsular y Baleares: 15 €",
-                      "Mainland Spain & Balearic Islands: €15"
+                      "España Peninsular y Baleares: 18 €",
+                      "Mainland Spain & Balearic Islands: €18"
                     )}
                   </strong>{" "}
                   ·{" "}
                   <strong className="text-[#EBE7DF]">
                     {t(
-                      "Unión Europea e Internacional: 28 €",
-                      "United States, EU & Worldwide: €28"
+                      "Unión Europea y Europa: 32 €",
+                      "European Union & Europe: €32"
+                    )}
+                  </strong>{" "}
+                  ·{" "}
+                  <strong className="text-[#EBE7DF]">
+                    {t(
+                      "Estados Unidos y Resto del Mundo: 48 €",
+                      "United States & Worldwide: €48"
                     )}
                   </strong>
                   .
@@ -123,8 +130,8 @@ export default function CondicionesPageContent() {
                     {t("Impuestos aplicables y envíos:", "Applicable taxes and shipments:")}
                   </strong>{" "}
                   {t(
-                    "Los impuestos aplicables se indican al confirmar el pedido. En envíos fuera de Canarias (Península, Baleares e Internacional), las entregas se realizan mediante correo postal certificado en tubo rígido.",
-                    "Applicable taxes are indicated upon order confirmation. For deliveries outside the Canary Islands (Mainland Spain, Balearic Islands, and International), orders ship via registered postal service in a rigid tube."
+                    "Los impuestos aplicables se indican al confirmar el pedido. En envíos fuera de Canarias (Península, Baleares, Europa y EE. UU. / Internacional), las entregas se realizan mediante envío certificado y asegurado en tubo rígido con la declaración aduanera correspondiente desde origen.",
+                    "Applicable taxes are indicated upon order confirmation. For deliveries outside the Canary Islands (Mainland Spain, Balearic Islands, Europe, and US / Worldwide), orders ship via insured registered delivery in a rigid tube with origin export customs declaration (HS 4911.91 for Fine Art prints)."
                   )}
                 </li>
                 <li>

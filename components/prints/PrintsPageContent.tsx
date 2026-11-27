@@ -97,8 +97,8 @@ export default function PrintsPageContent({
               <p className="mt-1 text-[#A39E93] font-light">
                 {plazos.copias}{" "}
                 {t(
-                  "Envío en tubo rígido sin marco (Canarias 0 € · Península 15 € · UE 28 €).",
-                  `Unframed rigid tube shipping (Canary Islands €0 · Mainland Spain €15 · US, EU & Worldwide €28 / ${formatApproxUsd(28, usdRate)}).`
+                  "Envío en tubo rígido sin marco (Canarias 0 € · Península 18 € · UE 32 € · EE. UU. y Resto 48 €).",
+                  `Unframed rigid tube shipping (Canary Islands €0 · Mainland Spain €18 · Europe €32 · United States & Worldwide €48 / ${formatApproxUsd(48, usdRate)}).`
                 )}
               </p>
             </div>
@@ -156,8 +156,16 @@ export default function PrintsPageContent({
             </tbody>
           </table>
         </div>
+        {PAGOS_ACTIVOS && (
+          <p className="mt-2 font-mono text-[10px] text-[#A39E93]">
+            {t(
+              "Envío en tubo rígido desde Tenerife: Canarias 0 € · Península y Baleares 18 € · Europa 32 € · EE. UU. y Resto del Mundo 48 €.",
+              `Insured rigid tube shipping from Tenerife: Canary Islands €0 · Mainland Spain €18 · Europe €32 (${formatApproxUsd(32, usdRate)}) · United States & Worldwide €48 (${formatApproxUsd(48, usdRate)}).`
+            )}
+          </p>
+        )}
         {lang === "en" && (
-          <p className="mt-2 font-mono text-[10px] text-[#8E8A80]">
+          <p className="mt-1.5 font-mono text-[10px] text-[#8E8A80]">
             Approximate USD equivalents use the European Central Bank reference rate; final checkout is billed in EUR.
           </p>
         )}

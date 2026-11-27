@@ -242,24 +242,24 @@ export function generatePhotoSchema(rawPhoto: Photo, lang: SiteLang = "es") {
         "@type": "OfferShippingDetails",
         shippingRate: {
           "@type": "MonetaryAmount",
-          value: "28.00",
+          value: "48.00",
           currency: "EUR",
         },
         shippingDestination: {
           "@type": "DefinedRegion",
-          addressCountry: "US",
+          addressCountry: ["US", "CA", "AU", "JP", "MX"],
         },
       },
       {
         "@type": "OfferShippingDetails",
         shippingRate: {
           "@type": "MonetaryAmount",
-          value: "28.00",
+          value: "32.00",
           currency: "EUR",
         },
         shippingDestination: {
           "@type": "DefinedRegion",
-          addressCountry: ["GB", "CA", "DE", "FR", "IT", "NL"],
+          addressCountry: ["GB", "DE", "FR", "IT", "NL", "PT", "BE", "AT", "SE", "IE"],
         },
       },
       {
@@ -279,7 +279,7 @@ export function generatePhotoSchema(rawPhoto: Photo, lang: SiteLang = "es") {
         "@type": "OfferShippingDetails",
         shippingRate: {
           "@type": "MonetaryAmount",
-          value: "15.00",
+          value: "18.00",
           currency: "EUR",
         },
         shippingDestination: {

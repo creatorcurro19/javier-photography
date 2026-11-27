@@ -8,7 +8,7 @@ import { getPlazos, PLAZOS } from "@/data/plazos";
 import { translateMaxFormatReason, type SiteLang } from "@/lib/i18n-helpers";
 import type { Photo } from "@/types/photo";
 
-export type ShippingZoneId = "canarias" | "peninsula" | "internacional";
+export type ShippingZoneId = "canarias" | "peninsula" | "europa" | "internacional";
 
 export interface ShippingZone {
   id: ShippingZoneId;
@@ -30,16 +30,23 @@ export const SHIPPING_ZONES: Record<ShippingZoneId, ShippingZone> = {
   peninsula: {
     id: "peninsula",
     label: "España Peninsular y Baleares",
-    cost: 15,
-    taxNote: "+ 15 € envío en tubo rígido · Los impuestos aplicables se indican al confirmar el pedido",
+    cost: 18,
+    taxNote: "+ 18 € envío certificado desde Tenerife · Los impuestos aplicables se indican al confirmar el pedido",
     deliveryDays: `Correo certificado en tubo rígido · ${PLAZOS.tabla}`,
+  },
+  europa: {
+    id: "europa",
+    label: "Unión Europea y Europa",
+    cost: 32,
+    taxNote: "+ 32 € envío europeo certificado desde Tenerife · Los impuestos aplicables se indican al confirmar el pedido",
+    deliveryDays: `Envío europeo en tubo rígido · ${PLAZOS.tabla}`,
   },
   internacional: {
     id: "internacional",
-    label: "Unión Europea e Internacional",
-    cost: 28,
-    taxNote: "+ 28 € envío internacional en tubo rígido · Los impuestos aplicables se indican al confirmar el pedido",
-    deliveryDays: `Envío internacional en tubo rígido · ${PLAZOS.tabla}`,
+    label: "Estados Unidos y Resto del Mundo",
+    cost: 48,
+    taxNote: "+ 48 € envío aéreo asegurado desde Tenerife (EE. UU. HTS 4911.91) · Tasas o condiciones en destino confirmadas al tramitar",
+    deliveryDays: `Envío aéreo asegurado en tubo rígido · ${PLAZOS.tabla}`,
   },
 };
 
@@ -57,16 +64,23 @@ export function getShippingZones(lang: SiteLang): Record<ShippingZoneId, Shippin
     peninsula: {
       id: "peninsula",
       label: "Mainland Spain & Balearic Islands",
-      cost: 15,
-      taxNote: "+ €15 rigid tube shipping · Applicable taxes are confirmed upon order confirmation",
+      cost: 18,
+      taxNote: "+ €18 registered tube shipping from Tenerife · Applicable taxes confirmed upon order",
       deliveryDays: `Registered post in rigid tube · ${p.tabla}`,
+    },
+    europa: {
+      id: "europa",
+      label: "European Union & Europe",
+      cost: 32,
+      taxNote: "+ €32 European registered tube shipping from Tenerife · Applicable taxes confirmed upon order",
+      deliveryDays: `European registered tube shipping · ${p.tabla}`,
     },
     internacional: {
       id: "internacional",
-      label: "United States, EU & Worldwide",
-      cost: 28,
-      taxNote: "+ €28 US & international rigid tube shipping · Applicable taxes are confirmed upon order confirmation",
-      deliveryDays: `US & international rigid tube shipping · ${p.tabla}`,
+      label: "United States & Worldwide",
+      cost: 48,
+      taxNote: "+ €48 insured air tube shipping from Tenerife (US HTS 4911.91 Fine Art prints) · Destination import terms confirmed upon order",
+      deliveryDays: `Insured air rigid tube shipping · ${p.tabla}`,
     },
   };
 }

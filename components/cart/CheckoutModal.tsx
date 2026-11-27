@@ -236,7 +236,7 @@ export default function CheckoutModal({
             <label className="block font-mono text-[10px] uppercase tracking-[0.25em] text-[#C5A880] mb-2">
               {t("Zona de Envío en Tubo Rígido e Impuestos:", "Rigid Tube Shipping Zone & Taxes:")}
             </label>
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               {(Object.keys(localizedZones) as ShippingZoneId[]).map((zId) => {
                 const z = localizedZones[zId];
                 const active = shippingZone === zId;

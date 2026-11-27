@@ -228,6 +228,7 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
     expect(printsEnHtml).toContain("€");
     expect(printsEnHtml).toContain("~$");
     expect(printsEnHtml).toContain("USD");
+    expect(printsEnHtml).toContain("€48");
 
     const workEs = await request.get("/portfolio/mirada-del-lince-boreal");
     expect(workEs.status()).toBe(200);
@@ -238,6 +239,9 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
     const workEnHtml = await workEn.text();
     expect(workEnHtml).toContain("~$");
     expect(workEnHtml).toContain("USD");
+    expect(workEnHtml).toContain('"value":"48.00"');
+    expect(workEnHtml).toContain('"value":"32.00"');
+    expect(workEnHtml).toContain('"value":"18.00"');
 
     const checkoutEnRes = await request.post("/api/checkout", {
       data: {
@@ -285,6 +289,51 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
     const checkoutEn = await checkoutEnRes.json();
     expect(checkoutEn.ok).toBe(true);
     expect(checkoutEn.orderId).toBe("JE-2026-8888");
+
+    const checkoutEuRes = await request.post("/api/checkout", {
+      data: {
+        lang: "en",
+        orderId: "JE-2026-8889",
+        customer: {
+          nombre: "EU Collector",
+          email: "eu@example.com",
+          telefono: "+33 600000000",
+          direccion: "10 Rue de Rivoli",
+          ciudad: "Paris",
+          codigoPostal: "75001",
+          pais: "France",
+        },
+        shippingZone: "europa",
+        items: [
+          {
+            id: "mirada-del-lince-boreal-galeria-print",
+            photoId: "fn-02",
+            slug: "mirada-del-lince-boreal",
+            title: "Mirada del lince boreal",
+            image: "/images/portfolio/fauna-naturaleza/mirada-del-lince-boreal.jpg",
+            category: "fauna-naturaleza",
+            format: {
+              id: "galeria",
+              name: "Gallery Format",
+              dimensions: "50 × 70 cm",
+              imageDimensions: "40 × 60 cm",
+              price: 185,
+              framePrice: 0,
+              editionLimit: 25,
+            },
+            framed: false,
+            quantity: 1,
+            unitPrice: 185,
+            totalPrice: 185,
+          },
+        ],
+        subtotal: 185,
+        shippingCost: 32,
+        total: 217,
+      },
+    });
+    expect(checkoutEuRes.status()).toBe(200);
+    expect((await checkoutEuRes.json()).ok).toBe(true);
   });
 
   test("Versión App PWA de /admin y endpoint protegido de prueba push", async ({

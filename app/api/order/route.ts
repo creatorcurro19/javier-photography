@@ -136,7 +136,7 @@ export async function POST(request: Request) {
         Email: customer.email,
         Telefono: customer.telefono,
         Direccion_Envio: `${customer.direccion}, ${customer.codigoPostal} ${customer.ciudad} (${customer.pais})`,
-        Total_Pedido: `${subtotal} €`,
+        Total_Pedido: `${total} € (incl. ${shippingCost} € envío)`,
         Obras: itemsSummary,
         Notas: customer.notas || "Ninguna",
       },
