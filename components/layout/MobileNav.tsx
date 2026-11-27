@@ -8,36 +8,32 @@ import { SITE_CONFIG } from "@/data/site-config";
 import { WORKS } from "@/data/works";
 import { PHOTO_CATEGORIES } from "@/types/photo";
 
-const primaryLinks = [
-  {
-    href: "/portfolio",
-    es: "Fotos",
-    en: "Photos",
-    noteEs: `${WORKS.length} fotos (${PHOTO_CATEGORIES.length} temas)`,
-    noteEn: `${WORKS.length} photos (${PHOTO_CATEGORIES.length} topics)`,
-  },
-  {
-    href: "/prints",
-    es: "Comprar Láminas",
-    en: "Buy Prints",
-    noteEs: "Copias en papel de algodón",
-    noteEn: "Hahnemühle cotton paper editions",
-  },
-  {
-    href: "/about",
-    es: "Sobre mí",
-    en: "About",
-    noteEs: "Mirada, equipo y forma de trabajar",
-    noteEn: "Approach, gear & way of working",
-  },
-  {
-    href: "/contact",
-    es: "Contacto",
-    en: "Contact",
-    noteEs: "Tenerife e Internacional",
-    noteEn: "Tenerife & Worldwide",
-  },
-];
+const primaryLinks = SITE_CONFIG.navigation.map((item) => {
+  const notes: Record<string, { noteEs: string; noteEn: string }> = {
+    "/portfolio": {
+      noteEs: `${WORKS.length} fotos (${PHOTO_CATEGORIES.length} colecciones)`,
+      noteEn: `${WORKS.length} photos (${PHOTO_CATEGORIES.length} collections)`,
+    },
+    "/prints": {
+      noteEs: "Copias en papel de algodón",
+      noteEn: "Hahnemühle cotton paper editions",
+    },
+    "/about": {
+      noteEs: "Mirada, equipo y forma de trabajar",
+      noteEn: "Approach, gear & way of working",
+    },
+    "/contact": {
+      noteEs: "Tenerife · Disponibilidad",
+      noteEn: "Tenerife · Availability",
+    },
+  };
+  return {
+    href: item.href,
+    es: item.labelEs,
+    en: item.labelEn,
+    ...(notes[item.href] ?? { noteEs: "", noteEn: "" }),
+  };
+});
 
 export default function MobileNav() {
   const [open, setOpen] = useState(false);
@@ -117,8 +113,7 @@ export default function MobileNav() {
             <ul className="flex flex-col gap-2">
               {primaryLinks.map((link) => {
                 const isActive =
-                  pathname === link.href ||
-                  (link.href !== "/" && pathname.startsWith(link.href));
+                  pathname === link.href || pathname.startsWith(`${link.href}/`);
 
                 return (
                   <li key={link.href}>

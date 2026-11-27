@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MobileNav from "@/components/layout/MobileNav";
 import CartButton from "@/components/cart/CartButton";
+import { SITE_CONFIG } from "@/data/site-config";
 import { useLanguage } from "@/lib/i18n";
 
 export default function Navbar() {
@@ -40,70 +41,36 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Menú Principal Minimalista: Fotos, Comprar Láminas, Sobre mí, Contacto */}
+        {/* Menú Principal Minimalista leído desde SITE_CONFIG.navigation */}
         <nav
           aria-label="Navegación principal"
           className="hidden items-center gap-6 xl:gap-8 text-xs uppercase tracking-[0.2em] lg:flex shrink-0"
         >
-          {/* 1. Fotos */}
-          <Link
-            href="/portfolio"
-            className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
-              pathname === "/portfolio" || pathname.startsWith("/portfolio/") || pathname === "/selected-work"
-                ? "text-[#EBE7DF] font-medium"
-                : "text-[#EBE7DF]/85 hover:text-white"
-            }`}
-          >
-            <span>{t("Fotos", "Photos")}</span>
-            {(pathname === "/portfolio" || pathname.startsWith("/portfolio/") || pathname === "/selected-work") && (
-              <span className="absolute bottom-1 left-0 right-0 h-px bg-[#C5A880]" />
-            )}
-          </Link>
+          {SITE_CONFIG.navigation.map((item) => {
+            const isActive =
+              item.href === "/portfolio"
+                ? pathname === "/portfolio" ||
+                  pathname.startsWith("/portfolio/") ||
+                  pathname === "/selected-work"
+                : pathname === item.href;
 
-          {/* 2. Comprar Láminas */}
-          <Link
-            href="/prints"
-            className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
-              pathname === "/prints"
-                ? "text-[#EBE7DF] font-medium"
-                : "text-[#EBE7DF]/85 hover:text-white"
-            }`}
-          >
-            {t("Comprar Láminas", "Buy Prints")}
-            {pathname === "/prints" && (
-              <span className="absolute bottom-1 left-0 right-0 h-px bg-[#C5A880]" />
-            )}
-          </Link>
-
-          {/* 3. Sobre mí */}
-          <Link
-            href="/about"
-            className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
-              pathname === "/about"
-                ? "text-[#EBE7DF] font-medium"
-                : "text-[#EBE7DF]/85 hover:text-white"
-            }`}
-          >
-            {t("Sobre mí", "About")}
-            {pathname === "/about" && (
-              <span className="absolute bottom-1 left-0 right-0 h-px bg-[#C5A880]" />
-            )}
-          </Link>
-
-          {/* 4. Contacto */}
-          <Link
-            href="/contact"
-            className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
-              pathname === "/contact"
-                ? "text-[#EBE7DF] font-medium"
-                : "text-[#EBE7DF]/85 hover:text-white"
-            }`}
-          >
-            {t("Contacto", "Contact")}
-            {pathname === "/contact" && (
-              <span className="absolute bottom-1 left-0 right-0 h-px bg-[#C5A880]" />
-            )}
-          </Link>
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`relative inline-flex min-h-[44px] items-center whitespace-nowrap py-2 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C5A880] ${
+                  isActive
+                    ? "text-[#EBE7DF] font-medium"
+                    : "text-[#EBE7DF]/85 hover:text-white"
+                }`}
+              >
+                <span>{t(item.labelEs, item.labelEn)}</span>
+                {isActive && (
+                  <span className="absolute bottom-1 left-0 right-0 h-px bg-[#C5A880]" />
+                )}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Acciones del encabezado */}

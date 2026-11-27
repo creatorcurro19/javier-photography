@@ -35,10 +35,11 @@ export default function Footer() {
           </Link>
 
           <nav aria-label="Enlaces del pie" className="flex flex-wrap items-center gap-6 text-xs uppercase tracking-[0.2em] text-[#EBE7DF]">
-            <Link href="/portfolio" className="hover:text-[#C5A880] transition">Fotos</Link>
-            <Link href="/prints" className="hover:text-[#C5A880] transition">Comprar Láminas</Link>
-            <Link href="/about" className="hover:text-[#C5A880] transition">Sobre mí</Link>
-            <Link href="/contact" className="hover:text-[#C5A880] transition">Contacto</Link>
+            {SITE_CONFIG.navigation.map((item) => (
+              <Link key={item.href} href={item.href} className="hover:text-[#C5A880] transition">
+                {t(item.labelEs, item.labelEn)}
+              </Link>
+            ))}
             <a
               href={SITE_CONFIG.social.instagram}
               target="_blank"

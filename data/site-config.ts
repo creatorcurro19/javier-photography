@@ -67,6 +67,12 @@ export const SITE_CONFIG = {
       "https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image",
   },
   plazos: PLAZOS,
+  navigation: [
+    { href: "/portfolio", labelEs: "Fotos", labelEn: "Photos" },
+    { href: "/prints", labelEs: "Comprar Láminas", labelEn: "Buy Prints" },
+    { href: "/about", labelEs: "Sobre mí", labelEn: "About" },
+    { href: "/contact", labelEs: "Contacto", labelEn: "Contact" },
+  ],
 } as const;
 
 export const CUADERNO_POSTS: CuadernoPost[] = [
