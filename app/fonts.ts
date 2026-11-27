@@ -1,38 +1,38 @@
 import localFont from "next/font/local";
 
-export const plusJakarta = localFont({
+export const dmSans = localFont({
   src: [
     {
-      path: "./fonts/plus-jakarta-sans-latin.woff2",
-      weight: "200 800",
+      path: "./fonts/dm-sans-latin.woff2",
+      weight: "100 900",
       style: "normal",
     },
     {
-      path: "./fonts/plus-jakarta-sans-italic-latin.woff2",
-      weight: "200 800",
+      path: "./fonts/dm-sans-italic-latin.woff2",
+      weight: "100 900",
       style: "italic",
     },
   ],
   display: "swap",
-  variable: "--font-plus-jakarta",
+  variable: "--font-dm-sans",
   fallback: ["system-ui", "sans-serif"],
 });
 
-export const playfair = localFont({
+export const cormorantGaramond = localFont({
   src: [
     {
-      path: "./fonts/playfair-display-latin.woff2",
-      weight: "400 900",
+      path: "./fonts/cormorant-garamond-latin.woff2",
+      weight: "300 700",
       style: "normal",
     },
     {
-      path: "./fonts/playfair-display-italic-latin.woff2",
-      weight: "400 900",
+      path: "./fonts/cormorant-garamond-italic-latin.woff2",
+      weight: "300 700",
       style: "italic",
     },
   ],
   display: "swap",
-  variable: "--font-playfair",
+  variable: "--font-cormorant",
   fallback: ["Georgia", "serif"],
 });
 

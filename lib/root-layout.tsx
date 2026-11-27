@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "@/app/globals.css";
-import { jetbrainsMono, playfair, plusJakarta } from "@/app/fonts";
+import { cormorantGaramond, dmSans, jetbrainsMono } from "@/app/fonts";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import SavedCollectionDrawer from "@/components/photo/SavedCollectionDrawer";
@@ -131,7 +131,7 @@ export function SiteRootShell({
   return (
     <html
       lang={lang}
-      className={`${plusJakarta.variable} ${playfair.variable} ${jetbrainsMono.variable}`}
+      className={`${dmSans.variable} ${cormorantGaramond.variable} ${jetbrainsMono.variable}`}
     >
       <body className="font-sans antialiased bg-[#0B0C0E] text-[#EBE7DF] leading-relaxed tracking-[0.015em] selection:bg-white/20 selection:text-white">
         <LangProvider lang={lang}>
