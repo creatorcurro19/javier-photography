@@ -1,9 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import {
-  Plus_Jakarta_Sans,
-  Playfair_Display,
-  JetBrains_Mono,
-} from "next/font/google";
+import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
@@ -18,27 +14,53 @@ import JsonLd from "@/components/seo/JsonLd";
 import { SITE_URL } from "@/lib/metadata";
 import { generatePersonSchema } from "@/lib/schema";
 
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  style: ["normal", "italic"],
+const plusJakarta = localFont({
+  src: [
+    {
+      path: "./fonts/plus-jakarta-sans-latin.woff2",
+      weight: "200 800",
+      style: "normal",
+    },
+    {
+      path: "./fonts/plus-jakarta-sans-italic-latin.woff2",
+      weight: "200 800",
+      style: "italic",
+    },
+  ],
   display: "swap",
   variable: "--font-plus-jakarta",
+  fallback: ["system-ui", "sans-serif"],
 });
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
+const playfair = localFont({
+  src: [
+    {
+      path: "./fonts/playfair-display-latin.woff2",
+      weight: "400 900",
+      style: "normal",
+    },
+    {
+      path: "./fonts/playfair-display-italic-latin.woff2",
+      weight: "400 900",
+      style: "italic",
+    },
+  ],
   display: "swap",
   variable: "--font-playfair",
+  fallback: ["Georgia", "serif"],
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
+const jetbrainsMono = localFont({
+  src: [
+    {
+      path: "./fonts/jetbrains-mono-latin.woff2",
+      weight: "100 800",
+      style: "normal",
+    },
+  ],
   display: "swap",
   variable: "--font-jetbrains-mono",
+  fallback: ["monospace"],
 });
 
 export const viewport: Viewport = {

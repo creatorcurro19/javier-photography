@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MobileNav from "@/components/layout/MobileNav";
+import LanguageToggle from "@/components/layout/LanguageToggle";
 import CartButton from "@/components/cart/CartButton";
 import { SITE_CONFIG } from "@/data/site-config";
 import { useLanguage } from "@/lib/i18n";
@@ -75,6 +76,7 @@ export default function Navbar() {
 
         {/* Acciones del encabezado */}
         <div className="flex shrink-0 items-center gap-2">
+          <LanguageToggle />
           <CartButton />
           <MobileNav />
         </div>

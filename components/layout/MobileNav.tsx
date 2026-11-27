@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/lib/i18n";
+import LanguageToggle from "@/components/layout/LanguageToggle";
 import { SITE_CONFIG } from "@/data/site-config";
 import { WORKS } from "@/data/works";
 import { PHOTO_CATEGORIES } from "@/types/photo";
@@ -85,6 +86,14 @@ export default function MobileNav() {
           className="fixed inset-x-0 top-[71px] sm:top-[87px] bottom-0 z-50 flex flex-col justify-between border-b border-white/[0.08] bg-[#0B0C0E]/98 px-5 py-6 shadow-2xl backdrop-blur-2xl overflow-y-auto no-scrollbar sm:px-8 sm:py-8"
         >
           <div>
+            {/* Selector de idioma */}
+            <div className="mb-3 flex items-center justify-between gap-3 border border-white/[0.08] bg-[#151618] px-4 py-2.5">
+              <span className="font-mono text-[10px] uppercase tracking-[0.26em] text-[#A39E93]">
+                {t("Idioma", "Language")}
+              </span>
+              <LanguageToggle />
+            </div>
+
             {/* Acceso a Cesta */}
             <button
               type="button"
