@@ -1,8 +1,8 @@
-import { BASE_PRINT_FORMATS, formatPaperDimensions } from "@/data/formatos";
 import { SITE_CONFIG } from "@/data/site-config";
-import { localizeHref, type SiteLang } from "@/lib/i18n-helpers";
+import { localizeHref, translatePaper, type SiteLang } from "@/lib/i18n-helpers";
 import { getLocalizedPhoto, getLocalizedProject } from "@/lib/i18n-works";
 import { absoluteUrl } from "@/lib/metadata";
+import { getFormatsForPhoto } from "@/types/cart";
 import {
   CATEGORY_METADATA,
   type Photo,
@@ -211,24 +211,17 @@ export function generatePhotoSchema(rawPhoto: Photo, lang: SiteLang = "es") {
   }
 
   const pricing = photo.pricing;
-  const lowPrice = pricing ? String(pricing.estudio) : "120";
-  const midPrice = pricing ? String(pricing.galeria) : "220";
-  const highPrice = pricing ? String(pricing.coleccion) : "380";
-  const dims = pricing?.dimensions ?? {
-    estudio: BASE_PRINT_FORMATS.estudio.dimensions,
-    galeria: BASE_PRINT_FORMATS.galeria.dimensions,
-    coleccion: BASE_PRINT_FORMATS.coleccion.dimensions,
-  };
+  const formats = getFormatsForPhoto(photo, lang);
   const editionTotal = pricing?.editionTotal ?? 25;
 
   schema.artform = isEn
     ? "Limited Edition Fine Art Photography"
     : "Fotografía Fine Art de Autor / Fine Art Photography";
-  schema.artMedium =
-    pricing?.paper ??
-    (isEn
+  schema.artMedium = pricing?.paper
+    ? translatePaper(pricing.paper, lang)
+    : isEn
       ? "12-pigment archival Giclée print on 100% cotton Hahnemühle Photo Rag 308 gsm"
-      : "Impresión Giclée de 12 tintas pigmentadas sobre papel 100% algodón Hahnemühle Photo Rag 308 g/m²");
+      : "Impresión Giclée de 12 tintas pigmentadas sobre papel 100% algodón Hahnemühle Photo Rag 308 g/m²";
   schema.surface = isEn
     ? "ISO 9706 Certified Archival Fine Art Paper (shipped unframed in rigid protective tube)"
     : "Papel Fine Art Certificado ISO 9706 (entrega en tubo rígido sin marco)";
@@ -298,22 +291,20 @@ export function generatePhotoSchema(rawPhoto: Photo, lang: SiteLang = "es") {
     };
 
     const offerUrl = absoluteUrl(`${localizeHref(`/portfolio/${photo.slug}`, lang)}#adquirir-copia`);
-    const labelEstudio = isEn
-      ? `${photo.title} — ${BASE_PRINT_FORMATS.estudio.nameEn} (${formatPaperDimensions(dims.estudio, "en")} · Ed. ${editionTotal} · Rigid tube)`
-      : `${photo.title} — Formato Estudio (${dims.estudio} · Ed. ${editionTotal} · Tubo rígido)`;
-    const labelGaleria = isEn
-      ? `${photo.title} — ${BASE_PRINT_FORMATS.galeria.nameEn} (${formatPaperDimensions(dims.galeria, "en")} · Ed. ${editionTotal} · Rigid tube)`
-      : `${photo.title} — Formato Galería (${dims.galeria} · Ed. ${editionTotal} · Tubo rígido)`;
-    const labelColeccion = isEn
-      ? `${photo.title} — ${BASE_PRINT_FORMATS.coleccion.nameEn} (${formatPaperDimensions(dims.coleccion, "en")} · Ed. ${editionTotal} · Rigid tube)`
-      : `${photo.title} — Gran Colección (${dims.coleccion} · Ed. ${editionTotal} · Tubo rígido)`;
+    const availableFormats = ([formats.estudio, formats.galeria, formats.coleccion]).filter(
+      (fmt) => !fmt.disabled
+    );
+    const prices = availableFormats.map((fmt) => fmt.price);
+    const lowPrice = String(Math.min(...prices));
+    const highPrice = String(Math.max(...prices));
+    const tubeTag = isEn ? "Rigid tube" : "Tubo rígido";
 
     schema.offers = {
       "@type": "AggregateOffer",
       priceCurrency: "EUR",
       lowPrice,
       highPrice,
-      offerCount: "3",
+      offerCount: String(availableFormats.length),
       availability: "https://schema.org/InStock",
       itemCondition: "https://schema.org/NewCondition",
       url: offerUrl,
@@ -324,41 +315,17 @@ export function generatePhotoSchema(rawPhoto: Photo, lang: SiteLang = "es") {
       },
       shippingDetails,
       hasMerchantReturnPolicy: merchantReturnPolicy,
-      offers: [
-        {
-          "@type": "Offer",
-          name: labelEstudio,
-          price: lowPrice,
-          priceCurrency: "EUR",
-          priceValidUntil: "2027-12-31",
-          availability: "https://schema.org/InStock",
-          url: offerUrl,
-          shippingDetails,
-          hasMerchantReturnPolicy: merchantReturnPolicy,
-        },
-        {
-          "@type": "Offer",
-          name: labelGaleria,
-          price: midPrice,
-          priceCurrency: "EUR",
-          priceValidUntil: "2027-12-31",
-          availability: "https://schema.org/InStock",
-          url: offerUrl,
-          shippingDetails,
-          hasMerchantReturnPolicy: merchantReturnPolicy,
-        },
-        {
-          "@type": "Offer",
-          name: labelColeccion,
-          price: highPrice,
-          priceCurrency: "EUR",
-          priceValidUntil: "2027-12-31",
-          availability: "https://schema.org/InStock",
-          url: offerUrl,
-          shippingDetails,
-          hasMerchantReturnPolicy: merchantReturnPolicy,
-        },
-      ],
+      offers: availableFormats.map((fmt) => ({
+        "@type": "Offer",
+        name: `${photo.title} — ${fmt.name} (${fmt.dimensions} · Ed. ${editionTotal} · ${tubeTag})`,
+        price: String(fmt.price),
+        priceCurrency: "EUR",
+        priceValidUntil: "2027-12-31",
+        availability: "https://schema.org/InStock",
+        url: offerUrl,
+        shippingDetails,
+        hasMerchantReturnPolicy: merchantReturnPolicy,
+      })),
     };
   }
 

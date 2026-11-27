@@ -82,8 +82,19 @@ export function normalizeOrder(raw: unknown): OrderValidationResult {
     const format = formatId && photoFormats ? photoFormats[formatId] : undefined;
     const quantity = Math.floor(Number(rawItem?.quantity));
 
-    if (!photo || !format || !Number.isFinite(quantity) || quantity < 1 || quantity > MAX_QTY_PER_ITEM) {
-      return { ok: false, error: "Una de las obras de la cesta no es válida. Vacía la cesta y vuelve a añadirla." };
+    if (
+      !photo ||
+      !photo.prints ||
+      !format ||
+      format.disabled ||
+      !Number.isFinite(quantity) ||
+      quantity < 1 ||
+      quantity > MAX_QTY_PER_ITEM
+    ) {
+      return {
+        ok: false,
+        error: "Una de las obras o formatos seleccionados no está disponible para pedido directo.",
+      };
     }
 
     // Venta exclusiva de impresión Fine Art sin enmarcar enviada en tubo rígido

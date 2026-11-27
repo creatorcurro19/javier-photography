@@ -157,6 +157,14 @@ export function translatePaper(paper: string, lang: SiteLang): string {
   return "Hahnemühle Photo Rag® 308g / Canson Rag Photographique 310g (100% Cotton Matte)";
 }
 
+function dimsWithInches(dims: string): string {
+  const nums = dims.match(/\d+(?:[.,]\d+)?/g);
+  if (!nums || nums.length < 2) return dims;
+  const wIn = Math.round((parseFloat(nums[0].replace(",", ".")) / 2.54) * 10) / 10;
+  const hIn = Math.round((parseFloat(nums[1].replace(",", ".")) / 2.54) * 10) / 10;
+  return `${dims} (${wIn} × ${hIn} in)`;
+}
+
 export function translateMaxFormatReason(
   reason: string | undefined,
   lang: SiteLang
@@ -168,25 +176,25 @@ export function translateMaxFormatReason(
   );
   if (m) {
     const aiNote = reason.includes("con reducción de ruido AI") ? " with AI noise reduction" : "";
-    return `${m[1].replace(",", ".")} master file${aiNote} (ISO ${m[2]}) suitable for enlargement up to Grand Collection (${m[3]}).`;
+    return `${m[1].replace(",", ".")} master file${aiNote} (ISO ${m[2]}) suitable for enlargement up to Grand Collection (${dimsWithInches(m[3])}).`;
   }
 
   m = reason.match(
     /^Captura nocturna o en penumbra a ISO (\d+): formato máximo recomendado Galería \(([^)]+)\).*$/
   );
   if (m) {
-    return `Night or low-light capture at ISO ${m[1]}: maximum recommended format is Gallery (${m[2]}) to preserve organic film-like grain texture without over-enlarging to 70 × 100 cm.`;
+    return `Night or low-light capture at ISO ${m[1]}: maximum recommended format is Gallery (${dimsWithInches(m[2])}) to preserve organic film-like grain texture without over-enlarging.`;
   }
 
   m = reason.match(/^Captura en sombra densa a ISO (\d+): formato máximo recomendado Galería \(([^)]+)\).*$/);
   if (m) {
-    return `Deep-shade capture at ISO ${m[1]}: maximum recommended format is Gallery (${m[2]}) to preserve fine feather detail.`;
+    return `Deep-shade capture at ISO ${m[1]}: maximum recommended format is Gallery (${dimsWithInches(m[2])}) to preserve fine feather detail.`;
   }
 
   if (reason.includes("750D")) {
     m = reason.match(/Galería \(([^)]+)\)/);
     const dims = m ? m[1] : "50 × 70 cm";
-    return `Original Canon EOS 750D sensor (24.2 MP): maximum recommended format is Gallery (${dims}) to ensure optical print density ≥ 240 ppi. 70 × 100 cm is unavailable for this work.`;
+    return `Original Canon EOS 750D sensor (24.2 MP): maximum recommended format is Gallery (${dimsWithInches(dims)}) to ensure optical print density ≥ 240 ppi. Larger formats are unavailable for this work.`;
   }
 
   return reason;

@@ -10,8 +10,14 @@ import {
   AndalusianPageBackdrop,
   AndalusianStarMark,
 } from "@/components/ui/AndalusianMotif";
-import { BASE_PRINT_FORMATS, type getFormatPriceRanges } from "@/data/formatos";
+import {
+  BASE_PRINT_FORMATS,
+  PRINT_FORMAT_ORDER,
+  formatPaperDimensions,
+  type getFormatPriceRanges,
+} from "@/data/formatos";
 import { SITE_CONFIG } from "@/data/site-config";
+import { formatApproxUsdRange, useUsdRate } from "@/lib/currency";
 import { useLanguage } from "@/lib/i18n";
 import { getLocalizedPhoto } from "@/lib/i18n-works";
 import { CATEGORY_METADATA, type Photo } from "@/types/photo";
@@ -26,6 +32,7 @@ export default function DossierPageContent({
   priceRanges,
 }: DossierPageContentProps) {
   const { lang, t } = useLanguage();
+  const usdRate = useUsdRate(lang === "en");
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF] print:bg-white print:pt-6 print:pb-6 print:text-neutral-900">
@@ -212,30 +219,25 @@ export default function DossierPageContent({
                 {t("04 · Formatos de Colección Fine Art", "04 · Fine Art Collection Formats")}
               </h2>
               <ul className="mt-3 space-y-1.5 font-mono text-xs text-[#D4CEC3] print:text-neutral-800">
-                <li>
-                  {lang === "en"
-                    ? BASE_PRINT_FORMATS.estudio.shortNameEn
-                    : BASE_PRINT_FORMATS.estudio.shortName}{" "}
-                  ({BASE_PRINT_FORMATS.estudio.dimensions} · Ed. {priceRanges.estudio.editionMin}–
-                  {priceRanges.estudio.editionMax}) — {priceRanges.estudio.min} {t("a", "to")}{" "}
-                  {priceRanges.estudio.max} €
-                </li>
-                <li>
-                  {lang === "en"
-                    ? BASE_PRINT_FORMATS.galeria.shortNameEn
-                    : BASE_PRINT_FORMATS.galeria.shortName}{" "}
-                  ({BASE_PRINT_FORMATS.galeria.dimensions} · Ed. {priceRanges.galeria.editionMin}–
-                  {priceRanges.galeria.editionMax}) — {priceRanges.galeria.min} {t("a", "to")}{" "}
-                  {priceRanges.galeria.max} €
-                </li>
-                <li>
-                  {lang === "en"
-                    ? BASE_PRINT_FORMATS.coleccion.shortNameEn
-                    : BASE_PRINT_FORMATS.coleccion.shortName}{" "}
-                  ({BASE_PRINT_FORMATS.coleccion.dimensions} · Ed. {priceRanges.coleccion.editionMin}–
-                  {priceRanges.coleccion.editionMax}) — {priceRanges.coleccion.min} {t("a", "to")}{" "}
-                  {priceRanges.coleccion.max} €
-                </li>
+                {PRINT_FORMAT_ORDER.map((id) => {
+                  const spec = BASE_PRINT_FORMATS[id];
+                  const range = priceRanges[id];
+                  const edLabel =
+                    range.editionMin === range.editionMax
+                      ? String(range.editionMin)
+                      : `${range.editionMin}–${range.editionMax}`;
+                  const priceLabel =
+                    range.min === range.max
+                      ? `${range.min} €`
+                      : `${range.min} ${t("a", "to")} ${range.max} €`;
+                  return (
+                    <li key={id}>
+                      {lang === "en" ? spec.shortNameEn : spec.shortName} (
+                      {formatPaperDimensions(spec.dimensions, lang)} · Ed. {edLabel}) — {priceLabel}
+                      {lang === "en" ? ` (${formatApproxUsdRange(range.min, range.max, usdRate)})` : ""}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
 

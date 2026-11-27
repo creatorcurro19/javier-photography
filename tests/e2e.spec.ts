@@ -84,6 +84,37 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
       },
     });
     expect(fakePhotoRes.status()).toBe(400);
+
+    // Formato Gran Colección deshabilitado por ISO/resolución debe ser rechazado con 400
+    const disabledFormatRes = await request.post("/api/checkout", {
+      data: {
+        ...tamperedPayload,
+        items: [
+          {
+            ...tamperedPayload.items[0],
+            format: { ...tamperedPayload.items[0].format, id: "coleccion" },
+          },
+        ],
+      },
+    });
+    expect(disabledFormatRes.status()).toBe(400);
+
+    // Obra no comercializable como lámina (prints: false) debe ser rechazada con 400
+    const nonPrintableRes = await request.post("/api/checkout", {
+      data: {
+        ...tamperedPayload,
+        items: [
+          {
+            ...tamperedPayload.items[0],
+            slug: "parque-de-trabajo",
+            photoId: "cr-01",
+            image: "/images/portfolio/coches-rally/parque-de-trabajo.jpg",
+            category: "coches-rally",
+          },
+        ],
+      },
+    });
+    expect(nonPrintableRes.status()).toBe(400);
   });
 
   test("POST /api/client-gallery valida claves en servidor y rechaza códigos inválidos", async ({
@@ -244,6 +275,20 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
     expect(workEnHtml).toContain('"value":"48.00"');
     expect(workEnHtml).toContain('"value":"32.00"');
     expect(workEnHtml).toContain('"value":"18.00"');
+
+    // Obra con Gran Colección deshabilitado por ISO 6400: Schema debe publicar 2 ofertas y mostrar motivo
+    const limitedWorkEn = await request.get("/en/portfolio/cotorra-en-reposo");
+    expect(limitedWorkEn.status()).toBe(200);
+    const limitedHtml = await limitedWorkEn.text();
+    expect(limitedHtml).toContain('"offerCount":"2"');
+    expect(limitedHtml).toContain("ISO 6400");
+
+    // Dossier bilingüe sin rango duplicado Ed. 25-25 y con USD
+    const dossierEn = await request.get("/en/dossier");
+    expect(dossierEn.status()).toBe(200);
+    const dossierHtml = await dossierEn.text();
+    expect(dossierHtml).not.toContain("25–25");
+    expect(dossierHtml).toContain("USD");
 
     const checkoutEnRes = await request.post("/api/checkout", {
       data: {

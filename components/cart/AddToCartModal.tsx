@@ -27,14 +27,15 @@ export default function AddToCartModal({
   const { lang, t } = useLanguage();
   const usdRate = useUsdRate(lang === "en");
   const photo = getLocalizedPhoto(rawPhoto, lang);
-  const [selectedFormatId, setSelectedFormatId] =
-    useState<PrintFormat["id"]>("galeria");
+  const formats = getFormatsForPhoto(rawPhoto, lang);
+  const [selectedFormatId, setSelectedFormatId] = useState<PrintFormat["id"]>(() =>
+    formats.galeria.disabled ? "estudio" : "galeria"
+  );
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
 
   if (!isOpen || typeof document === "undefined") return null;
 
-  const formats = getFormatsForPhoto(rawPhoto, lang);
   const canonicalFormat = getFormatsForPhoto(rawPhoto, "es")[selectedFormatId];
   const currentFormat = formats[selectedFormatId];
   const unitPrice = currentFormat.price;

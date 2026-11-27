@@ -20,11 +20,12 @@ export default function PrintCTA({ photo: rawPhoto }: PrintCTAProps) {
   const { lang, t } = useLanguage();
   const usdRate = useUsdRate(lang === "en");
   const photo = getLocalizedPhoto(rawPhoto, lang);
-  const [selectedFormatId, setSelectedFormatId] =
-    useState<PrintFormat["id"]>("galeria");
+  const formats = getFormatsForPhoto(rawPhoto, lang);
+  const [selectedFormatId, setSelectedFormatId] = useState<PrintFormat["id"]>(() =>
+    formats.galeria.disabled ? "estudio" : "galeria"
+  );
   const [added, setAdded] = useState(false);
 
-  const formats = getFormatsForPhoto(rawPhoto, lang);
   const currentFormat = formats[selectedFormatId];
   const unitPrice = currentFormat.price;
 
@@ -206,6 +207,12 @@ export default function PrintCTA({ photo: rawPhoto }: PrintCTAProps) {
             );
           })}
         </div>
+
+        {formats.coleccion.disabled && formats.coleccion.disabledReason && (
+          <p className="rounded-lg border border-[#C5A880]/25 bg-[#0B0C0E]/70 px-3.5 py-2.5 font-mono text-[11px] leading-relaxed text-[#E5D3B3]">
+            {formats.coleccion.disabledReason}
+          </p>
+        )}
 
         <PrintWallPreview
           photo={photo}
