@@ -13,7 +13,7 @@ import { generateBreadcrumbSchema } from "@/lib/schema";
 export const metadata = buildPageMetadata({
   title: "Condiciones de Compra, Envío y Licencias | Javier Espinosa",
   description:
-    "Condiciones generales de venta de copias Fine Art en tubo rígido, impuestos (IGIC/IVA), plazos de envío, derecho de desistimiento, devoluciones y términos de licencia.",
+    "Condiciones generales de venta de copias Fine Art en tubo rígido, impuestos aplicables, envío, derecho de desistimiento, devoluciones y licencias.",
   path: "/condiciones",
 });
 
@@ -37,7 +37,14 @@ export default function CondicionesPage() {
               Condiciones de Compra, Envío y Licencias
             </h1>
             <p className="mt-4 font-mono text-xs text-[#A39E93]">
-              Titular: Javier Espinosa Martínez · NIF: 26505129K · Domicilio: Puerto de la Cruz (Santa Cruz de Tenerife, Islas Canarias, España).
+              Titular: Javier Espinosa Martínez · Domicilio e identificación fiscal en el{" "}
+              <Link
+                href="/legal"
+                className="text-[#EBE7DF] underline decoration-[#C5A880]/50 underline-offset-4 hover:text-[#C5A880]"
+              >
+                Aviso Legal (/legal)
+              </Link>
+              .
             </p>
           </header>
 
@@ -65,14 +72,15 @@ export default function CondicionesPage() {
             {/* 2. Pago e Impuestos */}
             <section id="pago-impuestos" className="space-y-3 border-t border-white/[0.08] pt-10">
               <h2 className="font-mono text-xs uppercase tracking-[0.28em] text-[#C5A880]">
-                02 / Pago, Impuestos (IGIC / IVA) y Aduanas
+                02 / Pago, Impuestos y Aduanas
               </h2>
               <p>
-                Los precios de cada obra están expresados en Euros (€) de forma individual según su ficha técnica.
+                Los precios orientativos de cada obra se muestran en Euros (€) en su ficha técnica.
               </p>
               <ul className="list-disc space-y-1.5 pl-5 text-[#A39E93]">
                 <li>
-                  <strong className="text-[#EBE7DF]">Régimen fiscal y precios:</strong> Venta particular de obra gráfica y artística de autor (creación artística independiente no sujeta a repercusión de IGIC mercantil). Los importes mostrados son precios finales para el adquirente. En envíos fuera de Canarias (Península, Baleares e Internacional), las entregas se realizan mediante correo postal certificado en tubo rígido.
+                  {/* PENDIENTE: confirmar con gestor (IGIC / REPEP / IVA) */}
+                  <strong className="text-[#EBE7DF]">Impuestos aplicables y envíos:</strong> Los impuestos aplicables se indican al confirmar el pedido. En envíos fuera de Canarias (Península, Baleares e Internacional), las entregas se realizan mediante correo postal certificado en tubo rígido.
                 </li>
                 <li>
                   <strong className="text-[#EBE7DF]">Medios de pago:</strong> Reserva directa con confirmación del autor y pago mediante transferencia bancaria o enlace de pago verificado tras confirmar disponibilidad del número de edición.

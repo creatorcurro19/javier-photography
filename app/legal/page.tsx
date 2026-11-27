@@ -251,7 +251,7 @@ export default function LegalPage() {
                 <h2>Condiciones de Compra, Envío, Desistimiento y Licencias</h2>
               </div>
               <p>
-                Consulta el detalle completo de plazos de producción, envío en tubo rígido, impuestos (IGIC / REPEP / DUA), derecho de desistimiento (y excepción en personalizados), devoluciones y términos de licencia en la página específica de{" "}
+                Consulta el detalle completo de producción, envío en tubo rígido, impuestos aplicables, derecho de desistimiento (y excepción en personalizados), devoluciones y términos de licencia en la página específica de{" "}
                 <Link
                   href="/condiciones"
                   className="text-[#C5A880] underline underline-offset-4 hover:text-white"

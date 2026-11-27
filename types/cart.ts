@@ -16,26 +16,27 @@ export interface ShippingZone {
   deliveryDays: string;
 }
 
+// PENDIENTE: confirmar con gestor el encuadre fiscal (IGIC / IVA / REPEP)
 export const SHIPPING_ZONES: Record<ShippingZoneId, ShippingZone> = {
   canarias: {
     id: "canarias",
     label: "Tenerife e Islas Canarias",
     cost: 0,
-    taxNote: "Precio final · Venta de autor sin recargo de IGIC (envío en tubo incluido)",
+    taxNote: "Envío en tubo incluido · Los impuestos aplicables se indican al confirmar el pedido",
     deliveryDays: `Envío en tubo rígido · ${PLAZOS.tabla}`,
   },
   peninsula: {
     id: "peninsula",
     label: "España Peninsular y Baleares",
     cost: 15,
-    taxNote: "Precio final + 15 € envío en tubo rígido certificado",
+    taxNote: "+ 15 € envío en tubo rígido · Los impuestos aplicables se indican al confirmar el pedido",
     deliveryDays: `Correo certificado en tubo rígido · ${PLAZOS.tabla}`,
   },
   internacional: {
     id: "internacional",
     label: "Unión Europea e Internacional",
     cost: 28,
-    taxNote: "Precio final + 28 € envío internacional certificado en tubo rígido",
+    taxNote: "+ 28 € envío internacional en tubo rígido · Los impuestos aplicables se indican al confirmar el pedido",
     deliveryDays: `Envío internacional en tubo rígido · ${PLAZOS.tabla}`,
   },
 };
