@@ -4,6 +4,7 @@ import { buildContactOwnerEmailHtml } from "@/lib/email-templates";
 import { DESTINATION_EMAIL, relayWithFormSubmit, sendWithResend } from "@/lib/server/email";
 import { getClientIp, rateLimit } from "@/lib/server/rate-limit";
 import { addInboxItem } from "@/lib/server/inbox-store";
+import { notifyOwnerMobile } from "@/lib/server/mobile-push";
 
 export async function POST(request: Request) {
   try {
@@ -83,7 +84,20 @@ export async function POST(request: Request) {
 
     const subject = `[Web Javier Espinosa · ${cleanMotivo.toUpperCase()}] ${cleanNombre}`;
 
-    // Registrar en la bandeja unificada de administración
+    // Registrar en la bandeja unificada de administración + aviso push al móvil en paralelo
+    const mobilePushPromise = notifyOwnerMobile({
+      kind: "consulta",
+      title: `Nueva consulta · ${cleanNombre}`,
+      message: [
+        `Motivo: ${cleanMotivo}${cleanReferencia ? ` (${cleanReferencia})` : ""}`,
+        cleanTelefono ? `Tel: ${cleanTelefono}` : `Email: ${cleanEmail}`,
+        cleanMensaje.slice(0, 220),
+      ].join("\n"),
+      priority: 4,
+      tags: ["camera", "envelope_with_arrow"],
+      tab: "inbox",
+    }).catch(() => ({ ntfySent: false, telegramSent: false, anySent: false }));
+
     try {
       const type = cleanMotivo.toLowerCase().includes("rally")
         ? "rally"
@@ -135,6 +149,7 @@ export async function POST(request: Request) {
     );
 
     if (resendOk) {
+      await mobilePushPromise;
       // Enviar correo de confirmación automática al remitente
       await sendWithResend(
         {
@@ -169,8 +184,14 @@ export async function POST(request: Request) {
       "contact"
     );
 
+    const mobilePush = await mobilePushPromise;
+
     if (relay === "sent") {
-      return NextResponse.json({ ok: true, provider: "formsubmit" });
+      return NextResponse.json({ ok: true, provider: "formsubmit", mobileNotified: mobilePush.anySent });
+    }
+
+    if (mobilePush.anySent) {
+      return NextResponse.json({ ok: true, provider: "mobile-push", mobileNotified: true });
     }
 
     if (relay === "needs-activation") {

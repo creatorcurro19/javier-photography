@@ -2,11 +2,14 @@
 
 import { useState } from "react";
 import type { InboxItem, InboxStatus, InboxType } from "@/data/inbox";
+import { getAdminAuthHeaders } from "@/lib/admin-client";
 
 interface InboxSectionProps {
   initialItems: InboxItem[];
   onToast: (text: string, type?: "success" | "error" | "warning") => void;
   onItemsChange?: (items: InboxItem[]) => void;
+  onRefresh?: () => void;
+  isRefreshing?: boolean;
 }
 
 const TYPE_LABELS: Record<InboxType, { label: string; color: string }> = {
@@ -71,8 +74,19 @@ export default function InboxSection({
   initialItems,
   onToast,
   onItemsChange,
+  onRefresh,
+  isRefreshing = false,
 }: InboxSectionProps) {
-  const [items, setItems] = useState<InboxItem[]>(initialItems);
+  const [localItems, setLocalItems] = useState<InboxItem[]>(initialItems);
+  const items = onItemsChange ? initialItems : localItems;
+  const applyItemsUpdate = (updater: (prev: InboxItem[]) => InboxItem[]) => {
+    const next = updater(items);
+    if (onItemsChange) {
+      onItemsChange(next);
+    } else {
+      setLocalItems(next);
+    }
+  };
   const [activeFilter, setActiveFilter] = useState<InboxType | "all">("all");
   const [activeStatus, setActiveStatus] = useState<InboxStatus | "all">("all");
   const [searchQuery, setSearchQuery] = useState("");
@@ -105,16 +119,12 @@ export default function InboxSection({
     try {
       const res = await fetch("/api/admin/inbox", {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: getAdminAuthHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({ id, status: newStatus }),
       });
       const data = await res.json();
       if (data.ok && data.item) {
-        setItems((prev) => {
-          const updated = prev.map((it) => (it.id === id ? data.item : it));
-          onItemsChange?.(updated);
-          return updated;
-        });
+        applyItemsUpdate((prev) => prev.map((it) => (it.id === id ? data.item : it)));
         onToast(`Registro ${id} marcado como "${STATUS_CONFIG[newStatus].label}"`);
       } else {
         onToast(data.error || "No se pudo actualizar el estado", "error");
@@ -131,16 +141,12 @@ export default function InboxSection({
     try {
       const res = await fetch("/api/admin/inbox", {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: getAdminAuthHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({ id, notes: notesDraft }),
       });
       const data = await res.json();
       if (data.ok && data.item) {
-        setItems((prev) => {
-          const updated = prev.map((it) => (it.id === id ? data.item : it));
-          onItemsChange?.(updated);
-          return updated;
-        });
+        applyItemsUpdate((prev) => prev.map((it) => (it.id === id ? data.item : it)));
         setEditingNotesId(null);
         onToast(`Notas privadas guardadas para ${id}`);
       } else {
@@ -159,14 +165,11 @@ export default function InboxSection({
     try {
       const res = await fetch(`/api/admin/inbox?id=${encodeURIComponent(id)}`, {
         method: "DELETE",
+        headers: getAdminAuthHeaders(),
       });
       const data = await res.json();
       if (data.ok) {
-        setItems((prev) => {
-          const updated = prev.filter((it) => it.id !== id);
-          onItemsChange?.(updated);
-          return updated;
-        });
+        applyItemsUpdate((prev) => prev.filter((it) => it.id !== id));
         onToast(`Registro ${id} eliminado`, "success");
       } else {
         onToast(data.error || "No se pudo eliminar", "error");
@@ -314,14 +317,25 @@ export default function InboxSection({
           ))}
         </div>
 
-        <div className="w-full sm:w-72">
+        <div className="flex w-full sm:w-auto items-center gap-2">
           <input
             type="search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Buscar por cliente, obra o email..."
-            className="w-full rounded-lg border border-[#2C2F38] bg-[#111215] px-3.5 py-2 font-mono text-xs text-[#EBE7DF] placeholder-[#716C62] focus:border-[#C5A880] focus:outline-none"
+            className="w-full sm:w-64 rounded-lg border border-[#2C2F38] bg-[#111215] px-3.5 py-2 font-mono text-xs text-[#EBE7DF] placeholder-[#716C62] focus:border-[#C5A880] focus:outline-none"
           />
+          {onRefresh && (
+            <button
+              type="button"
+              disabled={isRefreshing}
+              onClick={onRefresh}
+              className="shrink-0 rounded-lg border border-[#2C2F38] bg-[#111215] px-3 py-2 font-mono text-xs text-[#C5A880] hover:border-[#C5A880] disabled:opacity-50 transition cursor-pointer"
+              title="Actualizar bandeja ahora"
+            >
+              {isRefreshing ? "…" : "↻"}
+            </button>
+          )}
         </div>
       </div>
 

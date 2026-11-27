@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { SITE_URL } from "@/lib/metadata";
+import { isMobilePushConfigured } from "@/lib/server/mobile-push";
 
 /**
  * Diagnóstico público de configuración en producción (/api/health).
@@ -13,6 +14,7 @@ export async function GET() {
   const newsletterAudience = process.env.NEWSLETTER_AUDIENCE_ID ?? "";
   const newsletterWebhook = process.env.NEWSLETTER_WEBHOOK_URL ?? "";
   const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP ?? "";
+  const mobilePushStatus = isMobilePushConfigured();
 
   const stripeFlagActive = process.env.NEXT_PUBLIC_STRIPE_ACTIVE === "true";
 
@@ -40,6 +42,11 @@ export async function GET() {
     },
     whatsapp: {
       configured: Boolean(whatsapp.trim()),
+    },
+    mobilePush: {
+      ntfyConfigured: mobilePushStatus.ntfyConfigured,
+      telegramConfigured: mobilePushStatus.telegramConfigured,
+      ready: mobilePushStatus.anyConfigured,
     },
     siteUrl: SITE_URL,
   };

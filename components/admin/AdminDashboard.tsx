@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import type { Photo, PhotoCategory, Project } from "@/types/photo";
 import { PHOTO_CATEGORIES, CATEGORY_METADATA } from "@/types/photo";
@@ -25,8 +25,11 @@ import {
   TrashIcon,
   UploadIcon,
   TagIcon,
+  BellIcon,
 } from "./AdminIcons";
 import InboxSection from "./InboxSection";
+import MobileAlertsPanel from "./MobileAlertsPanel";
+import AdminMobileTabBar, { type AdminSectionTab } from "./AdminMobileTabBar";
 import type { InboxItem } from "@/data/inbox";
 
 interface UndoSnapshot {
@@ -36,22 +39,30 @@ interface UndoSnapshot {
 }
 
 interface AdminDashboardProps {
+  initialTab?: AdminSectionTab;
   initialWorks: Photo[];
   initialSeries: AdminSeries[];
   initialSiteSettings: SiteSettings;
   initialCuadernoPosts: CuadernoPost[];
   initialInboxItems?: InboxItem[];
+  onInboxItemsChange?: (items: InboxItem[]) => void;
+  onRefreshInbox?: () => void;
+  isRefreshingInbox?: boolean;
   githubConfigured: boolean;
   user: string;
   onLogout: () => void;
 }
 
 export default function AdminDashboard({
+  initialTab = "photos",
   initialWorks,
   initialSeries,
   initialSiteSettings,
   initialCuadernoPosts,
   initialInboxItems = [],
+  onInboxItemsChange,
+  onRefreshInbox,
+  isRefreshingInbox = false,
   githubConfigured,
   user,
   onLogout,
@@ -60,8 +71,22 @@ export default function AdminDashboard({
   const [series, setSeries] = useState<AdminSeries[]>(initialSeries);
   const [siteSettings, setSiteSettings] = useState<SiteSettings>(initialSiteSettings);
   const [cuadernoPosts, setCuadernoPosts] = useState<CuadernoPost[]>(initialCuadernoPosts);
-  const [inboxItems, setInboxItems] = useState<InboxItem[]>(initialInboxItems);
-  const [activeSection, setActiveSection] = useState<"photos" | "series" | "settings" | "inbox">("photos");
+  const [localInboxItems, setLocalInboxItems] = useState<InboxItem[]>(initialInboxItems);
+  const inboxItems = onInboxItemsChange ? initialInboxItems : localInboxItems;
+  const setInboxItems = onInboxItemsChange ?? setLocalInboxItems;
+  const [activeSection, setActiveSection] = useState<AdminSectionTab>(initialTab);
+  const [alertsReady, setAlertsReady] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    fetch("/api/health", { cache: "no-store" })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data?.integrations?.mobilePush) {
+          setAlertsReady(Boolean(data.integrations.mobilePush.ready));
+        }
+      })
+      .catch(() => null);
+  }, []);
 
   // Búsqueda y filtros
   const [searchTerm, setSearchTerm] = useState("");
@@ -613,7 +638,7 @@ export default function AdminDashboard({
       : "fauna-naturaleza";
 
   return (
-    <div className="min-h-screen bg-[#0B0C0E] text-[#EBE7DF] pb-24">
+    <div className="min-h-[100dvh] bg-[#0B0C0E] text-[#EBE7DF] pb-28 md:pb-20">
       {/* Toast Flotante */}
       {toastMessage && (
         <div className="fixed top-6 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-[105] flex items-center gap-3 rounded-xl border border-[#C5A880]/40 bg-[#16171B]/95 px-5 py-3.5 shadow-2xl backdrop-blur-md animate-fadeIn">
@@ -634,8 +659,8 @@ export default function AdminDashboard({
         </div>
       )}
 
-      {/* Barra Superior de Control */}
-      <header className="sticky top-[71px] sm:top-[87px] z-40 border-b border-[#202227] bg-[#121316]/95 backdrop-blur-md">
+      {/* Barra Superior de Control (App Header con safe area para iPhone) */}
+      <header className="sticky top-0 z-40 border-b border-[#202227] bg-[#121316]/95 backdrop-blur-md pt-[env(safe-area-inset-top)]">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
           <div className="flex items-center gap-3 min-w-0">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#C5A880]/30 bg-[#181A1F] text-[#C5A880] font-serif font-bold text-sm">
@@ -677,9 +702,10 @@ export default function AdminDashboard({
               href="/"
               target="_blank"
               rel="noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-lg border border-[#2B2D35] px-3 py-1.5 text-xs text-[#A39E93] hover:text-[#EBE7DF] hover:border-[#C5A880] transition"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-[#2B2D35] px-2.5 sm:px-3 py-1.5 text-xs text-[#A39E93] hover:text-[#EBE7DF] hover:border-[#C5A880] transition"
+              title="Ver web pública"
             >
-              <span>Ver Web</span>
+              <span className="hidden sm:inline">Ver Web</span>
               <ExternalLinkIcon className="h-3.5 w-3.5" />
             </a>
 
@@ -735,29 +761,8 @@ export default function AdminDashboard({
           </div>
         )}
 
-        {/* Botones Grandes de Acción Rápida */}
-        <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <button
-            type="button"
-            onClick={() => setIsBatchModalOpen(true)}
-            className="flex items-center justify-center gap-2.5 rounded-2xl border border-[#C5A880]/50 bg-gradient-to-r from-[#C5A880] to-[#A88C64] px-5 py-3.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#0B0C0E] shadow-xl shadow-[#C5A880]/10 transition hover:opacity-95 cursor-pointer"
-          >
-            <UploadIcon className="h-5 w-5" />
-            <span>Subir fotos en lote</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setIsBulkPricesOpen(true)}
-            className="flex items-center justify-center gap-2.5 rounded-2xl border border-[#2D303A] bg-[#14151A] px-5 py-3.5 text-xs sm:text-sm font-medium uppercase tracking-wider text-[#EBE7DF] transition hover:border-[#C5A880] hover:text-[#C5A880] cursor-pointer"
-          >
-            <TagIcon className="h-4 w-4 text-[#C5A880]" />
-            <span>Cambiar precios en bloque</span>
-          </button>
-        </div>
-
-        {/* Conmutador principal: Fotos vs Pedidos y Mensajes vs Ajustes */}
-        <div className="mb-6 flex flex-wrap items-center gap-2 border-b border-[#22242B] pb-3">
+        {/* Conmutador principal (en escritorio; en móvil se complementa con barra inferior App) */}
+        <div className="mb-6 hidden md:flex flex-wrap items-center gap-2 border-b border-[#22242B] pb-3">
           <button
             type="button"
             onClick={() => setActiveSection("photos")}
@@ -804,6 +809,24 @@ export default function AdminDashboard({
           </button>
           <button
             type="button"
+            onClick={() => setActiveSection("alerts")}
+            className={`relative flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-medium transition cursor-pointer ${
+              activeSection === "alerts"
+                ? "bg-[#C5A880] text-[#0B0C0E] font-semibold"
+                : "border border-[#262830] bg-[#141519] text-[#A39E93] hover:text-[#EBE7DF]"
+            }`}
+          >
+            <BellIcon className="h-4 w-4" />
+            <span>App y Avisos Móvil</span>
+            {alertsReady === true && (
+              <span className="h-2 w-2 rounded-full bg-emerald-400" />
+            )}
+            {alertsReady === false && (
+              <span className="h-2 w-2 rounded-full bg-amber-400" />
+            )}
+          </button>
+          <button
+            type="button"
             onClick={() => setActiveSection("settings")}
             className={`rounded-xl px-4 py-2.5 text-xs sm:text-sm font-medium transition cursor-pointer ${
               activeSection === "settings"
@@ -820,6 +843,13 @@ export default function AdminDashboard({
             initialItems={inboxItems}
             onToast={showToast}
             onItemsChange={setInboxItems}
+            onRefresh={onRefreshInbox}
+            isRefreshing={isRefreshingInbox}
+          />
+        ) : activeSection === "alerts" ? (
+          <MobileAlertsPanel
+            onToast={showToast}
+            onStatusLoaded={setAlertsReady}
           />
         ) : activeSection === "series" ? (
           <SeriesManagerSection
@@ -840,6 +870,26 @@ export default function AdminDashboard({
           />
         ) : (
           <>
+            {/* Botones Grandes de Acción Rápida para Catálogo */}
+            <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <button
+                type="button"
+                onClick={() => setIsBatchModalOpen(true)}
+                className="flex items-center justify-center gap-2.5 rounded-2xl border border-[#C5A880]/50 bg-gradient-to-r from-[#C5A880] to-[#A88C64] px-5 py-3.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#0B0C0E] shadow-xl shadow-[#C5A880]/10 transition hover:opacity-95 cursor-pointer"
+              >
+                <UploadIcon className="h-5 w-5" />
+                <span>Subir fotos en lote</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setIsBulkPricesOpen(true)}
+                className="flex items-center justify-center gap-2.5 rounded-2xl border border-[#2D303A] bg-[#14151A] px-5 py-3.5 text-xs sm:text-sm font-medium uppercase tracking-wider text-[#EBE7DF] transition hover:border-[#C5A880] hover:text-[#C5A880] cursor-pointer"
+              >
+                <TagIcon className="h-4 w-4 text-[#C5A880]" />
+                <span>Cambiar precios en bloque</span>
+              </button>
+            </div>
             {/* Banner de Métricas Rápidas (oculto en versión minimalista) */}
             <section className="hidden grid-cols-2 gap-3 sm:grid-cols-4 mb-6">
               <div className="rounded-xl border border-[#22242B] bg-[#141519] p-3.5 sm:p-4">
@@ -1668,6 +1718,14 @@ export default function AdminDashboard({
           </div>
         </div>
       )}
+
+      {/* Barra inferior nativa App para móvil */}
+      <AdminMobileTabBar
+        activeSection={activeSection}
+        pendingCount={inboxItems.filter((i) => i.status === "pendiente").length}
+        alertsReady={alertsReady}
+        onSelectSection={setActiveSection}
+      />
     </div>
   );
 }

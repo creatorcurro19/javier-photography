@@ -80,6 +80,18 @@ const checks = [
     label: "Teléfono de WhatsApp con prefijo internacional (ej. 34600000000)",
     fallback: "Si está vacío, el botón flotante de WhatsApp permanece oculto.",
   },
+  {
+    key: "ADMIN_NTFY_TOPIC",
+    required: false,
+    label: "Tema privado ntfy para avisos push instantáneos al iPhone",
+    fallback: "Recomendado: descarga ntfy en iOS, crea un tema largo secreto y añádelo aquí o usa TELEGRAM_BOT_TOKEN.",
+  },
+  {
+    key: "TELEGRAM_BOT_TOKEN",
+    required: false,
+    label: "Token de bot de Telegram (opcional para avisos push al móvil)",
+    fallback: "Opcional junto a TELEGRAM_CHAT_ID si prefieres Telegram en lugar de ntfy.",
+  },
 ];
 
 console.log("\n==============================================================");
@@ -95,7 +107,10 @@ for (const item of checks) {
   const masked =
     !isSet
       ? "NO DEFINIDA"
-      : item.key.includes("KEY") || item.key.includes("WEBHOOK")
+      : item.key.includes("KEY") ||
+          item.key.includes("WEBHOOK") ||
+          item.key.includes("TOPIC") ||
+          item.key.includes("TOKEN")
         ? `${value.slice(0, 7)}... (${value.length} chars)`
         : value;
 

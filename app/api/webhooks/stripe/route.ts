@@ -2,6 +2,7 @@ import { createHmac, timingSafeEqual } from "crypto";
 import { NextResponse } from "next/server";
 import { updateInboxItem } from "@/lib/server/inbox-store";
 import { DESTINATION_EMAIL, sendWithResend } from "@/lib/server/email";
+import { notifyOwnerMobile } from "@/lib/server/mobile-push";
 
 export const runtime = "nodejs";
 
@@ -85,6 +86,22 @@ export async function POST(request: Request) {
           console.warn("[stripe-webhook] Error actualizando estado en inbox:", err);
         });
       }
+
+      // Notificación push prioritaria al móvil del autor
+      await notifyOwnerMobile({
+        kind: "pago",
+        title: `Pago Stripe confirmado · ${amountTotal} ${currency}`,
+        message: [
+          `Pedido: ${orderId}`,
+          `Cliente: ${metadata.customerName || "No especificado"} (${customerEmail || "Sin email"})`,
+          `Zona: ${metadata.shippingZone || "No especificada"}`,
+        ].join("\n"),
+        priority: 5,
+        tags: ["moneybag", "white_check_mark"],
+        tab: "inbox",
+      }).catch((err) => {
+        console.warn("[stripe-webhook] Error enviando aviso móvil:", err);
+      });
 
       // Notificar al fotógrafo por email
       await sendWithResend(

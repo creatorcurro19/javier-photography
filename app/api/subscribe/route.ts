@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { DESTINATION_EMAIL, relayWithFormSubmit, sendWithResend } from "@/lib/server/email";
 import { getClientIp, rateLimit } from "@/lib/server/rate-limit";
+import { notifyOwnerMobile } from "@/lib/server/mobile-push";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -39,6 +40,15 @@ export async function POST(req: Request) {
     const webhookUrl = process.env.NEWSLETTER_WEBHOOK_URL;
     const timestamp = new Date().toISOString();
 
+    const mobilePushPromise = notifyOwnerMobile({
+      kind: "newsletter",
+      title: `Nuevo coleccionista suscrito`,
+      message: `${rawEmail}\nAlta en avisos de nuevas tiradas Fine Art (RGPD aceptado).`,
+      priority: 3,
+      tags: ["sparkles", "email"],
+      tab: "inbox",
+    }).catch(() => ({ ntfySent: false, telegramSent: false, anySent: false }));
+
     // 1. Webhook externo si está configurado
     if (webhookUrl) {
       try {
@@ -48,6 +58,7 @@ export async function POST(req: Request) {
           body: JSON.stringify({ email: rawEmail, consent: true, date: timestamp }),
         });
         if (whRes.ok) {
+          await mobilePushPromise;
           return NextResponse.json({ ok: true, registered: true, provider: "webhook" });
         }
         console.error(`[subscribe] Webhook devolvió ${whRes.status}`);
@@ -72,6 +83,7 @@ export async function POST(req: Request) {
         });
 
         if (res.ok) {
+          await mobilePushPromise;
           return NextResponse.json({ ok: true, registered: true, provider: "resend-audience" });
         }
         const errorData = await res.json().catch(() => ({}));
@@ -101,6 +113,7 @@ export async function POST(req: Request) {
     );
 
     if (emailedViaResend) {
+      await mobilePushPromise;
       return NextResponse.json({ ok: true, registered: true, provider: "resend-email" });
     }
 
@@ -115,8 +128,14 @@ export async function POST(req: Request) {
       "subscribe-fallback"
     );
 
+    const mobilePush = await mobilePushPromise;
+
     if (relay === "sent") {
       return NextResponse.json({ ok: true, registered: true, provider: "formsubmit" });
+    }
+
+    if (mobilePush.anySent) {
+      return NextResponse.json({ ok: true, registered: true, provider: "mobile-push" });
     }
 
     console.warn(

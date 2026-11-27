@@ -23,6 +23,11 @@ export const sharedViewport: Viewport = {
   initialScale: 1,
 };
 
+export const adminViewport: Viewport = {
+  ...sharedViewport,
+  viewportFit: "cover",
+};
+
 export function buildRootMetadata(lang: SiteLang): Metadata {
   const isEn = lang === "en";
   const ogUrl = `${SITE_URL}/api/og?title=${encodeURIComponent(
@@ -116,9 +121,11 @@ export function buildRootMetadata(lang: SiteLang): Metadata {
 
 export function SiteRootShell({
   lang,
+  hideChrome = false,
   children,
 }: {
   lang: SiteLang;
+  hideChrome?: boolean;
   children: ReactNode;
 }) {
   return (
@@ -128,22 +135,28 @@ export function SiteRootShell({
     >
       <body className="font-sans antialiased bg-[#0B0C0E] text-[#EBE7DF] leading-relaxed tracking-[0.015em] selection:bg-white/20 selection:text-white">
         <LangProvider lang={lang}>
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:bg-white focus:px-4 focus:py-2 focus:text-black font-mono text-xs uppercase"
-          >
-            {lang === "en"
-              ? "Skip to main content"
-              : "Saltar al contenido principal"}
-          </a>
-          <JsonLd data={generatePersonSchema(lang)} />
-          <Navbar />
-          <main id="main-content">{children}</main>
-          <SavedCollectionDrawer />
-          <CartDrawer />
-          <WhatsAppButton />
-          <PhotoProtection />
-          <Footer />
+          {hideChrome ? (
+            <main id="main-content">{children}</main>
+          ) : (
+            <>
+              <a
+                href="#main-content"
+                className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:bg-white focus:px-4 focus:py-2 focus:text-black font-mono text-xs uppercase"
+              >
+                {lang === "en"
+                  ? "Skip to main content"
+                  : "Saltar al contenido principal"}
+              </a>
+              <JsonLd data={generatePersonSchema(lang)} />
+              <Navbar />
+              <main id="main-content">{children}</main>
+              <SavedCollectionDrawer />
+              <CartDrawer />
+              <WhatsAppButton />
+              <PhotoProtection />
+              <Footer />
+            </>
+          )}
         </LangProvider>
         {process.env.VERCEL === "1" && (
           <>

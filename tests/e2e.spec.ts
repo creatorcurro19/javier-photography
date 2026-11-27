@@ -16,6 +16,9 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
     expect(typeof body.integrations.stripe.ready).toBe("boolean");
     expect(typeof body.integrations.email.resendConfigured).toBe("boolean");
     expect(typeof body.integrations.whatsapp.configured).toBe("boolean");
+    expect(typeof body.integrations.mobilePush.ntfyConfigured).toBe("boolean");
+    expect(typeof body.integrations.mobilePush.telegramConfigured).toBe("boolean");
+    expect(typeof body.integrations.mobilePush.ready).toBe("boolean");
   });
 
   test("POST /api/checkout recalcula precios en servidor e impide manipulación de importes", async ({
@@ -282,5 +285,35 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
     const checkoutEn = await checkoutEnRes.json();
     expect(checkoutEn.ok).toBe(true);
     expect(checkoutEn.orderId).toBe("JE-2026-8888");
+  });
+
+  test("Versión App PWA de /admin y endpoint protegido de prueba push", async ({
+    request,
+  }) => {
+    const manifestRes = await request.get("/admin/manifest.webmanifest");
+    expect(manifestRes.status()).toBe(200);
+    const manifest = await manifestRes.json();
+    expect(manifest.id).toBe("/admin");
+    expect(manifest.start_url).toBe("/admin?tab=inbox");
+    expect(manifest.display).toBe("standalone");
+    expect(manifest.short_name).toBe("J.E. Admin");
+
+    const swRes = await request.get("/admin-sw.js");
+    expect(swRes.status()).toBe(200);
+    const swText = await swRes.text();
+    expect(swText).toContain("/admin?tab=inbox");
+
+    const adminRes = await request.get("/admin?tab=inbox");
+    expect(adminRes.status()).toBe(200);
+    const adminHtml = await adminRes.text();
+    expect(adminHtml).toContain("/admin/manifest.webmanifest");
+    expect(adminHtml).toContain("mobile-web-app-capable");
+    expect(adminHtml).toContain("apple-mobile-web-app-title");
+    expect(adminHtml).toContain("apple-mobile-web-app-status-bar-style");
+    expect(adminHtml).toContain("J.E. Admin");
+    expect(adminHtml).not.toContain("<footer");
+
+    const unauthTest = await request.post("/api/admin/notify-test");
+    expect(unauthTest.status()).toBe(401);
   });
 });

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { LockIcon, EyeIcon, EyeOffIcon } from "./AdminIcons";
 
 interface AdminLoginProps {
@@ -177,10 +178,13 @@ export default function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
           </button>
         </form>
 
-        <div className="hidden mt-6 border-t border-[#202227] pt-4 text-center">
-          <p className="font-mono text-[11px] text-[#716C62]">
-            Clave autorizada configurada para Javier Espinosa
-          </p>
+        <div className="mt-5 border-t border-[#202227] pt-4 text-center">
+          <Link
+            href="/"
+            className="font-mono text-[11px] text-[#8E8A81] hover:text-[#C5A880] transition"
+          >
+            &larr; Volver a la web pública
+          </Link>
         </div>
       </div>
     </div>

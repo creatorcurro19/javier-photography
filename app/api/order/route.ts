@@ -7,6 +7,7 @@ import { PAGOS_ACTIVOS } from "@/data/site-config";
 import { normalizeOrder } from "@/lib/server/order";
 import { DESTINATION_EMAIL, relayWithFormSubmit, sendWithResend } from "@/lib/server/email";
 import { addInboxItem } from "@/lib/server/inbox-store";
+import { notifyOwnerMobile } from "@/lib/server/mobile-push";
 
 export async function POST(request: Request) {
   try {
@@ -58,6 +59,21 @@ export async function POST(request: Request) {
       `CERTIFICADO: Numerado y firmado a mano por Javier Espinosa Martínez.`,
     ].join("\n");
 
+    // Notificación push inmediata al móvil en paralelo
+    const mobilePushPromise = notifyOwnerMobile({
+      kind: "pedido",
+      title: `Pedido Fine Art (${orderId}) — ${total} €`,
+      message: [
+        `Cliente: ${customer.nombre} (${customer.pais})`,
+        customer.telefono ? `Tel: ${customer.telefono}` : `Email: ${customer.email}`,
+        `Envío: ${shippingZone} (${shippingCost} €)`,
+        items.map((it) => `• ${it.quantity}× ${it.title} (${it.format.name})`).join("\n"),
+      ].join("\n"),
+      priority: 4,
+      tags: ["framed_picture", "package"],
+      tab: "inbox",
+    }).catch(() => ({ ntfySent: false, telegramSent: false, anySent: false }));
+
     // Registrar en la bandeja de administración
     try {
       await addInboxItem({
@@ -96,6 +112,7 @@ export async function POST(request: Request) {
     );
 
     if (ownerSent) {
+      await mobilePushPromise;
       await sendWithResend(
         {
           to: [customer.email],
@@ -126,8 +143,14 @@ export async function POST(request: Request) {
       "order"
     );
 
+    const mobilePush = await mobilePushPromise;
+
     if (relay === "sent") {
-      return NextResponse.json({ ok: true, provider: "formsubmit", orderId, subtotal });
+      return NextResponse.json({ ok: true, provider: "formsubmit", orderId, subtotal, mobileNotified: mobilePush.anySent });
+    }
+
+    if (mobilePush.anySent) {
+      return NextResponse.json({ ok: true, provider: "mobile-push", mobileNotified: true, orderId, subtotal });
     }
 
     // Informe honesto: el pedido NO ha llegado a Javier. El cliente debe ofrecer una vía alternativa.
