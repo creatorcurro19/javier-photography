@@ -117,11 +117,10 @@ export default function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
               <input
                 type={showPin ? "text" : "password"}
                 inputMode="numeric"
-                pattern="[0-9]*"
-                maxLength={8}
+                maxLength={64}
                 value={pin}
                 onChange={(e) => setPin(e.target.value)}
-                placeholder="&bull;&bull;&bull;&bull;&bull;"
+                placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
                 autoFocus
                 className="w-full rounded-lg border border-[#2D3036] bg-[#181A1F] px-4 py-3.5 text-center font-mono text-lg tracking-[0.4em] text-[#EBE7DF] placeholder-[#605C55] transition focus:border-[#C5A880] focus:outline-none focus:ring-1 focus:ring-[#C5A880]"
               />
@@ -143,7 +142,7 @@ export default function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
                 Teclado rápido táctil
               </span>
               <span className="font-mono text-[10px] text-[#C5A880]/70">
-                {pin.length} / 5 dígitos
+                {pin.length} dígitos
               </span>
             </div>
             <div className="grid grid-cols-3 gap-2">
