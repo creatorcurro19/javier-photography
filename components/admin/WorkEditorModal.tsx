@@ -263,13 +263,13 @@ export default function WorkEditorModal({
         {/* Cabecera */}
         <div className="flex items-center justify-between border-b border-[#22242B] px-4 py-3 sm:px-6 sm:py-4 bg-[#16171B]">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-lg border border-[#30333C] bg-[#1B1D22] flex items-center justify-center">
+            <div className="relative h-12 w-14 flex-shrink-0 overflow-hidden rounded-lg border border-[#30333C] bg-[#0B0C0E] p-0.5 flex items-center justify-center">
               {previewSrc ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={previewSrc}
                   alt={formData.alt || formData.title || "Vista previa"}
-                  className="h-full w-full object-cover"
+                  className="max-h-full max-w-full h-auto w-auto object-contain"
                 />
               ) : (
                 <UploadIcon className="h-5 w-5 text-[#C5A880]" />
@@ -346,22 +346,23 @@ export default function WorkEditorModal({
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="flex items-center gap-3.5 min-w-0">
                     {uploadedDataUrl ? (
-                      <div className="relative h-16 w-20 flex-shrink-0 overflow-hidden rounded-lg border border-[#C5A880]/40 bg-[#0B0C0E]">
+                      <div className="relative flex h-16 w-20 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg border border-[#C5A880]/40 bg-[#0B0C0E] p-0.5">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={uploadedDataUrl}
                           alt="Vista previa subida"
-                          className="h-full w-full object-cover"
+                          className="max-h-full max-w-full h-auto w-auto object-contain"
                         />
                       </div>
                     ) : !isNew && formData.image ? (
-                      <div className="relative h-16 w-20 flex-shrink-0 overflow-hidden rounded-lg border border-[#2D3038] bg-[#0B0C0E]">
+                      <div className="relative flex h-16 w-20 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg border border-[#2D3038] bg-[#0B0C0E] p-0.5">
                         <Image
                           src={formData.image}
                           alt={formData.title}
-                          fill
+                          width={formData.width || 120}
+                          height={formData.height || 120}
                           sizes="80px"
-                          className="object-cover"
+                          className="max-h-full max-w-full h-auto w-auto object-contain"
                         />
                       </div>
                     ) : (

@@ -31,6 +31,7 @@ import InboxSection from "./InboxSection";
 import MobileAlertsPanel from "./MobileAlertsPanel";
 import AdminMobileTabBar, { type AdminSectionTab } from "./AdminMobileTabBar";
 import type { InboxItem } from "@/data/inbox";
+import { getAdminAuthHeaders } from "@/lib/admin-client";
 
 interface UndoSnapshot {
   label: string;
@@ -158,7 +159,7 @@ export default function AdminDashboard({
     try {
       const res = await fetch("/api/admin/works", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: getAdminAuthHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({
           action: "set-photo-series",
           photoId,
@@ -196,7 +197,7 @@ export default function AdminDashboard({
     try {
       const res = await fetch("/api/admin/works", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: getAdminAuthHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({
           action: "bulk-works",
           params,
@@ -310,7 +311,7 @@ export default function AdminDashboard({
     try {
       const res = await fetch("/api/admin/works", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: getAdminAuthHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({
           photo: updated,
           seriesSlugs,
@@ -363,7 +364,7 @@ export default function AdminDashboard({
     try {
       const res = await fetch("/api/admin/works", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: getAdminAuthHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({
           action: "batch-create",
           items,
@@ -413,7 +414,7 @@ export default function AdminDashboard({
     try {
       const res = await fetch("/api/admin/works", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: getAdminAuthHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({
           action: "bulk-prices",
           ...params,
@@ -448,7 +449,7 @@ export default function AdminDashboard({
     try {
       const res = await fetch("/api/admin/works", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: getAdminAuthHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({
           action: "save-series",
           seriesItem: updatedSeries,
@@ -483,7 +484,7 @@ export default function AdminDashboard({
     try {
       const res = await fetch("/api/admin/works", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: getAdminAuthHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({
           action: "delete-series",
           slug,
@@ -520,7 +521,7 @@ export default function AdminDashboard({
     try {
       const res = await fetch("/api/admin/works", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: getAdminAuthHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({
           action: "save-site-config",
           siteSettings: nextSettings,
@@ -555,7 +556,7 @@ export default function AdminDashboard({
     try {
       const res = await fetch("/api/admin/works", {
         method: "DELETE",
-        headers: { "Content-Type": "application/json" },
+        headers: getAdminAuthHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({
           id: deletingPhoto.id,
           githubToken: githubToken.trim() || undefined,
@@ -596,7 +597,7 @@ export default function AdminDashboard({
     try {
       const res = await fetch("/api/admin/works", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: getAdminAuthHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({
           action: "restore-snapshot",
           label: latest.label,
@@ -675,7 +676,7 @@ export default function AdminDashboard({
                   {stats.total} obras
                 </span>
               </div>
-              <p className="hidden xs:block truncate text-[11px] text-[#8E8A81]">
+              <p className="hidden sm:block truncate text-[11px] text-[#8E8A81]">
                 Sesión: {user}
               </p>
             </div>
@@ -719,7 +720,7 @@ export default function AdminDashboard({
               ) : (
                 <GitHubIcon className="h-3.5 w-3.5 text-[#C5A880]" />
               )}
-              <span className="hidden xs:inline">
+              <span className="hidden sm:inline">
                 {githubConfigured ? "Conectado" : "Sincronizar"}
               </span>
             </button>
@@ -1143,7 +1144,7 @@ export default function AdminDashboard({
                       <div>
                         {/* Top fila: Miniatura + Info básica */}
                         <div className="flex gap-3.5">
-                          <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg border border-[#262830] bg-[#1A1C22]">
+                          <div className="relative flex h-20 w-24 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg border border-[#262830] bg-[#0B0C0E] p-1">
                             {/* Checkbox de Selección Múltiple */}
                             <button
                               type="button"
@@ -1166,15 +1167,16 @@ export default function AdminDashboard({
                               <img
                                 src={previewMap[photo.id]}
                                 alt={photo.alt || photo.title}
-                                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                className="max-h-full max-w-full h-auto w-auto rounded object-contain transition-transform duration-300 group-hover:scale-105"
                               />
                             ) : (
                               <Image
                                 src={photo.image}
                                 alt={photo.alt || photo.title}
-                                fill
-                                sizes="80px"
-                                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                width={photo.width}
+                                height={photo.height}
+                                sizes="96px"
+                                className="max-h-full max-w-full h-auto w-auto rounded object-contain transition-transform duration-300 group-hover:scale-105"
                               />
                             )}
                             {photo.featured && (
@@ -1577,21 +1579,22 @@ export default function AdminDashboard({
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
           <div className="w-full max-w-md rounded-2xl border border-red-500/30 bg-[#121316] p-6 text-[#EBE7DF] shadow-2xl">
             <div className="flex items-center gap-3.5">
-              <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-lg border border-[#2D3038] bg-[#1A1C22]">
+              <div className="relative flex h-16 w-20 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg border border-[#2D3038] bg-[#0B0C0E] p-0.5">
                 {previewMap[deletingPhoto.id] ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={previewMap[deletingPhoto.id]}
                     alt={deletingPhoto.title}
-                    className="h-full w-full object-cover"
+                    className="max-h-full max-w-full h-auto w-auto object-contain"
                   />
                 ) : (
                   <Image
                     src={deletingPhoto.image}
                     alt={deletingPhoto.title}
-                    fill
-                    sizes="56px"
-                    className="object-cover"
+                    width={deletingPhoto.width}
+                    height={deletingPhoto.height}
+                    sizes="80px"
+                    className="max-h-full max-w-full h-auto w-auto object-contain"
                   />
                 )}
               </div>

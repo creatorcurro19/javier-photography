@@ -12,7 +12,14 @@ interface HealthMobileStatus {
   };
   email: {
     resendConfigured: boolean;
+    recipientOverride: boolean;
     fallbackRelay: string;
+  };
+  stripe: {
+    configured: boolean;
+    webhookConfigured: boolean;
+    ready: boolean;
+    mode: "live" | "test" | "unconfigured";
   };
 }
 
@@ -74,9 +81,16 @@ export default function MobileAlertsPanel({
               telegramConfigured: false,
               ready: false,
             },
-            email: data.integrations.email ?? {
-              resendConfigured: false,
-              fallbackRelay: "formsubmit",
+            email: {
+              resendConfigured: Boolean(data.integrations.email?.resendConfigured),
+              recipientOverride: Boolean(data.integrations.email?.recipientOverride),
+              fallbackRelay: data.integrations.email?.fallbackRelay ?? "formsubmit",
+            },
+            stripe: {
+              configured: Boolean(data.integrations.stripe?.configured),
+              webhookConfigured: Boolean(data.integrations.stripe?.webhookConfigured),
+              ready: Boolean(data.integrations.stripe?.ready),
+              mode: data.integrations.stripe?.mode ?? "unconfigured",
             },
           };
           setStatus(next);
@@ -154,69 +168,43 @@ export default function MobileAlertsPanel({
     }
   };
 
+  const allMainChannelsReady = Boolean(
+    status &&
+      status.mobilePush.ready &&
+      status.email.resendConfigured &&
+      status.stripe.ready
+  );
+
   return (
     <div className="space-y-6">
-      {/* 1. Estado de la App en iPhone (PWA) */}
-      <section className="rounded-2xl border border-[#24262E] bg-[#131418] p-5 sm:p-6">
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div className="flex items-start gap-3.5">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#C5A880]/40 bg-[#C5A880]/10 text-[#C5A880]">
-              <BellIcon className="h-5 w-5" />
-            </div>
-            <div>
-              <h2 className="font-serif text-lg font-medium text-[#EBE7DF]">
-                Versión App iPhone & Avisos por Telegram
-              </h2>
-              <p className="mt-1 text-xs leading-relaxed text-[#A39E93]">
-                {isStandalone
-                  ? "Estás usando la app instalada del Estudio en pantalla completa. Al abrirla entra directa en tus consultas y sincroniza los avisos automáticamente."
-                  : "Instala este panel como una app independiente en tu iPhone para entrar directo desde los avisos de Telegram sin barras de navegador."}
-              </p>
-            </div>
-          </div>
-
-          <span
-            className={`shrink-0 rounded-full border px-3 py-1 font-mono text-[10px] uppercase tracking-wider ${
-              isStandalone
-                ? "border-emerald-500/40 bg-emerald-500/15 text-emerald-300"
-                : "border-[#C5A880]/40 bg-[#C5A880]/10 text-[#C5A880]"
-            }`}
-          >
-            {isStandalone ? "✓ App iOS Activa" : "Safari Web"}
-          </span>
-        </div>
-
-        {!isStandalone && (
-          <div className="mt-4 rounded-xl border border-[#272932] bg-[#0E0F12] p-4 text-xs text-[#D4CEC3] space-y-2">
-            <p className="font-mono text-[10px] uppercase tracking-wider text-[#C5A880]">
-              Cómo instalar la App Admin en tu iPhone (15 segundos):
-            </p>
-            <ol className="list-decimal list-inside space-y-1.5 text-[#A39E93]">
-              <li>
-                Abre <strong className="text-[#EBE7DF]">javier-photography.vercel.app/admin</strong> en{" "}
-                <strong className="text-[#EBE7DF]">Safari</strong> desde el iPhone.
-              </li>
-              <li>
-                Toca <strong className="text-[#EBE7DF]">Compartir</strong> (cuadrado con flecha hacia arriba).
-              </li>
-              <li>
-                Pulsa <strong className="text-[#EBE7DF]">Añadir a pantalla de inicio</strong> → nombre{" "}
-                <span className="font-mono text-[#EBE7DF]">J.E. Admin</span> → <strong className="text-[#EBE7DF]">Añadir</strong>.
-              </li>
-            </ol>
-          </div>
-        )}
-      </section>
-
-      {/* 2. Bot de Telegram & Canales en Producción */}
+      {/* 1. Estado Global & Prueba en Vivo */}
       <section className="rounded-2xl border border-[#24262E] bg-[#131418] p-5 sm:p-6 space-y-5">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h3 className="font-serif text-lg font-medium text-[#EBE7DF]">
-              Notificaciones en Vivo en Telegram
-            </h3>
-            <p className="mt-0.5 text-xs text-[#A39E93]">
-              Cada consulta, pedido Fine Art, pago confirmado con Stripe o nuevo suscriptor envía un aviso a tu Telegram con botón directo a la App Admin y a WhatsApp.
+            <div className="flex flex-wrap items-center gap-2.5">
+              <h2 className="font-serif text-lg font-medium text-[#EBE7DF]">
+                Estado de Avisos y Canales
+              </h2>
+              {status ? (
+                <span
+                  className={`rounded-full border px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider ${
+                    allMainChannelsReady
+                      ? "border-emerald-500/40 bg-emerald-500/15 text-emerald-300"
+                      : "border-[#C5A880]/40 bg-[#C5A880]/10 text-[#C5A880]"
+                  }`}
+                >
+                  {allMainChannelsReady ? "✓ Todo activo" : "Estado parcial"}
+                </span>
+              ) : (
+                <span className="rounded-full border border-white/10 bg-[#1B1D24] px-2.5 py-0.5 font-mono text-[10px] text-[#A39E93]">
+                  Comprobando…
+                </span>
+              )}
+            </div>
+            <p className="mt-1 text-xs text-[#A39E93] leading-relaxed">
+              {status?.mobilePush.ready
+                ? "Cada compra con Stripe, consulta o nuevo suscriptor envía aviso inmediato a tu Telegram, push al móvil y correo por Resend."
+                : "Estado en tiempo real de tus avisos al iPhone, correo transaccional y pasarela de pago."}
             </p>
           </div>
 
@@ -243,24 +231,28 @@ export default function MobileAlertsPanel({
           </div>
         )}
 
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <div className="rounded-xl border border-[#252730] bg-[#16171C] p-4">
             <span className="font-mono text-[10px] uppercase tracking-wider text-[#8E8A81]">
               Bot de Telegram
             </span>
             <div className="mt-1.5 flex items-center justify-between">
               <span className="text-sm font-medium text-[#EBE7DF]">
-                {status?.mobilePush.telegramConfigured ? "Conectado" : "Pendiente"}
+                {!status
+                  ? "Comprobando…"
+                  : status.mobilePush.telegramConfigured
+                  ? "Conectado"
+                  : "Pendiente"}
               </span>
               {status?.mobilePush.telegramConfigured ? (
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
                   <CheckIcon className="h-4 w-4" />
                 </span>
-              ) : (
+              ) : status ? (
                 <span className="rounded-full bg-amber-500/15 px-2 py-0.5 font-mono text-[10px] text-amber-300">
-                  2 variables
+                  Pendiente
                 </span>
-              )}
+              ) : null}
             </div>
           </div>
 
@@ -270,43 +262,135 @@ export default function MobileAlertsPanel({
             </span>
             <div className="mt-1.5 flex items-center justify-between">
               <span className="text-sm font-medium text-[#EBE7DF]">
-                {status?.mobilePush.ntfyConfigured ? "Conectado" : "Opcional"}
+                {!status
+                  ? "Comprobando…"
+                  : status.mobilePush.ntfyConfigured
+                  ? "Conectado"
+                  : "Inactivo"}
               </span>
               {status?.mobilePush.ntfyConfigured ? (
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
                   <CheckIcon className="h-4 w-4" />
                 </span>
-              ) : (
+              ) : status ? (
                 <span className="rounded-full bg-[#22242B] px-2 py-0.5 font-mono text-[10px] text-[#8E8A81]">
-                  Inactivo
+                  Opcional
                 </span>
-              )}
+              ) : null}
             </div>
           </div>
 
           <div className="rounded-xl border border-[#252730] bg-[#16171C] p-4">
             <span className="font-mono text-[10px] uppercase tracking-wider text-[#8E8A81]">
-              Correo · Resend / Relé
+              Correo · Resend
             </span>
             <div className="mt-1.5 flex items-center justify-between">
               <span className="text-sm font-medium text-[#EBE7DF]">
-                {status?.email.resendConfigured ? "Resend Activo" : "FormSubmit"}
+                {!status
+                  ? "Comprobando…"
+                  : status.email.resendConfigured
+                  ? "Resend Activo"
+                  : "FormSubmit"}
               </span>
-              <span className="rounded-full bg-[#22242B] px-2 py-0.5 font-mono text-[10px] text-[#C5A880]">
-                {status?.email.resendConfigured ? "API" : "Respaldo"}
+              {status?.email.resendConfigured ? (
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
+                  <CheckIcon className="h-4 w-4" />
+                </span>
+              ) : status ? (
+                <span className="rounded-full bg-[#22242B] px-2 py-0.5 font-mono text-[10px] text-[#C5A880]">
+                  Respaldo
+                </span>
+              ) : null}
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-[#252730] bg-[#16171C] p-4">
+            <span className="font-mono text-[10px] uppercase tracking-wider text-[#8E8A81]">
+              Pagos · Stripe
+            </span>
+            <div className="mt-1.5 flex items-center justify-between">
+              <span className="text-sm font-medium text-[#EBE7DF]">
+                {!status
+                  ? "Comprobando…"
+                  : status.stripe.ready
+                  ? status.stripe.mode === "live"
+                    ? "Live · Activo"
+                    : "Modo Pruebas"
+                  : "Pendiente"}
               </span>
+              {status?.stripe.ready ? (
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
+                  <CheckIcon className="h-4 w-4" />
+                </span>
+              ) : status ? (
+                <span className="rounded-full bg-amber-500/15 px-2 py-0.5 font-mono text-[10px] text-amber-300">
+                  Revisar
+                </span>
+              ) : null}
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Asistente para obtener el TELEGRAM_CHAT_ID al instante sin bots externos */}
-        <div className="rounded-xl border border-[#2B2E38] bg-[#0E0F12] p-4 sm:p-5 space-y-4">
+      {/* 2. Estado de la App en iPhone (PWA) */}
+      <section className="rounded-2xl border border-[#24262E] bg-[#131418] p-5 sm:p-6">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="flex items-start gap-3.5">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#C5A880]/40 bg-[#C5A880]/10 text-[#C5A880]">
+              <BellIcon className="h-5 w-5" />
+            </div>
+            <div>
+              <h3 className="font-serif text-lg font-medium text-[#EBE7DF]">
+                App Estudio en iPhone (PWA)
+              </h3>
+              <p className="mt-1 text-xs leading-relaxed text-[#A39E93]">
+                {isStandalone
+                  ? "Usando la app instalada en pantalla completa. Al abrirla entra directa en tus consultas y sincroniza el contador."
+                  : "Accesible como app de pantalla de inicio en iOS sin barras del navegador."}
+              </p>
+            </div>
+          </div>
+
+          <span
+            className={`shrink-0 rounded-full border px-3 py-1 font-mono text-[10px] uppercase tracking-wider ${
+              isStandalone
+                ? "border-emerald-500/40 bg-emerald-500/15 text-emerald-300"
+                : "border-[#2B2D36] bg-[#191B22] text-[#A39E93]"
+            }`}
+          >
+            {isStandalone ? "✓ App iOS Activa" : "Navegador Web"}
+          </span>
+        </div>
+
+        {!isStandalone && (
+          <details className="mt-4 rounded-xl border border-[#22242C] bg-[#0E0F12]/80 px-4 py-3 text-xs text-[#D4CEC3]">
+            <summary className="cursor-pointer font-mono text-[10px] uppercase tracking-wider text-[#C5A880] hover:text-white transition">
+              Cómo instalar o reinstalar el icono en iPhone (opcional) →
+            </summary>
+            <ol className="mt-3 list-decimal list-inside space-y-1.5 text-[#A39E93]">
+              <li>
+                Abre <strong className="text-[#EBE7DF]">javier-photography.vercel.app/admin</strong> en{" "}
+                <strong className="text-[#EBE7DF]">Safari</strong> desde el iPhone.
+              </li>
+              <li>
+                Toca <strong className="text-[#EBE7DF]">Compartir</strong> →{" "}
+                <strong className="text-[#EBE7DF]">Añadir a pantalla de inicio</strong> → nombre{" "}
+                <span className="font-mono text-[#EBE7DF]">J.E. Admin</span> → <strong className="text-[#EBE7DF]">Añadir</strong>.
+              </li>
+            </ol>
+          </details>
+        )}
+      </section>
+
+      {/* 3. Asistente Telegram: abierto solo si falta configurar; plegado si ya está conectado */}
+      {status && !status.mobilePush.telegramConfigured ? (
+        <section className="rounded-2xl border border-[#2B2E38] bg-[#0E0F12] p-5 sm:p-6 space-y-4">
           <div>
             <span className="block font-mono text-[10px] uppercase tracking-wider text-[#C5A880]">
               Detector automático de Chat ID (Telegram)
             </span>
             <p className="mt-1 text-xs text-[#A39E93] leading-relaxed">
-              1. Crea tu bot en <strong className="text-[#EBE7DF]">@BotFather</strong> (<code className="text-[#EBE7DF]">/newbot</code>) y copia el token. 2. Abre tu nuevo bot en Telegram y envíale «hola». 3. Pega el token aquí para sacar tu <code className="text-[#C5A880]">TELEGRAM_CHAT_ID</code> al instante y probarlo en tu móvil:
+              1. Crea tu bot en <strong className="text-[#EBE7DF]">@BotFather</strong> (<code className="text-[#EBE7DF]">/newbot</code>) y copia el token. 2. Abre tu nuevo bot en Telegram y envíale «hola». 3. Pega el token aquí para sacar tu <code className="text-[#C5A880]">TELEGRAM_CHAT_ID</code> y probarlo:
             </p>
           </div>
 
@@ -315,11 +399,7 @@ export default function MobileAlertsPanel({
               type="password"
               value={tgToken}
               onChange={(e) => setTgToken(e.target.value)}
-              placeholder={
-                status?.mobilePush.telegramConfigured
-                  ? "Deja vacío para usar el token ya guardado en Vercel o pega otro..."
-                  : "Pega aquí el token de @BotFather (ej. 7845123456:AAH...)"
-              }
+              placeholder="Pega aquí el token de @BotFather (ej. 7845123456:AAH...)"
               className="flex-1 rounded-lg border border-[#2A2D36] bg-[#15161B] px-3.5 py-2.5 font-mono text-xs text-[#EBE7DF] placeholder-[#68645C] focus:border-[#C5A880] focus:outline-none"
             />
             <button
@@ -365,8 +445,59 @@ export default function MobileAlertsPanel({
               </p>
             </div>
           )}
-        </div>
-      </section>
+        </section>
+      ) : status?.mobilePush.telegramConfigured ? (
+        <details className="rounded-2xl border border-[#22242B] bg-[#101115] p-4 sm:p-5 text-xs">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-3">
+            <div>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-emerald-400">
+                ✓ Bot de Telegram ya conectado
+              </span>
+              <p className="mt-0.5 text-xs text-[#8E8A81]">
+                Opciones avanzadas · Pulsa aquí solo si cambias de bot o de cuenta de Telegram
+              </p>
+            </div>
+            <span className="shrink-0 font-mono text-[10px] uppercase tracking-wider text-[#C5A880]">
+              Reconfigurar ▾
+            </span>
+          </summary>
+
+          <div className="mt-4 border-t border-[#22242B] pt-4 space-y-3">
+            <form onSubmit={handleDetectTelegramChat} className="flex flex-col gap-2.5 sm:flex-row">
+              <input
+                type="password"
+                value={tgToken}
+                onChange={(e) => setTgToken(e.target.value)}
+                placeholder="Deja vacío para usar el token actual en Vercel o pega otro..."
+                className="flex-1 rounded-lg border border-[#2A2D36] bg-[#15161B] px-3.5 py-2.5 font-mono text-xs text-[#EBE7DF] placeholder-[#68645C] focus:border-[#C5A880] focus:outline-none"
+              />
+              <button
+                type="submit"
+                disabled={tgLoading}
+                className="shrink-0 rounded-lg border border-[#C5A880]/60 bg-[#C5A880]/15 px-4 py-2.5 font-mono text-xs uppercase tracking-wider font-semibold text-[#C5A880] hover:bg-[#C5A880] hover:text-[#0B0C0E] disabled:opacity-50 transition cursor-pointer"
+              >
+                {tgLoading ? "Buscando…" : "Detectar nuevo Chat ID"}
+              </button>
+            </form>
+
+            {tgError && (
+              <p className="rounded-lg border border-amber-500/35 bg-amber-950/20 px-3.5 py-2.5 text-xs text-amber-200">
+                {tgError}
+              </p>
+            )}
+
+            {tgDetected && (
+              <div className="rounded-lg border border-emerald-500/40 bg-emerald-950/20 p-3.5 text-xs text-emerald-200 space-y-2">
+                <span>
+                  ✓ Chat encontrado:{" "}
+                  <strong className="text-white">{tgDetected.chatLabel}</strong> (
+                  <code className="text-[#C5A880] select-all">{tgDetected.chatId}</code>)
+                </span>
+              </div>
+            )}
+          </div>
+        </details>
+      ) : null}
     </div>
   );
 }

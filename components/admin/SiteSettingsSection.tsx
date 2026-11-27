@@ -168,21 +168,22 @@ export default function SiteSettingsSection({
 
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="relative h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl border border-[#2D3038] bg-[#0B0C0E]">
+              <div className="relative flex h-24 w-24 flex-shrink-0 items-center justify-center overflow-hidden rounded-xl border border-[#2D3038] bg-[#0B0C0E] p-1">
                 {previewPortrait && previewPortrait.startsWith("data:") ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={previewPortrait}
                     alt="Retrato de Javier Espinosa"
-                    className="h-full w-full object-cover"
+                    className="max-h-full max-w-full h-auto w-auto object-contain"
                   />
                 ) : (
                   <Image
                     src={previewPortrait || "/images/portfolio/hero/hero.jpg"}
                     alt="Retrato de Javier Espinosa"
-                    fill
-                    sizes="80px"
-                    className="object-cover"
+                    width={120}
+                    height={120}
+                    sizes="96px"
+                    className="max-h-full max-w-full h-auto w-auto object-contain"
                   />
                 )}
               </div>

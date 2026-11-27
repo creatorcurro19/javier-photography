@@ -193,21 +193,22 @@ export default function SeriesManagerSection({
             >
               <div>
                 <div className="flex gap-4">
-                  <div className="relative h-24 w-28 flex-shrink-0 overflow-hidden rounded-lg border border-[#262830] bg-[#1A1C22]">
+                  <div className="relative flex h-24 w-28 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg border border-[#262830] bg-[#0B0C0E] p-1">
                     {coverSrc && coverSrc.startsWith("data:") ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
                         src={coverSrc}
                         alt={s.title}
-                        className="h-full w-full object-cover"
+                        className="max-h-full max-w-full h-auto w-auto object-contain"
                       />
                     ) : (
                       <Image
                         src={coverSrc}
                         alt={s.title}
-                        fill
+                        width={coverPhoto?.width ?? 160}
+                        height={coverPhoto?.height ?? 120}
                         sizes="112px"
-                        className="object-cover"
+                        className="max-h-full max-w-full h-auto w-auto object-contain"
                       />
                     )}
                   </div>
@@ -444,21 +445,22 @@ export default function SeriesManagerSection({
                             <span className="font-mono text-xs text-[#8E8A81] w-5">
                               {idx + 1}.
                             </span>
-                            <div className="relative h-12 w-14 flex-shrink-0 overflow-hidden rounded border border-[#2D3038] bg-[#0B0C0E]">
+                            <div className="relative flex h-12 w-14 flex-shrink-0 items-center justify-center overflow-hidden rounded border border-[#2D3038] bg-[#0B0C0E] p-0.5">
                               {thumbSrc.startsWith("data:") ? (
                                 // eslint-disable-next-line @next/next/no-img-element
                                 <img
                                   src={thumbSrc}
                                   alt={w.title}
-                                  className="h-full w-full object-cover"
+                                  className="max-h-full max-w-full h-auto w-auto object-contain"
                                 />
                               ) : (
                                 <Image
                                   src={thumbSrc}
                                   alt={w.title}
-                                  fill
+                                  width={w.width}
+                                  height={w.height}
                                   sizes="56px"
-                                  className="object-cover"
+                                  className="max-h-full max-w-full h-auto w-auto object-contain"
                                 />
                               )}
                             </div>

@@ -75,12 +75,12 @@ export default function PhotoSeriesAssignModal({
 
         {/* Info de la obra */}
         <div className="flex items-center gap-3.5 border-b border-[#202227] bg-[#141519] p-4">
-          <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg border border-[#2B2D36] bg-black">
+          <div className="relative flex h-14 w-16 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-[#2B2D36] bg-black p-0.5">
             {imgSrc.startsWith("data:") ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={imgSrc} alt={photo.title} className="h-full w-full object-cover" />
+              <img src={imgSrc} alt={photo.title} className="max-h-full max-w-full h-auto w-auto object-contain" />
             ) : (
-              <Image src={imgSrc} alt={photo.title} fill sizes="56px" className="object-cover" />
+              <Image src={imgSrc} alt={photo.title} width={photo.width} height={photo.height} sizes="64px" className="max-h-full max-w-full h-auto w-auto object-contain" />
             )}
           </div>
           <div className="min-w-0 flex-1">

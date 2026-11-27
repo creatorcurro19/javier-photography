@@ -218,21 +218,22 @@ export default function SeriesPhotoPickerModal({
                     }`}
                   >
                     {/* Miniatura */}
-                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg bg-[#0B0C0E]">
+                    <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-lg bg-[#0B0C0E] p-1">
                       {thumbSrc.startsWith("data:") ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
                           src={thumbSrc}
                           alt={w.title}
-                          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          className="max-h-full max-w-full h-auto w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                         />
                       ) : (
                         <Image
                           src={thumbSrc}
                           alt={w.title}
-                          fill
+                          width={w.width}
+                          height={w.height}
                           sizes="(max-width: 640px) 45vw, (max-width: 1024px) 25vw, 200px"
-                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          className="max-h-full max-w-full h-auto w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                         />
                       )}
 

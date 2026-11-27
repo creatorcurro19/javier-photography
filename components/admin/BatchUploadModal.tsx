@@ -418,12 +418,12 @@ export default function BatchUploadModal({
                       <span className="font-mono text-xs text-[#8E8A81] w-5">
                         {idx + 1}.
                       </span>
-                      <div className="relative h-16 w-20 flex-shrink-0 overflow-hidden rounded-lg border border-[#2D3038] bg-[#0B0C0E]">
+                      <div className="relative flex h-16 w-20 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg border border-[#2D3038] bg-[#0B0C0E] p-0.5">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={it.dataUrl}
                           alt={it.title}
-                          className="h-full w-full object-cover"
+                          className="max-h-full max-w-full h-auto w-auto object-contain"
                         />
                       </div>
                     </div>
