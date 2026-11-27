@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/ui/LocalizedLink";
 import Container from "@/components/ui/Container";
 import CategoryNav from "@/components/portfolio/CategoryNav";
 import ExhibitionGallery from "@/components/portfolio/ExhibitionGallery";

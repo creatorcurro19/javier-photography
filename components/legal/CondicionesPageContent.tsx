@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/ui/LocalizedLink";
 import Container from "@/components/ui/Container";
 import {
   AndalusianCenefa,
@@ -11,7 +11,7 @@ import { SITE_CONFIG } from "@/data/site-config";
 import { useLanguage } from "@/lib/i18n";
 
 export default function CondicionesPageContent() {
-  const { lang, t } = useLanguage();
+  const { lang, t, href } = useLanguage();
   const plazos = getPlazos(lang);
 
   return (
@@ -38,7 +38,7 @@ export default function CondicionesPageContent() {
                 "Owner: Javier Espinosa Martínez · Registered domicile and tax identification in the "
               )}
               <Link
-                href="/legal"
+                href={href("/legal")}
                 className="text-[#EBE7DF] underline decoration-[#C5A880]/50 underline-offset-4 hover:text-[#C5A880]"
               >
                 {t("Aviso Legal (/legal)", "Legal Notice (/legal)")}
@@ -97,7 +97,7 @@ export default function CondicionesPageContent() {
                   <strong className="text-[#EBE7DF]">
                     {t(
                       "Unión Europea e Internacional: 28 €",
-                      "European Union & International: €28"
+                      "United States, EU & Worldwide: €28"
                     )}
                   </strong>
                   .
@@ -263,13 +263,13 @@ export default function CondicionesPageContent() {
 
           <div className="mt-14 flex flex-wrap gap-4 border-t border-white/[0.08] pt-8">
             <Link
-              href="/legal"
+              href={href("/legal")}
               className="inline-flex min-h-[44px] items-center border border-white/20 bg-[#151618] px-6 py-3 font-mono text-xs uppercase tracking-[0.22em] text-[#EBE7DF] transition hover:border-white/50"
             >
               {t("← Ver Aviso Legal y Privacidad (/legal)", "← View Legal Notice & Privacy (/legal)")}
             </Link>
             <Link
-              href="/contact"
+              href={href("/contact")}
               className="inline-flex min-h-[44px] items-center border border-[#C5A880] bg-[#C5A880] px-6 py-3 font-mono text-xs font-semibold uppercase tracking-[0.22em] text-[#0B0C0E] transition hover:bg-white hover:border-white"
             >
               {t("Consultar con el Estudio →", "Contact Studio →")}

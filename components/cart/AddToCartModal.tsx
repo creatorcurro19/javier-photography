@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/ui/LocalizedLink";
 import type { Photo } from "@/types/photo";
 import { getFormatsForPhoto, addToCart } from "@/lib/cart";
 import { PAGOS_ACTIVOS } from "@/data/site-config";

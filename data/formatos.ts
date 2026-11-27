@@ -62,6 +62,29 @@ export const BASE_PRINT_FORMATS: Record<PrintFormatId, BasePrintFormatSpec> = {
 export const PRINT_FORMAT_ORDER: PrintFormatId[] = ["estudio", "galeria", "coleccion"];
 
 /**
+ * Convierte medidas en centímetros (ej. "30 × 45 cm") a pulgadas ("11.8 × 17.7 in").
+ */
+export function cmToInchesDims(dims: string): string | null {
+  const nums = dims.match(/\d+(?:[.,]\d+)?/g);
+  if (!nums || nums.length < 2) return null;
+  const wCm = parseFloat(nums[0].replace(",", "."));
+  const hCm = parseFloat(nums[1].replace(",", "."));
+  if (!Number.isFinite(wCm) || !Number.isFinite(hCm)) return null;
+  const wIn = Math.round((wCm / 2.54) * 10) / 10;
+  const hIn = Math.round((hCm / 2.54) * 10) / 10;
+  return `${wIn} × ${hIn} in`;
+}
+
+export function formatPaperDimensions(
+  paperDims: string,
+  lang: SiteLang = "es"
+): string {
+  if (lang !== "en") return paperDims;
+  const inches = cmToInchesDims(paperDims);
+  return inches ? `${paperDims} (${inches})` : paperDims;
+}
+
+/**
  * Calcula las medidas de mancha de imagen a partir del papel y el margen perimetral:
  * mancha = papel − 2 × margen
  */
@@ -85,13 +108,16 @@ export function computeManchaDimensions(
       ? Math.round((h - 2 * spec.marginCm) * 10) / 10
       : parseInt((spec.dimensions.match(/\d+/g) ?? ["30", "45"])[1], 10) - 2 * spec.marginCm;
 
+  const widthIn = Math.round((widthCm / 2.54) * 10) / 10;
+  const heightIn = Math.round((heightCm / 2.54) * 10) / 10;
+
   return {
     widthCm,
     heightCm,
     marginCm: spec.marginCm,
     label:
       lang === "en"
-        ? `Image ${widthCm} × ${heightCm} cm (${spec.marginCm} cm white border)`
+        ? `Image ${widthCm} × ${heightCm} cm / ${widthIn} × ${heightIn} in (${spec.marginCm} cm white border)`
         : `Mancha ${widthCm} × ${heightCm} cm (margen blanco ${spec.marginCm} cm)`,
   };
 }

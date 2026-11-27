@@ -6,7 +6,7 @@ import { clearCart } from "@/lib/cart";
 import { useLanguage } from "@/lib/i18n";
 
 export default function PaymentFeedback() {
-  const { t } = useLanguage();
+  const { t, href } = useLanguage();
   const searchParams = useSearchParams();
   const router = useRouter();
   const pago = searchParams.get("pago");
@@ -24,7 +24,7 @@ export default function PaymentFeedback() {
   const handleDismiss = () => {
     setDismissed(true);
     // Limpiar searchParams de la URL de forma limpia
-    router.replace("/prints", { scroll: false });
+    router.replace(href("/prints"), { scroll: false });
   };
 
   if (!visible || !pago) return null;

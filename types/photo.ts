@@ -96,7 +96,9 @@ export const CATEGORY_METADATA: Record<
     description: string;
     descriptionEn: string;
     seoTitle: string;
+    seoTitleEn: string;
     seoDescription: string;
+    seoDescriptionEn: string;
     seoKeywords: string[];
     coverImage: string;
   }
@@ -113,8 +115,11 @@ export const CATEGORY_METADATA: Record<
     descriptionEn:
       "Photographing wildlife takes patience and distance. Location and conditions are indicated on each work's sheet.",
     seoTitle: "Fauna y Naturaleza | Javier Espinosa",
+    seoTitleEn: "Wildlife & Nature Fine Art Prints | Javier Espinosa",
     seoDescription:
       "Fotografía de fauna, aves y naturaleza a 600mm con luz natural. Lugar y condiciones indicados en cada ficha. Copias Fine Art y licencias.",
+    seoDescriptionEn:
+      "Limited edition 600mm wildlife and birdlife Fine Art prints on archival Hahnemuhle cotton paper. Capture conditions listed on every sheet. Worldwide US shipping.",
     seoKeywords: [
       "fotografía de fauna salvaje",
       "fotógrafo de naturaleza españa",
@@ -138,8 +143,11 @@ export const CATEGORY_METADATA: Record<
     descriptionEn:
       "A landscape needs very little when the light is right. From Mount Teide at dawn and the mist in Anaga's laurel forests to the dunes of the Sahara and the ridges of the High Atlas—places that invite you to stop and look.",
     seoTitle: "Paisajes y Territorio | Javier Espinosa",
+    seoTitleEn: "Fine Art Landscape Photography Prints | Javier Espinosa",
     seoDescription:
       "Fotografía de paisaje en Tenerife (Teide, Anaga), Sahara, Alto Atlas y Península. Copias Fine Art en papel Hahnemühle Photo Rag 308g.",
+    seoDescriptionEn:
+      "Museum-grade Fine Art landscape prints from Tenerife volcanic peaks, the Sahara Desert, and the High Atlas. Limited cotton rag editions shipped to the US.",
     seoKeywords: [
       "fotografía de paisaje",
       "fine art landscape photography",
@@ -162,8 +170,11 @@ export const CATEGORY_METADATA: Record<
     descriptionEn:
       "There is more to a rally than the racing line. There are classic cars braking late into a hairpin or lifting an inside wheel, but also mechanics working under the tent, pacenotes spread across a hood, and the worn details of bodywork with decades of history.",
     seoTitle: "Coches y Rally Histórico | Javier Espinosa",
+    seoTitleEn: "Historic Rally & Motorsport Art Prints | Javier Espinosa",
     seoDescription:
       "Fotografía de rally histórico en Tenerife (52º Rallye Orvecame Isla Tenerife Histórico, El Tanque), vehículos clásicos y asistencia.",
+    seoDescriptionEn:
+      "Classic rally and vintage motorsport Fine Art prints and editorial licensing. Historic European & Canary Islands rally action shipped worldwide in rigid tubes.",
     seoKeywords: [
       "fotografía de rally",
       "52 rallye orvecame isla tenerife histórico",
@@ -189,8 +200,11 @@ export const CATEGORY_METADATA: Record<
     descriptionEn:
       "I am drawn to buildings that show the passage of time: granite and timber houses in old villages, tiled courtyards, ruins slowly reclaimed by vegetation, or the warm glow of a streetlamp against a facade late at night.",
     seoTitle: "Arquitectura y Espacio Urbano | Javier Espinosa",
+    seoTitleEn: "Architectural & Urban Fine Art Prints | Javier Espinosa",
     seoDescription:
       "Fotografía de arquitectura tradicional y espacio urbano en Villanueva de la Vera, Cádiz, Tenerife y Marrakech por Javier Espinosa.",
+    seoDescriptionEn:
+      "Fine Art architectural and nocturnal urban photography from Marrakech, historic Spanish villages, and Andalusia. Cotton paper prints & TIFF licensing.",
     seoKeywords: [
       "fotografía de arquitectura",
       "fotógrafo de arquitectura y patrimonio",
@@ -214,8 +228,11 @@ export const CATEGORY_METADATA: Record<
     descriptionEn:
       "Workshops where iron and cedar are still shaped by hand, peppers drying in the sun, neighborhood markets, and unposed street scenes. Photographs meant to record places and the people in them without interrupting what is happening.",
     seoTitle: "Documental y Tradición | Javier Espinosa",
+    seoTitleEn: "Documentary & Craft Fine Art Prints | Javier Espinosa",
     seoDescription:
       "Fotografía documental sobre oficios manuales, Cruces de Mayo en Los Realejos, vida rural en La Vera y talleres de Marrakech.",
+    seoDescriptionEn:
+      "Unposed documentary Fine Art photography of traditional workshops, Marrakech artisans, and Spanish heritage. Limited editions & commercial editorial licensing.",
     seoKeywords: [
       "fotografía documental",
       "cruces de mayo los realejos tenerife",

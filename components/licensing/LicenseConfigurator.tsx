@@ -58,7 +58,7 @@ const USAGE_TYPES = [
 const TERRITORIES = [
   { id: "España (Nacional)", es: "España (Nacional)", en: "Spain (National)" },
   { id: "Unión Europea", es: "Unión Europea", en: "European Union" },
-  { id: "Mundial", es: "Mundial", en: "Worldwide" },
+  { id: "Mundial", es: "Mundial", en: "Worldwide (incl. US)" },
 ];
 
 const DURATIONS = [
@@ -68,7 +68,7 @@ const DURATIONS = [
 ];
 
 export default function LicenseConfigurator() {
-  const { lang, t } = useLanguage();
+  const { lang, t, href } = useLanguage();
   const router = useRouter();
   const [selectedWork, setSelectedWork] = useState<string>("_default");
   const [usage, setUsage] = useState(USAGE_TYPES[0].id);
@@ -92,7 +92,9 @@ export default function LicenseConfigurator() {
     const territoryLabel = lang === "en" ? currentTerritory.en : currentTerritory.es;
     const durationLabel = lang === "en" ? currentDuration.en : currentDuration.es;
     router.push(
-      `/contact?motivo=licencia&obra=${encodeURIComponent(selectedWorkDisplay)}&uso=${encodeURIComponent(usageLabel)}&territorio=${encodeURIComponent(territoryLabel)}&duracion=${encodeURIComponent(durationLabel)}`
+      href(
+        `/contact?motivo=licencia&obra=${encodeURIComponent(selectedWorkDisplay)}&uso=${encodeURIComponent(usageLabel)}&territorio=${encodeURIComponent(territoryLabel)}&duracion=${encodeURIComponent(durationLabel)}`
+      )
     );
   };
 

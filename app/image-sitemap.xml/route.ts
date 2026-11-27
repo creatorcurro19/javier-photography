@@ -1,3 +1,5 @@
+import { localizeHref } from "@/lib/i18n-helpers";
+import { getLocalizedPhoto, getLocalizedProject } from "@/lib/i18n-works";
 import { SITE_URL } from "@/lib/metadata";
 import {
   getAllPhotos,
@@ -17,26 +19,26 @@ function escapeXml(value: string): string {
 }
 
 /**
- * Sitemap XML dedicado exclusivamente a Google Images (/image-sitemap.xml).
- * Cumple la especificación actual http://www.google.com/schemas/sitemap-image/1.1
+ * Sitemap XML bilingüe (ES + EN/US) dedicado a Google Images (/image-sitemap.xml).
+ * Cumple la especificación http://www.google.com/schemas/sitemap-image/1.1
  */
 export async function GET() {
   const photos = getAllPhotos();
   const projects = getAllProjects();
 
-  const entries: {
-    loc: string;
-    images: { url: string; title?: string; caption?: string; geo?: string }[];
-  }[] = [
+  const formatGeo = (loc?: string, country?: string) =>
+    loc
+      ? `${loc}${country && !loc.includes(country) ? `, ${country}` : ""}`
+      : undefined;
+
+  const esEntries = [
     ...PHOTO_CATEGORIES.map((category) => ({
       loc: `${SITE_URL}/portfolio/${category}`,
       images: getPhotosByCategory(category).map((p) => ({
         url: `${SITE_URL}${p.image}`,
         title: `${p.title} — Javier Espinosa`,
         caption: p.alt || p.description,
-        geo: p.location
-          ? `${p.location}${p.country && !p.location.includes(p.country) ? `, ${p.country}` : ""}`
-          : undefined,
+        geo: formatGeo(p.location, p.country),
       })),
     })),
     ...projects.map((project) => ({
@@ -55,13 +57,57 @@ export async function GET() {
           url: `${SITE_URL}${photo.image}`,
           title: `${photo.title} — Javier Espinosa Fotografía`,
           caption: `${photo.description} (${photo.alt})`,
-          geo: photo.location
-            ? `${photo.location}${photo.country && !photo.location.includes(photo.country) ? `, ${photo.country}` : ""}`
-            : undefined,
+          geo: formatGeo(photo.location, photo.country),
         },
       ],
     })),
   ];
+
+  const enEntries = [
+    ...PHOTO_CATEGORIES.map((category) => ({
+      loc: `${SITE_URL}${localizeHref(`/portfolio/${category}`, "en")}`,
+      images: getPhotosByCategory(category).map((raw) => {
+        const p = getLocalizedPhoto(raw, "en");
+        return {
+          url: `${SITE_URL}${p.image}`,
+          title: `${p.title} — Javier Espinosa Fine Art Prints`,
+          caption: p.alt || p.description,
+          geo: formatGeo(p.location, p.country),
+        };
+      }),
+    })),
+    ...projects.map((rawProj) => {
+      const project = getLocalizedProject(rawProj, "en");
+      return {
+        loc: `${SITE_URL}${localizeHref(`/projects/${project.slug}`, "en")}`,
+        images: getProjectPhotos(rawProj).map((raw) => {
+          const p = getLocalizedPhoto(raw, "en");
+          return {
+            url: `${SITE_URL}${p.image}`,
+            title: `${p.title} — ${project.title}`,
+            caption: p.alt || p.description,
+            geo: p.location || project.location,
+          };
+        }),
+      };
+    }),
+    ...photos.map((raw) => {
+      const photo = getLocalizedPhoto(raw, "en");
+      return {
+        loc: `${SITE_URL}${localizeHref(`/portfolio/${photo.slug}`, "en")}`,
+        images: [
+          {
+            url: `${SITE_URL}${photo.image}`,
+            title: `${photo.title} — Javier Espinosa Photography`,
+            caption: `${photo.description} (${photo.alt})`,
+            geo: formatGeo(photo.location, photo.country),
+          },
+        ],
+      };
+    }),
+  ];
+
+  const entries = [...esEntries, ...enEntries];
 
   const urlNodes = entries
     .map(

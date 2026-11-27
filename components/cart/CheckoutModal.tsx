@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/ui/LocalizedLink";
 import type { CartItem, OrderCustomer, CartOrder, ShippingZoneId } from "@/types/cart";
 import { SHIPPING_ZONES, getShippingZones } from "@/types/cart";
 import { clearCart } from "@/lib/cart";

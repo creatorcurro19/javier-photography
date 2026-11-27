@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/ui/LocalizedLink";
 import { getActiveUpcomingEvents, type UpcomingEvent } from "@/data/events";
 import type { PhotoCategory } from "@/types/photo";
 import JsonLd from "@/components/seo/JsonLd";

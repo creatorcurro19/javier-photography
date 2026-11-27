@@ -1,6 +1,7 @@
 import {
   BASE_PRINT_FORMATS,
   computeManchaDimensions,
+  formatPaperDimensions,
   type PrintFormatId,
 } from "@/data/formatos";
 import { getPlazos, PLAZOS } from "@/data/plazos";
@@ -62,10 +63,10 @@ export function getShippingZones(lang: SiteLang): Record<ShippingZoneId, Shippin
     },
     internacional: {
       id: "internacional",
-      label: "European Union & International",
+      label: "United States, EU & Worldwide",
       cost: 28,
-      taxNote: "+ €28 international rigid tube shipping · Applicable taxes are confirmed upon order confirmation",
-      deliveryDays: `International rigid tube shipping · ${p.tabla}`,
+      taxNote: "+ €28 US & international rigid tube shipping · Applicable taxes are confirmed upon order confirmation",
+      deliveryDays: `US & international rigid tube shipping · ${p.tabla}`,
     },
   };
 }
@@ -151,14 +152,14 @@ export function getFormatsForPhoto(
 
   const fallbackDisabledReason =
     lang === "en"
-      ? "Due to native sensor resolution or elevated ISO sensitivity, this work is limited to Gallery Format (50 × 70 cm) to ensure maximum print sharpness."
+      ? "Due to native sensor resolution or elevated ISO sensitivity, this work is limited to Gallery Format (50 × 70 cm / 19.7 × 27.6 in) to ensure maximum print sharpness."
       : "Por resolución nativa o sensibilidad ISO elevada, esta obra se limita a Formato Galería (50 × 70 cm) para garantizar máxima nitidez.";
 
   return {
     estudio: {
       id: "estudio",
       name: lang === "en" ? BASE_PRINT_FORMATS.estudio.nameEn : BASE_PRINT_FORMATS.estudio.name,
-      dimensions: estudioDims,
+      dimensions: formatPaperDimensions(estudioDims, lang),
       imageDimensions: computeImageArea(estudioDims, "estudio", lang),
       price: p?.estudio ?? PRINT_FORMATS.estudio.price,
       framePrice: 0,
@@ -167,7 +168,7 @@ export function getFormatsForPhoto(
     galeria: {
       id: "galeria",
       name: lang === "en" ? BASE_PRINT_FORMATS.galeria.nameEn : BASE_PRINT_FORMATS.galeria.name,
-      dimensions: galeriaDims,
+      dimensions: formatPaperDimensions(galeriaDims, lang),
       imageDimensions: computeImageArea(galeriaDims, "galeria", lang),
       price: p?.galeria ?? PRINT_FORMATS.galeria.price,
       framePrice: 0,
@@ -176,7 +177,7 @@ export function getFormatsForPhoto(
     coleccion: {
       id: "coleccion",
       name: lang === "en" ? BASE_PRINT_FORMATS.coleccion.nameEn : BASE_PRINT_FORMATS.coleccion.name,
-      dimensions: coleccionDims,
+      dimensions: formatPaperDimensions(coleccionDims, lang),
       imageDimensions: computeImageArea(coleccionDims, "coleccion", lang),
       price: p?.coleccion ?? PRINT_FORMATS.coleccion.price,
       framePrice: 0,

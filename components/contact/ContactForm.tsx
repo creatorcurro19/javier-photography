@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/ui/LocalizedLink";
 import { useSearchParams } from "next/navigation";
 import { useState, Suspense, useCallback } from "react";
 import { getSavedWorks } from "@/components/photo/FavoriteButton";

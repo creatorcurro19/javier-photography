@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/ui/LocalizedLink";
 import TrabajosSection from "@/components/about/TrabajosSection";
 import { TRABAJOS } from "@/data/trabajos";
 import { SITE_SETTINGS } from "@/data/site-config";

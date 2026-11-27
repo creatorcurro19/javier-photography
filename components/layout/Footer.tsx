@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/ui/LocalizedLink";
 import { SITE_CONFIG } from "@/data/site-config";
 import { useLanguage } from "@/lib/i18n";
 

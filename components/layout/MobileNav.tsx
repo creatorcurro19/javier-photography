@@ -1,9 +1,10 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/ui/LocalizedLink";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/lib/i18n";
+import { normalizeRoutePath } from "@/lib/i18n-helpers";
 import LanguageToggle from "@/components/layout/LanguageToggle";
 import { SITE_CONFIG } from "@/data/site-config";
 import { WORKS } from "@/data/works";
@@ -38,12 +39,13 @@ const primaryLinks = SITE_CONFIG.navigation.map((item) => {
 
 export default function MobileNav() {
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
-  const [prevPathname, setPrevPathname] = useState(pathname);
+  const rawPathname = usePathname() || "/";
+  const pathname = normalizeRoutePath(rawPathname);
+  const [prevPathname, setPrevPathname] = useState(rawPathname);
   const { lang, t } = useLanguage();
 
-  if (prevPathname !== pathname) {
-    setPrevPathname(pathname);
+  if (prevPathname !== rawPathname) {
+    setPrevPathname(rawPathname);
     setOpen(false);
   }
 

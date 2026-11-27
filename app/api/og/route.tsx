@@ -6,10 +6,23 @@ export const runtime = "edge";
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
+    const isEn = searchParams.get("lang") === "en";
     const title = (searchParams.get("title") || "JAVIER ESPINOSA").slice(0, 90);
-    const badge = (searchParams.get("badge") || "FOTOGRAFÍA DE AUTOR").toUpperCase().slice(0, 36);
+    const badge = (
+      searchParams.get("badge") ||
+      (isEn ? "FINE ART PHOTOGRAPHY" : "FOTOGRAFÍA DE AUTOR")
+    )
+      .toUpperCase()
+      .slice(0, 36);
     const subtitle = (searchParams.get("subtitle") || "The Art of Seeing").slice(0, 110);
-    const meta = (searchParams.get("meta") || "Fine Art Editions · Hahnemühle Photo Rag 308g · Tenerife").slice(0, 90);
+    const meta = (
+      searchParams.get("meta") ||
+      (isEn
+        ? "Fine Art Editions · Hahnemühle Photo Rag 308g · Worldwide & US Shipping"
+        : "Fine Art Editions · Hahnemühle Photo Rag 308g · Tenerife")
+    ).slice(0, 90);
+    const roleLabel = isEn ? "FINE ART PHOTOGRAPHY" : "FOTOGRAFÍA DE AUTOR";
+    const originRight = isEn ? "WORLDWIDE & US SHIPPING" : "ESPAÑA";
 
     return new ImageResponse(
       (
@@ -144,7 +157,7 @@ export async function GET(req: NextRequest) {
                     marginTop: "2px",
                   }}
                 >
-                  FOTOGRAFÍA DE AUTOR
+                  {roleLabel}
                 </span>
               </div>
             </div>
@@ -237,7 +250,7 @@ export async function GET(req: NextRequest) {
             <div style={{ display: "flex", alignItems: "center", gap: "8px", color: "#C5A880" }}>
               <span>TENERIFE</span>
               <span>·</span>
-              <span>ESPAÑA</span>
+              <span>{originRight}</span>
             </div>
           </div>
         </div>

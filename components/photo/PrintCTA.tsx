@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import Link from "@/components/ui/LocalizedLink";
 import { AndalusianCornerOrnaments } from "@/components/ui/AndalusianMotif";
 import { PAGOS_ACTIVOS } from "@/data/site-config";
 import type { Photo } from "@/types/photo";

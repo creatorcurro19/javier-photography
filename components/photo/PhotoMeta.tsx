@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/ui/LocalizedLink";
 import type { Photo } from "@/types/photo";
 import { CATEGORY_METADATA } from "@/types/photo";
 import FavoriteButton from "@/components/photo/FavoriteButton";

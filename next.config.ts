@@ -66,8 +66,25 @@ const nextConfig: NextConfig = {
     return [
       ...domainRedirects,
     {
+        "source": "/",
+        "has": [{ "type": "query", "key": "lang", "value": "en" }],
+        "destination": "/en",
+        "permanent": true
+    },
+    {
+        "source": "/:path((?!en(?:/|$)|api/|images/|_next/).+)",
+        "has": [{ "type": "query", "key": "lang", "value": "en" }],
+        "destination": "/en/:path",
+        "permanent": true
+    },
+    {
         "source": "/stories",
         "destination": "/cuaderno",
+        "permanent": true
+    },
+    {
+        "source": "/en/stories",
+        "destination": "/en/cuaderno",
         "permanent": true
     },
     {
@@ -76,8 +93,18 @@ const nextConfig: NextConfig = {
         "permanent": true
     },
     {
+        "source": "/en/projects/la-gomera",
+        "destination": "/en/projects/entre-la-bruma-y-el-volcan",
+        "permanent": true
+    },
+    {
         "source": "/projects/ecos-del-sahara",
         "destination": "/projects/silencio-del-desierto",
+        "permanent": true
+    },
+    {
+        "source": "/en/projects/ecos-del-sahara",
+        "destination": "/en/projects/silencio-del-desierto",
         "permanent": true
     },
     {

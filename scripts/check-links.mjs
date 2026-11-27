@@ -25,12 +25,16 @@ function walk(dir, files = []) {
   return files;
 }
 
-// 1. Recolectar rutas reales de app/
+// 1. Recolectar rutas reales de app/ (eliminando grupos entre paréntesis como /(es) o /(en))
 const appPages = new Set(["/"]);
 for (const file of walk(path.join(ROOT, "app"))) {
   if (path.basename(file) === "page.tsx") {
     const relDir = path.relative(path.join(ROOT, "app"), path.dirname(file));
-    const route = relDir === "" ? "/" : `/${relDir.replace(/\\/g, "/")}`;
+    const segments = relDir
+      .replace(/\\/g, "/")
+      .split("/")
+      .filter((s) => s && !(s.startsWith("(") && s.endsWith(")")));
+    const route = segments.length === 0 ? "/" : `/${segments.join("/")}`;
     appPages.add(route);
   }
 }
@@ -88,7 +92,9 @@ for (const s of seriesList) {
 
 // 4. Comprobar href="/..." estáticos en app/, components/ y data/
 function isValidInternalPath(rawPath) {
-  const cleanPath = rawPath.split("#")[0].split("?")[0];
+  let cleanPath = rawPath.split("#")[0].split("?")[0];
+  if (cleanPath === "/en" || cleanPath === "/en/") cleanPath = "/";
+  else if (cleanPath.startsWith("/en/")) cleanPath = cleanPath.slice(3);
   if (!cleanPath || cleanPath === "/") return true;
   if (appPages.has(cleanPath)) return true;
   if (redirects.has(cleanPath)) return true;

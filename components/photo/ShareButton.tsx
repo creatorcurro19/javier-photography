@@ -21,7 +21,7 @@ export default function ShareButton({
   location,
   variant = "default",
 }: ShareButtonProps) {
-  const { t } = useLanguage();
+  const { t, href } = useLanguage();
   const [status, setStatus] = useState<"idle" | "copied">("idle");
   const timerRef = useRef<number | null>(null);
 
@@ -36,7 +36,7 @@ export default function ShareButton({
       typeof window !== "undefined"
         ? window.location.origin
         : SITE_CONFIG.siteUrl;
-    const url = `${origin}/portfolio/${slug}`;
+    const url = `${origin}${href(`/portfolio/${slug}`)}`;
     const brandSuffix = t("Javier Espinosa Fotografía", "Javier Espinosa Photography");
     const text = location
       ? `${title} (${location}) — ${brandSuffix}`

@@ -1,16 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/ui/LocalizedLink";
 import { usePathname } from "next/navigation";
 import MobileNav from "@/components/layout/MobileNav";
 import LanguageToggle from "@/components/layout/LanguageToggle";
 import CartButton from "@/components/cart/CartButton";
 import { SITE_CONFIG } from "@/data/site-config";
 import { useLanguage } from "@/lib/i18n";
+import { normalizeRoutePath } from "@/lib/i18n-helpers";
 
 export default function Navbar() {
-  const pathname = usePathname();
+  const pathname = normalizeRoutePath(usePathname() || "/");
   const { t } = useLanguage();
 
   return (

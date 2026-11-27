@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo, useSyncExternalStore } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/ui/LocalizedLink";
 import {
   removeFromCart,
   updateQuantity,

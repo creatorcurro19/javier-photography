@@ -1,37 +1,47 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
-import type { SiteLang } from "@/lib/i18n-helpers";
+import {
+  createContext,
+  createElement,
+  useCallback,
+  useContext,
+  useEffect,
+  useSyncExternalStore,
+  type ReactNode,
+} from "react";
+import { usePathname } from "next/navigation";
+import { localizeHref, type SiteLang } from "@/lib/i18n-helpers";
 
 export type { SiteLang };
 
 const LANG_KEY = "javier_site_lang";
 const LANG_EVENT = "javier-lang-changed";
 
+const LangContext = createContext<SiteLang | undefined>(undefined);
+
 function getStoredLang(): SiteLang {
   if (typeof window === "undefined") return "es";
   try {
+    if (
+      window.location.pathname === "/en" ||
+      window.location.pathname.startsWith("/en/")
+    ) {
+      return "en";
+    }
     const params = new URLSearchParams(window.location.search);
     const urlLang = params.get("lang");
     if (urlLang === "en" || urlLang === "es") {
       window.localStorage.setItem(LANG_KEY, urlLang);
-      if (document.documentElement.lang !== urlLang) {
-        document.documentElement.lang = urlLang;
-      }
       return urlLang;
     }
     const val = window.localStorage.getItem(LANG_KEY);
-    const resolved: SiteLang = val === "en" ? "en" : "es";
-    if (document.documentElement.lang !== resolved) {
-      document.documentElement.lang = resolved;
-    }
-    return resolved;
+    return val === "en" ? "en" : "es";
   } catch {
     return "es";
   }
 }
 
-function getServerLang(): SiteLang {
+function getServerLangFallback(): SiteLang {
   return "es";
 }
 
@@ -56,15 +66,83 @@ export function setSiteLang(lang: SiteLang): void {
   }
 }
 
+export function LangProvider({
+  lang,
+  children,
+}: {
+  lang: SiteLang;
+  children: ReactNode;
+}) {
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (document.documentElement.lang !== lang) {
+      document.documentElement.lang = lang;
+    }
+    try {
+      window.localStorage.setItem(LANG_KEY, lang);
+    } catch {
+      // Ignore storage errors
+    }
+
+    // Fallback for legacy ?lang=en links if reached via client navigation
+    if (lang === "es") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("lang") === "en") {
+        params.delete("lang");
+        const query = params.toString();
+        const target = localizeHref(
+          `${pathname || "/"}${query ? `?${query}` : ""}${window.location.hash || ""}`,
+          "en"
+        );
+        window.location.replace(target);
+      }
+    }
+  }, [lang, pathname]);
+
+  return createElement(LangContext.Provider, { value: lang }, children);
+}
+
+export function getServerLang(): SiteLang {
+  return "es";
+}
+
 export function useLanguage() {
-  const lang = useSyncExternalStore(subscribeLang, getStoredLang, getServerLang);
+  const ctxLang = useContext(LangContext);
+  const storedLang = useSyncExternalStore(
+    subscribeLang,
+    getStoredLang,
+    getServerLangFallback
+  );
+  const lang: SiteLang = ctxLang ?? storedLang;
 
-  const toggleLang = () => {
-    setSiteLang(lang === "es" ? "en" : "es");
-  };
+  const setLang = useCallback((nextLang: SiteLang) => {
+    setSiteLang(nextLang);
+    if (typeof window !== "undefined") {
+      const target = localizeHref(
+        `${window.location.pathname}${window.location.search}${window.location.hash}`,
+        nextLang
+      );
+      if (target !== `${window.location.pathname}${window.location.search}${window.location.hash}`) {
+        window.location.assign(target);
+      }
+    }
+  }, []);
 
-  const t = <T extends string>(es: T, en: string): string =>
-    lang === "en" ? en : es;
+  const toggleLang = useCallback(() => {
+    setLang(lang === "es" ? "en" : "es");
+  }, [lang, setLang]);
 
-  return { lang, setLang: setSiteLang, toggleLang, t };
+  const t = useCallback(
+    <T extends string>(es: T, en: string): string => (lang === "en" ? en : es),
+    [lang]
+  );
+
+  const href = useCallback(
+    (path: string): string => localizeHref(path, lang),
+    [lang]
+  );
+
+  return { lang, setLang, toggleLang, t, href };
 }

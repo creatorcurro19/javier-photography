@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import Link from "@/components/ui/LocalizedLink";
 import { useLanguage } from "@/lib/i18n";
 
 const STORAGE_KEY = "javier_selected_works";

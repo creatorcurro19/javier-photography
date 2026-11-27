@@ -9,6 +9,7 @@ import {
   BASE_PRINT_FORMATS,
   PRINT_FORMAT_ORDER,
   computeManchaDimensions,
+  formatPaperDimensions,
   type PrintFormatId,
 } from "@/data/formatos";
 import { PAGOS_ACTIVOS } from "@/data/site-config";
@@ -40,11 +41,11 @@ export default function PrintsPageContent({
             {PAGOS_ACTIVOS
               ? t(
                   "Tienda Online · Envío gratis en Canarias",
-                  "Online Store · Free shipping in the Canary Islands"
+                  "Online Store · Worldwide & US Shipping"
                 )
               : t(
                   "Copias Fine Art por encargo · Envío gratis en Canarias",
-                  "Custom Fine Art Prints · Free shipping in the Canary Islands"
+                  "Limited Fine Art Prints · Worldwide & US Rigid Tube Shipping"
                 )}
           </p>
           <h1 className="mt-2 font-serif text-3xl sm:text-5xl font-light tracking-tight text-[#EBE7DF]">
@@ -53,7 +54,7 @@ export default function PrintsPageContent({
           <p className="mt-3 text-sm sm:text-base leading-relaxed text-[#A39E93] font-light">
             {t(
               "Elige la foto que te guste, selecciona el tamaño (Estudio, Galería o Gran Colección) y recíbela sin enmarcar en tubo rígido protector.",
-              "Choose the photograph you like, select a size (Studio, Gallery, or Grand Collection), and receive it unframed inside a rigid protective tube."
+              "Choose the photograph you like, select a size (Studio, Gallery, or Grand Collection), and receive it unframed inside a rigid protective tube shipped to the US, Europe, or worldwide."
             )}
           </p>
         </div>
@@ -91,7 +92,7 @@ export default function PrintsPageContent({
                 {plazos.copias}{" "}
                 {t(
                   "Envío en tubo rígido sin marco (Canarias 0 € · Península 15 € · UE 28 €).",
-                  "Unframed rigid tube shipping (Canary Islands 0 € · Mainland Spain 15 € · EU 28 €)."
+                  "Unframed rigid tube shipping (Canary Islands €0 · Mainland Spain €15 · US, EU & Worldwide €28)."
                 )}
               </p>
             </div>
@@ -130,7 +131,7 @@ export default function PrintsPageContent({
                     <td className="px-4 py-2.5 text-[#EBE7DF]">
                       {lang === "en" ? spec.nameEn : spec.name}
                     </td>
-                    <td className="px-4 py-2.5">{spec.dimensions}</td>
+                    <td className="px-4 py-2.5">{formatPaperDimensions(spec.dimensions, lang)}</td>
                     <td className="px-4 py-2.5">{mancha.label}</td>
                     <td className="px-4 py-2.5 text-[#C5A880] whitespace-nowrap">
                       {range.min === range.max

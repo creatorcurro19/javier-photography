@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/ui/LocalizedLink";
 import { useSearchParams } from "next/navigation";
 import type { Photo, PhotoCategory } from "@/types/photo";
 import { CATEGORY_METADATA, PHOTO_CATEGORIES } from "@/types/photo";

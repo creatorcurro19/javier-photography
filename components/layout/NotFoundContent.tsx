@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/ui/LocalizedLink";
 import Container from "@/components/ui/Container";
 import { WORKS, SERIES } from "@/data/works";
 import { useLanguage } from "@/lib/i18n";

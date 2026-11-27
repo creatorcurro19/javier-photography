@@ -1,4 +1,7 @@
 import type { MetadataRoute } from "next";
+import { CUADERNO_POSTS } from "@/data/cuaderno";
+import { SERVICE_LANDINGS } from "@/data/service-landings";
+import { localizeHref } from "@/lib/i18n-helpers";
 import { SITE_URL } from "@/lib/metadata";
 import {
   getAllPhotos,
@@ -9,18 +12,49 @@ import {
   getProjectPhotos,
   PHOTO_CATEGORIES,
 } from "@/lib/photos";
-import { SERVICE_LANDINGS } from "@/data/service-landings";
-import { CUADERNO_POSTS } from "@/data/cuaderno";
 
 const BASE = SITE_URL;
 
-function withLangAlternates(url: string) {
+function withLangAlternates(basePath: string) {
+  const esUrl = `${BASE}${basePath === "/" ? "" : basePath}`;
+  const enPath = localizeHref(basePath, "en");
+  const enUrl = `${BASE}${enPath}`;
   return {
     languages: {
-      es: url,
-      en: `${url}?lang=en`,
+      "es-ES": esUrl,
+      es: esUrl,
+      "en-US": enUrl,
+      en: enUrl,
+      "x-default": enUrl,
     },
   };
+}
+
+function buildBilingualEntry(
+  basePath: string,
+  options: {
+    lastModified: Date;
+    changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
+    priority: number;
+    images?: string[];
+  }
+): MetadataRoute.Sitemap {
+  const esUrl = `${BASE}${basePath === "/" ? "" : basePath}`;
+  const enUrl = `${BASE}${localizeHref(basePath, "en")}`;
+  const alternates = withLangAlternates(basePath);
+
+  return [
+    {
+      url: esUrl,
+      ...options,
+      alternates,
+    },
+    {
+      url: enUrl,
+      ...options,
+      alternates,
+    },
+  ];
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -29,160 +63,122 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const printableImages = getPrintablePhotos().map((p) => `${BASE}${p.image}`);
 
   const staticRoutes: MetadataRoute.Sitemap = [
-    {
-      url: `${BASE}`,
+    ...buildBilingualEntry("/", {
       lastModified,
       changeFrequency: "weekly",
       priority: 1.0,
-      alternates: withLangAlternates(`${BASE}`),
       images: featuredImages.slice(0, 6),
-    },
-    {
-      url: `${BASE}/selected-work`,
+    }),
+    ...buildBilingualEntry("/selected-work", {
       lastModified,
       changeFrequency: "weekly",
       priority: 0.95,
-      alternates: withLangAlternates(`${BASE}/selected-work`),
       images: featuredImages,
-    },
-    {
-      url: `${BASE}/portfolio`,
+    }),
+    ...buildBilingualEntry("/portfolio", {
       lastModified,
       changeFrequency: "weekly",
       priority: 0.95,
-      alternates: withLangAlternates(`${BASE}/portfolio`),
       images: featuredImages,
-    },
-    {
-      url: `${BASE}/projects`,
+    }),
+    ...buildBilingualEntry("/projects", {
       lastModified,
       changeFrequency: "weekly",
       priority: 0.9,
-      alternates: withLangAlternates(`${BASE}/projects`),
-    },
-    {
-      url: `${BASE}/prints`,
+    }),
+    ...buildBilingualEntry("/prints", {
       lastModified,
       changeFrequency: "monthly",
       priority: 0.9,
-      alternates: withLangAlternates(`${BASE}/prints`),
       images: printableImages,
-    },
-    {
-      url: `${BASE}/servicios`,
+    }),
+    ...buildBilingualEntry("/servicios", {
       lastModified,
       changeFrequency: "monthly",
       priority: 0.85,
-      alternates: withLangAlternates(`${BASE}/servicios`),
-    },
-    {
-      url: `${BASE}/licensing`,
+    }),
+    ...buildBilingualEntry("/licensing", {
       lastModified,
       changeFrequency: "monthly",
       priority: 0.85,
-      alternates: withLangAlternates(`${BASE}/licensing`),
-    },
-    {
-      url: `${BASE}/cuaderno`,
+    }),
+    ...buildBilingualEntry("/cuaderno", {
       lastModified,
       changeFrequency: "weekly",
       priority: 0.8,
-      alternates: withLangAlternates(`${BASE}/cuaderno`),
-    },
-    {
-      url: `${BASE}/about`,
+    }),
+    ...buildBilingualEntry("/about", {
       lastModified,
       changeFrequency: "monthly",
       priority: 0.8,
-      alternates: withLangAlternates(`${BASE}/about`),
-    },
-    {
-      url: `${BASE}/dossier`,
+    }),
+    ...buildBilingualEntry("/dossier", {
       lastModified,
       changeFrequency: "monthly",
       priority: 0.75,
-      alternates: withLangAlternates(`${BASE}/dossier`),
-    },
-    {
-      url: `${BASE}/contact`,
+    }),
+    ...buildBilingualEntry("/contact", {
       lastModified,
       changeFrequency: "monthly",
       priority: 0.75,
-      alternates: withLangAlternates(`${BASE}/contact`),
-    },
-    {
-      url: `${BASE}/legal`,
+    }),
+    ...buildBilingualEntry("/legal", {
       lastModified,
       changeFrequency: "yearly",
       priority: 0.3,
-      alternates: withLangAlternates(`${BASE}/legal`),
-    },
-    {
-      url: `${BASE}/condiciones`,
+    }),
+    ...buildBilingualEntry("/condiciones", {
       lastModified,
       changeFrequency: "yearly",
       priority: 0.3,
-      alternates: withLangAlternates(`${BASE}/condiciones`),
-    },
+    }),
   ];
 
-  const cuadernoRoutes: MetadataRoute.Sitemap = CUADERNO_POSTS.map((post) => ({
-    url: `${BASE}/cuaderno/${post.slug}`,
-    lastModified,
-    changeFrequency: "monthly",
-    priority: 0.75,
-    alternates: withLangAlternates(`${BASE}/cuaderno/${post.slug}`),
-  }));
+  const cuadernoRoutes: MetadataRoute.Sitemap = CUADERNO_POSTS.flatMap((post) =>
+    buildBilingualEntry(`/cuaderno/${post.slug}`, {
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.75,
+    })
+  );
 
-  const categoryRoutes: MetadataRoute.Sitemap = PHOTO_CATEGORIES.map((category) => {
-    const url = `${BASE}/portfolio/${category}`;
+  const categoryRoutes: MetadataRoute.Sitemap = PHOTO_CATEGORIES.flatMap((category) => {
     const catPhotos = getPhotosByCategory(category);
-    return {
-      url,
+    return buildBilingualEntry(`/portfolio/${category}`, {
       lastModified,
       changeFrequency: "weekly",
       priority: 0.9,
-      alternates: withLangAlternates(url),
       images: catPhotos.map((p) => `${BASE}${p.image}`),
-    };
+    });
   });
 
-  const projectRoutes: MetadataRoute.Sitemap = getAllProjects().map((project) => {
-    const url = `${BASE}/projects/${project.slug}`;
+  const projectRoutes: MetadataRoute.Sitemap = getAllProjects().flatMap((project) => {
     const projPhotos = getProjectPhotos(project);
-    return {
-      url,
+    return buildBilingualEntry(`/projects/${project.slug}`, {
       lastModified,
       changeFrequency: "monthly",
       priority: 0.85,
-      alternates: withLangAlternates(url),
       images: projPhotos.map((p) => `${BASE}${p.image}`),
-    };
+    });
   });
 
-  const photoRoutes: MetadataRoute.Sitemap = getAllPhotos().map((photo) => {
-    const url = `${BASE}/portfolio/${photo.slug}`;
-    return {
-      url,
+  const photoRoutes: MetadataRoute.Sitemap = getAllPhotos().flatMap((photo) =>
+    buildBilingualEntry(`/portfolio/${photo.slug}`, {
       lastModified,
       changeFrequency: "monthly",
       priority: photo.featured || photo.prints ? 0.8 : 0.7,
-      alternates: withLangAlternates(url),
       images: [`${BASE}${photo.image}`],
-    };
-  });
+    })
+  );
 
-  const serviceRoutes: MetadataRoute.Sitemap = SERVICE_LANDINGS.map((service) => {
-    const url = `${BASE}/servicios/${service.slug}`;
-    return {
-      url,
+  const serviceRoutes: MetadataRoute.Sitemap = SERVICE_LANDINGS.flatMap((service) =>
+    buildBilingualEntry(`/servicios/${service.slug}`, {
       lastModified,
       changeFrequency: "monthly",
       priority: 0.85,
-      alternates: withLangAlternates(url),
       images: [`${BASE}${service.heroImage}`],
-    };
-  });
+    })
+  );
 
   return [
     ...staticRoutes,

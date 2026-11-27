@@ -3,7 +3,7 @@
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/ui/LocalizedLink";
 import { BASE_PRINT_FORMATS } from "@/data/formatos";
 import type { Photo } from "@/types/photo";
 import PrintCardAction from "@/components/cart/PrintCardAction";

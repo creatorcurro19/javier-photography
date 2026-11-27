@@ -2,6 +2,40 @@ import type { FaunaCondiciones } from "@/types/photo";
 
 export type SiteLang = "es" | "en";
 
+export function normalizeRoutePath(rawPath: string): string {
+  const clean = rawPath.split("#")[0].split("?")[0] || "/";
+  if (clean === "/en" || clean === "/en/") return "/";
+  if (clean.startsWith("/en/")) {
+    const rest = clean.slice(3);
+    return rest || "/";
+  }
+  return clean;
+}
+
+export function localizeHref(href: string, lang: SiteLang): string {
+  if (!href.startsWith("/") || href.startsWith("//")) return href;
+
+  const match = href.match(/^([^?#]*)(.*)$/);
+  const rawPathname = match?.[1] || "/";
+  const suffix = match?.[2] || "";
+
+  if (
+    rawPathname.startsWith("/api/") ||
+    rawPathname.startsWith("/images/") ||
+    rawPathname.startsWith("/_next/") ||
+    /\.(xml|txt|html|ico|svg|png|jpg|jpeg|webp|avif)$/i.test(rawPathname)
+  ) {
+    return href;
+  }
+
+  const normalized = normalizeRoutePath(rawPathname);
+  if (lang === "en") {
+    const enPath = normalized === "/" ? "/en" : `/en${normalized}`;
+    return `${enPath}${suffix}`;
+  }
+  return `${normalized}${suffix}`;
+}
+
 export function pickLang<T>(lang: SiteLang, es: T, en: T): T {
   return lang === "en" ? en : es;
 }

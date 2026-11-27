@@ -21,6 +21,8 @@ type ServiceLandingTranslation = Pick<
   ServiceLanding,
   | "kicker"
   | "title"
+  | "seoTitle"
+  | "seoDescription"
   | "subtitle"
   | "intro"
   | "deliverables"
@@ -36,6 +38,9 @@ export const SERVICE_LANDINGS_EN: Record<string, ServiceLandingTranslation> = {
   "fotografo-rally-motorsport": {
     kicker: "Motorsport · Historic Rally & Competition",
     title: "Rally, Motorsport & Classic Car Photography",
+    seoTitle: "Historic Rally & Motorsport Photographer | Javier Espinosa",
+    seoDescription:
+      "Special-stage and service park photography for historic rally teams, classic car collectors, and media. High-resolution 32.5 MP masters.",
     subtitle: `Full special-stage, service park, and paddock coverage for rally teams, drivers, and organizers from ${SERVICE_AREA_EN.base} with travel across Spain.`,
     intro: [
       "On a rally stage things unfold in fractions of a second, so knowing the terrain before car one arrives makes all the difference. I work both trackside and inside the service park to capture not only hard braking and cornering lines, but also mechanics under the canopy, pacenotes on a hood, and the lived-in details of each classic machine.",
@@ -107,6 +112,9 @@ export const SERVICE_LANDINGS_EN: Record<string, ServiceLandingTranslation> = {
   "fotografo-arquitectura-espacio-urbano": {
     kicker: "Architecture · Heritage & Urban Geometry",
     title: "Architecture, Heritage & Interior Photography",
+    seoTitle: "Architecture & Heritage Photographer | Javier Espinosa",
+    seoDescription:
+      "Natural-light architectural, heritage, and interior space photography for design studios, publishers, and architects.",
     subtitle:
       "Considered visual documentation of built architecture, heritage restoration, and interior spaces—respecting geometry, scale, and natural light.",
     intro: [
@@ -176,6 +184,9 @@ export const SERVICE_LANDINGS_EN: Record<string, ServiceLandingTranslation> = {
   "proyectos-documentales-fotografia-editorial": {
     kicker: "Documentary · Crafts, Territory & Editorial",
     title: "Documentary Projects & Editorial Photography",
+    seoTitle: "Documentary & Editorial Photography | Javier Espinosa",
+    seoDescription:
+      "Commissioned documentary essays on living crafts, cultural heritage, and daily life for editorial publications and exhibitions.",
     subtitle:
       "Medium- and long-form photographic essays on traditional crafts, living heritage, and place for magazines, publishers, and cultural institutions.",
     intro: [
@@ -244,6 +255,9 @@ export const SERVICE_LANDINGS_EN: Record<string, ServiceLandingTranslation> = {
   "licencias-fotografia-fauna-naturaleza": {
     kicker: "Wildlife & Nature · 600mm Archive",
     title: "Wildlife Photography & Nature Editorial Licensing",
+    seoTitle: "Wildlife & Nature Image Licensing | Javier Espinosa",
+    seoDescription:
+      "Rights-Managed 16-bit TIFF wildlife and birdlife licensing at 600mm for magazines, publishers, and conservation projects.",
     subtitle:
       "Rights-Managed editorial licensing and field documentation at 600mm, transparently indicating real location and conditions on every work.",
     intro: [
@@ -306,6 +320,9 @@ export const SERVICE_LANDINGS_EN: Record<string, ServiceLandingTranslation> = {
   "copias-fine-art-coleccionismo": {
     kicker: "Limited Editions · Hahnemühle Photo Rag® 308g",
     title: "Fine Art Editions for Collectors & Interiors",
+    seoTitle: "Fine Art Prints for Interiors & Homes | Javier Espinosa",
+    seoDescription:
+      "Signed museum-grade archival prints on 100% cotton Hahnemuhle 308g paper for US and global collectors. Shipped unframed in rigid tubes.",
     subtitle:
       "Signed and numbered archival museum-grade prints (ISO 9706) produced for private collectors, interior design studios, and hospitality spaces.",
     intro: [

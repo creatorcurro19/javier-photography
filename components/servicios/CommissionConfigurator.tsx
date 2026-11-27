@@ -89,7 +89,7 @@ const DELIVERABLES = [
 ];
 
 export default function CommissionConfigurator() {
-  const { lang, t } = useLanguage();
+  const { lang, t, href } = useLanguage();
   const router = useRouter();
   const [selectedScope, setSelectedScope] = useState(SCOPES[0].id);
   const [selectedDuration, setSelectedDuration] = useState(DURATIONS[1].id);
@@ -121,9 +121,11 @@ export default function CommissionConfigurator() {
       deliverableLabels.join(" + ") || t("Estándar", "Standard")
     }`;
     router.push(
-      `/contact?servicio=${encodeURIComponent(
-        currentScope.id
-      )}&formato=${encodeURIComponent(refText)}`
+      href(
+        `/contact?servicio=${encodeURIComponent(
+          currentScope.id
+        )}&formato=${encodeURIComponent(refText)}`
+      )
     );
   };
 

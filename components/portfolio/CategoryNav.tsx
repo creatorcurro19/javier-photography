@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/ui/LocalizedLink";
 import { getCategoriesWithCount } from "@/lib/photos";
 import { CATEGORY_METADATA } from "@/types/photo";
 import type { PhotoCategory } from "@/types/photo";

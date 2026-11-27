@@ -1,24 +1,28 @@
 import type { Metadata } from "next";
 import { SITE_CONFIG } from "@/data/site-config";
+import { localizeHref, normalizeRoutePath, type SiteLang } from "@/lib/i18n-helpers";
+import { getLocalizedPhoto } from "@/lib/i18n-works";
 import { CATEGORY_METADATA, type Photo } from "@/types/photo";
 
 export const SITE_URL = SITE_CONFIG.siteUrl;
-const SITE_NAME = SITE_CONFIG.siteName;
 
 export function absoluteUrl(path: string): string {
   return new URL(path, SITE_URL).toString();
 }
 
-export function buildLanguageAlternates(path: string) {
-  const cleanUrl = absoluteUrl(path);
-  const sep = cleanUrl.includes("?") ? "&" : "?";
+export function buildLanguageAlternates(path: string, lang: SiteLang = "es") {
+  const basePath = normalizeRoutePath(path);
+  const esUrl = absoluteUrl(basePath);
+  const enUrl = absoluteUrl(localizeHref(basePath, "en"));
+
   return {
-    canonical: cleanUrl,
+    canonical: lang === "en" ? enUrl : esUrl,
     languages: {
-      "es-ES": cleanUrl,
-      es: cleanUrl,
-      en: `${cleanUrl}${sep}lang=en`,
-      "x-default": cleanUrl,
+      "es-ES": esUrl,
+      es: esUrl,
+      "en-US": enUrl,
+      en: enUrl,
+      "x-default": enUrl,
     },
   };
 }
@@ -30,7 +34,7 @@ const MAX_DESC_LEN = 155;
 /**
  * Formatea cualquier título garantizando longitud < 60 caracteres sin cortes con "…".
  */
-export function formatSeoTitle(rawTitle: string): string {
+export function formatSeoTitle(rawTitle: string, lang: SiteLang = "es"): string {
   const cleaned = rawTitle
     .replace(/\s*\|\s*Javier Espinosa(\s+Fotograf[íi]a|\s+Photography)?/gi, "")
     .replace(/^Javier Espinosa\s*\|\s*/i, "")
@@ -38,7 +42,9 @@ export function formatSeoTitle(rawTitle: string): string {
     .trim();
 
   if (!cleaned) {
-    return `Fotografía de Autor${BRAND_SUFFIX}`;
+    return lang === "en"
+      ? `Fine Art Photography${BRAND_SUFFIX}`
+      : `Fotografía de Autor${BRAND_SUFFIX}`;
   }
 
   const withBrand = `${cleaned}${BRAND_SUFFIX}`;
@@ -90,19 +96,27 @@ export function buildPageMetadata({
   description,
   path,
   robots,
+  lang = "es",
 }: {
   title: string;
   description: string;
   path: string;
   image?: string;
   robots?: Metadata["robots"];
+  lang?: SiteLang;
 }): Metadata {
-  const url = absoluteUrl(path);
-  const seoTitle = formatSeoTitle(title);
+  const localizedPath = localizeHref(path, lang);
+  const url = absoluteUrl(localizedPath);
+  const seoTitle = formatSeoTitle(title, lang);
   const seoDescription = formatSeoDescription(description);
   const ogImage = `${SITE_URL}/api/og?title=${encodeURIComponent(
     seoTitle.replace(/\s*\|\s*Javier Espinosa.*$/i, "")
-  )}&subtitle=${encodeURIComponent(formatSeoDescription(seoDescription))}&badge=FINE%20ART`;
+  )}&subtitle=${encodeURIComponent(formatSeoDescription(seoDescription))}&badge=${
+    lang === "en" ? "FINE%20ART%20PRINTS" : "FINE%20ART"
+  }&lang=${lang}`;
+
+  const siteName =
+    lang === "en" ? "Javier Espinosa Photography" : SITE_CONFIG.siteName;
 
   return {
     title: {
@@ -110,15 +124,15 @@ export function buildPageMetadata({
     },
     description: seoDescription,
     ...(robots ? { robots } : {}),
-    alternates: buildLanguageAlternates(path),
+    alternates: buildLanguageAlternates(path, lang),
     openGraph: {
       title: seoTitle,
       description: seoDescription,
       url,
-      siteName: SITE_NAME,
+      siteName,
       type: "website",
-      locale: "es_ES",
-      alternateLocale: ["en_US", "en_GB"],
+      locale: lang === "en" ? "en_US" : "es_ES",
+      alternateLocale: lang === "en" ? ["es_ES", "en_GB"] : ["en_US", "en_GB"],
       images: [{ url: ogImage, width: 1200, height: 630, alt: seoTitle }],
     },
     twitter: {
@@ -130,53 +144,91 @@ export function buildPageMetadata({
   };
 }
 
-export function buildPhotoMetadata(photo: Photo): Metadata {
+export function buildPhotoMetadata(
+  rawPhoto: Photo,
+  lang: SiteLang = "es"
+): Metadata {
+  const photo = getLocalizedPhoto(rawPhoto, lang);
   const catMeta = CATEGORY_METADATA[photo.category];
-  const seoTitle = formatSeoTitle(photo.title);
+  const seoTitle = formatSeoTitle(photo.title, lang);
   const locText = photo.location
-    ? `${photo.location}${photo.country && !photo.location.includes(photo.country) ? `, ${photo.country}` : ""}`
+    ? `${photo.location}${
+        photo.country && !photo.location.includes(photo.country)
+          ? `, ${photo.country}`
+          : ""
+      }`
     : "";
   const baseDesc = photo.description.replace(/\s+/g, " ").trim();
   const baseWithDot = baseDesc.endsWith(".") ? baseDesc : `${baseDesc}.`;
-  const locAddition = locText && !baseDesc.toLowerCase().includes(locText.toLowerCase())
-    ? ` ${locText}.`
-    : "";
-  const rawCandidate = `${baseWithDot}${locAddition}`;
-  const rawDescription =
-    rawCandidate.length <= MAX_DESC_LEN
-      ? rawCandidate
-      : baseWithDot.length <= MAX_DESC_LEN
+
+  let rawDescription: string;
+  if (lang === "en") {
+    const printNote = photo.prints
+      ? ` Limited Fine Art cotton print${locText ? ` (${locText})` : ""}.`
+      : locText && !baseDesc.toLowerCase().includes(locText.toLowerCase())
+      ? ` ${locText}.`
+      : "";
+    const candidate = `${baseWithDot}${printNote}`;
+    rawDescription =
+      candidate.length <= MAX_DESC_LEN
+        ? candidate
+        : baseWithDot.length <= MAX_DESC_LEN
         ? baseWithDot
-        : `${photo.title}${locText ? ` (${locText})` : ""}. ${catMeta?.title ?? "Fotografía de autor"} con ${photo.focalLength}.`;
+        : `${photo.title}${locText ? ` (${locText})` : ""}. ${
+            catMeta?.titleEn ?? "Fine Art Photography"
+          } · ${photo.focalLength}.`;
+  } else {
+    const locAddition =
+      locText && !baseDesc.toLowerCase().includes(locText.toLowerCase())
+        ? ` ${locText}.`
+        : "";
+    const candidate = `${baseWithDot}${locAddition}`;
+    rawDescription =
+      candidate.length <= MAX_DESC_LEN
+        ? candidate
+        : baseWithDot.length <= MAX_DESC_LEN
+        ? baseWithDot
+        : `${photo.title}${locText ? ` (${locText})` : ""}. ${
+            catMeta?.title ?? "Fotografía de autor"
+          } con ${photo.focalLength}.`;
+  }
+
   const seoDescription = formatSeoDescription(rawDescription);
-  const path = `/portfolio/${photo.slug}`;
-  const url = absoluteUrl(path);
+  const basePath = `/portfolio/${photo.slug}`;
+  const url = absoluteUrl(localizeHref(basePath, lang));
   const ogCardUrl = `${SITE_URL}/api/og?title=${encodeURIComponent(
     photo.title
   )}&subtitle=${encodeURIComponent(
-    photo.location || catMeta?.title || "Fotografía de Autor"
-  )}&badge=${encodeURIComponent(catMeta?.code || "FINE ART")}`;
+    photo.location ||
+      (lang === "en" ? catMeta?.titleEn : catMeta?.title) ||
+      (lang === "en" ? "Fine Art Photography" : "Fotografía de Autor")
+  )}&badge=${encodeURIComponent(
+    (lang === "en" ? catMeta?.codeEn : catMeta?.code) || "FINE ART"
+  )}&lang=${lang}`;
+
+  const siteName =
+    lang === "en" ? "Javier Espinosa Photography" : SITE_CONFIG.siteName;
 
   return {
     title: {
       absolute: seoTitle,
     },
     description: seoDescription,
-    alternates: buildLanguageAlternates(path),
+    alternates: buildLanguageAlternates(basePath, lang),
     openGraph: {
       title: seoTitle,
       description: seoDescription,
       url,
-      siteName: SITE_NAME,
+      siteName,
       type: "article",
-      locale: "es_ES",
-      alternateLocale: ["en_US", "en_GB"],
+      locale: lang === "en" ? "en_US" : "es_ES",
+      alternateLocale: lang === "en" ? ["es_ES", "en_GB"] : ["en_US", "en_GB"],
       images: [
         {
           url: ogCardUrl,
           width: 1200,
           height: 630,
-          alt: `${photo.title} — Javier Espinosa Fotografía`,
+          alt: `${photo.title} — ${siteName}`,
           type: "image/png",
         },
       ],

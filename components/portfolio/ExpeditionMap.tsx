@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/ui/LocalizedLink";
 import { getPhotoBySlug, getProjectBySlug, getProjectPhotos } from "@/lib/photos";
 import { useLanguage } from "@/lib/i18n";
 import { getLocalizedPhoto } from "@/lib/i18n-works";

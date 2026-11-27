@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/ui/LocalizedLink";
 import type { Photo, PhotoCategory } from "@/types/photo";
 import { CATEGORY_METADATA } from "@/types/photo";
 import { useLanguage } from "@/lib/i18n";

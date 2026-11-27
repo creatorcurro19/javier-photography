@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/ui/LocalizedLink";
 import { getSavedWorks } from "@/components/photo/FavoriteButton";
 import { getAllPhotos } from "@/lib/photos";
 import { useLanguage } from "@/lib/i18n";
