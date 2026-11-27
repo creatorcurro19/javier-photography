@@ -239,6 +239,8 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
     const workEnHtml = await workEn.text();
     expect(workEnHtml).toContain("~$");
     expect(workEnHtml).toContain("USD");
+    expect(workEnHtml).toContain("View to scale on wall");
+    expect(workEnHtml).toContain("pinterest.com/pin/create/button/");
     expect(workEnHtml).toContain('"value":"48.00"');
     expect(workEnHtml).toContain('"value":"32.00"');
     expect(workEnHtml).toContain('"value":"18.00"');

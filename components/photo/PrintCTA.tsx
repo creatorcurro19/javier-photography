@@ -10,6 +10,7 @@ import type { PrintFormat } from "@/types/cart";
 import { useLanguage } from "@/lib/i18n";
 import { getLocalizedPhoto } from "@/lib/i18n-works";
 import { formatApproxUsd, formatApproxUsdShort, useUsdRate } from "@/lib/currency";
+import PrintWallPreview from "@/components/photo/PrintWallPreview";
 
 type PrintCTAProps = {
   photo: Photo;
@@ -205,6 +206,14 @@ export default function PrintCTA({ photo: rawPhoto }: PrintCTAProps) {
             );
           })}
         </div>
+
+        <PrintWallPreview
+          photo={photo}
+          formats={formats}
+          selectedFormatId={selectedFormatId}
+          onSelectFormat={setSelectedFormatId}
+          lang={lang}
+        />
       </div>
 
       {/* Total & Acciones de Compra Directa / Solicitud */}

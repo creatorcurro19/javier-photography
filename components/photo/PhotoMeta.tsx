@@ -66,7 +66,13 @@ export default function PhotoMeta({ photo: rawPhoto }: PhotoMetaProps) {
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5">
-          <ShareButton title={photo.title} slug={photo.slug} location={photo.location} />
+          <ShareButton
+            title={photo.title}
+            slug={photo.slug}
+            location={photo.location}
+            image={rawPhoto.image}
+            prints={rawPhoto.prints}
+          />
           <FavoriteButton title={rawPhoto.title} />
         </div>
       </div>
