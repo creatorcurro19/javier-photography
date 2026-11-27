@@ -8,6 +8,7 @@ export interface MobileAlertPayload {
   priority?: 2 | 3 | 4 | 5;
   tags?: string[];
   tab?: "inbox" | "alerts";
+  whatsappUrl?: string;
 }
 
 export interface MobilePushStatus {
@@ -115,6 +116,13 @@ async function sendNtfyNotification(
   }
 }
 
+function escapeTelegramHtml(text: string): string {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
 async function sendTelegramNotification(
   payload: MobileAlertPayload,
   targetUrl: string
@@ -123,7 +131,18 @@ async function sendTelegramNotification(
   const chatId = (process.env.TELEGRAM_CHAT_ID ?? "").trim();
   if (!token || !chatId) return false;
 
-  const text = `${payload.title}\n\n${payload.message}`.slice(0, 3800);
+  const titleHtml = `<b>${escapeTelegramHtml(payload.title)}</b>`;
+  const bodyHtml = escapeTelegramHtml(payload.message);
+  const text = `${titleHtml}\n\n${bodyHtml}`.slice(0, 3900);
+
+  const inlineKeyboard: Array<Array<{ text: string; url: string }>> = [
+    [{ text: "Abrir en App Admin →", url: targetUrl }],
+  ];
+  if (payload.whatsappUrl && payload.whatsappUrl.startsWith("https://wa.me/")) {
+    inlineKeyboard.push([
+      { text: "Responder por WhatsApp →", url: payload.whatsappUrl },
+    ]);
+  }
 
   try {
     const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -133,9 +152,10 @@ async function sendTelegramNotification(
       body: JSON.stringify({
         chat_id: chatId,
         text,
+        parse_mode: "HTML",
         disable_web_page_preview: true,
         reply_markup: {
-          inline_keyboard: [[{ text: "Abrir en App Admin →", url: targetUrl }]],
+          inline_keyboard: inlineKeyboard,
         },
       }),
     });

@@ -5,6 +5,7 @@ import { DESTINATION_EMAIL, relayWithFormSubmit, sendWithResend } from "@/lib/se
 import { getClientIp, rateLimit } from "@/lib/server/rate-limit";
 import { addInboxItem } from "@/lib/server/inbox-store";
 import { notifyOwnerMobile } from "@/lib/server/mobile-push";
+import { buildWhatsAppReplyUrl } from "@/lib/phone";
 
 export async function POST(request: Request) {
   try {
@@ -84,18 +85,27 @@ export async function POST(request: Request) {
 
     const subject = `[Web Javier Espinosa · ${cleanMotivo.toUpperCase()}] ${cleanNombre}`;
 
+    const whatsappUrl = buildWhatsAppReplyUrl(
+      cleanTelefono,
+      `Hola ${cleanNombre}, soy Javier Espinosa. Te contacto respecto a tu consulta sobre ${cleanMotivo}.`
+    );
+
     // Registrar en la bandeja unificada de administración + aviso push al móvil en paralelo
     const mobilePushPromise = notifyOwnerMobile({
       kind: "consulta",
       title: `Nueva consulta · ${cleanNombre}`,
       message: [
         `Motivo: ${cleanMotivo}${cleanReferencia ? ` (${cleanReferencia})` : ""}`,
-        cleanTelefono ? `Tel: ${cleanTelefono}` : `Email: ${cleanEmail}`,
+        `Email: ${cleanEmail}`,
+        cleanTelefono ? `Tel: ${cleanTelefono}` : "",
         cleanMensaje.slice(0, 220),
-      ].join("\n"),
+      ]
+        .filter(Boolean)
+        .join("\n"),
       priority: 4,
       tags: ["camera", "envelope_with_arrow"],
       tab: "inbox",
+      whatsappUrl,
     }).catch(() => ({ ntfySent: false, telegramSent: false, anySent: false }));
 
     try {

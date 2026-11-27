@@ -8,6 +8,7 @@ import { normalizeOrder } from "@/lib/server/order";
 import { DESTINATION_EMAIL, relayWithFormSubmit, sendWithResend } from "@/lib/server/email";
 import { addInboxItem } from "@/lib/server/inbox-store";
 import { notifyOwnerMobile } from "@/lib/server/mobile-push";
+import { buildWhatsAppReplyUrl } from "@/lib/phone";
 
 export async function POST(request: Request) {
   try {
@@ -59,19 +60,28 @@ export async function POST(request: Request) {
       `CERTIFICADO: Numerado y firmado a mano por Javier Espinosa Martínez.`,
     ].join("\n");
 
+    const whatsappUrl = buildWhatsAppReplyUrl(
+      customer.telefono,
+      `Hola ${customer.nombre}, soy Javier Espinosa. Confirmamos la recepción de tu pedido Fine Art (${orderId}).`
+    );
+
     // Notificación push inmediata al móvil en paralelo
     const mobilePushPromise = notifyOwnerMobile({
       kind: "pedido",
       title: `Pedido Fine Art (${orderId}) — ${total} €`,
       message: [
         `Cliente: ${customer.nombre} (${customer.pais})`,
-        customer.telefono ? `Tel: ${customer.telefono}` : `Email: ${customer.email}`,
+        `Email: ${customer.email}`,
+        customer.telefono ? `Tel: ${customer.telefono}` : "",
         `Envío: ${shippingZone} (${shippingCost} €)`,
         items.map((it) => `• ${it.quantity}× ${it.title} (${it.format.name})`).join("\n"),
-      ].join("\n"),
+      ]
+        .filter(Boolean)
+        .join("\n"),
       priority: 4,
       tags: ["framed_picture", "package"],
       tab: "inbox",
+      whatsappUrl,
     }).catch(() => ({ ntfySent: false, telegramSent: false, anySent: false }));
 
     // Registrar en la bandeja de administración

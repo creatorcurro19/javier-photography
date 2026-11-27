@@ -364,5 +364,10 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
 
     const unauthTest = await request.post("/api/admin/notify-test");
     expect(unauthTest.status()).toBe(401);
+
+    const unauthTgDetect = await request.post("/api/admin/telegram-detect", {
+      data: { token: "123456:test" },
+    });
+    expect(unauthTgDetect.status()).toBe(401);
   });
 });

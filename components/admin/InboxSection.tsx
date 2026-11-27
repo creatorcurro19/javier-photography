@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { InboxItem, InboxStatus, InboxType } from "@/data/inbox";
 import { getAdminAuthHeaders } from "@/lib/admin-client";
+import { cleanPhoneForWhatsApp } from "@/lib/phone";
 
 interface InboxSectionProps {
   initialItems: InboxItem[];
@@ -61,14 +62,6 @@ const STATUS_CONFIG: Record<
     actionLabel: "Archivar",
   },
 };
-
-function cleanPhoneForWhatsApp(phone?: string): string {
-  if (!phone) return "";
-  const cleaned = phone.replace(/[^0-9]/g, "");
-  // Si no lleva código de país, asume España (+34)
-  if (cleaned.length === 9) return `34${cleaned}`;
-  return cleaned;
-}
 
 export default function InboxSection({
   initialItems,

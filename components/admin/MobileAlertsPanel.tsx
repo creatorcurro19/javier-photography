@@ -52,6 +52,17 @@ export default function MobileAlertsPanel({
     message: string;
   } | null>(null);
 
+  // Asistente de configuración Telegram (sin persistir el token en navegador)
+  const [tgToken, setTgToken] = useState("");
+  const [tgLoading, setTgLoading] = useState(false);
+  const [tgDetected, setTgDetected] = useState<{
+    botUsername: string | null;
+    chatId: string;
+    chatLabel: string;
+    testSent: boolean;
+  } | null>(null);
+  const [tgError, setTgError] = useState<string | null>(null);
+
   useEffect(() => {
     fetch("/api/health", { cache: "no-store" })
       .then((res) => (res.ok ? res.json() : null))
@@ -87,15 +98,15 @@ export default function MobileAlertsPanel({
 
       if (data?.ok) {
         const channels: string[] = [];
-        if (data.result?.ntfySent) channels.push("ntfy");
         if (data.result?.telegramSent) channels.push("Telegram");
-        const msg = `Notificación de prueba enviada (${channels.join(" + ") || "móvil"}). Debería llegar a tu iPhone en segundos.`;
+        if (data.result?.ntfySent) channels.push("ntfy");
+        const msg = `Notificación de prueba enviada (${channels.join(" + ") || "móvil"}). Revisa tu iPhone.`;
         setTestResult({ ok: true, message: msg });
         onToast(msg, "success");
       } else {
         const msg =
           data?.error ||
-          "Aún falta configurar ADMIN_NTFY_TOPIC o TELEGRAM_BOT_TOKEN en Vercel.";
+          "Aún falta configurar TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID (o ADMIN_NTFY_TOPIC) en Vercel.";
         setTestResult({ ok: false, message: msg });
         onToast(msg, "warning");
       }
@@ -105,6 +116,41 @@ export default function MobileAlertsPanel({
       onToast(msg, "error");
     } finally {
       setIsTesting(false);
+    }
+  };
+
+  const handleDetectTelegramChat = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setTgLoading(true);
+    setTgError(null);
+    setTgDetected(null);
+
+    try {
+      const res = await fetch("/api/admin/telegram-detect", {
+        method: "POST",
+        headers: getAdminAuthHeaders({ "Content-Type": "application/json" }),
+        body: JSON.stringify({
+          token: tgToken.trim(),
+          sendTest: true,
+        }),
+      });
+      const data = await res.json().catch(() => null);
+
+      if (res.ok && data?.ok) {
+        setTgDetected({
+          botUsername: data.botUsername,
+          chatId: data.chatId,
+          chatLabel: data.chatLabel,
+          testSent: Boolean(data.testSent),
+        });
+        onToast(`Chat ID detectado: ${data.chatId}`, "success");
+      } else {
+        setTgError(data?.error || "No se pudo detectar el chat de Telegram.");
+      }
+    } catch {
+      setTgError("Error de conexión al consultar la API de Telegram.");
+    } finally {
+      setTgLoading(false);
     }
   };
 
@@ -119,12 +165,12 @@ export default function MobileAlertsPanel({
             </div>
             <div>
               <h2 className="font-serif text-lg font-medium text-[#EBE7DF]">
-                Versión App iPhone & Avisos en Directo
+                Versión App iPhone & Avisos por Telegram
               </h2>
               <p className="mt-1 text-xs leading-relaxed text-[#A39E93]">
                 {isStandalone
                   ? "Estás usando la app instalada del Estudio en pantalla completa. Al abrirla entra directa en tus consultas y sincroniza los avisos automáticamente."
-                  : "Instala este panel como una app independiente en tu iPhone para entrar directo sin barras de navegador y ver el globo de mensajes pendientes."}
+                  : "Instala este panel como una app independiente en tu iPhone para entrar directo desde los avisos de Telegram sin barras de navegador."}
               </p>
             </div>
           </div>
@@ -151,10 +197,10 @@ export default function MobileAlertsPanel({
                 <strong className="text-[#EBE7DF]">Safari</strong> desde el iPhone.
               </li>
               <li>
-                Toca el botón <strong className="text-[#EBE7DF]">Compartir</strong> (cuadrado con flecha hacia arriba).
+                Toca <strong className="text-[#EBE7DF]">Compartir</strong> (cuadrado con flecha hacia arriba).
               </li>
               <li>
-                Elige <strong className="text-[#EBE7DF]">Añadir a pantalla de inicio</strong> → nombre{" "}
+                Pulsa <strong className="text-[#EBE7DF]">Añadir a pantalla de inicio</strong> → nombre{" "}
                 <span className="font-mono text-[#EBE7DF]">J.E. Admin</span> → <strong className="text-[#EBE7DF]">Añadir</strong>.
               </li>
             </ol>
@@ -162,15 +208,15 @@ export default function MobileAlertsPanel({
         )}
       </section>
 
-      {/* 2. Canales Push Instantáneos hacia iPhone */}
+      {/* 2. Bot de Telegram & Canales en Producción */}
       <section className="rounded-2xl border border-[#24262E] bg-[#131418] p-5 sm:p-6 space-y-5">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h3 className="font-serif text-lg font-medium text-[#EBE7DF]">
-              Notificaciones Push al iPhone
+              Notificaciones en Vivo en Telegram
             </h3>
             <p className="mt-0.5 text-xs text-[#A39E93]">
-              Cada consulta, pedido Fine Art, pago confirmado con Stripe o nuevo suscriptor envía una notificación inmediata con acceso directo a la bandeja.
+              Cada consulta, pedido Fine Art, pago confirmado con Stripe o nuevo suscriptor envía un aviso a tu Telegram con botón directo a la App Admin y a WhatsApp.
             </p>
           </div>
 
@@ -200,19 +246,19 @@ export default function MobileAlertsPanel({
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
           <div className="rounded-xl border border-[#252730] bg-[#16171C] p-4">
             <span className="font-mono text-[10px] uppercase tracking-wider text-[#8E8A81]">
-              Canal Push · ntfy
+              Bot de Telegram
             </span>
             <div className="mt-1.5 flex items-center justify-between">
               <span className="text-sm font-medium text-[#EBE7DF]">
-                {status?.mobilePush.ntfyConfigured ? "Conectado" : "Pendiente"}
+                {status?.mobilePush.telegramConfigured ? "Conectado" : "Pendiente"}
               </span>
-              {status?.mobilePush.ntfyConfigured ? (
+              {status?.mobilePush.telegramConfigured ? (
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
                   <CheckIcon className="h-4 w-4" />
                 </span>
               ) : (
                 <span className="rounded-full bg-amber-500/15 px-2 py-0.5 font-mono text-[10px] text-amber-300">
-                  1 variable
+                  2 variables
                 </span>
               )}
             </div>
@@ -220,13 +266,13 @@ export default function MobileAlertsPanel({
 
           <div className="rounded-xl border border-[#252730] bg-[#16171C] p-4">
             <span className="font-mono text-[10px] uppercase tracking-wider text-[#8E8A81]">
-              Alternativa · Telegram
+              Respaldo Push · ntfy
             </span>
             <div className="mt-1.5 flex items-center justify-between">
               <span className="text-sm font-medium text-[#EBE7DF]">
-                {status?.mobilePush.telegramConfigured ? "Conectado" : "Opcional"}
+                {status?.mobilePush.ntfyConfigured ? "Conectado" : "Opcional"}
               </span>
-              {status?.mobilePush.telegramConfigured ? (
+              {status?.mobilePush.ntfyConfigured ? (
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
                   <CheckIcon className="h-4 w-4" />
                 </span>
@@ -253,46 +299,72 @@ export default function MobileAlertsPanel({
           </div>
         </div>
 
-        {/* Guía rápida de activación en 1 minuto */}
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-          <div className="rounded-xl border border-[#252730] bg-[#0E0F12] p-4 text-xs text-[#A39E93] space-y-2">
+        {/* Asistente para obtener el TELEGRAM_CHAT_ID al instante sin bots externos */}
+        <div className="rounded-xl border border-[#2B2E38] bg-[#0E0F12] p-4 sm:p-5 space-y-4">
+          <div>
             <span className="block font-mono text-[10px] uppercase tracking-wider text-[#C5A880]">
-              Opción A (Más rápida · Sin cuentas): ntfy en iPhone
+              Detector automático de Chat ID (Telegram)
             </span>
-            <ol className="list-decimal list-inside space-y-1.5 leading-relaxed">
-              <li>
-                Descarga la app gratuita <strong className="text-[#EBE7DF]">ntfy</strong> del App Store en tu iPhone y acepta las notificaciones.
-              </li>
-              <li>
-                Pulsa <strong className="text-[#EBE7DF]">+</strong> e inventa un nombre privado difícil de adivinar (ej.{" "}
-                <code className="text-[#EBE7DF]">je-estudio-9482a7c1</code>).
-              </li>
-              <li>
-                En <strong className="text-[#EBE7DF]">Vercel → Settings → Environment Variables</strong> añade{" "}
-                <code className="text-[#C5A880]">ADMIN_NTFY_TOPIC</code> con ese nombre y haz Redeploy.
-              </li>
-            </ol>
+            <p className="mt-1 text-xs text-[#A39E93] leading-relaxed">
+              1. Crea tu bot en <strong className="text-[#EBE7DF]">@BotFather</strong> (<code className="text-[#EBE7DF]">/newbot</code>) y copia el token. 2. Abre tu nuevo bot en Telegram y envíale «hola». 3. Pega el token aquí para sacar tu <code className="text-[#C5A880]">TELEGRAM_CHAT_ID</code> al instante y probarlo en tu móvil:
+            </p>
           </div>
 
-          <div className="rounded-xl border border-[#252730] bg-[#0E0F12] p-4 text-xs text-[#A39E93] space-y-2">
-            <span className="block font-mono text-[10px] uppercase tracking-wider text-[#C5A880]">
-              Opción B (Alternativa): Bot de Telegram
-            </span>
-            <ol className="list-decimal list-inside space-y-1.5 leading-relaxed">
-              <li>
-                Abre <strong className="text-[#EBE7DF]">@BotFather</strong> en Telegram, escribe{" "}
-                <code className="text-[#EBE7DF]">/newbot</code> y copia el token generado.
-              </li>
-              <li>
-                Abre conversación con tu nuevo bot, pulsa Iniciar y obtén tu ID numérico con{" "}
-                <strong className="text-[#EBE7DF]">@userinfobot</strong>.
-              </li>
-              <li>
-                Añade en Vercel <code className="text-[#C5A880]">TELEGRAM_BOT_TOKEN</code> y{" "}
-                <code className="text-[#C5A880]">TELEGRAM_CHAT_ID</code> y haz Redeploy.
-              </li>
-            </ol>
-          </div>
+          <form onSubmit={handleDetectTelegramChat} className="flex flex-col gap-2.5 sm:flex-row">
+            <input
+              type="password"
+              value={tgToken}
+              onChange={(e) => setTgToken(e.target.value)}
+              placeholder={
+                status?.mobilePush.telegramConfigured
+                  ? "Deja vacío para usar el token ya guardado en Vercel o pega otro..."
+                  : "Pega aquí el token de @BotFather (ej. 7845123456:AAH...)"
+              }
+              className="flex-1 rounded-lg border border-[#2A2D36] bg-[#15161B] px-3.5 py-2.5 font-mono text-xs text-[#EBE7DF] placeholder-[#68645C] focus:border-[#C5A880] focus:outline-none"
+            />
+            <button
+              type="submit"
+              disabled={tgLoading}
+              className="shrink-0 rounded-lg border border-[#C5A880]/60 bg-[#C5A880]/15 px-4 py-2.5 font-mono text-xs uppercase tracking-wider font-semibold text-[#C5A880] hover:bg-[#C5A880] hover:text-[#0B0C0E] disabled:opacity-50 transition cursor-pointer"
+            >
+              {tgLoading ? "Buscando…" : "Detectar Chat ID y Probar"}
+            </button>
+          </form>
+
+          {tgError && (
+            <p className="rounded-lg border border-amber-500/35 bg-amber-950/20 px-3.5 py-2.5 text-xs text-amber-200">
+              {tgError}
+            </p>
+          )}
+
+          {tgDetected && (
+            <div className="rounded-lg border border-emerald-500/40 bg-emerald-950/20 p-3.5 text-xs text-emerald-200 space-y-2">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <span>
+                  ✓ Chat encontrado:{" "}
+                  <strong className="text-white">{tgDetected.chatLabel}</strong>
+                  {tgDetected.botUsername ? ` via @${tgDetected.botUsername}` : ""}
+                </span>
+                {tgDetected.testSent && (
+                  <span className="font-mono text-[10px] text-emerald-300">
+                    ✓ Mensaje de prueba enviado a tu Telegram
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-wrap items-center gap-2 font-mono">
+                <span className="text-[#A39E93]">TELEGRAM_CHAT_ID =</span>
+                <code className="rounded bg-black/50 px-2.5 py-1 text-sm font-bold text-[#C5A880] select-all">
+                  {tgDetected.chatId}
+                </code>
+              </div>
+              <p className="text-[11px] text-emerald-200/80">
+                Pega <code className="text-white">TELEGRAM_BOT_TOKEN</code> y{" "}
+                <code className="text-white">TELEGRAM_CHAT_ID</code> en{" "}
+                <strong>Vercel → Settings → Environment Variables</strong> y haz{" "}
+                <strong>Redeploy</strong>.
+              </p>
+            </div>
+          )}
         </div>
       </section>
     </div>
