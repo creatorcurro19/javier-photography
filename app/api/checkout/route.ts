@@ -57,6 +57,10 @@ export async function POST(request: Request) {
     params.append("locale", checkoutLang);
     params.append("customer_email", order.customer.email);
     params.append("client_reference_id", order.orderId);
+    params.append(
+      "branding_settings[display_name]",
+      checkoutLang === "en" ? "Javier Espinosa Photography" : "Javier Espinosa Fotografía"
+    );
     if (adaptivePricingEnabled) {
       params.append("adaptive_pricing[enabled]", "true");
     }
@@ -74,6 +78,7 @@ export async function POST(request: Request) {
       `${SITE_URL}${printsPath}?pago=cancelado&ref=${encodeURIComponent(order.orderId)}`
     );
     params.append("payment_intent_data[description]", `Javier Espinosa Fine Art · ${order.orderId}`);
+    params.append("payment_intent_data[receipt_email]", order.customer.email);
     params.append("payment_intent_data[metadata][orderId]", order.orderId);
     params.append(
       "payment_intent_data[metadata][shippingZone]",
