@@ -22,7 +22,10 @@ export default function CartButton() {
     <button
       type="button"
       onClick={openDrawer}
-      aria-label={`Ver cesta de la compra (${totalItems} ${totalItems === 1 ? "obra" : "obras"})`}
+      aria-label={t(
+        `Ver cesta de la compra (${totalItems} ${totalItems === 1 ? "obra" : "obras"})`,
+        `View shopping bag (${totalItems} ${totalItems === 1 ? "print" : "prints"})`
+      )}
       className="group relative flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 border border-white/[0.12] bg-[#151618] px-3 py-2 transition hover:border-white/30 hover:bg-[#202226] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#C5A880]"
     >
       {/* Luxury Minimalist Bag Icon */}

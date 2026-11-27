@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import { useLanguage } from "@/lib/i18n";
 
 export default function ProjectEssayContainer({ children }: { children: ReactNode }) {
   const [paperMode, setPaperMode] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <article
@@ -23,14 +25,21 @@ export default function ProjectEssayContainer({ children }: { children: ReactNod
               ? "border-black/20 bg-[#0B0C0E] text-[#EBE7DF]"
               : "border-white/[0.1] bg-[#151618]/90 text-[#EBE7DF] hover:border-white/30"
           }`}
-          title="Alternar modo de lectura entre Sala Oscura y Papel Museo"
+          title={t(
+            "Alternar modo de lectura entre Sala Oscura y Papel Museo",
+            "Toggle reading mode between Dark Room and Museum Paper"
+          )}
         >
           <span
             className={`h-2.5 w-2.5 rounded-full ${
               paperMode ? "bg-[#0B0C0E] ring-1 ring-[#EBE7DF]" : "bg-[#EFECE4]"
             }`}
           />
-          <span>{paperMode ? "Modo Sala Oscura" : "Modo Papel Museo"}</span>
+          <span>
+            {paperMode
+              ? t("Modo Sala Oscura", "Dark Room Mode")
+              : t("Modo Papel Museo", "Museum Paper Mode")}
+          </span>
         </button>
       </div>
 

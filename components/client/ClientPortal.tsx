@@ -11,12 +11,23 @@ import {
 import LightboxModal from "@/components/ui/LightboxModal";
 import { SITE_CONFIG } from "@/data/site-config";
 import { trackEvent } from "@/lib/analytics";
+import { useLanguage } from "@/lib/i18n";
+import { getLocalizedPhoto } from "@/lib/i18n-works";
 
 interface ClientPortalProps {
   initialCode?: string;
 }
 
+const DEMO_EN = {
+  clientName: "Historic Rally Team · Sample Room",
+  projectTitle: "Special Stage & Service Park Coverage",
+  date: "2026 Season",
+  location: "Tenerife · Canary Islands",
+  note: "Private high-resolution selection for team review. Mark your preferred frames and press \"Submit Selection\" to receive calibrated master files (16-bit TIFF / 300 DPI JPEG).",
+};
+
 export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
+  const { lang, t } = useLanguage();
   const [codeInput, setCodeInput] = useState(initialCode);
   const [unlocked, setUnlocked] = useState<UnlockedClientGallery | null>(null);
   const [verifying, setVerifying] = useState(false);
@@ -44,7 +55,10 @@ export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
       if (!res.ok || !data?.ok || !data?.gallery) {
         setError(
           data?.error ??
-            "Clave no reconocida. Verifica el código proporcionado por el estudio (o prueba «DEMO» para ver una muestra)."
+            t(
+              "Clave no reconocida. Verifica el código proporcionado por el estudio (o prueba «DEMO» para ver una muestra).",
+              "Access code not recognized. Verify the studio code (or try \"DEMO\" to preview a sample)."
+            )
         );
         return;
       }
@@ -54,7 +68,12 @@ export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
       setSendError("");
       trackEvent("portal_cliente_acceso", { codigo: data.gallery.code });
     } catch {
-      setError("Error de conexión verificando la clave. Inténtalo de nuevo.");
+      setError(
+        t(
+          "Error de conexión verificando la clave. Inténtalo de nuevo.",
+          "Connection error while verifying the code. Please try again."
+        )
+      );
     } finally {
       setVerifying(false);
     }
@@ -101,7 +120,10 @@ export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
       if (!res.ok || !data?.ok) {
         setSendError(
           data?.error ??
-            `No se pudo enviar automáticamente. Escríbenos a ${SITE_CONFIG.contactEmail} con tu selección.`
+            t(
+              `No se pudo enviar automáticamente. Escríbenos a ${SITE_CONFIG.contactEmail} con tu selección.`,
+              `Could not send automatically. Email ${SITE_CONFIG.contactEmail} with your selection.`
+            )
         );
         return;
       }
@@ -111,7 +133,12 @@ export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
       });
       setSentOk(true);
     } catch {
-      setSendError("Error de red al enviar la selección. Inténtalo de nuevo.");
+      setSendError(
+        t(
+          "Error de red al enviar la selección. Inténtalo de nuevo.",
+          "Network error sending your selection. Please try again."
+        )
+      );
     } finally {
       setSending(false);
     }
@@ -126,7 +153,7 @@ export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
           <div className="flex flex-col items-center text-center">
             <Image
               src="/icon.svg"
-              alt="Sello JE"
+              alt={t("Sello JE", "JE Monogram")}
               width={52}
               height={52}
               className="h-12 w-12 rounded-xl ring-1 ring-[#C5A880]/40"
@@ -134,16 +161,19 @@ export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
             <div className="mt-5 flex items-center gap-2">
               <AndalusianStarMark className="h-3 w-3 text-[#C5A880]" />
               <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-[#C5A880]">
-                Sala Privada de Entrega
+                {t("Sala Privada de Entrega", "Private Client Delivery Room")}
               </p>
               <AndalusianStarMark className="h-3 w-3 text-[#C5A880]" />
             </div>
 
             <h1 className="mt-3 font-serif text-3xl sm:text-4xl font-light text-[#F7F4EE]">
-              Acceso Clientes
+              {t("Acceso Clientes", "Client Access")}
             </h1>
             <p className="mt-3 text-sm font-light leading-relaxed text-[#8E8A80]">
-              Introduce la clave facilitada por Javier Espinosa para revisar tu reportaje privado, marcar tus fotografías favoritas y solicitar los archivos máster.
+              {t(
+                "Introduce la clave facilitada por Javier Espinosa para revisar tu reportaje privado, marcar tus fotografías favoritas y solicitar los archivos máster.",
+                "Enter the access code provided by Javier Espinosa to review your private shoot gallery, mark favorites, and request master files."
+              )}
             </p>
           </div>
 
@@ -153,14 +183,14 @@ export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
                 htmlFor="client-code"
                 className="block font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80] mb-2"
               >
-                Clave de Galería Privada
+                {t("Clave de Galería Privada", "Private Gallery Access Code")}
               </label>
               <input
                 id="client-code"
                 type="text"
                 value={codeInput}
                 onChange={(e) => setCodeInput(e.target.value)}
-                placeholder="Ej. RALLY2026 o DEMO"
+                placeholder={t("Ej. RALLY2026 o DEMO", "e.g. RALLY2026 or DEMO")}
                 className="w-full border border-white/[0.12] bg-[#0B0C0E] px-4 py-3 font-mono text-sm uppercase tracking-[0.25em] text-[#F7F4EE] placeholder-[#8E8A80]/50 focus:border-[#C5A880] focus:outline-none"
                 required
               />
@@ -177,7 +207,9 @@ export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
               disabled={verifying}
               className="w-full border border-[#EBE7DF] bg-[#EBE7DF] py-3.5 font-mono text-xs uppercase tracking-[0.28em] font-medium text-[#0B0C0E] transition hover:bg-transparent hover:text-white disabled:opacity-50"
             >
-              {verifying ? "Verificando clave..." : "Desbloquear Sala Privada →"}
+              {verifying
+                ? t("Verificando clave...", "Verifying code...")
+                : t("Desbloquear Sala Privada →", "Unlock Private Room →")}
             </button>
 
             <div className="pt-3 text-center">
@@ -190,7 +222,7 @@ export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
                 }}
                 className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#C5A880]/85 underline underline-offset-4 hover:text-[#EBE7DF] disabled:opacity-50"
               >
-                Ver galería de demostración (DEMO)
+                {t("Ver galería de demostración (DEMO)", "Preview sample gallery (DEMO)")}
               </button>
             </div>
           </form>
@@ -200,6 +232,12 @@ export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
   }
 
   const galleryPhotos = unlocked.photos;
+  const isDemoEn = lang === "en" && unlocked.code === "RALLY2026";
+  const projectTitle = isDemoEn ? DEMO_EN.projectTitle : unlocked.projectTitle;
+  const clientName = isDemoEn ? DEMO_EN.clientName : unlocked.clientName;
+  const galleryLocation = isDemoEn ? DEMO_EN.location : unlocked.location;
+  const galleryDate = isDemoEn ? DEMO_EN.date : unlocked.date;
+  const galleryNote = isDemoEn ? DEMO_EN.note : unlocked.note;
 
   return (
     <div>
@@ -209,17 +247,17 @@ export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
           <div className="flex items-center gap-2.5">
             <AndalusianStarMark className="h-3.5 w-3.5 text-[#C5A880]" />
             <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-[#C5A880]">
-              Entrega Privada · Clave {unlocked.code}
+              {t(`Entrega Privada · Clave ${unlocked.code}`, `Private Delivery · Code ${unlocked.code}`)}
             </p>
           </div>
           <h1 className="mt-3 font-serif text-3xl sm:text-5xl font-light text-[#F7F4EE]">
-            {unlocked.projectTitle}
+            {projectTitle}
           </h1>
           <p className="mt-2 font-mono text-xs uppercase tracking-[0.2em] text-[#8E8A80]">
-            {unlocked.clientName} · {unlocked.location} · {unlocked.date}
+            {clientName} · {galleryLocation} · {galleryDate}
           </p>
           <p className="mt-4 max-w-2xl text-sm font-light leading-relaxed text-[#8E8A80]">
-            {unlocked.note}
+            {galleryNote}
           </p>
         </div>
 
@@ -231,7 +269,7 @@ export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
           }}
           className="self-start border border-white/15 bg-[#151618] px-4 py-2 font-mono text-[10px] uppercase tracking-[0.24em] text-[#8E8A80] transition hover:border-[#C5A880] hover:text-white"
         >
-          Salir de la Sala
+          {t("Salir de la Sala", "Exit Gallery")}
         </button>
       </div>
 
@@ -239,7 +277,8 @@ export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
 
       {/* Cuadrícula de selección del cliente */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {galleryPhotos.map((photo, idx) => {
+        {galleryPhotos.map((rawPhoto, idx) => {
+          const photo = getLocalizedPhoto(rawPhoto, lang);
           const isFav = favorites.includes(photo.id);
           return (
             <div
@@ -275,7 +314,7 @@ export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
                 />
                 {isFav && (
                   <span className="absolute top-3 right-3 border border-[#C5A880] bg-[#0B0C0E]/90 px-2.5 py-1 font-mono text-[9px] uppercase tracking-widest text-[#C5A880]">
-                    ★ Seleccionada
+                    {t("★ Seleccionada", "★ Selected")}
                   </span>
                 )}
               </div>
@@ -299,7 +338,7 @@ export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
                       : "border-white/15 bg-[#0B0C0E] text-[#EBE7DF] hover:border-[#C5A880]"
                   }`}
                 >
-                  {isFav ? "✓ Elegida" : "+ Elegir"}
+                  {isFav ? t("✓ Elegida", "✓ Chosen") : t("+ Elegir", "+ Select")}
                 </button>
               </div>
             </div>
@@ -313,13 +352,19 @@ export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
         {sentOk ? (
           <div className="text-center py-4">
             <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-[#C5A880]">
-              Selección Recibida
+              {t("Selección Recibida", "Selection Received")}
             </p>
             <h2 className="mt-2 font-serif text-2xl font-light text-[#F7F4EE]">
-              Hemos enviado tus {favorites.length} fotografías elegidas al estudio
+              {t(
+                `Hemos enviado tus ${favorites.length} fotografías elegidas al estudio`,
+                `Your ${favorites.length} selected photographs have been sent to the studio`
+              )}
             </h2>
             <p className="mt-2 text-xs text-[#8E8A80]">
-              Javier preparará los archivos máster calibrados y te enviará el enlace de descarga directa.
+              {t(
+                "Javier preparará los archivos máster calibrados y te enviará el enlace de descarga directa.",
+                "Javier will prepare your calibrated master files and send you a direct download link."
+              )}
             </p>
           </div>
         ) : (
@@ -329,13 +374,19 @@ export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
           >
             <div>
               <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#C5A880]">
-                Resumen de Selección ({favorites.length} / {unlocked.maxSelection})
+                {t(
+                  `Resumen de Selección (${favorites.length} / ${unlocked.maxSelection})`,
+                  `Selection Summary (${favorites.length} / ${unlocked.maxSelection})`
+                )}
               </p>
               <h2 className="mt-1.5 font-serif text-2xl font-light text-[#F7F4EE]">
-                Enviar selección final al fotógrafo
+                {t("Enviar selección final al fotógrafo", "Submit final selection to photographer")}
               </h2>
               <p className="mt-1 text-xs font-light text-[#8E8A80]">
-                Marca las obras que deseas recibir en máxima resolución y confirma tu correo.
+                {t(
+                  "Marca las obras que deseas recibir en máxima resolución y confirma tu correo.",
+                  "Mark the frames you wish to receive in full resolution and confirm your email."
+                )}
               </p>
               {sendError && (
                 <p className="mt-2 text-xs text-red-300 font-mono">{sendError}</p>
@@ -348,7 +399,7 @@ export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
                 required
                 value={clientEmail}
                 onChange={(e) => setClientEmail(e.target.value)}
-                placeholder="Tu correo electrónico..."
+                placeholder={t("Tu correo electrónico...", "Your email address...")}
                 className="border border-white/15 bg-[#0B0C0E] px-4 py-3 font-mono text-xs text-[#F7F4EE] placeholder-[#8E8A80]/60 focus:border-[#C5A880] focus:outline-none sm:w-64"
               />
               <button
@@ -357,8 +408,8 @@ export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
                 className="border border-[#EBE7DF] bg-[#EBE7DF] px-6 py-3 font-mono text-[10px] uppercase tracking-[0.25em] font-medium text-[#0B0C0E] transition hover:bg-transparent hover:text-white disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {sending
-                  ? "Enviando..."
-                  : `Enviar Selección (${favorites.length}) →`}
+                  ? t("Enviando...", "Submitting...")
+                  : t(`Enviar Selección (${favorites.length}) →`, `Submit Selection (${favorites.length}) →`)}
               </button>
             </div>
           </form>

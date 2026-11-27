@@ -4,21 +4,24 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useLanguage } from "@/lib/i18n";
+import { getLocalizedPhoto } from "@/lib/i18n-works";
 
 import {
   getAllPhotos,
   getPhotoBySlug,
   getPhotosByCategory,
 } from "@/lib/photos";
-import { CATEGORY_METADATA, type PhotoCategory } from "@/types/photo";
+import { CATEGORY_METADATA, type Photo, type PhotoCategory } from "@/types/photo";
 
 interface HeroSlide {
   id: string;
   slug: string;
-  room: string;
-  discipline: string;
-  title: string;
-  location: string;
+  category: PhotoCategory;
+  disciplineEs: string;
+  disciplineEn: string;
+  work?: Photo;
+  fallbackTitleEs: string;
+  fallbackTitleEn: string;
   image: string;
   position: string;
 }
@@ -27,48 +30,48 @@ const HERO_SLIDE_CONFIG: {
   id: string;
   slug: string;
   category: PhotoCategory;
-  room: string;
-  discipline: string;
+  disciplineEs: string;
+  disciplineEn: string;
   position: string;
 }[] = [
   {
     id: "landscapes",
     slug: "mar-de-dunas-al-ocaso",
     category: "paisajes-documental",
-    room: "Colección 1",
-    discipline: "TERRITORIO",
+    disciplineEs: "TERRITORIO",
+    disciplineEn: "LANDSCAPE",
     position: "object-[center_48%]",
   },
   {
     id: "peaks",
     slug: "cumbre-nevada-al-alba",
     category: "paisajes-documental",
-    room: "Colección 2",
-    discipline: "PAISAJE MINERAL",
+    disciplineEs: "PAISAJE MINERAL",
+    disciplineEn: "VOLCANIC PEAKS",
     position: "object-[center_36%]",
   },
   {
     id: "wildlife",
     slug: "mirada-del-lince-boreal",
     category: "fauna-naturaleza",
-    room: "Colección 3",
-    discipline: "FAUNA Y NATURALEZA",
+    disciplineEs: "FAUNA Y NATURALEZA",
+    disciplineEn: "WILDLIFE & NATURE",
     position: "object-[center_30%]",
   },
   {
     id: "anaga-wildlife",
     slug: "cuervo-canario-ante-las-cumbres",
     category: "fauna-naturaleza",
-    room: "Colección 4",
-    discipline: "FAUNA Y TERRITORIO",
+    disciplineEs: "FAUNA Y TERRITORIO",
+    disciplineEn: "WILDLIFE & TERRITORY",
     position: "object-[center_45%]",
   },
   {
     id: "documentary",
     slug: "el-oficio-y-la-chispa",
     category: "viajes-cultura",
-    room: "Colección 5",
-    discipline: "DOCUMENTAL",
+    disciplineEs: "DOCUMENTAL",
+    disciplineEn: "DOCUMENTARY",
     position: "object-[center_38%]",
   },
 ];
@@ -83,17 +86,17 @@ const HERO_SLIDES: HeroSlide[] = HERO_SLIDE_CONFIG.map((cfg, idx) => {
     getPhotoBySlug(cfg.slug) ??
     catPhotos.find((p) => p.featured) ??
     catPhotos[0];
-  const discipline = customHeroWork
-    ? CATEGORY_METADATA[customHeroWork.category]?.code ?? cfg.discipline
-    : cfg.discipline;
+  const catMeta = customHeroWork ? CATEGORY_METADATA[customHeroWork.category] : undefined;
   return {
-    ...cfg,
-    discipline,
+    id: cfg.id,
+    category: cfg.category,
+    position: cfg.position,
+    disciplineEs: catMeta?.code ?? cfg.disciplineEs,
+    disciplineEn: catMeta?.codeEn ?? cfg.disciplineEn,
     slug: work?.slug ?? cfg.slug,
-    title: work?.title ?? cfg.discipline,
-    location: work?.location
-      ? `${work.location}${work.country && !work.location.includes(work.country) ? ` · ${work.country}` : ""}`
-      : "Archivo Fotográfico",
+    work,
+    fallbackTitleEs: cfg.disciplineEs,
+    fallbackTitleEn: cfg.disciplineEn,
     image: work?.image ?? "/images/portfolio/hero/hero.jpg",
   };
 });
@@ -107,7 +110,22 @@ export default function Hero() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
+
+  const resolveSlideMeta = (slide: HeroSlide) => {
+    const localizedWork = slide.work ? getLocalizedPhoto(slide.work, lang) : undefined;
+    const discipline = lang === "en" ? slide.disciplineEn : slide.disciplineEs;
+    const title = localizedWork?.title ?? (lang === "en" ? slide.fallbackTitleEn : slide.fallbackTitleEs);
+    const altTitle = `${title} — ${discipline} ${t("por", "by")} Javier Espinosa Martínez`;
+    const location = localizedWork?.location
+      ? `${localizedWork.location}${
+          localizedWork.country && !localizedWork.location.includes(localizedWork.country)
+            ? ` · ${localizedWork.country}`
+            : ""
+        }`
+      : t("Archivo Fotográfico", "Photographic Archive");
+    return { discipline, title, altTitle, location };
+  };
 
   const nextSlide = useCallback(() => {
     setActiveSlide((prev) => (prev + 1) % HERO_SLIDES.length);
@@ -156,13 +174,17 @@ export default function Hero() {
   }, [nextSlide, prevSlide]);
 
   const currentSlide = HERO_SLIDES[activeSlide];
+  const currentMeta = resolveSlideMeta(currentSlide);
 
   return (
     <section
       className="relative w-full bg-[#0B0C0E] overflow-hidden select-none md:min-h-screen md:min-h-svh md:flex md:flex-col md:justify-end"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      aria-label="Museo de Fotografía de Autor — Javier Espinosa"
+      aria-label={t(
+        "Museo de Fotografía de Autor — Javier Espinosa",
+        "Fine Art Photography Archive — Javier Espinosa"
+      )}
     >
       {/* Escenario fotográfico: en móvil con controles integrados directamente sobre la foto; en escritorio a pantalla completa */}
       <div
@@ -174,6 +196,7 @@ export default function Hero() {
           const isCurrent = idx === activeSlide;
           const isNext = idx === (activeSlide + 1) % HERO_SLIDES.length;
           if (!isCurrent && !isNext) return null;
+          const slideMeta = resolveSlideMeta(slide);
 
           return (
             <div
@@ -190,7 +213,7 @@ export default function Hero() {
               >
                 <Image
                   src={slide.image}
-                  alt={`${slide.title} — ${slide.discipline} por Javier Espinosa Martínez`}
+                  alt={slideMeta.altTitle}
                   fill
                   priority={idx === 0}
                   loading={idx === 0 ? "eager" : "lazy"}
@@ -221,17 +244,18 @@ export default function Hero() {
         <div className="absolute inset-x-3 bottom-3 z-20 flex items-center justify-between gap-3 rounded-lg border border-[#C5A880]/30 bg-[#0B0C0E]/85 px-3.5 py-2 backdrop-blur-md md:hidden shadow-xl">
           <Link href={`/portfolio/${currentSlide.slug}`} className="min-w-0 flex-1 group/title">
             <p className="truncate font-serif text-xs font-light text-[#F7F4EE] group-hover/title:text-[#C5A880] transition-colors">
-              {currentSlide.title}
+              {currentMeta.title}
             </p>
             <p className="truncate font-mono text-[9px] text-[#C5A880] tracking-wider mt-0.5">
-              {currentSlide.location}
+              {currentMeta.location}
             </p>
           </Link>
 
           {/* Números táctiles para elegir la portada sobre la propia foto */}
-          <div className="flex items-center gap-0.5 shrink-0" role="tablist" aria-label="Elegir portada">
+          <div className="flex items-center gap-0.5 shrink-0" role="tablist" aria-label={t("Elegir portada", "Choose cover frame")}>
             {HERO_SLIDES.map((slide, idx) => {
               const isSelected = idx === activeSlide;
+              const slideTitle = resolveSlideMeta(slide).title;
               return (
                 <button
                   key={slide.id}
@@ -239,7 +263,7 @@ export default function Hero() {
                   onClick={() => setActiveSlide(idx)}
                   role="tab"
                   aria-selected={isSelected}
-                  aria-label={`Ver portada 0${idx + 1}: ${slide.title}`}
+                  aria-label={t(`Ver portada 0${idx + 1}: ${slideTitle}`, `View cover 0${idx + 1}: ${slideTitle}`)}
                   className="flex min-h-[38px] min-w-[34px] items-center justify-center p-1 focus:outline-none"
                 >
                   <div className="flex flex-col items-center">
@@ -298,22 +322,23 @@ export default function Hero() {
             className="text-center sm:text-left group/title"
           >
             <p className="font-serif text-sm sm:text-base font-light text-[#F7F4EE] tracking-wide group-hover/title:text-[#C5A880] transition-colors">
-              {currentSlide.title}
+              {currentMeta.title}
             </p>
             <p className="font-mono text-[10px] text-[#C5A880] tracking-wider mt-0.5">
-              {currentSlide.location}
+              {currentMeta.location}
             </p>
           </Link>
 
           <div className="flex items-center gap-1.5">
             {HERO_SLIDES.map((slide, idx) => {
               const isSelected = idx === activeSlide;
+              const slideTitle = resolveSlideMeta(slide).title;
               return (
                 <button
                   key={slide.id}
                   type="button"
                   onClick={() => setActiveSlide(idx)}
-                  aria-label={`Ver portada 0${idx + 1}: ${slide.title}`}
+                  aria-label={t(`Ver portada 0${idx + 1}: ${slideTitle}`, `View cover 0${idx + 1}: ${slideTitle}`)}
                   className="group relative flex min-h-[44px] min-w-[44px] items-center justify-center py-2 px-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#C5A880]"
                 >
                   <div className="flex flex-col items-center">
@@ -341,7 +366,7 @@ export default function Hero() {
             href="#colecciones"
             className="hidden md:inline-flex min-h-[44px] items-center gap-2 text-right font-mono text-[10px] uppercase tracking-[0.25em] text-[#EBE7DF]/90 transition hover:text-[#C5A880]"
           >
-            <span>Descubrir</span>
+            <span>{t("Descubrir", "Discover")}</span>
             <span>↓</span>
           </a>
         </div>

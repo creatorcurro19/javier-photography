@@ -6,11 +6,14 @@
 export interface TrabajoItem {
   id: string;
   title: string;
+  titleEn?: string;
   clientOrMedium: string;
+  clientOrMediumEn?: string;
   year: number;
   category?: string;
   url?: string;
   description?: string;
+  descriptionEn?: string;
 }
 
 export const TRABAJOS: TrabajoItem[] = [];

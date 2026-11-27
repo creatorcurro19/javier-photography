@@ -6,28 +6,35 @@ import { BASE_PRINT_FORMATS } from "@/data/formatos";
 import { PAGOS_ACTIVOS } from "@/data/site-config";
 import { getSavedWorks } from "@/components/photo/FavoriteButton";
 import AddToCartModal from "@/components/cart/AddToCartModal";
+import { useLanguage } from "@/lib/i18n";
+import { getLocalizedPhoto } from "@/lib/i18n-works";
 
 const STORAGE_KEY = "javier_selected_works";
 
-export default function MobilePhotoActionBar({ photo }: { photo: Photo }) {
-  const [saved, setSaved] = useState(() => getSavedWorks().includes(photo.title));
+export default function MobilePhotoActionBar({ photo: rawPhoto }: { photo: Photo }) {
+  const { lang, t } = useLanguage();
+  const photo = getLocalizedPhoto(rawPhoto, lang);
+  const [saved, setSaved] = useState(() => getSavedWorks().includes(rawPhoto.title));
   const [copied, setCopied] = useState(false);
   const [buyModalOpen, setBuyModalOpen] = useState(false);
 
   const toggleFavorite = () => {
     const current = getSavedWorks();
-    const updated = current.includes(photo.title)
-      ? current.filter((t) => t !== photo.title)
-      : [...current, photo.title];
+    const updated = current.includes(rawPhoto.title)
+      ? current.filter((tItem) => tItem !== rawPhoto.title)
+      : [...current, rawPhoto.title];
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-    setSaved(updated.includes(photo.title));
+    setSaved(updated.includes(rawPhoto.title));
     window.dispatchEvent(new Event("javier-selection-updated"));
   };
 
   const handleShare = async () => {
     const url = window.location.href;
-    const title = `${photo.title} — Javier Espinosa Fotografía`;
-    const text = `Fotografía de autor por Javier Espinosa: «${photo.title}» (${photo.focalLength} · ${photo.camera})`;
+    const title = `${photo.title} — ${t("Javier Espinosa Fotografía", "Javier Espinosa Photography")}`;
+    const text = t(
+      `Fotografía de autor por Javier Espinosa: «${photo.title}» (${photo.focalLength} · ${photo.camera})`,
+      `Fine Art photograph by Javier Espinosa: "${photo.title}" (${photo.focalLength} · ${photo.camera})`
+    );
 
     if (navigator.share) {
       try {
@@ -49,7 +56,7 @@ export default function MobilePhotoActionBar({ photo }: { photo: Photo }) {
 
   return (
     <aside
-      aria-label="Acciones móviles para esta obra"
+      aria-label={t("Acciones móviles para esta obra", "Mobile actions for this photograph")}
       className="fixed inset-x-0 bottom-0 z-40 border-t border-[#202226] bg-[#0B0C0E]/95 px-4 pt-3 pb-[max(1.5rem,env(safe-area-inset-bottom))] shadow-[0_-15px_40px_rgba(0,0,0,0.8)] backdrop-blur-2xl lg:hidden"
     >
       <div className="mx-auto flex max-w-md items-center justify-between gap-3">
@@ -57,7 +64,11 @@ export default function MobilePhotoActionBar({ photo }: { photo: Photo }) {
         <button
           type="button"
           onClick={toggleFavorite}
-          aria-label={saved ? "Quitar de favoritos" : "Guardar en favoritos"}
+          aria-label={
+            saved
+              ? t("Quitar de favoritos", "Remove from favorites")
+              : t("Guardar en favoritos", "Save to favorites")
+          }
           className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border transition ${
             saved
               ? "border-[#8E8A80] bg-[#8E8A80] text-[#0B0C0E]"
@@ -71,7 +82,7 @@ export default function MobilePhotoActionBar({ photo }: { photo: Photo }) {
         <button
           type="button"
           onClick={handleShare}
-          aria-label="Compartir fotografía"
+          aria-label={t("Compartir fotografía", "Share photograph")}
           className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-[#202226] bg-[#151618] text-[#EBE7DF] transition hover:border-[#8E8A80]"
         >
           {copied ? (
@@ -102,21 +113,30 @@ export default function MobilePhotoActionBar({ photo }: { photo: Photo }) {
             onClick={() => setBuyModalOpen(true)}
             className="flex h-11 flex-1 items-center justify-center gap-1 whitespace-nowrap rounded-lg border border-[#C5A880] bg-[#C5A880] px-2.5 sm:px-3 font-mono text-[10px] font-semibold uppercase tracking-[0.08em] sm:tracking-[0.18em] text-[#0B0C0E] transition hover:bg-white hover:border-white shadow"
           >
-            <span className="whitespace-nowrap">{PAGOS_ACTIVOS ? "Copia Fine Art" : "Solicitar copia"} · Desde {photo.pricing?.estudio ?? BASE_PRINT_FORMATS.estudio.defaultPrice}&nbsp;€ →</span>
+            <span className="whitespace-nowrap">
+              {PAGOS_ACTIVOS
+                ? t("Copia Fine Art", "Fine Art Print")
+                : t("Solicitar copia", "Request print")}{" "}
+              · {t("Desde", "From")} {photo.pricing?.estudio ?? BASE_PRINT_FORMATS.estudio.defaultPrice}&nbsp;€ →
+            </span>
           </button>
         ) : (
           <a
             href="#adquirir-copia"
             className="flex h-11 flex-1 items-center justify-center gap-1 whitespace-nowrap rounded-lg border border-[#C5A880] bg-[#C5A880] px-2.5 sm:px-3 font-mono text-[10px] font-semibold uppercase tracking-[0.08em] sm:tracking-[0.18em] text-[#0B0C0E] transition hover:bg-white hover:border-white shadow"
           >
-            <span>{photo.category === "coches-rally" ? "Solicitud Pilotos & Prensa →" : "Consultar Archivo →"}</span>
+            <span>
+              {photo.category === "coches-rally"
+                ? t("Solicitud Pilotos & Prensa →", "Drivers & Press Request →")
+                : t("Consultar Archivo →", "Inquire Archive →")}
+            </span>
           </a>
         )}
       </div>
 
       {photo.prints && (
         <AddToCartModal
-          photo={photo}
+          photo={rawPhoto}
           isOpen={buyModalOpen}
           onClose={() => setBuyModalOpen(false)}
         />

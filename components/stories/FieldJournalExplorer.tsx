@@ -5,17 +5,20 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Photo, PhotoCategory } from "@/types/photo";
 import { CATEGORY_METADATA } from "@/types/photo";
+import { useLanguage } from "@/lib/i18n";
+import { getLocalizedPhoto } from "@/lib/i18n-works";
 
-const FILTER_TABS: { id: "all" | PhotoCategory; label: string }[] = [
-  { id: "all", label: "Todas las Notas" },
-  { id: "fauna-naturaleza", label: "Fauna & 600mm" },
-  { id: "paisajes-documental", label: "Paisajes & Territorio" },
-  { id: "coches-rally", label: "Coches & Rally" },
-  { id: "arquitectura-urbana", label: "Arquitectura" },
-  { id: "viajes-cultura", label: "Documental" },
+const FILTER_TABS: { id: "all" | PhotoCategory; labelEs: string; labelEn: string }[] = [
+  { id: "all", labelEs: "Todas las Notas", labelEn: "All Notes" },
+  { id: "fauna-naturaleza", labelEs: "Fauna & 600mm", labelEn: "Wildlife & 600mm" },
+  { id: "paisajes-documental", labelEs: "Paisajes & Territorio", labelEn: "Landscapes & Territory" },
+  { id: "coches-rally", labelEs: "Coches & Rally", labelEn: "Cars & Rally" },
+  { id: "arquitectura-urbana", labelEs: "Arquitectura", labelEn: "Architecture" },
+  { id: "viajes-cultura", labelEs: "Documental", labelEn: "Documentary" },
 ];
 
 export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) {
+  const { lang, t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState<"all" | PhotoCategory>("all");
   const [viewMode, setViewMode] = useState<"editorial" | "lighttable">("editorial");
 
@@ -42,7 +45,7 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
                     : "border border-transparent text-neutral-400 hover:border-[#202226] hover:text-[#EBE7DF]"
                 }`}
               >
-                {tab.label}
+                {lang === "en" ? tab.labelEn : tab.labelEs}
               </button>
             );
           })}
@@ -50,7 +53,7 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
 
         <div className="flex items-center gap-3 self-end sm:self-auto">
           <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">
-            {filtered.length} anotaciones
+            {filtered.length} {t("anotaciones", "entries")}
           </span>
           <div className="flex border border-[#202226] bg-[#0B0C0E]">
             <button
@@ -62,7 +65,7 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
                   : "text-neutral-400 hover:text-white"
               }`}
             >
-              Editorial
+              {t("Editorial", "Editorial")}
             </button>
             <button
               type="button"
@@ -73,7 +76,7 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
                   : "text-neutral-400 hover:text-white"
               }`}
             >
-              Mesa de Luz
+              {t("Mesa de Luz", "Light Table")}
             </button>
           </div>
         </div>
@@ -82,7 +85,11 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
       {/* View Mode 1: Editorial Spreads */}
       {viewMode === "editorial" ? (
         <div className="mt-16 space-y-24">
-          {filtered.map((photo, index) => (
+          {filtered.map((rawPhoto, index) => {
+            const photo = getLocalizedPhoto(rawPhoto, lang);
+            const catMeta = CATEGORY_METADATA[photo.category];
+            const catTitle = lang === "en" ? catMeta?.titleEn : catMeta?.title;
+            return (
             <article
               key={photo.id}
               className="grid grid-cols-1 items-center gap-12 border-b border-[#202226] pb-20 lg:grid-cols-12 lg:gap-16"
@@ -108,8 +115,8 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
                   />
                   <div className="absolute top-4 left-4">
                     <span className="border border-[#202226] bg-[#0B0C0E]/90 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80] backdrop-blur-sm">
-                      NOTA #{String(index + 1).padStart(2, "0")} ·{" "}
-                      {CATEGORY_METADATA[photo.category]?.title}
+                      {t("NOTA", "NOTE")} #{String(index + 1).padStart(2, "0")} ·{" "}
+                      {catTitle}
                     </span>
                   </div>
                 </Link>
@@ -148,25 +155,25 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
                 <div className="mt-7 grid grid-cols-4 gap-2 border border-[#202226] bg-[#151618]/50 p-4 font-mono text-xs">
                   <div>
                     <span className="block text-[9px] uppercase tracking-wider text-[#8E8A80]">
-                      Focal
+                      {t("Focal", "Focal")}
                     </span>
                     <span className="text-[#EBE7DF]">{photo.focalLength}</span>
                   </div>
                   <div>
                     <span className="block text-[9px] uppercase tracking-wider text-[#8E8A80]">
-                      Apertura
+                      {t("Apertura", "Aperture")}
                     </span>
                     <span className="text-[#EBE7DF]">{photo.aperture}</span>
                   </div>
                   <div>
                     <span className="block text-[9px] uppercase tracking-wider text-[#8E8A80]">
-                      Velocidad
+                      {t("Velocidad", "Shutter")}
                     </span>
                     <span className="text-[#EBE7DF]">{photo.shutter}</span>
                   </div>
                   <div>
                     <span className="block text-[9px] uppercase tracking-wider text-[#8E8A80]">
-                      Sensibilidad
+                      {t("Sensibilidad", "ISO")}
                     </span>
                     <span className="text-[#EBE7DF]">ISO {photo.iso}</span>
                   </div>
@@ -177,25 +184,28 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
                     href={`/portfolio/${photo.slug}`}
                     className="inline-flex border border-[#EBE7DF] bg-[#EBE7DF] px-6 py-3 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
                   >
-                    Inspeccionar Obra
+                    {t("Inspeccionar Obra", "Inspect Work")}
                   </Link>
                   {photo.prints && (
                     <Link
                       href={`/prints?obra=${encodeURIComponent(photo.title)}`}
                       className="font-mono text-xs uppercase tracking-[0.22em] text-[#8E8A80] transition hover:text-[#EBE7DF]"
                     >
-                      Adquirir Copia Fine Art →
+                      {t("Adquirir Copia Fine Art →", "Collect Fine Art Print →")}
                     </Link>
                   )}
                 </div>
               </div>
             </article>
-          ))}
+            );
+          })}
         </div>
       ) : (
         /* View Mode 2: Compact Contact Sheet / Light Table */
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((photo, index) => (
+          {filtered.map((rawPhoto, index) => {
+            const photo = getLocalizedPhoto(rawPhoto, lang);
+            return (
             <Link
               key={photo.id}
               href={`/portfolio/${photo.slug}`}
@@ -203,7 +213,7 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
             >
               <div>
                 <div className="mb-3 flex items-center justify-between font-mono text-[10px] text-[#8E8A80]">
-                  <span>NOTA #{String(index + 1).padStart(2, "0")}</span>
+                  <span>{t("NOTA", "NOTE")} #{String(index + 1).padStart(2, "0")}</span>
                   <span>
                     {photo.focalLength} · {photo.shutter}
                   </span>
@@ -236,11 +246,12 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
               </div>
 
               <div className="mt-5 flex items-center justify-between border-t border-[#202226] pt-3 font-mono text-[10px] uppercase tracking-wider text-neutral-400 group-hover:text-[#EBE7DF]">
-                <span>Abrir Ficha y EXIF</span>
+                <span>{t("Abrir Ficha y EXIF", "Open Sheet & EXIF")}</span>
                 <span>→</span>
               </div>
             </Link>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

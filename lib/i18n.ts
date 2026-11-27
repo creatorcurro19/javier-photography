@@ -1,8 +1,9 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import type { SiteLang } from "@/lib/i18n-helpers";
 
-export type SiteLang = "es" | "en";
+export type { SiteLang };
 
 const LANG_KEY = "javier_site_lang";
 const LANG_EVENT = "javier-lang-changed";

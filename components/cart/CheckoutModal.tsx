@@ -4,10 +4,13 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { CartItem, OrderCustomer, CartOrder, ShippingZoneId } from "@/types/cart";
-import { SHIPPING_ZONES } from "@/types/cart";
+import { SHIPPING_ZONES, getShippingZones } from "@/types/cart";
 import { clearCart } from "@/lib/cart";
 import { PAGOS_ACTIVOS, SITE_CONFIG } from "@/data/site-config";
+import { BASE_PRINT_FORMATS } from "@/data/formatos";
+import { WORKS_EN } from "@/data/works-en";
 import { trackEvent } from "@/lib/analytics";
+import { useLanguage } from "@/lib/i18n";
 
 interface CheckoutModalProps {
   items: CartItem[];
@@ -24,6 +27,7 @@ export default function CheckoutModal({
   onClose,
   onSuccess,
 }: CheckoutModalProps) {
+  const { lang, t } = useLanguage();
   const [customer, setCustomer] = useState<OrderCustomer>({
     nombre: "",
     email: "",
@@ -45,7 +49,8 @@ export default function CheckoutModal({
 
   if (!isOpen) return null;
 
-  const currentZone = SHIPPING_ZONES[shippingZone];
+  const localizedZones = getShippingZones(lang);
+  const currentZone = localizedZones[shippingZone] ?? SHIPPING_ZONES[shippingZone];
   const shippingCost = currentZone.cost;
   const totalAmount = subtotal + shippingCost;
 
@@ -54,18 +59,33 @@ export default function CheckoutModal({
     setError("");
 
     if (!privacyAccepted) {
-      setError("Debe aceptar la política de privacidad para tramitar el pedido.");
+      setError(
+        t(
+          "Debe aceptar la política de privacidad para tramitar el pedido.",
+          "Please accept the privacy policy to submit your order."
+        )
+      );
       return;
     }
 
     if (!customer.nombre.trim() || !customer.email.trim() || !customer.direccion.trim()) {
-      setError("Por favor complete los campos obligatorios marcados con asterisco (*).");
+      setError(
+        t(
+          "Por favor complete los campos obligatorios marcados con asterisco (*).",
+          "Please complete the required fields marked with an asterisk (*)."
+        )
+      );
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(customer.email)) {
-      setError("Por favor indique una dirección de correo electrónico válida.");
+      setError(
+        t(
+          "Por favor indique una dirección de correo electrónico válida.",
+          "Please enter a valid email address."
+        )
+      );
       return;
     }
 
@@ -95,7 +115,7 @@ export default function CheckoutModal({
       const orderData = orderRes ? await orderRes.json().catch(() => null) : null;
 
       if (orderRes?.status === 400) {
-        setError(orderData?.error ?? "Revisa los datos del pedido.");
+        setError(orderData?.error ?? t("Revisa los datos del pedido.", "Please check your order details."));
         return;
       }
 
@@ -123,7 +143,10 @@ export default function CheckoutModal({
       if (!orderData?.ok) {
         const mail = orderData?.destinationEmail ?? SITE_CONFIG.contactEmail;
         setError(
-          `No hemos podido registrar el pedido automáticamente. Tu cesta se conserva: escríbenos a ${mail} indicando la referencia ${orderId} o usa WhatsApp.`
+          t(
+            `No hemos podido registrar el pedido automáticamente. Tu cesta se conserva: escríbenos a ${mail} indicando la referencia ${orderId} o usa WhatsApp.`,
+            `We could not register the order automatically. Your bag is saved: email ${mail} quoting reference ${orderId}.`
+          )
         );
         return;
       }
@@ -132,7 +155,12 @@ export default function CheckoutModal({
       clearCart();
       onSuccess(orderId);
     } catch {
-      setError("Error de conexión. Tu cesta se conserva; inténtalo de nuevo en unos segundos.");
+      setError(
+        t(
+          "Error de conexión. Tu cesta se conserva; inténtalo de nuevo en unos segundos.",
+          "Connection error. Your bag is saved; please try again in a few seconds."
+        )
+      );
     } finally {
       setLoading(false);
     }
@@ -150,17 +178,17 @@ export default function CheckoutModal({
         <div className="flex items-center justify-between border-b border-white/[0.08] pb-5">
           <div>
             <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#8E8A80]">
-              Tramitación de Adquisición
+              {t("Tramitación de Adquisición", "Print Order Processing")}
             </p>
             <h2 id="checkout-title" className="mt-1 font-serif text-2xl font-light text-[#EBE7DF]">
-              Reserva de Obra Fine Art
+              {t("Reserva de Obra Fine Art", "Fine Art Print Reservation")}
             </h2>
           </div>
           <button
             type="button"
             onClick={onClose}
             className="p-2 text-[#8E8A80] hover:text-white transition"
-            aria-label="Cerrar modal"
+            aria-label={t("Cerrar modal", "Close modal")}
           >
             ✕
           </button>
@@ -169,35 +197,42 @@ export default function CheckoutModal({
         {/* Selected Artworks Quick Summary */}
         <div className="mt-6 border border-white/[0.06] bg-[#151618]/60 p-4">
           <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80] mb-3">
-            Obras en la Cesta ({items.length})
+            {t(`Obras en la Cesta (${items.length})`, `Prints in Bag (${items.length})`)}
           </p>
           <div className="space-y-2.5 max-h-40 overflow-y-auto no-scrollbar">
-            {items.map((item) => (
+            {items.map((item) => {
+              const displayTitle =
+                lang === "en" ? WORKS_EN[item.photoId]?.title ?? item.title : item.title;
+              const formatSpec = BASE_PRINT_FORMATS[item.format.id];
+              const displayFormat =
+                lang === "en" && formatSpec ? formatSpec.nameEn : item.format.name;
+              return (
               <div key={item.id} className="flex items-center justify-between text-xs font-light">
                 <div className="flex items-center gap-3 truncate pr-4">
                   <div className="relative h-9 w-9 shrink-0 overflow-hidden bg-black/40 border border-white/10">
-                    <Image src={item.image} alt={item.title} fill sizes="64px" quality={75} className="object-cover" />
+                    <Image src={item.image} alt={displayTitle} fill sizes="64px" quality={75} className="object-cover" />
                   </div>
                   <div className="truncate">
-                    <p className="text-[#EBE7DF] font-serif truncate">{item.title}</p>
+                    <p className="text-[#EBE7DF] font-serif truncate">{displayTitle}</p>
                     <p className="font-mono text-[10px] text-[#8E8A80]">
-                      {item.format.name} ({item.format.dimensions}) · Envío en tubo rígido ({item.quantity}×)
+                      {displayFormat} ({item.format.dimensions}) · {t("Envío en tubo rígido", "Rigid tube delivery")} ({item.quantity}×)
                     </p>
                   </div>
                 </div>
                 <span className="font-mono text-xs text-[#EBE7DF] shrink-0">{item.totalPrice} €</span>
               </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Selector de Zona de Envío e Impuestos */}
           <div className="mt-4 border-t border-white/[0.08] pt-3">
             <label className="block font-mono text-[10px] uppercase tracking-[0.25em] text-[#C5A880] mb-2">
-              Zona de Envío en Tubo Rígido e Impuestos:
+              {t("Zona de Envío en Tubo Rígido e Impuestos:", "Rigid Tube Shipping Zone & Taxes:")}
             </label>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-              {(Object.keys(SHIPPING_ZONES) as ShippingZoneId[]).map((zId) => {
-                const z = SHIPPING_ZONES[zId];
+              {(Object.keys(localizedZones) as ShippingZoneId[]).map((zId) => {
+                const z = localizedZones[zId];
                 const active = shippingZone === zId;
                 return (
                   <button
@@ -212,7 +247,7 @@ export default function CheckoutModal({
                   >
                     <span className="block font-semibold text-[#EBE7DF]">{z.label}</span>
                     <span className="block mt-0.5 text-[#C5A880]">
-                      Envío: {z.cost === 0 ? "0 € (Incluido)" : `+${z.cost} €`}
+                      {t("Envío:", "Shipping:")} {z.cost === 0 ? t("0 € (Incluido)", "€0 (Included)") : `+${z.cost} €`}
                     </span>
                     <span className="block mt-0.5 text-[9px] text-[#A39E93]">{z.deliveryDays}</span>
                   </button>
@@ -226,15 +261,15 @@ export default function CheckoutModal({
 
           <div className="mt-4 pt-3 border-t border-white/[0.08] space-y-1 font-mono text-xs">
             <div className="flex items-center justify-between text-[#A39E93]">
-              <span>Subtotal copias Fine Art:</span>
+              <span>{t("Subtotal copias Fine Art:", "Fine Art prints subtotal:")}</span>
               <span>{subtotal} €</span>
             </div>
             <div className="flex items-center justify-between text-[#A39E93]">
-              <span>Envío asegurado en tubo rígido ({currentZone.label}):</span>
-              <span>{shippingCost === 0 ? "0 € (Incluido)" : `${shippingCost} €`}</span>
+              <span>{t(`Envío asegurado en tubo rígido (${currentZone.label}):`, `Insured rigid tube shipping (${currentZone.label}):`)}</span>
+              <span>{shippingCost === 0 ? t("0 € (Incluido)", "€0 (Included)") : `${shippingCost} €`}</span>
             </div>
             <div className="flex items-center justify-between pt-1 text-sm">
-              <span className="text-[#EBE7DF] uppercase tracking-wider">Total a tramitar:</span>
+              <span className="text-[#EBE7DF] uppercase tracking-wider">{t("Total a tramitar:", "Order total:")}</span>
               <span className="text-[#EBE7DF] font-semibold">{totalAmount} €</span>
             </div>
           </div>
@@ -251,7 +286,7 @@ export default function CheckoutModal({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label htmlFor="checkout-nombre" className="block text-[11px] uppercase tracking-wider font-mono text-[#8E8A80]">
-                Nombre y Apellidos / Entidad <span className="text-[#EBE7DF]">*</span>
+                {t("Nombre y Apellidos / Entidad", "Full Name / Organization")} <span className="text-[#EBE7DF]">*</span>
               </label>
               <input
                 id="checkout-nombre"
@@ -259,14 +294,14 @@ export default function CheckoutModal({
                 required
                 value={customer.nombre}
                 onChange={(e) => setCustomer({ ...customer, nombre: e.target.value })}
-                placeholder="Ej. Carmen Rodríguez"
+                placeholder={t("Ej. Carmen Rodríguez", "e.g. Jane Doe")}
                 className="mt-1.5 w-full border border-white/[0.1] bg-[#151618] px-3.5 py-2.5 text-xs text-[#EBE7DF] placeholder-[#8E8A80]/40 focus:border-white/40 focus:outline-none"
               />
             </div>
 
             <div>
               <label htmlFor="checkout-email" className="block text-[11px] uppercase tracking-wider font-mono text-[#8E8A80]">
-                Correo Electrónico <span className="text-[#EBE7DF]">*</span>
+                {t("Correo Electrónico", "Email Address")} <span className="text-[#EBE7DF]">*</span>
               </label>
               <input
                 id="checkout-email"
@@ -274,7 +309,7 @@ export default function CheckoutModal({
                 required
                 value={customer.email}
                 onChange={(e) => setCustomer({ ...customer, email: e.target.value })}
-                placeholder="tu@correo.com"
+                placeholder={t("tu@correo.com", "you@example.com")}
                 className="mt-1.5 w-full border border-white/[0.1] bg-[#151618] px-3.5 py-2.5 text-xs text-[#EBE7DF] placeholder-[#8E8A80]/40 focus:border-white/40 focus:outline-none"
               />
             </div>
@@ -283,7 +318,7 @@ export default function CheckoutModal({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label htmlFor="checkout-tel" className="block text-[11px] uppercase tracking-wider font-mono text-[#8E8A80]">
-                Teléfono de Contacto <span className="text-[#8E8A80]/60">(Opcional)</span>
+                {t("Teléfono de Contacto", "Contact Phone")} <span className="text-[#8E8A80]/60">{t("(Opcional)", "(Optional)")}</span>
               </label>
               <input
                 id="checkout-tel"
@@ -297,7 +332,7 @@ export default function CheckoutModal({
 
             <div>
               <label htmlFor="checkout-pais" className="block text-[11px] uppercase tracking-wider font-mono text-[#8E8A80]">
-                País de Entrega <span className="text-[#EBE7DF]">*</span>
+                {t("País de Entrega", "Delivery Country")} <span className="text-[#EBE7DF]">*</span>
               </label>
               <input
                 id="checkout-pais"
@@ -305,7 +340,7 @@ export default function CheckoutModal({
                 required
                 value={customer.pais}
                 onChange={(e) => setCustomer({ ...customer, pais: e.target.value })}
-                placeholder="España"
+                placeholder={t("España", "Spain")}
                 className="mt-1.5 w-full border border-white/[0.1] bg-[#151618] px-3.5 py-2.5 text-xs text-[#EBE7DF] placeholder-[#8E8A80]/40 focus:border-white/40 focus:outline-none"
               />
             </div>
@@ -313,7 +348,7 @@ export default function CheckoutModal({
 
           <div>
             <label htmlFor="checkout-dir" className="block text-[11px] uppercase tracking-wider font-mono text-[#8E8A80]">
-              Dirección de Entrega <span className="text-[#EBE7DF]">*</span>
+              {t("Dirección de Entrega", "Street Address")} <span className="text-[#EBE7DF]">*</span>
             </label>
             <input
               id="checkout-dir"
@@ -321,7 +356,7 @@ export default function CheckoutModal({
               required
               value={customer.direccion}
               onChange={(e) => setCustomer({ ...customer, direccion: e.target.value })}
-              placeholder="Calle, número, piso, puerta"
+              placeholder={t("Calle, número, piso, puerta", "Street, number, apartment")}
               className="mt-1.5 w-full border border-white/[0.1] bg-[#151618] px-3.5 py-2.5 text-xs text-[#EBE7DF] placeholder-[#8E8A80]/40 focus:border-white/40 focus:outline-none"
             />
           </div>
@@ -329,7 +364,7 @@ export default function CheckoutModal({
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label htmlFor="checkout-ciudad" className="block text-[11px] uppercase tracking-wider font-mono text-[#8E8A80]">
-                Ciudad <span className="text-[#EBE7DF]">*</span>
+                {t("Ciudad", "City")} <span className="text-[#EBE7DF]">*</span>
               </label>
               <input
                 id="checkout-ciudad"
@@ -337,14 +372,14 @@ export default function CheckoutModal({
                 required
                 value={customer.ciudad}
                 onChange={(e) => setCustomer({ ...customer, ciudad: e.target.value })}
-                placeholder="Ej. Madrid / Santa Cruz de Tenerife"
+                placeholder={t("Ej. Madrid / Santa Cruz de Tenerife", "e.g. Madrid / London")}
                 className="mt-1.5 w-full border border-white/[0.1] bg-[#151618] px-3.5 py-2.5 text-xs text-[#EBE7DF] placeholder-[#8E8A80]/40 focus:border-white/40 focus:outline-none"
               />
             </div>
 
             <div>
               <label htmlFor="checkout-cp" className="block text-[11px] uppercase tracking-wider font-mono text-[#8E8A80]">
-                Código Postal <span className="text-[#EBE7DF]">*</span>
+                {t("Código Postal", "Postal Code")} <span className="text-[#EBE7DF]">*</span>
               </label>
               <input
                 id="checkout-cp"
@@ -360,14 +395,17 @@ export default function CheckoutModal({
 
           <div>
             <label htmlFor="checkout-notas" className="block text-[11px] uppercase tracking-wider font-mono text-[#8E8A80]">
-              Notas para el autor o solicitud de dedicatoria manuscrita
+              {t(
+                "Notas para el autor o solicitud de dedicatoria manuscrita",
+                "Notes for the author or handwritten dedication request"
+              )}
             </label>
             <textarea
               id="checkout-notas"
               rows={2}
               value={customer.notas}
               onChange={(e) => setCustomer({ ...customer, notas: e.target.value })}
-              placeholder="Instrucciones para la entrega o dedicatoria..."
+              placeholder={t("Instrucciones para la entrega o dedicatoria...", "Delivery instructions or dedication note...")}
               className="mt-1.5 w-full border border-white/[0.1] bg-[#151618] px-3.5 py-2 text-xs text-[#EBE7DF] placeholder-[#8E8A80]/40 focus:border-white/40 focus:outline-none"
             />
           </div>
@@ -375,7 +413,7 @@ export default function CheckoutModal({
           {/* Modalidad de Pago */}
           <div className="border border-white/[0.08] bg-[#121316] p-4 space-y-3">
             <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#C5A880]">
-              Modalidad de Pago
+              {t("Modalidad de Pago", "Payment Method")}
             </p>
 
             {PAGOS_ACTIVOS && (
@@ -397,14 +435,14 @@ export default function CheckoutModal({
                 <div className="flex-1 text-xs">
                   <div className="flex flex-wrap items-center justify-between gap-1">
                     <span className="font-medium text-[#EBE7DF]">
-                      Tarjeta de crédito / débito, Apple Pay, Google Pay
+                      {t("Tarjeta de crédito / débito, Apple Pay, Google Pay", "Credit / Debit Card, Apple Pay, Google Pay")}
                     </span>
                     <span className="text-[10px] font-mono text-[#C5A880] border border-[#C5A880]/30 px-1.5 py-0.5">
-                      Pago Online Cifrado
+                      {t("Pago Online Cifrado", "Encrypted Online Payment")}
                     </span>
                   </div>
                   <p className="mt-1 text-[11px] text-[#A39E93] leading-relaxed">
-                    Pago seguro instantáneo con tarjeta. Sin recargos adicionales.
+                    {t("Pago seguro instantáneo con tarjeta. Sin recargos adicionales.", "Instant secure card checkout with zero extra fees.")}
                   </p>
                 </div>
               </label>
@@ -427,10 +465,13 @@ export default function CheckoutModal({
               />
               <div className="flex-1 text-xs">
                 <span className="font-medium text-[#EBE7DF]">
-                  Transferencia bancaria / Factura proforma
+                  {t("Transferencia bancaria / Factura proforma", "Bank transfer / Proforma invoice")}
                 </span>
                 <p className="mt-1 text-[11px] text-[#A39E93] leading-relaxed">
-                  Te remitiremos los datos bancarios (IBAN) por correo electrónico tras validar la disponibilidad de la tirada.
+                  {t(
+                    "Te remitiremos los datos bancarios (IBAN) por correo electrónico tras validar la disponibilidad de la tirada.",
+                    "We will email bank transfer (IBAN) details after verifying numbered edition availability."
+                  )}
                 </p>
               </div>
             </label>
@@ -446,19 +487,28 @@ export default function CheckoutModal({
               className="mt-1 h-3.5 w-3.5 accent-[#EBE7DF]"
             />
             <label htmlFor="checkout-privacidad" className="text-[11px] text-[#8E8A80] font-light leading-relaxed">
-              Acepto la{" "}
+              {t("Acepto la ", "I accept the ")}
               <Link href="/legal#privacidad" target="_blank" className="text-[#EBE7DF] underline decoration-white/30 hover:text-white">
-                Política de Privacidad
+                {t("Política de Privacidad", "Privacy Policy")}
               </Link>
-              . Los datos se emplearán exclusivamente para la facturación, certificación y entrega de la obra.
+              {t(
+                ". Los datos se emplearán exclusivamente para la facturación, certificación y entrega de la obra.",
+                ". Your information will only be used for invoicing, edition certification, and shipping."
+              )}
             </label>
           </div>
 
           <div className="mt-6 pt-4 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="text-[11px] text-[#8E8A80] font-mono text-center sm:text-left">
-              <span>{PAGOS_ACTIVOS && paymentMethod === "stripe" ? "Pasarela cifrada SSL 256 bits" : "Pago seguro tras confirmación"}</span>
+              <span>
+                {PAGOS_ACTIVOS && paymentMethod === "stripe"
+                  ? t("Pasarela cifrada SSL 256 bits", "256-bit SSL encrypted checkout")
+                  : t("Pago seguro tras confirmación", "Secure payment after confirmation")}
+              </span>
               <span className="block text-[10px] text-white/40">
-                {PAGOS_ACTIVOS && paymentMethod === "stripe" ? "Apple Pay · Google Pay · Visa · Mastercard" : "Transferencia bancaria / Confirmación directa"}
+                {PAGOS_ACTIVOS && paymentMethod === "stripe"
+                  ? "Apple Pay · Google Pay · Visa · Mastercard"
+                  : t("Transferencia bancaria / Confirmación directa", "Bank transfer / Direct confirmation")}
               </span>
             </div>
 
@@ -468,10 +518,10 @@ export default function CheckoutModal({
               className="w-full sm:w-auto inline-flex items-center justify-center border border-[#EBE7DF] bg-[#EBE7DF] px-8 py-3.5 font-mono text-xs uppercase tracking-[0.25em] text-[#0B0C0E] font-medium transition hover:bg-transparent hover:text-white disabled:opacity-50 cursor-pointer"
             >
               {loading
-                ? "Procesando adquisición..."
+                ? t("Procesando adquisición...", "Processing order...")
                 : paymentMethod === "stripe"
-                ? `Pagar con Tarjeta (${totalAmount} €) →`
-                : `Confirmar Reserva (${totalAmount} €) →`}
+                ? t(`Pagar con Tarjeta (${totalAmount} €) →`, `Pay by Card (€${totalAmount}) →`)
+                : t(`Confirmar Reserva (${totalAmount} €) →`, `Confirm Reservation (€${totalAmount}) →`)}
             </button>
           </div>
         </form>

@@ -4,19 +4,26 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getPhotoBySlug, getProjectBySlug, getProjectPhotos } from "@/lib/photos";
+import { useLanguage } from "@/lib/i18n";
+import { getLocalizedPhoto } from "@/lib/i18n-works";
 
 const TERRITORIES = [
   {
     id: "la-vera",
-    name: "Villanueva de la Vera, Cáceres",
-    region: "Extremadura · España",
+    nameEs: "Villanueva de la Vera, Cáceres",
+    nameEn: "Villanueva de la Vera, Cáceres",
+    regionEs: "Extremadura · España",
+    regionEn: "Extremadura · Spain",
     coords: "40°07′N · 05°27′W",
     svgX: 37,
     svgY: 44,
-    discipline: "Arquitectura Verata & Tradición",
+    disciplineEs: "Arquitectura Verata & Tradición",
+    disciplineEn: "Vernacular Architecture & Tradition",
     projectSlug: "villanueva-de-la-vera",
-    summary:
+    summaryEs:
       "Conjunto Histórico de arquitectura popular de piedra de granito, adobe y entramados de madera al pie de la Sierra de Gredos.",
+    summaryEn:
+      "Historic Quarter preserving granite masonry, adobe, and timber-framed vernacular architecture along the southern slopes of Sierra de Gredos.",
     samples: [
       {
         title: "Plaza de Villanueva de la Vera",
@@ -40,15 +47,20 @@ const TERRITORIES = [
   },
   {
     id: "canarias",
-    name: "Islas Canarias: El Teide y Anaga",
-    region: "Atlántico Macaronésico · España",
+    nameEs: "Islas Canarias: El Teide y Anaga",
+    nameEn: "Canary Islands: Mount Teide & Anaga",
+    regionEs: "Atlántico Macaronésico · España",
+    regionEn: "Macaronesian Atlantic · Spain",
     coords: "28°16′N · 16°38′W",
     svgX: 16,
     svgY: 74,
-    discipline: "Paisaje Volcánico, Laurisilva y Rally",
+    disciplineEs: "Paisaje Volcánico, Laurisilva y Rally",
+    disciplineEn: "Volcanic Landscape, Laurel Forest & Rally",
     projectSlug: "entre-la-bruma-y-el-volcan",
-    summary:
+    summaryEs:
       "Cumbres volcánicas por encima de los 3.700 metros, bosques terciarios de laurisilva envueltos por la bruma del alisio y tramos de rally histórico.",
+    summaryEn:
+      "Volcanic peaks rising above 3,700 meters, ancient cloud-draped laurel forests shaped by trade winds, and historic rally stages.",
     samples: [
       {
         title: "Cumbre Nevada al Alba",
@@ -72,15 +84,20 @@ const TERRITORIES = [
   },
   {
     id: "sahara",
-    name: "Desierto del Sahara y Erg Chebbi",
-    region: "Sur del Magreb · Marruecos",
+    nameEs: "Desierto del Sahara y Erg Chebbi",
+    nameEn: "Sahara Desert & Erg Chebbi",
+    regionEs: "Sur del Magreb · Marruecos",
+    regionEn: "Southern Maghreb · Morocco",
     coords: "31°08′N · 03°58′W",
     svgX: 42,
     svgY: 78,
-    discipline: "Paisaje Desértico y Minimalismo",
+    disciplineEs: "Paisaje Desértico y Minimalismo",
+    disciplineEn: "Desert Landscape & Minimalism",
     projectSlug: "silencio-del-desierto",
-    summary:
+    summaryEs:
       "Cordilleras de dunas modeladas por el viento donde la luz rasante del crepúsculo dibuja aristas entre el oro y la sombra.",
+    summaryEn:
+      "Wind-sculpted dune ridges where low twilight casts razor lines dividing glowing gold and deep shadow.",
     samples: [
       {
         title: "Horizonte de Dunas al Atardecer",
@@ -104,15 +121,20 @@ const TERRITORIES = [
   },
   {
     id: "marrakech-atlas",
-    name: "Marrakech & Alto Atlas",
-    region: "Región de Marrakech-Safí · Marruecos",
+    nameEs: "Marrakech & Alto Atlas",
+    nameEn: "Marrakech & High Atlas",
+    regionEs: "Región de Marrakech-Safí · Marruecos",
+    regionEn: "Marrakech-Safi Region · Morocco",
     coords: "31°37′N · 07°59′W",
     svgX: 33,
     svgY: 69,
-    discipline: "Documental, Oficios & Arquitectura Islámica",
+    disciplineEs: "Documental, Oficios & Arquitectura Islámica",
+    disciplineEn: "Documentary, Crafts & Islamic Architecture",
     projectSlug: "medina-y-kasbah",
-    summary:
+    summaryEs:
       "Talleres de artesanos de la madera y el textil en los callejones del zoco, simetría de madrasas y valles bereberes al pie del Alto Atlas.",
+    summaryEn:
+      "Woodturners and textile workshops in narrow souk lanes, serene madrasa courtyards, and High Atlas foothill valleys.",
     samples: [
       {
         title: "Oasis y Cumbres del Atlas",
@@ -136,15 +158,20 @@ const TERRITORIES = [
   },
   {
     id: "alpes-iberia",
-    name: "Bosques Alpinos & Sierras Ibéricas",
-    region: "Austria & Península Ibérica",
+    nameEs: "Bosques Alpinos & Sierras Ibéricas",
+    nameEn: "Alpine Forests & Iberian Ranges",
+    regionEs: "Austria & Península Ibérica",
+    regionEn: "Austria & Iberian Peninsula",
     coords: "47°15′N · 11°24′E",
     svgX: 64,
     svgY: 24,
-    discipline: "Fauna Salvaje a 600mm",
+    disciplineEs: "Fauna a 600mm",
+    disciplineEn: "Wildlife at 600mm",
     projectSlug: "miradas-en-libertad",
-    summary:
-      "Seguimiento con superteleobjetivo de 600mm de grandes mamíferos y aves en su hábitat: lince boreal, lobo europeo, cabra montés, venado y garza blanca.",
+    summaryEs:
+      "Observación a distancia con teleobjetivo de 600mm de mamíferos y aves en medio natural y santuarios: lince boreal, lobo europeo, cabra montés, venado y garza blanca.",
+    summaryEn:
+      "Long-lens 600mm wildlife observation across open mountains and sanctuaries: Eurasian lynx, wolf, Spanish ibex, red deer, and great white egret.",
     samples: [
       {
         title: "Mirada del Lince Boreal",
@@ -169,8 +196,9 @@ const TERRITORIES = [
 ] as const;
 
 export default function ExpeditionMap() {
+  const { lang, t } = useLanguage();
   const [activeId, setActiveId] = useState<string>(TERRITORIES[0].id);
-  const rawCurrent = TERRITORIES.find((t) => t.id === activeId) ?? TERRITORIES[0];
+  const rawCurrent = TERRITORIES.find((item) => item.id === activeId) ?? TERRITORIES[0];
 
   const resolvedSamples = (() => {
     const project = getProjectBySlug(rawCurrent.projectSlug);
@@ -182,11 +210,12 @@ export default function ExpeditionMap() {
       const work = getPhotoBySlug(s.slug);
       if (work && !seen.has(work.slug)) {
         seen.add(work.slug);
+        const lw = getLocalizedPhoto(work, lang);
         list.push({
-          title: work.title,
-          slug: work.slug,
-          href: `/portfolio/${work.slug}`,
-          image: work.image,
+          title: lw.title,
+          slug: lw.slug,
+          href: `/portfolio/${lw.slug}`,
+          image: lw.image,
         });
       }
     }
@@ -195,11 +224,12 @@ export default function ExpeditionMap() {
       if (list.length >= 3) break;
       if (!seen.has(work.slug)) {
         seen.add(work.slug);
+        const lw = getLocalizedPhoto(work, lang);
         list.push({
-          title: work.title,
-          slug: work.slug,
-          href: `/portfolio/${work.slug}`,
-          image: work.image,
+          title: lw.title,
+          slug: lw.slug,
+          href: `/portfolio/${lw.slug}`,
+          image: lw.image,
         });
       }
     }
@@ -207,7 +237,14 @@ export default function ExpeditionMap() {
     return list;
   })();
 
-  const current = { ...rawCurrent, samples: resolvedSamples };
+  const current = {
+    ...rawCurrent,
+    name: lang === "en" ? rawCurrent.nameEn : rawCurrent.nameEs,
+    region: lang === "en" ? rawCurrent.regionEn : rawCurrent.regionEs,
+    discipline: lang === "en" ? rawCurrent.disciplineEn : rawCurrent.disciplineEs,
+    summary: lang === "en" ? rawCurrent.summaryEn : rawCurrent.summaryEs,
+    samples: resolvedSamples,
+  };
 
   return (
     <section
@@ -217,31 +254,34 @@ export default function ExpeditionMap() {
       <div className="flex flex-col justify-between gap-4 border-b border-white/[0.08] pb-6 md:flex-row md:items-end">
         <div>
           <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
-            Cartografía de Campo & Expediciones
+            {t("Cartografía de Campo & Expediciones", "Field Cartography & Expeditions")}
           </p>
           <h2
             id="map-expedition-heading"
             className="mt-2 font-serif text-3xl font-light text-[#EBE7DF]"
           >
-            Territorios Fotografiados
+            {t("Territorios Fotografiados", "Photographed Territories")}
           </h2>
         </div>
 
         <div className="flex flex-wrap gap-2">
-          {TERRITORIES.map((t) => (
-            <button
-              key={t.id}
-              type="button"
-              onClick={() => setActiveId(t.id)}
-              className={`rounded-full px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-wider transition ${
-                activeId === t.id
-                  ? "bg-[#EBE7DF] text-[#0B0C0E] font-medium"
-                  : "border border-white/[0.08] bg-[#0B0C0E] text-[#8E8A80] hover:border-white/30 hover:text-[#EBE7DF]"
-              }`}
-            >
-              {t.name.split(":")[0].split(",")[0]}
-            </button>
-          ))}
+          {TERRITORIES.map((territoryItem) => {
+            const label = lang === "en" ? territoryItem.nameEn : territoryItem.nameEs;
+            return (
+              <button
+                key={territoryItem.id}
+                type="button"
+                onClick={() => setActiveId(territoryItem.id)}
+                className={`rounded-full px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-wider transition ${
+                  activeId === territoryItem.id
+                    ? "bg-[#EBE7DF] text-[#0B0C0E] font-medium"
+                    : "border border-white/[0.08] bg-[#0B0C0E] text-[#8E8A80] hover:border-white/30 hover:text-[#EBE7DF]"
+                }`}
+              >
+                {label.split(":")[0].split(",")[0]}
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -252,7 +292,10 @@ export default function ExpeditionMap() {
           <svg
             viewBox="0 0 100 100"
             className="h-full w-full opacity-85"
-            aria-label="Mapa de localizaciones fotográficas entre Europa y el Norte de África"
+            aria-label={t(
+              "Mapa de localizaciones fotográficas entre Europa y el Norte de África",
+              "Map of photography locations across Europe and North Africa"
+            )}
           >
             <defs>
               <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
@@ -266,7 +309,7 @@ export default function ExpeditionMap() {
             </defs>
             <rect width="100" height="100" fill="url(#grid)" />
 
-            {/* Trazos esquemáticos de costas (Península Ibérica, Centroeuropa, Norte de África y Canarias) */}
+            {/* Trazos esquemáticos de costas */}
             <path
               d="M 30 34 L 47 35 L 49 48 L 36 55 L 29 48 Z"
               fill="#151618"
@@ -311,18 +354,18 @@ export default function ExpeditionMap() {
             />
 
             {/* Pines interactivos */}
-            {TERRITORIES.map((t) => {
-              const isSelected = t.id === activeId;
+            {TERRITORIES.map((territoryItem) => {
+              const isSelected = territoryItem.id === activeId;
               return (
                 <g
-                  key={t.id}
-                  onClick={() => setActiveId(t.id)}
+                  key={territoryItem.id}
+                  onClick={() => setActiveId(territoryItem.id)}
                   className="cursor-pointer"
                 >
                   {isSelected && (
                     <circle
-                      cx={t.svgX}
-                      cy={t.svgY}
+                      cx={territoryItem.svgX}
+                      cy={territoryItem.svgY}
                       r="5.5"
                       fill="none"
                       stroke="#EBE7DF"
@@ -331,8 +374,8 @@ export default function ExpeditionMap() {
                     />
                   )}
                   <circle
-                    cx={t.svgX}
-                    cy={t.svgY}
+                    cx={territoryItem.svgX}
+                    cy={territoryItem.svgY}
                     r={isSelected ? "2.6" : "1.8"}
                     fill={isSelected ? "#EBE7DF" : "#8E8A80"}
                   />
@@ -391,7 +434,7 @@ export default function ExpeditionMap() {
               href={`/projects/${current.projectSlug}`}
               className="inline-flex items-center gap-2 border border-white/[0.08] bg-[#0B0C0E] px-5 py-2.5 font-mono text-xs uppercase tracking-[0.25em] text-[#EBE7DF] transition hover:border-white/30 hover:text-white"
             >
-              <span>Ver Proyecto de este Territorio</span>
+              <span>{t("Ver Proyecto de este Territorio", "View Territory Series")}</span>
               <span>→</span>
             </Link>
           </div>

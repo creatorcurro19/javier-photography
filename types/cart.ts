@@ -3,7 +3,8 @@ import {
   computeManchaDimensions,
   type PrintFormatId,
 } from "@/data/formatos";
-import { PLAZOS } from "@/data/plazos";
+import { getPlazos, PLAZOS } from "@/data/plazos";
+import { translateMaxFormatReason, type SiteLang } from "@/lib/i18n-helpers";
 import type { Photo } from "@/types/photo";
 
 export type ShippingZoneId = "canarias" | "peninsula" | "internacional";
@@ -40,6 +41,34 @@ export const SHIPPING_ZONES: Record<ShippingZoneId, ShippingZone> = {
     deliveryDays: `Envío internacional en tubo rígido · ${PLAZOS.tabla}`,
   },
 };
+
+export function getShippingZones(lang: SiteLang): Record<ShippingZoneId, ShippingZone> {
+  if (lang !== "en") return SHIPPING_ZONES;
+  const p = getPlazos("en");
+  return {
+    canarias: {
+      id: "canarias",
+      label: "Tenerife & Canary Islands",
+      cost: 0,
+      taxNote: "Tube shipping included · Applicable taxes are confirmed upon order confirmation",
+      deliveryDays: `Rigid tube shipping · ${p.tabla}`,
+    },
+    peninsula: {
+      id: "peninsula",
+      label: "Mainland Spain & Balearic Islands",
+      cost: 15,
+      taxNote: "+ €15 rigid tube shipping · Applicable taxes are confirmed upon order confirmation",
+      deliveryDays: `Registered post in rigid tube · ${p.tabla}`,
+    },
+    internacional: {
+      id: "internacional",
+      label: "European Union & International",
+      cost: 28,
+      taxNote: "+ €28 international rigid tube shipping · Applicable taxes are confirmed upon order confirmation",
+      deliveryDays: `International rigid tube shipping · ${p.tabla}`,
+    },
+  };
+}
 
 export interface PrintFormat {
   id: PrintFormatId;
@@ -92,8 +121,12 @@ export const PRINT_FORMATS: Record<PrintFormat["id"], PrintFormat> = {
   },
 };
 
-function computeImageArea(paperDims: string, tier: "estudio" | "galeria" | "coleccion"): string {
-  return computeManchaDimensions(paperDims, tier).label;
+function computeImageArea(
+  paperDims: string,
+  tier: "estudio" | "galeria" | "coleccion",
+  lang: SiteLang = "es"
+): string {
+  return computeManchaDimensions(paperDims, tier, lang).label;
 }
 
 /**
@@ -101,7 +134,8 @@ function computeImageArea(paperDims: string, tier: "estudio" | "galeria" | "cole
  * límite de edición y restricción de formato máximo según resolución e ISO.
  */
 export function getFormatsForPhoto(
-  photo: Pick<Photo, "pricing" | "maxRecommendedFormat" | "maxFormatReason" | "iso" | "camera">
+  photo: Pick<Photo, "pricing" | "maxRecommendedFormat" | "maxFormatReason" | "iso" | "camera">,
+  lang: SiteLang = "es"
 ): Record<PrintFormat["id"], PrintFormat> {
   const p = photo.pricing;
   const editionLimit = p?.editionTotal ?? 25;
@@ -115,37 +149,41 @@ export function getFormatsForPhoto(
     (photo.iso !== undefined && photo.iso >= 3200) ||
     Boolean(photo.camera && photo.camera.includes("750D"));
 
+  const fallbackDisabledReason =
+    lang === "en"
+      ? "Due to native sensor resolution or elevated ISO sensitivity, this work is limited to Gallery Format (50 × 70 cm) to ensure maximum print sharpness."
+      : "Por resolución nativa o sensibilidad ISO elevada, esta obra se limita a Formato Galería (50 × 70 cm) para garantizar máxima nitidez.";
+
   return {
     estudio: {
       id: "estudio",
-      name: "Formato Estudio",
+      name: lang === "en" ? BASE_PRINT_FORMATS.estudio.nameEn : BASE_PRINT_FORMATS.estudio.name,
       dimensions: estudioDims,
-      imageDimensions: computeImageArea(estudioDims, "estudio"),
+      imageDimensions: computeImageArea(estudioDims, "estudio", lang),
       price: p?.estudio ?? PRINT_FORMATS.estudio.price,
       framePrice: 0,
       editionLimit,
     },
     galeria: {
       id: "galeria",
-      name: "Formato Galería",
+      name: lang === "en" ? BASE_PRINT_FORMATS.galeria.nameEn : BASE_PRINT_FORMATS.galeria.name,
       dimensions: galeriaDims,
-      imageDimensions: computeImageArea(galeriaDims, "galeria"),
+      imageDimensions: computeImageArea(galeriaDims, "galeria", lang),
       price: p?.galeria ?? PRINT_FORMATS.galeria.price,
       framePrice: 0,
       editionLimit,
     },
     coleccion: {
       id: "coleccion",
-      name: "Gran Colección",
+      name: lang === "en" ? BASE_PRINT_FORMATS.coleccion.nameEn : BASE_PRINT_FORMATS.coleccion.name,
       dimensions: coleccionDims,
-      imageDimensions: computeImageArea(coleccionDims, "coleccion"),
+      imageDimensions: computeImageArea(coleccionDims, "coleccion", lang),
       price: p?.coleccion ?? PRINT_FORMATS.coleccion.price,
       framePrice: 0,
       editionLimit,
       disabled: isColeccionDisabled,
       disabledReason: isColeccionDisabled
-        ? photo.maxFormatReason ??
-          "Por resolución nativa o sensibilidad ISO elevada, esta obra se limita a Formato Galería (50 × 70 cm) para garantizar máxima nitidez."
+        ? translateMaxFormatReason(photo.maxFormatReason, lang) ?? fallbackDisabledReason
         : undefined,
     },
   };

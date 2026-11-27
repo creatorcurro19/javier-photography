@@ -1,4 +1,5 @@
 import { PLAZOS } from "@/data/plazos";
+import type { SiteLang } from "@/lib/i18n-helpers";
 
 export interface CuadernoPost {
   slug: string;
@@ -59,6 +60,7 @@ export const SITE_CONFIG = {
   authorName: "Javier Espinosa Martínez",
   contactEmail: SITE_SETTINGS.contactEmail,
   locationLabel: SITE_SETTINGS.locationLabel,
+  locationLabelEn: "Puerto de la Cruz · Tenerife (Canary Islands)",
   pagosActivos: PAGOS_ACTIVOS,
   social: {
     instagram: SITE_SETTINGS.instagramUrl,
@@ -131,3 +133,49 @@ export const CUADERNO_POSTS: CuadernoPost[] = [
     }
   }
 ];
+
+export const CUADERNO_POSTS_EN: Record<
+  string,
+  Pick<CuadernoPost, "title" | "subtitle" | "date" | "categoryLabel" | "body" | "cta">
+> = {
+  "borrador-01-observacion-fauna-600mm": {
+    title: "Notes on distance, waiting, and natural light at 600mm",
+    subtitle: "Draft 01 · Notes on distance, patience, and natural light with a super-telephoto lens",
+    date: "Upcoming publication",
+    categoryLabel: "Wildlife & Nature",
+    body: ["Field journal entry in preparation by Javier Espinosa Martínez."],
+    cta: {
+      label: "View related work & Fine Art prints",
+      href: "/portfolio/cuervo-canario-ante-las-cumbres",
+    },
+  },
+  "borrador-02-luz-y-bruma-en-tenerife": {
+    title: "Between Teide and Anaga: trade-wind mist and volcanic summit",
+    subtitle: "Draft 02 · Field notes on the contrast between volcanic peaks and laurel cloud forest",
+    date: "Upcoming publication",
+    categoryLabel: "Landscapes & Territory",
+    body: ["Field journal entry in preparation by Javier Espinosa Martínez."],
+    cta: {
+      label: "Explore Between Mist & Volcano series",
+      href: "/projects/entre-la-bruma-y-el-volcan",
+    },
+  },
+  "borrador-03-tramo-y-asistencia-rally-historico": {
+    title: "Stage & service park chronicle in historic rallying",
+    subtitle: "Draft 03 · Notes on classic rally photography in the Canary Islands",
+    date: "Upcoming publication",
+    categoryLabel: "Cars & Historic Rally",
+    body: ["Field journal entry in preparation by Javier Espinosa Martínez."],
+    cta: {
+      label: "Inquire Historic Rally coverage",
+      href: "/servicios/fotografo-rally-motorsport",
+    },
+  },
+};
+
+export function getLocalizedCuadernoPost<T extends CuadernoPost>(post: T, lang: SiteLang): T {
+  if (lang !== "en") return post;
+  const tr = CUADERNO_POSTS_EN[post.slug];
+  if (!tr) return post;
+  return { ...post, ...tr };
+}

@@ -1,17 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
 
-import Container from "@/components/ui/Container";
-import { AndalusianCenefa } from "@/components/ui/AndalusianMotif";
-import CategoryNav from "@/components/portfolio/CategoryNav";
-import ExhibitionGallery from "@/components/portfolio/ExhibitionGallery";
-import PhotoHero from "@/components/photo/PhotoHero";
-import PhotoKeyboardNav from "@/components/photo/PhotoKeyboardNav";
-import PhotoMeta from "@/components/photo/PhotoMeta";
-import MobilePhotoActionBar from "@/components/photo/MobilePhotoActionBar";
-import PrintCTA from "@/components/photo/PrintCTA";
-import RelatedPhotos from "@/components/photo/RelatedPhotos";
+import CategoryGalleryContent from "@/components/portfolio/CategoryGalleryContent";
+import PhotoDetailContent from "@/components/portfolio/PhotoDetailContent";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata, buildPhotoMetadata } from "@/lib/metadata";
 import {
@@ -64,8 +55,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 function CategoryGallery({ category }: { category: PhotoCategory }) {
   const photos = getPhotosByCategory(category);
   const info = CATEGORY_METADATA[category];
-  const isSebka =
-    category === "arquitectura-urbana" || category === "viajes-cultura";
 
   const breadcrumb = generateBreadcrumbSchema([
     { name: "Inicio", path: "/" },
@@ -74,49 +63,10 @@ function CategoryGallery({ category }: { category: PhotoCategory }) {
   ]);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pb-28 text-[#EBE7DF]">
+    <>
       <JsonLd data={[generateCategoryCollectionSchema(category, photos), breadcrumb]} />
-
-      {/* Breadcrumb Bar */}
-      <div className="relative z-10 pt-20 border-b border-white/[0.08] bg-[#0B0C0E]/80 backdrop-blur-md">
-        <Container className="py-3.5">
-          <nav aria-label="Miga de pan" className="flex items-center gap-2 text-xs font-mono text-[#A39E93]">
-            <Link href="/" className="hover:text-[#EBE7DF] transition">Inicio</Link>
-            <span className="text-white/25">/</span>
-            <Link href="/portfolio" className="hover:text-[#EBE7DF] transition">Fotos</Link>
-            <span className="text-white/25">/</span>
-            <span className="text-[#EBE7DF] truncate">{info.title}</span>
-          </nav>
-        </Container>
-      </div>
-
-      <Container className="relative z-10 mt-10">
-        <header className="max-w-2xl">
-          <p className="font-mono text-xs uppercase tracking-[0.28em] text-[#C5A880]">
-            {photos.length} fotos
-          </p>
-          <h1 className="mt-2 font-serif text-3xl sm:text-5xl font-light text-[#EBE7DF]">
-            {info.title}
-          </h1>
-          <p className="mt-3 text-sm sm:text-base leading-relaxed text-[#A39E93] font-light">
-            {info.description}
-          </p>
-        </header>
-
-        <div className="mt-6">
-          <CategoryNav activeCategory={category} />
-        </div>
-
-        <div className="mt-8">
-          <ExhibitionGallery photos={photos} />
-        </div>
-
-        <AndalusianCenefa
-          variant={isSebka ? "sebka" : "estrella"}
-          className="mt-16 text-[#C5A880]/28"
-        />
-      </Container>
-    </div>
+      <CategoryGalleryContent category={category} photos={photos} />
+    </>
   );
 }
 
@@ -127,8 +77,9 @@ function PhotoDetail({ slug }: { slug: string }) {
   }
 
   const categoryInfo = CATEGORY_METADATA[photo.category];
+  const categoryPhotos = getPhotosByCategory(photo.category);
   const { prev, next } = getAdjacentPhotos(photo);
-  const totalInCat = getPhotosByCategory(photo.category).length;
+  const totalInCat = categoryPhotos.length;
 
   const breadcrumb = generateBreadcrumbSchema([
     { name: "Inicio", path: "/" },
@@ -141,74 +92,16 @@ function PhotoDetail({ slug }: { slug: string }) {
   ]);
 
   return (
-    <article className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pb-36 lg:pb-28 text-[#EBE7DF]">
+    <>
       <JsonLd data={[generatePhotoSchema(photo), breadcrumb]} />
-      <PhotoKeyboardNav prevSlug={prev?.slug} nextSlug={next?.slug} />
-      <MobilePhotoActionBar photo={photo} />
-      
-      {/* Breadcrumb Bar */}
-      <div className="relative z-10 pt-20 border-b border-white/[0.08] bg-[#0B0C0E]/80 backdrop-blur-md">
-        <Container className="py-3.5">
-          <nav aria-label="Miga de pan" className="flex items-center gap-2 text-xs font-mono text-[#A39E93]">
-            <Link href="/" className="hover:text-[#EBE7DF] transition">Inicio</Link>
-            <span className="text-white/25">/</span>
-            <Link href="/portfolio" className="hover:text-[#EBE7DF] transition">Fotos</Link>
-            <span className="text-white/25">/</span>
-            <Link href={`/portfolio/${photo.category}`} className="hover:text-[#EBE7DF] transition">
-              {categoryInfo?.title ?? photo.category}
-            </Link>
-            <span className="text-white/25">/</span>
-            <span className="text-[#EBE7DF] truncate">{photo.title}</span>
-          </nav>
-        </Container>
-      </div>
-
-      <div className="relative z-10 pt-4">
-        <PhotoHero photo={photo} categoryPhotos={getPhotosByCategory(photo.category)} />
-      </div>
-
-      <Container className="relative z-10 mt-10 space-y-12">
-        <PhotoMeta photo={photo} />
-
-        <div>
-          <PrintCTA photo={photo} />
-        </div>
-
-        {/* Adjacent Photo Navigation */}
-        <nav aria-label="Navegación entre obras de la misma colección" className="pt-2">
-          <div className="flex items-center justify-between gap-4 text-xs font-mono uppercase tracking-[0.2em]">
-            {prev ? (
-              <Link
-                href={`/portfolio/${prev.slug}`}
-                className="group flex flex-col items-start gap-1 text-[#8E8A80] hover:text-[#EBE7DF] transition"
-              >
-                <span className="text-[10px] text-[#8E8A80] group-hover:text-[#EBE7DF]">← Anterior</span>
-                <span className="font-serif text-base normal-case tracking-normal text-[#EBE7DF] group-hover:text-white truncate max-w-[180px] sm:max-w-xs">{prev.title}</span>
-              </Link>
-            ) : <div />}
-
-            <Link
-              href={`/portfolio/${photo.category}`}
-              className="hidden sm:inline-flex items-center gap-1.5 text-[#8E8A80] hover:text-[#EBE7DF] transition text-xs font-mono"
-            >
-              <span>Colección {categoryInfo?.title} ({totalInCat})</span>
-            </Link>
-
-            {next ? (
-              <Link
-                href={`/portfolio/${next.slug}`}
-                className="group flex flex-col items-end gap-1 text-[#8E8A80] hover:text-[#EBE7DF] transition text-right"
-              >
-                <span className="text-[10px] text-[#8E8A80] group-hover:text-[#EBE7DF]">Siguiente →</span>
-                <span className="font-serif text-base normal-case tracking-normal text-[#EBE7DF] group-hover:text-white truncate max-w-[180px] sm:max-w-xs">{next.title}</span>
-              </Link>
-            ) : <div />}
-          </div>
-        </nav>
-
-        <RelatedPhotos photo={photo} />
-      </Container>
-    </article>
+      <PhotoDetailContent
+        rawPhoto={photo}
+        categoryPhotos={categoryPhotos}
+        prev={prev}
+        next={next}
+        totalInCat={totalInCat}
+      />
+    </>
   );
 }
 

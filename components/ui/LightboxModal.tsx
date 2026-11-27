@@ -10,6 +10,8 @@ import { BASE_PRINT_FORMATS } from "@/data/formatos";
 import { PAGOS_ACTIVOS } from "@/data/site-config";
 import AddToCartModal from "@/components/cart/AddToCartModal";
 import ShareButton from "@/components/photo/ShareButton";
+import { useLanguage } from "@/lib/i18n";
+import { getLocalizedPhoto } from "@/lib/i18n-works";
 
 interface LightboxModalProps {
   photos: Photo[];
@@ -74,7 +76,9 @@ export default function LightboxModal({
     return () => document.removeEventListener("fullscreenchange", onFullscreenChange);
   }, []);
 
-  const photo = photos[currentIndex];
+  const { lang, t } = useLanguage();
+  const rawPhoto = photos[currentIndex];
+  const photo = rawPhoto ? getLocalizedPhoto(rawPhoto, lang) : undefined;
 
   const handlePrev = useCallback(() => {
     if (photos.length === 0) return;
@@ -156,16 +160,17 @@ export default function LightboxModal({
     setZoomOrigin({ x, y });
   };
 
-  if (!isOpen || !photo || typeof document === "undefined") return null;
+  if (!isOpen || !photo || !rawPhoto || typeof document === "undefined") return null;
 
   const categoryInfo = CATEGORY_METADATA[photo.category];
+  const categoryTitle = lang === "en" ? categoryInfo?.titleEn : categoryInfo?.title;
 
   return createPortal(
     <div
       ref={dialogRef}
       role="dialog"
       aria-modal="true"
-      aria-label={`Visor de fotografía: ${photo.title}`}
+      aria-label={t(`Visor de fotografía: ${photo.title}`, `Photograph viewer: ${photo.title}`)}
       className="fixed inset-0 z-[110] flex flex-col bg-[#0B0C0E] select-none"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
@@ -178,7 +183,7 @@ export default function LightboxModal({
           </span>
           <span className="hidden h-3 w-px bg-white/20 sm:block" />
           <span className="hidden uppercase tracking-[0.25em] text-[#8E8A80] sm:inline">
-            {categoryInfo?.title ?? photo.category}
+            {categoryTitle ?? photo.category}
           </span>
         </div>
 
@@ -197,10 +202,10 @@ export default function LightboxModal({
                     ? "bg-[#EBE7DF] text-[#0B0C0E] font-medium"
                     : "border border-white/[0.08] bg-[#151618] text-[#8E8A80] hover:border-white/30 hover:text-white"
                 }`}
-                title="Presentación automática (Tecla P o Espacio)"
+                title={t("Presentación automática (Tecla P o Espacio)", "Auto slideshow (P or Space)")}
               >
-                <span className="sm:hidden">{isPlaying ? "❚❚" : "▶ Pase"}</span>
-                <span className="hidden sm:inline">{isPlaying ? "❚❚ Pausar" : "▶ Reproducir"}</span>
+                <span className="sm:hidden">{isPlaying ? "❚❚" : t("▶ Pase", "▶ Play")}</span>
+                <span className="hidden sm:inline">{isPlaying ? t("❚❚ Pausar", "❚❚ Pause") : t("▶ Reproducir", "▶ Play")}</span>
               </button>
               <button
                 type="button"
@@ -210,9 +215,9 @@ export default function LightboxModal({
                     ? "border border-white/30 bg-[#151618] text-[#EBE7DF]"
                     : "border border-white/[0.08] bg-[#151618] text-[#8E8A80] hover:text-white"
                 }`}
-                title="Mostrar u ocultar tira de miniaturas"
+                title={t("Mostrar u ocultar tira de miniaturas", "Show or hide thumbnail strip")}
               >
-                 Tira ({photos.length})
+                 {t("Tira", "Strip")} ({photos.length})
               </button>
             </div>
           )}
@@ -226,7 +231,7 @@ export default function LightboxModal({
                 ? "bg-[#EBE7DF] text-[#0B0C0E] font-medium"
                 : "border border-white/15 bg-[#151618] text-[#EBE7DF] hover:border-white/40 hover:text-white"
             }`}
-            title="Zoom 2× (o toca la foto)"
+            title={t("Zoom 2× (o toca la foto)", "2× Zoom (or tap image)")}
           >
             <span>{isZoomed ? "1× Normal" : "🔍 Zoom"}</span>
           </button>
@@ -236,16 +241,16 @@ export default function LightboxModal({
             type="button"
             onClick={toggleBrowserFullscreen}
             className="hidden sm:inline-flex min-h-[40px] items-center rounded-full border border-white/15 bg-[#151618] px-3 py-1.5 text-xs font-mono tracking-wider text-[#EBE7DF] transition hover:border-white/40 hover:text-white cursor-pointer"
-            title="Pantalla completa total"
+            title={t("Pantalla completa total", "Toggle fullscreen")}
           >
-            <span>{isFullscreen ? "Salir pantalla completa" : "⛶ Pantalla completa"}</span>
+            <span>{isFullscreen ? t("Salir pantalla completa", "Exit fullscreen") : t("⛶ Pantalla completa", "⛶ Fullscreen")}</span>
           </button>
 
           <button
             type="button"
             onClick={() => setShowExif(!showExif)}
             className="hidden min-h-[38px] items-center rounded-full px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-mono tracking-wider transition"
-            title="Ficha técnica y EXIF (Tecla I)"
+            title={t("Ficha técnica y EXIF (Tecla I)", "Technical sheet & EXIF (Key I)")}
           >
             EXIF
           </button>
@@ -255,9 +260,11 @@ export default function LightboxModal({
               type="button"
               onClick={() => setAddCartOpen(true)}
               className="inline-flex min-h-[40px] shrink-0 whitespace-nowrap items-center gap-1.5 rounded-full border border-[#C5A880] bg-[#C5A880] px-3.5 py-1.5 text-xs font-mono tracking-wider text-[#0B0C0E] font-semibold transition hover:bg-white hover:border-white shadow cursor-pointer"
-              title="Comprar lámina de esta foto"
+              title={t("Comprar lámina de esta foto", "Order print of this photo")}
             >
-              <span className="whitespace-nowrap">Comprar · {photo.pricing ? `${photo.pricing.estudio}\u00A0€` : ""}</span>
+              <span className="whitespace-nowrap">
+                {PAGOS_ACTIVOS ? t("Comprar", "Buy") : t("Copia", "Print")} · {photo.pricing ? `${photo.pricing.estudio}\u00A0€` : ""}
+              </span>
             </button>
           )}
 
@@ -265,7 +272,7 @@ export default function LightboxModal({
             type="button"
             onClick={handleClose}
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-[#151618] text-[#EBE7DF] transition hover:bg-white/20 hover:text-white cursor-pointer"
-            aria-label="Cerrar visor (Esc)"
+            aria-label={t("Cerrar visor (Esc)", "Close viewer (Esc)")}
           >
             <svg
               className="h-5 w-5"
@@ -291,7 +298,7 @@ export default function LightboxModal({
           type="button"
           onClick={handlePrev}
           className="absolute left-2 z-20 rounded-full bg-black/60 p-3 text-[#EBE7DF] backdrop-blur-md transition hover:bg-black/90 hover:text-white md:left-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
-          aria-label="Fotografía anterior"
+          aria-label={t("Fotografía anterior", "Previous photograph")}
         >
           <svg
             className="h-6 w-6"
@@ -312,7 +319,7 @@ export default function LightboxModal({
           type="button"
           onClick={handleNext}
           className="absolute right-2 z-20 rounded-full bg-black/60 p-3 text-[#EBE7DF] backdrop-blur-md transition hover:bg-black/90 hover:text-white md:right-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
-          aria-label="Fotografía siguiente"
+          aria-label={t("Fotografía siguiente", "Next photograph")}
         >
           <svg
             className="h-6 w-6"
@@ -333,7 +340,7 @@ export default function LightboxModal({
         <div
           role="button"
           tabIndex={0}
-          aria-label={isZoomed ? "Reducir tamaño (Zoom 1x)" : "Ampliar detalle a 2x"}
+          aria-label={isZoomed ? t("Reducir tamaño (Zoom 1x)", "Reset zoom (1x)") : t("Ampliar detalle a 2x", "Zoom in 2x")}
           onClick={() => {
             if (Date.now() - openedAtRef.current < 400) return;
             setIsZoomed((prev) => !prev);
@@ -367,7 +374,7 @@ export default function LightboxModal({
             {/* Sello de protección de autor para capturas de pantalla */}
             <div className="pointer-events-none absolute bottom-3 right-4 z-10 select-none opacity-45">
               <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#EBE7DF] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]">
-                © Javier Espinosa · Archivo de Autor
+                {t("© Javier Espinosa · Archivo de Autor", "© Javier Espinosa · Author Archive")}
               </span>
             </div>
           </div>
@@ -379,20 +386,20 @@ export default function LightboxModal({
             <div className="flex items-start justify-between">
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
-                  Ficha Técnica de Autor
+                  {t("Ficha Técnica de Autor", "Author Technical Sheet")}
                 </p>
                 <h3 className="mt-1 font-serif text-lg font-light text-[#EBE7DF]">{photo.title}</h3>
                 <p className="mt-0.5 text-xs text-[#8E8A80]">
                   {photo.location
                     ? `${photo.location}${photo.country && !photo.location.includes(photo.country) ? `, ${photo.country}` : ""} (${photo.year})`
-                    : `${photo.year} · Fotografía de Autor`}
+                    : `${photo.year} · ${t("Fotografía de Autor", "Fine Art Photography")}`}
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setShowExif(false)}
                 className="text-[#8E8A80] hover:text-white"
-                aria-label="Cerrar panel EXIF"
+                aria-label={t("Cerrar panel EXIF", "Close EXIF panel")}
               >
                 ✕
               </button>
@@ -400,22 +407,22 @@ export default function LightboxModal({
 
             <div className="mt-4 grid grid-cols-2 gap-2.5 border-y border-white/[0.08] py-3.5 font-mono text-xs text-[#8E8A80]">
               <div>
-                <span className="text-white/60">CÁMARA:</span> {photo.camera}
+                <span className="text-white/60">{t("CÁMARA:", "CAMERA:")}</span> {photo.camera}
               </div>
               <div>
-                <span className="text-white/60">FOCAL:</span> {photo.focalLength}
+                <span className="text-white/60">{t("FOCAL:", "FOCAL:")}</span> {photo.focalLength}
               </div>
               <div>
-                <span className="text-white/60">APERTURA:</span> {photo.aperture}
+                <span className="text-white/60">{t("APERTURA:", "APERTURE:")}</span> {photo.aperture}
               </div>
               <div>
-                <span className="text-white/60">OBTURADOR:</span> {photo.shutter}
+                <span className="text-white/60">{t("OBTURADOR:", "SHUTTER:")}</span> {photo.shutter}
               </div>
               <div>
                 <span className="text-white/60">ISO:</span> {photo.iso}
               </div>
               <div className="truncate">
-                <span className="text-white/60">ÓPTICA:</span> {photo.lens.replace("Canon ", "").replace(" F3.5-6.3 IS STM", "")}
+                <span className="text-white/60">{t("ÓPTICA:", "LENS:")}</span> {photo.lens.replace("Canon ", "").replace(" F3.5-6.3 IS STM", "")}
               </div>
             </div>
 
@@ -429,7 +436,7 @@ export default function LightboxModal({
                 onClick={handleClose}
                 className="border border-[#EBE7DF] bg-[#EBE7DF] px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-wider text-[#0B0C0E] font-medium transition hover:bg-transparent hover:text-white"
               >
-                Ver Obra Completa
+                {t("Ver Obra Completa", "View Full Sheet")}
               </Link>
               {photo.prints && (
                 <button
@@ -437,7 +444,7 @@ export default function LightboxModal({
                   onClick={() => setAddCartOpen(true)}
                   className="whitespace-nowrap border border-[#C5A880] bg-[#C5A880] px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-wider text-[#0B0C0E] font-medium transition hover:bg-white hover:border-white shadow"
                 >
-                  {PAGOS_ACTIVOS ? "Copia Fine Art" : "Solicitar Copia"} · Desde {photo.pricing?.estudio ?? BASE_PRINT_FORMATS.estudio.defaultPrice}&nbsp;€
+                  {PAGOS_ACTIVOS ? t("Copia Fine Art", "Fine Art Print") : t("Solicitar Copia", "Request Print")} · {t("Desde", "From")} {photo.pricing?.estudio ?? BASE_PRINT_FORMATS.estudio.defaultPrice}&nbsp;€
                 </button>
               )}
               <Link
@@ -445,7 +452,7 @@ export default function LightboxModal({
                 onClick={handleClose}
                 className="border border-white/[0.08] bg-[#151618] px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-[#EBE7DF] transition hover:border-white/30 hover:text-white"
               >
-                Licenciar
+                {t("Licenciar", "License")}
               </Link>
             </div>
           </aside>
@@ -455,31 +462,34 @@ export default function LightboxModal({
       {/* Tira de Miniaturas (Filmstrip) */}
       {showFilmstrip && photos.length > 1 && (
         <div className="flex h-20 shrink-0 items-center gap-2 overflow-x-auto border-t border-white/[0.08] bg-[#0B0C0E]/95 px-4 md:px-8 no-scrollbar">
-          {photos.map((item, idx) => (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => {
-                setIsPlaying(false);
-                setIsZoomed(false);
-                onNavigate(idx);
-              }}
-              aria-label={`Ir a ${item.title}`}
-              className={`relative h-14 w-20 shrink-0 overflow-hidden transition ${
-                idx === currentIndex
-                  ? "ring-2 ring-[#EBE7DF] opacity-100 scale-105"
-                  : "opacity-45 hover:opacity-85"
-              }`}
-            >
-              <Image
-                src={item.image}
-                alt={item.alt}
-                fill
-                sizes="80px"
-                className="object-cover"
-              />
-            </button>
-          ))}
+          {photos.map((rawItem, idx) => {
+            const item = getLocalizedPhoto(rawItem, lang);
+            return (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => {
+                  setIsPlaying(false);
+                  setIsZoomed(false);
+                  onNavigate(idx);
+                }}
+                aria-label={t(`Ir a ${item.title}`, `Go to ${item.title}`)}
+                className={`relative h-14 w-20 shrink-0 overflow-hidden transition ${
+                  idx === currentIndex
+                    ? "ring-2 ring-[#EBE7DF] opacity-100 scale-105"
+                    : "opacity-45 hover:opacity-85"
+                }`}
+              >
+                <Image
+                  src={item.image}
+                  alt={item.alt}
+                  fill
+                  sizes="80px"
+                  className="object-cover"
+                />
+              </button>
+            );
+          })}
         </div>
       )}
 
@@ -503,14 +513,14 @@ export default function LightboxModal({
             onClick={handleClose}
             className="underline underline-offset-4 text-[#8E8A80] hover:text-[#EBE7DF] transition"
           >
-            Ficha completa →
+            {t("Ficha completa →", "Full sheet →")}
           </Link>
         </div>
       </footer>
 
       {/* Modal para configurar y añadir obra a la cesta */}
       <AddToCartModal
-        photo={photo}
+        photo={rawPhoto}
         isOpen={addCartOpen}
         onClose={() => setAddCartOpen(false)}
       />

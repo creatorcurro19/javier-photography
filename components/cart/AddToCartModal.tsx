@@ -9,6 +9,7 @@ import { getFormatsForPhoto, addToCart } from "@/lib/cart";
 import { PAGOS_ACTIVOS } from "@/data/site-config";
 import type { PrintFormat } from "@/types/cart";
 import { useLanguage } from "@/lib/i18n";
+import { getLocalizedPhoto } from "@/lib/i18n-works";
 import { AndalusianStarMark } from "@/components/ui/AndalusianMotif";
 
 interface AddToCartModalProps {
@@ -18,11 +19,12 @@ interface AddToCartModalProps {
 }
 
 export default function AddToCartModal({
-  photo,
+  photo: rawPhoto,
   isOpen,
   onClose,
 }: AddToCartModalProps) {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
+  const photo = getLocalizedPhoto(rawPhoto, lang);
   const [selectedFormatId, setSelectedFormatId] =
     useState<PrintFormat["id"]>("galeria");
   const [quantity, setQuantity] = useState(1);
@@ -30,23 +32,24 @@ export default function AddToCartModal({
 
   if (!isOpen || typeof document === "undefined") return null;
 
-  const formats = getFormatsForPhoto(photo);
+  const formats = getFormatsForPhoto(rawPhoto, lang);
+  const canonicalFormat = getFormatsForPhoto(rawPhoto, "es")[selectedFormatId];
   const currentFormat = formats[selectedFormatId];
   const unitPrice = currentFormat.price;
   const totalPrice = unitPrice * quantity;
   const editionTotal = photo.pricing?.editionTotal ?? 25;
-  const shortPaper = photo.pricing?.paper.includes("Baritado")
-    ? "Papel Baritado 340g · ISO 9706"
-    : "Papel 100% Algodón 308g · ISO 9706";
+  const shortPaper = rawPhoto.pricing?.paper.includes("Baritado")
+    ? t("Papel Baritado 340g · ISO 9706", "Baryta Satin Paper 340g · ISO 9706")
+    : t("Papel 100% Algodón 308g · ISO 9706", "100% Cotton Matte Paper 308g · ISO 9706");
 
   const handleAdd = () => {
     addToCart({
-      photoId: photo.id,
-      slug: photo.slug,
-      title: photo.title,
-      image: photo.image,
-      category: photo.category,
-      format: currentFormat,
+      photoId: rawPhoto.id,
+      slug: rawPhoto.slug,
+      title: rawPhoto.title,
+      image: rawPhoto.image,
+      category: rawPhoto.category,
+      format: canonicalFormat,
       framed: false,
       quantity,
     });
@@ -60,12 +63,12 @@ export default function AddToCartModal({
 
   const handleBuyNow = () => {
     addToCart({
-      photoId: photo.id,
-      slug: photo.slug,
-      title: photo.title,
-      image: photo.image,
-      category: photo.category,
-      format: currentFormat,
+      photoId: rawPhoto.id,
+      slug: rawPhoto.slug,
+      title: rawPhoto.title,
+      image: rawPhoto.image,
+      category: rawPhoto.category,
+      format: canonicalFormat,
       framed: false,
       quantity,
     });
@@ -149,13 +152,14 @@ export default function AddToCartModal({
                   }`}
                 >
                   <span className="font-mono text-[9px] uppercase tracking-wider text-[#C5A880]">
-                    {fmt.name.replace("Formato ", "")} {isDisabled ? "(No disp.)" : ""}
+                    {fmt.name.replace("Formato ", "").replace(" Format", "")}{" "}
+                    {isDisabled ? t("(No disp.)", "(N/A)") : ""}
                   </span>
                   <span className="mt-1 whitespace-nowrap font-serif text-lg font-light text-[#EBE7DF]">
                     {fmt.price}&nbsp;€
                   </span>
                   <span className="mt-0.5 font-mono text-[9px] text-[#A39E93]">
-                    Papel: {fmt.dimensions}
+                    {t("Papel:", "Paper:")} {fmt.dimensions}
                   </span>
                   <span className="mt-0.5 font-mono text-[8.5px] text-[#A39E93]">
                     {fmt.imageDimensions}

@@ -29,12 +29,12 @@ export default function Footer() {
                 JAVIER ESPINOSA
               </span>
               <span className="text-[10px] tracking-[0.2em] text-[#C5A880] uppercase">
-                Tenerife · Fotografía
+                {t("Tenerife · Fotografía", "Tenerife · Photography")}
               </span>
             </div>
           </Link>
 
-          <nav aria-label="Enlaces del pie" className="flex flex-wrap items-center gap-6 text-xs uppercase tracking-[0.2em] text-[#EBE7DF]">
+          <nav aria-label={t("Enlaces del pie", "Footer links")} className="flex flex-wrap items-center gap-6 text-xs uppercase tracking-[0.2em] text-[#EBE7DF]">
             {SITE_CONFIG.navigation.map((item) => (
               <Link key={item.href} href={item.href} className="hover:text-[#C5A880] transition">
                 {t(item.labelEs, item.labelEn)}

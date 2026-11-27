@@ -4,18 +4,20 @@ import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Photo, Project } from "@/types/photo";
+import { useLanguage } from "@/lib/i18n";
+import { getLocalizedPhoto, getLocalizedProject } from "@/lib/i18n-works";
 
 type EnrichedProject = Project & {
   resolvedPhotos: Photo[];
 };
 
 const DISCIPLINE_FILTERS = [
-  { id: "all", label: "Todas las Series" },
-  { id: "fauna-naturaleza", label: "Fauna & Biodiversidad" },
-  { id: "paisajes-documental", label: "Paisaje & Desierto" },
-  { id: "arquitectura-urbana", label: "Patrimonio & Arquitectura" },
-  { id: "viajes-cultura", label: "Oficios & Tradición" },
-  { id: "coches-rally", label: "Rally Histórico" },
+  { id: "all", labelEs: "Todas las Series", labelEn: "All Series" },
+  { id: "fauna-naturaleza", labelEs: "Fauna & Biodiversidad", labelEn: "Wildlife & Nature" },
+  { id: "paisajes-documental", labelEs: "Paisaje & Desierto", labelEn: "Landscapes & Desert" },
+  { id: "arquitectura-urbana", labelEs: "Patrimonio & Arquitectura", labelEn: "Heritage & Architecture" },
+  { id: "viajes-cultura", labelEs: "Oficios & Tradición", labelEn: "Crafts & Documentary" },
+  { id: "coches-rally", labelEs: "Rally Histórico", labelEn: "Historic Rally" },
 ];
 
 export default function ProjectsInteractiveIndex({
@@ -23,6 +25,7 @@ export default function ProjectsInteractiveIndex({
 }: {
   projects: EnrichedProject[];
 }) {
+  const { lang, t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState<string>("all");
   // Track which photo index is currently previewed per project id
   const [activePreviewByProject, setActivePreviewByProject] = useState<
@@ -52,23 +55,25 @@ export default function ProjectsInteractiveIndex({
                     : "border border-transparent text-neutral-400 hover:border-[#202226] hover:text-[#EBE7DF]"
                 }`}
               >
-                {f.label}
+                {lang === "en" ? f.labelEn : f.labelEs}
               </button>
             );
           })}
         </div>
 
         <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80]">
-          {filtered.length} ensayos monográficos
+          {filtered.length} {t("ensayos monográficos", "monographic essays")}
         </span>
       </div>
 
       {/* Interactive Project List */}
       <div className="mt-16 space-y-20">
-        {filtered.map((project, index) => {
+        {filtered.map((rawProject, index) => {
+          const project = getLocalizedProject(rawProject, lang);
           const previewIndex = activePreviewByProject[project.id] ?? -1;
-          const activePhoto =
-            previewIndex >= 0 ? project.resolvedPhotos[previewIndex] : null;
+          const rawActivePhoto =
+            previewIndex >= 0 ? rawProject.resolvedPhotos[previewIndex] : null;
+          const activePhoto = rawActivePhoto ? getLocalizedPhoto(rawActivePhoto, lang) : null;
           const stageImage = activePhoto ? activePhoto.image : project.coverImage;
           const stageTitle = activePhoto ? activePhoto.title : project.title;
           const stageSub = activePhoto
@@ -103,7 +108,7 @@ export default function ProjectsInteractiveIndex({
 
                   <div className="absolute top-4 left-4 flex items-center gap-2">
                     <span className="border border-[#202226] bg-[#0B0C0E]/90 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80] backdrop-blur-md">
-                      ENSAYO 0{index + 1} · {project.discipline}
+                      {t("ENSAYO", "ESSAY")} 0{index + 1} · {project.discipline}
                     </span>
                   </div>
 
@@ -120,11 +125,14 @@ export default function ProjectsInteractiveIndex({
                 </Link>
 
                 {/* Interactive Sequence Filmstrip */}
-                {project.resolvedPhotos.length > 0 && (
+                {rawProject.resolvedPhotos.length > 0 && (
                   <div className="mt-3">
                     <div className="mb-1.5 flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.22em] text-neutral-500">
                       <span>
-                        Secuencia del Ensayo (toca o pasa el cursor para previsualizar)
+                        {t(
+                          "Secuencia del Ensayo (toca o pasa el cursor para previsualizar)",
+                          "Essay Sequence (tap or hover to preview)"
+                        )}
                       </span>
                       {previewIndex >= 0 && (
                         <button
@@ -137,12 +145,13 @@ export default function ProjectsInteractiveIndex({
                           }
                           className="text-[#8E8A80] hover:text-white"
                         >
-                          Restaurar portada
+                          {t("Restaurar portada", "Reset cover")}
                         </button>
                       )}
                     </div>
                     <div className="grid grid-cols-6 gap-2">
-                      {project.resolvedPhotos.slice(0, 6).map((photo, pIdx) => {
+                      {rawProject.resolvedPhotos.slice(0, 6).map((rawPhoto, pIdx) => {
+                        const photo = getLocalizedPhoto(rawPhoto, lang);
                         const isCurrent = previewIndex === pIdx;
                         return (
                           <button
@@ -213,10 +222,10 @@ export default function ProjectsInteractiveIndex({
 
                 <div className="mt-6 flex flex-wrap items-center gap-3 font-mono text-xs text-neutral-400">
                   <span className="border border-[#202226] bg-[#0B0C0E] px-3 py-1">
-                    {project.photoIds.length} Fotografías en serie
+                    {project.photoIds.length} {t("Fotografías en serie", "Photographs in series")}
                   </span>
                   <span className="border border-[#202226] bg-[#0B0C0E] px-3 py-1 text-[#8E8A80]">
-                    Modo Papel Museo Disponible
+                    {t("Modo Papel Museo Disponible", "Museum Paper Reading Mode")}
                   </span>
                 </div>
 
@@ -225,7 +234,7 @@ export default function ProjectsInteractiveIndex({
                     href={`/projects/${project.slug}`}
                     className="inline-flex border border-[#EBE7DF] bg-[#EBE7DF] px-7 py-3 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
                   >
-                    Abrir Ensayo Completo →
+                    {t("Abrir Ensayo Completo →", "Open Full Essay →")}
                   </Link>
                 </div>
               </div>

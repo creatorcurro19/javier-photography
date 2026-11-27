@@ -44,7 +44,7 @@ export default function Navbar() {
 
         {/* Menú Principal Minimalista leído desde SITE_CONFIG.navigation */}
         <nav
-          aria-label="Navegación principal"
+          aria-label={t("Navegación principal", "Primary navigation")}
           className="hidden items-center gap-6 xl:gap-8 text-xs uppercase tracking-[0.2em] lg:flex shrink-0"
         >
           {SITE_CONFIG.navigation.map((item) => {

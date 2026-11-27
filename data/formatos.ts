@@ -1,11 +1,14 @@
 import type { Photo } from "@/types/photo";
+import type { SiteLang } from "@/lib/i18n-helpers";
 
 export type PrintFormatId = "estudio" | "galeria" | "coleccion";
 
 export interface BasePrintFormatSpec {
   id: PrintFormatId;
   name: string;
+  nameEn: string;
   shortName: string;
+  shortNameEn: string;
   dimensions: string;
   marginCm: number;
   defaultPrice: number;
@@ -21,7 +24,9 @@ export const BASE_PRINT_FORMATS: Record<PrintFormatId, BasePrintFormatSpec> = {
   estudio: {
     id: "estudio",
     name: "Formato Estudio",
+    nameEn: "Studio Format",
     shortName: "Estudio",
+    shortNameEn: "Studio",
     dimensions: "30 × 45 cm",
     marginCm: 3,
     defaultPrice: 100,
@@ -31,7 +36,9 @@ export const BASE_PRINT_FORMATS: Record<PrintFormatId, BasePrintFormatSpec> = {
   galeria: {
     id: "galeria",
     name: "Formato Galería",
+    nameEn: "Gallery Format",
     shortName: "Galería",
+    shortNameEn: "Gallery",
     dimensions: "50 × 70 cm",
     marginCm: 5,
     defaultPrice: 185,
@@ -41,7 +48,9 @@ export const BASE_PRINT_FORMATS: Record<PrintFormatId, BasePrintFormatSpec> = {
   coleccion: {
     id: "coleccion",
     name: "Gran Colección",
+    nameEn: "Grand Collection",
     shortName: "Gran Colección",
+    shortNameEn: "Grand Collection",
     dimensions: "70 × 100 cm",
     marginCm: 5,
     defaultPrice: 305,
@@ -58,32 +67,32 @@ export const PRINT_FORMAT_ORDER: PrintFormatId[] = ["estudio", "galeria", "colec
  */
 export function computeManchaDimensions(
   paperDims: string,
-  formatId: PrintFormatId
+  formatId: PrintFormatId,
+  lang: SiteLang = "es"
 ): { widthCm: number; heightCm: number; marginCm: number; label: string } {
   const spec = BASE_PRINT_FORMATS[formatId];
   const nums = paperDims.match(/\d+(?:[.,]\d+)?/g);
   const w = nums && nums.length >= 2 ? parseFloat(nums[0].replace(",", ".")) : NaN;
   const h = nums && nums.length >= 2 ? parseFloat(nums[1].replace(",", ".")) : NaN;
 
-  if (!Number.isFinite(w) || !Number.isFinite(h)) {
-    const fallbackNums = spec.dimensions.match(/\d+/g) ?? ["30", "45"];
-    const fw = parseInt(fallbackNums[0], 10) - 2 * spec.marginCm;
-    const fh = parseInt(fallbackNums[1], 10) - 2 * spec.marginCm;
-    return {
-      widthCm: fw,
-      heightCm: fh,
-      marginCm: spec.marginCm,
-      label: `Mancha ${fw} × ${fh} cm (margen blanco ${spec.marginCm} cm)`,
-    };
-  }
+  const widthCm =
+    Number.isFinite(w) && Number.isFinite(h)
+      ? Math.round((w - 2 * spec.marginCm) * 10) / 10
+      : parseInt((spec.dimensions.match(/\d+/g) ?? ["30", "45"])[0], 10) - 2 * spec.marginCm;
 
-  const widthCm = Math.round((w - 2 * spec.marginCm) * 10) / 10;
-  const heightCm = Math.round((h - 2 * spec.marginCm) * 10) / 10;
+  const heightCm =
+    Number.isFinite(w) && Number.isFinite(h)
+      ? Math.round((h - 2 * spec.marginCm) * 10) / 10
+      : parseInt((spec.dimensions.match(/\d+/g) ?? ["30", "45"])[1], 10) - 2 * spec.marginCm;
+
   return {
     widthCm,
     heightCm,
     marginCm: spec.marginCm,
-    label: `Mancha ${widthCm} × ${heightCm} cm (margen blanco ${spec.marginCm} cm)`,
+    label:
+      lang === "en"
+        ? `Image ${widthCm} × ${heightCm} cm (${spec.marginCm} cm white border)`
+        : `Mancha ${widthCm} × ${heightCm} cm (margen blanco ${spec.marginCm} cm)`,
   };
 }
 

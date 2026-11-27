@@ -4,9 +4,10 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState, Suspense, useCallback } from "react";
 import { getSavedWorks } from "@/components/photo/FavoriteButton";
-import { PLAZOS } from "@/data/plazos";
+import { getPlazos } from "@/data/plazos";
 import { SITE_CONFIG } from "@/data/site-config";
 import { trackEvent } from "@/lib/analytics";
+import { useLanguage } from "@/lib/i18n";
 
 interface SearchParamsSyncProps {
   onSync: (params: {
@@ -41,12 +42,18 @@ function SearchParamsReader({ onSync }: SearchParamsSyncProps) {
 }
 
 export default function ContactForm() {
+  const { lang, t } = useLanguage();
+  const plazos = getPlazos(lang);
+
   const [formData, setFormData] = useState(() => {
     let ref = "";
     if (typeof window !== "undefined") {
       const saved = getSavedWorks();
       if (saved.length > 0) {
-        ref = `Selección guardada (${saved.length}): ${saved.join(", ")}`;
+        ref = t(
+          `Selección guardada (${saved.length}): ${saved.join(", ")}`,
+          `Saved selection (${saved.length}): ${saved.join(", ")}`
+        );
       }
     }
     return {
@@ -92,19 +99,31 @@ export default function ContactForm() {
       const servicioMap: Record<string, { motivo: string; label: string }> = {
         "rally-motor": {
           motivo: "encargo",
-          label: "Servicio: Automovilismo y Rally Histórico",
+          label: t(
+            "Servicio: Automovilismo y Rally Histórico",
+            "Service: Motorsport & Historic Rally"
+          ),
         },
         "arquitectura-territorio": {
           motivo: "encargo",
-          label: "Servicio: Arquitectura, Espacios y Patrimonio",
+          label: t(
+            "Servicio: Arquitectura, Espacios y Patrimonio",
+            "Service: Architecture, Spaces & Heritage"
+          ),
         },
         "documental-editorial": {
           motivo: "encargo",
-          label: "Servicio: Proyectos Documentales y Editorial",
+          label: t(
+            "Servicio: Proyectos Documentales y Editorial",
+            "Service: Documentary & Editorial Projects"
+          ),
         },
         "prints-interiorismo": {
           motivo: "print",
-          label: "Servicio: Copia de Autor Fine Art",
+          label: t(
+            "Servicio: Copia de Autor Fine Art",
+            "Service: Author Fine Art Print"
+          ),
         },
       };
 
@@ -126,12 +145,12 @@ export default function ContactForm() {
       if (servicio && servicioMap[servicio]) {
         resolvedRef = servicioMap[servicio].label;
       }
-      if (obra) resolvedRef += (resolvedRef ? " | " : "") + `Obra: ${obra}`;
-      if (formato) resolvedRef += (resolvedRef ? " | " : "") + `Formato: ${formato}`;
-      if (uso) resolvedRef += (resolvedRef ? " | " : "") + `Uso: ${uso}`;
-      if (territorio) resolvedRef += (resolvedRef ? " | " : "") + `Territorio: ${territorio}`;
-      if (duracion) resolvedRef += (resolvedRef ? " | " : "") + `Duración: ${duracion}`;
-      if (tipo) resolvedRef += (resolvedRef ? " | " : "") + `Tipo: ${tipo}`;
+      if (obra) resolvedRef += (resolvedRef ? " | " : "") + t(`Obra: ${obra}`, `Work: ${obra}`);
+      if (formato) resolvedRef += (resolvedRef ? " | " : "") + t(`Formato: ${formato}`, `Format: ${formato}`);
+      if (uso) resolvedRef += (resolvedRef ? " | " : "") + t(`Uso: ${uso}`, `Usage: ${uso}`);
+      if (territorio) resolvedRef += (resolvedRef ? " | " : "") + t(`Territorio: ${territorio}`, `Territory: ${territorio}`);
+      if (duracion) resolvedRef += (resolvedRef ? " | " : "") + t(`Duración: ${duracion}`, `Duration: ${duracion}`);
+      if (tipo) resolvedRef += (resolvedRef ? " | " : "") + t(`Tipo: ${tipo}`, `Type: ${tipo}`);
 
       setFormData((prev) => ({
         ...prev,
@@ -139,17 +158,26 @@ export default function ContactForm() {
         referencia: resolvedRef || prev.referencia,
       }));
     },
-    []
+    [t]
   );
 
   const mailtoLink = `mailto:${SITE_CONFIG.contactEmail}?subject=${encodeURIComponent(
-    `[WEB · ${formData.motivo.toUpperCase()}] Consulta de ${formData.nombre || "Interesado"}`
+    t(
+      `[WEB · ${formData.motivo.toUpperCase()}] Consulta de ${formData.nombre || "Interesado"}`,
+      `[WEB · ${formData.motivo.toUpperCase()}] Inquiry from ${formData.nombre || "Visitor"}`
+    )
   )}&body=${encodeURIComponent(
-    `Nombre: ${formData.nombre}\nEmail: ${formData.email}\nTeléfono: ${formData.telefono || "No indicado"}\nMotivo: ${formData.motivo}\nReferencia / Obra: ${formData.referencia || "General"}\n\nMensaje:\n${formData.mensaje}`
+    t(
+      `Nombre: ${formData.nombre}\nEmail: ${formData.email}\nTeléfono: ${formData.telefono || "No indicado"}\nMotivo: ${formData.motivo}\nReferencia / Obra: ${formData.referencia || "General"}\n\nMensaje:\n${formData.mensaje}`,
+      `Name: ${formData.nombre}\nEmail: ${formData.email}\nPhone: ${formData.telefono || "Not provided"}\nSubject: ${formData.motivo}\nReference / Work: ${formData.referencia || "General"}\n\nMessage:\n${formData.mensaje}`
+    )
   )}`;
 
   const handleCopy = () => {
-    const textToCopy = `Para: ${SITE_CONFIG.contactEmail}\nAsunto: [WEB · ${formData.motivo.toUpperCase()}] Consulta de ${formData.nombre}\n\nNombre: ${formData.nombre}\nEmail: ${formData.email}\nTeléfono: ${formData.telefono || "No indicado"}\nReferencia: ${formData.referencia || "General"}\n\nMensaje:\n${formData.mensaje}`;
+    const textToCopy = t(
+      `Para: ${SITE_CONFIG.contactEmail}\nAsunto: [WEB · ${formData.motivo.toUpperCase()}] Consulta de ${formData.nombre}\n\nNombre: ${formData.nombre}\nEmail: ${formData.email}\nTeléfono: ${formData.telefono || "No indicado"}\nReferencia: ${formData.referencia || "General"}\n\nMensaje:\n${formData.mensaje}`,
+      `To: ${SITE_CONFIG.contactEmail}\nSubject: [WEB · ${formData.motivo.toUpperCase()}] Inquiry from ${formData.nombre}\n\nName: ${formData.nombre}\nEmail: ${formData.email}\nPhone: ${formData.telefono || "Not provided"}\nReference: ${formData.referencia || "General"}\n\nMessage:\n${formData.mensaje}`
+    );
     navigator.clipboard.writeText(textToCopy);
     setCopied(true);
     setTimeout(() => setCopied(false), 3000);
@@ -160,23 +188,43 @@ export default function ContactForm() {
     setValidationError("");
 
     if (!privacyAccepted) {
-      setValidationError("Debe aceptar la política de privacidad para enviar el formulario.");
+      setValidationError(
+        t(
+          "Debe aceptar la política de privacidad para enviar el formulario.",
+          "You must accept the privacy policy to submit the form."
+        )
+      );
       return;
     }
 
     if (!formData.nombre.trim()) {
-      setValidationError("Por favor, introduzca su nombre o entidad.");
+      setValidationError(
+        t(
+          "Por favor, introduzca su nombre o entidad.",
+          "Please enter your name or organization."
+        )
+      );
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim() || !emailRegex.test(formData.email)) {
-      setValidationError("Por favor, introduzca un correo electrónico válido.");
+      setValidationError(
+        t(
+          "Por favor, introduzca un correo electrónico válido.",
+          "Please enter a valid email address."
+        )
+      );
       return;
     }
 
     if (!formData.mensaje.trim() || formData.mensaje.trim().length < 10) {
-      setValidationError("Por favor, describa con un poco más de detalle el objetivo de su consulta.");
+      setValidationError(
+        t(
+          "Por favor, describa con un poco más de detalle el objetivo de su consulta.",
+          "Please describe the purpose of your inquiry in a bit more detail."
+        )
+      );
       return;
     }
 
@@ -258,14 +306,17 @@ export default function ContactForm() {
           </svg>
         </div>
         <h3 className="mt-5 font-serif text-2xl text-[#EBE7DF]">
-          Solicitud Transmitida con Éxito
+          {t("Solicitud Transmitida con Éxito", "Inquiry Sent Successfully")}
         </h3>
         <p className="mt-3 text-sm leading-relaxed text-[#8E8A80] font-light max-w-lg mx-auto">
-          Gracias por contactar, {formData.nombre}. Su mensaje ha sido registrado para{" "}
-          <strong className="text-[#EBE7DF] font-medium">Javier Espinosa Martínez</strong> en{" "}
-          <span className="font-mono text-[#EBE7DF]">{SITE_CONFIG.contactEmail}</span>.
-          Recibirá confirmación en su correo{" "}
-          <span className="font-mono text-[#EBE7DF]">{formData.email}</span>. {PLAZOS.respuesta}
+          {t("Gracias por contactar, ", "Thank you for reaching out, ")}
+          {formData.nombre}.{" "}
+          {t("Su mensaje ha sido registrado para ", "Your message has been logged for ")}
+          <strong className="text-[#EBE7DF] font-medium">Javier Espinosa Martínez</strong>{" "}
+          {t("en ", "at ")}
+          <span className="font-mono text-[#EBE7DF]">{SITE_CONFIG.contactEmail}</span>.{" "}
+          {t("Recibirá confirmación en su correo ", "You will receive confirmation at ")}
+          <span className="font-mono text-[#EBE7DF]">{formData.email}</span>. {plazos.respuesta}
         </p>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
@@ -273,7 +324,7 @@ export default function ContactForm() {
             href={mailtoLink}
             className="inline-flex border border-white/20 bg-transparent px-6 py-2.5 font-mono text-xs uppercase tracking-[0.22em] text-[#EBE7DF] transition hover:border-white/50 hover:text-white"
           >
-            Abrir copia en mi gestor de correo →
+            {t("Abrir copia en mi gestor de correo →", "Open copy in my email client →")}
           </a>
           <button
             type="button"
@@ -290,7 +341,7 @@ export default function ContactForm() {
             }}
             className="font-mono text-xs text-[#8E8A80] underline underline-offset-4 hover:text-[#EBE7DF]"
           >
-            Enviar otra consulta
+            {t("Enviar otra consulta", "Send another inquiry")}
           </button>
         </div>
       </div>
@@ -306,10 +357,13 @@ export default function ContactForm() {
           </svg>
         </div>
         <h3 className="mt-5 font-serif text-2xl text-[#EBE7DF]">
-          Envío Directo Preparado
+          {t("Envío Directo Preparado", "Direct Email Ready")}
         </h3>
         <p className="mt-3 text-sm leading-relaxed text-[#8E8A80] font-light max-w-lg mx-auto">
-          Los datos de su consulta están listos y organizados. Para garantizar la recepción inmediata sin intermediarios técnicos, puede despacharlo directamente a{" "}
+          {t(
+            "Los datos de su consulta están listos y organizados. Para garantizar la recepción inmediata sin intermediarios técnicos, puede despacharlo directamente a ",
+            "Your inquiry details are ready and formatted. To guarantee immediate delivery without technical intermediaries, you can send it directly to "
+          )}
           <strong className="text-[#EBE7DF] font-medium font-mono">{SITE_CONFIG.contactEmail}</strong>.
         </p>
 
@@ -318,14 +372,16 @@ export default function ContactForm() {
             href={mailtoLink}
             className="inline-flex border border-[#EBE7DF] bg-[#EBE7DF] px-8 py-3.5 font-mono text-xs uppercase tracking-[0.25em] text-[#0B0C0E] font-medium transition hover:bg-transparent hover:text-white"
           >
-            Enviar por mi gestor de correo →
+            {t("Enviar por mi gestor de correo →", "Send via email client →")}
           </a>
           <button
             type="button"
             onClick={handleCopy}
             className="inline-flex border border-white/20 bg-[#0B0C0E] px-6 py-3.5 font-mono text-xs uppercase tracking-[0.22em] text-[#EBE7DF] transition hover:border-white/50 hover:text-white"
           >
-            {copied ? "✓ Copiado al Portapapeles" : "Copiar Texto Completo"}
+            {copied
+              ? t("✓ Copiado al Portapapeles", "✓ Copied to Clipboard")
+              : t("Copiar Texto Completo", "Copy Full Text")}
           </button>
         </div>
 
@@ -335,7 +391,7 @@ export default function ContactForm() {
             onClick={() => setSubmissionStatus("idle")}
             className="font-mono text-xs text-[#8E8A80] hover:text-[#EBE7DF] underline underline-offset-4"
           >
-            ← Volver a editar el formulario
+            {t("← Volver a editar el formulario", "← Back to edit form")}
           </button>
         </div>
       </div>
@@ -373,7 +429,7 @@ export default function ContactForm() {
               htmlFor="nombre"
               className="block text-xs uppercase tracking-[0.25em] text-[#8E8A80] font-mono"
             >
-              Nombre o Entidad <span className="text-[#EBE7DF]">*</span>
+              {t("Nombre o Entidad", "Name or Organization")} <span className="text-[#EBE7DF]">*</span>
             </label>
             <input
               id="nombre"
@@ -381,7 +437,7 @@ export default function ContactForm() {
               required
               value={formData.nombre}
               onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
-              placeholder="Ej. Ana Morales / Escudería Norte"
+              placeholder={t("Ej. Ana Morales / Escudería Norte", "e.g. Sarah Miller / North Racing")}
               className="mt-2 w-full border border-white/[0.1] bg-[#0B0C0E] px-4 py-3 text-sm text-[#EBE7DF] placeholder-[#8E8A80]/40 transition focus:border-white/40 focus:outline-none"
             />
           </div>
@@ -391,7 +447,7 @@ export default function ContactForm() {
               htmlFor="email"
               className="block text-xs uppercase tracking-[0.25em] text-[#8E8A80] font-mono"
             >
-              Correo Electrónico <span className="text-[#EBE7DF]">*</span>
+              {t("Correo Electrónico", "Email Address")} <span className="text-[#EBE7DF]">*</span>
             </label>
             <input
               id="email"
@@ -399,7 +455,7 @@ export default function ContactForm() {
               required
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              placeholder="contacto@ejemplo.com"
+              placeholder={t("contacto@ejemplo.com", "contact@example.com")}
               className="mt-2 w-full border border-white/[0.1] bg-[#0B0C0E] px-4 py-3 text-sm text-[#EBE7DF] placeholder-[#8E8A80]/40 transition focus:border-white/40 focus:outline-none"
             />
           </div>
@@ -411,7 +467,8 @@ export default function ContactForm() {
               htmlFor="telefono"
               className="block text-xs uppercase tracking-[0.25em] text-[#8E8A80] font-mono"
             >
-              Teléfono de Contacto <span className="text-[#8E8A80]/60">(Opcional)</span>
+              {t("Teléfono de Contacto", "Contact Phone")}{" "}
+              <span className="text-[#8E8A80]/60">{t("(Opcional)", "(Optional)")}</span>
             </label>
             <input
               id="telefono"
@@ -428,7 +485,7 @@ export default function ContactForm() {
               htmlFor="motivo"
               className="block text-xs uppercase tracking-[0.25em] text-[#8E8A80] font-mono"
             >
-              Tipo de Consulta <span className="text-[#EBE7DF]">*</span>
+              {t("Tipo de Consulta", "Inquiry Type")} <span className="text-[#EBE7DF]">*</span>
             </label>
             <select
               id="motivo"
@@ -437,19 +494,31 @@ export default function ContactForm() {
               className="mt-2 w-full border border-white/[0.1] bg-[#0B0C0E] px-4 py-3 text-sm text-[#EBE7DF] transition focus:border-white/40 focus:outline-none"
             >
               <option value="encargo" className="bg-[#0B0C0E] text-[#EBE7DF]">
-                Encargo Profesional (Rally / Arquitectura / Documental)
+                {t(
+                  "Encargo Profesional (Rally / Arquitectura / Documental)",
+                  "Professional Commission (Rally / Architecture / Documentary)"
+                )}
               </option>
               <option value="print" className="bg-[#0B0C0E] text-[#EBE7DF]">
-                Adquisición de Copia Fine Art (Hahnemühle 308g)
+                {t(
+                  "Adquisición de Copia Fine Art (Hahnemühle 308g)",
+                  "Fine Art Print Acquisition (Hahnemühle 308gsm)"
+                )}
               </option>
               <option value="licencia" className="bg-[#0B0C0E] text-[#EBE7DF]">
-                Licencia de Derechos de Imagen (Editorial / Publicidad)
+                {t(
+                  "Licencia de Derechos de Imagen (Editorial / Publicidad)",
+                  "Image Rights Licensing (Editorial / Commercial)"
+                )}
               </option>
               <option value="exposicion" className="bg-[#0B0C0E] text-[#EBE7DF]">
-                Propuesta de Exposición, Galería o Prensa
+                {t(
+                  "Propuesta de Exposición, Galería o Prensa",
+                  "Exhibition, Gallery or Press Proposal"
+                )}
               </option>
               <option value="general" className="bg-[#0B0C0E] text-[#EBE7DF]">
-                Consulta General de Autor
+                {t("Consulta General de Autor", "General Studio Inquiry")}
               </option>
             </select>
           </div>
@@ -460,14 +529,18 @@ export default function ContactForm() {
             htmlFor="referencia"
             className="block text-xs uppercase tracking-[0.25em] text-[#8E8A80] font-mono"
           >
-            Obra, Serie o Formato de Referencia <span className="text-[#8E8A80]/60">(si aplica)</span>
+            {t("Obra, Serie o Formato de Referencia", "Reference Work, Series or Format")}{" "}
+            <span className="text-[#8E8A80]/60">{t("(si aplica)", "(if applicable)")}</span>
           </label>
           <input
             id="referencia"
             type="text"
             value={formData.referencia}
             onChange={(e) => setFormData({ ...formData, referencia: e.target.value })}
-            placeholder="Ej. Descenso en la Roca / Formato Galería 50x70 cm"
+            placeholder={t(
+              "Ej. Descenso en la Roca / Formato Galería 50x70 cm",
+              "e.g. Descent on the Rock / Gallery Format 50x70 cm"
+            )}
             className="mt-2 w-full border border-white/[0.1] bg-[#0B0C0E] px-4 py-3 text-sm text-[#EBE7DF] placeholder-[#8E8A80]/40 transition focus:border-white/40 focus:outline-none"
           />
         </div>
@@ -477,7 +550,8 @@ export default function ContactForm() {
             htmlFor="mensaje"
             className="block text-xs uppercase tracking-[0.25em] text-[#8E8A80] font-mono"
           >
-            Detalle del Proyecto o Consulta <span className="text-[#EBE7DF]">*</span>
+            {t("Detalle del Proyecto o Consulta", "Project or Inquiry Details")}{" "}
+            <span className="text-[#EBE7DF]">*</span>
           </label>
           <textarea
             id="mensaje"
@@ -485,7 +559,10 @@ export default function ContactForm() {
             rows={5}
             value={formData.mensaje}
             onChange={(e) => setFormData({ ...formData, mensaje: e.target.value })}
-            placeholder="Describa el alcance del encargo, fechas previstas, requerimientos de entrega o especificaciones para obra impresa..."
+            placeholder={t(
+              "Describa el alcance del encargo, fechas previstas, requerimientos de entrega o especificaciones para obra impresa...",
+              "Describe the project scope, planned dates, delivery requirements, or fine art print specifications..."
+            )}
             className="mt-2 w-full border border-white/[0.1] bg-[#0B0C0E] px-4 py-3 text-sm text-[#EBE7DF] placeholder-[#8E8A80]/40 transition focus:border-white/40 focus:outline-none"
           />
         </div>
@@ -493,7 +570,10 @@ export default function ContactForm() {
         {/* Protección Antispam: Honeypot + Cloudflare Turnstile */}
         <div className="border border-white/[0.06] bg-[#0B0C0E]/70 px-4 py-3 font-mono text-[10px] text-[#A39E93] flex flex-wrap items-center justify-between gap-2">
           <span>
-            Protección Antispam activa (Honeypot + Cloudflare Turnstile)
+            {t(
+              "Protección Antispam activa (Honeypot + Cloudflare Turnstile)",
+              "Active spam protection (Honeypot + Cloudflare Turnstile)"
+            )}
           </span>
           {process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ? (
             <input
@@ -515,14 +595,17 @@ export default function ContactForm() {
             className="mt-1 h-4 w-4 accent-[#EBE7DF]"
           />
           <label htmlFor="privacidad" className="text-xs text-[#A39E93] font-light leading-relaxed">
-            He leído y acepto la{" "}
+            {t("He leído y acepto la ", "I have read and accept the ")}
             <Link
               href="/legal#privacidad"
               className="text-[#EBE7DF] underline decoration-white/30 underline-offset-4 hover:text-white"
             >
-              Política de Privacidad (RGPD)
+              {t("Política de Privacidad (RGPD)", "Privacy Policy (GDPR)")}
             </Link>
-            . Los datos facilitados se emplearán exclusivamente para responder a esta solicitud.
+            {t(
+              ". Los datos facilitados se emplearán exclusivamente para responder a esta solicitud.",
+              ". Submitted data will be used solely to respond to this inquiry."
+            )}
           </label>
         </div>
 
@@ -532,11 +615,13 @@ export default function ContactForm() {
             disabled={submitting || !privacyAccepted}
             className="inline-flex min-h-[44px] items-center justify-center border border-[#EBE7DF] bg-[#EBE7DF] px-8 py-3.5 font-mono text-xs uppercase tracking-[0.28em] text-[#0B0C0E] font-medium transition hover:bg-transparent hover:text-white disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
           >
-            {submitting ? "Transmitiendo solicitud..." : "Enviar Solicitud"}
+            {submitting
+              ? t("Transmitiendo solicitud...", "Sending inquiry...")
+              : t("Enviar Solicitud", "Send Inquiry")}
           </button>
 
           <p className="font-mono text-[11px] text-[#A39E93]">
-            {PLAZOS.respuesta} ·{" "}
+            {plazos.respuesta} ·{" "}
             <span className="text-[#EBE7DF]">
               {SITE_CONFIG.contactEmail}
             </span>

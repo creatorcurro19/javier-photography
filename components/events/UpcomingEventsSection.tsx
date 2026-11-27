@@ -1,9 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import { getActiveUpcomingEvents, type UpcomingEvent } from "@/data/events";
 import type { PhotoCategory } from "@/types/photo";
 import JsonLd from "@/components/seo/JsonLd";
 import { absoluteUrl } from "@/lib/metadata";
 import { AndalusianStarMark } from "@/components/ui/AndalusianMotif";
+import { useLanguage } from "@/lib/i18n";
 
 interface UpcomingEventsSectionProps {
   category?: PhotoCategory;
@@ -42,6 +45,7 @@ function buildEventsJsonLd(events: UpcomingEvent[]) {
 }
 
 export default function UpcomingEventsSection({ category }: UpcomingEventsSectionProps) {
+  const { lang, t } = useLanguage();
   const allActive = getActiveUpcomingEvents();
   const events = category
     ? allActive.filter((ev) => ev.category === category)
@@ -63,23 +67,31 @@ export default function UpcomingEventsSection({ category }: UpcomingEventsSectio
           <div className="flex items-center gap-2">
             <AndalusianStarMark className="h-3.5 w-3.5 text-[#C5A880]" />
             <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-[#C5A880]">
-              Agenda de Campo &amp; Desplazamientos
+              {t("Agenda de Campo & Desplazamientos", "Field Schedule & Travel")}
             </p>
           </div>
           <h2
             id="upcoming-events-heading"
             className="mt-2 font-serif text-2xl sm:text-3xl font-light text-[#EBE7DF]"
           >
-            Próximas Coberturas Confirmadas
+            {t("Próximas Coberturas Confirmadas", "Upcoming Confirmed Assignments")}
           </h2>
         </div>
         <p className="max-w-md text-xs font-light leading-relaxed text-[#8E8A80]">
-          Si tu equipo o proyecto coincide con alguna de estas fechas y localizaciones, puedes reservar seguimiento fotográfico dedicado optimizando costes de desplazamiento.
+          {t(
+            "Si tu equipo o proyecto coincide con alguna de estas fechas y localizaciones, puedes reservar seguimiento fotográfico dedicado optimizando costes de desplazamiento.",
+            "If your team or project aligns with any of these dates and locations, you can book dedicated coverage while sharing travel logistics."
+          )}
         </p>
       </div>
 
       <div className="mt-6 divide-y divide-white/[0.06]">
-        {events.map((ev) => (
+        {events.map((ev) => {
+          const title = lang === "en" && ev.titleEn ? ev.titleEn : ev.title;
+          const displayDate = lang === "en" && ev.displayDateEn ? ev.displayDateEn : ev.displayDate;
+          const location = lang === "en" && ev.locationEn ? ev.locationEn : ev.location;
+          const notes = lang === "en" && ev.notesEn ? ev.notesEn : ev.notes;
+          return (
           <div
             key={ev.id}
             className="flex flex-col justify-between gap-4 py-5 sm:flex-row sm:items-center"
@@ -87,11 +99,11 @@ export default function UpcomingEventsSection({ category }: UpcomingEventsSectio
             <div>
               <div className="flex flex-wrap items-center gap-2.5">
                 <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#C5A880]">
-                  {ev.displayDate}
+                  {displayDate}
                 </span>
                 <span className="text-white/20">·</span>
                 <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#8E8A80]">
-                  {ev.location}
+                  {location}
                 </span>
                 <span
                   className={`border px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.2em] ${
@@ -103,18 +115,18 @@ export default function UpcomingEventsSection({ category }: UpcomingEventsSectio
                   }`}
                 >
                   {ev.availability === "abierta"
-                    ? "Reserva Abierta"
+                    ? t("Reserva Abierta", "Open Booking")
                     : ev.availability === "ultimas-plazas"
-                      ? "Últimas Plazas"
-                      : "Agenda Completa"}
+                      ? t("Últimas Plazas", "Final Slots")
+                      : t("Agenda Completa", "Fully Booked")}
                 </span>
               </div>
               <h3 className="mt-1.5 font-serif text-xl font-light text-[#F7F4EE]">
-                {ev.title}
+                {title}
               </h3>
-              {ev.notes && (
+              {notes && (
                 <p className="mt-1 text-xs font-light text-[#8E8A80]">
-                  {ev.notes}
+                  {notes}
                 </p>
               )}
             </div>
@@ -122,15 +134,16 @@ export default function UpcomingEventsSection({ category }: UpcomingEventsSectio
             {ev.availability !== "completa" && (
               <Link
                 href={`/contact?motivo=Encargo&referencia=${encodeURIComponent(
-                  `${ev.title} (${ev.displayDate})`
+                  `${title} (${displayDate})`
                 )}`}
                 className="shrink-0 self-start sm:self-center border border-[#EBE7DF] bg-[#EBE7DF] px-4 py-2 font-mono text-[10px] uppercase tracking-[0.22em] font-medium text-[#0B0C0E] transition hover:bg-transparent hover:text-white"
               >
-                Reservar en este evento →
+                {t("Reservar en este evento →", "Book for this event →")}
               </Link>
             )}
           </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

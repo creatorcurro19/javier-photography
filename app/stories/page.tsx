@@ -1,12 +1,4 @@
-import Link from "next/link";
-import Container from "@/components/ui/Container";
-import FieldJournalExplorer from "@/components/stories/FieldJournalExplorer";
-import {
-  AndalusianCenefa,
-  AndalusianCornerOrnaments,
-  AndalusianPageBackdrop,
-  AndalusianStarMark,
-} from "@/components/ui/AndalusianMotif";
+import StoriesPageContent from "@/components/stories/StoriesPageContent";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getAllPhotos, getPhotosWithStory } from "@/lib/photos";
 
@@ -19,59 +11,9 @@ export const metadata = buildPageMetadata({
 
 export default function StoriesPage() {
   const stories = getPhotosWithStory();
+  const totalWorksCount = getAllPhotos().length;
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
-      <AndalusianPageBackdrop variant="sebka" />
-      <Container className="relative z-10">
-        {/* Header */}
-        <div className="max-w-3xl">
-          <div className="flex items-center gap-2.5">
-            <AndalusianStarMark className="h-3.5 w-3.5 text-[#C5A880]/75" />
-            <p className="font-mono text-xs uppercase tracking-[0.4em] text-[#C5A880]/85">
-              The Art of Seeing · Notas de Campo
-            </p>
-          </div>
-          <h1 className="mt-4 font-serif text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight text-[#EBE7DF]">
-            Cuaderno de campo
-          </h1>
-          <p className="mt-6 text-base sm:text-lg leading-relaxed text-[#8E8A80] font-light">
-            Detrás de algunas fotografías hay horas de espera en el monte, una luz que duró pocos minutos o una escena encontrada casi por casualidad. Aquí recojo breves apuntes sobre dónde y cómo se tomaron varias imágenes del archivo, junto con sus datos técnicos reales.
-          </p>
-        </div>
-
-        <AndalusianCenefa
-          variant="sebka"
-          className="mt-10 text-[#C5A880]/38"
-        />
-
-        {/* Interactive Explorer */}
-        <div className="mt-10">
-          <FieldJournalExplorer stories={stories} />
-        </div>
-
-        {/* Archive CTA */}
-        <div className="relative mt-20 border border-[#C5A880]/25 bg-[#151618]/95 p-8 text-center sm:p-14">
-          <AndalusianCornerOrnaments className="text-[#C5A880]/50" />
-          <p className="font-mono text-xs uppercase tracking-[0.35em] text-[#8E8A80]">
-            Archivo Completo
-          </p>
-          <h2 className="mt-2 font-serif text-3xl font-light text-[#EBE7DF]">
-            Explorar las {getAllPhotos().length} obras del catálogo
-          </h2>
-          <p className="mx-auto mt-4 max-w-lg text-sm text-[#8E8A80] font-light">
-            Recorre las 5 salas de exposición organizadas por disciplinas temáticas, focales ópticas y visor de alta resolución.
-          </p>
-          <div className="mt-8">
-            <Link
-              href="/portfolio"
-              className="inline-flex border border-[#EBE7DF] bg-[#EBE7DF] px-8 py-3.5 font-mono text-xs uppercase tracking-[0.28em] text-[#0B0C0E] font-medium transition-all duration-300 hover:bg-transparent hover:text-white"
-            >
-              Ir al Catálogo Completo
-            </Link>
-          </div>
-        </div>
-      </Container>
-    </div>
+    <StoriesPageContent stories={stories} totalWorksCount={totalWorksCount} />
   );
 }

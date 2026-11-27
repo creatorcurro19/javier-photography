@@ -1,52 +1,67 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import { PHOTO_CATEGORIES, CATEGORY_METADATA } from "@/types/photo";
 import { getAllPhotos, getPhotosByCategory } from "@/lib/photos";
+import { useLanguage } from "@/lib/i18n";
 
 interface CuratedWing {
   category: (typeof PHOTO_CATEGORIES)[number];
   roomRoman: string;
+  roomRomanEn: string;
   aspectClass: string;
   colSpanClass: string;
   subtitle: string;
+  subtitleEn: string;
 }
 
 const WINGS_CONFIG: CuratedWing[] = [
   {
     category: "paisajes-documental",
     roomRoman: "Colección 01",
+    roomRomanEn: "Collection 01",
     aspectClass: "aspect-[16/9]",
     colSpanClass: "lg:col-span-6",
     subtitle: "Territorio & Silencio Mineral",
+    subtitleEn: "Territory & Mineral Silence",
   },
   {
     category: "fauna-naturaleza",
     roomRoman: "Colección 02",
+    roomRomanEn: "Collection 02",
     aspectClass: "aspect-[16/9]",
     colSpanClass: "lg:col-span-6",
     subtitle: "Observación & Fauna",
+    subtitleEn: "Observation & Wildlife",
   },
   {
     category: "coches-rally",
     roomRoman: "Colección 03",
+    roomRomanEn: "Collection 03",
     aspectClass: "aspect-[16/10]",
     colSpanClass: "lg:col-span-4",
     subtitle: "Geometría de la Velocidad",
+    subtitleEn: "Geometry of Speed",
   },
   {
     category: "arquitectura-urbana",
     roomRoman: "Colección 04",
+    roomRomanEn: "Collection 04",
     aspectClass: "aspect-[16/10]",
     colSpanClass: "lg:col-span-4",
     subtitle: "Entramados & Patrimonio",
+    subtitleEn: "Timberwork & Heritage",
   },
   {
     category: "viajes-cultura",
     roomRoman: "Colección 05",
+    roomRomanEn: "Collection 05",
     aspectClass: "aspect-[16/10]",
     colSpanClass: "lg:col-span-4",
     subtitle: "Crónica & Oficios Tradicionales",
+    subtitleEn: "Chronicle & Traditional Crafts",
   },
 ];
 
@@ -59,21 +74,24 @@ const HERO_SLUGS = new Set([
 ]);
 
 export default function CollectionsOverview() {
+  const { lang, t } = useLanguage();
+  const totalPhotos = getAllPhotos().length;
+
   return (
     <section
       id="colecciones"
       className="relative overflow-hidden bg-[#0B0C0E] py-12 sm:py-16 border-t border-white/[0.08] scroll-mt-20"
-      aria-label="Colecciones de fotografía"
+      aria-label={t("Colecciones de fotografía", "Photography collections")}
     >
       <Container className="relative z-10">
         {/* Cabecera Simple y Directa */}
         <div className="flex flex-col justify-between gap-4 pb-6 border-b border-white/[0.08] md:flex-row md:items-end">
           <div className="max-w-xl">
             <p className="font-mono text-xs uppercase tracking-[0.28em] text-[#C5A880]">
-              Explorar por tema
+              {t("Explorar por tema", "Browse by theme")}
             </p>
             <h2 className="mt-2 font-serif text-3xl sm:text-4xl font-light text-[#EBE7DF] tracking-tight">
-              Elige qué fotos quieres ver
+              {t("Elige qué fotos quieres ver", "Choose which photographs to explore")}
             </h2>
           </div>
 
@@ -81,7 +99,7 @@ export default function CollectionsOverview() {
             href="/portfolio"
             className="group inline-flex min-h-[44px] items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-[#EBE7DF] transition-colors hover:text-[#C5A880]"
           >
-            <span>Ver las {getAllPhotos().length} fotos</span>
+            <span>{t(`Ver las ${totalPhotos} fotos`, `View all ${totalPhotos} photos`)}</span>
             <span className="transition-transform duration-300 group-hover:translate-x-1">
               →
             </span>
@@ -103,18 +121,21 @@ export default function CollectionsOverview() {
               : nonHeroCover
               ? nonHeroCover.image
               : catPhotos[0]?.image ?? info.coverImage;
+            const title = lang === "en" ? info.titleEn : info.title;
+            const subtitle = lang === "en" ? wing.subtitleEn : wing.subtitle;
+            const roomLabel = lang === "en" ? wing.roomRomanEn : wing.roomRoman;
 
             return (
               <Link
                 key={wing.category}
                 href={`/portfolio/${wing.category}`}
                 className={`group relative block overflow-hidden border border-[#C5A880]/18 bg-[#151618] transition-all duration-500 hover:border-[#C5A880]/55 ${wing.colSpanClass}`}
-                aria-label={`${wing.roomRoman}: ${info.title} (${count} obras)`}
+                aria-label={t(`${roomLabel}: ${title} (${count} obras)`, `${roomLabel}: ${title} (${count} works)`)}
               >
                 <div className={`relative w-full overflow-hidden ${wing.aspectClass}`}>
                   <Image
                     src={validCover}
-                    alt={`${info.title} — ${wing.subtitle}`}
+                    alt={`${title} — ${subtitle}`}
                     fill
                     sizes={
                       wing.colSpanClass.includes("col-span-6")
@@ -132,14 +153,14 @@ export default function CollectionsOverview() {
                 <div className="flex items-end justify-between gap-4 border-t border-white/[0.08] bg-[#151618] px-5 py-4 sm:absolute sm:inset-x-0 sm:bottom-0 sm:bg-[#0B0C0E]/75 sm:px-6 sm:py-5 sm:backdrop-blur-sm">
                   <div className="min-w-0">
                     <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#C5A880]">
-                      {count} fotos
+                      {count} {t("fotos", "photos")}
                     </p>
                     <h3 className="mt-1 truncate font-serif text-lg sm:text-2xl font-light text-[#F7F4EE] sm:[text-shadow:0_2px_12px_rgba(0,0,0,0.85)] transition-colors group-hover:text-white">
-                      {info.title}
+                      {title}
                     </h3>
                   </div>
                   <span className="shrink-0 font-mono text-xs uppercase tracking-wider text-[#C5A880] transition-transform duration-300 group-hover:translate-x-1 group-hover:text-[#F7F4EE]">
-                    Ver →
+                    {t("Ver →", "View →")}
                   </span>
                 </div>
               </Link>

@@ -1,6 +1,10 @@
 "use client";
 
+import { useLanguage } from "@/lib/i18n";
+
 export default function PrintDossierButton() {
+  const { t } = useLanguage();
+
   return (
     <button
       type="button"
@@ -15,7 +19,7 @@ export default function PrintDossierButton() {
           d="M12 16v-8m0 8l-3-3m3 3l3-3M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"
         />
       </svg>
-      <span>Descargar Dossier en PDF (A4)</span>
+      <span>{t("Descargar Dossier en PDF (A4)", "Download Dossier PDF (A4)")}</span>
     </button>
   );
 }

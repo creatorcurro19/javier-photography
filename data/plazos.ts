@@ -1,3 +1,5 @@
+import type { SiteLang } from "@/lib/i18n-helpers";
+
 /**
  * ÚNICA FUENTE DE VERDAD PARA PLAZOS Y TIEMPOS DE RESPUESTA (/data/plazos.ts)
  * Evita promesas numéricas rígidas en portada, servicios, láminas, fichas y formularios.
@@ -18,3 +20,7 @@ export const PLAZOS_EN = {
   respuesta: "I personally reply to every inquiry as soon as possible.",
   tabla: "To be confirmed",
 } as const;
+
+export function getPlazos(lang: SiteLang) {
+  return lang === "en" ? PLAZOS_EN : PLAZOS;
+}

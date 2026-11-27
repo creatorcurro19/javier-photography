@@ -4,6 +4,8 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import type { Photo } from "@/types/photo";
+import { useLanguage } from "@/lib/i18n";
+import { getLocalizedPhoto } from "@/lib/i18n-works";
 
 const LightboxModal = dynamic(() => import("@/components/ui/LightboxModal"), {
   ssr: false,
@@ -17,14 +19,16 @@ type PhotoHeroProps = {
   categoryPhotos?: Photo[];
 };
 
-export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
+export default function PhotoHero({ photo: rawPhoto, categoryPhotos }: PhotoHeroProps) {
+  const { lang, t } = useLanguage();
+  const photo = getLocalizedPhoto(rawPhoto, lang);
   const [lightboxOpen, setLightboxOpen] = useState(false);
-  const photosList = categoryPhotos && categoryPhotos.length > 0 ? categoryPhotos : [photo];
-  const initialIdx = photosList.findIndex((p) => p.id === photo.id);
+  const photosList = categoryPhotos && categoryPhotos.length > 0 ? categoryPhotos : [rawPhoto];
+  const initialIdx = photosList.findIndex((p) => p.id === rawPhoto.id);
   const [currentIndex, setCurrentIndex] = useState(initialIdx >= 0 ? initialIdx : 0);
 
   const openFullscreenViewer = (attemptNative = false) => {
-    const idx = photosList.findIndex((p) => p.id === photo.id);
+    const idx = photosList.findIndex((p) => p.id === rawPhoto.id);
     setCurrentIndex(idx >= 0 ? idx : 0);
     setLightboxOpen(true);
     if (
@@ -46,7 +50,10 @@ export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
           <div
             role="button"
             tabIndex={0}
-            aria-label="Toca o haz doble clic para ver a pantalla completa"
+            aria-label={t(
+              "Toca o haz doble clic para ver a pantalla completa",
+              "Tap or double-click to view fullscreen"
+            )}
             onClick={() => openFullscreenViewer(false)}
             onDoubleClick={() => openFullscreenViewer(true)}
             onKeyDown={(e) => {
@@ -77,10 +84,10 @@ export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
           <button
             type="button"
             onClick={() => openFullscreenViewer(true)}
-            aria-label="Abrir fotografía a pantalla completa"
+            aria-label={t("Abrir fotografía a pantalla completa", "Open photograph in fullscreen")}
             className="absolute bottom-4 right-4 sm:bottom-6 sm:right-14 z-10 inline-flex min-h-[44px] items-center gap-2 rounded-full border border-[#C5A880]/50 bg-[#0B0C0E]/90 px-4 py-2 text-xs font-mono tracking-wider text-[#EBE7DF] backdrop-blur-md transition hover:border-[#C5A880] hover:bg-[#C5A880] hover:text-[#0B0C0E] shadow-lg cursor-pointer"
           >
-            <span>⛶ Pantalla completa</span>
+            <span>{t("⛶ Pantalla completa", "⛶ Fullscreen")}</span>
           </button>
         </div>
       </figure>

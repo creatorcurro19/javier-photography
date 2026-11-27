@@ -1,15 +1,24 @@
+"use client";
+
 import Link from "next/link";
 import type { Photo } from "@/types/photo";
 import { CATEGORY_METADATA } from "@/types/photo";
 import FavoriteButton from "@/components/photo/FavoriteButton";
 import ShareButton from "@/components/photo/ShareButton";
+import { useLanguage } from "@/lib/i18n";
+import { translateCondiciones } from "@/lib/i18n-helpers";
+import { getLocalizedPhoto } from "@/lib/i18n-works";
 
 type PhotoMetaProps = {
   photo: Photo;
 };
 
-export default function PhotoMeta({ photo }: PhotoMetaProps) {
+export default function PhotoMeta({ photo: rawPhoto }: PhotoMetaProps) {
+  const { lang, t } = useLanguage();
+  const photo = getLocalizedPhoto(rawPhoto, lang);
   const categoryInfo = CATEGORY_METADATA[photo.category];
+  const categoryTitle = lang === "en" ? categoryInfo?.titleEn : categoryInfo?.title;
+  const condLabel = translateCondiciones(photo.condiciones, lang);
   const locLower = (photo.location ?? "").toLowerCase();
   const extraParts = [
     photo.evento,
@@ -30,7 +39,7 @@ export default function PhotoMeta({ photo }: PhotoMetaProps) {
             href={`/portfolio/${photo.category}`}
             className="hover:text-[#EBE7DF] transition"
           >
-            {categoryInfo?.title ?? photo.category}
+            {categoryTitle ?? photo.category}
           </Link>
           {photo.location && (
             <>
@@ -38,11 +47,11 @@ export default function PhotoMeta({ photo }: PhotoMetaProps) {
               <span className="text-[#A39E93]">{photo.location}</span>
             </>
           )}
-          {photo.category === "fauna-naturaleza" && photo.condiciones && (
+          {photo.category === "fauna-naturaleza" && condLabel && (
             <>
               <span className="text-white/25">·</span>
               <span className="text-[#C5A880]/90">
-                Condiciones: {photo.condiciones}
+                {t("Condiciones:", "Conditions:")} {condLabel}
               </span>
             </>
           )}
@@ -58,7 +67,7 @@ export default function PhotoMeta({ photo }: PhotoMetaProps) {
 
         <div className="flex flex-wrap items-center gap-2.5">
           <ShareButton title={photo.title} slug={photo.slug} location={photo.location} />
-          <FavoriteButton title={photo.title} />
+          <FavoriteButton title={rawPhoto.title} />
         </div>
       </div>
 

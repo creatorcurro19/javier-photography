@@ -9,18 +9,23 @@ import type { PhotoCategory } from "@/types/photo";
 export interface UpcomingEvent {
   id: string;
   title: string;
+  titleEn?: string;
   /** Fecha de inicio en formato ISO YYYY-MM-DD (usada para ordenar y ocultar eventos ya pasados) */
   startDate: string;
   /** Fecha de fin opcional en formato ISO YYYY-MM-DD */
   endDate?: string;
   /** Texto legible de fecha (ej. "14 – 16 Noviembre 2026") */
   displayDate: string;
+  displayDateEn?: string;
   location: string;
+  locationEn?: string;
   discipline: string;
+  disciplineEn?: string;
   category: PhotoCategory;
   /** Estado de disponibilidad para encargos de equipos o prensa durante el evento */
   availability: "abierta" | "ultimas-plazas" | "completa";
   notes?: string;
+  notesEn?: string;
   url?: string;
 }
 

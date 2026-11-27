@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import { getCategoriesWithCount } from "@/lib/photos";
 import { CATEGORY_METADATA } from "@/types/photo";
 import type { PhotoCategory } from "@/types/photo";
+import { useLanguage } from "@/lib/i18n";
 
 type CategoryNavProps = {
   activeCategory?: PhotoCategory;
@@ -9,10 +12,11 @@ type CategoryNavProps = {
 
 export default function CategoryNav({ activeCategory }: CategoryNavProps) {
   const categories = getCategoriesWithCount();
+  const { lang, t } = useLanguage();
 
   return (
     <nav
-      aria-label="Colecciones de fotografía"
+      aria-label={t("Colecciones de fotografía", "Photography collections")}
       className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap pb-3 -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap md:overflow-visible"
     >
       <Link
@@ -23,12 +27,13 @@ export default function CategoryNav({ activeCategory }: CategoryNavProps) {
             : "border border-[#C5A880] bg-[#C5A880] text-[#0B0C0E] font-semibold"
         }`}
       >
-        Todas
+        {t("Todas", "All")}
       </Link>
 
       {categories.map(({ category, count }) => {
         const info = CATEGORY_METADATA[category];
         const isActive = activeCategory === category;
+        const label = lang === "en" ? info?.titleEn : info?.title;
 
         return (
           <Link
@@ -40,7 +45,7 @@ export default function CategoryNav({ activeCategory }: CategoryNavProps) {
                 : "border border-white/[0.12] bg-[#151618] text-[#EBE7DF] hover:border-[#C5A880]/60 hover:text-white"
             }`}
           >
-            <span>{info?.title ?? category}</span>
+            <span>{label ?? category}</span>
             <span className={`ml-1.5 text-[10px] ${isActive ? "text-[#0B0C0E]/75" : "text-[#8E8A80]"}`}>
               ({count})
             </span>
