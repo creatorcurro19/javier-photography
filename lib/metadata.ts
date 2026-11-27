@@ -90,7 +90,6 @@ export function buildPageMetadata({
   title,
   description,
   path,
-  image = DEFAULT_OG,
   robots,
 }: {
   title: string;
@@ -102,12 +101,9 @@ export function buildPageMetadata({
   const url = absoluteUrl(path);
   const seoTitle = formatSeoTitle(title);
   const seoDescription = formatSeoDescription(description);
-  const ogImage =
-    image === DEFAULT_OG
-      ? `${SITE_URL}/api/og?title=${encodeURIComponent(
-          seoTitle.replace(/\s*\|\s*Javier Espinosa.*$/i, "")
-        )}&subtitle=${encodeURIComponent(formatSeoDescription(seoDescription))}&badge=FINE%20ART`
-      : absoluteUrl(image);
+  const ogImage = `${SITE_URL}/api/og?title=${encodeURIComponent(
+    seoTitle.replace(/\s*\|\s*Javier Espinosa.*$/i, "")
+  )}&subtitle=${encodeURIComponent(formatSeoDescription(seoDescription))}&badge=FINE%20ART`;
 
   return {
     title: {
@@ -156,7 +152,6 @@ export function buildPhotoMetadata(photo: Photo): Metadata {
   const seoDescription = formatSeoDescription(rawDescription);
   const path = `/portfolio/${photo.slug}`;
   const url = absoluteUrl(path);
-  const imageUrl = absoluteUrl(photo.image);
   const ogCardUrl = `${SITE_URL}/api/og?title=${encodeURIComponent(
     photo.title
   )}&subtitle=${encodeURIComponent(
@@ -179,13 +174,6 @@ export function buildPhotoMetadata(photo: Photo): Metadata {
       alternateLocale: ["en_US", "en_GB"],
       images: [
         {
-          url: imageUrl,
-          width: photo.width,
-          height: photo.height,
-          alt: photo.alt,
-          type: "image/jpeg",
-        },
-        {
           url: ogCardUrl,
           width: 1200,
           height: 630,
@@ -198,7 +186,7 @@ export function buildPhotoMetadata(photo: Photo): Metadata {
       card: "summary_large_image",
       title: seoTitle,
       description: seoDescription,
-      images: [imageUrl],
+      images: [ogCardUrl],
     },
   };
 }

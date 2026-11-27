@@ -98,6 +98,8 @@ export default function AddToCartModal({
               src={photo.image}
               alt={photo.alt}
               fill
+              sizes="80px"
+              quality={75}
               className="object-cover"
             />
           </div>
