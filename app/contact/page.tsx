@@ -21,7 +21,7 @@ const CONTACT_INFO = [
   {
     label: "Base de Operaciones",
     value: SITE_CONFIG.locationLabel,
-    note: "Base insular con disponibilidad para desplazamientos a Península e internacionales",
+    note: "Base en Tenerife con disponibilidad para desplazamientos",
   },
 ];
 

@@ -14,7 +14,7 @@ export const SERVICE_AREA = {
     "Salamanca y Castilla y León",
     "Extremadura y Sierra de Gredos",
   ],
-  scope: "España y desplazamientos en Europa",
+  scope: "Canarias · Disponibilidad para desplazamientos",
 } as const;
 
 export interface ServiceLanding {
@@ -82,7 +82,7 @@ export const SERVICE_LANDINGS: ServiceLanding[] = [
       { label: "Cuerpo principal", value: "Canon EOS R7 (32,5 MP · Ráfaga de alta velocidad AF II)" },
       { label: "Teleobjetivo de tramo", value: "Sigma 150-600mm f/5-6.3 DG OS HSM Contemporary" },
       { label: "Óptica de paddock", value: "Canon RF-S 18-150mm & EF-S 10-18mm" },
-      { label: "Ámbito geográfico", value: `${SERVICE_AREA.base} · Península Ibérica` },
+      { label: "Ámbito geográfico", value: SERVICE_AREA.scope },
     ],
     process: [
       {
@@ -120,7 +120,7 @@ export const SERVICE_LANDINGS: ServiceLanding[] = [
       },
       {
         q: "¿Realizas coberturas fuera de Tenerife?",
-        a: "Sí. Además del calendario automovilístico en Tenerife e Islas Canarias, realizo desplazamientos bajo encargo a pruebas de rally histórico y clásico en toda España.",
+        a: "Sí. Con base en Tenerife (Islas Canarias), tengo disponibilidad para desplazamientos bajo encargo a pruebas de rally histórico.",
       },
     ],
     primaryCta: {

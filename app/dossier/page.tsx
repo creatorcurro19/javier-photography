@@ -81,7 +81,7 @@ export default function DossierPage() {
               The Art of Seeing · Fotografía de Autor
             </p>
             <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.22em] text-[#8E8A80] print:text-neutral-600">
-              Residiendo en Tenerife, Canarias · Movilidad Internacional
+              Residiendo en Tenerife, Canarias · Disponibilidad para desplazamientos
             </p>
           </header>
 

@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import TrabajosSection from "@/components/about/TrabajosSection";
+import { TRABAJOS } from "@/data/trabajos";
 import { SITE_SETTINGS } from "@/data/site-config";
 
 const PORTRAIT_IMAGE =
@@ -135,6 +137,8 @@ export default function AboutInteractiveStudio() {
           ))}
         </div>
       </section>
+
+      <TrabajosSection items={TRABAJOS} />
     </div>
   );
 }

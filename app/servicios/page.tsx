@@ -27,7 +27,7 @@ const servicios = [
     title: "Automovilismo y Rally Histórico",
     kicker: "Competición y Motor",
     description:
-      "Cobertura fotográfica en tramos cronometrados, parques de asistencia y presentaciones de vehículos clásicos y de competición. Captura de la velocidad, la tensión mecánica y el factor humano en rallyes históricos de España y Europa.",
+      "Cobertura fotográfica en tramos cronometrados, parques de asistencia y presentaciones de vehículos clásicos y de competición. Captura de la velocidad, la tensión mecánica y el factor humano en rallyes históricos.",
     features: [
       "Cobertura completa en tramos cerrados y horquillas técnicas",
       "Fotografía de paddock, mecánicos, verificaciones y detalles de ingeniería",
@@ -95,7 +95,7 @@ export default function ServiciosPage() {
     },
     {
       q: "¿Realizas desplazamientos fuera de tu provincia o a las islas?",
-      a: "Sí. Con base en Tenerife (Islas Canarias), trabajo habitualmente tanto en el archipiélago como en la Península Ibérica (Extremadura, Salamanca, Madrid, Gredos) y proyectos internacionales.",
+      a: "Sí. Con base en Tenerife (Islas Canarias), tengo disponibilidad para desplazamientos a Península y otras localizaciones bajo encargo.",
     },
     {
       q: "¿Los encargos de arquitectura y turismo incluyen licencia de uso comercial?",

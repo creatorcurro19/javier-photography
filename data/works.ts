@@ -1096,7 +1096,9 @@ export const WORKS: Photo[] = [
       "score": 78
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 640) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 640) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "evento": "52º Rallye Orvecame Isla Tenerife Histórico",
+    "lugar": "Tenerife"
   },
   {
     "id": "cr-02",
@@ -1149,7 +1151,9 @@ export const WORKS: Photo[] = [
     "series": "Trazadas y Paddock: Rally Histórico",
     "seriesSlug": "trazadas-rally",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "evento": "52º Rallye Orvecame Isla Tenerife Histórico",
+    "lugar": "Tenerife"
   },
   {
     "id": "cr-03",
@@ -1197,7 +1201,9 @@ export const WORKS: Photo[] = [
       "score": 79
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 320) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 320) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "evento": "52º Rallye Orvecame Isla Tenerife Histórico",
+    "lugar": "Tenerife"
   },
   {
     "id": "cr-04",
@@ -1249,7 +1255,9 @@ export const WORKS: Photo[] = [
     "series": "Trazadas y Paddock: Rally Histórico",
     "seriesSlug": "trazadas-rally",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "evento": "52º Rallye Orvecame Isla Tenerife Histórico",
+    "lugar": "Tramo de El Tanque, Tenerife"
   },
   {
     "id": "cr-05",
@@ -1296,7 +1304,9 @@ export const WORKS: Photo[] = [
       "score": 75
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "evento": "52º Rallye Orvecame Isla Tenerife Histórico",
+    "lugar": "Tenerife"
   },
   {
     "id": "cr-06",
@@ -1343,7 +1353,9 @@ export const WORKS: Photo[] = [
       "score": 77
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "evento": "52º Rallye Orvecame Isla Tenerife Histórico",
+    "lugar": "Tenerife"
   },
   {
     "id": "cr-07",
@@ -1394,7 +1406,9 @@ export const WORKS: Photo[] = [
     "series": "Trazadas y Paddock: Rally Histórico",
     "seriesSlug": "trazadas-rally",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "evento": "52º Rallye Orvecame Isla Tenerife Histórico",
+    "lugar": "Tramo de El Tanque, Tenerife"
   },
   {
     "id": "cr-08",
@@ -1444,7 +1458,9 @@ export const WORKS: Photo[] = [
     "series": "Trazadas y Paddock: Rally Histórico",
     "seriesSlug": "trazadas-rally",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "evento": "52º Rallye Orvecame Isla Tenerife Histórico",
+    "lugar": "Tramo de El Tanque, Tenerife"
   },
   {
     "id": "cr-09",
@@ -1491,7 +1507,9 @@ export const WORKS: Photo[] = [
       "score": 79
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1000) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1000) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "evento": "52º Rallye Orvecame Isla Tenerife Histórico",
+    "lugar": "Tenerife"
   },
   {
     "id": "cr-10",
@@ -1539,7 +1557,9 @@ export const WORKS: Photo[] = [
       "score": 79
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "evento": "52º Rallye Orvecame Isla Tenerife Histórico",
+    "lugar": "Tenerife"
   },
   {
     "id": "cr-11",
@@ -1590,7 +1610,9 @@ export const WORKS: Photo[] = [
     "series": "Trazadas y Paddock: Rally Histórico",
     "seriesSlug": "trazadas-rally",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 125) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 125) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "evento": "52º Rallye Orvecame Isla Tenerife Histórico",
+    "lugar": "Tramo de El Tanque, Tenerife"
   },
   {
     "id": "cr-12",
@@ -1638,7 +1660,9 @@ export const WORKS: Photo[] = [
       "score": 81
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1000) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1000) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "evento": "52º Rallye Orvecame Isla Tenerife Histórico",
+    "lugar": "Tramo de El Tanque, Tenerife"
   },
   {
     "id": "cr-13",
@@ -1692,7 +1716,9 @@ export const WORKS: Photo[] = [
     "series": "Trazadas y Paddock: Rally Histórico",
     "seriesSlug": "trazadas-rally",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "evento": "52º Rallye Orvecame Isla Tenerife Histórico",
+    "lugar": "Tramo de El Tanque, Tenerife"
   },
   {
     "id": "cr-14",
@@ -1744,7 +1770,9 @@ export const WORKS: Photo[] = [
     "series": "Trazadas y Paddock: Rally Histórico",
     "seriesSlug": "trazadas-rally",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "evento": "52º Rallye Orvecame Isla Tenerife Histórico",
+    "lugar": "Tramo de El Tanque, Tenerife"
   },
   {
     "id": "au-01",
@@ -3638,7 +3666,9 @@ export const WORKS: Photo[] = [
     "series": "Trazadas y Paddock: Rally Histórico",
     "seriesSlug": "trazadas-rally",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "evento": "52º Rallye Orvecame Isla Tenerife Histórico",
+    "lugar": "Tramo de El Tanque, Tenerife"
   },
   {
     "id": "vc-33",
@@ -5019,7 +5049,9 @@ export const WORKS: Photo[] = [
       "score": 87
     },
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (70 × 88 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (70 × 88 cm).",
+    "evento": "52º Rallye Orvecame Isla Tenerife Histórico",
+    "lugar": "Tramo de El Tanque, Tenerife"
   },
   {
     "id": "vc-47",

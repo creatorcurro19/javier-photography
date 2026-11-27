@@ -405,8 +405,8 @@ export function generateServiceSchema() {
     email: SITE_CONFIG.contactEmail,
     priceRange: "€€",
     areaServed: [
+      { "@type": "Place", name: "Tenerife y Canarias" },
       { "@type": "Country", name: "España" },
-      { "@type": "Place", name: "Europa" },
     ],
     founder: {
       "@type": "Person",

@@ -10,6 +10,17 @@ type PhotoMetaProps = {
 
 export default function PhotoMeta({ photo }: PhotoMetaProps) {
   const categoryInfo = CATEGORY_METADATA[photo.category];
+  const locLower = (photo.location ?? "").toLowerCase();
+  const extraParts = [
+    photo.evento,
+    photo.lugar,
+    photo.category === "coches-rally" && (photo.evento || photo.lugar) && photo.year
+      ? String(photo.year)
+      : undefined,
+  ].filter(
+    (part): part is string =>
+      Boolean(part) && !locLower.includes(String(part).split(",")[0].trim().toLowerCase())
+  );
 
   return (
     <header className="border-b border-white/[0.08] pb-8">
@@ -35,11 +46,11 @@ export default function PhotoMeta({ photo }: PhotoMetaProps) {
               </span>
             </>
           )}
-          {(photo.evento || photo.lugar) && (
+          {extraParts.length > 0 && (
             <>
               <span className="text-white/25">·</span>
               <span className="text-[#A39E93]">
-                {[photo.evento, photo.lugar].filter(Boolean).join(" · ")}
+                {extraParts.join(" · ")}
               </span>
             </>
           )}
