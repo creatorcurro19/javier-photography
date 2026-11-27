@@ -112,14 +112,15 @@ export default function CuadernoPostContent({
         {/* Obra Relacionada del Archivo (/data/works.ts) */}
         {relatedWork && (
           <figure className="mt-10 border border-white/[0.08] bg-[#151618] p-4 sm:p-6">
-            <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#0B0C0E]">
+            <div className="relative w-full overflow-hidden bg-[#0B0C0E]">
               <Image
                 src={relatedWork.image}
                 alt={relatedWork.alt}
-                fill
+                width={rawPost.relatedWork?.width ?? 1600}
+                height={rawPost.relatedWork?.height ?? 1067}
                 sizes="(max-width: 1024px) 100vw, 860px"
                 quality={85}
-                className="object-contain"
+                className="mx-auto block h-auto max-h-[75vh] w-auto max-w-full"
               />
             </div>
             <figcaption className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-white/[0.06] pt-3 font-mono text-xs text-[#A39E93]">

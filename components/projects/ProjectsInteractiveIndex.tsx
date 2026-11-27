@@ -79,6 +79,12 @@ export default function ProjectsInteractiveIndex({
           const stageSub = activePhoto
             ? `${activePhoto.focalLength} · ${activePhoto.aperture} · ${activePhoto.shutter}`
             : project.discipline;
+          const stageWork =
+            rawActivePhoto ??
+            rawProject.resolvedPhotos.find((p) => p.image === project.coverImage) ??
+            rawProject.resolvedPhotos[0];
+          const stageWidth = stageWork?.width ?? 1600;
+          const stageHeight = stageWork?.height ?? 1067;
 
           return (
             <article
@@ -91,38 +97,41 @@ export default function ProjectsInteractiveIndex({
                   index % 2 === 1 ? "lg:order-2" : "lg:order-1"
                 }`}
               >
-                <Link
-                  href={`/projects/${project.slug}`}
-                  className="group relative block aspect-[3/2] w-full overflow-hidden border border-[#202226] bg-[#0B0C0E]"
-                >
-                  <Image
-                    key={stageImage}
-                    src={stageImage}
-                    alt={stageTitle}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 60vw"
-                    quality={85}
-                    className="object-cover transition duration-700 group-hover:scale-[1.03]"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-transparent to-transparent" />
+                <div className="flex items-center justify-center">
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="group relative block w-fit max-w-full overflow-hidden border border-[#202226] bg-[#0B0C0E]"
+                  >
+                    <Image
+                      key={stageImage}
+                      src={stageImage}
+                      alt={stageTitle}
+                      width={stageWidth}
+                      height={stageHeight}
+                      sizes="(max-width: 1024px) 100vw, 60vw"
+                      quality={85}
+                      className="block h-auto max-h-[460px] w-auto max-w-full transition duration-700 group-hover:scale-[1.03]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-transparent to-transparent" />
 
-                  <div className="absolute top-4 left-4 flex items-center gap-2">
-                    <span className="border border-[#202226] bg-[#0B0C0E]/90 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80] backdrop-blur-md">
-                      {t("ENSAYO", "ESSAY")} 0{index + 1} · {project.discipline}
-                    </span>
-                  </div>
-
-                  <div className="absolute right-4 bottom-4 left-4 flex items-end justify-between">
-                    <div className="border border-[#202226] bg-[#0B0C0E]/85 px-3.5 py-2 backdrop-blur-md">
-                      <p className="font-serif text-base text-[#EBE7DF]">
-                        {stageTitle}
-                      </p>
-                      <p className="font-mono text-[9px] uppercase tracking-wider text-[#8E8A80]">
-                        {stageSub}
-                      </p>
+                    <div className="absolute top-4 left-4 flex items-center gap-2">
+                      <span className="border border-[#202226] bg-[#0B0C0E]/90 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-[#8E8A80] backdrop-blur-md">
+                        {t("ENSAYO", "ESSAY")} 0{index + 1} · {project.discipline}
+                      </span>
                     </div>
-                  </div>
-                </Link>
+
+                    <div className="absolute right-4 bottom-4 left-4 flex items-end justify-between">
+                      <div className="border border-[#202226] bg-[#0B0C0E]/85 px-3.5 py-2 backdrop-blur-md">
+                        <p className="font-serif text-base text-[#EBE7DF]">
+                          {stageTitle}
+                        </p>
+                        <p className="font-mono text-[9px] uppercase tracking-wider text-[#8E8A80]">
+                          {stageSub}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
 
                 {/* Interactive Sequence Filmstrip */}
                 {rawProject.resolvedPhotos.length > 0 && (
@@ -149,7 +158,7 @@ export default function ProjectsInteractiveIndex({
                         </button>
                       )}
                     </div>
-                    <div className="grid grid-cols-6 gap-2">
+                    <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
                       {rawProject.resolvedPhotos.slice(0, 6).map((rawPhoto, pIdx) => {
                         const photo = getLocalizedPhoto(rawPhoto, lang);
                         const isCurrent = previewIndex === pIdx;
@@ -169,18 +178,19 @@ export default function ProjectsInteractiveIndex({
                                 [project.id]: pIdx,
                               }))
                             }
-                            className={`relative aspect-[3/2] overflow-hidden border transition ${
+                            className={`relative shrink-0 overflow-hidden border transition ${
                               isCurrent
-                                ? "border-[#8E8A80] ring-1 ring-[#8E8A80]"
+                                ? "border-[#C5A880] ring-1 ring-[#C5A880]"
                                 : "border-[#202226] opacity-75 hover:opacity-100"
                             }`}
                           >
                             <Image
                               src={photo.image}
                               alt={photo.alt}
-                              fill
-                              sizes="110px"
-                              className="object-cover"
+                              width={rawPhoto.width}
+                              height={rawPhoto.height}
+                              sizes="120px"
+                              className="block h-14 sm:h-16 w-auto"
                             />
                           </button>
                         );

@@ -80,7 +80,7 @@ export default function SelectedFilmstrip() {
         />
 
         <div className="group/marquee overflow-x-auto no-scrollbar sm:overflow-hidden">
-          <div className="flex w-max gap-4 sm:gap-5 px-4 sm:px-0 animate-[gallery-drift_68s_linear_infinite] group-hover/marquee:[animation-play-state:paused] motion-reduce:animate-none">
+          <div className="flex w-max items-stretch gap-4 sm:gap-5 px-4 sm:px-0 animate-[gallery-drift_68s_linear_infinite] group-hover/marquee:[animation-play-state:paused] motion-reduce:animate-none">
             {loopFrames.map((rawPhoto, idx) => {
               const photo = getLocalizedPhoto(rawPhoto, lang);
               const cat = CATEGORY_METADATA[rawPhoto.category];
@@ -93,27 +93,28 @@ export default function SelectedFilmstrip() {
                   href={`/portfolio/${rawPhoto.slug}`}
                   tabIndex={isClone ? -1 : undefined}
                   aria-hidden={isClone || undefined}
-                  className="group relative block w-[240px] sm:w-[300px] shrink-0 overflow-hidden border border-white/[0.08] bg-[#151618] transition-all duration-500 hover:border-[#C5A880]/55"
+                  className="group relative flex flex-col shrink-0 overflow-hidden border border-white/[0.08] bg-[#151618] transition-all duration-500 hover:border-[#C5A880]/55"
                 >
-                  <div className="relative aspect-[3/2] w-full overflow-hidden">
+                  <div className="relative overflow-hidden bg-[#0B0C0E]">
                     <Image
                       src={rawPhoto.image}
                       alt={isClone ? "" : `${photo.title} — ${catLabel}`}
-                      fill
+                      width={rawPhoto.width}
+                      height={rawPhoto.height}
                       loading="eager"
-                      sizes="(max-width: 640px) 240px, 300px"
+                      sizes="(max-width: 640px) 340px, 420px"
                       quality={75}
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                      className="block h-[210px] sm:h-[260px] w-auto transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0B0C0E]/90 via-transparent to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-95" />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0B0C0E]/80 via-transparent to-transparent opacity-70 transition-opacity duration-500 group-hover:opacity-90" />
                   </div>
 
-                  <div className="flex items-center justify-between gap-3 px-4 py-3 border-t border-white/[0.06]">
+                  <div className="flex w-0 min-w-full items-center justify-between gap-2 px-3 py-2.5 border-t border-white/[0.06]">
                     <div className="min-w-0">
-                      <p className="truncate font-serif text-base font-light text-[#F7F4EE] group-hover:text-white transition-colors">
+                      <p className="truncate font-serif text-[13.5px] sm:text-[14.5px] font-light text-[#F7F4EE] group-hover:text-white transition-colors">
                         {photo.title}
                       </p>
-                      <p className="truncate font-mono text-[10px] uppercase tracking-[0.18em] text-[#C5A880]/90">
+                      <p className="truncate font-mono text-[9px] uppercase tracking-[0.15em] text-[#C5A880]/90">
                         {catLabel}
                       </p>
                     </div>

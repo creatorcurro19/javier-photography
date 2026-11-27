@@ -218,8 +218,20 @@ export default function CheckoutModal({
               return (
               <div key={item.id} className="flex items-center justify-between text-xs font-light">
                 <div className="flex items-center gap-3 truncate pr-4">
-                  <div className="relative h-9 w-9 shrink-0 overflow-hidden bg-black/40 border border-white/10">
-                    <Image src={item.image} alt={displayTitle} fill sizes="64px" quality={75} className="object-cover" />
+                  <div className="relative h-10 shrink-0 overflow-hidden bg-black/40 border border-white/10">
+                    <Image
+                      src={item.image}
+                      alt={displayTitle}
+                      width={item.width ?? 72}
+                      height={item.height ?? 72}
+                      sizes="72px"
+                      quality={75}
+                      className={
+                        item.width && item.height
+                          ? "block h-full w-auto"
+                          : "block h-full w-auto max-w-[52px] object-contain"
+                      }
+                    />
                   </div>
                   <div className="truncate">
                     <p className="text-[#EBE7DF] font-serif truncate">{displayTitle}</p>

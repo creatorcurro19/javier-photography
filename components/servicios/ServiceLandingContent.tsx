@@ -78,7 +78,7 @@ export default function ServiceLandingContent({
           </div>
 
           <div className="lg:col-span-5">
-            <div className="relative aspect-[4/3] overflow-hidden border border-white/[0.1] bg-[#151618]">
+            <div className="relative aspect-[3/2] overflow-hidden border border-white/[0.1] bg-[#151618]">
               <Image
                 src={landing.heroImage}
                 alt={landing.title}
@@ -168,23 +168,24 @@ export default function ServiceLandingContent({
               </Link>
             </div>
 
-            <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-8 columns-1 gap-6 sm:columns-2 lg:columns-3">
               {samplePhotos.map((raw) => {
                 const photo = getLocalizedPhoto(raw, lang);
                 return (
                   <Link
                     key={photo.id}
                     href={`/portfolio/${photo.slug}`}
-                    className="group overflow-hidden border border-white/[0.08] bg-[#151618] transition hover:border-[#C5A880]/60"
+                    className="group mb-6 block break-inside-avoid overflow-hidden border border-white/[0.08] bg-[#151618] transition hover:border-[#C5A880]/60"
                   >
-                    <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#0B0C0E]">
+                    <div className="relative w-full overflow-hidden bg-[#0B0C0E]">
                       <Image
                         src={photo.image}
                         alt={photo.alt}
-                        fill
+                        width={raw.width}
+                        height={raw.height}
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         quality={85}
-                        className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                        className="block h-auto w-full transition duration-500 group-hover:scale-[1.03]"
                       />
                     </div>
                     <div className="px-4 py-3.5">

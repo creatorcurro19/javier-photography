@@ -174,7 +174,7 @@ export default function DossierPageContent({
             <h2 className="font-mono text-[10px] uppercase tracking-[0.35em] text-[#C5A880] print:text-neutral-700">
               {t("03 · Selección de Obra Representativa", "03 · Representative Work Selection")}
             </h2>
-            <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3">
+            <div className="mt-5 columns-2 gap-4 sm:columns-3">
               {plates.map((raw) => {
                 const photo = getLocalizedPhoto(raw, lang);
                 const catMeta = CATEGORY_METADATA[photo.category];
@@ -186,16 +186,17 @@ export default function DossierPageContent({
                 return (
                   <figure
                     key={photo.id}
-                    className="overflow-hidden border border-white/[0.08] bg-[#0B0C0E] print:border-neutral-300 print:bg-white"
+                    className="mb-4 break-inside-avoid overflow-hidden border border-white/[0.08] bg-[#0B0C0E] print:border-neutral-300 print:bg-white"
                   >
-                    <div className="relative aspect-[4/3] w-full overflow-hidden">
+                    <div className="relative w-full overflow-hidden">
                       <Image
                         src={photo.image}
                         alt={photo.alt}
-                        fill
+                        width={raw.width}
+                        height={raw.height}
                         sizes="(max-width: 640px) 50vw, 33vw"
                         quality={85}
-                        className="object-cover"
+                        className="block h-auto w-full"
                       />
                     </div>
                     <figcaption className="p-3">

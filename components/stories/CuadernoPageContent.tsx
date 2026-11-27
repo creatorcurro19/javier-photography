@@ -85,15 +85,16 @@ export default function CuadernoPageContent({
                     {relatedWork && (
                       <Link
                         href={`/cuaderno/${post.slug}`}
-                        className="relative block aspect-[16/10] w-full overflow-hidden bg-[#0B0C0E]"
+                        className="relative block w-full overflow-hidden bg-[#0B0C0E]"
                       >
                         <Image
                           src={relatedWork.image}
                           alt={relatedWork.alt}
-                          fill
+                          width={rawPost.relatedWork?.width ?? 1600}
+                          height={rawPost.relatedWork?.height ?? 1067}
                           sizes="(max-width: 1024px) 100vw, 33vw"
                           quality={85}
-                          className="object-cover"
+                          className="block h-auto w-full"
                         />
                         <span className="absolute top-3 left-3 border border-[#C5A880]/40 bg-[#0B0C0E]/90 px-2.5 py-1 font-mono text-[9px] uppercase tracking-widest text-[#C5A880]">
                           {t("Borrador", "Draft")} {post.number} · {post.categoryLabel}

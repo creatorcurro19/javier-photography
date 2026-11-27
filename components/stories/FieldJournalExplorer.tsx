@@ -202,14 +202,14 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
         </div>
       ) : (
         /* View Mode 2: Compact Contact Sheet / Light Table */
-        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 columns-1 gap-6 sm:columns-2 lg:columns-3">
           {filtered.map((rawPhoto, index) => {
             const photo = getLocalizedPhoto(rawPhoto, lang);
             return (
             <Link
               key={photo.id}
               href={`/portfolio/${photo.slug}`}
-              className="group flex flex-col justify-between border border-[#202226] bg-[#151618]/40 p-5 transition hover:border-[#8E8A80]/70 hover:bg-[#202226]/50"
+              className="group mb-6 flex break-inside-avoid flex-col justify-between border border-[#202226] bg-[#151618]/40 p-5 transition hover:border-[#8E8A80]/70 hover:bg-[#202226]/50"
             >
               <div>
                 <div className="mb-3 flex items-center justify-between font-mono text-[10px] text-[#8E8A80]">
@@ -219,17 +219,16 @@ export default function FieldJournalExplorer({ stories }: { stories: Photo[] }) 
                   </span>
                 </div>
 
-                <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden bg-[#0B0C0E] p-2">
-                  <div className="relative h-full w-full">
-                    <Image
-                      src={photo.image}
-                      alt={photo.alt}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      quality={85}
-                      className="object-contain transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
+                <div className="relative w-full overflow-hidden bg-[#0B0C0E]">
+                  <Image
+                    src={photo.image}
+                    alt={photo.alt}
+                    width={rawPhoto.width}
+                    height={rawPhoto.height}
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    quality={85}
+                    className="block h-auto w-full transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
                 </div>
 
                 <h3 className="mt-4 font-serif text-xl text-[#EBE7DF] group-hover:text-white">

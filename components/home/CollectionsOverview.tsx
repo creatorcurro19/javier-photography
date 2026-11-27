@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "@/components/ui/LocalizedLink";
 import ChillReveal from "@/components/ui/ChillReveal";
 import Container from "@/components/ui/Container";
-import { PHOTO_CATEGORIES, CATEGORY_METADATA } from "@/types/photo";
+import { PHOTO_CATEGORIES, CATEGORY_METADATA, type Photo } from "@/types/photo";
 import { getAllPhotos, getPhotosByCategory } from "@/lib/photos";
 import { useLanguage } from "@/lib/i18n";
 
@@ -23,7 +23,7 @@ const WINGS_CONFIG: CuratedWing[] = [
     category: "paisajes-documental",
     roomRoman: "Colección 01",
     roomRomanEn: "Collection 01",
-    aspectClass: "aspect-[16/9]",
+    aspectClass: "aspect-[16/10]",
     colSpanClass: "lg:col-span-6",
     subtitle: "Territorio & Silencio Mineral",
     subtitleEn: "Territory & Mineral Silence",
@@ -32,7 +32,7 @@ const WINGS_CONFIG: CuratedWing[] = [
     category: "fauna-naturaleza",
     roomRoman: "Colección 02",
     roomRomanEn: "Collection 02",
-    aspectClass: "aspect-[16/9]",
+    aspectClass: "aspect-[16/10]",
     colSpanClass: "lg:col-span-6",
     subtitle: "Observación & Fauna",
     subtitleEn: "Observation & Wildlife",
@@ -41,7 +41,7 @@ const WINGS_CONFIG: CuratedWing[] = [
     category: "coches-rally",
     roomRoman: "Colección 03",
     roomRomanEn: "Collection 03",
-    aspectClass: "aspect-[16/10]",
+    aspectClass: "aspect-[3/2]",
     colSpanClass: "lg:col-span-4",
     subtitle: "Geometría de la Velocidad",
     subtitleEn: "Geometry of Speed",
@@ -50,7 +50,7 @@ const WINGS_CONFIG: CuratedWing[] = [
     category: "arquitectura-urbana",
     roomRoman: "Colección 04",
     roomRomanEn: "Collection 04",
-    aspectClass: "aspect-[16/10]",
+    aspectClass: "aspect-[3/2]",
     colSpanClass: "lg:col-span-4",
     subtitle: "Entramados & Patrimonio",
     subtitleEn: "Timberwork & Heritage",
@@ -59,7 +59,7 @@ const WINGS_CONFIG: CuratedWing[] = [
     category: "viajes-cultura",
     roomRoman: "Colección 05",
     roomRomanEn: "Collection 05",
-    aspectClass: "aspect-[16/10]",
+    aspectClass: "aspect-[3/2]",
     colSpanClass: "lg:col-span-4",
     subtitle: "Crónica & Oficios Tradicionales",
     subtitleEn: "Chronicle & Traditional Crafts",
@@ -73,6 +73,19 @@ const HERO_SLUGS = new Set([
   "cuervo-canario-ante-las-cumbres",
   "el-oficio-y-la-chispa",
 ]);
+
+function pickWingCover(catPhotos: Photo[]): Photo | undefined {
+  const customCover = catPhotos.find((p) => p.categoryCover);
+  if (customCover) return customCover;
+
+  const horizontal = catPhotos.filter((p) => p.width >= p.height);
+  return (
+    horizontal.find((p) => p.featured && !p.heroOrder && !HERO_SLUGS.has(p.slug)) ??
+    horizontal.find((p) => !p.heroOrder && !HERO_SLUGS.has(p.slug)) ??
+    horizontal[0] ??
+    catPhotos[0]
+  );
+}
 
 export default function CollectionsOverview() {
   const { lang, t } = useLanguage();
@@ -113,15 +126,10 @@ export default function CollectionsOverview() {
             const info = CATEGORY_METADATA[wing.category];
             const catPhotos = getPhotosByCategory(wing.category);
             const count = catPhotos.length;
-            const customCoverPhoto = catPhotos.find((p) => p.categoryCover);
-            const nonHeroCover =
-              catPhotos.find((p) => p.featured && !p.heroOrder && !HERO_SLUGS.has(p.slug)) ??
-              catPhotos.find((p) => !p.heroOrder && !HERO_SLUGS.has(p.slug));
-            const validCover = customCoverPhoto
-              ? customCoverPhoto.image
-              : nonHeroCover
-              ? nonHeroCover.image
-              : catPhotos[0]?.image ?? info.coverImage;
+            const pickedCover = pickWingCover(catPhotos);
+            const validCover = pickedCover?.image ?? info.coverImage;
+            const isPortraitCover = pickedCover ? pickedCover.height > pickedCover.width : false;
+            const frameAspectClass = isPortraitCover ? "aspect-[3/4]" : wing.aspectClass;
             const title = lang === "en" ? info.titleEn : info.title;
             const subtitle = lang === "en" ? wing.subtitleEn : wing.subtitle;
             const roomLabel = lang === "en" ? wing.roomRomanEn : wing.roomRoman;
@@ -137,7 +145,7 @@ export default function CollectionsOverview() {
                   className="group relative block overflow-hidden border border-[#C5A880]/18 bg-[#151618] transition-all duration-500 hover:border-[#C5A880]/60 hover:shadow-[0_14px_40px_-20px_rgba(197,168,128,0.28)]"
                   aria-label={t(`${roomLabel}: ${title} (${count} obras)`, `${roomLabel}: ${title} (${count} works)`)}
                 >
-                <div className={`relative w-full overflow-hidden ${wing.aspectClass}`}>
+                <div className={`relative w-full overflow-hidden ${frameAspectClass}`}>
                   <Image
                     src={validCover}
                     alt={`${title} — ${subtitle}`}

@@ -121,14 +121,15 @@ export default function AboutInteractiveStudio() {
               }}
               className="relative transition-transform duration-200 ease-out"
             >
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg border border-white/[0.08] bg-[#151618] shadow-2xl">
+              <div className="relative w-full overflow-hidden rounded-lg border border-white/[0.08] bg-[#151618] shadow-2xl">
                 <Image
                   src={PORTRAIT_IMAGE}
                   alt={t("Javier Espinosa — Fotógrafo en Tenerife", "Javier Espinosa — Photographer in Tenerife")}
-                  fill
+                  width={1467}
+                  height={2200}
                   priority
                   sizes="(max-width: 1024px) 100vw, 42vw"
-                  className="object-cover transition-all duration-700"
+                  className="block h-auto w-full transition-all duration-700"
                 />
               </div>
             </div>

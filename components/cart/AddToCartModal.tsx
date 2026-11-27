@@ -51,6 +51,8 @@ export default function AddToCartModal({
       slug: rawPhoto.slug,
       title: rawPhoto.title,
       image: rawPhoto.image,
+      width: rawPhoto.width,
+      height: rawPhoto.height,
       category: rawPhoto.category,
       format: canonicalFormat,
       framed: false,
@@ -70,6 +72,8 @@ export default function AddToCartModal({
       slug: rawPhoto.slug,
       title: rawPhoto.title,
       image: rawPhoto.image,
+      width: rawPhoto.width,
+      height: rawPhoto.height,
       category: rawPhoto.category,
       format: canonicalFormat,
       framed: false,
@@ -98,15 +102,16 @@ export default function AddToCartModal({
         </button>
 
         {/* Header Preview */}
-        <div className="flex gap-4 border-b border-white/[0.08] pb-5">
-          <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-[#151618] border border-white/10 shadow-md">
+        <div className="flex items-start gap-4 border-b border-white/[0.08] pb-5">
+          <div className="relative h-20 shrink-0 overflow-hidden rounded-lg bg-[#151618] border border-white/10 shadow-md">
             <Image
               src={photo.image}
               alt={photo.alt}
-              fill
-              sizes="80px"
+              width={rawPhoto.width}
+              height={rawPhoto.height}
+              sizes="120px"
               quality={75}
-              className="object-cover"
+              className="block h-full w-auto"
             />
           </div>
           <div className="min-w-0 flex-1">

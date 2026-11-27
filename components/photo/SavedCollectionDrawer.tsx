@@ -82,13 +82,14 @@ export default function SavedCollectionDrawer() {
                       onClick={() => setOpen(false)}
                       className="flex min-w-0 items-center gap-3"
                     >
-                      <div className="relative h-10 w-14 shrink-0 overflow-hidden bg-[#202226]">
+                      <div className="relative h-11 shrink-0 overflow-hidden bg-[#202226]">
                         <Image
                           src={photo.image}
                           alt={photo.alt}
-                          fill
-                          sizes="56px"
-                          className="object-cover"
+                          width={rawPhoto.width}
+                          height={rawPhoto.height}
+                          sizes="72px"
+                          className="block h-full w-auto"
                         />
                       </div>
                       <div className="min-w-0">
@@ -226,15 +227,16 @@ export default function SavedCollectionDrawer() {
                       </select>
                     </div>
 
-                    {/* Museum Passepartout Frame */}
-                    <div className="flex h-72 items-center justify-center border border-[#2A2622] bg-[#EAE6DF] p-5 shadow-inner">
-                      <div className="relative h-full w-full">
+                    {/* Museum Passepartout Frame shaped to work orientation */}
+                    <div className="flex h-72 items-center justify-center">
+                      <div className="inline-flex border border-[#2A2622] bg-[#EAE6DF] p-4 shadow-inner">
                         <Image
                           src={photo.image}
                           alt={photo.alt}
-                          fill
+                          width={photo.width}
+                          height={photo.height}
                           sizes="480px"
-                          className="object-contain"
+                          className="block max-h-60 w-auto max-w-full"
                         />
                       </div>
                     </div>

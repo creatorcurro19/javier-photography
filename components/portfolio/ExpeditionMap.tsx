@@ -204,7 +204,14 @@ export default function ExpeditionMap() {
     const project = getProjectBySlug(rawCurrent.projectSlug);
     const projectPhotos = project ? getProjectPhotos(project) : [];
     const seen = new Set<string>();
-    const list: { title: string; slug: string; href: string; image: string }[] = [];
+    const list: {
+      title: string;
+      slug: string;
+      href: string;
+      image: string;
+      width: number;
+      height: number;
+    }[] = [];
 
     for (const s of rawCurrent.samples) {
       const work = getPhotoBySlug(s.slug);
@@ -216,6 +223,8 @@ export default function ExpeditionMap() {
           slug: lw.slug,
           href: `/portfolio/${lw.slug}`,
           image: lw.image,
+          width: work.width,
+          height: work.height,
         });
       }
     }
@@ -230,6 +239,8 @@ export default function ExpeditionMap() {
           slug: lw.slug,
           href: `/portfolio/${lw.slug}`,
           image: lw.image,
+          width: work.width,
+          height: work.height,
         });
       }
     }
@@ -406,20 +417,25 @@ export default function ExpeditionMap() {
             </p>
           </div>
 
-          <div className="grid grid-cols-3 gap-3 sm:gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-end gap-3 sm:gap-4">
             {current.samples.map((s) => (
               <Link
                 key={s.image}
                 href={s.href}
-                className="group relative aspect-[3/2] overflow-hidden border border-white/[0.08] bg-[#0B0C0E]"
+                style={{
+                  flexGrow: Number((s.width / s.height).toFixed(3)),
+                  aspectRatio: `${s.width} / ${s.height}`,
+                }}
+                className="group relative w-full sm:w-0 sm:shrink overflow-hidden border border-white/[0.08] bg-[#0B0C0E]"
               >
                 <Image
                   src={s.image}
                   alt={s.title}
-                  fill
-                  sizes="220px"
+                  width={s.width}
+                  height={s.height}
+                  sizes="(max-width: 640px) 100vw, 240px"
                   quality={85}
-                  className="object-cover transition duration-500 group-hover:scale-105"
+                  className="block h-full w-full object-cover transition duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E]/90 via-transparent to-transparent" />
                 <span className="absolute bottom-2 left-2 right-2 truncate font-serif text-xs text-[#EBE7DF]">

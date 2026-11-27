@@ -210,6 +210,8 @@ export interface CartItem {
   slug: string;
   title: string;
   image: string;
+  width?: number;
+  height?: number;
   category: string;
   format: PrintFormat;
   framed: boolean;

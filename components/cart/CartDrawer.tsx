@@ -191,14 +191,19 @@ export default function CartDrawer() {
                   <Link
                     href={`/portfolio/${item.slug}`}
                     onClick={() => setIsOpen(false)}
-                    className="relative h-20 w-20 shrink-0 overflow-hidden bg-[#0B0C0E] border border-white/10"
+                    className="relative h-20 shrink-0 overflow-hidden bg-[#0B0C0E] border border-white/10"
                   >
                     <Image
                       src={item.image}
                       alt={displayTitle}
-                      fill
-                      sizes="80px"
-                      className="object-cover"
+                      width={item.width ?? 120}
+                      height={item.height ?? 120}
+                      sizes="120px"
+                      className={
+                        item.width && item.height
+                          ? "block h-full w-auto"
+                          : "block h-full w-auto max-w-[96px] object-contain"
+                      }
                     />
                   </Link>
 

@@ -474,7 +474,7 @@ export default function LightboxModal({
                   onNavigate(idx);
                 }}
                 aria-label={t(`Ir a ${item.title}`, `Go to ${item.title}`)}
-                className={`relative h-14 w-20 shrink-0 overflow-hidden transition ${
+                className={`relative h-14 shrink-0 overflow-hidden transition ${
                   idx === currentIndex
                     ? "ring-2 ring-[#EBE7DF] opacity-100 scale-105"
                     : "opacity-45 hover:opacity-85"
@@ -483,9 +483,10 @@ export default function LightboxModal({
                 <Image
                   src={item.image}
                   alt={item.alt}
-                  fill
-                  sizes="80px"
-                  className="object-cover"
+                  width={rawItem.width}
+                  height={rawItem.height}
+                  sizes="100px"
+                  className="block h-full w-auto pointer-events-none"
                 />
               </button>
             );

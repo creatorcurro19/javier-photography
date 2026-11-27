@@ -276,14 +276,14 @@ export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
       <AndalusianCenefa variant="estrella" className="my-8 text-[#C5A880]/36" />
 
       {/* Cuadrícula de selección del cliente */}
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="columns-1 gap-6 sm:columns-2 lg:columns-3">
         {galleryPhotos.map((rawPhoto, idx) => {
           const photo = getLocalizedPhoto(rawPhoto, lang);
           const isFav = favorites.includes(photo.id);
           return (
             <div
               key={photo.id}
-              className={`group overflow-hidden border bg-[#151618] transition ${
+              className={`group mb-6 break-inside-avoid overflow-hidden border bg-[#151618] transition ${
                 isFav
                   ? "border-[#C5A880] shadow-[0_0_30px_rgba(197,168,128,0.18)]"
                   : "border-white/[0.08] hover:border-white/30"
@@ -303,14 +303,15 @@ export default function ClientPortal({ initialCode = "" }: ClientPortalProps) {
                     setLightboxOpen(true);
                   }
                 }}
-                className="relative aspect-[4/3] w-full cursor-pointer overflow-hidden bg-[#0B0C0E]"
+                className="relative w-full cursor-pointer overflow-hidden bg-[#0B0C0E]"
               >
                 <Image
                   src={photo.image}
                   alt={photo.alt}
-                  fill
+                  width={rawPhoto.width}
+                  height={rawPhoto.height}
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                  className="block h-auto w-full transition duration-500 group-hover:scale-[1.03]"
                 />
                 {isFav && (
                   <span className="absolute top-3 right-3 border border-[#C5A880] bg-[#0B0C0E]/90 px-2.5 py-1 font-mono text-[9px] uppercase tracking-widest text-[#C5A880]">

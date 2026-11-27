@@ -210,6 +210,9 @@ export default function Hero() {
 
   const currentSlide = HERO_SLIDES[activeSlide];
   const currentMeta = resolveSlideMeta(currentSlide);
+  const isCurrentPortrait = currentSlide.work
+    ? currentSlide.work.height > currentSlide.work.width
+    : false;
 
   return (
     <section
@@ -221,9 +224,11 @@ export default function Hero() {
         "Fine Art Photography Archive — Javier Espinosa"
       )}
     >
-      {/* Escenario fotográfico: en móvil con controles integrados directamente sobre la foto; en escritorio a pantalla completa */}
+      {/* Escenario fotográfico: en móvil respeta la orientación de la foto; en escritorio a pantalla completa */}
       <div
-        className="relative mt-[64px] h-[62svh] min-h-[360px] w-full overflow-hidden md:mt-0 md:absolute md:inset-0 md:h-full"
+        className={`relative mt-[64px] w-full overflow-hidden md:mt-0 md:aspect-auto md:absolute md:inset-0 md:h-full ${
+          isCurrentPortrait ? "aspect-[3/4]" : "aspect-[4/3] sm:aspect-[3/2]"
+        }`}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
