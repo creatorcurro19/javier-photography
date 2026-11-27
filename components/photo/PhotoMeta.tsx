@@ -27,6 +27,22 @@ export default function PhotoMeta({ photo }: PhotoMetaProps) {
               <span className="text-[#A39E93]">{photo.location}</span>
             </>
           )}
+          {photo.category === "fauna-naturaleza" && photo.condiciones && (
+            <>
+              <span className="text-white/25">·</span>
+              <span className="text-[#C5A880]/90">
+                Condiciones: {photo.condiciones}
+              </span>
+            </>
+          )}
+          {(photo.evento || photo.lugar) && (
+            <>
+              <span className="text-white/25">·</span>
+              <span className="text-[#A39E93]">
+                {[photo.evento, photo.lugar].filter(Boolean).join(" · ")}
+              </span>
+            </>
+          )}
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5">

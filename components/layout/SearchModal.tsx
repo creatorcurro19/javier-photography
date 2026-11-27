@@ -11,7 +11,7 @@ import { useLanguage } from "@/lib/i18n";
 
 const COLLECTIONS: { id: PhotoCategory; label: string; subtitle: string }[] = [
   { id: "paisajes-documental", label: "Paisajes", subtitle: "Territorio y naturaleza" },
-  { id: "fauna-naturaleza", label: "Fauna & Naturaleza", subtitle: "Vida salvaje en libertad" },
+  { id: "fauna-naturaleza", label: "Fauna & Naturaleza", subtitle: "Lugar y condiciones en cada ficha" },
   { id: "coches-rally", label: "Coches & Rally", subtitle: "Automovilismo clásico" },
   { id: "arquitectura-urbana", label: "Arquitectura", subtitle: "Patrimonio y geometría" },
   { id: "viajes-cultura", label: "Documental", subtitle: "Oficios y cultura" },

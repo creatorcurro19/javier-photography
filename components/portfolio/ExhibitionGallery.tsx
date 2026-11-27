@@ -111,7 +111,10 @@ export default function ExhibitionGallery({
                     href={`/portfolio/${photo.slug}`}
                     className="mt-0.5 block font-mono text-[10px] uppercase tracking-[0.2em] text-[#8E8A80] hover:text-[#EBE7DF] transition-colors"
                   >
-                    {photo.location ? `${photo.location.split(",")[0]} · ` : ""}{photo.focalLength} · Ficha →
+                    {photo.location ? `${photo.location.split(",")[0]} · ` : ""}
+                    {photo.focalLength}
+                    {photo.category === "fauna-naturaleza" && photo.condiciones ? ` · ${photo.condiciones}` : ""}
+                    {" · "}Ficha →
                   </Link>
                 </div>
 

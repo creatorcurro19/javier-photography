@@ -334,8 +334,8 @@ export const SERVICE_LANDINGS: ServiceLanding[] = [
     ],
     faqs: [
       {
-        q: "¿Las fotografías de fauna están tomadas en libertad y sin IA?",
-        a: "Sí. El archivo garantiza autenticidad documental absoluta: todas las capturas cuentan con metadatos EXIF verificables y revelado respetuoso con la luz natural original.",
+        q: "¿En qué condiciones están tomadas las fotografías de fauna y llevan IA?",
+        a: "Sin alteraciones ni elementos generados por IA: todas las imágenes cuentan con metadatos EXIF verificables y revelado respetuoso con la luz natural original. Lugar y condiciones se indican en cada ficha.",
       },
       {
         q: "¿Cómo puedo solicitar una licencia urgente para una revista o libro?",

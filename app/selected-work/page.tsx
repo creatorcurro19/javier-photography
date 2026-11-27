@@ -53,7 +53,7 @@ export default function SelectedWorkPage() {
             {featuredPhotos.length} Fotografías del Archivo
           </p>
           <p className="mt-6 text-base sm:text-lg leading-relaxed text-[#8E8A80] font-light">
-            {featuredPhotos.length} fotografías elegidas entre distintas series y lugares. Hay fauna, montaña, asfalto, callejones en penumbra y talleres donde todavía se trabaja a mano. No responden a un único tema, pero sí a una misma costumbre: detenerse, esperar a que la luz acompañe y disparar sin alterar lo que ocurre delante.
+            {featuredPhotos.length} fotografías elegidas entre distintas series y lugares. Hay fauna, montaña, asfalto, callejones en penumbra y talleres donde todavía se trabaja a mano. No responden a un único tema, pero sí a una misma costumbre: detenerse, esperar a que la luz acompañe y observar con calma lo que ocurre delante.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4 text-xs font-mono uppercase tracking-[0.25em]">

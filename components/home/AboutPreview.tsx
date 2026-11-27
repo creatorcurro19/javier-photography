@@ -56,7 +56,7 @@ export default function AboutPreview() {
             </blockquote>
 
             <p className="mt-6 text-sm sm:text-base font-light leading-relaxed text-[#A39E93]">
-              Trabajo desde Tenerife (Islas Canarias) en cinco ámbitos que comparten una misma forma de mirar: fauna y naturaleza a 600mm, paisaje volcánico y desértico, automovilismo clásico y rally, arquitectura con huella del tiempo y fotografía documental de oficios. Siempre con luz natural disponible y sin alterar la escena.
+              Trabajo desde Tenerife (Islas Canarias) en cinco ámbitos que comparten una misma forma de mirar: fauna y naturaleza a 600mm, paisaje volcánico y desértico, automovilismo clásico y rally, arquitectura con huella del tiempo y fotografía documental de oficios. Lugar y condiciones se indican en cada ficha, siempre con luz natural disponible.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">

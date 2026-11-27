@@ -279,7 +279,8 @@ export const WORKS: Photo[] = [
     "realLocation": "Tenerife, Islas Canarias (medianías y zonas arboladas)",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Captura nocturna o en penumbra a ISO 6400: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm."
+    "maxFormatReason": "Captura nocturna o en penumbra a ISO 6400: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm.",
+    "condiciones": "sin indicar"
   },
   {
     "id": "fn-02",
@@ -333,7 +334,8 @@ export const WORKS: Photo[] = [
     "realLocation": "Tenerife, Islas Canarias (costas y zonas arboladas)",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1600) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1600) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "condiciones": "sin indicar"
   },
   {
     "id": "fn-03",
@@ -386,7 +388,8 @@ export const WORKS: Photo[] = [
     "realLocation": "Humedal acuático en medio natural",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Sensor de origen Canon EOS 750D (24,2 MP): formato máximo recomendado Galería (50 × 70 cm) para garantizar densidad óptica ≥ 240 ppp. Formato 70 × 100 cm no disponible para esta obra."
+    "maxFormatReason": "Sensor de origen Canon EOS 750D (24,2 MP): formato máximo recomendado Galería (50 × 70 cm) para garantizar densidad óptica ≥ 240 ppp. Formato 70 × 100 cm no disponible para esta obra.",
+    "condiciones": "sin indicar"
   },
   {
     "id": "fn-04",
@@ -418,7 +421,7 @@ export const WORKS: Photo[] = [
       "wildlife fine art",
       "lynx portrait"
     ],
-    "story": "El pelaje moteado parecía parte de la propia piedra cubierta de musgo hasta que su mirada se cruzó, firme y serena, con la mía.",
+    "story": "Fotografiado en un santuario de fauna en Austria, entre rocas cubiertas de musgo y luz tenue de bosque.",
     "location": "Santuario de Fauna Salvaje, Austria",
     "country": "Austria",
     "pricing": {
@@ -440,7 +443,8 @@ export const WORKS: Photo[] = [
     "wildlifeCondition": "centro",
     "maxRecommendedFormat": "coleccion",
     "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 105 cm).",
-    "heroOrder": 3
+    "heroOrder": 3,
+    "condiciones": "santuario"
   },
   {
     "id": "fn-05",
@@ -491,7 +495,8 @@ export const WORKS: Photo[] = [
     "realLocation": "Parque Nacional de Monfragüe, Cáceres (Salto del Gitano)",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 500) apto para ampliación hasta Gran Colección (70 × 88 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 500) apto para ampliación hasta Gran Colección (70 × 88 cm).",
+    "condiciones": "sin indicar"
   },
   {
     "id": "fn-06",
@@ -544,7 +549,8 @@ export const WORKS: Photo[] = [
     "realLocation": "Sierra de Gredos, Ávila / Cáceres",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 2000) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "condiciones": "sin indicar"
   },
   {
     "id": "fn-07",
@@ -592,7 +598,8 @@ export const WORKS: Photo[] = [
     "realLocation": "Sierra de Gredos, Ávila / Cáceres",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1000) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1000) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "condiciones": "sin indicar"
   },
   {
     "id": "fn-08",
@@ -624,7 +631,7 @@ export const WORKS: Photo[] = [
       "wolf photography",
       "fine art wildlife"
     ],
-    "story": "Entre los troncos oscuros apareció sin un solo rumor sobre las hojas secas, clavando la mirada al frente antes de volver a perderse en la espesura.",
+    "story": "Observado a distancia con el 600mm en un santuario alpino de Austria sobre un sendero cubierto de hojas.",
     "location": "Santuario de Fauna Salvaje, Austria",
     "country": "Austria",
     "pricing": {
@@ -645,7 +652,8 @@ export const WORKS: Photo[] = [
     "realLocation": "Santuario de fauna salvaje, Austria",
     "wildlifeCondition": "centro",
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Captura nocturna o en penumbra a ISO 6400: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm."
+    "maxFormatReason": "Captura nocturna o en penumbra a ISO 6400: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm.",
+    "condiciones": "santuario"
   },
   {
     "id": "pd-01",
@@ -893,7 +901,8 @@ export const WORKS: Photo[] = [
     "realLocation": "Puerto de la Cruz / Norte de Tenerife, Islas Canarias",
     "wildlifeCondition": "parque",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 200) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 200) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "condiciones": "sin indicar"
   },
   {
     "id": "pd-06",
@@ -2360,7 +2369,8 @@ export const WORKS: Photo[] = [
     "realLocation": "Estanque y humedal natural, Península Ibérica",
     "wildlifeCondition": "parque",
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Sensor de origen Canon EOS 750D (24 MP): formato máximo recomendado Galería (50 × 70 cm) para garantizar densidad óptica ≥ 240 ppp. Formato 70 × 100 cm deshabilitado."
+    "maxFormatReason": "Sensor de origen Canon EOS 750D (24 MP): formato máximo recomendado Galería (50 × 70 cm) para garantizar densidad óptica ≥ 240 ppp. Formato 70 × 100 cm deshabilitado.",
+    "condiciones": "sin indicar"
   },
   {
     "id": "vc-07",
@@ -2410,7 +2420,8 @@ export const WORKS: Photo[] = [
     "realLocation": "Bosque caducifolio, Península Ibérica",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (60 × 105 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (60 × 105 cm).",
+    "condiciones": "sin indicar"
   },
   {
     "id": "vc-08",
@@ -2459,7 +2470,8 @@ export const WORKS: Photo[] = [
     "realLocation": "Selva Negra (Schwarzwald), Alemania",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1250) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1250) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "condiciones": "sin indicar"
   },
   {
     "id": "vc-09",
@@ -2556,7 +2568,8 @@ export const WORKS: Photo[] = [
     "realLocation": "Garganta de la Sierra de Gredos, Cáceres / Ávila",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Captura nocturna o en penumbra a ISO 6400: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm."
+    "maxFormatReason": "Captura nocturna o en penumbra a ISO 6400: formato máximo recomendado Galería (50 × 70 cm) para preservar la textura orgánica del grano sin sobredimensionarlo en 70 × 100 cm.",
+    "condiciones": "sin indicar"
   },
   {
     "id": "vc-11",
@@ -2655,7 +2668,8 @@ export const WORKS: Photo[] = [
     "realLocation": "Dehesa de Extremadura",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 320) apto para ampliación hasta Gran Colección (60 × 105 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 320) apto para ampliación hasta Gran Colección (60 × 105 cm).",
+    "condiciones": "sin indicar"
   },
   {
     "id": "vc-13",
@@ -2706,7 +2720,8 @@ export const WORKS: Photo[] = [
     "realLocation": "Dehesa de Extremadura",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 250) apto para ampliación hasta Gran Colección (60 × 105 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 250) apto para ampliación hasta Gran Colección (60 × 105 cm).",
+    "condiciones": "sin indicar"
   },
   {
     "id": "vc-14",
@@ -2901,7 +2916,8 @@ export const WORKS: Photo[] = [
     "realLocation": "Sierra de Gredos / La Vera, Cáceres",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "condiciones": "sin indicar"
   },
   {
     "id": "vc-18",
@@ -4519,7 +4535,7 @@ export const WORKS: Photo[] = [
       "600mm",
       "selva negra",
       "alemania",
-      "aves en libertad",
+      "aves bajo la lluvia",
       "wildlife in rain",
       "black forest wildlife"
     ],
@@ -4541,7 +4557,8 @@ export const WORKS: Photo[] = [
     "realLocation": "Selva Negra (Schwarzwald), Alemania",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP con reducción de ruido AI (ISO 2000) apto para ampliación hasta Gran Colección (70 × 105 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP con reducción de ruido AI (ISO 2000) apto para ampliación hasta Gran Colección (70 × 105 cm).",
+    "condiciones": "sin indicar"
   },
   {
     "id": "fn-15",
@@ -4593,7 +4610,8 @@ export const WORKS: Photo[] = [
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
     "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (60 × 105 cm).",
-    "heroOrder": 4
+    "heroOrder": 4,
+    "condiciones": "sin indicar"
   },
   {
     "id": "fn-16",
@@ -4643,7 +4661,8 @@ export const WORKS: Photo[] = [
     "realLocation": "Parque Rural de Anaga, Tenerife",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 160) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "condiciones": "sin indicar"
   },
   {
     "id": "fn-17",
@@ -4693,7 +4712,8 @@ export const WORKS: Photo[] = [
     "realLocation": "Costa Norte de Tenerife, Islas Canarias",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "condiciones": "sin indicar"
   },
   {
     "id": "fn-18",
@@ -4744,7 +4764,8 @@ export const WORKS: Photo[] = [
     "realLocation": "Costa Volcánica de Tenerife, Islas Canarias",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "condiciones": "sin indicar"
   },
   {
     "id": "fn-19",
@@ -4794,7 +4815,8 @@ export const WORKS: Photo[] = [
     "realLocation": "Tenerife, Islas Canarias",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (70 × 100 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 800) apto para ampliación hasta Gran Colección (70 × 100 cm).",
+    "condiciones": "sin indicar"
   },
   {
     "id": "fn-20",
@@ -4844,7 +4866,8 @@ export const WORKS: Photo[] = [
     "realLocation": "Litoral Atlántico de Tenerife, Islas Canarias",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 320) apto para ampliación hasta Gran Colección (60 × 90 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 320) apto para ampliación hasta Gran Colección (60 × 90 cm).",
+    "condiciones": "sin indicar"
   },
   {
     "id": "fn-21",
@@ -4895,7 +4918,8 @@ export const WORKS: Photo[] = [
     "realLocation": "Costa Volcánica de Tenerife, Islas Canarias",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 88 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 400) apto para ampliación hasta Gran Colección (70 × 88 cm).",
+    "condiciones": "sin indicar"
   },
   {
     "id": "fn-22",
@@ -4944,7 +4968,8 @@ export const WORKS: Photo[] = [
     "realLocation": "Encinar y dehesa ibérica",
     "wildlifeCondition": "libre",
     "maxRecommendedFormat": "coleccion",
-    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1600) apto para ampliación hasta Gran Colección (70 × 88 cm)."
+    "maxFormatReason": "Archivo máster de 32,5 MP (ISO 1600) apto para ampliación hasta Gran Colección (70 × 88 cm).",
+    "condiciones": "sin indicar"
   },
   {
     "id": "cr-16",
@@ -5272,7 +5297,8 @@ export const WORKS: Photo[] = [
       "score": 86
     },
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Captura en sombra densa a ISO 6400: formato máximo recomendado Galería (50 × 75 cm) para preservar la textura fina del plumaje."
+    "maxFormatReason": "Captura en sombra densa a ISO 6400: formato máximo recomendado Galería (50 × 75 cm) para preservar la textura fina del plumaje.",
+    "condiciones": "sin indicar"
   },
   {
     "id": "fn-24",
@@ -5323,7 +5349,8 @@ export const WORKS: Photo[] = [
       "score": 84
     },
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Captura con Canon EOS 750D (24,2 MP) a ISO 1600: formato máximo recomendado Galería (50 × 75 cm) para garantizar nitidez de galería."
+    "maxFormatReason": "Captura con Canon EOS 750D (24,2 MP) a ISO 1600: formato máximo recomendado Galería (50 × 75 cm) para garantizar nitidez de galería.",
+    "condiciones": "sin indicar"
   },
   {
     "id": "fn-25",
@@ -5374,7 +5401,8 @@ export const WORKS: Photo[] = [
       "score": 82
     },
     "maxRecommendedFormat": "galeria",
-    "maxFormatReason": "Captura en sombra densa a ISO 6400: formato máximo recomendado Galería (50 × 75 cm) para conservar el detalle natural del plumaje."
+    "maxFormatReason": "Captura en sombra densa a ISO 6400: formato máximo recomendado Galería (50 × 75 cm) para conservar el detalle natural del plumaje.",
+    "condiciones": "sin indicar"
   }
 ];
 

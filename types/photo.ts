@@ -28,6 +28,8 @@ export type MaxPrintFormatId = "estudio" | "galeria" | "coleccion";
 
 export type WildlifeCondition = "libre" | "parque" | "centro";
 
+export type FaunaCondiciones = "silvestre" | "santuario" | "cautiverio" | "sin indicar";
+
 export interface Photo {
   id: string;
   slug: string;
@@ -41,7 +43,10 @@ export interface Photo {
   alt: string;
   location?: string;
   realLocation?: string;
+  condiciones?: FaunaCondiciones;
   wildlifeCondition?: WildlifeCondition;
+  evento?: string;
+  lugar?: string;
   country?: string;
   coordinates?: PhotoCoordinates;
   camera: string;
@@ -104,9 +109,9 @@ export const CATEGORY_METADATA: Record<
     subtitle: "Mamíferos, aves y pequeños detalles del entorno natural a 600mm",
     subtitleEn: "Mammals, birdlife, and quiet details of the natural world at 600mm",
     description:
-      "Fotografiar animales exige paciencia y distancia. Con el teleobjetivo de 600mm trabajo tanto en entorno natural abierto como en parques y centros de conservación de fauna, indicando con transparencia en cada ficha el lugar real y las condiciones de la toma.",
+      "Fotografiar animales exige paciencia y distancia. Con el teleobjetivo de 600mm trabajo en distintos entornos: lugar y condiciones se indican en cada ficha.",
     descriptionEn:
-      "Photographing wildlife takes patience and distance. Using a 600mm telephoto lens, I work both in open natural habitats and in wildlife parks or conservation centers, transparently stating the real location and conditions on every work's technical sheet.",
+      "Photographing wildlife takes patience and distance. Location and conditions are indicated on each work's sheet.",
     seoTitle: "Fotografía de Fauna y Naturaleza | Javier Espinosa",
     seoDescription:
       "Colección de fotografía de fauna, aves y naturaleza en Tenerife, Península Ibérica y reservas europeas. Capturas a 600mm con luz natural, copias Hahnemühle y licencias.",
