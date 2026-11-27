@@ -799,16 +799,16 @@ export default function AboutInteractiveStudio() {
       </div>
 
       {/* =====================================================================
-          5. OFFICIAL INTERNATIONAL PLATFORMS & ETHICAL PILLARS (minimalista)
+          5. ETHICAL PILLARS (minimalista; perfiles movidos discretamente al pie)
       ===================================================================== */}
-      <section className="grid grid-cols-1 gap-8 border-t border-white/[0.08] pt-12 lg:grid-cols-12">
-        {/* Left: Ethical Manifesto in Numbered Editorial Format */}
-        <div className="lg:col-span-6">
+      <section className="border-t border-white/[0.08] pt-12">
+        {/* Ethical Manifesto in Numbered Editorial Format */}
+        <div>
           <p className="font-mono text-xs uppercase tracking-[0.28em] text-[#C5A880]">
             Cómo trabajo
           </p>
 
-          <div className="mt-4 divide-y divide-white/[0.08] border-y border-white/[0.08]">
+          <div className="mt-4 grid grid-cols-1 divide-y divide-white/[0.08] border-y border-white/[0.08] md:grid-cols-3 md:divide-x md:divide-y-0">
             {[
               {
                 num: "01",
@@ -826,7 +826,10 @@ export default function AboutInteractiveStudio() {
                 desc: "Tanto en la naturaleza como en un taller o en la calle, procuro interferir lo mínimo posible: mantener la distancia con la fauna y dejar que las escenas ocurran a su propio ritmo.",
               },
             ].map((pillar) => (
-              <div key={pillar.num} className="flex items-center gap-4 py-4">
+              <div
+                key={pillar.num}
+                className="flex items-center gap-4 py-4 md:px-6 md:py-5 md:first:pl-0 md:last:pr-0"
+              >
                 <span className="font-mono text-xs text-[#C5A880]">
                   {pillar.num}
                 </span>
@@ -843,8 +846,8 @@ export default function AboutInteractiveStudio() {
           </div>
         </div>
 
-        {/* Right: Official International Representation Cards */}
-        <div className="lg:col-span-6">
+        {/* Right: Official International Representation Cards (ocultas en versión minimalista; enlaces discretos en el pie) */}
+        <div className="hidden">
           <p className="font-mono text-xs uppercase tracking-[0.28em] text-[#C5A880]">
             Perfiles oficiales
           </p>

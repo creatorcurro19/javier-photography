@@ -230,17 +230,31 @@ export default function Footer() {
         </div>
 
         {/* Barra Inferior */}
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-white/[0.08] pt-8 text-[11px] font-mono tracking-wider text-[#8E8A80]/70 sm:flex-row">
+        <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-white/[0.08] pt-8 text-[11px] font-mono tracking-wider text-[#8E8A80]/75 sm:flex-row sm:items-center">
           <p>© {new Date().getFullYear()} Javier Espinosa Martínez. {t("Archivo fotográfico original protegido por derechos de autor.", "Original photographic archive protected by copyright.")}</p>
-          <div className="flex flex-wrap items-center gap-4">
-            <Link href="/about" className="hover:text-[#EBE7DF] transition">{t("Sobre mí", "About")}</Link>
-            <span>·</span>
-            <Link href="/contact" className="hover:text-[#EBE7DF] transition">{t("Contacto", "Contact")}</Link>
-            <span>·</span>
+          <div className="flex flex-wrap items-center gap-x-3.5 gap-y-2">
+            <a
+              href="https://www.saatchiart.com/javier-espinosa-photography"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#EBE7DF] transition"
+            >
+              Saatchi Art ↗
+            </a>
+            <span aria-hidden="true">·</span>
+            <a
+              href="https://www.istockphoto.com/portfolio/JavierEspinosa?sort=purerecency&assettype=image"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#EBE7DF] transition"
+            >
+              Getty / iStock ↗
+            </a>
+            <span aria-hidden="true">·</span>
             <Link href="/legal" className="hover:text-[#EBE7DF] transition">{t("Aviso Legal y Privacidad", "Legal Notice & Privacy")}</Link>
-            <span>·</span>
+            <span aria-hidden="true">·</span>
             <Link href="/condiciones" className="hover:text-[#EBE7DF] transition">{t("Condiciones de Compra y Licencia", "Terms & Conditions")}</Link>
-            <span>·</span>
+            <span aria-hidden="true">·</span>
             <Link href="/admin" className="hover:text-[#C5A880] transition">{t("Acceso Autor", "Creator Access")}</Link>
           </div>
         </div>
