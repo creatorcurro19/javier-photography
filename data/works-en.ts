@@ -793,4 +793,20 @@ export const WORKS_EN: Record<string, WorkTranslationEn> = {
     description:
       "Perched atop a weathered palm frond, the parakeet keeps quiet watch against deep green canopy blur.",
   },
+  "pd-17": {
+    title: "Gold on Volcanic Spires",
+    alt: "Volcanic spires of Roques de García bathed in low golden sunset light beneath Mount Teide in Tenerife",
+    description:
+      "Late afternoon sunlight kindles the volcanic spires of Roques de García as twilight rises across Mount Teide's slope.",
+    story:
+      "Waiting out the last minutes of sun above the viewpoint turned weathered lava towers into warm copper against the calm caldera.",
+  },
+  "au-12": {
+    title: "Three Brass Lanterns",
+    alt: "Three gilded street lanterns with ornamental metalwork arranged in minimalist rhythm against clear blue sky in Marrakech",
+    description:
+      "Three gilded brass lanterns with pierced scrollwork ascend cleanly against unbroken blue sky, distilling the avenue to pure rhythm.",
+    story:
+      "Looking up at 115mm stopped down to f/8 isolated all three bronze arms in calm geometry with nothing behind them but open sky.",
+  },
 };
