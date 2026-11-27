@@ -36,6 +36,7 @@ export async function GET() {
     email: {
       resendConfigured: Boolean(resendKey),
       customFromConfigured: Boolean(resendFrom),
+      recipientOverride: Boolean((process.env.RESEND_TO_EMAIL ?? "").trim()),
       fallbackRelay: "formsubmit",
     },
     newsletter: {

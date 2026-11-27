@@ -5,7 +5,7 @@ import {
 } from "@/lib/email-templates";
 import { PAGOS_ACTIVOS } from "@/data/site-config";
 import { normalizeOrder } from "@/lib/server/order";
-import { DESTINATION_EMAIL, relayWithFormSubmit, sendWithResend } from "@/lib/server/email";
+import { DESTINATION_EMAIL, RESEND_OWNER_EMAIL, relayWithFormSubmit, sendWithResend } from "@/lib/server/email";
 import { addInboxItem } from "@/lib/server/inbox-store";
 import { notifyOwnerMobile } from "@/lib/server/mobile-push";
 import { buildWhatsAppReplyUrl } from "@/lib/phone";
@@ -112,7 +112,7 @@ export async function POST(request: Request) {
     // 1. Resend: aviso al autor + confirmación al comprador
     const ownerSent = await sendWithResend(
       {
-        to: [DESTINATION_EMAIL],
+        to: [RESEND_OWNER_EMAIL],
         replyTo: customer.email,
         subject,
         text: textBody,

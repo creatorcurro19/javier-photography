@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { DESTINATION_EMAIL, relayWithFormSubmit, sendWithResend } from "@/lib/server/email";
+import { RESEND_OWNER_EMAIL, relayWithFormSubmit, sendWithResend } from "@/lib/server/email";
 import { getClientIp, rateLimit } from "@/lib/server/rate-limit";
 import { notifyOwnerMobile } from "@/lib/server/mobile-push";
 
@@ -104,7 +104,7 @@ export async function POST(req: Request) {
 
     const emailedViaResend = await sendWithResend(
       {
-        to: [DESTINATION_EMAIL],
+        to: [RESEND_OWNER_EMAIL],
         replyTo: rawEmail,
         subject,
         text,

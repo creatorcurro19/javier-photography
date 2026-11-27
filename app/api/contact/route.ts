@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { PLAZOS } from "@/data/plazos";
 import { buildContactOwnerEmailHtml } from "@/lib/email-templates";
-import { DESTINATION_EMAIL, relayWithFormSubmit, sendWithResend } from "@/lib/server/email";
+import { DESTINATION_EMAIL, RESEND_OWNER_EMAIL, relayWithFormSubmit, sendWithResend } from "@/lib/server/email";
 import { getClientIp, rateLimit } from "@/lib/server/rate-limit";
 import { addInboxItem } from "@/lib/server/inbox-store";
 import { notifyOwnerMobile } from "@/lib/server/mobile-push";
@@ -132,7 +132,7 @@ export async function POST(request: Request) {
     // 1. Envío mediante Resend API si RESEND_API_KEY está configurada
     const resendOk = await sendWithResend(
       {
-        to: [DESTINATION_EMAIL],
+        to: [RESEND_OWNER_EMAIL],
         replyTo: cleanEmail,
         subject,
         html: buildContactOwnerEmailHtml({
@@ -160,8 +160,8 @@ export async function POST(request: Request) {
 
     if (resendOk) {
       await mobilePushPromise;
-      // Enviar correo de confirmación automática al remitente
-      await sendWithResend(
+      // Enviar correo de confirmación automática al remitente (requiere dominio propio verificado en Resend)
+      const confirmationSent = await sendWithResend(
         {
           to: [cleanEmail],
           replyTo: DESTINATION_EMAIL,
@@ -174,9 +174,9 @@ export async function POST(request: Request) {
           text: `Hola ${cleanNombre},\n\nHemos recibido tu consulta (${cleanMotivo} · ${cleanReferencia || "General"}).\n${PLAZOS.respuesta}\n\nJavier Espinosa Martínez\nTenerife, Islas Canarias`,
         },
         "contact"
-      ).catch(() => null);
+      ).catch(() => false);
 
-      return NextResponse.json({ ok: true, provider: "resend", confirmationSent: true });
+      return NextResponse.json({ ok: true, provider: "resend", confirmationSent });
     }
 
     // 2. FormSubmit AJAX relay directo a DESTINATION_EMAIL

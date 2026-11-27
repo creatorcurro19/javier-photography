@@ -18,6 +18,7 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
     expect(typeof body.integrations.stripe.adaptivePricingEnabled).toBe("boolean");
     expect(typeof body.integrations.stripe.automaticTaxEnabled).toBe("boolean");
     expect(typeof body.integrations.email.resendConfigured).toBe("boolean");
+    expect(typeof body.integrations.email.recipientOverride).toBe("boolean");
     expect(typeof body.integrations.whatsapp.configured).toBe("boolean");
     expect(typeof body.integrations.mobilePush.ntfyConfigured).toBe("boolean");
     expect(typeof body.integrations.mobilePush.telegramConfigured).toBe("boolean");

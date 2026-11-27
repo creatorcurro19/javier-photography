@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { buildStripePaymentCustomerEmailHtml } from "@/lib/email-templates";
 import { buildWhatsAppReplyUrl } from "@/lib/phone";
 import { addInboxItem, updateInboxItem } from "@/lib/server/inbox-store";
-import { DESTINATION_EMAIL, sendWithResend } from "@/lib/server/email";
+import { DESTINATION_EMAIL, RESEND_OWNER_EMAIL, sendWithResend } from "@/lib/server/email";
 import { notifyOwnerMobile } from "@/lib/server/mobile-push";
 
 export const runtime = "nodejs";
@@ -164,7 +164,7 @@ async function handlePaidSession(session: Record<string, unknown>) {
 
   await sendWithResend(
     {
-      to: [DESTINATION_EMAIL],
+      to: [RESEND_OWNER_EMAIL],
       replyTo: ctx.customerEmail || undefined,
       subject: `[PAGO RECIBIDO · STRIPE] Pedido ${ctx.orderId} — ${ctx.amountLabel}`,
       text: [

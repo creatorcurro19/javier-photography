@@ -10,6 +10,12 @@ import { SITE_CONFIG } from "@/data/site-config";
 
 export const DESTINATION_EMAIL = SITE_CONFIG.contactEmail;
 
+/**
+ * Destinatario privado de avisos internos vía Resend.
+ * Útil si la cuenta de Resend usa otro buzón o un relay de Apple mientras no haya dominio propio verificado.
+ */
+export const RESEND_OWNER_EMAIL = (process.env.RESEND_TO_EMAIL ?? "").trim() || DESTINATION_EMAIL;
+
 export const FROM_EMAIL =
   process.env.RESEND_FROM_EMAIL || "Javier Espinosa Fotografía <onboarding@resend.dev>";
 
@@ -24,6 +30,16 @@ export interface ResendPayload {
 export async function sendWithResend(payload: ResendPayload, context: string): Promise<boolean> {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) return false;
+
+  // El remitente sandbox de Resend solo puede entregar al email propietario de la cuenta Resend.
+  const isSandboxSender = FROM_EMAIL.toLowerCase().includes("onboarding@resend.dev");
+  const ownerTarget = RESEND_OWNER_EMAIL.toLowerCase();
+  if (isSandboxSender && !payload.to.every((addr) => addr.trim().toLowerCase() === ownerTarget)) {
+    console.info(
+      `[email:${context}] Omitido envío externo con onboarding@resend.dev hasta verificar RESEND_FROM_EMAIL con dominio propio.`
+    );
+    return false;
+  }
 
   try {
     const res = await fetch("https://api.resend.com/emails", {
