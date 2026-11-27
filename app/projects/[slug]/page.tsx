@@ -140,7 +140,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               Obras del Proyecto ({projectPhotos.length})
             </span>
             <span className="text-xs font-mono text-[#8E8A80]/70 hidden sm:inline">
-              Haga clic sobre cualquier imagen para ver a pantalla completa
+              Haz clic sobre cualquier fotografía para abrir su ficha completa
             </span>
           </div>
 

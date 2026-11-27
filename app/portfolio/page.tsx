@@ -58,7 +58,7 @@ export default function PortfolioPage() {
             Todas las Fotos
           </h1>
           <p className="mt-3 text-sm sm:text-base leading-relaxed text-[#A39E93] font-light">
-            Elige un tema arriba para filtrar o toca cualquier foto para abrirla a pantalla completa.
+            Elige un tema arriba para filtrar o toca cualquier foto para abrir su ficha completa.
           </p>
         </header>
 

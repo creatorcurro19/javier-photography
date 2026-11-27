@@ -26,6 +26,22 @@ export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
   const initialIdx = photosList.findIndex((p) => p.id === photo.id);
   const [currentIndex, setCurrentIndex] = useState(initialIdx >= 0 ? initialIdx : 0);
 
+  const openFullscreenViewer = (attemptNative = false) => {
+    const idx = photosList.findIndex((p) => p.id === photo.id);
+    setCurrentIndex(idx >= 0 ? idx : 0);
+    setLightboxOpen(true);
+    if (
+      attemptNative &&
+      typeof document !== "undefined" &&
+      !document.fullscreenElement &&
+      document.documentElement.requestFullscreen
+    ) {
+      document.documentElement.requestFullscreen().catch(() => {
+        // Ignorado si el navegador móvil no admite Fullscreen API nativa
+      });
+    }
+  };
+
   return (
     <>
       <figure
@@ -35,51 +51,23 @@ export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
             : "bg-gradient-to-b from-[#151618] via-[#1A1C1E] to-[#0B0C0E]"
         }`}
       >
-        <div
-          role="button"
-          tabIndex={0}
-          aria-label="Abrir imagen a pantalla completa"
-          onClick={() => {
-            const idx = photosList.findIndex((p) => p.id === photo.id);
-            setCurrentIndex(idx >= 0 ? idx : 0);
-            setLightboxOpen(true);
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              const idx = photosList.findIndex((p) => p.id === photo.id);
-              setCurrentIndex(idx >= 0 ? idx : 0);
-              setLightboxOpen(true);
-            }
-          }}
-          className="group relative mx-auto flex max-h-[85vh] w-full cursor-zoom-in items-center justify-center px-4 sm:px-8 md:px-12 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
-        >
-          {frameStyle === "clean" ? (
-            <div className="relative max-h-[82vh] w-full flex items-center justify-center">
-              <Image
-                src={photo.image}
-                alt={photo.alt}
-                width={photo.width}
-                height={photo.height}
-                priority
-                draggable={false}
-                placeholder="blur"
-                blurDataURL={DARK_BLUR_DATA_URL}
-                sizes="(max-width: 640px) 640px, (max-width: 1200px) 1200px, 1600px"
-                quality={90}
-                className="max-h-[82vh] w-auto max-w-full rounded-sm object-contain shadow-2xl transition duration-500 group-hover:brightness-105 pointer-events-none select-none"
-              />
-            </div>
-          ) : (
-            /* Simulador de Enmarcado Museístico con Paspartú Hahnemühle 308g */
-            <div
-              className={`relative mx-auto flex flex-col items-center transition-all duration-500 shadow-[0_30px_90px_rgba(0,0,0,0.85)] ${
-                frameStyle === "black"
-                  ? "border-[10px] sm:border-[16px] border-[#141516] ring-1 ring-white/10"
-                  : "border-[10px] sm:border-[16px] border-[#5E432C] ring-1 ring-[#8A6647]/40"
-              } bg-[#F3EFE6] p-5 sm:p-10 md:p-14`}
-            >
-              <div className="border border-neutral-300/80 shadow-inner bg-white p-1">
+        <div className="relative mx-auto flex max-h-[85vh] w-full items-center justify-center px-4 sm:px-8 md:px-12">
+          <div
+            role="button"
+            tabIndex={0}
+            aria-label="Toca o haz doble clic para ver a pantalla completa"
+            onClick={() => openFullscreenViewer(false)}
+            onDoubleClick={() => openFullscreenViewer(true)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                openFullscreenViewer(false);
+              }
+            }}
+            className="group relative mx-auto flex max-h-[85vh] w-full cursor-zoom-in items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+          >
+            {frameStyle === "clean" ? (
+              <div className="relative max-h-[82vh] w-full flex items-center justify-center">
                 <Image
                   src={photo.image}
                   alt={photo.alt}
@@ -87,21 +75,51 @@ export default function PhotoHero({ photo, categoryPhotos }: PhotoHeroProps) {
                   height={photo.height}
                   priority
                   draggable={false}
-                  sizes="(max-width: 1024px) 90vw, 70vw"
+                  placeholder="blur"
+                  blurDataURL={DARK_BLUR_DATA_URL}
+                  sizes="(max-width: 640px) 640px, (max-width: 1200px) 1200px, 1600px"
                   quality={90}
-                  className="max-h-[64vh] w-auto max-w-full object-contain pointer-events-none select-none"
+                  className="max-h-[82vh] w-auto max-w-full rounded-sm object-contain shadow-2xl transition duration-500 group-hover:brightness-105 pointer-events-none select-none"
                 />
               </div>
-              <div className="mt-3 flex w-full items-center justify-between px-1 text-[10px] tracking-[0.2em] text-neutral-500 font-serif italic">
-                <span>1/25 · Edición Hahnemühle Photo Rag 308g</span>
-                <span>Javier Espinosa</span>
+            ) : (
+              /* Simulador de Enmarcado Museístico con Paspartú Hahnemühle 308g */
+              <div
+                className={`relative mx-auto flex flex-col items-center transition-all duration-500 shadow-[0_30px_90px_rgba(0,0,0,0.85)] ${
+                  frameStyle === "black"
+                    ? "border-[10px] sm:border-[16px] border-[#141516] ring-1 ring-white/10"
+                    : "border-[10px] sm:border-[16px] border-[#5E432C] ring-1 ring-[#8A6647]/40"
+                } bg-[#F3EFE6] p-5 sm:p-10 md:p-14`}
+              >
+                <div className="border border-neutral-300/80 shadow-inner bg-white p-1">
+                  <Image
+                    src={photo.image}
+                    alt={photo.alt}
+                    width={photo.width}
+                    height={photo.height}
+                    priority
+                    draggable={false}
+                    sizes="(max-width: 1024px) 90vw, 70vw"
+                    quality={90}
+                    className="max-h-[64vh] w-auto max-w-full object-contain pointer-events-none select-none"
+                  />
+                </div>
+                <div className="mt-3 flex w-full items-center justify-between px-1 text-[10px] tracking-[0.2em] text-neutral-500 font-serif italic">
+                  <span>1/25 · Edición Hahnemühle Photo Rag 308g</span>
+                  <span>Javier Espinosa</span>
+                </div>
               </div>
-            </div>
-          )}
-
-          <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 inline-flex min-h-[44px] items-center gap-2 rounded-full border border-[#C5A880]/40 bg-[#0B0C0E]/90 px-4 py-2 text-xs font-mono tracking-wider text-[#EBE7DF] backdrop-blur-md transition group-hover:border-[#C5A880] group-hover:text-white shadow-lg">
-            <span>⛶ Ver a pantalla completa</span>
+            )}
           </div>
+
+          <button
+            type="button"
+            onClick={() => openFullscreenViewer(true)}
+            aria-label="Abrir fotografía a pantalla completa"
+            className="absolute bottom-4 right-4 sm:bottom-6 sm:right-14 z-10 inline-flex min-h-[44px] items-center gap-2 rounded-full border border-[#C5A880]/50 bg-[#0B0C0E]/90 px-4 py-2 text-xs font-mono tracking-wider text-[#EBE7DF] backdrop-blur-md transition hover:border-[#C5A880] hover:bg-[#C5A880] hover:text-[#0B0C0E] shadow-lg cursor-pointer"
+          >
+            <span>⛶ Pantalla completa</span>
+          </button>
         </div>
 
         {/* Selector interactivo de visualización y enmarcado (oculto en versión minimalista) */}

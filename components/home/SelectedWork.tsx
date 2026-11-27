@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
@@ -13,10 +11,6 @@ import { useLanguage } from "@/lib/i18n";
 import type { Photo } from "@/types/photo";
 import { CATEGORY_METADATA } from "@/types/photo";
 
-const LightboxModal = dynamic(() => import("@/components/ui/LightboxModal"), {
-  ssr: false,
-});
-
 const DARK_BLUR_DATA_URL =
   "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxNicgaGVpZ2h0PScxMCc+PHJlY3Qgd2lkdGg9JzE2JyBoZWlnaHQ9JzEwJyBmaWxsPSclMjMxNTE2MTgnLz48L3N2Zz4=";
 
@@ -26,14 +20,7 @@ interface SelectedWorkProps {
 }
 
 export default function SelectedWork({ photos, totalCount }: SelectedWorkProps) {
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
   const { t } = useLanguage();
-
-  const openLightbox = (index: number) => {
-    setSelectedIndex(index);
-    setLightboxOpen(true);
-  };
 
   return (
     <section
@@ -74,7 +61,7 @@ export default function SelectedWork({ photos, totalCount }: SelectedWorkProps) 
 
         {/* Clean 2x3 Curatorial Grid (6 signature artworks) */}
         <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {photos.map((photo, idx) => {
+          {photos.map((photo) => {
             const categoryInfo = CATEGORY_METADATA[photo.category];
 
             return (
@@ -82,18 +69,10 @@ export default function SelectedWork({ photos, totalCount }: SelectedWorkProps) 
                 key={photo.id}
                 className="group overflow-hidden border border-[#C5A880]/15 bg-[#151618]/95 transition-all duration-500 hover:border-[#C5A880]/50"
               >
-                <div
-                  role="button"
-                  tabIndex={0}
-                  aria-label={`Ver obra ${photo.title} a pantalla completa`}
-                  onClick={() => openLightbox(idx)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      openLightbox(idx);
-                    }
-                  }}
-                  className="relative aspect-[4/3] w-full cursor-pointer overflow-hidden bg-[#0B0C0E] focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+                <Link
+                  href={`/portfolio/${photo.slug}`}
+                  aria-label={`Abrir ficha de ${photo.title}`}
+                  className="relative block aspect-[4/3] w-full cursor-pointer overflow-hidden bg-[#0B0C0E] focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
                 >
                   <Image
                     src={photo.image}
@@ -110,10 +89,10 @@ export default function SelectedWork({ photos, totalCount }: SelectedWorkProps) 
 
                   <div className="absolute inset-0 flex items-center justify-center bg-black/35 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                     <span className="rounded-full border border-white/40 bg-black/75 px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-[#EBE7DF] backdrop-blur-md">
-                      Ampliar
+                      Ver ficha →
                     </span>
                   </div>
-                </div>
+                </Link>
 
                 {/* Minimal Museum Plaque */}
                 <figcaption className="flex items-center justify-between gap-3 border-t border-white/[0.06] bg-[#151618] px-5 py-4">
@@ -156,14 +135,6 @@ export default function SelectedWork({ photos, totalCount }: SelectedWorkProps) 
             );
           })}
         </div>
-
-        <LightboxModal
-          photos={photos}
-          currentIndex={selectedIndex}
-          isOpen={lightboxOpen}
-          onClose={() => setLightboxOpen(false)}
-          onNavigate={setSelectedIndex}
-        />
       </Container>
     </section>
   );

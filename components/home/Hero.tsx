@@ -236,14 +236,14 @@ export default function Hero() {
 
         {/* EN MÓVIL: Selector de portada y datos de la obra situados directamente sobre la fotografía */}
         <div className="absolute inset-x-3 bottom-3 z-20 flex items-center justify-between gap-3 rounded-lg border border-[#C5A880]/30 bg-[#0B0C0E]/85 px-3.5 py-2 backdrop-blur-md md:hidden shadow-xl">
-          <div className="min-w-0 flex-1">
-            <p className="truncate font-serif text-xs font-light text-[#F7F4EE]">
+          <Link href={`/portfolio/${currentSlide.slug}`} className="min-w-0 flex-1 group/title">
+            <p className="truncate font-serif text-xs font-light text-[#F7F4EE] group-hover/title:text-[#C5A880] transition-colors">
               {currentSlide.title}
             </p>
             <p className="truncate font-mono text-[9px] text-[#C5A880] tracking-wider mt-0.5">
               {currentSlide.location}
             </p>
-          </div>
+          </Link>
 
           {/* Números táctiles para elegir la portada sobre la propia foto */}
           <div className="flex items-center gap-0.5 shrink-0" role="tablist" aria-label="Elegir portada">
@@ -366,14 +366,17 @@ export default function Hero() {
 
         {/* Barra de obra activa y selector de portada en escritorio */}
         <div className="hidden md:flex mt-6 items-center justify-between gap-4 border-t border-white/15 pt-4">
-          <div className="text-center sm:text-left">
-            <p className="font-serif text-sm sm:text-base font-light text-[#F7F4EE] tracking-wide">
+          <Link
+            href={`/portfolio/${currentSlide.slug}`}
+            className="text-center sm:text-left group/title"
+          >
+            <p className="font-serif text-sm sm:text-base font-light text-[#F7F4EE] tracking-wide group-hover/title:text-[#C5A880] transition-colors">
               {currentSlide.title}
             </p>
             <p className="font-mono text-[10px] text-[#C5A880] tracking-wider mt-0.5">
               {currentSlide.location}
             </p>
-          </div>
+          </Link>
 
           <div className="flex items-center gap-1.5">
             {HERO_SLIDES.map((slide, idx) => {

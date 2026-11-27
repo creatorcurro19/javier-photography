@@ -33,6 +33,16 @@ export default function LightboxModal({
   const [addCartOpen, setAddCartOpen] = useState(false);
   const touchStartX = useRef<number | null>(null);
   const dialogRef = useRef<HTMLDivElement | null>(null);
+  const openedAtRef = useRef<number>(0);
+
+  const handleClose = useCallback(() => {
+    setIsPlaying(false);
+    setIsZoomed(false);
+    if (typeof document !== "undefined" && document.fullscreenElement) {
+      document.exitFullscreen().catch(() => {});
+    }
+    onClose();
+  }, [onClose]);
 
   const toggleBrowserFullscreen = useCallback(async () => {
     try {
@@ -46,6 +56,20 @@ export default function LightboxModal({
     } catch {
       // Algunos navegadores móviles no soportan Fullscreen API
     }
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      openedAtRef.current = Date.now();
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    const onFullscreenChange = () => {
+      setIsFullscreen(Boolean(document.fullscreenElement));
+    };
+    document.addEventListener("fullscreenchange", onFullscreenChange);
+    return () => document.removeEventListener("fullscreenchange", onFullscreenChange);
   }, []);
 
   const photo = photos[currentIndex];
@@ -80,8 +104,7 @@ export default function LightboxModal({
         if (isZoomed) {
           setIsZoomed(false);
         } else {
-          setIsPlaying(false);
-          onClose();
+          handleClose();
         }
       } else if (e.key === "ArrowLeft") {
         setIsPlaying(false);
@@ -106,7 +129,7 @@ export default function LightboxModal({
       window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "unset";
     };
-  }, [isOpen, onClose, handlePrev, handleNext, isZoomed]);
+  }, [isOpen, handleClose, handlePrev, handleNext, isZoomed]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
@@ -238,7 +261,7 @@ export default function LightboxModal({
 
           <button
             type="button"
-            onClick={onClose}
+            onClick={handleClose}
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-[#151618] text-[#EBE7DF] transition hover:bg-white/20 hover:text-white cursor-pointer"
             aria-label="Cerrar visor (Esc)"
           >
@@ -309,7 +332,10 @@ export default function LightboxModal({
           role="button"
           tabIndex={0}
           aria-label={isZoomed ? "Reducir tamaño (Zoom 1x)" : "Ampliar detalle a 2x"}
-          onClick={() => setIsZoomed((prev) => !prev)}
+          onClick={() => {
+            if (Date.now() - openedAtRef.current < 400) return;
+            setIsZoomed((prev) => !prev);
+          }}
           onMouseMove={handleImageMouseMove}
           onKeyDown={(e) => {
             if (e.key === "Enter") setIsZoomed((prev) => !prev);
@@ -398,7 +424,7 @@ export default function LightboxModal({
             <div className="mt-5 flex flex-wrap gap-2 pt-2 border-t border-white/[0.06]">
               <Link
                 href={`/portfolio/${photo.slug}`}
-                onClick={onClose}
+                onClick={handleClose}
                 className="border border-[#EBE7DF] bg-[#EBE7DF] px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-wider text-[#0B0C0E] font-medium transition hover:bg-transparent hover:text-white"
               >
                 Ver Obra Completa
@@ -414,7 +440,7 @@ export default function LightboxModal({
               )}
               <Link
                 href={`/contact?motivo=licencia&obra=${encodeURIComponent(photo.title)}`}
-                onClick={onClose}
+                onClick={handleClose}
                 className="border border-white/[0.08] bg-[#151618] px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-[#EBE7DF] transition hover:border-white/30 hover:text-white"
               >
                 Licenciar
@@ -472,7 +498,7 @@ export default function LightboxModal({
           />
           <Link
             href={`/portfolio/${photo.slug}`}
-            onClick={onClose}
+            onClick={handleClose}
             className="underline underline-offset-4 text-[#8E8A80] hover:text-[#EBE7DF] transition"
           >
             Ficha completa →

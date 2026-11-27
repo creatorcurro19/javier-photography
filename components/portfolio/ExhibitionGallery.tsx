@@ -4,6 +4,7 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import type { Photo } from "@/types/photo";
 import PrintCardAction from "@/components/cart/PrintCardAction";
 
@@ -98,6 +99,7 @@ export default function ExhibitionGallery({
   photos,
   showMeta = true,
 }: ExhibitionGalleryProps) {
+  const router = useRouter();
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [zenOpen, setZenOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -159,7 +161,7 @@ export default function ExhibitionGallery({
         <p className="font-mono text-xs text-[#A39E93]">
           <strong className="text-[#EBE7DF] font-normal">{filteredPhotos.length}</strong>{" "}
           {filteredPhotos.length === 1 ? "foto" : "fotos"} ·{" "}
-          <span className="text-[#8E8A80]">Toca cualquier foto para verla en grande</span>
+          <span className="text-[#8E8A80]">Toca cualquier foto para abrir su ficha completa</span>
         </p>
 
         <button
@@ -325,10 +327,10 @@ export default function ExhibitionGallery({
               </tr>
             </thead>
             <tbody className="divide-y divide-white/[0.05]">
-              {filteredPhotos.map((photo, index) => (
+              {filteredPhotos.map((photo) => (
                 <tr
                   key={photo.id}
-                  onClick={() => openLightbox(index)}
+                  onClick={() => router.push(`/portfolio/${photo.slug}`)}
                   className="cursor-pointer transition hover:bg-white/[0.04]"
                 >
                   <td className="py-2.5 px-4 w-16">
@@ -383,7 +385,7 @@ export default function ExhibitionGallery({
               : "columns-2 gap-4 sm:columns-3 md:columns-4 lg:columns-5"
           }
         >
-          {visiblePhotos.map((photo, index) => {
+          {visiblePhotos.map((photo) => {
             return (
               <figure
                 key={photo.id}
@@ -395,18 +397,10 @@ export default function ExhibitionGallery({
                     : "w-fit max-w-full"
                 }`}
               >
-                <div
-                  role="button"
-                  tabIndex={0}
-                  aria-label={`Ver ${photo.title} a pantalla completa`}
-                  onClick={() => openLightbox(index)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      openLightbox(index);
-                    }
-                  }}
-                  className="relative cursor-pointer overflow-hidden bg-[#0B0C0E] focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+                <Link
+                  href={`/portfolio/${photo.slug}`}
+                  aria-label={`Abrir ficha de ${photo.title}`}
+                  className="relative block cursor-pointer overflow-hidden bg-[#0B0C0E] focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
                 >
                   <Image
                     src={photo.image}
@@ -435,23 +429,10 @@ export default function ExhibitionGallery({
                   {/* Subtle Hover Overlay with Action Pill */}
                   <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 backdrop-blur-[2px] transition-opacity duration-300 group-hover:opacity-100">
                     <span className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-black/80 px-4 py-2 text-[10px] uppercase tracking-[0.24em] text-[#EBE7DF] shadow-lg backdrop-blur-md font-mono">
-                      <svg
-                        className="h-3 w-3"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
-                        />
-                      </svg>
-                      Ampliar Obra
+                      Ver ficha completa →
                     </span>
                   </div>
-                </div>
+                </Link>
 
                 {showMeta && viewMode !== "grid" && (
                   <figcaption className="flex items-center justify-between gap-3 border-t border-white/[0.06] bg-[#151618] px-5 py-3.5">
