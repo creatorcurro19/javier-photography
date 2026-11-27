@@ -99,7 +99,7 @@ Las 16 fotos de `coches-rally` ya tienen rellenos `evento` (*"52º Rallye Orveca
 ## Prioridad BAJA · Decisiones editoriales, producto y activos
 
 ### 9. Decisión de venta: Copias SIN enmarcar por defecto
-- Se eliminó `"enmarcado a medida"` de `app/servicios/page.tsx` y se etiquetó el simulador (`PrintScaleVisualizer.tsx`) como `"Vista previa (marco no incluido)"`. Las tablas y fichas indican exclusivamente envío sin enmarcar en tubo rígido.
+- Se eliminó `"enmarcado a medida"` de `app/servicios/page.tsx` y las tablas y fichas indican exclusivamente envío sin enmarcar en tubo rígido (posteriormente se retiró además el simulador sin uso `PrintScaleVisualizer.tsx`).
 - **Confirma** si se mantiene así permanentemente o si en el futuro ofrecerás enmarcado presencial únicamente en Tenerife.
 
 ### 10. Trabajos y colaboraciones (`data/trabajos.ts`)

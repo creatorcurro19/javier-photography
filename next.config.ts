@@ -527,12 +527,22 @@ const nextConfig: NextConfig = {
     },
     {
         "source": "/portfolio/linterna-y-arco-dorado-au-9",
-        "destination": "/portfolio/linterna-y-arco-dorado",
+        "destination": "/portfolio/arquitectura-urbana",
+        "permanent": true
+    },
+    {
+        "source": "/portfolio/linterna-y-arco-dorado",
+        "destination": "/portfolio/arquitectura-urbana",
         "permanent": true
     },
     {
         "source": "/portfolio/arco-polilobulado-en-luz-au-10",
-        "destination": "/portfolio/arco-polilobulado-en-luz",
+        "destination": "/portfolio/arquitectura-urbana",
+        "permanent": true
+    },
+    {
+        "source": "/portfolio/arco-polilobulado-en-luz",
+        "destination": "/portfolio/arquitectura-urbana",
         "permanent": true
     },
     {

@@ -42,6 +42,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local style reference assets (not part of production bundle)
+/Referencias estilo/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
