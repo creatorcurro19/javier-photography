@@ -38,13 +38,10 @@ export default function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
       const data = await res.json();
 
       if (res.ok && data.ok) {
-        // Guardar token en localStorage como respaldo local
-        if (data.token) {
-          try {
-            localStorage.setItem("je_admin_token", data.token);
-          } catch {
-            // ignore
-          }
+        try {
+          localStorage.removeItem("je_admin_token");
+        } catch {
+          // ignore
         }
         onLoginSuccess(data.user || "Javier");
       } else {

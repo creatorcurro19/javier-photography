@@ -1,12 +1,27 @@
 import { NextResponse } from "next/server";
 import { SITE_URL } from "@/lib/metadata";
+import { isAuthenticatedRequest } from "@/lib/server/admin-auth";
 import { isMobilePushConfigured } from "@/lib/server/mobile-push";
 
 /**
- * Diagnóstico público de configuración en producción (/api/health).
- * Solo expone indicadores booleanos (jamás valores secretos ni claves).
+ * Diagnóstico de estado en producción (/api/health).
+ * Sin sesión de administrador devuelve solo el latido mínimo (sin exponer proveedores ni modo Live/Test).
+ * Con sesión de administrador autenticada devuelve los indicadores booleanos de integración.
  */
-export async function GET() {
+export async function GET(request: Request) {
+  const timestamp = new Date().toISOString();
+  const basePayload = {
+    ok: true,
+    status: "healthy",
+    timestamp,
+  };
+
+  if (!isAuthenticatedRequest(request)) {
+    return NextResponse.json(basePayload, {
+      headers: { "Cache-Control": "no-store" },
+    });
+  }
+
   const stripeKey = process.env.STRIPE_SECRET_KEY ?? "";
   const resendKey = process.env.RESEND_API_KEY ?? "";
   const resendFrom = process.env.RESEND_FROM_EMAIL ?? "";
@@ -56,10 +71,13 @@ export async function GET() {
     siteUrl: SITE_URL,
   };
 
-  return NextResponse.json({
-    ok: true,
-    status: "healthy",
-    timestamp: new Date().toISOString(),
-    integrations,
-  });
+  return NextResponse.json(
+    {
+      ...basePayload,
+      integrations,
+    },
+    {
+      headers: { "Cache-Control": "no-store" },
+    }
+  );
 }

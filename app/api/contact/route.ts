@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { PLAZOS } from "@/data/plazos";
-import { buildContactOwnerEmailHtml } from "@/lib/email-templates";
+import { buildContactOwnerEmailHtml, escapeHtml } from "@/lib/email-templates";
+import { isSameOriginRequest } from "@/lib/server/admin-auth";
 import { DESTINATION_EMAIL, RESEND_OWNER_EMAIL, relayWithFormSubmit, sendWithResend } from "@/lib/server/email";
 import { getClientIp, rateLimit } from "@/lib/server/rate-limit";
 import { addInboxItem } from "@/lib/server/inbox-store";
@@ -9,6 +10,13 @@ import { buildWhatsAppReplyUrl } from "@/lib/phone";
 
 export async function POST(request: Request) {
   try {
+    if (!isSameOriginRequest(request)) {
+      return NextResponse.json(
+        { ok: false, error: "Origen de solicitud no permitido." },
+        { status: 403 }
+      );
+    }
+
     const ip = getClientIp(request);
     const rl = rateLimit(`contact:${ip}`, 10, 10 * 60 * 1000);
     if (!rl.ok) {
@@ -33,31 +41,42 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: true, provider: "spam-filtered" });
     }
 
-    // Optional Cloudflare Turnstile verification if TURNSTILE_SECRET_KEY is configured
-    const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
-    if (turnstileSecret && turnstileToken) {
+    // Verificación Cloudflare Turnstile estricta (fail-closed) cuando TURNSTILE_SECRET_KEY está configurada
+    const turnstileSecret = process.env.TURNSTILE_SECRET_KEY?.trim();
+    if (turnstileSecret) {
+      const cleanToken = typeof turnstileToken === "string" ? turnstileToken.trim() : "";
+      if (!cleanToken) {
+        return NextResponse.json(
+          { ok: false, error: "Completa la verificación antispam antes de enviar la consulta." },
+          { status: 400 }
+        );
+      }
       try {
         const verifyRes = await fetch(
           "https://challenges.cloudflare.com/turnstile/v0/siteverify",
           {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            signal: AbortSignal.timeout(5000),
             body: new URLSearchParams({
               secret: turnstileSecret,
-              response: String(turnstileToken),
+              response: cleanToken,
               remoteip: ip,
             }),
           }
         );
-        const verifyJson = await verifyRes.json().catch(() => null);
-        if (verifyJson && verifyJson.success === false) {
+        const verifyJson = (await verifyRes.json().catch(() => null)) as { success?: boolean } | null;
+        if (!verifyRes.ok || !verifyJson?.success) {
           return NextResponse.json(
             { ok: false, error: "Verificación antispam (Turnstile) no superada." },
             { status: 400 }
           );
         }
       } catch {
-        // Allow fallback if Turnstile endpoint is unreachable
+        return NextResponse.json(
+          { ok: false, error: "No se pudo validar la verificación antispam. Inténtalo de nuevo." },
+          { status: 503 }
+        );
       }
     }
 
@@ -168,8 +187,8 @@ export async function POST(request: Request) {
           subject: `Confirmación de consulta recibida — Javier Espinosa Fotografía`,
           html: `<div style="font-family:sans-serif;background:#0B0C0E;color:#EBE7DF;padding:32px;max-width:560px">
             <p style="font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:#C5A880">Javier Espinosa · Fotografía de Autor (Tenerife)</p>
-            <h2 style="font-weight:300;margin-top:12px">Hemos recibido tu consulta, ${cleanNombre}</h2>
-            <p style="color:#A39E93;font-size:14px;line-height:1.6">Tu solicitud sobre <strong>${cleanMotivo}</strong> (${cleanReferencia || "Consulta general"}) ha quedado registrada. ${PLAZOS.respuesta}</p>
+            <h2 style="font-weight:300;margin-top:12px">Hemos recibido tu consulta, ${escapeHtml(cleanNombre)}</h2>
+            <p style="color:#A39E93;font-size:14px;line-height:1.6">Tu solicitud sobre <strong>${escapeHtml(cleanMotivo)}</strong> (${escapeHtml(cleanReferencia || "Consulta general")}) ha quedado registrada. ${escapeHtml(PLAZOS.respuesta)}</p>
           </div>`,
           text: `Hola ${cleanNombre},\n\nHemos recibido tu consulta (${cleanMotivo} · ${cleanReferencia || "General"}).\n${PLAZOS.respuesta}\n\nJavier Espinosa Martínez\nTenerife, Islas Canarias`,
         },

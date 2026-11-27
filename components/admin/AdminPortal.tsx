@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import type { Photo } from "@/types/photo";
 import type { CuadernoPost, SiteSettings } from "@/data/site-config";
 import type { InboxItem } from "@/data/inbox";
-import { getAdminAuthHeaders } from "@/lib/admin-client";
+import { clearLegacyAdminToken, getAdminAuthHeaders } from "@/lib/admin-client";
 import AdminLogin from "./AdminLogin";
 import AdminDashboard from "./AdminDashboard";
 import type { AdminSectionTab } from "./AdminMobileTabBar";
@@ -44,6 +44,7 @@ export default function AdminPortal({
     try {
       const inboxRes = await fetch("/api/admin/inbox", {
         cache: "no-store",
+        credentials: "same-origin",
         headers: getAdminAuthHeaders(),
       });
       if (inboxRes.ok) {
@@ -64,8 +65,8 @@ export default function AdminPortal({
     try {
       const headers = getAdminAuthHeaders();
       const [worksRes, inboxRes] = await Promise.all([
-        fetch("/api/admin/works", { cache: "no-store", headers }),
-        fetch("/api/admin/inbox", { cache: "no-store", headers }),
+        fetch("/api/admin/works", { cache: "no-store", credentials: "same-origin", headers }),
+        fetch("/api/admin/inbox", { cache: "no-store", credentials: "same-origin", headers }),
       ]);
       if (worksRes.ok) {
         const data = await worksRes.json();
@@ -102,6 +103,7 @@ export default function AdminPortal({
       try {
         const res = await fetch("/api/admin/check", {
           cache: "no-store",
+          credentials: "same-origin",
           headers: getAdminAuthHeaders(),
         });
         if (res.ok) {
@@ -170,12 +172,11 @@ export default function AdminPortal({
 
   const handleLogout = async () => {
     try {
-      await fetch("/api/admin/logout", { method: "POST" });
-      try {
-        localStorage.removeItem("je_admin_token");
-      } catch {
-        // ignore
-      }
+      await fetch("/api/admin/logout", {
+        method: "POST",
+        credentials: "same-origin",
+      });
+      clearLegacyAdminToken();
     } catch {
       // ignore
     }

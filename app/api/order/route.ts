@@ -4,7 +4,9 @@ import {
   buildOrderOwnerEmailHtml,
 } from "@/lib/email-templates";
 import { PAGOS_ACTIVOS } from "@/data/site-config";
+import { isSameOriginRequest } from "@/lib/server/admin-auth";
 import { normalizeOrder } from "@/lib/server/order";
+import { getClientIp, rateLimit } from "@/lib/server/rate-limit";
 import { DESTINATION_EMAIL, RESEND_OWNER_EMAIL, relayWithFormSubmit, sendWithResend } from "@/lib/server/email";
 import { addInboxItem } from "@/lib/server/inbox-store";
 import { notifyOwnerMobile } from "@/lib/server/mobile-push";
@@ -12,7 +14,26 @@ import { buildWhatsAppReplyUrl } from "@/lib/phone";
 
 export async function POST(request: Request) {
   try {
+    if (!isSameOriginRequest(request)) {
+      return NextResponse.json(
+        { ok: false, error: "Origen de solicitud no permitido." },
+        { status: 403 }
+      );
+    }
+
+    const ip = getClientIp(request);
+    const rl = rateLimit(`order:${ip}`, 6, 10 * 60 * 1000);
+    if (!rl.ok) {
+      return NextResponse.json(
+        { ok: false, error: "Demasiados intentos seguidos. Espera unos minutos e inténtalo de nuevo." },
+        { status: 429, headers: { "Retry-After": String(rl.retryAfter) } }
+      );
+    }
+
     const raw = await request.json().catch(() => null);
+    if (raw && typeof raw === "object" && (raw as Record<string, unknown>)._gotcha) {
+      return NextResponse.json({ ok: true, provider: "spam-filtered" });
+    }
     const result = normalizeOrder(raw);
     if (!result.ok) {
       return NextResponse.json({ ok: false, error: result.error }, { status: 400 });

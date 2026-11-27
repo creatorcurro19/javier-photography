@@ -1,8 +1,11 @@
 import { NextResponse } from "next/server";
-import { isAuthenticatedRequest } from "@/lib/server/admin-auth";
+import { isAuthenticatedRequest, isSameOriginRequest } from "@/lib/server/admin-auth";
 import { isMobilePushConfigured, notifyOwnerMobile } from "@/lib/server/mobile-push";
 
 export async function POST(request: Request) {
+  if (!isSameOriginRequest(request)) {
+    return NextResponse.json({ ok: false, error: "Origen no permitido" }, { status: 403 });
+  }
   if (!isAuthenticatedRequest(request)) {
     return NextResponse.json({ ok: false, error: "No autorizado" }, { status: 401 });
   }

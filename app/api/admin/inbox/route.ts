@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { isAuthenticatedRequest } from "@/lib/server/admin-auth";
+import { isAuthenticatedRequest, isSameOriginRequest } from "@/lib/server/admin-auth";
 import {
   getInboxItems,
   updateInboxItem,
@@ -12,10 +12,16 @@ export async function GET(request: Request) {
   }
 
   const items = getInboxItems();
-  return NextResponse.json({ ok: true, items });
+  return NextResponse.json(
+    { ok: true, items },
+    { headers: { "Cache-Control": "no-store" } }
+  );
 }
 
 export async function PATCH(request: Request) {
+  if (!isSameOriginRequest(request)) {
+    return NextResponse.json({ ok: false, error: "Origen no permitido" }, { status: 403 });
+  }
   if (!isAuthenticatedRequest(request)) {
     return NextResponse.json({ ok: false, error: "No autorizado" }, { status: 401 });
   }
@@ -40,6 +46,9 @@ export async function PATCH(request: Request) {
 }
 
 export async function DELETE(request: Request) {
+  if (!isSameOriginRequest(request)) {
+    return NextResponse.json({ ok: false, error: "Origen no permitido" }, { status: 403 });
+  }
   if (!isAuthenticatedRequest(request)) {
     return NextResponse.json({ ok: false, error: "No autorizado" }, { status: 401 });
   }

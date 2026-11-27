@@ -97,12 +97,127 @@ export const PROJECTS: Project[] = SERIES;
 `;
 }
 
+const MAX_UPLOAD_IMAGE_BYTES = 12 * 1024 * 1024; // 12 MB máximo por imagen
+
+function assertValidPhotoCategory(category: unknown): PhotoCategory {
+  if (typeof category === "string" && (PHOTO_CATEGORIES as readonly string[]).includes(category)) {
+    return category as PhotoCategory;
+  }
+  throw new Error("Categoría fotográfica no válida.");
+}
+
+function sanitizeSafeSlug(slugCandidate: string, fallbackId: string): string {
+  const fromSlug = String(slugCandidate || "")
+    .replace(/[^a-z0-9-]/gi, "-")
+    .replace(/-{2,}/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .toLowerCase()
+    .slice(0, 96);
+  if (fromSlug && fromSlug !== "." && fromSlug !== "..") {
+    return fromSlug;
+  }
+  const fromId = String(fallbackId || "")
+    .replace(/[^a-z0-9-]/gi, "-")
+    .replace(/-{2,}/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .toLowerCase()
+    .slice(0, 64);
+  if (fromId && fromId !== "." && fromId !== "..") {
+    return fromId;
+  }
+  return `obra-${Date.now()}`;
+}
+
+function parseAndValidateImageBase64(imageBase64: string): {
+  cleanRawBase64: string;
+  buffer: Buffer;
+  isJpeg: boolean;
+} {
+  const trimmed = imageBase64.trim();
+  const dataPrefixMatch = trimmed.match(/^data:([^;]+);base64,/i);
+  if (dataPrefixMatch) {
+    const mime = dataPrefixMatch[1].toLowerCase();
+    if (mime !== "image/jpeg" && mime !== "image/jpg" && mime !== "image/png" && mime !== "image/webp") {
+      throw new Error("Formato de imagen no permitido. Solo se aceptan JPEG, PNG o WebP.");
+    }
+  }
+
+  const rawBase64 = trimmed.replace(/^data:image\/[a-zA-Z0-9.+-]+;base64,/i, "").trim();
+  if (!rawBase64 || rawBase64.length > Math.ceil((MAX_UPLOAD_IMAGE_BYTES * 4) / 3) + 64) {
+    throw new Error("El archivo de imagen está vacío o supera el máximo permitido (12 MB).");
+  }
+
+  const buffer = Buffer.from(rawBase64, "base64");
+  if (buffer.length === 0 || buffer.length > MAX_UPLOAD_IMAGE_BYTES) {
+    throw new Error("El archivo de imagen decodificado no es válido o supera 12 MB.");
+  }
+
+  const isJpeg = buffer.length >= 3 && buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff;
+  const isPng =
+    buffer.length >= 8 &&
+    buffer[0] === 0x89 &&
+    buffer[1] === 0x50 &&
+    buffer[2] === 0x4e &&
+    buffer[3] === 0x47;
+  const isWebp =
+    buffer.length >= 12 &&
+    buffer.toString("ascii", 0, 4) === "RIFF" &&
+    buffer.toString("ascii", 8, 12) === "WEBP";
+
+  if (!isJpeg && !isPng && !isWebp) {
+    throw new Error("Archivo rechazado: la cabecera binaria no corresponde a JPEG, PNG ni WebP.");
+  }
+
+  return {
+    cleanRawBase64: buffer.toString("base64"),
+    buffer,
+    isJpeg,
+  };
+}
+
+function resolveSafePortfolioDiskPath(category: PhotoCategory, safeSlug: string): string {
+  const portfolioRoot = path.resolve(process.cwd(), "public", "images", "portfolio");
+  const candidate = path.resolve(portfolioRoot, category, `${safeSlug}.jpg`);
+  if (!candidate.startsWith(portfolioRoot + path.sep)) {
+    throw new Error("Ruta de archivo fuera del directorio permitido.");
+  }
+  return candidate;
+}
+
+function prepareUploadedPhotoAsset(
+  photo: Photo,
+  imageBase64: string
+): {
+  photo: Photo;
+  safeSlug: string;
+  cleanBase64: string;
+  repoImagePath: string;
+} {
+  const parsed = parseAndValidateImageBase64(imageBase64);
+  const safeSlug = sanitizeSafeSlug(photo.slug, photo.id);
+  const nextPhoto: Photo = {
+    ...photo,
+    slug: safeSlug,
+    image: `/images/portfolio/${photo.category}/${safeSlug}.jpg`,
+  };
+  const cleanBase64 = parsed.isJpeg
+    ? embedAuthorMetadataInBase64Jpeg(parsed.cleanRawBase64, nextPhoto)
+    : parsed.cleanRawBase64;
+  return {
+    photo: nextPhoto,
+    safeSlug,
+    cleanBase64,
+    repoImagePath: `public/images/portfolio/${nextPhoto.category}/${safeSlug}.jpg`,
+  };
+}
+
 /**
  * Elimina campos que no corresponden a la categoría de la obra
  * (p. ej. condición de fauna en una foto de arquitectura).
  */
 export function sanitizePhotoForCategory(photo: Photo): Photo {
-  const clean: Photo = { ...photo };
+  const validCategory = assertValidPhotoCategory(photo.category);
+  const clean: Photo = { ...photo, category: validCategory };
   if (clean.category !== "fauna-naturaleza") {
     delete clean.wildlifeCondition;
     delete clean.realLocation;
@@ -379,17 +494,14 @@ export async function saveWork(
   let updatedPhoto = sanitizePhotoForCategory(incomingPhoto);
 
   let cleanBase64: string | undefined;
+  let safeSlug: string | undefined;
   let repoImagePath: string | undefined;
   if (imageBase64 && imageBase64.trim().length > 0) {
-    const rawBase64 = imageBase64.replace(/^data:image\/[a-zA-Z0-9.+-]+;base64,/, "").trim();
-    const safeSlug = updatedPhoto.slug.replace(/[^a-z0-9-]/gi, "-").toLowerCase() || updatedPhoto.id;
-    updatedPhoto = {
-      ...updatedPhoto,
-      slug: safeSlug,
-      image: `/images/portfolio/${updatedPhoto.category}/${safeSlug}.jpg`,
-    };
-    cleanBase64 = embedAuthorMetadataInBase64Jpeg(rawBase64, updatedPhoto);
-    repoImagePath = `public/images/portfolio/${updatedPhoto.category}/${safeSlug}.jpg`;
+    const asset = prepareUploadedPhotoAsset(updatedPhoto, imageBase64);
+    updatedPhoto = asset.photo;
+    safeSlug = asset.safeSlug;
+    cleanBase64 = asset.cleanBase64;
+    repoImagePath = asset.repoImagePath;
   }
 
   updatedPhoto = applySeriesMembership(updatedPhoto, seriesSlugs);
@@ -410,16 +522,8 @@ export async function saveWork(
 
   if (process.env.VERCEL !== "1") {
     try {
-      if (cleanBase64) {
-        const safeSlug = updatedPhoto.slug.replace(/[^a-z0-9-]/gi, "-").toLowerCase() || updatedPhoto.id;
-        const absImgPath = path.join(
-          process.cwd(),
-          "public",
-          "images",
-          "portfolio",
-          updatedPhoto.category,
-          `${safeSlug}.jpg`
-        );
+      if (cleanBase64 && safeSlug) {
+        const absImgPath = resolveSafePortfolioDiskPath(updatedPhoto.category, safeSlug);
         fs.mkdirSync(path.dirname(absImgPath), { recursive: true });
         fs.writeFileSync(absImgPath, Buffer.from(cleanBase64, "base64"));
       }
@@ -490,34 +594,21 @@ export async function batchCreateWorks(
 
   for (const item of items) {
     let cleanPhoto = sanitizePhotoForCategory(item.photo);
-    const rawBase64 = item.imageBase64.replace(/^data:image\/[a-zA-Z0-9.+-]+;base64,/, "").trim();
-    const safeSlug = cleanPhoto.slug.replace(/[^a-z0-9-]/gi, "-").toLowerCase() || cleanPhoto.id;
-    cleanPhoto = {
-      ...cleanPhoto,
-      slug: safeSlug,
-      image: `/images/portfolio/${cleanPhoto.category}/${safeSlug}.jpg`,
-    };
-    cleanPhoto = applySeriesMembership(cleanPhoto, seriesSlugs);
-    const cleanBase64 = embedAuthorMetadataInBase64Jpeg(rawBase64, cleanPhoto);
+    const asset = prepareUploadedPhotoAsset(cleanPhoto, item.imageBase64);
+    cleanPhoto = applySeriesMembership(asset.photo, seriesSlugs);
+    const cleanBase64 = asset.cleanBase64;
     inMemoryWorks.unshift(cleanPhoto);
     createdPhotos.push(cleanPhoto);
 
     filesToCommit.push({
-      path: `public/images/portfolio/${cleanPhoto.category}/${safeSlug}.jpg`,
+      path: asset.repoImagePath,
       content: cleanBase64,
       encoding: "base64",
     });
 
     if (process.env.VERCEL !== "1" && cleanBase64) {
       try {
-        const absImgPath = path.join(
-          process.cwd(),
-          "public",
-          "images",
-          "portfolio",
-          cleanPhoto.category,
-          `${safeSlug}.jpg`
-        );
+        const absImgPath = resolveSafePortfolioDiskPath(cleanPhoto.category, asset.safeSlug);
         fs.mkdirSync(path.dirname(absImgPath), { recursive: true });
         fs.writeFileSync(absImgPath, Buffer.from(cleanBase64, "base64"));
       } catch {
@@ -839,9 +930,7 @@ export async function saveSiteConfig(
   let cleanPortraitBase64: string | undefined;
   const repoPortraitPath = "public/images/portfolio/hero/retrato-javier-espinosa.jpg";
   if (portraitBase64 && portraitBase64.trim().length > 0) {
-    cleanPortraitBase64 = portraitBase64
-      .replace(/^data:image\/[a-zA-Z0-9.+-]+;base64,/, "")
-      .trim();
+    cleanPortraitBase64 = parseAndValidateImageBase64(portraitBase64).cleanRawBase64;
     nextSettings = {
       ...nextSettings,
       authorPortraitUrl: "/images/portfolio/hero/retrato-javier-espinosa.jpg",

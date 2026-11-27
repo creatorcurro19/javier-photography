@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { isAuthenticatedRequest } from "@/lib/server/admin-auth";
+import { isAuthenticatedRequest, isSameOriginRequest } from "@/lib/server/admin-auth";
 import { SITE_URL } from "@/lib/metadata";
 
 const TELEGRAM_TOKEN_RE = /^\d{6,14}:[A-Za-z0-9_-]{20,80}$/;
@@ -13,6 +13,9 @@ interface TelegramChatEntry {
 }
 
 export async function POST(request: Request) {
+  if (!isSameOriginRequest(request)) {
+    return NextResponse.json({ ok: false, error: "Origen no permitido" }, { status: 403 });
+  }
   if (!isAuthenticatedRequest(request)) {
     return NextResponse.json({ ok: false, error: "No autorizado" }, { status: 401 });
   }

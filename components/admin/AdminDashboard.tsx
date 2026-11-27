@@ -79,7 +79,7 @@ export default function AdminDashboard({
   const [alertsReady, setAlertsReady] = useState<boolean | null>(null);
 
   useEffect(() => {
-    fetch("/api/health", { cache: "no-store" })
+    fetch("/api/health", { cache: "no-store", credentials: "same-origin" })
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         if (data?.integrations?.mobilePush) {

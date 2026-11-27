@@ -1,5 +1,5 @@
 import { NextResponse, after } from "next/server";
-import { isAuthenticatedRequest } from "@/lib/server/admin-auth";
+import { isAuthenticatedRequest, isSameOriginRequest } from "@/lib/server/admin-auth";
 import {
   getCurrentWorks,
   getCurrentSeries,
@@ -41,24 +41,33 @@ export async function GET(request: Request) {
   if (!isAuthenticatedRequest(request)) {
     return NextResponse.json(
       { ok: false, error: "No autorizado. Inicia sesión." },
-      { status: 401 }
+      { status: 401, headers: { "Cache-Control": "no-store" } }
     );
   }
 
   const works = getCurrentWorks();
 
-  return NextResponse.json({
-    ok: true,
-    total: works.length,
-    works,
-    series: serializeSeries(),
-    siteSettings: getCurrentSiteSettings(),
-    cuadernoPosts: getCurrentCuadernoPosts(),
-    githubConfigured: Boolean(process.env.GITHUB_TOKEN?.trim()),
-  });
+  return NextResponse.json(
+    {
+      ok: true,
+      total: works.length,
+      works,
+      series: serializeSeries(),
+      siteSettings: getCurrentSiteSettings(),
+      cuadernoPosts: getCurrentCuadernoPosts(),
+      githubConfigured: Boolean(process.env.GITHUB_TOKEN?.trim()),
+    },
+    { headers: { "Cache-Control": "no-store" } }
+  );
 }
 
 export async function POST(request: Request) {
+  if (!isSameOriginRequest(request)) {
+    return NextResponse.json(
+      { ok: false, error: "Origen de solicitud no permitido." },
+      { status: 403 }
+    );
+  }
   if (!isAuthenticatedRequest(request)) {
     return NextResponse.json(
       { ok: false, error: "No autorizado. Inicia sesión." },
@@ -323,6 +332,12 @@ export async function POST(request: Request) {
 }
 
 export async function DELETE(request: Request) {
+  if (!isSameOriginRequest(request)) {
+    return NextResponse.json(
+      { ok: false, error: "Origen de solicitud no permitido." },
+      { status: 403 }
+    );
+  }
   if (!isAuthenticatedRequest(request)) {
     return NextResponse.json(
       { ok: false, error: "No autorizado. Inicia sesión." },

@@ -13,10 +13,31 @@ const nextConfig: NextConfig = {
     qualities: [75, 85, 90],
   },
   async headers() {
+    const contentSecurityPolicy = [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://va.vercel-scripts.com https://vercel.live",
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' data: blob:",
+      "font-src 'self' data:",
+      "connect-src 'self' https://challenges.cloudflare.com https://va.vercel-scripts.com https://vitals.vercel-insights.com https://formsubmit.co",
+      "frame-src https://challenges.cloudflare.com https://checkout.stripe.com",
+      "worker-src 'self' blob:",
+      "manifest-src 'self'",
+      "object-src 'none'",
+      "base-uri 'self'",
+      "form-action 'self'",
+      "frame-ancestors 'none'",
+      ...(process.env.VERCEL === "1" ? ["upgrade-insecure-requests"] : []),
+    ].join("; ");
+
     return [
       {
         source: "/(.*)",
         headers: [
+          {
+            key: "Content-Security-Policy",
+            value: contentSecurityPolicy,
+          },
           {
             key: "X-Content-Type-Options",
             value: "nosniff",
@@ -26,16 +47,50 @@ const nextConfig: NextConfig = {
             value: "DENY",
           },
           {
+            key: "Cross-Origin-Opener-Policy",
+            value: "same-origin",
+          },
+          {
             key: "Referrer-Policy",
             value: "strict-origin-when-cross-origin",
           },
           {
             key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=()",
+            value: "camera=(), microphone=(), geolocation=(), browsing-topics=()",
+          },
+          {
+            key: "X-Permitted-Cross-Domain-Policies",
+            value: "none",
+          },
+          {
+            key: "X-DNS-Prefetch-Control",
+            value: "off",
           },
           {
             key: "Strict-Transport-Security",
             value: "max-age=63072000; includeSubDomains; preload",
+          },
+        ],
+      },
+      {
+        source: "/admin/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "no-store, private",
+          },
+          {
+            key: "X-Robots-Tag",
+            value: "noindex, nofollow, noarchive",
+          },
+        ],
+      },
+      {
+        source: "/api/:path*",
+        headers: [
+          {
+            key: "X-Robots-Tag",
+            value: "noindex, nofollow, noarchive",
           },
         ],
       },

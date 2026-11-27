@@ -3,12 +3,30 @@ import { test, expect } from "@playwright/test";
 import { E2E_WEBHOOK_SECRET } from "../playwright.config";
 
 test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
-  test("GET /api/health devuelve estado de integraciones sin exponer secretos", async ({
+  test("GET /api/health oculta integraciones al público y las muestra solo autenticado", async ({
     request,
   }) => {
-    const res = await request.get("/api/health");
-    expect(res.status()).toBe(200);
-    const body = await res.json();
+    const publicRes = await request.get("/api/health");
+    expect(publicRes.status()).toBe(200);
+    const publicBody = await publicRes.json();
+    expect(publicBody.ok).toBe(true);
+    expect(publicBody.status).toBe("healthy");
+    expect(publicBody.integrations).toBeUndefined();
+
+    const loginRes = await request.post("/api/admin/login", {
+      data: {
+        username: "Javier",
+        pin: process.env.ADMIN_PIN || "88722",
+      },
+    });
+    expect(loginRes.status()).toBe(200);
+    const loginBody = await loginRes.json();
+    expect(loginBody.ok).toBe(true);
+    expect(loginBody.token).toBeUndefined();
+
+    const authRes = await request.get("/api/health");
+    expect(authRes.status()).toBe(200);
+    const body = await authRes.json();
     expect(body.ok).toBe(true);
     expect(body.status).toBe("healthy");
     expect(typeof body.integrations.stripe.configured).toBe("boolean");
@@ -462,5 +480,49 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
       data: { token: "123456:test" },
     });
     expect(unauthTgDetect.status()).toBe(401);
+
+    const probeEnv = await request.get("/.env");
+    expect(probeEnv.status()).toBe(403);
+
+    const probeWp = await request.get("/wp-login.php");
+    expect(probeWp.status()).toBe(403);
+
+    const probeGit = await request.get("/.git/config");
+    expect(probeGit.status()).toBe(403);
+
+    const crossSiteLogin = await request.post("/api/admin/login", {
+      headers: { Origin: "https://evil.example" },
+      data: { username: "Javier", pin: process.env.ADMIN_PIN || "88722" },
+    });
+    expect(crossSiteLogin.status()).toBe(403);
+
+    const crossSiteOrder = await request.post("/api/order", {
+      headers: { Origin: "https://evil.example" },
+      data: { ok: false },
+    });
+    expect(crossSiteOrder.status()).toBe(403);
+
+    // Verificar revocación real de sesión en servidor al cerrar sesión
+    const loginRes = await request.post("/api/admin/login", {
+      data: { username: "Javier", pin: process.env.ADMIN_PIN || "88722" },
+    });
+    expect(loginRes.status()).toBe(200);
+    const setCookieHeader = loginRes.headers()["set-cookie"] || "";
+    const cookiePair = setCookieHeader.split(";")[0];
+    expect(cookiePair).toContain("admin_session=je_admin_v2.");
+
+    const logoutRes = await request.post("/api/admin/logout");
+    expect(logoutRes.status()).toBe(200);
+
+    // Reenviar la cookie antigua explícitamente tras logout debe fallar
+    const replayCheck = await request.get("/api/admin/works", {
+      headers: { Cookie: cookiePair },
+    });
+    expect(replayCheck.status()).toBe(401);
+
+    const cspHeaders = adminRes.headers();
+    expect(cspHeaders["content-security-policy"]).toContain("frame-ancestors 'none'");
+    expect(cspHeaders["cross-origin-opener-policy"]).toBe("same-origin");
+    expect(cspHeaders["x-permitted-cross-domain-policies"]).toBe("none");
   });
 });

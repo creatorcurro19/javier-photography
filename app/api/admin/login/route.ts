@@ -3,21 +3,36 @@ import {
   verifyCredentials,
   generateSessionToken,
   getAdminUser,
+  isSameOriginRequest,
 } from "@/lib/server/admin-auth";
 import { getClientIp, rateLimit } from "@/lib/server/rate-limit";
 
+const NO_STORE_HEADERS = { "Cache-Control": "no-store" } as const;
+
 export async function POST(request: Request) {
   try {
+    if (!isSameOriginRequest(request)) {
+      return NextResponse.json(
+        { ok: false, error: "Origen de solicitud no permitido." },
+        { status: 403, headers: NO_STORE_HEADERS }
+      );
+    }
+
     const ip = getClientIp(request);
-    // Límite de 10 intentos cada 15 minutos para evitar ataques de fuerza bruta
-    const rl = rateLimit(`admin-login:${ip}`, 10, 15 * 60 * 1000);
-    if (!rl.ok) {
+    // Límite por IP (8 intentos cada 15 min) y límite global contra ataques distribuidos
+    const rl = rateLimit(`admin-login:${ip}`, 8, 15 * 60 * 1000);
+    const globalRl = rateLimit("admin-login:global", 40, 15 * 60 * 1000);
+    if (!rl.ok || !globalRl.ok) {
+      const retryAfter = Math.max(rl.retryAfter || 0, globalRl.retryAfter || 0);
       return NextResponse.json(
         {
           ok: false,
-          error: `Demasiados intentos fallidos. Por seguridad, espera ${rl.retryAfter} segundos antes de reintentar.`,
+          error: `Demasiados intentos fallidos. Por seguridad, espera ${retryAfter} segundos antes de reintentar.`,
         },
-        { status: 429, headers: { "Retry-After": String(rl.retryAfter) } }
+        {
+          status: 429,
+          headers: { ...NO_STORE_HEADERS, "Retry-After": String(retryAfter) },
+        }
       );
     }
 
@@ -28,32 +43,35 @@ export async function POST(request: Request) {
     if (!userCandidate || !pinCandidate) {
       return NextResponse.json(
         { ok: false, error: "Introduce tu usuario y la clave de acceso." },
-        { status: 400 }
+        { status: 400, headers: NO_STORE_HEADERS }
       );
     }
 
     const isValid = verifyCredentials(userCandidate, pinCandidate);
     if (!isValid) {
+      await new Promise((resolve) => setTimeout(resolve, 400));
       return NextResponse.json(
         {
           ok: false,
           error: "Clave de acceso o usuario no válidos. Verifica la credencial.",
         },
-        { status: 401 }
+        { status: 401, headers: NO_STORE_HEADERS }
       );
     }
 
     const token = generateSessionToken();
     const isProduction = process.env.NODE_ENV === "production";
 
-    const response = NextResponse.json({
-      ok: true,
-      user: getAdminUser(),
-      message: "Acceso concedido al Estudio de Autor",
-      token, // Devuelto también para clientes que usen Authorization Bearer
-    });
+    const response = NextResponse.json(
+      {
+        ok: true,
+        user: getAdminUser(),
+        message: "Acceso concedido al Estudio de Autor",
+      },
+      { headers: NO_STORE_HEADERS }
+    );
 
-    // Establecer cookie HTTP-only segura y persistente por 30 días
+    // Cookie HTTP-only segura y persistente por 30 días (nunca expuesta en JS/localStorage)
     response.cookies.set({
       name: "admin_session",
       value: token,
@@ -69,7 +87,7 @@ export async function POST(request: Request) {
     console.error("[admin-login] Error en autenticación:", error);
     return NextResponse.json(
       { ok: false, error: "Error en el servidor al verificar las credenciales." },
-      { status: 500 }
+      { status: 500, headers: NO_STORE_HEADERS }
     );
   }
 }
