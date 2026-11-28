@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "@/components/ui/LocalizedLink";
-import { SITE_CONFIG } from "@/data/site-config";
+import { SITE_CONFIG, SITE_SETTINGS } from "@/data/site-config";
 import { useLanguage } from "@/lib/i18n";
 
 export default function Footer() {
@@ -40,6 +40,11 @@ export default function Footer() {
                 {t(item.labelEs, item.labelEn)}
               </Link>
             ))}
+            {SITE_SETTINGS.showCuaderno && (
+              <Link href="/cuaderno" className="hover:text-[#C5A880] transition">
+                {t("Cuaderno", "Journal")}
+              </Link>
+            )}
             <a
               href={SITE_CONFIG.social.instagram}
               target="_blank"

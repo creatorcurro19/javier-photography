@@ -666,7 +666,7 @@ export function generateArticleSchema({
     ...(articleSection ? { articleSection } : {}),
     ...(image ? { image: absoluteUrl(image) } : {}),
     ...(isoDate ? { datePublished: isoDate } : {}),
-    dateModified: "2026-11-27",
+    dateModified: isoDate && isoDate > "2026-11-28" ? isoDate : "2026-11-28",
     author: {
       "@type": "Person",
       "@id": absoluteUrl("/#author"),

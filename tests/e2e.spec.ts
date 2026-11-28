@@ -181,7 +181,9 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
     expect(xml).toContain("/servicios/fotografo-rally-motorsport");
     expect(xml).toContain("/servicios/copias-fine-art-coleccionismo");
     expect(xml).toContain("/dossier");
-    expect(xml).not.toContain("/cuaderno/borrador-01-observacion-fauna-600mm");
+    expect(xml).toContain("/cuaderno/borrador-01-observacion-fauna-600mm");
+    expect(xml).toContain("/cuaderno/borrador-02-luz-y-bruma-en-tenerife");
+    expect(xml).toContain("/cuaderno/borrador-03-tramo-y-asistencia-rally-historico");
 
     const imageSitemapRes = await request.get("/image-sitemap.xml");
     expect(imageSitemapRes.status()).toBe(200);
@@ -212,15 +214,24 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
     expect(photoHtml).toContain('"sku":"JE-');
     expect(photoHtml).toContain('"ShippingDeliveryTime"');
 
-    const draftRes = await request.get("/cuaderno/borrador-01-observacion-fauna-600mm");
-    expect(draftRes.status()).toBe(200);
-    const draftHtml = await draftRes.text();
-    expect(draftHtml).toContain('<meta name="robots" content="noindex, follow"');
-    expect(draftHtml).toContain('"@type":"BlogPosting"');
+    const cuadernoEsRes = await request.get("/cuaderno/borrador-01-observacion-fauna-600mm");
+    expect(cuadernoEsRes.status()).toBe(200);
+    const cuadernoEsHtml = await cuadernoEsRes.text();
+    expect(cuadernoEsHtml).toContain('<meta name="robots" content="index, follow"');
+    expect(cuadernoEsHtml).toContain('"@type":"BlogPosting"');
+    expect(cuadernoEsHtml).toContain('"datePublished":"2026-11-28"');
+
+    const cuadernoEnRes = await request.get("/en/cuaderno/borrador-01-observacion-fauna-600mm");
+    expect(cuadernoEnRes.status()).toBe(200);
+    const cuadernoEnHtml = await cuadernoEnRes.text();
+    expect(cuadernoEnHtml).toContain('<meta name="robots" content="index, follow"');
+    expect(cuadernoEnHtml).toContain('"datePublished":"2026-11-28"');
+    expect(cuadernoEnHtml).toContain("Wildlife photography at 600mm");
 
     const portfolioRes = await request.get("/portfolio");
     expect(portfolioRes.status()).toBe(200);
     const portfolioHtml = await portfolioRes.text();
+    expect(portfolioHtml).toContain('type="search"');
     // Verifica que obras del final del archivo (más allá de las primeras 24) tengan enlace real en el HTML SSR
     expect(portfolioHtml).toContain("/portfolio/cuervo-canario-ante-las-cumbres");
     expect(portfolioHtml).toContain("/portfolio/frontal-clasico-bmw-e30");
@@ -529,6 +540,15 @@ test.describe("Javier Espinosa Photography — Seguridad, APIs y SEO", () => {
     const setCookieHeader = loginRes.headers()["set-cookie"] || "";
     const cookiePair = setCookieHeader.split(";")[0];
     expect(cookiePair).toContain("admin_session=je_admin_v2.");
+
+    const worksRes = await request.get("/api/admin/works");
+    expect(worksRes.status()).toBe(200);
+    const worksBody = await worksRes.json();
+    expect(worksBody.ok).toBe(true);
+    expect(worksBody.siteSettings.showCuaderno).toBe(true);
+    expect(Array.isArray(worksBody.cuadernoPosts)).toBe(true);
+    expect(worksBody.cuadernoPosts.length).toBeGreaterThanOrEqual(3);
+    expect(worksBody.cuadernoPosts[0].en?.title).toBeTruthy();
 
     const logoutRes = await request.post("/api/admin/logout");
     expect(logoutRes.status()).toBe(200);

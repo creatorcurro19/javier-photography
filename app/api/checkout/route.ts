@@ -75,6 +75,7 @@ export async function POST(request: Request) {
     params.append("origin_context", "web");
     params.append("submit_type", "pay");
     params.append("customer_creation", "if_required");
+    params.append("allow_promotion_codes", "true");
     params.append("locale", checkoutLang);
     params.append("customer_email", order.customer.email);
     params.append("client_reference_id", order.orderId);

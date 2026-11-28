@@ -15,7 +15,7 @@ import {
 } from "@/lib/photos";
 
 const BASE = SITE_URL;
-const CATALOG_LAST_MODIFIED = new Date("2026-11-27T23:00:00.000Z");
+const CATALOG_LAST_MODIFIED = new Date("2026-11-28T09:50:00.000Z");
 const LEGAL_LAST_MODIFIED = new Date("2026-11-17T00:00:00.000Z");
 
 function getPhotoLastModified(year?: number): Date {

@@ -71,7 +71,7 @@ export default function PortfolioPageContent({
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-28 pb-24 text-[#EBE7DF]">
       <Container className="relative z-10">
-        <header className="max-w-2xl">
+        <header className="max-w-3xl">
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#C5A880]">
             {t("Galería Fotográfica", "Photography Gallery")} · {photos.length}{" "}
             {t("fotos", "photos")}
@@ -81,31 +81,70 @@ export default function PortfolioPageContent({
           </h1>
           <p className="mt-3 text-sm sm:text-base leading-relaxed text-[#A39E93] font-light">
             {t(
-              "Elige un tema arriba para filtrar o toca cualquier foto para abrir su ficha completa.",
-              "Choose a theme above to filter or select any photograph to open its full sheet."
+              "Elige un tema arriba, busca por lugar o especie, o toca cualquier foto para abrir su ficha completa.",
+              "Choose a theme below, search by place or subject, or select any photograph to open its full sheet."
             )}
           </p>
-          {searchQuery && (
-            <div className="mt-4 inline-flex items-center gap-3 rounded-lg border border-[#C5A880]/40 bg-[#151618] px-3.5 py-2 font-mono text-xs text-[#EBE7DF]">
-              <span>
-                {t("Filtro:", "Search:")}{" "}
-                <strong className="text-[#C5A880] font-normal">
-                  &ldquo;{searchQuery}&rdquo;
-                </strong>{" "}
-                ({displayedPhotos.length})
-              </span>
-              <button
-                type="button"
-                onClick={() => {
-                  window.history.replaceState(null, "", window.location.pathname);
+
+          <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="relative flex-1">
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#C5A880]/75"
+              >
+                <circle cx="11" cy="11" r="7" />
+                <path d="m20 20-3.5-3.5" strokeLinecap="round" />
+              </svg>
+              <input
+                type="search"
+                value={searchQuery}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  const url = new URL(window.location.href);
+                  if (val.trim()) {
+                    url.searchParams.set("q", val);
+                  } else {
+                    url.searchParams.delete("q");
+                  }
+                  window.history.replaceState(null, "", url.pathname + url.search);
                   window.dispatchEvent(new Event("je-search-query-change"));
                 }}
-                className="text-[#A39E93] hover:text-white underline underline-offset-2 cursor-pointer"
-              >
-                {t("Limpiar", "Clear")}
-              </button>
+                aria-label={t(
+                  "Buscar fotografías por título, lugar o etiqueta",
+                  "Search photographs by title, location, or keyword"
+                )}
+                placeholder={t(
+                  "Buscar por lugar, especie o equipo (ej. Tenerife, Teide, 600mm, Rally…)",
+                  "Search by location, subject, or lens (e.g. Tenerife, Wildlife, 600mm, Rally…)"
+                )}
+                className="w-full rounded-xl border border-white/[0.12] bg-[#151618] py-2.5 pl-10 pr-20 font-sans text-sm text-[#EBE7DF] placeholder-[#7C7870] transition focus:border-[#C5A880] focus:outline-none"
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    window.history.replaceState(null, "", window.location.pathname);
+                    window.dispatchEvent(new Event("je-search-query-change"));
+                  }}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 rounded-md border border-white/15 bg-[#0B0C0E] px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-[#C5A880] hover:border-[#C5A880] hover:text-white transition cursor-pointer"
+                >
+                  {t("Limpiar", "Clear")}
+                </button>
+              )}
             </div>
-          )}
+            {searchQuery && (
+              <span className="shrink-0 font-mono text-xs text-[#A39E93]">
+                {displayedPhotos.length}{" "}
+                {displayedPhotos.length === 1
+                  ? t("resultado", "result")
+                  : t("resultados", "results")}
+              </span>
+            )}
+          </div>
         </header>
 
         <div className="mt-6">

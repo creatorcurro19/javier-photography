@@ -6,36 +6,49 @@ import { useState, useEffect } from "react";
 import { useLanguage } from "@/lib/i18n";
 import { normalizeRoutePath } from "@/lib/i18n-helpers";
 import LanguageToggle from "@/components/layout/LanguageToggle";
-import { SITE_CONFIG } from "@/data/site-config";
+import { SITE_CONFIG, SITE_SETTINGS } from "@/data/site-config";
 import { WORKS } from "@/data/works";
 import { PHOTO_CATEGORIES } from "@/types/photo";
 
-const primaryLinks = SITE_CONFIG.navigation.map((item) => {
-  const notes: Record<string, { noteEs: string; noteEn: string }> = {
-    "/portfolio": {
-      noteEs: `${WORKS.length} fotos (${PHOTO_CATEGORIES.length} colecciones)`,
-      noteEn: `${WORKS.length} photos (${PHOTO_CATEGORIES.length} collections)`,
-    },
-    "/prints": {
-      noteEs: "Copias en papel de algodón",
-      noteEn: "Hahnemühle cotton paper editions",
-    },
-    "/about": {
-      noteEs: "Mirada, equipo y forma de trabajar",
-      noteEn: "Approach, gear & way of working",
-    },
-    "/contact": {
-      noteEs: "Tenerife · Disponibilidad",
-      noteEn: "Tenerife · Availability",
-    },
-  };
-  return {
-    href: item.href,
-    es: item.labelEs,
-    en: item.labelEn,
-    ...(notes[item.href] ?? { noteEs: "", noteEn: "" }),
-  };
-});
+const primaryLinks = [
+  ...SITE_CONFIG.navigation.map((item) => {
+    const notes: Record<string, { noteEs: string; noteEn: string }> = {
+      "/portfolio": {
+        noteEs: `${WORKS.length} fotos (${PHOTO_CATEGORIES.length} colecciones)`,
+        noteEn: `${WORKS.length} photos (${PHOTO_CATEGORIES.length} collections)`,
+      },
+      "/prints": {
+        noteEs: "Copias en papel de algodón",
+        noteEn: "Hahnemühle cotton paper editions",
+      },
+      "/about": {
+        noteEs: "Mirada, equipo y forma de trabajar",
+        noteEn: "Approach, gear & way of working",
+      },
+      "/contact": {
+        noteEs: "Tenerife · Disponibilidad",
+        noteEn: "Tenerife · Availability",
+      },
+    };
+    return {
+      href: item.href,
+      es: item.labelEs,
+      en: item.labelEn,
+      ...(notes[item.href] ?? { noteEs: "", noteEn: "" }),
+    };
+  }),
+  ...(SITE_SETTINGS.showCuaderno
+    ? [
+        {
+          href: "/cuaderno",
+          es: "Cuaderno",
+          en: "Journal",
+          noteEs: "Crónicas de campo y técnica",
+          noteEn: "Field notes & camera craft",
+        },
+      ]
+    : []),
+];
 
 export default function MobileNav() {
   const [open, setOpen] = useState(false);

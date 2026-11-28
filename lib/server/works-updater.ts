@@ -53,6 +53,7 @@ const inMemoryCuadernoPosts: CuadernoPost[] = CUADERNO_POSTS.map((p) => ({
   ...p,
   body: [...p.body],
   cta: { ...p.cta },
+  ...(p.en ? { en: { ...p.en, ...(p.en.body ? { body: [...p.en.body] } : {}) } } : {}),
 }));
 
 export function getCurrentWorks(): Photo[] {
@@ -837,6 +838,16 @@ export function generateSiteConfigTsSource(
   posts: CuadernoPost[] = inMemoryCuadernoPosts
 ): string {
   return `import { PLAZOS } from "@/data/plazos";
+import type { SiteLang } from "@/lib/i18n-helpers";
+
+export interface CuadernoPostTranslationEn {
+  title?: string;
+  subtitle?: string;
+  date?: string;
+  categoryLabel?: string;
+  body?: string[];
+  ctaLabel?: string;
+}
 
 export interface CuadernoPost {
   slug: string;
@@ -853,6 +864,7 @@ export interface CuadernoPost {
     label: string;
     href: string;
   };
+  en?: CuadernoPostTranslationEn;
 }
 
 export interface SiteSettings {
@@ -886,6 +898,7 @@ export const SITE_CONFIG = {
   authorName: "Javier Espinosa Martínez",
   contactEmail: SITE_SETTINGS.contactEmail,
   locationLabel: SITE_SETTINGS.locationLabel,
+  locationLabelEn: "Puerto de la Cruz · Tenerife (Canary Islands)",
   pagosActivos: PAGOS_ACTIVOS,
   social: {
     instagram: SITE_SETTINGS.instagramUrl,
@@ -903,6 +916,47 @@ export const SITE_CONFIG = {
 } as const;
 
 export const CUADERNO_POSTS: CuadernoPost[] = ${JSON.stringify(posts, null, 2)};
+
+export const CUADERNO_POSTS_EN: Record<
+  string,
+  Pick<CuadernoPost, "title" | "subtitle" | "date" | "categoryLabel" | "body" | "cta">
+> = Object.fromEntries(
+  CUADERNO_POSTS.filter((p) => p.en).map((p) => [
+    p.slug,
+    {
+      title: p.en?.title || p.title,
+      subtitle: p.en?.subtitle || p.subtitle,
+      date: p.en?.date || p.date,
+      categoryLabel: p.en?.categoryLabel || p.categoryLabel,
+      body: p.en?.body && p.en.body.length > 0 ? p.en.body : p.body,
+      cta: {
+        label: p.en?.ctaLabel || p.cta.label,
+        href: p.cta.href,
+      },
+    },
+  ])
+);
+
+export function getLocalizedCuadernoPost<T extends CuadernoPost>(post: T, lang: SiteLang): T {
+  if (lang !== "en") return post;
+  if (post.en) {
+    return {
+      ...post,
+      title: post.en.title?.trim() || post.title,
+      subtitle: post.en.subtitle?.trim() || post.subtitle,
+      date: post.en.date?.trim() || post.date,
+      categoryLabel: post.en.categoryLabel?.trim() || post.categoryLabel,
+      body: post.en.body && post.en.body.length > 0 ? post.en.body : post.body,
+      cta: {
+        label: post.en.ctaLabel?.trim() || post.cta.label,
+        href: post.cta.href,
+      },
+    };
+  }
+  const tr = CUADERNO_POSTS_EN[post.slug];
+  if (!tr) return post;
+  return { ...post, ...tr };
+}
 `;
 }
 
@@ -941,10 +995,35 @@ export async function saveSiteConfig(
   inMemorySiteSettings = nextSettings;
   inMemoryCuadernoPosts.length = 0;
   for (const p of incomingPosts) {
+    const { en: rawEn, ...rest } = p;
+    const cleanEnBody = Array.isArray(rawEn?.body)
+      ? rawEn.body.map((b) => b.trim()).filter((b) => b.length > 0)
+      : undefined;
+    const hasEnContent = Boolean(
+      rawEn &&
+        (rawEn.title?.trim() ||
+          rawEn.subtitle?.trim() ||
+          rawEn.date?.trim() ||
+          rawEn.categoryLabel?.trim() ||
+          rawEn.ctaLabel?.trim() ||
+          (cleanEnBody && cleanEnBody.length > 0))
+    );
     inMemoryCuadernoPosts.push({
-      ...p,
+      ...rest,
       body: p.body.map((b) => b.trim()).filter((b) => b.length > 0),
       cta: { ...p.cta },
+      ...(hasEnContent && rawEn
+        ? {
+            en: {
+              ...(rawEn.title?.trim() ? { title: rawEn.title.trim() } : {}),
+              ...(rawEn.subtitle?.trim() ? { subtitle: rawEn.subtitle.trim() } : {}),
+              ...(rawEn.date?.trim() ? { date: rawEn.date.trim() } : {}),
+              ...(rawEn.categoryLabel?.trim() ? { categoryLabel: rawEn.categoryLabel.trim() } : {}),
+              ...(rawEn.ctaLabel?.trim() ? { ctaLabel: rawEn.ctaLabel.trim() } : {}),
+              ...(cleanEnBody && cleanEnBody.length > 0 ? { body: cleanEnBody } : {}),
+            },
+          }
+        : {}),
     });
   }
 

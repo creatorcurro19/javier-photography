@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import MobileNav from "@/components/layout/MobileNav";
 import LanguageToggle from "@/components/layout/LanguageToggle";
 import CartButton from "@/components/cart/CartButton";
-import { SITE_CONFIG } from "@/data/site-config";
+import { SITE_CONFIG, SITE_SETTINGS } from "@/data/site-config";
 import { useLanguage } from "@/lib/i18n";
 import { normalizeRoutePath } from "@/lib/i18n-helpers";
 
@@ -84,13 +84,18 @@ export default function Navbar() {
           aria-label={t("Navegación principal", "Primary navigation")}
           className="hidden items-center gap-6 xl:gap-8 text-xs uppercase tracking-[0.2em] lg:flex shrink-0"
         >
-          {SITE_CONFIG.navigation.map((item) => {
+          {[
+            ...SITE_CONFIG.navigation,
+            ...(SITE_SETTINGS.showCuaderno
+              ? [{ href: "/cuaderno", labelEs: "Cuaderno", labelEn: "Journal" }]
+              : []),
+          ].map((item) => {
             const isActive =
               item.href === "/portfolio"
                 ? pathname === "/portfolio" ||
                   pathname.startsWith("/portfolio/") ||
                   pathname === "/selected-work"
-                : pathname === item.href;
+                : pathname === item.href || pathname.startsWith(`${item.href}/`);
 
             return (
               <Link

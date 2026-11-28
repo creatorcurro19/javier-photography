@@ -33,7 +33,19 @@ export default function SiteSettingsSection({
 }: SiteSettingsSectionProps) {
   const [settings, setSettings] = useState<SiteSettings>({ ...initialSettings });
   const [posts, setPosts] = useState<CuadernoPost[]>(
-    initialPosts.map((p) => ({ ...p, body: [...p.body], cta: { ...p.cta } }))
+    initialPosts.map((p) => ({
+      ...p,
+      body: [...p.body],
+      cta: { ...p.cta },
+      ...(p.en
+        ? {
+            en: {
+              ...p.en,
+              ...(p.en.body ? { body: [...p.en.body] } : {}),
+            },
+          }
+        : {}),
+    }))
   );
   const [portraitDataUrl, setPortraitDataUrl] = useState<string | null>(null);
   const [processingPortrait, setProcessingPortrait] = useState(false);
@@ -41,8 +53,10 @@ export default function SiteSettingsSection({
 
   // Edición de artículo del Cuaderno
   const [editingPost, setEditingPost] = useState<CuadernoPost | null>(null);
+  const [originalPostSlug, setOriginalPostSlug] = useState<string | null>(null);
   const [isNewPost, setIsNewPost] = useState(false);
   const [postBodyText, setPostBodyText] = useState("");
+  const [postEnBodyText, setPostEnBodyText] = useState("");
 
   const setSetting = <K extends keyof SiteSettings>(key: K, val: SiteSettings[K]) => {
     setSettings((prev) => ({ ...prev, [key]: val }));
@@ -66,13 +80,15 @@ export default function SiteSettingsSection({
   const openNewPost = () => {
     const nextNum = String(posts.length + 1).padStart(2, "0");
     const defaultWork = works[0];
+    const todayIso = new Date().toISOString().slice(0, 10);
     setIsNewPost(true);
+    setOriginalPostSlug(null);
     setEditingPost({
       slug: "",
       number: nextNum,
       title: "",
       subtitle: "",
-      date: new Date().toLocaleDateString("es-ES", { month: "long", year: "numeric" }),
+      date: todayIso,
       author: "Javier Espinosa Martínez",
       categoryLabel: CATEGORY_METADATA[PHOTO_CATEGORIES[0]].title,
       relatedWorkSlug: defaultWork?.slug ?? "",
@@ -82,14 +98,39 @@ export default function SiteSettingsSection({
         label: "Ver obra relacionada y copias Fine Art",
         href: defaultWork ? `/portfolio/${defaultWork.slug}` : "/portfolio",
       },
+      en: {
+        title: "",
+        subtitle: "",
+        date: todayIso,
+        categoryLabel: "",
+        ctaLabel: "",
+        body: [],
+      },
     });
     setPostBodyText("");
+    setPostEnBodyText("");
   };
 
   const openEditPost = (post: CuadernoPost) => {
     setIsNewPost(false);
-    setEditingPost({ ...post, body: [...post.body], cta: { ...post.cta } });
+    setOriginalPostSlug(post.slug);
+    setEditingPost({
+      ...post,
+      body: [...post.body],
+      cta: { ...post.cta },
+      en: post.en
+        ? { ...post.en, ...(post.en.body ? { body: [...post.en.body] } : {}) }
+        : {
+            title: "",
+            subtitle: "",
+            date: post.date,
+            categoryLabel: "",
+            ctaLabel: "",
+            body: [],
+          },
+    });
     setPostBodyText(post.body.join("\n\n"));
+    setPostEnBodyText(post.en?.body?.join("\n\n") || "");
   };
 
   const handleSavePostModal = (e: React.FormEvent) => {
@@ -103,26 +144,63 @@ export default function SiteSettingsSection({
       .split(/\n\s*\n/)
       .map((p) => p.trim())
       .filter((p) => p.length > 0);
+    const enParagraphs = postEnBodyText
+      .split(/\n\s*\n/)
+      .map((p) => p.trim())
+      .filter((p) => p.length > 0);
+    const enDraft = editingPost.en;
+    const hasEnContent = Boolean(
+      enDraft?.title?.trim() ||
+        enDraft?.subtitle?.trim() ||
+        enDraft?.categoryLabel?.trim() ||
+        enDraft?.ctaLabel?.trim() ||
+        enParagraphs.length > 0
+    );
+
     const finalPost: CuadernoPost = {
-      ...editingPost,
       slug: cleanSlug,
+      number: editingPost.number.trim() || "01",
+      title: editingPost.title.trim(),
+      subtitle: editingPost.subtitle.trim(),
+      date: editingPost.date.trim() || new Date().toISOString().slice(0, 10),
+      author: editingPost.author.trim() || "Javier Espinosa Martínez",
+      categoryLabel:
+        editingPost.categoryLabel.trim() || CATEGORY_METADATA[PHOTO_CATEGORIES[0]].title,
+      relatedWorkSlug: editingPost.relatedWorkSlug,
+      status: editingPost.status,
       body:
         paragraphs.length > 0
           ? paragraphs
           : ["Artículo del cuaderno de campo por Javier Espinosa Martínez."],
       cta: {
-        label: editingPost.cta.label || "Ver obra relacionada",
-        href: editingPost.relatedWorkSlug
-          ? `/portfolio/${editingPost.relatedWorkSlug}`
-          : "/portfolio",
+        label: editingPost.cta.label.trim() || "Ver obra relacionada",
+        href:
+          editingPost.cta.href.trim() ||
+          (editingPost.relatedWorkSlug ? `/portfolio/${editingPost.relatedWorkSlug}` : "/portfolio"),
       },
+      ...(hasEnContent
+        ? {
+            en: {
+              ...(enDraft?.title?.trim() ? { title: enDraft.title.trim() } : {}),
+              ...(enDraft?.subtitle?.trim() ? { subtitle: enDraft.subtitle.trim() } : {}),
+              ...(enDraft?.date?.trim() ? { date: enDraft.date.trim() } : {}),
+              ...(enDraft?.categoryLabel?.trim()
+                ? { categoryLabel: enDraft.categoryLabel.trim() }
+                : {}),
+              ...(enDraft?.ctaLabel?.trim() ? { ctaLabel: enDraft.ctaLabel.trim() } : {}),
+              ...(enParagraphs.length > 0 ? { body: enParagraphs } : {}),
+            },
+          }
+        : {}),
     };
 
+    const matchSlug = originalPostSlug ?? editingPost.slug;
     const nextPosts = isNewPost
       ? [...posts, finalPost]
-      : posts.map((p) => (p.slug === editingPost.slug ? finalPost : p));
+      : posts.map((p) => (p.slug === matchSlug ? finalPost : p));
     setPosts(nextPosts);
     setEditingPost(null);
+    setOriginalPostSlug(null);
     setIsNewPost(false);
   };
 
@@ -224,8 +302,8 @@ export default function SiteSettingsSection({
           </div>
         </section>
 
-        {/* 2. CUADERNO DE CAMPO (oculto en versión minimalista) */}
-        <section className="hidden rounded-2xl border border-[#22242B] bg-[#131418] p-5 sm:p-6 space-y-4">
+        {/* 2. CUADERNO DE CAMPO */}
+        <section className="rounded-2xl border border-[#22242B] bg-[#131418] p-5 sm:p-6 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#202228] pb-3">
             <div>
               <span className="font-mono text-[10px] uppercase tracking-wider text-[#C5A880]">
@@ -252,7 +330,7 @@ export default function SiteSettingsSection({
           </div>
 
           <p className="text-xs text-[#A39E93]">
-            Aquí puedes escribir o editar tus artículos cuando te apetezca. Mientras la casilla de arriba esté desmarcada, el Cuaderno permanece oculto del menú público.
+            Edita libremente cualquier artículo (título, resumen, texto en español e inglés, portada y botón final). Al pulsar «Guardar y publicar ajustes de la web» abajo del todo se actualiza la web y el sitemap SEO.
           </p>
 
           <div className="space-y-2.5">
@@ -262,11 +340,17 @@ export default function SiteSettingsSection({
                 className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border border-[#24262E] bg-[#17181E] p-3.5"
               >
                 <div className="min-w-0">
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <span className="rounded bg-[#C5A880]/15 px-2 py-0.5 font-mono text-[10px] text-[#C5A880]">
                       N.º {post.number} · {post.status.toUpperCase()}
                     </span>
                     <span className="text-xs text-[#8E8A81]">{post.categoryLabel}</span>
+                    <span className="font-mono text-[10px] text-[#6D6A63]">{post.date}</span>
+                    {post.en?.title && (
+                      <span className="rounded border border-emerald-500/30 bg-emerald-950/30 px-1.5 py-0.5 font-mono text-[9px] text-emerald-300">
+                        ES + EN
+                      </span>
+                    )}
                   </div>
                   <h4 className="mt-1 truncate font-serif text-base font-medium text-[#EBE7DF]">
                     {post.title}
@@ -275,6 +359,14 @@ export default function SiteSettingsSection({
                 </div>
 
                 <div className="flex items-center gap-2 flex-shrink-0">
+                  <a
+                    href={`/cuaderno/${post.slug}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex min-h-[38px] items-center rounded-lg border border-[#2A2C34] bg-[#14151A] px-2.5 py-1.5 text-xs text-[#A39E93] hover:text-[#EBE7DF] hover:border-[#C5A880] transition"
+                  >
+                    Ver
+                  </a>
                   <button
                     type="button"
                     onClick={() => openEditPost(post)}
@@ -310,7 +402,7 @@ export default function SiteSettingsSection({
         <section className="rounded-2xl border border-[#22242B] bg-[#131418] p-5 sm:p-6 space-y-4">
           <div className="border-b border-[#202228] pb-3">
             <h3 className="font-serif text-lg font-medium text-[#EBE7DF]">
-              Contacto y precio base de láminas
+              Contacto, ubicación y tarifas base
             </h3>
           </div>
 
@@ -338,7 +430,31 @@ export default function SiteSettingsSection({
             </div>
           </div>
 
-          <div className="hidden grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className={labelClass}>Instagram URL</label>
+              <input
+                type="url"
+                value={settings.instagramUrl}
+                onChange={(e) => setSetting("instagramUrl", e.target.value)}
+                placeholder="https://www.instagram.com/..."
+                className={inputClass}
+              />
+            </div>
+
+            <div>
+              <label className={labelClass}>Ubicación pública (pie y contacto)</label>
+              <input
+                type="text"
+                value={settings.locationLabel}
+                onChange={(e) => setSetting("locationLabel", e.target.value)}
+                placeholder="Puerto de la Cruz · Tenerife (Islas Canarias)"
+                className={inputClass}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
             <div>
               <label className={labelClass}>
                 Teléfono / WhatsApp (déjalo vacío para ocultarlo)
@@ -441,6 +557,47 @@ export default function SiteSettingsSection({
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
+                  <label className={labelClass}>N.º de entrada</label>
+                  <input
+                    type="text"
+                    value={editingPost.number}
+                    onChange={(e) =>
+                      setEditingPost({ ...editingPost, number: e.target.value })
+                    }
+                    placeholder="04"
+                    className={`${inputClass} font-mono`}
+                  />
+                </div>
+
+                <div>
+                  <label className={labelClass}>Categoría visible</label>
+                  <input
+                    type="text"
+                    value={editingPost.categoryLabel}
+                    onChange={(e) =>
+                      setEditingPost({ ...editingPost, categoryLabel: e.target.value })
+                    }
+                    placeholder="Fauna y Naturaleza"
+                    className={inputClass}
+                  />
+                </div>
+
+                <div>
+                  <label className={labelClass}>Slug URL (enlace web)</label>
+                  <input
+                    type="text"
+                    value={editingPost.slug}
+                    onChange={(e) =>
+                      setEditingPost({ ...editingPost, slug: e.target.value })
+                    }
+                    placeholder="se-autogenera-del-titulo"
+                    className={`${inputClass} font-mono text-xs`}
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
                   <label className={labelClass}>Estado</label>
                   <select
                     value={editingPost.status}
@@ -453,19 +610,20 @@ export default function SiteSettingsSection({
                     className={inputClass}
                   >
                     <option value="publicado">Publicado</option>
-                    <option value="borrador">Borrador</option>
+                    <option value="borrador">Borrador (oculto del índice y sitemap)</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className={labelClass}>Fecha</label>
+                  <label className={labelClass}>Fecha (YYYY-MM-DD)</label>
                   <input
                     type="text"
                     value={editingPost.date}
                     onChange={(e) =>
                       setEditingPost({ ...editingPost, date: e.target.value })
                     }
-                    className={inputClass}
+                    placeholder="2026-11-28"
+                    className={`${inputClass} font-mono`}
                   />
                 </div>
 
@@ -490,6 +648,38 @@ export default function SiteSettingsSection({
                 </div>
               </div>
 
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className={labelClass}>Texto botón final (CTA)</label>
+                  <input
+                    type="text"
+                    value={editingPost.cta.label}
+                    onChange={(e) =>
+                      setEditingPost({
+                        ...editingPost,
+                        cta: { ...editingPost.cta, label: e.target.value },
+                      })
+                    }
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>Enlace del botón CTA</label>
+                  <input
+                    type="text"
+                    value={editingPost.cta.href}
+                    onChange={(e) =>
+                      setEditingPost({
+                        ...editingPost,
+                        cta: { ...editingPost.cta, href: e.target.value },
+                      })
+                    }
+                    placeholder="/portfolio/fauna-naturaleza"
+                    className={`${inputClass} font-mono text-xs`}
+                  />
+                </div>
+              </div>
+
               <div>
                 <label className={labelClass}>
                   Texto del artículo (separa cada párrafo con una línea en blanco) *
@@ -503,6 +693,84 @@ export default function SiteSettingsSection({
                   className={`${inputClass} leading-relaxed`}
                 />
               </div>
+
+              <details className="rounded-xl border border-[#262832] bg-[#16171C] p-3.5 space-y-3">
+                <summary className="cursor-pointer font-mono text-xs uppercase tracking-wider text-[#C5A880]">
+                  Versión en inglés (/en/cuaderno) — opcional
+                </summary>
+                <div className="space-y-3 pt-2">
+                  <div>
+                    <label className={labelClass}>Título (EN)</label>
+                    <input
+                      type="text"
+                      value={editingPost.en?.title || ""}
+                      onChange={(e) =>
+                        setEditingPost({
+                          ...editingPost,
+                          en: { ...editingPost.en, title: e.target.value },
+                        })
+                      }
+                      placeholder="English article title..."
+                      className={inputClass}
+                    />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Subtítulo (EN)</label>
+                    <input
+                      type="text"
+                      value={editingPost.en?.subtitle || ""}
+                      onChange={(e) =>
+                        setEditingPost({
+                          ...editingPost,
+                          en: { ...editingPost.en, subtitle: e.target.value },
+                        })
+                      }
+                      placeholder="English subtitle / meta description..."
+                      className={inputClass}
+                    />
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className={labelClass}>Categoría (EN)</label>
+                      <input
+                        type="text"
+                        value={editingPost.en?.categoryLabel || ""}
+                        onChange={(e) =>
+                          setEditingPost({
+                            ...editingPost,
+                            en: { ...editingPost.en, categoryLabel: e.target.value },
+                          })
+                        }
+                        className={inputClass}
+                      />
+                    </div>
+                    <div>
+                      <label className={labelClass}>Botón CTA (EN)</label>
+                      <input
+                        type="text"
+                        value={editingPost.en?.ctaLabel || ""}
+                        onChange={(e) =>
+                          setEditingPost({
+                            ...editingPost,
+                            en: { ...editingPost.en, ctaLabel: e.target.value },
+                          })
+                        }
+                        className={inputClass}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className={labelClass}>Texto en inglés (párrafos separados por línea en blanco)</label>
+                    <textarea
+                      rows={7}
+                      value={postEnBodyText}
+                      onChange={(e) => setPostEnBodyText(e.target.value)}
+                      placeholder="English body paragraphs..."
+                      className={`${inputClass} leading-relaxed`}
+                    />
+                  </div>
+                </div>
+              </details>
 
               <div className="flex items-center justify-end gap-2 border-t border-[#25272F] pt-4">
                 <button

@@ -241,6 +241,14 @@ export async function POST(request: Request) {
           ? body.portraitBase64.trim()
           : undefined;
       const cRes = await saveSiteConfig(settings, posts, portraitBase64, customGithubToken);
+      const publishedCuadernoPaths = posts
+        .filter((p) => p.status === "publicado")
+        .map((p) => `/cuaderno/${p.slug}`);
+      pingSearchIfPublished(cRes.persistedToGit, [
+        "/cuaderno",
+        "/en/cuaderno",
+        ...publishedCuadernoPaths,
+      ]);
       return NextResponse.json({
         ok: cRes.ok,
         message: cRes.message,

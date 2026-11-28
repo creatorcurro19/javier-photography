@@ -26,9 +26,10 @@ export default function CuadernoPageContent({
   stories,
 }: CuadernoPageContentProps) {
   const { lang, t } = useLanguage();
+  const publishedCount = posts.filter((p) => p.status === "publicado").length;
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pt-36 pb-28 text-[#EBE7DF]">
+    <div className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pb-28 pt-36 text-[#EBE7DF]">
       <AndalusianPageBackdrop variant="laceria" />
 
       <Container className="relative z-10">
@@ -43,26 +44,31 @@ export default function CuadernoPageContent({
             </p>
           </div>
           <h1 className="mt-4 font-serif text-4xl font-light tracking-wide text-[#EBE7DF] sm:text-5xl lg:text-6xl">
-            {t("Cuaderno", "Journal")}
+            {t("Cuaderno de Campo", "Field Journal")}
           </h1>
           <p className="mt-6 text-base leading-relaxed text-[#A39E93] sm:text-lg font-light">
             {t(
-              "Artículos, borradores en preparación y apuntes de campo sobre cómo se hicieron las fotografías del archivo: la espera con el teleobjetivo de 600mm, la luz de primera hora en las cumbres de Tenerife o el ambiente en un parque de asistencia.",
-              "Articles, drafts in progress, and field notes on how the archive's photographs came to be: patient waiting at 600mm, early light across Tenerife's peaks, or the atmosphere inside a rally service park."
+              "Artículos técnicos y crónicas de campo sobre cómo nacen las fotografías del archivo: la espera paciente con el teleobjetivo de 600mm, la luz del alba entre el Teide y Anaga, o el pulso del rally clásico.",
+              "Technical articles and field chronicles behind the archive's photographs: patient waiting at 600mm, dawn light between Mount Teide and Anaga, and the pulse of classic rallying."
             )}
           </p>
         </header>
 
         <AndalusianCenefa variant="estrella" className="mt-10 text-[#C5A880]/38" />
 
-        {/* Borradores de Artículos (/cuaderno/[slug]) */}
+        {/* Artículos del Cuaderno (/cuaderno/[slug]) */}
         <section aria-label={t("Artículos del Cuaderno", "Journal Articles")} className="mt-14">
           <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
             <h2 className="font-mono text-xs uppercase tracking-[0.3em] text-[#C5A880]">
-              {t(
-                `Artículos Individuales (/cuaderno/[slug]) · ${posts.length} Borradores Preparados`,
-                `Individual Articles (/cuaderno/[slug]) · ${posts.length} Drafts Prepared`
-              )}
+              {publishedCount === posts.length
+                ? t(
+                    `Artículos de Autor · ${posts.length} Entradas`,
+                    `Author Articles · ${posts.length} Entries`
+                  )
+                : t(
+                    `Artículos del Cuaderno · ${publishedCount} Publicados`,
+                    `Journal Articles · ${publishedCount} Published`
+                  )}
             </h2>
             <span className="font-mono text-[11px] text-[#A39E93]">
               {t("Autor: Javier Espinosa Martínez", "Author: Javier Espinosa Martínez")}
@@ -72,6 +78,7 @@ export default function CuadernoPageContent({
           <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-3">
             {posts.map((rawPost) => {
               const post = getLocalizedCuadernoPost(rawPost, lang);
+              const isPublished = rawPost.status === "publicado";
               const relatedWork = rawPost.relatedWork
                 ? getLocalizedPhoto(rawPost.relatedWork, lang)
                 : undefined;
@@ -97,7 +104,9 @@ export default function CuadernoPageContent({
                           className="block h-auto w-full"
                         />
                         <span className="absolute top-3 left-3 border border-[#C5A880]/40 bg-[#0B0C0E]/90 px-2.5 py-1 font-mono text-[9px] uppercase tracking-widest text-[#C5A880]">
-                          {t("Borrador", "Draft")} {post.number} · {post.categoryLabel}
+                          {isPublished
+                            ? `${t("Artículo", "Article")} ${post.number} · ${post.categoryLabel}`
+                            : `${t("Borrador", "Draft")} ${post.number} · ${post.categoryLabel}`}
                         </span>
                       </Link>
                     )}
@@ -143,7 +152,9 @@ export default function CuadernoPageContent({
                       href={`/cuaderno/${post.slug}`}
                       className="inline-flex min-h-[44px] items-center font-mono text-xs uppercase tracking-[0.22em] text-[#C5A880] hover:text-white transition"
                     >
-                      {t("Abrir Borrador →", "Open Draft →")}
+                      {isPublished
+                        ? t("Leer artículo →", "Read article →")
+                        : t("Abrir Borrador →", "Open Draft →")}
                     </Link>
                   </div>
                 </article>

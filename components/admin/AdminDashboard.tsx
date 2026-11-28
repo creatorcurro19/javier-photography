@@ -778,7 +778,7 @@ export default function AdminDashboard({
           <button
             type="button"
             onClick={() => setActiveSection("series")}
-            className={`hidden rounded-xl px-4 py-2.5 text-xs sm:text-sm font-medium transition cursor-pointer ${
+            className={`rounded-xl px-4 py-2.5 text-xs sm:text-sm font-medium transition cursor-pointer ${
               activeSection === "series"
                 ? "bg-[#C5A880] text-[#0B0C0E] font-semibold"
                 : "border border-[#262830] bg-[#141519] text-[#A39E93] hover:text-[#EBE7DF]"
@@ -892,7 +892,7 @@ export default function AdminDashboard({
               </button>
             </div>
             {/* Banner de Métricas Rápidas (oculto en versión minimalista) */}
-            <section className="hidden grid-cols-2 gap-3 sm:grid-cols-4 mb-6">
+            <section className="grid grid-cols-2 gap-3 sm:grid-cols-4 mb-6">
               <div className="rounded-xl border border-[#22242B] bg-[#141519] p-3.5 sm:p-4">
                 <span className="font-mono text-[10px] text-[#8E8A81] uppercase tracking-wider">
                   Total Archivo
@@ -956,7 +956,7 @@ export default function AdminDashboard({
                   )}
                 </div>
 
-                <div className="hidden items-center gap-2">
+                <div className="flex items-center gap-2">
                   <label className="text-[11px] font-mono uppercase text-[#8E8A81] whitespace-nowrap">
                     Ordenar:
                   </label>
@@ -1018,7 +1018,7 @@ export default function AdminDashboard({
                   <span>En venta</span>
                 </label>
 
-                <label className="hidden items-center gap-2 cursor-pointer text-[#A39E93] hover:text-[#EBE7DF]">
+                <label className="flex items-center gap-2 cursor-pointer text-[#A39E93] hover:text-[#EBE7DF]">
                   <input
                     type="checkbox"
                     checked={filterFeaturedOnly}
@@ -1038,7 +1038,7 @@ export default function AdminDashboard({
                   <span>Solo Portadas (Hero)</span>
                 </label>
 
-                <label className="hidden items-center gap-2 cursor-pointer text-[#A39E93] hover:text-[#EBE7DF]">
+                <label className="flex items-center gap-2 cursor-pointer text-[#A39E93] hover:text-[#EBE7DF]">
                   <input
                     type="checkbox"
                     checked={filterStoryOnly}
@@ -1055,7 +1055,7 @@ export default function AdminDashboard({
             </section>
 
             {/* Barra de Gestión por Lote (oculta en versión minimalista cuando no hay selección) */}
-            <div className="hidden mb-4 flex-wrap items-center justify-between gap-3 rounded-xl border border-[#23252D] bg-[#15161B] px-4 py-2.5">
+            <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#23252D] bg-[#15161B] px-4 py-2.5">
               <div className="flex items-center gap-2.5">
                 <button
                   type="button"
@@ -1208,7 +1208,7 @@ export default function AdminDashboard({
                             </p>
 
                             {/* Colecciones / Series a las que pertenece (oculto en versión minimalista) */}
-                            <div className="hidden mt-1.5 flex-wrap items-center gap-1">
+                            <div className="mt-1.5 flex flex-wrap items-center gap-1">
                               {photoSeriesList.length > 0 ? (
                                 photoSeriesList.map((s) => (
                                   <span
@@ -1240,7 +1240,7 @@ export default function AdminDashboard({
                                   </span>
                                 )}
                                 {seriesCover && (
-                                  <span className="hidden rounded border border-white/20 bg-white/10 px-1.5 py-0.5 font-mono text-[9px] uppercase text-[#EBE7DF]">
+                                  <span className="rounded border border-white/20 bg-white/10 px-1.5 py-0.5 font-mono text-[9px] uppercase text-[#EBE7DF]">
                                     Portada Serie
                                   </span>
                                 )}
@@ -1250,7 +1250,7 @@ export default function AdminDashboard({
                         </div>
 
                         {/* Descripción (oculta en tarjeta minimalista) */}
-                        <p className="hidden mt-3 line-clamp-2 text-xs text-[#A39E93] leading-relaxed">
+                        <p className="mt-3 line-clamp-2 text-xs text-[#A39E93] leading-relaxed">
                           {photo.description}
                         </p>
 
@@ -1301,7 +1301,7 @@ export default function AdminDashboard({
                           <button
                             type="button"
                             onClick={(e) => handleQuickToggleFeatured(photo, e)}
-                            className={`hidden min-h-[38px] items-center rounded-lg px-2.5 py-1.5 text-[10px] font-mono transition cursor-pointer ${
+                            className={`inline-flex min-h-[38px] items-center rounded-lg px-2.5 py-1.5 text-[10px] font-mono transition cursor-pointer ${
                               photo.featured
                                 ? "bg-[#C5A880]/20 text-[#C5A880] border border-[#C5A880]/40"
                                 : "bg-[#202228] text-[#716C62] border border-transparent"
@@ -1319,7 +1319,7 @@ export default function AdminDashboard({
                           <button
                             type="button"
                             onClick={() => setQuickAssignPhoto(photo)}
-                            className="hidden min-h-[38px] items-center gap-1 rounded-lg border border-[#2B2D36] bg-[#16171E] px-2.5 py-1.5 text-xs font-mono text-[#A39E93] hover:border-[#C5A880] hover:text-[#C5A880] transition cursor-pointer"
+                            className="inline-flex min-h-[38px] items-center gap-1 rounded-lg border border-[#2B2D36] bg-[#16171E] px-2.5 py-1.5 text-xs font-mono text-[#A39E93] hover:border-[#C5A880] hover:text-[#C5A880] transition cursor-pointer"
                             title="Gestionar colecciones de esta obra"
                           >
                             <span>📁 Colecciones</span>

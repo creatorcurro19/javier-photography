@@ -248,11 +248,11 @@ export default function WorkEditorModal({
     await onSave(finalPhoto, validSeries, uploadedDataUrl ?? undefined, validCovers);
   };
 
-  const tabs: { id: TabId; label: string; hidden?: boolean }[] = [
+  const tabs: { id: TabId; label: string }[] = [
     { id: "general", label: "Datos y Portada" },
     { id: "precios", label: "Precios" },
-    { id: "textos", label: "Textos avanzados", hidden: true },
-    { id: "ubicacion", label: config.showWildlife ? "Lugar, fauna y EXIF" : "Lugar y EXIF", hidden: true },
+    { id: "textos", label: "Textos avanzados" },
+    { id: "ubicacion", label: config.showWildlife ? "Lugar, fauna y EXIF" : "Lugar y EXIF" },
   ];
 
   const previewSrc = uploadedDataUrl || formData.image;
@@ -319,7 +319,7 @@ export default function WorkEditorModal({
               key={tab.id}
               type="button"
               onClick={() => setActiveTab(tab.id)}
-              className={`${tab.hidden ? "hidden " : ""}min-h-[44px] whitespace-nowrap px-4 text-xs font-medium uppercase tracking-wider transition-colors border-b-2 cursor-pointer ${
+              className={`min-h-[44px] whitespace-nowrap px-4 text-xs font-medium uppercase tracking-wider transition-colors border-b-2 cursor-pointer ${
                 activeTab === tab.id
                   ? "border-[#C5A880] text-[#C5A880]"
                   : "border-transparent text-[#8E8A81] hover:text-[#EBE7DF]"
@@ -452,7 +452,7 @@ export default function WorkEditorModal({
                   />
                 </div>
 
-                <div className="hidden">
+                <div>
                   <label className={labelClass}>Año</label>
                   <input
                     type="number"
@@ -506,7 +506,7 @@ export default function WorkEditorModal({
                     </select>
                   </div>
 
-                  <div className="hidden">
+                  <div>
                     <label className={labelClass}>
                       Orden en «Obras Seleccionadas» (1º, 2º, 3º…)
                     </label>
@@ -532,7 +532,7 @@ export default function WorkEditorModal({
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-                  <label className="hidden min-h-[42px] items-center gap-3 rounded-lg border border-[#25272F] bg-[#191B21] px-3 cursor-pointer">
+                  <label className="flex min-h-[42px] items-center gap-3 rounded-lg border border-[#25272F] bg-[#191B21] px-3 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={formData.featured}
@@ -569,13 +569,13 @@ export default function WorkEditorModal({
                       </span>
                     </label>
                     {formData.category === "coches-rally" && (
-                      <p className="hidden mt-1.5 text-[10px] leading-relaxed text-[#8E8A81]">
+                      <p className="mt-1.5 text-[10px] leading-relaxed text-[#8E8A81]">
                         <strong className="text-[#C5A880]">Motorsport / Rally:</strong> Desactivado por defecto. Se muestra en el portfolio como archivo documental con botón de solicitud directa para pilotos, equipos y prensa. Actívalo solo si dispones de autorización expresa de la escudería o es un plano detalle sin marcas identificables.
                       </p>
                     )}
                   </div>
 
-                  <label className="hidden min-h-[42px] items-center gap-3 rounded-lg border border-[#25272F] bg-[#191B21] px-3 cursor-pointer">
+                  <label className="flex min-h-[42px] items-center gap-3 rounded-lg border border-[#25272F] bg-[#191B21] px-3 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={Boolean(formData.licensing)}
@@ -589,8 +589,8 @@ export default function WorkEditorModal({
                 </div>
               </div>
 
-              {/* Series de la categoría (oculto en versión minimalista) */}
-              <div className="hidden rounded-xl border border-[#24262E] bg-[#16171C] p-4">
+              {/* Series de la categoría */}
+              <div className="rounded-xl border border-[#24262E] bg-[#16171C] p-4">
                 <span className="text-xs font-mono uppercase tracking-wider text-[#C5A880]">
                   Series en las que aparece (y portada de serie)
                 </span>
@@ -636,7 +636,7 @@ export default function WorkEditorModal({
                 )}
               </div>
 
-              <details className="hidden rounded-xl border border-[#22242B] bg-[#141519] p-4">
+              <details className="rounded-xl border border-[#22242B] bg-[#141519] p-4">
                 <summary className="cursor-pointer text-xs font-mono uppercase tracking-wider text-[#8E8A81]">
                   Avanzado (URL e imagen)
                 </summary>
@@ -757,7 +757,7 @@ export default function WorkEditorModal({
                 })}
               </div>
 
-              <div className="hidden grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className={labelClass}>Tamaño máximo recomendado</label>
                   <select
@@ -783,7 +783,7 @@ export default function WorkEditorModal({
                 </div>
               </div>
 
-              <div className="hidden">
+              <div>
                 <label className={labelClass}>Motivo del tamaño máximo (se muestra al comprar)</label>
                 <textarea
                   rows={2}
@@ -794,7 +794,7 @@ export default function WorkEditorModal({
                 />
               </div>
 
-              <div className="hidden">
+              <div>
                 <label className={labelClass}>Papel</label>
                 <input
                   type="text"

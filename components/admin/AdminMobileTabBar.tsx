@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { BellIcon, InboxIcon, PhotoGridIcon, SlidersIcon } from "./AdminIcons";
+import { BellIcon, InboxIcon, LayersIcon, PhotoGridIcon, SlidersIcon } from "./AdminIcons";
 
 export type AdminSectionTab = "photos" | "series" | "inbox" | "alerts" | "settings";
 
@@ -37,6 +37,11 @@ export default function AdminMobileTabBar({
       icon: <PhotoGridIcon className="h-5 w-5" />,
     },
     {
+      id: "series",
+      label: "Series",
+      icon: <LayersIcon className="h-5 w-5" />,
+    },
+    {
       id: "alerts",
       label: "Avisos",
       dot: alertsReady === false,
@@ -54,7 +59,7 @@ export default function AdminMobileTabBar({
       aria-label="Navegación principal del Estudio Admin"
       className="fixed inset-x-0 bottom-0 z-50 border-t border-[#252730] bg-[#101114]/95 backdrop-blur-xl md:hidden pb-[max(0.5rem,env(safe-area-inset-bottom))]"
     >
-      <div className="mx-auto grid max-w-md grid-cols-4 px-2 pt-1.5">
+      <div className="mx-auto grid max-w-lg grid-cols-5 px-1.5 pt-1.5">
         {items.map((item) => {
           const active = activeSection === item.id;
           return (

@@ -26,6 +26,8 @@ export default function CuadernoPostContent({
     ? getLocalizedPhoto(rawPost.relatedWork, lang)
     : undefined;
 
+  const isPublished = rawPost.status === "publicado";
+
   return (
     <article className="relative min-h-screen overflow-hidden bg-[#0B0C0E] pb-28 text-[#EBE7DF]">
       <AndalusianPageBackdrop variant="laceria" />
@@ -46,7 +48,9 @@ export default function CuadernoPostContent({
             </Link>
             <span className="text-white/25">/</span>
             <span className="text-[#EBE7DF] truncate">
-              {t("Borrador", "Draft")} {post.number}
+              {isPublished
+                ? `${t("Artículo", "Article")} ${post.number}`
+                : `${t("Borrador", "Draft")} ${post.number}`}
             </span>
           </nav>
         </Container>
@@ -61,13 +65,14 @@ export default function CuadernoPostContent({
             </span>
             <span>·</span>
             <span>{post.categoryLabel}</span>
-            <span>·</span>
-            <span className="border border-[#C5A880]/40 px-2 py-0.5 text-[10px]">
-              {t(
-                `Estado: ${post.status.toUpperCase()}`,
-                `Status: ${post.status === "borrador" ? "DRAFT" : "PUBLISHED"}`
-              )}
-            </span>
+            {!isPublished && (
+              <>
+                <span>·</span>
+                <span className="border border-[#C5A880]/40 px-2 py-0.5 text-[10px]">
+                  {t("BORRADOR", "DRAFT")}
+                </span>
+              </>
+            )}
           </div>
 
           <h1 className="mt-5 font-serif text-3xl sm:text-4xl md:text-5xl font-light text-[#EBE7DF] leading-tight">
@@ -135,16 +140,27 @@ export default function CuadernoPostContent({
           </figure>
         )}
 
-        {/* Cuerpo del Artículo (Borrador vacío para redacción del autor) */}
-        <div className="mt-10 space-y-6 border border-dashed border-[#C5A880]/35 bg-[#151618]/60 p-8 sm:p-10">
-          <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#C5A880]">
-            {t(
-              "Cuerpo del Artículo (Borrador para redacción del autor)",
-              "Article Body (Draft in preparation by the author)"
-            )}
-          </p>
+        {/* Cuerpo del Artículo */}
+        <div
+          className={`mt-10 space-y-6 p-7 sm:p-10 ${
+            isPublished
+              ? "border border-white/[0.08] bg-[#151618]/80"
+              : "border border-dashed border-[#C5A880]/35 bg-[#151618]/60"
+          }`}
+        >
+          {!isPublished && (
+            <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#C5A880]">
+              {t(
+                "Borrador en preparación",
+                "Draft in preparation"
+              )}
+            </p>
+          )}
           {post.body.map((paragraph, idx) => (
-            <p key={idx} className="font-mono text-sm leading-relaxed text-[#EBE7DF]">
+            <p
+              key={idx}
+              className="text-base sm:text-[17px] leading-[1.85] text-[#EBE7DF]/90 font-light"
+            >
               {paragraph}
             </p>
           ))}

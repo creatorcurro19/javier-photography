@@ -11,7 +11,7 @@ function escapeXml(value: string): string {
     .replace(/'/g, "&apos;");
 }
 
-const FEED_BUILD_DATE = "Fri, 27 Nov 2026 23:00:00 GMT";
+const FEED_BUILD_DATE = "Sat, 28 Nov 2026 09:50:00 GMT";
 
 function getPhotoPubDate(year: number | undefined, index: number): string {
   const safeYear = year && Number.isFinite(year) ? Math.min(Math.max(Math.trunc(year), 2020), 2026) : 2025;

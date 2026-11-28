@@ -293,7 +293,7 @@ export default function BatchUploadModal({
             </div>
 
             {config.showWildlife && (
-              <div className="hidden grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
                 <div>
                   <label className={labelClass}>Condición del animal</label>
                   <select
@@ -364,13 +364,13 @@ export default function BatchUploadModal({
             </div>
 
             {category === "coches-rally" && (
-              <p className="hidden rounded-lg border border-[#3A3D46] bg-[#17181D] px-3 py-2 text-[11px] text-[#A39E93] leading-relaxed">
+              <p className="rounded-lg border border-[#3A3D46] bg-[#17181D] px-3 py-2 text-[11px] text-[#A39E93] leading-relaxed">
                 <strong className="text-[#C5A880]">Aviso Motorsport / Rally:</strong> Venta directa desmarcada por defecto. Las imágenes se publicarán en el portfolio como archivo documental con botón de contacto y solicitud privada para pilotos, escuderías y prensa acreditada.
               </p>
             )}
 
             {categorySeries.length > 0 && (
-              <div className="hidden">
+              <div>
                 <span className={labelClass}>Incluir el lote en estas series (opcional)</span>
                 <div className="mt-1.5 flex flex-wrap gap-2">
                   {categorySeries.map((s) => (
